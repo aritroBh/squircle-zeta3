@@ -1,0 +1,31 @@
+E3 for m=3 edge: number of monomials t^n X^a Y^b N^j: 80  max j: 3  max a+b+j: 3
+  edge 0->2: alpha=0.33333333 beta=0.6 r=1.6666667 [s]  z3-coef(local)*6 = -0.049532373463651222682  edge law Z_e = -0.049532373463651222682  |nl quad - nl series| = 4.46e-61
+  edge 2->1: alpha=0.75 beta=0.66666667 r=0.75 [t]  z3-coef(local)*6 = 0.12791302227033587586  edge law Z_e = 0.12791302227033587586  |nl quad - nl series| = 1.18e-61
+  edge 1->0: alpha=0.4 beta=0.25 r=0.8 [t]  z3-coef(local)*6 = -0.10027628875755008069  edge law Z_e = -0.10027628875755008069  |nl quad - nl series| = 1.22e-63
+  edge 0->2: alpha=0.33333333 beta=0.6 r=1.6666667 [s]  z3-coef(local)*6 = -0.049532373463651222682  edge law Z_e = -0.049532373463651222682  |nl quad - nl series| = 4.22e-61
+  edge 2->1: alpha=0.75 beta=0.66666667 r=0.75 [t]  z3-coef(local)*6 = 0.12791302227033587586  edge law Z_e = 0.12791302227033587586  |nl quad - nl series| = 1.09e-61
+  edge 1->0: alpha=0.4 beta=0.25 r=0.8 [t]  z3-coef(local)*6 = -0.10027628875755008069  edge law Z_e = -0.10027628875755008069  |nl quad - nl series| = 1.22e-63
+ hexA_w123: Z (edge law) = -0.0437912799017308550242690047576;  6*sum local z3-coef = -0.0437912799017308550242690047576;  diff -6.27e-61
+   P'''(1) decomposed  = -1.4655259166759924661521072656959599745
+   P'''(1) polar D15b  = -1.4655259166759924661521072656959599745   |diff| = 3.21e-58
+   remainder R = P''' - Z zeta(3) = Q0 + Q2 zeta(2) + 6*NL, with Q0 = -0.3212520794848710344741072, Q2 = -0.6442874970430287223675078, 6*NL = -0.03182377415659795680601893
+  edge 0->1: alpha=0.47446643 beta=0.50999249 r=1.0725011 [s]  z3-coef(local)*6 = -0.35935581410562267655  edge law Z_e = -0.35935581410562267655  |nl quad - nl series| = 1.46e-62
+  edge 1->2: alpha=0.53548985 beta=0.52553357 r=0.97901585 [t]  z3-coef(local)*6 = -0.23694313557635524902  edge law Z_e = -0.23694313557635524902  |nl quad - nl series| = 3.1e-62
+  edge 2->0: alpha=0.49000751 beta=0.46451015 r=0.95238499 [t]  z3-coef(local)*6 = -0.40230815550922531411  edge law Z_e = -0.40230815550922531411  |nl quad - nl series| = 2.92e-62
+  edge 0->1: alpha=0.47446643 beta=0.50999249 r=1.0725011 [s]  z3-coef(local)*6 = -0.35935581410562267655  edge law Z_e = -0.35935581410562267655  |nl quad - nl series| = 8.51e-63
+  edge 1->2: alpha=0.53548985 beta=0.52553357 r=0.97901585 [t]  z3-coef(local)*6 = -0.23694313557635524902  edge law Z_e = -0.23694313557635524902  |nl quad - nl series| = 2.49e-62
+  edge 2->0: alpha=0.49000751 beta=0.46451015 r=0.95238499 [t]  z3-coef(local)*6 = -0.40230815550922531411  edge law Z_e = -0.40230815550922531411  |nl quad - nl series| = 3.1e-62
+ hexB_angles: Z (edge law) = -1.99721421038240647936943175483;  6*sum local z3-coef = -1.99721421038240647936943175483;  diff -1.24e-60
+   P'''(1) decomposed  = -5.285825448806008251345266145529503989022
+   P'''(1) polar D15b  = -5.285825448806008251345266145529503989022   |diff| = 3.85e-58
+   remainder R = P''' - Z zeta(3) = Q0 + Q2 zeta(2) + 6*NL, with Q0 = 5.615013035284096628772563, Q2 = -5.172704043460177701221665, 6*NL = 0.00868374339972020572007302
+  edge 0->2: alpha=0.33333333 beta=0.6 r=1.6666667 [s]  z3-coef(local)*6 = -0.049532373463651222682  edge law Z_e = -0.049532373463651222682  |nl quad - nl series| = 5.02e-61
+  edge 2->1: alpha=0.75 beta=0.66666667 r=0.75 [t]  z3-coef(local)*6 = 0.12791302227033587586  edge law Z_e = 0.12791302227033587586  |nl quad - nl series| = 3.94e-61
+  edge 1->0: alpha=0.4 beta=0.25 r=0.8 [t]  z3-coef(local)*6 = -0.10027628875755008069  edge law Z_e = -0.10027628875755008069  |nl quad - nl series| = 1.94e-62
+  edge 0->2: alpha=0.33333333 beta=0.6 r=1.6666667 [s]  z3-coef(local)*6 = -0.049532373463651222682  edge law Z_e = -0.049532373463651222682  |nl quad - nl series| = 4.67e-61
+  edge 2->1: alpha=0.75 beta=0.66666667 r=0.75 [t]  z3-coef(local)*6 = 0.12791302227033587586  edge law Z_e = 0.12791302227033587586  |nl quad - nl series| = 4.42e-61
+  edge 1->0: alpha=0.4 beta=0.25 r=0.8 [t]  z3-coef(local)*6 = -0.10027628875755008069  edge law Z_e = -0.10027628875755008069  |nl quad - nl series| = 2.73e-62
+ hexA_w123_power: Z (edge law) = -0.0437912799017308550242690047576;  6*sum local z3-coef = -0.0437912799017308550242690047576;  diff -6.27e-61
+   P'''(1) decomposed  = -0.4071685118319488838268519800913010133889
+   P'''(1) polar D15b  = -0.4071685118319488838268519800913010133889   |diff| = 4.5e-58
+   remainder R = P''' - Z zeta(3) = Q0 + Q2 zeta(2) + 6*NL, with Q0 = 3.340151823959855434468306, Q2 = -2.253685307911238746505544, 6*NL = 0.0124830134507966317034091

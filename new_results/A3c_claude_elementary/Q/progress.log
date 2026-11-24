@@ -1,0 +1,153 @@
+2026-10-21 23:49:50 Exact Cayley conversion started; single process; no source writes.
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=4, z=(-1+1*sqrt2): (0, 1, None, (-1+1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=4, z=(1-1*sqrt2): (0, 1, None, (1-1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=4, z=(-3+2*sqrt2): (0, (1+1*sqrt2), None, (1-1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=4, z=1/2*sqrt2: (0, None, 1, (-1-1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=4, z=1/2: (0, None, 1, -1)
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=4, z=(1-1/2*sqrt2): (0, None, 1, (1-1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=4, z=(2-1*sqrt2): (0, 1, -1, (-1+1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=3, z=(-1+1*sqrt2): (0, 1, None, (-1+1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=3, z=(1-1*sqrt2): (0, 1, None, (1-1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=3, z=1/2*sqrt2: (0, None, 1, (-1-1*sqrt2))
+2026-10-21 23:49:50 Li cross ratio (p0,p1,pinf,e), n=2, z=(-1+1*sqrt2): (0, 1, None, (-1+1*sqrt2))
+2026-10-21 23:49:50 GPL input rows verified against source: 148
+2026-10-21 23:49:54 W supports (rational, sqrt2): (2697, 3064)
+2026-10-21 23:49:54 R supports (rational, sqrt2): (2876, 2771)
+2026-10-21 23:49:54 D supports (rational, sqrt2): (3117, 3480)
+2026-10-21 23:50:44 Numerical conversion checks: precision=200 bits; series terms=320; tolerance=1e-30
+2026-10-21 23:50:50 Numerical conversion checks: precision=200 bits; series terms=320; tolerance=1e-30
+2026-10-21 23:50:50 ('li', 4, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:50:50 ('li', 4, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:50:51 ('li', 4, (-3+2*sqrt2)): abs error=2.3386691e-51
+2026-10-21 23:50:51 ('li', 4, 1/2*sqrt2): abs error=0.0
+2026-10-21 23:50:51 ('li', 4, 1/2): abs error=0.0
+2026-10-21 23:50:51 ('li', 4, (1-1/2*sqrt2)): abs error=0.0
+2026-10-21 23:50:51 ('li', 4, (2-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:50:51 ('log', (1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:50:51 ('li', 3, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:50:51 ('li', 3, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:50:51 ('li', 3, 1/2*sqrt2): abs error=1.3363824e-51
+2026-10-21 23:50:51 ('z3',): abs error=0.0
+2026-10-21 23:50:51 ('log', 2): abs error=0.0
+2026-10-21 23:50:51 ('li', 2, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:50:51 ('pi2',): abs error=0.0
+2026-10-21 23:50:51 Atom checks passed: 15; maximum error=2.3386691e-51
+2026-10-21 23:50:51 GPL input rows verified against source: 148
+2026-10-21 23:50:54 W supports (rational, sqrt2): (2697, 3064)
+2026-10-21 23:50:54 R supports (rational, sqrt2): (2876, 2771)
+2026-10-21 23:50:54 D supports (rational, sqrt2): (3117, 3480)
+2026-10-21 23:50:56 W prefactor part 0: abs error=1.6036588e-50
+2026-10-21 23:50:56 Independent elementary W-R numerical part 0: 3.20731765211e-50
+2026-10-21 23:50:56 W prefactor part 1: abs error=2.1382118e-50
+2026-10-21 23:50:56 Independent elementary W-R numerical part 1: 2.51239882749e-49
+2026-10-21 23:50:56 Distribution control: correct Li2(x)-sum=0.0; brief Li2(x^2)-sum=-0.20414795629
+2026-10-21 23:50:56 Numerical conversion controls PASS (uncertified truncation).
+2026-10-21 23:51:48 Relation calibration started: prime=1000000009, FLINT threads=1
+2026-10-21 23:51:48 weight 1 relation families: {'weight1_branch_nonzero': 5, 'weight1_branch_new': 3, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=7
+2026-10-21 23:51:48 weight 1: columns=7, EXACT Q rank=5, quotient=2, DG benchmark=3; seconds=0.001
+2026-10-21 23:52:04 Relation calibration started: prime=1000000009, FLINT threads=1
+2026-10-21 23:52:04 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-21 23:52:04 weight 1: columns=7, EXACT Q rank=4, quotient=3, DG benchmark=3; seconds=0.000
+2026-10-21 23:52:04 weight 2 relation families: {'double_shuffle_nonzero': 35, 'double_shuffle_new': 35, 'distribution_nonzero': 28, 'distribution_new': 28, 'lift_nonzero': 28, 'lift_new': 28}; unique rows=91
+2026-10-21 23:52:04 weight 2: columns=64, EXACT Q rank=59, quotient=5, DG benchmark=9; seconds=0.001
+2026-10-21 23:52:04 weight 3 relation families: {'double_shuffle_nonzero': 568, 'double_shuffle_new': 568, 'distribution_nonzero': 122, 'distribution_new': 122, 'lift_nonzero': 669, 'lift_new': 640}; unique rows=1330
+2026-10-21 23:52:05 weight 3: columns=576, EXACT Q rank=575, quotient=1, DG benchmark=27; seconds=0.639
+2026-10-21 23:52:05 Relation calibration completed.
+2026-10-21 23:52:07 Numerical conversion checks: precision=200 bits; series terms=320; tolerance=1e-30
+2026-10-21 23:52:07 ('li', 4, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('li', 4, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('li', 4, (-3+2*sqrt2)): abs error=2.3386691e-51
+2026-10-21 23:52:08 ('li', 4, 1/2*sqrt2): abs error=0.0
+2026-10-21 23:52:08 ('li', 4, 1/2): abs error=0.0
+2026-10-21 23:52:08 ('li', 4, (1-1/2*sqrt2)): abs error=0.0
+2026-10-21 23:52:08 ('li', 4, (2-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('log', (1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('li', 3, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('li', 3, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('li', 3, 1/2*sqrt2): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('z3',): abs error=0.0
+2026-10-21 23:52:08 ('log', 2): abs error=0.0
+2026-10-21 23:52:08 ('li', 2, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:08 ('pi2',): abs error=0.0
+2026-10-21 23:52:08 Atom checks passed: 15; maximum error=2.3386691e-51
+2026-10-21 23:52:08 GPL input rows verified against source: 148
+2026-10-21 23:52:12 W supports (rational, sqrt2): (2697, 3064)
+2026-10-21 23:52:12 R supports (rational, sqrt2): (2876, 2771)
+2026-10-21 23:52:12 D supports (rational, sqrt2): (3117, 3480)
+2026-10-21 23:52:14 W prefactor part 0: abs error=1.6036588e-50
+2026-10-21 23:52:14 R prefactor part 0: abs error=1.6036588e-50
+2026-10-21 23:52:14 Independent elementary W-R numerical part 0: 3.20731765211e-50
+2026-10-21 23:52:14 W prefactor part 1: abs error=2.1382118e-50
+2026-10-21 23:52:14 R prefactor part 1: abs error=2.72622e-49
+2026-10-21 23:52:14 Independent elementary W-R numerical part 1: 2.51239882749e-49
+2026-10-21 23:52:14 Distribution control: correct Li2(x)-sum=0.0; brief Li2(x^2)-sum=-0.20414795629
+2026-10-21 23:52:14 Numerical conversion controls PASS (uncertified truncation).
+2026-10-21 23:52:21 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-21 23:52:21 Relation numeric checks weight=1: total=10, bad=0, worst=0.0
+2026-10-21 23:52:22 Relation numeric checks weight=2: total=84, bad=14, worst=2.789487184
+2026-10-21 23:52:33 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-21 23:52:33 Relation numeric checks weight=1: total=10, bad=0, worst=0.0
+2026-10-21 23:52:33 Relation numeric checks weight=2: total=81, bad=0, worst=0.0
+2026-10-21 23:52:34 Relation numeric checks weight=3: total=1135, bad=0, worst=0.0
+2026-10-21 23:52:35 Relation calibration started: prime=1000000009, FLINT threads=1
+2026-10-21 23:52:35 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-21 23:52:35 weight 1: columns=7, EXACT Q rank=4, quotient=3, DG benchmark=3; seconds=0.000
+2026-10-21 23:52:35 weight 2 relation families: {'double_shuffle_nonzero': 35, 'double_shuffle_new': 35, 'distribution_nonzero': 25, 'distribution_new': 25, 'lift_nonzero': 28, 'lift_new': 28}; unique rows=88
+2026-10-21 23:52:35 weight 2: columns=64, EXACT Q rank=54, quotient=10, DG benchmark=9; seconds=0.001
+2026-10-21 23:52:35 weight 3 relation families: {'double_shuffle_nonzero': 568, 'double_shuffle_new': 568, 'distribution_nonzero': 119, 'distribution_new': 119, 'lift_nonzero': 634, 'lift_new': 611}; unique rows=1298
+2026-10-21 23:52:36 weight 3: columns=576, EXACT Q rank=539, quotient=37, DG benchmark=27; seconds=0.743
+2026-10-21 23:52:36 Relation calibration completed.
+2026-10-21 23:52:41 Numerical conversion checks: precision=200 bits; series terms=320; tolerance=1e-30
+2026-10-21 23:52:42 ('li', 4, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:42 ('li', 4, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:42 ('li', 4, (-3+2*sqrt2)): abs error=2.3386691e-51
+2026-10-21 23:52:42 ('li', 4, 1/2*sqrt2): abs error=0.0
+2026-10-21 23:52:42 ('li', 4, 1/2): abs error=0.0
+2026-10-21 23:52:43 ('li', 4, (1-1/2*sqrt2)): abs error=0.0
+2026-10-21 23:52:43 ('li', 4, (2-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('log', (1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('li', 3, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('li', 3, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('li', 3, 1/2*sqrt2): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('z3',): abs error=0.0
+2026-10-21 23:52:43 ('log', 2): abs error=0.0
+2026-10-21 23:52:43 ('li', 2, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('pi2',): abs error=0.0
+2026-10-21 23:52:43 Atom checks passed: 15; maximum error=2.3386691e-51
+2026-10-21 23:52:43 GPL input rows verified against source: 148
+2026-10-21 23:52:48 W supports (rational, sqrt2): (2697, 3064)
+2026-10-21 23:52:48 R supports (rational, sqrt2): (2876, 2771)
+2026-10-21 23:52:48 D supports (rational, sqrt2): (3117, 3480)
+2026-10-21 23:52:50 W prefactor part 0: abs error=1.6036588e-50
+2026-10-21 23:52:50 R prefactor part 0: abs error=1.6036588e-50
+2026-10-21 23:52:50 Independent elementary W-R numerical part 0: 3.20731765211e-50
+2026-10-21 23:52:51 W prefactor part 1: abs error=2.1382118e-50
+2026-10-21 23:52:51 R prefactor part 1: abs error=2.72622e-49
+2026-10-21 23:52:51 Independent elementary W-R numerical part 1: 2.51239882749e-49
+2026-10-21 23:52:51 Distribution control: correct Li2(x)-sum=0.0; brief Li2(x^2)-sum=-0.20414795629
+2026-10-21 23:52:51 Numerical conversion controls PASS (uncertified truncation).
+2026-10-21 23:53:05 Relation calibration started: prime=1000000009, FLINT threads=1
+2026-10-21 23:53:05 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-21 23:53:05 weight 1: columns=7, EXACT Q rank=4, quotient=3, DG benchmark=3; seconds=0.000
+2026-10-21 23:53:05 weight 2 relation families: {'double_shuffle_nonzero': 35, 'double_shuffle_new': 35, 'distribution_nonzero': 25, 'distribution_new': 25, 'lift_nonzero': 28, 'lift_new': 28}; unique rows=88
+2026-10-21 23:53:05 weight 2: columns=64, EXACT Q rank=54, quotient=10, DG benchmark=9; seconds=0.001
+2026-10-21 23:53:05 weight 3 relation families: {'double_shuffle_nonzero': 568, 'double_shuffle_new': 568, 'distribution_nonzero': 119, 'distribution_new': 119, 'lift_nonzero': 634, 'lift_new': 611}; unique rows=1298
+2026-10-21 23:53:06 weight 3: columns=576, EXACT Q rank=539, quotient=37, DG benchmark=27; seconds=0.634
+2026-10-21 23:53:07 weight 4 relation families: {'double_shuffle_nonzero': 7704, 'double_shuffle_new': 7703, 'distribution_nonzero': 559, 'distribution_new': 559, 'lift_nonzero': 9533, 'lift_new': 9363}; unique rows=17625
+2026-10-21 23:53:08 weight 4 matrix allocation: 17625 x 5184; raw data bytes=730944000
+2026-10-21 23:53:08 weight 4 FLINT modular rref started
+2026-10-21 23:54:09 Kummer search: real cross ratios <=1=18; positive candidates=9
+2026-10-21 23:54:09 Kummer admissible instances=0; nonzero formal rows=0; exclusions={'outside_configuration': 25}
+2026-10-21 23:55:17 Auxiliary Kummer search: positive S-unit candidates=11; exponents bounded by 6
+2026-10-21 23:55:18 Auxiliary Kummer: D0 instances=36, duplication rows=19, auxiliary atoms=152, configuration atoms=13, log monomials=9, Q rank=55, eliminated rows=2, nonzero H rows=2
+2026-10-21 23:55:20 weight 4: modular rank=5042, quotient=142, DG benchmark=81; seconds=132.536
+2026-10-21 23:55:20 weight 4 D residue nonzero coordinates=141 of 142
+2026-10-21 23:55:21 weight 4 D residue nonzero coordinates=141 of 142
+2026-10-21 23:55:21 Relation calibration completed.
+2026-10-21 23:56:20 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-21 23:56:20 Relation numeric checks weight=1: total=10, bad=0, worst=1.086802896e-59
+2026-10-21 23:56:20 Relation numeric checks weight=2: total=81, bad=0, worst=7.981001931e-59
+2026-10-21 23:56:21 Relation numeric checks weight=3: total=1135, bad=0, worst=4.779275733e-58
+2026-10-21 23:56:28 Relation numeric checks weight=4: total=14311, bad=0, worst=2.885212163e-57
+2026-10-21 23:57:03 Kummer/I4-normalized/duplication rows checked=55; maximum numerical residual=4.169512948e-47
+2026-10-21 23:57:04 Kummer eliminated H row 0: abs error=1.1152079e-58

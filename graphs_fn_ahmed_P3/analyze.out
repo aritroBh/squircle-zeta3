@@ -1,0 +1,164 @@
+====================================================================================================
+[0] quadrature vs Ahmed exact formula (relative residuals)
+   max relative residual over n=10^3..10^20, f=x and f=x^2: 2.78e-88
+====================================================================================================
+[1] closed-form Q_2,Q_3 vs numeric engine at Xi = 3.7 (residual)
+   x       a=1.0        b=0.0        c=0.0         |dQ2|=0.0 |dQ3|=1.8e-130
+   x^2     a=2.0        b=2.0        c=0.0         |dQ2|=0.0 |dQ3|=9.02e-131
+   expm1   a=1.58198    b=1.58198    c=1.58198     |dQ2|=4.51e-131 |dQ3|=4.51e-131
+   x+x^3   a=2.0        b=3.0        c=3.0         |dQ2|=4.51e-131 |dQ3|=0.0
+   mobius  a=0.5        b=-0.5       c=0.75        |dQ2|=7.21e-130 |dQ3|=1.15e-128
+   sin4    a=0.785398   b=-0.61685   c=-0.484473   |dQ2|=1.8e-130 |dQ3|=5.05e-129
+====================================================================================================
+[2] ratio test: r_K(n) / (mu^{K+1} P_{K+1}(log n))  (should -> 1, deviation O(mu log n))
+  f = x
+    n=1e6      -4.9e-6    -3.7e-6    -3.0e-6    -2.5e-6    -2.2e-6    -1.9e-6    -1.7e-6    -1.6e-6
+    n=1e10    -7.9e-10   -5.9e-10   -4.8e-10   -4.0e-10   -3.4e-10   -3.0e-10   -2.7e-10   -2.4e-10
+    n=1e15    -1.2e-14   -8.8e-15   -7.0e-15   -5.9e-15   -5.0e-15   -4.4e-15   -8.7e-14       21.0
+    n=1e20    -1.5e-19   -1.2e-19   -9.3e-20   -7.8e-20   -6.7e-20     3.9e-9   -6.7e+10    1.3e+30
+  f = x^2
+    n=1e6      -3.2e-6    -2.6e-6    -2.3e-6    -2.1e-6    -1.9e-6    -1.8e-6    -1.7e-6    -1.6e-6
+    n=1e10    -4.7e-10   -3.8e-10   -3.2e-10   -2.8e-10   -2.6e-10   -2.3e-10   -2.2e-10   -2.1e-10
+    n=1e15    -6.6e-15   -5.2e-15   -4.4e-15   -3.8e-15   -3.4e-15   -3.1e-15   -4.2e-12     1.5e+3
+    n=1e20    -8.5e-20   -6.6e-20   -5.5e-20   -4.7e-20   -4.2e-20    -1.3e-7    3.4e+12   -9.8e+31
+  f = expm1
+    n=1e6      -5.9e-7     6.7e-6     9.9e-8   -0.00011     7.3e-8   -0.00014     1.6e-7    -6.8e-5
+    n=1e10     1.2e-11    -1.2e-8    2.0e-10    -1.4e-9    3.1e-10   -9.2e-10    4.5e-10   -6.4e-10
+    n=1e15     1.1e-15   -3.3e-14    4.5e-15   -1.3e-14    7.5e-15   -8.1e-15   -1.1e-13      -11.0
+    n=1e20     2.0e-20   -3.2e-19    7.1e-20   -1.5e-19    1.2e-19     1.2e-7   -1.4e+12   -6.8e+30
+  f = x+x^3
+    n=1e6      -2.2e-6    -3.7e-6    -6.8e-7    -2.9e-6    -1.1e-5     3.9e-6     2.5e-6    -3.5e-6
+    n=1e10    -3.0e-10   -6.7e-10    8.8e-11    6.6e-10    -1.9e-9     1.1e-9    6.0e-10    2.6e-11
+    n=1e15    -3.9e-15   -1.1e-14    3.1e-15    6.0e-15   -2.1e-14    2.1e-14    1.2e-13       10.0
+    n=1e20    -4.9e-20   -1.6e-19    5.4e-20    7.5e-20   -2.3e-19    -2.1e-8   -6.6e+10   -4.3e+29
+  f = mobius
+    n=1e6      -1.7e-5    -1.5e-5    -1.5e-5    -1.4e-5    -1.4e-5    -1.3e-5    -1.2e-5    -1.2e-5
+    n=1e10     -3.0e-9    -2.9e-9    -2.8e-9    -2.7e-9    -2.7e-9    -2.6e-9    -2.6e-9    -2.6e-9
+    n=1e15    -4.6e-14   -4.5e-14   -4.4e-14   -4.4e-14   -4.3e-14   -4.3e-14   -4.3e-14     1.8e-6
+    n=1e20    -6.3e-19   -6.2e-19   -6.1e-19   -6.0e-19   -6.0e-19   -7.3e-14     1.2e+5   -2.1e+23
+  f = sin4
+    n=1e6      -1.6e-5    -2.1e-5    -2.4e-5    -2.6e-5    -2.8e-5    -2.8e-5    -2.9e-5    -3.0e-5
+    n=1e10     -2.8e-9    -3.7e-9    -4.2e-9    -4.6e-9    -4.8e-9    -4.9e-9    -5.1e-9    -5.2e-9
+    n=1e15    -4.4e-14   -5.7e-14   -6.5e-14   -7.0e-14   -7.4e-14   -7.6e-14   -7.8e-14     4.5e-7
+    n=1e20    -5.9e-19   -7.7e-19   -8.8e-19   -9.5e-19   -9.9e-19   -5.6e-13     5.5e+5   -5.2e+23
+====================================================================================================
+[3] single-n constant extraction  C_est(n) = (a/mu)[D_n - sum_{k=2}^K mu^k P_k] - log n ;  exact C = log a + 1 - log 2
+  f = x        C(f) = 0.3068528194400546905827678785418234319245
+     n=1e6    closed-form Q2,Q3: digits=  14.2  resid=-1.79e-15  | engine K=12: digits=  65.9 resid=4.2e-67
+     n=1e8    closed-form Q2,Q3: digits=  19.8  resid=-5.36e-21  | engine K=12: digits=  88.5 resid=1.03e-89
+     n=1e12   closed-form Q2,Q3: digits=  31.1  resid=-2.59e-32  | engine K=12: digits= 105.7 resid=6.63e-107
+     n=1e16   closed-form Q2,Q3: digits=  42.6  resid=-8.03e-44  | engine K=12: digits= 112.1 resid=-2.44e-113
+     n=1e20   closed-form Q2,Q3: digits=  54.2  resid=-1.94e-55  | engine K=12: digits= 119.9 resid=3.65e-121
+  f = x^2      C(f) = 1.0
+     n=1e6    closed-form Q2,Q3: digits=  15.3  resid=-5.23e-16  | engine K=12: digits=  67.2 resid=6.7e-68
+     n=1e8    closed-form Q2,Q3: digits=  20.9  resid=-1.31e-21  | engine K=12: digits=  90.2 resid=6.35e-91
+     n=1e12   closed-form Q2,Q3: digits=  32.3  resid=-5.21e-33  | engine K=12: digits= 105.2 resid=6.12e-106
+     n=1e16   closed-form Q2,Q3: digits=  43.8  resid=-1.45e-44  | engine K=12: digits= 113.5 resid=-3.22e-114
+     n=1e20   closed-form Q2,Q3: digits=  55.5  resid=-3.27e-56  | engine K=12: digits= 120.3 resid=-4.63e-121
+  f = expm1    C(f) = 0.7655279648271365816044115236091531338015
+     n=1e6    closed-form Q2,Q3: digits=  15.6  resid=1.9e-16    | engine K=12: digits=  66.1 resid=5.7e-67
+     n=1e8    closed-form Q2,Q3: digits=  21.1  resid=6.76e-22   | engine K=12: digits=  87.4 resid=3.1e-88
+     n=1e12   closed-form Q2,Q3: digits=  32.3  resid=3.61e-33   | engine K=12: digits= 104.3 resid=-3.8e-105
+     n=1e16   closed-form Q2,Q3: digits=  43.8  resid=1.15e-44   | engine K=12: digits= 112.7 resid=-1.45e-113
+     n=1e20   closed-form Q2,Q3: digits=  55.4  resid=2.82e-56   | engine K=12: digits= 119.3 resid=-4.24e-120
+  f = x+x^3    C(f) = 1.0
+     n=1e6    closed-form Q2,Q3: digits=  15.5  resid=-3.15e-16  | engine K=12: digits=  64.8 resid=-1.73e-65
+     n=1e8    closed-form Q2,Q3: digits=  21.1  resid=-8.22e-22  | engine K=12: digits=  86.7 resid=-2.04e-87
+     n=1e12   closed-form Q2,Q3: digits=  32.5  resid=-3.49e-33  | engine K=12: digits= 104.3 resid=-5.22e-105
+     n=1e16   closed-form Q2,Q3: digits=  44.0  resid=-1.02e-44  | engine K=12: digits= 112.0 resid=-9.93e-113
+     n=1e20   closed-form Q2,Q3: digits=  55.6  resid=-2.38e-56  | engine K=12: digits= 120.3 resid=-4.67e-121
+  f = mobius   C(f) = -0.386294361119890618834464242916353136151
+     n=1e6    closed-form Q2,Q3: digits=  12.8  resid=-6.3e-14   | engine K=12: digits=  57.1 resid=3.4e-58
+     n=1e8    closed-form Q2,Q3: digits=  18.2  resid=-2.3e-19   | engine K=12: digits=  78.7 resid=8.31e-80
+     n=1e12   closed-form Q2,Q3: digits=  29.5  resid=-1.35e-30  | engine K=12: digits= 105.6 resid=1.02e-106
+     n=1e16   closed-form Q2,Q3: digits=  40.9  resid=-4.6e-42   | engine K=12: digits= 112.3 resid=-1.75e-113
+     n=1e20   closed-form Q2,Q3: digits=  52.5  resid=-1.17e-53  | engine K=12: digits= 120.3 resid=-1.9e-121
+  f = sin4     C(f) = 0.06528834416956424589173098697852900742079
+     n=1e6    closed-form Q2,Q3: digits=  12.0  resid=-6.22e-14  | engine K=12: digits=  52.9 resid=8.03e-55
+     n=1e8    closed-form Q2,Q3: digits=  17.5  resid=-2.11e-19  | engine K=12: digits=  75.2 resid=4.44e-77
+     n=1e12   closed-form Q2,Q3: digits=  28.8  resid=-1.15e-30  | engine K=12: digits= 103.3 resid=3.52e-105
+     n=1e16   closed-form Q2,Q3: digits=  40.2  resid=-3.79e-42  | engine K=12: digits= 112.5 resid=2.26e-114
+     n=1e20   closed-form Q2,Q3: digits=  51.8  resid=-9.47e-54  | engine K=12: digits= 118.2 resid=-4.45e-120
+====================================================================================================
+[4] Richardson A: Q_1 log-coefficient, Q_2, Q_3 fixed (proved); C and P_4..P_7 (22 coeffs) unknown
+   x       C_fit - C = 1.03e-103  (digits 102.5);  fitted P_4 coeffs vs engine: max rel dev 1.1e-42
+   x^2     C_fit - C = -6.97e-104 (digits 103.2);  fitted P_4 coeffs vs engine: max rel dev 5.71e-43
+   expm1   C_fit - C = -2.21e-103 (digits 102.5);  fitted P_4 coeffs vs engine: max rel dev 2.26e-42
+   x+x^3   C_fit - C = -2.89e-103 (digits 102.5);  fitted P_4 coeffs vs engine: max rel dev 3.08e-42
+   mobius  C_fit - C = 2.18e-98   (digits 97.2);  fitted P_4 coeffs vs engine: max rel dev 1.1e-39
+   sin4    C_fit - C = 2.42e-97   (digits 95.4);  fitted P_4 coeffs vs engine: max rel dev 3.27e-38
+====================================================================================================
+[5] Richardson B (theory-free): D_n = sum_{k=1}^{7} mu^k sum_{i<=k} c_{k,i} L^i, all 35 coefficients unknown
+   x       1/a: fitted 1.0 (digits 102.9);  C = c10/c11: resid -5.77e-102 (digits 100.7)
+   x^2     1/a: fitted 0.5 (digits 103.4);  C = c10/c11: resid 1.94e-102 (digits 101.7)
+   expm1   1/a: fitted 0.632120558829 (digits 102.8);  C = c10/c11: resid 7.56e-102 (digits 101.0)
+   x+x^3   1/a: fitted 0.5 (digits 102.8);  C = c10/c11: resid 8.85e-102 (digits 101.1)
+   mobius  1/a: fitted 2.0 (digits 98.2);  C = c10/c11: resid -3.4e-97 (digits 96.1)
+   sin4    1/a: fitted 1.27323954474 (digits 96.8);  C = c10/c11: resid -7.1e-96 (digits 94.0)
+====================================================================================================
+[6] slope-2/e principle: x_n^* := point where (f^n)' = 2/e ;  L_n - 1 - x_n^* = c_2 mu^2 + O(mu^3 log n)
+    c_2(f) = [ (a^2-b) pi^2/12 + (a^2-a-b)/2 ] / a^3
+   x       c_2 = 0.82246703342411321824
+        n=1e4: (L-1-x*)/mu^2=0.821205619219  resid/(mu^3 log n)=-1.36943
+        n=1e6: (L-1-x*)/mu^2=0.82244832436  resid/(mu^3 log n)=-1.35421
+        n=1e9: (L-1-x*)/mu^2=0.82246700558  resid/(mu^3 log n)=-1.34363
+        n=1e12: (L-1-x*)/mu^2=0.822467033387  resid/(mu^3 log n)=-1.33834
+   x^2     c_2 = 0.20561675835602830456
+        n=1e4: (L-1-x*)/mu^2=0.205427052777  resid/(mu^3 log n)=-0.20595
+        n=1e6: (L-1-x*)/mu^2=0.205614099519  resid/(mu^3 log n)=-0.192453
+        n=1e9: (L-1-x*)/mu^2=0.205616754555  resid/(mu^3 log n)=-0.183405
+        n=1e12: (L-1-x*)/mu^2=0.205616758351  resid/(mu^3 log n)=-0.178881
+   expm1   c_2 = 0.1077437822373185746
+        n=1e4: (L-1-x*)/mu^2=0.107791938609  resid/(mu^3 log n)=0.0522799
+        n=1e6: (L-1-x*)/mu^2=0.107744638524  resid/(mu^3 log n)=0.06198
+        n=1e9: (L-1-x*)/mu^2=0.107743783655  resid/(mu^3 log n)=0.0684082
+        n=1e12: (L-1-x*)/mu^2=0.107743782239  resid/(mu^3 log n)=0.0716218
+   x+x^3   c_2 = 0.04030837917801415228
+        n=1e4: (L-1-x*)/mu^2=0.0402600716085  resid/(mu^3 log n)=-0.052444
+        n=1e6: (L-1-x*)/mu^2=0.0403077054157  resid/(mu^3 log n)=-0.0487685
+        n=1e9: (L-1-x*)/mu^2=0.0403083782188  resid/(mu^3 log n)=-0.0462884
+        n=1e12: (L-1-x*)/mu^2=0.0403083791768  resid/(mu^3 log n)=-0.0450481
+   mobius  c_2 = 5.9348022005446793094
+        n=1e4: (L-1-x*)/mu^2=5.90785655191  resid/(mu^3 log n)=-29.2529
+        n=1e6: (L-1-x*)/mu^2=5.93437392746  resid/(mu^3 log n)=-30.9994
+        n=1e9: (L-1-x*)/mu^2=5.93480153474  resid/(mu^3 log n)=-32.1283
+        n=1e12: (L-1-x*)/mu^2=5.93480219964  resid/(mu^3 log n)=-32.6923
+   sin4    c_2 = 2.5570651779896560069
+        n=1e4: (L-1-x*)/mu^2=2.54575139258  resid/(mu^3 log n)=-12.2826
+        n=1e6: (L-1-x*)/mu^2=2.55688971863  resid/(mu^3 log n)=-12.7002
+        n=1e9: (L-1-x*)/mu^2=2.55706490947  resid/(mu^3 log n)=-12.9573
+        n=1e12: (L-1-x*)/mu^2=2.55706517763  resid/(mu^3 log n)=-13.0856
+====================================================================================================
+SUMMARY TABLE (constant term C(f) = log f'(1) + 1 - log 2)
+f        C(f) (exact formula, 40 digits)               single n=1e20 Richardson A theory-free B
+x        0.3068528194400546905827678785418234319245    119.9        102.5        100.7       
+x^2      1.0                                           120.3        103.2        101.7       
+expm1    0.7655279648271365816044115236091531338015    119.3        102.5        101.0       
+x+x^3    1.0                                           120.3        102.5        101.1       
+mobius   -0.386294361119890618834464242916353136151    120.3        97.2         96.1        
+sin4     0.06528834416956424589173098697852900742079   118.2        95.4         94.0        
+====================================================================================================
+[7] 1/n-form of the second-order term (Corollary 2):
+    D_n = (1+log(an/2))/(an) - (a^2-b)/(2a^3) [log^2(an/2) + pi^2/6]/n^2 + 1/(2a^2 n^2) + O(log^3 n/n^3)
+   x       (D_n - approx) n^3/log^3 n at n=1e6,1e10,1e15,1e20:  0.114214  0.133131  0.143604  0.149101
+   x^2     (D_n - approx) n^3/log^3 n at n=1e6,1e10,1e15,1e20:  0.0168422  0.0183116  0.0191096  0.0195245
+   expm1   (D_n - approx) n^3/log^3 n at n=1e6,1e10,1e15,1e20:  -0.0129447  -0.0118382  -0.0112956  -0.0110278
+   x+x^3   (D_n - approx) n^3/log^3 n at n=1e6,1e10,1e15,1e20:  0.00422238  0.00458047  0.00477815  0.00488144
+   mobius  (D_n - approx) n^3/log^3 n at n=1e6,1e10,1e15,1e20:  2.72485  3.28865  3.60908  3.77948
+   sin4    (D_n - approx) n^3/log^3 n at n=1e6,1e10,1e15,1e20:  1.25502  1.41222  1.50046  1.54712
+====================================================================================================
+[8] numerical values of Q_2(Xi) = q22 Xi^2 + q21 Xi + q20 (closed form) for the test functions
+   x       a=1.0                    b=0.0                    q22=-0.5                   q21=0.0                    q20=-0.822467033424113218
+   x^2     a=2.0                    b=2.0                    q22=-0.125                 q21=-0.25                  q20=-0.205616758356028305
+   expm1   a=1.58197670686932642    b=1.58197670686932642    q22=-0.116272078967414815  q21=-0.399576400893728049  q20=-0.107743782237318575
+   x+x^3   a=2.0                    b=3.0                    q22=-0.0625                q21=-0.375                 q20=-0.0403083791780141523
+   mobius  a=0.5                    b=-0.5                   q22=-3.0                   q21=4.0                    q20=-5.93480220054467931
+   sin4    a=0.78539816339744831    b=-0.616850275068084914  q22=-1.27323954473516269   q21=1.27323954473516269    q20=-2.55706517798965601
+====================================================================================================
+[9] slope-2/e principle to high precision: L_n - 1 - x_n^*  vs  -(sum_k mu^k P_k(L) - sum_ij t_ij mu^{i+j}(L+k1)^i), K=12
+   x       n=1e6: rel.resid=-3.38e-61   n=1e9: rel.resid=2.87e-90   n=1e12: rel.resid=-8.06e-95
+   x^2     n=1e6: rel.resid=-5.45e-62   n=1e9: rel.resid=-1.27e-89   n=1e12: rel.resid=-1.49e-93
+   expm1   n=1e6: rel.resid=-1.8e-59   n=1e9: rel.resid=3.95e-90   n=1e12: rel.resid=2.23e-92
+   x+x^3   n=1e6: rel.resid=3.53e-58   n=1e9: rel.resid=1.91e-88   n=1e12: rel.resid=6.48e-92
+   mobius  n=1e6: rel.resid=-2.31e-52   n=1e9: rel.resid=-1.41e-82   n=1e12: rel.resid=-3.43e-95
+   sin4    n=1e6: rel.resid=-4.18e-49   n=1e9: rel.resid=-5.79e-80   n=1e12: rel.resid=-1.76e-93

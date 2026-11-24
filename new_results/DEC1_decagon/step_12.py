@@ -1,0 +1,1 @@
+print(open('research/08_theory/D15b_polygon_law/result.md').read()[:5000])

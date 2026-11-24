@@ -1,0 +1,8 @@
+hexA_w123: Z = -0.043791279901730855024269 | Form1 vs D15c-G integral 9.97e-41 | al=w*L*h/|OV0| 5.74e-41 | Form2 al,be 6.89e-41
+hexB_angles: Z = -1.997214210382406479369432 | Form1 vs D15c-G integral 6.31e-41 | al=w*L*h/|OV0| 1.15e-41 | Form2 al,be 2.3e-41
+regular_m7: Z = -0.6838425376363484203980459 | Form1 vs D15c-G integral 1.22e-41 | al=w*L*h/|OV0| 1.0e-41 | Form2 al,be 3.16e-41 | Form3 2.22e-41
+tangential hexagon: kinks ['0.85', '1.8', '2.8207963'] weights ['0.52268723', '0.38941834', '0.58168309']
+tangential_hex: Z = -3.225084924172047139502755 | Form1 vs D15c-G integral 1.84e-40 | al=w*L*h/|OV0| 2.3e-41 | Form2 al,be 3.44e-41 | Form3 1.43e-40
+   h_e: ['1.0', '1.0', '1.0', '1.0', '1.0', '1.0']
+tangential octagon: weights ['0.38941834', '0.29552021', '0.52268723', '0.31532236']
+tangential_oct: Z = -4.967226999551394096605594 | Form1 vs D15c-G integral 1.03e-40 | al=w*L*h/|OV0| 1.15e-41 | Form2 al,be 3.44e-41 | Form3 9.18e-41

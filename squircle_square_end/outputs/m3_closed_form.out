@@ -1,0 +1,27 @@
+  Li4(1/2): kept (max coef 5.16e+21) (18s)
+  Li4((-1+1*sqrt2)): kept (max coef 5.88e+20) (20s)
+  Li4((1-1*sqrt2)): kept (max coef 9.68e+19) (23s)
+  Li4(1/2*sqrt2): kept (max coef 2.04e+19) (26s)
+  Li4((3-2*sqrt2)): dependent (max coef 8.00e+00) (31s)
+  Li4((-3+2*sqrt2)): kept (max coef 3.07e+18) (34s)
+  Li4((2-1*sqrt2)): kept (max coef 4.95e+17) (38s)
+  Li4((1-1/2*sqrt2)): kept (max coef 1.97e+17) (41s)
+  Li4((1/2-1/4*sqrt2)): dependent (max coef 5.82e+04) (45s)
+  Li4((1/2+1/4*sqrt2)): dependent (max coef 3.23e+04) (48s)
+  Li4((-2+2*sqrt2)): dependent (max coef 7.78e+04) (52s)
+  Li4((1/2-1/2*sqrt2)): dependent (max coef 7.78e+04) (56s)
+  Li4(-1/2*sqrt2): dependent (max coef 8.00e+00) (60s)
+  Li4(-1): dependent (max coef 7.20e+02) (63s)
+  Li4((-1+1/2*sqrt2)): kept (max coef 4.79e+16) (68s)
+  Li4((17-12*sqrt2)): dependent (max coef 6.40e+01) (73s)
+  Li4((-16+12*sqrt2)): dependent (max coef 2.76e+06) (77s)
+kept: ['1/2', '(-1+1*sqrt2)', '(1-1*sqrt2)', '1/2*sqrt2', '(-3+2*sqrt2)', '(2-1*sqrt2)', '(1-1/2*sqrt2)', '(-1+1/2*sqrt2)']
+method A, 700 digits: W4 coef 5760, max|coef| 3.300e+06, residual 7.08e-727, random size ~1e11.5
+method A, 1150 digits: W4 coef 5760, max|coef| 3.300e+06, residual 1.35e-1176, random size ~1e18.9
+method B, 700 digits: W4 coef 5760, max|coef| 3.300e+06, residual 7.08e-727, random size ~1e11.5
+method B, 1150 digits: W4 coef 5760, max|coef| 3.300e+06, residual 1.35e-1176, random size ~1e18.9
+relation identical in all four runs: True
+
+W4 = -25*sqrt(2)*L**4/24 + 13*L**4/24 - 29*sqrt(2)*L**3*lam/3 - 73*L**3*lam/6 + 7*sqrt(2)*L**2*Li2b/2 + 30*L**2*Li2b + 67*sqrt(2)*L**2*lam**2/16 + 63*L**2*lam**2/8 + 185*sqrt(2)*L**2*pi2/96 + 67*L**2*pi2/24 - 24*L*Li2b*lam + 7*sqrt(2)*L*Li3b + 40*L*Li3b - 72*L*Li3h - 40*L*Li3mb + 7*sqrt(2)*L*Li3mb + 41*L*lam**3/24 + 17*sqrt(2)*L*lam**3/6 - 35*L*lam*pi2/12 + 41*sqrt(2)*L*lam*pi2/12 - 3*sqrt(2)*L*z3/16 + 63*L*z3/8 + 30*Li2b**2 - 19*sqrt(2)*Li2b*lam**2/8 - 19*Li2b*pi2/4 + sqrt(2)*Li2b*pi2/24 + 6*Li3b*lam + 13*sqrt(2)*Li3b*lam - 47*sqrt(2)*Li3h*lam/2 - 13*sqrt(2)*Li3mb*lam + 6*Li3mb*lam - 573*sqrt(2)*Li4[(-1+1*sqrt2)] + Li4[(-1+1*sqrt2)] + 56*sqrt(2)*Li4[(-3+2*sqrt2)] - 573*sqrt(2)*Li4[(1-1*sqrt2)] - Li4[(1-1*sqrt2)] + 10*Li4[(1-1/2*sqrt2)] + 86*sqrt(2)*Li4[(1-1/2*sqrt2)] - 10*Li4[(2-1*sqrt2)] + 86*sqrt(2)*Li4[(2-1*sqrt2)] + 17*sqrt(2)*Li4[1/2*sqrt2] - 37*Li4[1/2]/4 - 17*sqrt(2)*Li4[1/2]/16 - 61*lam**4/192 + 137*sqrt(2)*lam**4/192 - 1105*sqrt(2)*lam**2*pi2/384 + 5*lam**2*pi2/12 - 3*lam*z3/8 + 329*sqrt(2)*lam*z3/128 - 4963*sqrt(2)*pi2**2/5760 + 103*pi2**2/384
+exact form - W4(method A) = -1.83e-1202
+exact form - W4(method B) = -1.83e-1202

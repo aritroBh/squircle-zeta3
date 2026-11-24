@@ -1,0 +1,3 @@
+Mul(Integer(2), Symbol('Ch', positive=True), Pow(Symbol('Sh', positive=True), Integer(4)), Add(Mul(Integer(3), Pow(Symbol('Sh', positive=True), Integer(2))), Integer(-1)))
+###
+Mul(Integer(2), Pow(Symbol('Sh', positive=True), Integer(4)), Pow(Add(Integer(1), Mul(Integer(-1), Symbol('Sh', positive=True))), Rational(1, 2)), Pow(Add(Symbol('Sh', positive=True), Integer(1)), Rational(1, 2)), Add(Mul(Integer(3), Pow(Symbol('Sh', positive=True), Integer(2))), Integer(-1)))

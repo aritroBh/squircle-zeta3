@@ -1,0 +1,8 @@
+zeta(2)-coefficient of mu_{2,n} (symbolic n): 1/((2*n - 1)*(2*n + 1))
+   degrees (i+l) of monomials in [u^2]: [2]
+zeta(3)-coefficient of mu_{3,n} (symbolic n): -1/((2*n - 1)*(2*n + 1))
+   degrees (i+l) of monomials in [u^3]: [3]
+zeta(2)-coefficient of mu_{3,n}: verifier == solver exact table for n<=40: True
+   first values: ['-1/36', '43/900', '289/9800', '607/31752']
+Psi(c) series: nonzero coefficients at c^k, k<=0: {} ; odd powers (k<=80): 0
+Taylor coefficients of solver Psi(c) == verifier zeta(2)-coeff of mu_{3,n} for n<=40: True

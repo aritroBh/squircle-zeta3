@@ -1,0 +1,29 @@
+2026-10-21 23:52:41 Numerical conversion checks: precision=200 bits; series terms=320; tolerance=1e-30
+2026-10-21 23:52:42 ('li', 4, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:42 ('li', 4, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:42 ('li', 4, (-3+2*sqrt2)): abs error=2.3386691e-51
+2026-10-21 23:52:42 ('li', 4, 1/2*sqrt2): abs error=0.0
+2026-10-21 23:52:42 ('li', 4, 1/2): abs error=0.0
+2026-10-21 23:52:43 ('li', 4, (1-1/2*sqrt2)): abs error=0.0
+2026-10-21 23:52:43 ('li', 4, (2-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('log', (1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('li', 3, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('li', 3, (1-1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('li', 3, 1/2*sqrt2): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('z3',): abs error=0.0
+2026-10-21 23:52:43 ('log', 2): abs error=0.0
+2026-10-21 23:52:43 ('li', 2, (-1+1*sqrt2)): abs error=1.3363824e-51
+2026-10-21 23:52:43 ('pi2',): abs error=0.0
+2026-10-21 23:52:43 Atom checks passed: 15; maximum error=2.3386691e-51
+2026-10-21 23:52:43 GPL input rows verified against source: 148
+2026-10-21 23:52:48 W supports (rational, sqrt2): (2697, 3064)
+2026-10-21 23:52:48 R supports (rational, sqrt2): (2876, 2771)
+2026-10-21 23:52:48 D supports (rational, sqrt2): (3117, 3480)
+2026-10-21 23:52:50 W prefactor part 0: abs error=1.6036588e-50
+2026-10-21 23:52:50 R prefactor part 0: abs error=1.6036588e-50
+2026-10-21 23:52:50 Independent elementary W-R numerical part 0: 3.20731765211e-50
+2026-10-21 23:52:51 W prefactor part 1: abs error=2.1382118e-50
+2026-10-21 23:52:51 R prefactor part 1: abs error=2.72622e-49
+2026-10-21 23:52:51 Independent elementary W-R numerical part 1: 2.51239882749e-49
+2026-10-21 23:52:51 Distribution control: correct Li2(x)-sum=0.0; brief Li2(x^2)-sum=-0.20414795629
+2026-10-21 23:52:51 Numerical conversion controls PASS (uncertified truncation).

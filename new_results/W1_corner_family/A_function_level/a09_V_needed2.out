@@ -1,0 +1,22 @@
+alphabet: [c, 1 - c, c + 1, 2*c + 1, 1 - 2*c]
+delta22(V)       = {((0, 1), (1, 2)): Fraction(-1, 1), ((0, 2), (1, 2)): Fraction(-1, 1)}
+delta22(Theta_V) = {((0, 1), (1, 2)): -1, ((0, 2), (1, 2)): -1}
+delta22(V - Theta_V) = {}   (alphabet size now 5)
+admissible arguments found: 158
+strictly admissible arguments: 158  with nonzero rho: 158
+rank all: 62  rank all+target: 62
+nice columns: 114  rank 49  rank+target 50
+non-nice values present (value: #args):
+     -32.9705627485 : 2   e.g. -4*c/(c**2 - 2*c + 1)
+     -4.82842712475 : 6   e.g. (-2*c - 1)/c**2
+    -0.207106781187 : 6   e.g. (4*c**2 - 4*c + 1)/(4*c**2 - 4*c)
+   -0.0303300858899 : 2   e.g. (-4*c**2 + 4*c - 1)/(8*c)
+     0.146446609407 : 3   e.g. (2*c - 1)/(4*c)
+     0.828427124746 : 6   e.g. (2*c - 1)/c**2
+     0.853553390593 : 3   e.g. (2*c + 1)/(4*c)
+     0.970562748477 : 2   e.g. 4*c/(c**2 + 2*c + 1)
+      1.03033008589 : 2   e.g. (4*c**2 + 4*c + 1)/(8*c)
+      1.17157287525 : 3   e.g. -2/(4*c**3 - 3*c - 1)
+      1.20710678119 : 6   e.g. -1/(4*c**2 - 4*c)
+      6.82842712475 : 3   e.g. -2/(c - 1)
+single non-nice columns completing the nice set: []

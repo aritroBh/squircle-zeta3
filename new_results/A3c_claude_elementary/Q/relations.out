@@ -1,0 +1,14 @@
+2026-10-21 23:53:05 Relation calibration started: prime=1000000009, FLINT threads=1
+2026-10-21 23:53:05 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-21 23:53:05 weight 1: columns=7, EXACT Q rank=4, quotient=3, DG benchmark=3; seconds=0.000
+2026-10-21 23:53:05 weight 2 relation families: {'double_shuffle_nonzero': 35, 'double_shuffle_new': 35, 'distribution_nonzero': 25, 'distribution_new': 25, 'lift_nonzero': 28, 'lift_new': 28}; unique rows=88
+2026-10-21 23:53:05 weight 2: columns=64, EXACT Q rank=54, quotient=10, DG benchmark=9; seconds=0.001
+2026-10-21 23:53:05 weight 3 relation families: {'double_shuffle_nonzero': 568, 'double_shuffle_new': 568, 'distribution_nonzero': 119, 'distribution_new': 119, 'lift_nonzero': 634, 'lift_new': 611}; unique rows=1298
+2026-10-21 23:53:06 weight 3: columns=576, EXACT Q rank=539, quotient=37, DG benchmark=27; seconds=0.634
+2026-10-21 23:53:07 weight 4 relation families: {'double_shuffle_nonzero': 7704, 'double_shuffle_new': 7703, 'distribution_nonzero': 559, 'distribution_new': 559, 'lift_nonzero': 9533, 'lift_new': 9363}; unique rows=17625
+2026-10-21 23:53:08 weight 4 matrix allocation: 17625 x 5184; raw data bytes=730944000
+2026-10-21 23:53:08 weight 4 FLINT modular rref started
+2026-10-21 23:55:20 weight 4: modular rank=5042, quotient=142, DG benchmark=81; seconds=132.536
+2026-10-21 23:55:20 weight 4 D residue nonzero coordinates=141 of 142
+2026-10-21 23:55:21 weight 4 D residue nonzero coordinates=141 of 142
+2026-10-21 23:55:21 Relation calibration completed.

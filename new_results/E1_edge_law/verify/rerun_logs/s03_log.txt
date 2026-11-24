@@ -1,0 +1,3 @@
+Beta table: Euler gamma cancels; numeric max error 4.408103815583578154882762014583421291820e-39
+z3-coefficient rule verified: 2/(n+1) for (2,1),(1,2) [k=0], 0 for all other (a,b), a+b<=3
+examples: J(0,0,2,1) = 2*z2 + 2*z3 - 6 ; J(0,0,3,0) = -6 ; J(2,1,1,1) = 37/216 - z2/12

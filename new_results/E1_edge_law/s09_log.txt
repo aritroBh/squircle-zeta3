@@ -1,0 +1,4 @@
+free symbols of D15c G21: ['S0', 'Sc', 'c0', 'c1', 's0', 's1']
+hexA_w123: max pointwise |D_k dth/dt - E_k| = 4.59e-40;  max |G dth/dt - g| = 6.74e-41;  max per edge |12 int(G21+G12)dth - Z_e| = 9.97e-41;  Z = -0.043791279901730855024269
+hexB_angles: max pointwise |D_k dth/dt - E_k| = 7.61e-41;  max |G dth/dt - g| = 4.88e-41;  max per edge |12 int(G21+G12)dth - Z_e| = 6.31e-41;  Z = -1.997214210382406479369432
+reg_m5: max pointwise |D_k dth/dt - E_k| = 6.31e-41;  max |G dth/dt - g| = 8.79e-42;  max per edge |12 int(G21+G12)dth - Z_e| = 4.02e-41;  Z = -1.485102800413509544535235

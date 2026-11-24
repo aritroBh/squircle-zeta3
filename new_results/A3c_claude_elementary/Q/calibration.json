@@ -1,0 +1,69 @@
+[
+  {
+    "weight": 1,
+    "columns": 7,
+    "relations": 6,
+    "rank_Q": 4,
+    "quotient": 3,
+    "DG": 3,
+    "families": {
+      "weight1_branch_nonzero": 4,
+      "weight1_branch_new": 2,
+      "distribution_nonzero": 4,
+      "distribution_new": 4
+    }
+  },
+  {
+    "weight": 2,
+    "columns": 64,
+    "relations": 88,
+    "rank_Q": 54,
+    "quotient": 10,
+    "DG": 9,
+    "families": {
+      "double_shuffle_nonzero": 35,
+      "double_shuffle_new": 35,
+      "distribution_nonzero": 25,
+      "distribution_new": 25,
+      "lift_nonzero": 28,
+      "lift_new": 28
+    }
+  },
+  {
+    "weight": 3,
+    "columns": 576,
+    "relations": 1298,
+    "rank_Q": 539,
+    "quotient": 37,
+    "DG": 27,
+    "families": {
+      "double_shuffle_nonzero": 568,
+      "double_shuffle_new": 568,
+      "distribution_nonzero": 119,
+      "distribution_new": 119,
+      "lift_nonzero": 634,
+      "lift_new": 611
+    }
+  },
+  {
+    "weight": 4,
+    "columns": 5184,
+    "relations": 17625,
+    "rank_mod_p": 5042,
+    "prime": 1000000009,
+    "quotient": 142,
+    "DG": 81,
+    "D_nonzero": [
+      141,
+      141
+    ],
+    "families": {
+      "double_shuffle_nonzero": 7704,
+      "double_shuffle_new": 7703,
+      "distribution_nonzero": 559,
+      "distribution_new": 559,
+      "lift_nonzero": 9533,
+      "lift_new": 9363
+    }
+  }
+]

@@ -1,0 +1,21 @@
+theta_{ij} (coefficient of W^i mu^j in Theta):
+   theta_10 = 1/a
+   theta_20 = -(a**2 - b)/(2*a**3)
+   theta_11 = -b/a**3
+   theta_30 = (a**4 - 3*a**2*b - a*c + 3*b**2)/(6*a**5)
+   theta_21 = (3*a**2*b + a*c - 4*b**2)/(2*a**5)
+   theta_12 = b**2/a**5
+   theta_40 = -(a**6 - 7*a**4*b - 6*a**3*c + 18*a**2*b**2 - a**2*d + 10*a*b*c - 15*b**3)/(24*a**7)
+   theta_31 = -(7*a**4*b + 6*a**3*c - 24*a**2*b**2 + a**2*d - 13*a*b*c + 23*b**3)/(6*a**7)
+   theta_22 = -3*b*(2*a**2*b + a*c - 3*b**2)/(2*a**7)
+   theta_13 = -b**3/a**7
+tail constants T_k = [mu^k](-Tail):
+   T_1 = 0
+   T_2 = 1/(2*a**2)
+   T_3 = -b/a**4
+   T_4 = (12*a**4 - 48*a**2*b - a**2 - 24*a*c + 96*b**2)/(24*a**6)
+check Q_k == sum_i theta_{i,k-i} M_i(Xi) + T_k :
+   k=1  difference = 0
+   k=2  difference = 0
+   k=3  difference = 0
+   k=4  difference = 0

@@ -1,0 +1,60 @@
+I_{0,1} - pi^2/12 = 1.56e-61
+I_{1,1} - 3 zeta(3)/4 = 0.0
+I_{0,2} - zeta(3)/4 = 0.0
+
+== direct quadrature vs exact s-representation (tau = 0.02) ==
+k=0: a_direct - A - (s-int) = -1.18e-61
+k=1: a_direct - A - (s-int) = 4.39e-62
+k=3: a_direct - A - (s-int) = 5.18e-62
+
+== Taylor coefficients c_n(k) (normalized: (-1)^k pi c_n / sqrt2) ==
+k=0: c2' - zeta2 = 0.0;  c3' - zeta3 = 1.56e-61;  c4' = -2.23229166952922252;  c4'/zeta4 = -2.0625
+k=1: c2' - zeta2 = 0.0;  c3' - zeta3 = 1.56e-61;  c4' = -9.8085543055071898606;  c4'/zeta4 = -9.0625
+k=2: c2' - zeta2 = 0.0;  c3' - zeta3 = 1.56e-61;  c4' = -32.537342213441091882;  c4'/zeta4 = -30.0625
+k=3: c2' - zeta2 = 0.0;  c3' - zeta3 = 1.56e-61;  c4' = -70.418655393330928586;  c4'/zeta4 = -65.0625
+k=4: c2' - zeta2 = 0.0;  c3' - zeta3 = 1.56e-61;  c4' = -123.45249384517669997;  c4'/zeta4 = -114.0625
+k=5: c2' - zeta2 = 0.0;  c3' - zeta3 = 1.56e-61;  c4' = -191.63885756897840604;  c4'/zeta4 = -177.0625
+
+== check the asymptotic expansion: R_N(tau) = (a_k - A_k - sum_{n<=N} c_n tau^n)/tau^(N+1) ==
+k=0: R_6 at tau=.02,.01,.005: ['18.16874847', '19.23064415', '19.7380195'];  c_7(k) = 20.22684832
+k=1: R_6 at tau=.02,.01,.005: ['-136.0219645', '-152.6356734', '-160.6668969'];  c_7(k) = -168.4470767
+k=2: R_6 at tau=.02,.01,.005: ['709.6247467', '880.0722686', '963.4012624'];  c_7(k) = 1044.464587
+k=5: R_6 at tau=.02,.01,.005: ['276.4610215', '-12385.69892', '-18879.94669'];  c_7(k) = -25293.57381
+
+== tau^4 and tau^5 coefficients: PSLQ (pure weight test) ==
+k=0: tau^4: [16, 33] resid 0.0;   tau^5 [x, z5, z2z3]: [-4, -3, -7] resid 2.49e-60
+k=1: tau^4: [16, 145] resid 1.99e-59;   tau^5 [x, z5, z2z3]: [-4, -19, -23] resid 0.0
+k=2: tau^4: [16, 481] resid 0.0;   tau^5 [x, z5, z2z3]: [-4, -67, -71] resid 1.99e-59
+k=3: tau^4: [16, 1041] resid 0.0;   tau^5 [x, z5, z2z3]: [-4, -147, -151] resid 0.0
+prediction tau^4: -(33/16) - 7k^2 (in units of zeta(4))
+   k=0: x4/zeta4 + 33/16 + 7k^2 = 0.0
+   k=1: x4/zeta4 + 33/16 + 7k^2 = -1.24e-60
+   k=2: x4/zeta4 + 33/16 + 7k^2 = 0.0
+   k=3: x4/zeta4 + 33/16 + 7k^2 = 0.0
+
+== individual weight-4/5 integrals (are they single-zeta on their own?) ==
+I_1,2 = 0.1755713431373106040731866  PSLQ [I, z4, Li4(1/2), l2^4, z2 l2^2, z3 l2]: [-12, -45, 48, 2, -12, 42]
+I_0,3 = 0.1425141979357109157087215  PSLQ [I, z4, Li4(1/2), l2^4, z2 l2^2, z3 l2]: [4, -24, 24, 1, -6, 21]
+I_2,1 = 1.894065658994491835153006  PSLQ [I, z4, Li4(1/2), l2^4, z2 l2^2, z3 l2]: [4, -7, 0, 0, 0, 0]
+
+== perimeter (k=0): P = pi a_0 ; compare tau-series with D11's exact f_n ==
+tau-coefficient of P/(4 sqrt2) is e_n = (-1)^n (f_n + f_{n-1}); its set of weights, and pi*c_n(0) - 4sqrt2 e_n:
+n= 1: weights [0]  e_n = 0
+n= 2: weights [2]  e_n = Z2/4   |pi c_n(0) - 4 sqrt2 e_n| = 0.0
+n= 3: weights [3]  e_n = Z3/4   |pi c_n(0) - 4 sqrt2 e_n| = 3.11e-61
+n= 4: weights [4]  e_n = -7*Z2**2/32 + Z4/32   |pi c_n(0) - 4 sqrt2 e_n| = 3.11e-61
+n= 5: weights [5]  e_n = -7*Z2*Z3/16 - 3*Z5/16   |pi c_n(0) - 4 sqrt2 e_n| = 6.22e-61
+n= 6: weights [6]  e_n = ...   |pi c_n(0) - 4 sqrt2 e_n| = 0.0
+n= 7: weights [7]  e_n = ...   |pi c_n(0) - 4 sqrt2 e_n| = 4.98e-60
+n= 8: weights [8]  e_n = ...   |pi c_n(0) - 4 sqrt2 e_n| = 3.98e-59
+n= 9: weights [9]  e_n = ...
+n=10: weights [10]  e_n = ...
+for contrast, D11's f_n themselves have weights: {2: [0, 2], 3: [0, 2, 3], 4: [0, 2, 3, 4], 5: [0, 2, 3, 4, 5]}
+
+== uniform (boundary-layer) form: a_k ~ A_k + (-1)^k (sqrt2/pi)[1/(4k^2) - pi tau/(2k sinh(2 pi k tau))] ==
+tau=0.02: max_k |a_k - A_k - leading| = 4.1479e-6;  /tau^3 = 0.51848
+tau=0.01: max_k |a_k - A_k - leading| = 5.3038e-7;  /tau^3 = 0.53038
+tau=0.005: max_k |a_k - A_k - leading| = 6.6989e-8;  /tau^3 = 0.53591
+   tau=0.01, k=5: a_k = 0.00443914099289, A_k = 0.00451286374014, A_k+leading = 0.004439659536
+   tau=0.01, k=50: a_k = -1.21613873731e-5, A_k = -4.50169412314e-5, A_k+leading = -1.2246735257e-5
+   tau=0.01, k=200: a_k = -2.41334106026e-10, A_k = -2.81349288407e-6, A_k+leading = -2.50988425474e-10

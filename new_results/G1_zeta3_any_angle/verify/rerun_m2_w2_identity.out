@@ -1,0 +1,10 @@
+log part of W2 = S*(M + P)   (expected S*(P+M) = log s * log c^2)
+   pi_2: |W2_closed - (z2/2 - Li2(c^2)/2)| = 1.94e-121
+  2pi_3: |W2_closed - (z2/2 - Li2(c^2)/2)| = 9.68e-122
+   pi_3: |W2_closed - (z2/2 - Li2(c^2)/2)| = 1.45e-121
+  3pi_4: |W2_closed - (z2/2 - Li2(c^2)/2)| = 1.94e-121
+   pi_6: |W2_closed - (z2/2 - Li2(c^2)/2)| = 4.84e-122
+  5pi_6: |W2_closed - (z2/2 - Li2(c^2)/2)| = 9.68e-122
+   pi_4: |W2_closed - (z2/2 - Li2(c^2)/2)| = 4.84e-122
+ gen1p3: |W2_closed - (z2/2 - Li2(c^2)/2)| = 1.94e-121
+ gen2p0: |W2_closed - (z2/2 - Li2(c^2)/2)| = 0.0

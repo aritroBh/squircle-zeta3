@@ -1,0 +1,36 @@
+p_0 = 1
+p_1 = -2*L1/3 - 2*L2/3 - 2*L3/3
+p_2 = 4*L1**2/9 + 2*L1*L2/9 + 2*L1*L3/9 + 4*L2**2/9 + 2*L2*L3/9 + 4*L3**2/9
+p_3 = -4*L1**3/27 - 2*L1**2*L2/9 - 2*L1**2*L3/9 - 2*L1*L2**2/9 + 4*L1*L2*L3/9 - 2*L1*L3**2/9 - 4*L2**3/27 - 2*L2**2*L3/9 - 2*L2*L3**2/9 - 4*L3**3/27
+p_4 = 2*L1**4/81 + 8*L1**3*L2/81 + 8*L1**3*L3/81 + 4*L1**2*L2**2/27 - 4*L1**2*L2*L3/27 + 4*L1**2*L3**2/27 + 8*L1*L2**3/81 - 4*L1*L2**2*L3/27 - 4*L1*L2*L3**2/27 + 8*L1*L3**3/81 + 2*L2**4/81 + 8*L2**3*L3/81 + 4*L2**2*L3**2/27 + 8*L2*L3**3/81 + 2*L3**4/81
+J_0 = Int_Delta p_0 = 0.5
+J_1 = Int_Delta p_1 = 1.5
+J_2 = Int_Delta p_2 = 2.95168864438392452117586161111799160359368336626440052075481
+J_3 = Int_Delta p_3 = 4.78657090812102308761670646756601926343439561671275811178242
+J_4 = Int_Delta p_4 = 6.53220524233097454669216738661110942262737398086506990240124
+c_0 (d-coefficient of S/S(1)) = 1.0
+c_1 (d-coefficient of S/S(1)) = 1.0
+c_2 (d-coefficient of S/S(1)) = -0.0966227112321509576482767777640167928126332674711989584903722
+c_3 (d-coefficient of S/S(1)) = -0.0403673388293499941734799538118943018806756966896879424736662
+c_4 (d-coefficient of S/S(1)) = -0.767525708869791359265497680078141717215540880109430897925472
+
+--- PSLQ, natural basis ---
+  c_1 @ 50 digits: relation {'c1': 1, '1': -1}, residual 0.0, max|coef| 1
+  c_1 @ 60 digits: relation {'c1': 1, '1': -1}, residual 0.0, max|coef| 1
+  c_2 @ 50 digits: relation {'c2': 9, '1': -9, 'pi^2': 1}, residual 0.0, max|coef| 9
+  c_2 @ 60 digits: relation {'c2': 9, '1': -9, 'pi^2': 1}, residual 0.0, max|coef| 9
+  c_3 @ 50 digits: relation {'c3': -9, '1': 9, 'pi^2': 1, 'zeta3': -16}, residual 0.0, max|coef| 16
+  c_3 @ 60 digits: relation {'c3': -9, '1': 9, 'pi^2': 1, 'zeta3': -16}, residual 0.0, max|coef| 16
+  c_4 @ 50 digits: relation {'c4': -405, '1': 405, 'pi^2': -90, 'zeta3': 1440, 'pi^4': -16}, residual 0.0, max|coef| 1440
+  c_4 @ 60 digits: relation {'c4': -405, '1': 405, 'pi^2': -90, 'zeta3': 1440, 'pi^4': -16}, residual 0.0, max|coef| 1440
+
+--- PSLQ, enlarged basis (edge/vertex-type constants allowed) ---
+  c_2 @ 68 digits: {'c': -9, '1': 9, 'pi^2': -1}, residual 0.0
+  c_3 @ 68 digits: {'c': -9, '1': 9, 'pi^2': 1, 'zeta3': -16}, residual 0.0
+
+exact predictions: c1 = 1, c2 = 1 - pi^2/9, c3 = 1 + pi^2/9 - 16 zeta3/9, c4 = 1 - 2pi^2/9 + 32 zeta3/9 - 16 pi^4/405
+  c_0: numeric - exact = 0.0
+  c_1: numeric - exact = 0.0
+  c_2: numeric - exact = -3.62e-71
+  c_3: numeric - exact = -2.54e-70
+  c_4: numeric - exact = -9.02e-69

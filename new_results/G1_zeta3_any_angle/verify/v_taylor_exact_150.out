@@ -1,0 +1,3 @@
+nonzero coefficients at c^k, k<=0: []; odd powers up to c^300: 0
+B1 (HPL) Taylor coeffs == mu_(1,n) and rational part of B2 (HPL) == r_n for all n <= 150: True []
+M0 coeffs == -1/(n(2n-1)) for n <= 150 : True

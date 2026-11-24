@@ -1,0 +1,5 @@
+k=2: coefficient of the single zeta(2) in mu_(k,n) = 1/((2*n - 1)*(2*n + 1))
+      times (4n^2-1): 1
+      total log-degrees of monomials in [u^2]E: [2] (<= 2 => only psi, psi' => Q + Q zeta(2))
+k=3: coefficient of the single zeta(3) in mu_(k,n) = -1/((2*n - 1)*(2*n + 1))
+      times (4n^2-1): -1

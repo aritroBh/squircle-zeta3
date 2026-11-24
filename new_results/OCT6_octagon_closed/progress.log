@@ -1,0 +1,16 @@
+OCT6 progress log
+step_01: copied OCT5 files -> oct5/; printed all 83 E3 monomials with exact coefficients in u*(Q(sqrt2)) form
+  (1/sqrt(10-7r2) = u*(2+r2)/2, u=sqrt(2+r2)); max |coeff - u*q| = 9.5e-33 over all 83 mons. saved mons_simple.pkl
+  classes: local 34, single-k1 21, single-k2 21, MIXED 7: (n,1,0,1,1),(n,0,1,1,1),(n,0,0,2,1),(n,0,0,1,2) n=0..3; (n,0,0,1,1) n=0..2
+step_02: D1..D10 closed forms verified by quadrature, diffs printed (120-digit values saved Dconsts.pkl)
+step_03/04: mixed_engine.py exact IBP engine (20 mixed integrals verified 103 digits vs quadrature);
+  assembled S_tot (2622 terms); mixed u*S_mix vs target diff=4.86e-204; P3=48u*S_tot vs P3_720 diff=2.83e-200
+step_06: Jtab verified at x2 (all 40 keys, 60dps quad) and Jloc all 40 keys by quad — exact tables confirmed.
+step_07: single high-precision quad of whole E3 (420 dps): |48I - exact| = 2.11e-411. P3_exact saved.
+step_10: four key reductions saved (AA_1,AA_2,Lam,swap -> single Li3/Li2 reps + products), each verified ~745 digits; R1+R2 matches analytic Landen identity.
+step_16/17: classical Li2/Li3 relations verified 745 digits (Landen triples T1,T2, duplication, 5 Li2 identities); R3 cross-validated via stuffle+independent Li12 series (6.6e-744); OCT4 Li3a,b,c all in rep span; C4-diff table saved.
+step_18: full result.md written (final closed form, reductions, lattice, z3 report, C4 diff, verification table).
+step_19: R1,R2 now PROVED analytically: difference identity A(x)-A(1-x)=... (derived by differentiation,
+  verified 400d at 5 points), Landen L2 (745d, 3 pts), inversion L1 (400d, 3 pts) form a solvable system;
+  A(x1) = [R_L2(x2)-DIF(x2)-R_L2(r2h)+R_L1(k1)]/2 matches R1 to 745 digits; A(x2) via L2 matches R2.
+step_20: result.md finalized with analytic proofs of R1,R2. FINAL end-to-end table check: |diff|=3.57e-412. DONE.

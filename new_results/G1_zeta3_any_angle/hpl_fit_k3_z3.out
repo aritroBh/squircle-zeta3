@@ -1,0 +1,8 @@
+k=3 monomial (0, 1, 0): 26 basis functions, 401 equations (n <= 200)
+rank(A) = 26  rank([A|b]) = 26
+SOLUTION (5 terms):
+   -1/2  *  1
+   1/4  *  c^-1 H[1]
+   -1/4  *  c^1 H[1]
+   1/4  *  c^-1 H[-1]
+   -1/4  *  c^1 H[-1]

@@ -1,0 +1,4 @@
+basis size 176  digits 1246
+V1: height 10^7.79  (random expectation ~10^7.0)  -> no relation (not significant)
+V3p: height 10^7.89  (random expectation ~10^7.0)  -> no relation (not significant)
+U: height 10^7.82  (random expectation ~10^7.0)  -> no relation (not significant)

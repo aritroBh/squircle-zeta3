@@ -1,0 +1,11 @@
+step_01: inspected Codex Q pipeline (cmzv/relations/check_conversion/verify_quotient) and A3c result.md sections 3-5.
+step_02: AUDIT PASS w1-3 exact Q quotients 3/10/37 (fmpq rref + 3 primes).
+step_03: AUDIT PASS all w1-3 relation rows numerically zero, worst 4.8e-58 (acb prec=200).
+step_04: AUDIT PASS w4 quotient 142 mod second prime 1000000021; all 17625 rows numerically zero (worst 2.9e-57); D residue 141/142.
+step_05/06: weight-2 values at 325 digits; LLL found missing relation [0,-6,-1,7,3,-9,-3,21,-5,5] (residual 1.5e-329).
+step_07: 20 Rogers five-term + 5 reflection instances on real cross-ratios; rank 54->55; quotient 9. All rows numeric zero (worst 1.2e-58).
+step_08: weight-2 CLOSED. New relation = Rogers five-term at x=sqrt2/2, y=sqrt2-1 (+4 more equivalent instances); quotient exactly 9 over Q; LLL hint spanned.
+step_09: weight-3 quotient 34 (exact Q, 2 primes) with new weight-2 relation lifted (+3).
+step_10: T3/I3 one-variable Li3 instances add 0 rank (already spanned); worst numeric 1.7e-57.
+step_11/12: Kummer K3 symbol solution space = 4-dim; symmetric part symbol-zero (known); antisymmetric part = genuine K3, derived not verified.
+result.md written: weight2 CLOSED (quotient 9), weight3 at 34/27, weight4 at 142/81, D reduction OPEN.

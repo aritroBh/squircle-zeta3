@@ -1,0 +1,1 @@
+print(open('research/08_theory/K1d_engine_fixed/result.md').read()[:9000])

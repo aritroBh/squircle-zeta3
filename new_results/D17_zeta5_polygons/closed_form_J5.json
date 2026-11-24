@@ -1,0 +1,6 @@
+{
+  "J5_h": "1/2 * sin^4 h * cos h * (65 sin^6 h - 63 sin^4 h + 17 sin^2 h - 1), h=pi/(2m)",
+  "Cm5": "C_m^(5) = 5760*m*J5 = 2880*m*sin^4 h*cos h*(65 sin^6 h - 63 sin^4 h + 17 sin^2 h - 1)",
+  "weight3_analog": "C_m = 48*m*sin^4 h*cos h*(3 sin^2 h - 1)",
+  "C2": "-90*sqrt(2) (matches independent squircle kappa5=-3/4: 5!*sqrt2*(-3/4))"
+}

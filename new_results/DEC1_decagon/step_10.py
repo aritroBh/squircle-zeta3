@@ -1,0 +1,1 @@
+print(open('research/10_frontier/E1_edge_law/result.md').read()[:8000])

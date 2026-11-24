@@ -1,0 +1,42 @@
+
+Turn 2-3: Read CX1 verify.py (PASSES), explore.py, BRIEF.md, DEC1 result.md sec.3.
+Key structure extracted:
+- Octagon: Lam = Li_21(x1, x2/x1), swap = Li_21(x2, x1/x2), x2 = x1/(x1-1) Landen pair.
+- G(t) = Li_21(-t, -(1-t)/(2t)) i.e. (x,p)=( -t, (1-t)/2 ), p=xy; H(t) = swap of (x,p) = ((1-t)/2, -t).
+- So H(t) = Li_21(p(t), x(t)/p(t)) with the SAME curve parametrization: H = G with x<->p swapped.
+- Li_11(x,y) closed form derived: log(1-x)log(1-y) + Li2(-y/(1-y)) - Li2(-y(1-x)/(1-y)).
+- Partial derivs: d_x Li_21 = Li_11/x; d_y Li_21 = (Li2(x) - Li2(xy)/y)/(1-y).
+DECAGON candidate families (decagon points (-1/phi, 1/phi^2) and (1/phi^2, -1/phi)):
+- G_dec(t) = Li_21(-t, -(1-t)/t)  [curve p = 1-t; at t=1/phi: y=-1/phi OK; G_dec(1)=0]
+- H_dec(t) = Li_21(1-t, -t/(1-t)) [swap of (x,p); H_dec(0)=0]
+Derived candidate closed form for G_dec by hand:
+  G_dec(t) = zeta(3) - (1/2) log t * Li2(t^2) + Li3(t^2) - 2 Li3(t) - Li3(1-t)
+  (used dilog duplication Li2(t)+Li2(-t)=Li2(t^2)/2; pinned C=zeta(3) at t->1).
+  At t=1/phi this gives zeta(3) + l_phi z2/5 - l_phi^3/2 - 2 Li3(1/phi), which equals DEC1's
+  LLL form 2z3/5 + 4 l_phi z2/5 - l_phi^3 + 3Li3(-1/phi) + Li3(1/phi) MODULO the sum relation
+  Li3(1/phi)+Li3(-1/phi) = (z3 - l_phi z2)/5 + l_phi^3/6 (itself = 3-term Landen + duplication).
+Next: numeric check of G_dec closed form; derive H_dec closed form.
+
+RESUMED RUN (after kill): steps 34-37 were recovery. Found verify_full.py complete
+through Part 3c but never run; fixed 4 bugs: (1) part0 truncated-series identity now
+checked in (1-y)-multiplied polynomial form + log-split branch fix in Li11 derivative;
+(2) part1 DUP3 asserted only after DUP2 reduction; (3) part2b log identities checked as
+exact multiplicative (algebraic) identities among positive args; (4) part3c golden
+trilog solve now for [L3a,L3b] with L3c free (sum relation). Appended Part 4 (numeric
+evidence, 120/170 dps) + main runner. verify_full.py RUNS: ALL CHECKS PASSED.
+Key numbers: Lambda_oct series = -0.0275883613456533384687572087639 (120 dps)
+             swap_oct   series = -0.0321696900151107721899470611759
+             Lambda_dec series = -0.05126163058647632738126326036571123343019 (170 dps)
+             swap_dec   series = -0.06341782168216461215085970440865279340954
+  decagon residuals vs DEC1 LLL forms: 4.5e-172 (Lam), 1.2e-171 (swap).
+Output saved to verify_full.out. Next: write result.md (secs 1 octagon proof,
+2 decagon, 3 general lemma). Optional: test hexagon c=2/3 case numerically.
+
+verify_full.py COMPLETE + PASSING (ALL CHECKS PASSED). Added CHAIN-RULE ASSEMBLY part
+(derives dG,dH,dGd,dHd exactly from Part 0 formulas + 20 rational curve identities).
+Scope tests: T_c involution exact for all c; c-values 1/2 (octagon), 1 (decagon), 2/3
+(hexagon-type pair (-1/2,1/3)); PSLQ (150 dps, 19-element weight-3 basis) on
+Li21(-1/2,-2/3): no genuine relation (candidate with 5e7 coeffs frozen at 2.2e-110 when
+re-evaluated at 250 dps => lattice artifact) => closure special to c in {1/2, 1}.
+result.md WRITTEN: Thm O (octagon, exact match OCT6), Thm D (decagon, exact match DEC1),
+Lemma L (line-curve family + scope). Next: final clean run + wrap-up.

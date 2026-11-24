@@ -1,0 +1,29 @@
+D13s turn1: copied step_38.py, step_10_J192.py, step_18.py, planner_sweep_ratio.py + review docs.
+B1 line confirmed: step_10_J192.py:168 `ecw = (rt2/pi).sqrt()*(-c_w/2).exp()` (sqrt(sqrt(2)/pi), needs sqrt(2/pi)).
+B2 line confirmed: step_38.py:165 `A1m = iv(0, (z2/(1+z2)).upper())` (encloses 1-arctan(zz)/zz, NOT (1-arctan(zz)/zz)/y).
+Review result.md + progress.log read fully; steps 22,23,28-32,35 read for H1/H2/H3.
+turn3: FINAL CELL certified: C = 49.5626 for all N>=1e10 (arb). Pieces printed.
+D13s turn2-6: B2-fix math PROVED (f(x)=1-atan(x)/x nondecr: f'=g/x^2, g(0)=0, g'=2x^2/(1+x^2)^2>=0; sympy printed).
+ H2 PROVED: x^2|g(x)|<=1 via sHc(s)=1-sum c_k s/(s+2k) + 2Re w_k>=|w_k| (3x^2+6rt2 k x+4k^2>0); AM-GM 1+rt2x+x^2>=(2+rt2)x;
+   => I0 <= (2+rt2)^{-N/2} 2/(N-2); truth ratios I0/proved ~0.27 (N=100..1e4 printed).
+ H3: identity RePhi0+th = -(N/2)S(t) - (pi rt2/(4t))(rho-1)^2 verified (1.8e-31); upper h3 box valid ALL t>0 (margin 3.9e-21);
+   lower box: H(t)>0 for t<=4.54 (zero at 4.5447, N=0.288); H'(t)=t^3 Hp3(t), Hp3 manifestly regular, min on [0,0.127]=0.4027.
+   NOTE: review's margin formula is NOT a valid lower bound for small t (its bracket exceeds true margin by ~(1/6)t^4(N/2));
+   review's 'breg_h-1/12 exact' claim FALSE (their step_32 prints deviation up to 0.044; step_31.py IndentationError, never ran).
+ H1: derived EXACT regular form Btrue = rho*B1/(2+rt2 t), B1 = 1/2+rt2 s1+s1^2-rho^2 A1n (s1=-t/((1+rt2 t)(1+rho)),
+   A1n in [zz2/3-zz2^2/5, zz2/3]/t^2): worst rel resid 8.5e-37 over t in [1e-12,1]; sup|Btrue| final cell = 1/6.
+ fixed/step_38.py written (B2+H2 fixes). A1 box containment: 14112 pts, worst viol -9.9e-7. Bh[A1'/y] exact (1.9e-53).
+ z-box containment with fixed code: 0 misses / 369 sampled N over 9 cells [100,1.5e9].
+D13s turn8: sweep ratio 1.5 rerun with fixed step_38 (0s):    [2.58864e+08,3.88296e+08] 125060.90452065654 |    [8.73666e+08,1.3105e+09] 226492.54475825155 |    [2.94862e+09,4.42293e+09] 412766.2077661843
+D13s turn8b: ratio-1.5 sweep exact sup C = 617118.807171 at [6634399392.564008, 9951599088.846012]; 43 cells contiguous [400,1e10].
+D13s turn9: sweep ratio 1.0002 (434s): cells accepted 85181, gave up 0, splits 0, time 433.8s | sup C over accepted cells = 254.228 | contiguous cover of [400,1e10] with all cells certified: True
+D13s turn9b: ratio-1.0002 sweep exact sup C = 254.227518 at [1890.71,1891.09]; 85181 cells contiguous [400,1e10], 0 fails.
+D13s turn10: FIXED final cell: C=47.07012493 (buggy 49.56259792; review corrected-with-old-breg 49.94909).
+ TMreg 0.12237233 (was 0.10290245, x2^{1/4}); TM C-part 0.15337 > truth 0.14412 @1e10 (margin 1.064) CONFIRMED;
+ TR 0.35196>0.11339 (3.1x); TLm 1.92384>0.09082 (21x). Btrue box [0.16666+/-8e-6], B_abs=0.16666814 <= breg_abs=0.75 (old harmless);
+ d6 0.37024 (was 1.666), Dreg 8.56332 (was 11.44228). TLfN (pi/2)^1.5 restored: 5.5e-19229. TL0N proved form: 1.4e-2666376434.
+D13s turn11: buggy-code baselines: [100,400] ['sup C on [100,400] = 194.3809 at (373.3456322341576, 392.0129138458655)   (0.2s)'] ; sweep1.5 ['cells accepted 43, gave up 0, splits 0, time 0.2s', 'sup C over accepted cells = 617118']
+D13s turn12: buggy sweep1.5 exact sup=617117.553560 at [6634399392.564008, 9951599088.846012]; buggy sweep1.0002 sup=254.535739 at [1890.7128907662395, 1891.0910333443928] (85181 cells, 448s).
+D13s turn13: result.md written. Theorem C = max(194.1267251, 254.2275176, 47.0701250) = 254.2275176.
+D13s turn14: verify_mS.py added (identity 1.77e-31; upper-box margin 3.9e-21 all t; lower-box margin +1.3e-21 on N>=100). result.md finalized.
+FINAL: theorem C = 254.2275176 (ranges 194.1267251 / 254.2275176 / 47.0701250). All certificates rerun and reproduced.

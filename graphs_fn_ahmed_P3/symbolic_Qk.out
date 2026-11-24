@@ -1,0 +1,31 @@
+Q_1:
+   Xi^1 : 1/a
+Q_2:
+   Xi^2 : -(a**2 - b)/(2*a**3)
+   Xi^1 : -b/a**3
+   Xi^0 : -(a**2*k2 - a - b*k2)/(2*a**3)
+Q_3:
+   Xi^3 : (a**4 - 3*a**2*b - a*c + 3*b**2)/(6*a**5)
+   Xi^2 : (3*a**2*b + a*c - 4*b**2)/(2*a**5)
+   Xi^1 : (a**4*k2 - 3*a**2*b*k2 - a*c*k2 + 3*b**2*k2 + 2*b**2)/(2*a**5)
+   Xi^0 : (a**4*k3 + 9*a**2*b*k2 - 3*a**2*b*k3 - 6*a*b + 3*a*c*k2 - a*c*k3 - 12*b**2*k2 + 3*b**2*k3)/(6*a**5)
+Q_4:
+   Xi^4 : -(a**6 - 7*a**4*b - 6*a**3*c + 18*a**2*b**2 - a**2*d + 10*a*b*c - 15*b**3)/(24*a**7)
+   Xi^3 : -(7*a**4*b + 6*a**3*c - 24*a**2*b**2 + a**2*d - 13*a*b*c + 23*b**3)/(6*a**7)
+   Xi^2 : -(a**6*k2 - 7*a**4*b*k2 - 6*a**3*c*k2 + 18*a**2*b**2*k2 + 12*a**2*b**2 - a**2*d*k2 + 10*a*b*c*k2 + 6*a*b*c - 15*b**3*k2 - 18*b**3)/(4*a**7)
+   Xi^1 : -(a**6*k3 + 21*a**4*b*k2 - 7*a**4*b*k3 + 18*a**3*c*k2 - 6*a**3*c*k3 - 72*a**2*b**2*k2 + 18*a**2*b**2*k3 + 3*a**2*d*k2 - a**2*d*k3 - 39*a*b*c*k2 + 10*a*b*c*k3 + 69*b**3*k2 - 15*b**3*k3 + 6*b**3)/(6*a**7)
+   Xi^0 : -(3*a**6*k2**2 + a**6*k4 - 12*a**5 - 21*a**4*b*k2**2 + 28*a**4*b*k3 - 7*a**4*b*k4 + 48*a**3*b - 18*a**3*c*k2**2 + 24*a**3*c*k3 - 6*a**3*c*k4 + a**3 + 54*a**2*b**2*k2**2 + 72*a**2*b**2*k2 - 96*a**2*b**2*k3 + 18*a**2*b**2*k4 + 24*a**2*c - 3*a**2*d*k2**2 + 4*a**2*d*k3 - a**2*d*k4 - 96*a*b**2 + 30*a*b*c*k2**2 + 36*a*b*c*k2 - 52*a*b*c*k3 + 10*a*b*c*k4 - 45*b**3*k2**2 - 108*b**3*k2 + 92*b**3*k3 - 15*b**3*k4)/(24*a**7)
+cumulants: [1 - log(2), 1 + pi**2/6, 2 - 3*zeta(3)/2, 6 + pi**4/15]
+f=x, order mu^1: ours - Ahmed = 0
+f=x, order mu^2: ours - Ahmed = 0
+f=x, order mu^3: ours - Ahmed = 0
+f=x, order mu^4: ours - Ahmed = 0
+f=x^m, order mu^1: ours - Ahmed(mn) = 0
+f=x^m, order mu^2: ours - Ahmed(mn) = 0
+f=x^m, order mu^3: ours - Ahmed(mn) = 0
+f=x^m, order mu^4: ours - Ahmed(mn) = 0
+
+Q_1 LaTeX: \frac{\Xi}{a}
+Q_2 LaTeX: \frac{\Xi^{2} \left(- \frac{1}{2} + \frac{b}{2 a^{2}}\right) - \frac{\Xi b}{a^{2}} - \frac{k_{2}}{2} + \frac{1}{2 a} + \frac{b k_{2}}{2 a^{2}}}{a}
+Q_3 LaTeX: \frac{\Xi^{3} \left(\frac{1}{6} - \frac{b}{2 a^{2}} - \frac{c}{6 a^{3}} + \frac{b^{2}}{2 a^{4}}\right) + \frac{\Xi^{2} \left(3 b + \frac{c}{a} - \frac{4 b^{2}}{a^{2}}\right)}{2 a^{2}} + \Xi \left(\frac{k_{2}}{2} - \frac{3 b k_{2}}{2 a^{2}} - \frac{c k_{2}}{2 a^{3}} + \frac{3 b^{2} k_{2}}{2 a^{4}} + \frac{b^{2}}{a^{4}}\right) + \frac{k_{3}}{6} + \frac{3 b k_{2}}{2 a^{2}} - \frac{b k_{3}}{2 a^{2}} - \frac{b}{a^{3}} + \frac{c k_{2}}{2 a^{3}} - \frac{c k_{3}}{6 a^{3}} - \frac{2 b^{2} k_{2}}{a^{4}} + \frac{b^{2} k_{3}}{2 a^{4}}}{a}
+Q_4 LaTeX: \frac{\Xi^{4} \left(- \frac{1}{24} + \frac{7 b}{24 a^{2}} + \frac{c}{4 a^{3}} - \frac{3 b^{2}}{4 a^{4}} + \frac{d}{24 a^{4}} - \frac{5 b c}{12 a^{5}} + \frac{5 b^{3}}{8 a^{6}}\right) + \frac{\Xi^{3} \left(- 7 b - \frac{6 c}{a} + \frac{24 b^{2}}{a^{2}} - \frac{d}{a^{2}} + \frac{13 b c}{a^{3}} - \frac{23 b^{3}}{a^{4}}\right)}{6 a^{2}} + \Xi^{2} \left(- \frac{k_{2}}{4} + \frac{7 b k_{2}}{4 a^{2}} + \frac{3 c k_{2}}{2 a^{3}} - \frac{9 b^{2} k_{2}}{2 a^{4}} - \frac{3 b^{2}}{a^{4}} + \frac{d k_{2}}{4 a^{4}} - \frac{5 b c k_{2}}{2 a^{5}} - \frac{3 b c}{2 a^{5}} + \frac{15 b^{3} k_{2}}{4 a^{6}} + \frac{9 b^{3}}{2 a^{6}}\right) + \Xi \left(- \frac{k_{3}}{6} - \frac{7 b k_{2}}{2 a^{2}} + \frac{7 b k_{3}}{6 a^{2}} - \frac{3 c k_{2}}{a^{3}} + \frac{c k_{3}}{a^{3}} + \frac{12 b^{2} k_{2}}{a^{4}} - \frac{3 b^{2} k_{3}}{a^{4}} - \frac{d k_{2}}{2 a^{4}} + \frac{d k_{3}}{6 a^{4}} + \frac{13 b c k_{2}}{2 a^{5}} - \frac{5 b c k_{3}}{3 a^{5}} - \frac{23 b^{3} k_{2}}{2 a^{6}} + \frac{5 b^{3} k_{3}}{2 a^{6}} - \frac{b^{3}}{a^{6}}\right) - \frac{k_{2}^{2}}{8} - \frac{k_{4}}{24} + \frac{1}{2 a} + \frac{7 b k_{2}^{2}}{8 a^{2}} - \frac{7 b k_{3}}{6 a^{2}} + \frac{7 b k_{4}}{24 a^{2}} - \frac{2 b}{a^{3}} + \frac{3 c k_{2}^{2}}{4 a^{3}} - \frac{c k_{3}}{a^{3}} + \frac{c k_{4}}{4 a^{3}} - \frac{1}{24 a^{3}} - \frac{9 b^{2} k_{2}^{2}}{4 a^{4}} - \frac{3 b^{2} k_{2}}{a^{4}} + \frac{4 b^{2} k_{3}}{a^{4}} - \frac{3 b^{2} k_{4}}{4 a^{4}} - \frac{c}{a^{4}} + \frac{d k_{2}^{2}}{8 a^{4}} - \frac{d k_{3}}{6 a^{4}} + \frac{d k_{4}}{24 a^{4}} + \frac{4 b^{2}}{a^{5}} - \frac{5 b c k_{2}^{2}}{4 a^{5}} - \frac{3 b c k_{2}}{2 a^{5}} + \frac{13 b c k_{3}}{6 a^{5}} - \frac{5 b c k_{4}}{12 a^{5}} + \frac{15 b^{3} k_{2}^{2}}{8 a^{6}} + \frac{9 b^{3} k_{2}}{2 a^{6}} - \frac{23 b^{3} k_{3}}{6 a^{6}} + \frac{5 b^{3} k_{4}}{8 a^{6}}}{a}

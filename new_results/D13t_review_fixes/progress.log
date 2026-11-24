@@ -1,0 +1,24 @@
+# D13t adversarial review progress log
+turn5 R2: grep+diff audit done. Only intended fix lines changed vs buggy baselines (step_18 unchanged).
+  ecw fixed = 0.483941449038287 = sqrt(2/pi)e^{-1/2} CORRECT; ratio to buggy = 2^{1/4} exactly.
+  GRreg 2^{9/4}=(2rt2)^{3/2} OK; GLm2reg 2^{19/4}=2^{9/4}·2^{5/2} OK; G0reg 2^{3/2} OK; TL0/mSreg/p2mag/d6 OK.
+  sympy: (t^2+rt2 t)^2+(rt2 t+1)^2=(t^2+rt2 t+1)^2 EXACT; H2 numerator 3x^2+6rt2 kx+4k^2; AM-GM (x-1)^2.
+turn6-7 R1: A1m box containment: 39204 + 35840 = 75036 pts, worst violation -2.09e-9 (CONTAINED everywhere; incl N=100..105, sweep-worst cell 1890.71-1891.09, 1e4..1e10, wide and sweep-narrow boxes).
+  zz-box worst violation -1.07e-12 (contained). saddle sigma* in [0.42858, 0.5] subset [0,1] for N in [100,1e20].
+  phi=(pi/rt2)Bh[A1'/y] independently confirmed: worst residual 4.44e-56 @60dps over 2006 pts incl N=100, 1891.
+turn8 R1 REDO (fixed my r<1 test bug; earlier +0.609 'violation' was an inverted y-box in MY test, not the certificate):
+  35840 more pts (grand total 110884), worst violation = -2.30e-10 (CONTAINED everywhere); tight-sweep worst same.
+turn9 R1: sympy independently confirms f'=g/x^2, g'=2x^2/(1+x^2)^2 >= 0, g(0)=0 => f nondecreasing on [0,oo).
+  R1 VERDICT: HOLDS (proved enclosure + 110884-pt containment + phase exactness 4.4e-56 + zz-box contained).
+turn10-11 R3 (H1): saddle branch rho(t)=sqrt(1+t^2/(1+rt2 t)) solves Re Phi'(1/t)=0 (resid 9.9e-48, 300 pts);
+  branch eq rho^2(1+rt2 t)=1+rt2 t+t^2 resid 3.2e-58. B_true exact form: worst rel resid 1.01e-32 over 5000 pts t in [1e-14,1e3].
+  phi = a(1-2rho)/t + N atan(zz) resid 5.5e-47. zz<1 for ALL t (max 0.9986 at t=1e3) => alternating-series bracket valid everywhere;
+  A1n bracket never fails: min(A1n-L)=1.79e-50 (100dps; the 60dps -6.4e-38 was noise), min(U-A1n)=5e-26, t in [1e-12,1e8], 20001 pts.
+  arb Btrue_box well-formed, contains truth at 100000/100000 pts (max viol -1.48e-6, matches D13s 1.5e-6); B_abs=0.16666814<=breg_abs=0.75.
+  R3 VERDICT: HOLDS (exact form verified; bracket proved via |zz|<1 all t; no failure found).
+turn12-14 R4 (H2): x^2|g(x)| max on (0,1] = 0.999998915112 (200000 pts), ->1 as x->0 (tiny-x max 1.0): <=1 CONFIRMED.
+  c_k>0 (k<=60); sum c_k = 1 EXACT (sympy); partial sums track 1-1/sqrt(pi K); nsum's 0.9985 was an nsum artifact.
+  series identity resid ->0 with truncation (1e-9 @K=2e5); beta-integral identity EXACT by B-function def (resid 2.3e-22 quad).
+  min 2Re(w_k)/|w_k| = 1.4142135 >= 1 (dense x in (0,1], k up to 1e8). I0/bound ratio ~0.27 at N=100,400,1e3,1e4.
+  e^RePhi = e^{-ax} x^N (1+rt2 x+x^2)^{-N/2} resid 4.6e-48. Proof chain re-derived by hand: no gap (Weierstrass M, Jensen, |w|<=1, (x-1)^2).
+  R4 VERDICT: HOLDS (proof complete + dense numerics).

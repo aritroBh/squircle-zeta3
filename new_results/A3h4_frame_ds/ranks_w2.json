@@ -1,0 +1,16 @@
+[
+  {
+    "p": 1000000009,
+    "columns": 64,
+    "base": 54,
+    "rank": 55,
+    "quotient": 9
+  },
+  {
+    "p": 1000000033,
+    "columns": 64,
+    "base": 54,
+    "rank": 55,
+    "quotient": 9
+  }
+]

@@ -1,0 +1,41 @@
+=== (L2) Mellin transform of g' ===
+int g'(s) s^w ds, w=-0.7                                   2.897230167136813446611291   rel.resid = 1.85e-51
+int g'(s) s^w ds, w=-0.3                                   1.241670071630062905690553   rel.resid = 2.15e-51
+int g'(s) s^w ds, w=0.2                                    0.9921498513503091377664851   rel.resid = 0.0
+int g'(s) s^w ds, w=0.5                                    1.2360497848675812789559   rel.resid = 0.0
+int g'(s) s^w ds, w=0.9                                    5.120436970519852082251921   rel.resid = 2.09e-51
+int g'(s) s^w ds, w=(0.3 + 2.0j)                           (0.06586049555450686043350142 + 0.003910232865876735094520092j)   rel.resid = 1.22e-40
+=== (L3) cumulants of xi = log(1/S) ===
+E[xi] = 1 - log 2                                          0.3068528194400546905827679   rel.resid = 0.0
+Var[xi] = 1 + pi^2/6                                       2.644934066848226436472415   rel.resid = 2.02e-51
+k3[xi] = 2 - 3 zeta(3)/2                                   0.1969146452606085719003928   rel.resid = 3.39e-51
+geometric mean of S = 2/e                                  0.7357588823428846431910475   rel.resid = 0.0
+rho_2 from exact log R series                              2.739092719646537242305053   rel.resid = 0.0
+rho_3 from exact log R series                              2.66062392028273254667296   rel.resid = 0.0
+int_0^inf g'(s) ds = 1 (probability density)               1.0   rel.resid = 0.0
+=== (L1) layer-cake identity ===
+x       n=3.0   layer-cake vs direct                       0.4521343453163898552246684   rel.resid = 1.48e-51
+x       n=7.5   layer-cake vs direct                       0.2900950909833832903399211   rel.resid = 0.0
+x       n=20.0  layer-cake vs direct                       0.1578568371841151837324798   rel.resid = 1.27e-50
+x^2     n=3.0   layer-cake vs direct                       0.3274511062001828679122797   rel.resid = 2.04e-51
+x^2     n=7.5   layer-cake vs direct                       0.1908444048583798815917116   rel.resid = 0.0
+x^2     n=20.0  layer-cake vs direct                       0.0969250224588393275593558   rel.resid = 0.0
+expm1   n=3.0   layer-cake vs direct                       0.3838206682832826167353328   rel.resid = 1.74e-51
+expm1   n=7.5   layer-cake vs direct                       0.2274557630378809766491952   rel.resid = 0.0
+expm1   n=20.0  layer-cake vs direct                       0.1166090752704493634730386   rel.resid = 0.0
+x+x^3   n=3.0   layer-cake vs direct                       0.3451085047645216352755611   rel.resid = 1.94e-51
+x+x^3   n=7.5   layer-cake vs direct                       0.1969816491832423387854967   rel.resid = 0.0
+x+x^3   n=20.0  layer-cake vs direct                       0.09855761333842831656625288   rel.resid = 0.0
+mobius  n=3.0   layer-cake vs direct                       0.5315116398223746670888517   rel.resid = 0.0
+mobius  n=7.5   layer-cake vs direct                       0.3908478461997742381726141   rel.resid = 2.56e-50
+mobius  n=20.0  layer-cake vs direct                       0.2371086155334366111035613   rel.resid = 1.41e-51
+sin4    n=3.0   layer-cake vs direct                       0.4744689398008640773285094   rel.resid = 0.0
+sin4    n=7.5   layer-cake vs direct                       0.317868949608112877086004   rel.resid = 2.1e-51
+sin4    n=20.0  layer-cake vs direct                       0.1801482589231941770551859   rel.resid = 0.0
+y=(2x-x^2)^2 (slope not monotone) layer-cake vs direct     0.5390693455943006508354387   rel.resid = 0.0
+=== (L4) Mellin inversion g(s) = (1/2 pi i) int_(c) R(-z) s^z dz/z  (=> Mellin-Barnes formula for D_n by Fubini) ===
+Mellin inversion at s=0.3                                  0.2559693491089449820242246   rel.resid = 0.0
+Mellin inversion at s=1.0                                  0.5857864376269049511983113   rel.resid = 0.0
+Mellin inversion at s=7.0                                  0.9289321881345247559915564   rel.resid = 0.0
+
+WORST relative residual over all checks: 1.22e-40

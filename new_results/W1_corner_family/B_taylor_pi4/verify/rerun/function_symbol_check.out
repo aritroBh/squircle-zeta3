@@ -1,0 +1,23 @@
+(1) delta22(A_-1) = -1/2 * rho{-(1-c)/(1+c)} ^ rho{x^2}
+(1) delta22(A_0) = 1 * rho{-(1-c)/(1+c)} ^ rho{x} - rho{-x}
+(2) delta22 of A_-1(c(tau)) in the tau alphabet: 7 nonzero components
+(2) delta22 of A_-1(s(tau)) in the tau alphabet: 28 nonzero components
+(2) delta22 of A_0(c(tau)) in the tau alphabet: 2 nonzero components
+(2) delta22 of A_0(s(tau)) in the tau alphabet: 18 nonzero components
+(2) delta22 of A_1(c(tau)) in the tau alphabet: 0 nonzero components
+(2) delta22 of A_1(s(tau)) in the tau alphabet: 0 nonzero components
+(2) rank of the obstructions of A_{-1}(c), A_0(c), A_{-1}(s), A_0(s): 4
+(3) at c = 1/sqrt2, Lambda^2-images (multiples of e = sqrt2 ^ a):
+      rho{x} -> 1 e
+      rho{-x} -> -1 e
+      rho{x^2} -> 0 e
+      rho{(1-x)/2} -> -6 e
+      rho{-(1-x)/(1+x)} -> 6 e
+      rho{(1-x)/(1+x)} -> 4 e
+    so rho{-(1-c)/(1+c)} ^ rho{c^2} -> 0 and rho{-(1-c)/(1+c)} ^ (rho{c}-rho{-c}) -> 0 (Lambda^2 of a line).
+function-symbol delta22(A_-1) : 2 nonzero components: {(3, 5): Fraction(-1, 1), (4, 5): Fraction(-1, 1)}
+function-symbol delta22(A_0) : 2 nonzero components: {(3, 5): Fraction(1, 1), (4, 5): Fraction(-1, 1)}
+function-symbol delta22(A_1) : 0 nonzero components: {}
+function-symbol obstruction rank of A_{-1}(c), A_0(c), A_{-1}(s), A_0(s) in the tau alphabet: 4
+function-symbol delta22(A_1(c(tau))) components: 0
+function-symbol delta22(A_1(s(tau))) components: 0

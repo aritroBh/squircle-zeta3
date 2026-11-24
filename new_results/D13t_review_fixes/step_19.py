@@ -1,0 +1,18 @@
+import mpmath as mp
+mp.mp.dps = 50
+pi=mp.pi; rt2=mp.sqrt(2); sqpi=mp.sqrt(pi)
+print("R2 constant audit (all printed):")
+print(f"  ecw fixed      = {mp.nstr(mp.sqrt(2/pi)*mp.e**mp.mpf('-0.5'),15)}  (need sqrt(2/pi)e^-1/2 = 0.4839414...)")
+print(f"  ecw buggy      = {mp.nstr(mp.sqrt(rt2/pi)*mp.e**mp.mpf('-0.5'),15)}  ratio fixed/buggy = {mp.nstr(mp.sqrt(2/pi)/mp.sqrt(rt2/pi),12)} = 2^(1/4) = {mp.nstr(2**mp.mpf('0.25'),12)}")
+print(f"  G0reg 2^1.5    = {mp.nstr(2**mp.mpf('1.5'),12)}  vs (2)^1.5 OK; sqpi/4*2^1.5 = {mp.nstr(sqpi/4*2**mp.mpf('1.5'),12)}")
+print(f"  GRreg 2^2.25   = {mp.nstr(2**mp.mpf('2.25'),12)}  vs (2*rt2)^1.5 = {mp.nstr((2*rt2)**mp.mpf('1.5'),12)}  (asymptotic Gamma-ratio const)")
+print(f"  GLm2reg 2^4.75 = {mp.nstr(2**mp.mpf('4.75'),12)}  vs 2^2.25*2^2.5 = {mp.nstr(2**mp.mpf('2.25')*2**mp.mpf('2.5'),12)}  (eta>=1/2 factor 2^(5/2))")
+print(f"  h3 up rt2/3    = {mp.nstr(rt2/3,12)}")
+print(f"  mSreg: pi*rho^3/4*rt2/3 vs (pi/(2y^2))*(y0^3/2)*(rt2/3)/y = pi rho^3 rt2/12 ... check: (N y0^3/2)/y = pi rho^3/4: {mp.nstr((pi/(2*mp.mpf('0.01')**2)*(mp.mpf('1.0001')*mp.mpf('0.01'))**3/2)/mp.mpf('0.01'),12)} vs pi*1.0001^3/4 = {mp.nstr(pi*mp.mpf('1.0001')**3/4,12)}")
+print(f"  TL0: 2*(2+rt2)^(-N/2)*e^th/(N-2); code: 2*exp(-(N/2)*log(2+rt2)+sqrt(pi N))/(N-2): same = {abs(2*(2+rt2)**(-mp.mpf(100)/2)*mp.e**(pi*100)**mp.mpf('0.5')/(100-2) - 2*mp.e**(-(mp.mpf(100)/2)*mp.log(2+rt2)+(pi*100)**mp.mpf('0.5'))/(100-2)) < 1e-40}")
+print(f"  p2mag |acb(t^2+rt2 t, rt2 t+1)| == t^2+rt2 t+1 ? max diff on grid: ", end="")
+mx=max(abs(mp.sqrt((t*t+rt2*t)**2+(rt2*t+1)**2)-(t*t+rt2*t+1)) for t in [i/100 for i in range(1,10001)])
+print(mp.nstr(mx,6))
+print(f"  invp2 |acb(numR, t+rt2)| == sqrt(numR^2+(t+rt2)^2) trivially (modulus of complex) OK")
+print(f"  d6 = (pi/rt2)*B_abs = {mp.nstr(pi/rt2*mp.mpf('0.16666814'),10)} (claimed 0.37024)")
+print(f"  lam2, G1h: Hr(1/rt2) = sqpi/4*Gamma(1/(2rt2))/Gamma(1/(2rt2)+1.5) = {mp.nstr(sqpi/4*mp.gamma(1/(2*rt2))/mp.gamma(1/(2*rt2)+mp.mpf('1.5')),12)}")

@@ -1,0 +1,9 @@
+U_r(c): 80 GPL terms -> 16 (HPL word, constant) terms
+V_r(c): 108 GPL terms -> 30 (HPL word, constant) terms
+U constant monomials: {(): 16}  (weight, mono) counts: {(4, ()): 16}
+V constant monomials: {(): 24, ('z3',): 2, ('z2',): 4}  (weight, mono) counts: {(4, ()): 24, (1, ('z3',)): 2, (2, ('z2',)): 4}
+U_r(1/sqrt2) (HPL)  = -1.016430103443473510637026135051762081965
+U (quadrature)      = -1.016430103443473510637026135051762081965   diff -1.8709e-50
+V_r(1/sqrt2) (HPL)  = 1.281429630921344022065641268801917196815
+V (quadrature)      = 1.281429630921344022065641268801917196815   diff 2.4055e-50
+W4 = U + sqrt2 V    = 0.7957850598322408113203598196297267625465

@@ -1,0 +1,7 @@
+weight-4 prefactor exponents present: [-1, 0, 1]
+U: 16 HPL terms, 16 symbol terms, delta22 = {((0, 1), (1, 2)): Fraction(1, 1), ((0, 2), (1, 2)): Fraction(-1, 1)}
+V: 24 HPL terms, 24 symbol terms, delta22 = {((0, 1), (1, 2)): Fraction(-1, 1), ((0, 2), (1, 2)): Fraction(-1, 1)}
+F_-1: 16 HPL terms, 16 symbol terms, delta22 = {((0, 1), (1, 2)): Fraction(-1, 1), ((0, 2), (1, 2)): Fraction(-1, 1)}
+F_0: 16 HPL terms, 16 symbol terms, delta22 = {((0, 1), (1, 2)): Fraction(1, 1), ((0, 2), (1, 2)): Fraction(-1, 1)}
+F_1: 24 HPL terms, 24 symbol terms, delta22 = {}
+alphabet: 0=c, 1=1-c, 2=1+c

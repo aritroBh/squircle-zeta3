@@ -1,0 +1,26 @@
+M3 from M3_methodA_1200.txt; using 1150 digits
+W4 = M3 - W3' - T = 0.79578505983224081132035981962972676254652741387102
+22 weight-4 products
+17 candidate Li4 arguments: ['(1/2+1/4*sqrt2)', '(-2+2*sqrt2)', '1/2*sqrt2', '-1/2*sqrt2', '(2-1*sqrt2)', '1/2', '(-1+1*sqrt2)', '(1-1*sqrt2)', '(1-1/2*sqrt2)', '(1/2-1/2*sqrt2)', '(3-2*sqrt2)', '(-3+2*sqrt2)', '(1/2-1/4*sqrt2)', '(1/2-3/8*sqrt2)', '(17-12*sqrt2)', '-1', '(-16+12*sqrt2)']
+  Li4((1/2+1/4*sqrt2)): kept (max coef 5.26e+21) (7s)
+  Li4((-2+2*sqrt2)): kept (max coef 6.55e+20) (9s)
+  Li4(1/2*sqrt2): kept (max coef 1.05e+20) (11s)
+  Li4(-1/2*sqrt2): kept (max coef 1.61e+19) (13s)
+  Li4((2-1*sqrt2)): kept (max coef 2.86e+18) (15s)
+  Li4(1/2): dependent (max coef 8.00e+00) (17s)
+  Li4((-1+1*sqrt2)): kept (max coef 1.03e+18) (19s)
+  Li4((1-1*sqrt2)): kept (max coef 1.66e+17) (21s)
+  Li4((1-1/2*sqrt2)): dependent (max coef 3.77e+05) (25s)
+  Li4((1/2-1/2*sqrt2)): dependent (max coef 3.40e+05) (28s)
+  Li4((3-2*sqrt2)): dependent (max coef 8.00e+00) (34s)
+  Li4((-3+2*sqrt2)): dependent (max coef 1.79e+05) (39s)
+  Li4((1/2-1/4*sqrt2)): dependent (max coef 2.03e+06) (44s)
+  Li4((1/2-3/8*sqrt2)): dependent (max coef 1.23e+07) (50s)
+  Li4((17-12*sqrt2)): dependent (max coef 2.72e+05) (57s)
+  Li4(-1): dependent (max coef 7.20e+02) (63s)
+  Li4((-16+12*sqrt2)): dependent (max coef 1.29e+06) (69s)
+kept 7 independent Li4's: ['Li4((1/2+1/4*sqrt2))', 'Li4((-2+2*sqrt2))', 'Li4(1/2*sqrt2)', 'Li4(-1/2*sqrt2)', 'Li4((2-1*sqrt2))', 'Li4((-1+1*sqrt2))', 'Li4((1-1*sqrt2))']
+
+LLL on W4 + 58 basis numbers at 1150 digits: max|coef| = 2.405e+06, residual = -2.41e-1165  (random size ~ 1e19.5; genuine-relation threshold 5.6e+09)
+RELATION FOUND (W4 coefficient -33408 ):
+   -33408*W4 -8814*log2*log2*log2*log2 -27210*sqrt2*log2*log2*log2*log2 +82512*log2*log2*log2*L +168288*sqrt2*log2*log2*log2*L +209808*log2*log2*L*L -173160*sqrt2*log2*log2*L*L -379584*log2*L*L*L +37248*sqrt2*log2*L*L*L +10416*L*L*L*L -4080*sqrt2*L*L*L*L +24000*pi^2*log2*log2 +38937*sqrt2*pi^2*log2*log2 -110880*pi^2*log2*L -65952*sqrt2*pi^2*log2*L +100944*pi^2*L*L +33660*sqrt2*pi^2*L*L -79344*sqrt2*Li2(b)*log2*log2 -801792*Li2(b)*log2*L +1002240*Li2(b)*L*L +116928*sqrt2*Li2(b)*L*L +10097*pi^2*pi^2 +11493*sqrt2*pi^2*pi^2 -158688*pi^2*Li2(b) +1392*sqrt2*pi^2*Li2(b) +1002240*Li2(b)*Li2(b) -12528*z3*log2 +85869*sqrt2*z3*log2 +263088*z3*L -6264*sqrt2*z3*L +200448*Li3(b)*log2 +434304*sqrt2*Li3(b)*log2 +1336320*Li3(b)*L +233856*sqrt2*Li3(b)*L +200448*Li3(-b)*log2 -434304*sqrt2*Li3(-b)*log2 -1336320*Li3(-b)*L +233856*sqrt2*Li3(-b)*L -785088*sqrt2*Li3(1/sqrt2)*log2 -2405376*Li3(1/sqrt2)*L -57600*Li4((1/2+1/4*sqrt2)) -237312*sqrt2*Li4((1/2+1/4*sqrt2)) -218880*Li4((-2+2*sqrt2)) -527616*sqrt2*Li4((-2+2*sqrt2)) +200448*Li4(1/2*sqrt2) +818496*sqrt2*Li4(1/2*sqrt2) +546048*Li4(-1/2*sqrt2) +1674432*sqrt2*Li4(-1/2*sqrt2) +46080*Li4((2-1*sqrt2)) -50688*sqrt2*Li4((2-1*sqrt2)) -150912*Li4((-1+1*sqrt2)) +302976*sqrt2*Li4((-1+1*sqrt2)) -332928*Li4((1-1*sqrt2)) -171648*sqrt2*Li4((1-1*sqrt2))

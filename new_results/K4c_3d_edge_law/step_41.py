@@ -1,0 +1,69 @@
+
+import mpmath as mp
+from mpmath import mpf
+mp.mp.dps = 50
+
+def pslq_debug(x, tol=mpf('1e-30'), maxsteps=30):
+    n = len(x)
+    gam = mp.sqrt(mpf(4)/3)
+    nx = mp.sqrt(sum(xi**2 for xi in x))
+    y = [xi/nx for xi in x]
+    A = [[mpf(1) if i==j else mpf(0) for j in range(n)] for i in range(n)]
+    B = [[mpf(1) if i==j else mpf(0) for j in range(n)] for i in range(n)]
+    s = [mpf(0)]*n
+    for k in range(n-1, -1, -1):
+        s[k] = mp.sqrt(sum(y[i]**2 for i in range(k, n)))
+    H = [[mpf(0)]*(n-1) for _ in range(n)]
+    for j in range(n-1):
+        for i in range(n):
+            if i < j: H[i][j] = mpf(0)
+            elif i == j: H[i][j] = s[j+1]/s[j]
+            else: H[i][j] = -y[i]*y[j]/(s[j]*s[j+1])
+    print("init y:", [mp.nstr(t,6) for t in y])
+    print("init H:")
+    for row in H: print("   ", [mp.nstr(t,6) for t in row])
+    for step in range(maxsteps):
+        best = -1; r = 0
+        for i in range(n-1):
+            val = gam**i * abs(H[i][i])
+            if val > best: best = val; r = i
+        y[r], y[r+1] = y[r+1], y[r]
+        H[r], H[r+1] = H[r+1], H[r]
+        A[r], A[r+1] = A[r+1], A[r]
+        for k in range(n):
+            B[k][r], B[k][r+1] = B[k][r+1], B[k][r]
+        if r < n-2:
+            t0 = mp.sqrt(H[r][r]**2 + H[r][r+1]**2)
+            t1 = H[r][r]/t0; t2 = H[r][r+1]/t0
+            for i in range(r, n):
+                t3, t4 = H[i][r], H[i][r+1]
+                H[i][r] = t1*t3 + t2*t4
+                H[i][r+1] = -t2*t3 + t1*t4
+        for i in range(r+1, n):
+            for j in range(min(i, n-2), -1, -1):
+                if H[j][j] == 0: continue
+                t = mp.nint(H[i][j]/H[j][j])
+                if t != 0:
+                    y[j] += t*y[i]
+                    for k in range(j+1):
+                        H[i][k] -= t*H[j][k]
+                    for k in range(n):
+                        A[i][k] -= t*A[j][k]
+                        B[k][j] += t*B[k][i]
+        if step < 6 or step % 10 == 0:
+            print(f"step {step}: r={r} y={[mp.nstr(t,4) for t in y]}")
+            # check: does any B column give a relation?
+        for i in range(n):
+            if abs(y[i]) < tol:
+                print(f"FOUND at step {step}, i={i}")
+                return [int(mp.nint(B[j][i])) for j in range(n)]
+    # check all B columns for near-relations
+    print("no small y; checking B columns directly:")
+    for i in range(n):
+        dot = sum(B[j][i]*x[j] for j in range(n))
+        print(f"  col {i}: rel={[int(mp.nint(B[j][i])) for j in range(n)]} dot={mp.nstr(dot,3)}")
+    return None
+
+q0 = mpf(1)/2 + 2*mp.log(2)
+rel = pslq_debug([q0, mpf(1), mp.log(2)], maxsteps=40)
+print("relation:", rel)

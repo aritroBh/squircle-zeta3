@@ -1,0 +1,67 @@
+V6a: the two corner constants as moments of the same density h_c (quadrature vs closed forms)
+  theta=  pi/3: C=0.06847689132232860884117149100925885274474 |C-reg.int|=0.0 ; K(pi-theta)=-0.2616240718822739182584036124674354208202 |K-int|=6.68e-52
+  theta=  pi/2: C=0.3068528194400546905827678785418234319245 |C-reg.int|=1.34e-51 ; K(pi-theta)=-0.5533032997205157173708080390429594372259 |K-int|=4.01e-51
+  theta= 2pi/3: C=0.8068528194400546905827678785418234319245 |C-reg.int|=1.34e-51 ; K(pi-theta)=-0.8947436277829484237588185217248643364539 |K-int|=1.34e-51
+  theta= 3pi/4: C=1.144431271068727442221833227914784916763 |C-reg.int|=0.0 ; K(pi-theta)=-1.062834971521984694539011588463509421924 |K-int|=0.0
+
+V6b: C(theta) = -Lambda'_0(theta)  (exact series vs closed form, and vs mp.diff)
+  theta=  pi/3: -Lambda'_0=0.06847689132232860884117149100925885274474  |+C|=6.68e-52  |series - mp.diff|=6.68e-52
+  theta=  pi/2: -Lambda'_0=0.3068528194400546905827678785418234319245  |+C|=1.34e-51  |series - mp.diff|=0.0
+  theta= 2pi/3: -Lambda'_0=0.8068528194400546905827678785418234319245  |+C|=9.35e-51  |series - mp.diff|=1.07e-50
+  theta= 3pi/4: -Lambda'_0=1.144431271068727442221833227914784916763  |+C|=2.67e-51  |series - mp.diff|=2.67e-51
+
+V6e: fast degree-derivative formula vs exact hypergeometric series for Lambda'_m (m <= 15)
+  theta=  pi/3: max_m<=15 |fast - exact series| = 4.22e-48
+  theta=  pi/2: max_m<=15 |fast - exact series| = 2.47e-45
+  theta= 2pi/3: max_m<=15 |fast - exact series| = 3.05e-43
+  theta= 3pi/4: max_m<=15 |fast - exact series| = 1.45e-42
+
+V6d: infinite residue sum  sum_{m>=0} Lambda'_m = 2K(pi-theta).
+     Partial sums S_M along complete periods M = qj-1 obey S_M - S ~ M^(-3/2) sum_i c_i M^(-i);
+     S is extrapolated by solving for (S, c_0..c_{p-1}) from p+1 values of M <= 6000 (dps 60).
+  theta=  pi/3: partial sum to M=100: error -0.000741   error*M^1.5 = -0.7406
+  theta=  pi/3: partial sum to M=1000: error -2.37e-5   error*M^1.5 = -0.75
+  theta=  pi/3: partial sum to M=6000: error 4.33e-7   error*M^1.5 = 0.2012
+  theta=  pi/3: extrapolated sum (p= 6) = -0.523248143764547836516807225014901853646624764   |sum - 2K| = 8.0e-29
+  theta=  pi/3: extrapolated sum (p= 9) = -0.52324814376454783651680722493487084163980766   |sum - 2K| = 6.63e-40
+  theta=  pi/3: extrapolated sum (p=11) = -0.52324814376454783651680722493487084164047114   |sum - 2K| = 3.81e-45
+  theta=  pi/3: 2K(pi-theta) = -0.523248143764547836516807224934870841640471136;  C + 2K = sum_(m>=1) Lambda'_m = -0.454771252442219227675635733926
+  theta=  pi/2: partial sum to M=100: error 0.000619   error*M^1.5 = 0.6186
+  theta=  pi/2: partial sum to M=1000: error 1.98e-5   error*M^1.5 = 0.6258
+  theta=  pi/2: partial sum to M=6000: error 1.35e-6   error*M^1.5 = 0.6265
+  theta=  pi/2: extrapolated sum (p= 6) = -1.10660659944103143474161607816068884746534525   |sum - 2K| = 7.48e-29
+  theta=  pi/2: extrapolated sum (p= 9) = -1.10660659944103143474161607808591887445242463   |sum - 2K| = 6.44e-40
+  theta=  pi/2: extrapolated sum (p=11) = -1.1066065994410314347416160780859188744517809   |sum - 2K| = 7.82e-44
+  theta=  pi/2: 2K(pi-theta) = -1.10660659944103143474161607808591887445178098;  C + 2K = sum_(m>=1) Lambda'_m = -0.799753780000976744158848199544
+  theta= 2pi/3: partial sum to M=100: error -0.00023   error*M^1.5 = -0.2295
+  theta= 2pi/3: partial sum to M=1000: error -7.34e-6   error*M^1.5 = -0.2321
+  theta= 2pi/3: partial sum to M=6000: error 1.87e-6   error*M^1.5 = 0.867
+  theta= 2pi/3: extrapolated sum (p= 6) = -1.78948725556589684751763704350374918173722857   |sum - 2K| = 5.4e-29
+  theta= 2pi/3: extrapolated sum (p= 9) = -1.78948725556589684751763704344972867290894266   |sum - 2K| = 1.18e-39
+  theta= 2pi/3: extrapolated sum (p=11) = -1.78948725556589684751763704344972867290775735   |sum - 2K| = 8.49e-42
+  theta= 2pi/3: 2K(pi-theta) = -1.78948725556589684751763704344972867290776585;  C + 2K = sum_(m>=1) Lambda'_m = -0.982634436125842156934869164908
+  theta= 3pi/4: partial sum to M=100: error -0.000843   error*M^1.5 = -0.8429
+  theta= 3pi/4: partial sum to M=1000: error 2.7e-5   error*M^1.5 = 0.8543
+  theta= 3pi/4: partial sum to M=6000: error 1.84e-6   error*M^1.5 = 0.8553
+  theta= 3pi/4: extrapolated sum (p= 6) = -2.12566994304396938907802317691470188353752476   |sum - 2K| = 1.23e-29
+  theta= 3pi/4: extrapolated sum (p= 9) = -2.12566994304396938907802317692701884383044369   |sum - 2K| = 1.72e-38
+  theta= 3pi/4: extrapolated sum (p=11) = -2.1256699430439693890780231769270188438476061   |sum - 2K| = 2.6e-44
+  theta= 3pi/4: 2K(pi-theta) = -2.12566994304396938907802317692701884384760607;  C + 2K = sum_(m>=1) Lambda'_m = -0.981238671975241946856189949012
+
+V6c: exact finite-M identity  -2K + sum_{m<=M} Lambda'_m = I_M  (I_M by quadrature on Re w = M+1/2)
+  theta=  pi/3 M= -1: I_M=    0.523248143764547836516807224935  |lhs - I_M|=1.34e-51
+  theta=  pi/3 M=  0: I_M=    0.454771252442219227675635733926  |lhs - I_M|=2.0e-51
+  theta=  pi/3 M=  3: I_M=  -0.0334539202183294928291149857322  |lhs - I_M|=1.59e-51
+  theta=  pi/3 M= 10: I_M=  -0.0207827533898686098311867064109  |lhs - I_M|=1.26e-49
+  theta=  pi/2 M= -1: I_M=     1.10660659944103143474161607809  |lhs - I_M|=8.02e-51
+  theta=  pi/2 M=  0: I_M=    0.799753780000976744158848199544  |lhs - I_M|=8.02e-51
+  theta=  pi/2 M=  3: I_M=  -0.0747597460423360802059471793361  |lhs - I_M|=2.34e-51
+  theta=  pi/2 M= 10: I_M=  -0.0175111323928081406121286603415  |lhs - I_M|=1.35e-47
+  theta= 2pi/3 M= -1: I_M=     1.78948725556589684751763704345  |lhs - I_M|=2.67e-51
+  theta= 2pi/3 M=  0: I_M=    0.982634436125842156934869164908  |lhs - I_M|=9.35e-51
+  theta= 2pi/3 M=  3: I_M=    0.110134844327115229524474363668  |lhs - I_M|=5.2e-50
+  theta= 2pi/3 M= 10: I_M= -0.00652672510224436762354364998787  |lhs - I_M|=5.23e-47
+  theta= 3pi/4 M= -1: I_M=     2.12566994304396938907802317693  |lhs - I_M|=0.0
+  theta= 3pi/4 M=  0: I_M=    0.981238671975241946856189949012  |lhs - I_M|=2.67e-51
+  theta= 3pi/4 M=  3: I_M=   0.0775171626089996905171512443434  |lhs - I_M|=3.81e-50
+  theta= 3pi/4 M= 10: I_M=-0.0000970872735272244087709726834835  |lhs - I_M|=7.92e-47

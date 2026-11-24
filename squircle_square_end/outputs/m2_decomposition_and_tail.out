@@ -1,0 +1,34 @@
+Step (1) symbolic checks (must be 0):
+   R1 - [2/(v+a) + (3sqrt2-4)/(4v) + D]      : 0
+   R2 - [-sqrt2/(4v) - D]                    : 0
+   dg/dv - D                                 : 0
+   g(b)                                      : 0
+   g(a) + 1                                  : 0
+
+Sanity (numerics): W3 = -0.55350868127887636470863436098296406   T = 0.53134677019160696528487942324317254
+   W3 + T - M2(reference, 690 digits) = 5.381e-42
+   partial fractions of g dt/t: poly=0, residues={0: (1/2-1/2*sqrt2), (-1-1*sqrt2): -1}
+   partial fractions of g dt/(1-t): poly=0, residues={(1+1*sqrt2): 1, 0: (-1/2+1/2*sqrt2)}
+
+T before Li2 reduction: (1/4+1/12*sqrt2)*pi^2 + -1/8*log^2(2) + 1/4*log2*L + (1/2-1/2*sqrt2)*L^2 + 1*Li2((-1+1*sqrt2)) + -1/2*Li2((-2+2*sqrt2)) + (1/4-1/4*sqrt2)*Li2((-3+2*sqrt2)) + (1/4-1/4*sqrt2)*Li2((-3-2*sqrt2)) + -1/2*Li2((1/2+1/4*sqrt2)) + -1/2*Li2((2-1*sqrt2)) + (-1/2+1/2*sqrt2)*Li2(-1) + (-1/2-1/2*sqrt2)*Li2(1) + 1/2*Li2(1/2) + -1/2*Li2(1/2*sqrt2)
+   numerical: 0.53134677019160696528487942324317254
+
+Li2 reduction certificate:
+  Li2(1) = 1/6*pi^2      [value (V)]
+  Li2(-1) = -1/12*pi^2      [value (V)]
+  Li2((-3+2*sqrt2)) = 1/2*log2*L + 1*Li2((1-1*sqrt2)) + 1*Li2((3-2*sqrt2)) + -1*Li2(-1) + 1*Li2(-1*sqrt2)      [Abel five-term (A) at (x,y)=(-1*sqrt2, (1-1*sqrt2))]
+  Li2((2-1*sqrt2)) = 1/6*pi^2 + 1/2*log2*L + -1*L^2 + -1*Li2((-1+1*sqrt2))      [reflection (R)]
+  Li2(-1*sqrt2) = -1/2*L^2 + -1*Li2((2-1*sqrt2))      [Landen (La)]
+  Li2((1-1*sqrt2)) = -1/8*pi^2 + 1/2*L^2 + 1*Li2((-1+1*sqrt2))      [Landen's chi_2 value (X)]
+  Li2((3-2*sqrt2)) = 2*Li2((-1+1*sqrt2)) + 2*Li2((1-1*sqrt2))      [duplication (D)]
+  Li2((-3-2*sqrt2)) = -1/6*pi^2 + -2*L^2 + -1*Li2((-3+2*sqrt2))      [inversion (I)]
+  Li2(1/2) = 1/12*pi^2 + -1/2*log^2(2)      [value (V)]
+  Li2((1/2+1/4*sqrt2)) = -9/8*log^2(2) + -3/2*log2*L + -1/2*L^2 + -1*Li2((-3-2*sqrt2))      [Landen (La)]
+  Li2((-1-1*sqrt2)) = -1/6*pi^2 + -1/2*L^2 + -1*Li2((1-1*sqrt2))      [inversion (I)]
+  Li2(1/2*sqrt2) = -1/8*log^2(2) + -1/2*log2*L + -1/2*L^2 + -1*Li2((-1-1*sqrt2))      [Landen (La)]
+  Li2((-2+2*sqrt2)) = 1/6*pi^2 + 2*log2*L + -2*L^2 + -1*Li2((3-2*sqrt2))      [reflection (R)]
+
+T after reduction: 1/24*pi^2 + 1/4*log^2(2)
+T - (pi^2 + 6 log^2 2)/24 = 0
+=> T = (pi^2 + 6 log^2 2)/24 = (zeta(2) - Li2(1/2))/2   PROVED (exact arithmetic).
+   Hence M2 = W3 + (pi^2+6 log^2 2)/24 with W3 the pure weight-3 integral above.

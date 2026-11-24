@@ -1,0 +1,22 @@
+delta22( Li2(x)*Li2(-x) ) = {}
+delta22( H_{1,-1}*H_{0,-1} ) = {}
+delta22( log(1+x)*H_{0,1,-1} ) = {}
+delta22( Li4((1-x)/2) ) = {}
+
+prefactor c^-1: weight-4 symbol has 20 terms; delta_22 has 6 nonzero components
+  1 * [(2)^(1-x)] ^ [(x)^(1-x)]
+  1 * [(2)^(1-x)] ^ [(x)^(1+x)]
+  -1 * [(2)^(1+x)] ^ [(x)^(1-x)]
+  -1 * [(2)^(1+x)] ^ [(x)^(1+x)]
+  -1 * [(x)^(1-x)] ^ [(1-x)^(1+x)]
+  -1 * [(x)^(1+x)] ^ [(1-x)^(1+x)]
+
+prefactor c^0: weight-4 symbol has 40 terms; delta_22 has 6 nonzero components
+  -1 * [(2)^(1-x)] ^ [(x)^(1-x)]
+  1 * [(2)^(1-x)] ^ [(x)^(1+x)]
+  1 * [(2)^(1+x)] ^ [(x)^(1-x)]
+  -1 * [(2)^(1+x)] ^ [(x)^(1+x)]
+  1 * [(x)^(1-x)] ^ [(1-x)^(1+x)]
+  -1 * [(x)^(1+x)] ^ [(1-x)^(1+x)]
+
+prefactor c^1: weight-4 symbol has 78 terms; delta_22 has 0 nonzero components

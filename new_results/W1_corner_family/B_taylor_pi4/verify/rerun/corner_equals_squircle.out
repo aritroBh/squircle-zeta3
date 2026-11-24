@@ -1,0 +1,4 @@
+u = 0.3: corner M(u;pi/2) = -0.47884027378128944775365, squircle -F/2 = -0.47884027378128944775365, diff = 0.0
+u = 0.7: corner M(u;pi/2) = -0.3775307445630558389089907, squircle -F/2 = -0.3775307445630558389089907, diff = 0.0
+u = -0.4: corner M(u;pi/2) = -0.6592287032464235431977432, squircle -F/2 = -0.6592287032464235431977432, diff = 1.27e-27
+weight-4 HPL words in B3 by prefactor c^e: {-1: 16, 0: 16, 1: 24} ; distinct words overall: 24

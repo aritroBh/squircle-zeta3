@@ -1,0 +1,16 @@
+self-tests of quasi-shuffle, peeling, HPL-coefficient and harmonic-number rules (exact, several n): True
+  H_{0,0,1}(1/3) - Li3(1/3)       : 0.0
+  H_{0,-1}(1/3) + Li2(-1/3)       : 2.47e-31
+  H_{1,1}(1/3) - log(1-x)^2/2     : 9.86e-32
+B3 part 1: 74 terms | canonical words even/mu: 12/12 | even identity: True | odd identity: True | c^-2..c^3 exact: True | spot checks: True
+B3 part z2: 15 terms | canonical words even/mu: 2/2 | even identity: True | odd identity: True | c^-2..c^3 exact: True | spot checks: True
+B3 part z3: 5 terms | canonical words even/mu: 1/1 | even identity: True | odd identity: True | c^-2..c^3 exact: True | spot checks: True
+B2: mu_(2,n) zeta3 part empty: True
+B2 part 1: 24 terms | canonical words even/mu: 5/5 | even identity: True | odd identity: True | c^-2..c^3 exact: True | spot checks: True
+B2 part z2: 5 terms | canonical words even/mu: 1/1 | even identity: True | odd identity: True | c^-2..c^3 exact: True | spot checks: True
+B3 and B2 hold for all n >= 1 (verifier, independent code): True
+mutation control on hpl_fit_k3_(0,0,0).json: identity fails in 5 of the perturbed trials (must equal number of trials run)
+mutation control on hpl_fit_k3_(1,0,0).json: identity fails in 5 of the perturbed trials (must equal number of trials run)
+W4 1-part: even canonical words 12, odd part vanishes identically: True
+W4 z2-part: even canonical words 2, odd part vanishes identically: True
+W4 z3-part: even canonical words 1, odd part vanishes identically: True

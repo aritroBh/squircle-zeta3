@@ -1,0 +1,4 @@
+2026-10-22 02:29:11 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-22 02:29:11 weight 2 relation families: {'double_shuffle_nonzero': 35, 'double_shuffle_new': 35, 'distribution_nonzero': 25, 'distribution_new': 25, 'lift_nonzero': 28, 'lift_new': 28}; unique rows=88
+2026-10-22 02:29:11 weight 3 relation families: {'double_shuffle_nonzero': 568, 'double_shuffle_new': 568, 'distribution_nonzero': 119, 'distribution_new': 119, 'lift_nonzero': 634, 'lift_new': 634}; unique rows=1321
+2026-10-22 02:51:25 weight 3 relation families: {'double_shuffle_nonzero': 568, 'double_shuffle_new': 568, 'distribution_nonzero': 119, 'distribution_new': 119, 'lift_nonzero': 641, 'lift_new': 641}; unique rows=1328

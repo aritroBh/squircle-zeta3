@@ -1,0 +1,5 @@
+k=7 (tau0=0.0025, 16 levels down to 7.63e-8)
+   c2' - zeta(2)                 = -9.46e-59   (extrapolation stability 5.43e-58)
+   c3' - zeta(3)                 = -6.11e-58   (stability -3.78e-56)
+   c4' - (-(33/16+7k^2) zeta4)   = 4.17e-56   (stability -2.44e-55)   c4'=-373.469160832449622209991
+   c5' - claim                   = 3.03e-55   (stability 1.67e-53)   c5'=-595.0274710957483403791698

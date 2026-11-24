@@ -1,0 +1,12 @@
+E0 = L
+E1 = -2*L*alpha*l0*t + 2*L*beta*l1*t - L*beta*l1 - L*gam1*t - L*tau1 - alpha*l0*s0 + beta*l1*s0 - gam1*s0
+total degree of E3 in logs: 3
+tau/gam in g21: set()
+tau/gam in g12: set()
+g21 = alpha*beta*(24*L**3*alpha*t**3 - 18*L**3*alpha*t**2 - 6*L**3*t**2 + 4*L**3*t + 18*L**2*alpha*s0*t**2 - 12*L**2*alpha*s0*t - 4*L**2*s0*t + 2*L**2*s0 + 6*L*alpha*h**2*t - 3*L*alpha*h**2 - L*h**2 - 3*alpha*h**2*s0)/(2*L**2)
+g12 = -alpha*beta*(24*L**3*beta*t**3 - 36*L**3*beta*t**2 + 12*L**3*beta*t + 6*L**3*t**2 - 4*L**3*t + 18*L**2*beta*s0*t**2 - 24*L**2*beta*s0*t + 6*L**2*beta*s0 + 4*L**2*s0*t - 2*L**2*s0 + 6*L*beta*h**2*t - 6*L*beta*h**2 + L*h**2 - 3*beta*h**2*s0)/(2*L**2)
+g21 polynomial in t of degree 3
+int g21 = -alpha*beta*h**2*(L + 3*alpha*s0)/(2*L**2)
+int g12 = alpha*beta*h**2*(3*L*beta - L + 3*beta*s0)/(2*L**2)
+int (g21+g12) = -alpha*beta*h**2*(-3*L*beta + 2*L + 3*alpha*s0 - 3*beta*s0)/(2*L**2)
+saved s01_E.pkl, s01_out.txt

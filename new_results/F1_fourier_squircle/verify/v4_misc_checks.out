@@ -1,0 +1,13 @@
+(a) (4/pi) int u [(4t-pi)^2 + 8 - pi^2/3] - zeta(3) = -2.67e-51
+    8<u, beta_4 - 4 beta_2> - zeta(5) = -2.67e-51
+(b) k=1: theta-quad -0.21460183660255169038433915418  w-formula diff 0.0  closed-form diff 0.0   coefficient of pi/4 in closed form = +1  ((-1)^k = -1)
+(b) k=2: theta-quad -0.0886846024316963193578625659766  w-formula diff 0.0  closed-form diff 5.01e-52   coefficient of pi/4 in closed form = -1  ((-1)^k = +1)
+(b) k=3: theta-quad -0.0487175944980349409838635510779  w-formula diff 0.0  closed-form diff -9.19e-52   coefficient of pi/4 in closed form = +1  ((-1)^k = -1)
+(b) k=4: theta-quad -0.0309873123564337085836244120011  w-formula diff 0.0  closed-form diff 4.59e-52   coefficient of pi/4 in closed form = -1  ((-1)^k = +1)
+    k=0: a_0(v) - (4G/pi + log2 - pi/4) = 0.0
+(c) I_{0,3} - closed = 1.54e-50 ;  I_{1,2} - closed = -1.34e-51
+    k=0: pi c4/sqrt2 + (33/16+7k^2) zeta4 = 0.0
+    k=1: pi c4/sqrt2 + (33/16+7k^2) zeta4 = 0.0
+    k=4: pi c4/sqrt2 + (33/16+7k^2) zeta4 = 1.71e-49
+(d) t=0.3: P - (4sqrt2(1-t)+8t) = 1.07e-50;  A - (2+4t-2t^2) = 0.0
+(d) t=0.7: P - (4sqrt2(1-t)+8t) = 0.0;  A - (2+4t-2t^2) = 0.0

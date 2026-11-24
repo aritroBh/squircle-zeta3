@@ -1,0 +1,9 @@
+Z_e^(5)  = 360 al be h^2/L [ A5 + (h^2/L^2) B5 ]
+Z_e^(2,3)= 120 al be h^2/L [ A23 + (h^2/L^2) B23 ]
+A5  = -32*alpha**2*u**2 - 20*alpha*beta*u*v*(alpha*u + beta*v) - 48*alpha*beta*u*v + 15*alpha*u - 32*beta**2*v**2 + 15*beta*v + 20*(alpha*u + beta*v)**3 - 2
+B5  = 8*alpha**2 + 5*alpha*beta*(alpha + beta) + 15*alpha*beta*(alpha*u + beta*v) - 12*alpha*beta + 8*beta**2 + (-15*alpha**2 - 15*beta**2)*(alpha*u + beta*v)
+A23 = 12*alpha**2*u**2 - 60*alpha*beta*u*v*(alpha*u + beta*v) + 72*alpha*beta*u*v - 12*alpha*u + 12*beta**2*v**2 - 12*beta*v + 2
+B23 = -3*alpha**2 + 15*alpha*beta*(alpha + beta) - 45*alpha*beta*(alpha*u + beta*v) + 18*alpha*beta - 3*beta**2
+law==raw Z5 True Z23 True
+regular per-edge Z5==tgt True, Z23==tgt True
+diamond C_2^(5)=-90*sqrt(2), C_2^(2,3)=-210*sqrt(2)

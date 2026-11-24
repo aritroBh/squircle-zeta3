@@ -1,0 +1,42 @@
+DEC1: decagon P'''(1) closed form — progress log
+step: exact geometry. R=1/(2 phi^2 sin36), h=1/(2phi), L=1/(2 phi^3 sin36)=R/phi.
+ terms: a1=B1(1+kap1 t), kap1=phi-1; a2=A0 t; a3=A1(1-t); a4=B4(1+kap4 t), kap4=1/phi-1; a5=B5 const.
+ A0=A1=B1=1/(2phi^2), B4=B5=1/(2phi). ratios {phi,1/phi,1}; x1=-kap1=-1/phi, x4=-kap4=1/phi^2.
+step: numeric (100dps) series engine -> E3n_num100.pkl; 55 nonzero keys
+step: E3(0.3) check vs direct d-series: diff = 0.01565 (80 dps)
+step: E3(0.3) check vs direct d-series: diff = 6.259e-82 (80 dps)
+step: exact Q(sqrt5) reconstruction of all coeffs; max denom 384, max residual 1.568e-99
+step: 60*L*int E3n vs 200-digit P'''(1): diff = 9.272e-59 (60 dps quad)
+step: basis change done; 261 monomials; classes {'local': 95, 'single_x1': 70, 'single_x4': 70, 'mixed': 26}; mixed types [(0, 0, 1, 1), (0, 0, 1, 2), (0, 0, 2, 1), (0, 1, 1, 1), (1, 0, 1, 1)]; n per type {(0, 0, 1, 1): [0, 1, 2, 3], (0, 0, 1, 2): [0, 1, 2, 3], (0, 0, 2, 1): [0, 1, 2, 3], (0, 1, 1, 1): [0, 1, 2, 3], (1, 0, 1, 1): [0, 1, 2, 3]}
+step: early result.md written.
+step: tanh-sinh 680dps quad: int E3n computed, err est 1.0e-827, P3 saved P3_660.pkl
+step: D-constants by 100dps quad; closed forms D5,D6,D7,D8,D9,D10,D1(double-shuffle),D4 verified (see result.md); swap numeric from D2/D3 agrees.
+step: 830-dps atoms: L3 at {1/phi^2,-1/phi,1/phi}, A(x1),A(x4), Lam=Li21(x1,x1), swap=Li21(x4,-phi). saved atoms830.pkl
+step: pslq of 4 atoms vs 10-const basis at 830 dps: [('A_x1', True), ('A_x4', True), ('Lam', True), ('swap', True)]
+step: pslq vs independent 9-const basis: A_x1 [-5, 4, -2, 0, 0, 0, 0, 0, 10, 0], A_x4 [-5, 5, -3, 0, 0, 0, 0, 0, 20, 15], Lam [-5, 2, 4, 0, -5, 0, 0, 0, 15, 5], swap [-5, 3, -7, 0, 10, 0, 0, 0, 5, 5]
+step: A-atom 4x4 orbit system (L2@x4, DIFF@x4, L2@xf, L1@phi + Li inversions) solved exactly;
+  solutions == LLL reductions EXACTLY (symbolic diff 0); Li2 golden relations verified 830d; A(x1),A(x4) match direct series.
+step: orbit system re-solved with corrected R4 (Li3 inversion Li3(-x)=Li3(-1/x)-z2 ln x-ln^3 x/6, PROVED by differentiation).
+  A(x1) = -L3f/2 + 3*L3x1/2 + L3x4/2 - lf**3/4 - lf*z2/10 + z3/2
+  A(x4) = -5*L3f/2 - 3*L3x1/2 - L3x4/2 + 5*lf**3/4 - 21*lf*z2/10 + 5*z3/2
+  both == LLL reductions exactly modulo golden Li3 lattice (R_a + sum-rel).
+step: golden Li3 lattice verified 830d (R_a, sum-rel, Lewin). Lam & swap LLL reductions match series 830d;
+  stuffle cross-checks: st1b=-3.052e-831, st2b=-2.171e+873.
+step: independent 700d quad cross-checks: |swap_quad-swap_LLL|=2.987e-702, |Lam_quad-Lam_LLL|=0.08294
+step: |Lam_quad-Lam_LLL|=1.294e-701 (700d quad)
+step: decagon mixed engine built (D1..D10 closed forms, recursions). 20 mixed integrals vs quad 110dps: worst 8.42e-111
+step: dec_engine.py module written.
+step: Jloc (40) worst 2.885e-107; Jtab at x1,x4 (40 each) worst 3.243e-110, 9.11e-110 (110 dps quad)
+step: full assembly S (580 terms) -> P3_asm; |P3_asm - 640d gold| = 7.315e-108 (110d eval)
+step: reductions substituted: S1 (643 terms), S2 (562), S3 (548); |60 L S3 - gold|=8.253e-108
+step: final table: 15 named monomials in basis [l2,lf,z2,z3,L3(-1/phi),L3(1/phi)]; saved final_table.pkl
+step: canonical table: 15 monomials, p+q sqrt5 coefficients extracted; matches S3.
+step: local z3 == C_5 exactly. total z3 = -1179*sqrt(2*sqrt(5) + 10)/128 - 1179*sqrt(10 - 2*sqrt(5))/128 + 525*sqrt(50 - 10*sqrt(5))/128 + 525*sqrt(10*sqrt(5) + 50)/128+-525*sqrt(2*sqrt(5) + 10)/128 - 1179*sqrt(50 - 10*sqrt(5))/640 + 525*sqrt(10 - 2*sqrt(5))/128 + 1179*sqrt(10*sqrt(5) + 50)/640sqrt5 *L-units; N_e = -669*sqrt(2*sqrt(5) + 10)/1280 - 669*sqrt(10 - 2*sqrt(5))/1280 + 63*sqrt(50 - 10*sqrt(5))/256 + 63*sqrt(10*sqrt(5) + 50)/256+-63*sqrt(2*sqrt(5) + 10)/256 - 669*sqrt(50 - 10*sqrt(5))/6400 + 63*sqrt(10 - 2*sqrt(5))/256 + 669*sqrt(10*sqrt(5) + 50)/6400sqrt5.
+step: 15-term table at 750dps vs 640d gold: 1.082e-676. z3: [S3]=33/64 - 19*sqrt(5)/80, T/L=495/16 - 57*sqrt(5)/4, C5/L=75/8 - 15*sqrt(5)/2, Ne/L=69/32 - 27*sqrt(5)/40
+step: gold vs D15b 200d: 2.027e-101; m=2 closed form check diff 2.286e-100
+step: full result.md written.
+step: LLL stability across 400/600/830 dps: identical integer vectors, residuals scale ~10^-dps.
+step: Li2 golden relations + Li3 inversion + Li3 lattice re-verified at full 830 dps (pure mpmath).
+step: all four orbit equations verified at 830 dps (residuals printed).
+step: all four orbit equations verified 830 dps. Work complete: P'''(1)=60*L*S (15 terms),
+ verified 1.1e-676; no depth-2 constant survives; local z3 == C_5 exactly. result.md final.

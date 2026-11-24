@@ -1,0 +1,9 @@
+regular: 2m*Z_e - C_m = 0
+rhombus: 4*Z_e - 24a^2b^2/r^3 = 0
+parallelogram edge: Z_e = 6*h**2/L
+affine-regular hexagon edge: Z_e = -3*h**2/(4*L)
+tangential: Z_e - (3/2) L sin e0 sin e1 (3 sin^2(e0/2) + 3 sin^2(e1/2) - 2) = 0
+C_m series in 1/m: 25*pi**6/(8*m**5) - 3*pi**4/m**3 + O(m**(-6), (m, oo))
+m = 10: C_m * m^3 = -263.072886196;  -3 pi^4 = -292.227273102
+m = 100: C_m * m^3 = -291.926929254;  -3 pi^4 = -292.227273102
+m = 1000: C_m * m^3 = -292.22426877;  -3 pi^4 = -292.227273102

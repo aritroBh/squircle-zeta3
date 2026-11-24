@@ -1,0 +1,3 @@
+sheared parallelogram  S = 1.1874595779566900456  alpha,beta on edges: ['1.0']  |P^(k) - law| k=0..3: ['0.0', '1.09e-45', '2.24e-43', '2.47e-41']
+parallelogram 2  S = 0.63509611708008424777  alpha,beta on edges: ['1.0']  |P^(k) - law| k=0..3: ['7.01e-46', '1.75e-46', '7.36e-45', '1.05e-43']
+affine-regular hexagon T(regular)  S = 3.38534680664632312  alpha,beta on edges: ['0.5']  |P^(k) - law| k=0..3: ['0.0', '1.4e-45', '2.38e-44', '2.1e-41']

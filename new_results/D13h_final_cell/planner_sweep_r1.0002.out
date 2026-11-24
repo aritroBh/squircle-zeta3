@@ -1,0 +1,5 @@
+cells accepted 85181, gave up 0, splits 0, time 657.6s
+sup C over accepted cells = 254.536
+contiguous cover of [400,1e10] with all cells certified: True
+
+[exited with code 0]

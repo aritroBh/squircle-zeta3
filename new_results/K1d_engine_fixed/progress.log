@@ -1,0 +1,19 @@
+step_40a: PROVED sympy sqrt-series d^3 coeff = g3/(2Ls) - g1*g2/(4Ls^3) + g1^3/(16Ls^5); buggy 1/8 version does not match.
+step_40: rebuilt E3_fixed.pkl with 1/4 fix. E3 computed (fix applied); expanding... t=1.8s | total monomials: 80 | nonlocal monomials: 40  local: 40 | max t-degree nonlocal: 3 | saved E3_fixed.pkl   (3.8 s)
+step_41: checked E3_fixed.pkl integrand at t=0.3 edge1 b=0 vs verifier -0.64720423662744655873985211888.
+series engine E3(t=0.3): -0.64720423662744655873985211888
+t5 symbolic   E3(t=0.3): -0.64720423662744655873985211888
+E3_fixed.pkl  E3(t=0.3): -0.64720423662744655873985211888
+
+verifier target          : -0.64720423662744655873985211888
+series - verifier : 3.33e-31
+t5     - verifier : 3.33e-31
+pkl    - verifier : 3.33e-31
+OLD buggy pkl E3(t=0.3): 0.539424187485727589529446399493  diff: 1.19
+
+step_42: step_04 rerun with E3_fixed.pkl for b=0 and b=1; closed forms, cz3, N_e, P3 diffs, relation residuals printed.
+step_43: fresh PSLQ b=1 on [X,z3,pi2 log2,log2^3,pi2,log2^2,log2,1]; compared vs engine-exact relations and cz3=Z_e+N_e.
+step_43 RESULT: all 3 b=1 arcs: fresh PSLQ == engine-exact relation, resid ~1e-100, cz3=Z_e+N_e verified. NUMERICAL law predicts.
+step_47: general law N_e = PhA*z3[A(1-r)] + PhL*z3[Li3(1-r)] with closed-form PhA,PhL; verified symbolic equality of candidate brackets vs full pickle under constraints; N_e matches on all nonlocal arcs.
+step_48: atom z3-contents re-verified at 80 digits: A(-1)=-5z3/8, A(1/2)=z3-pi^2log2/12, Li3(-1)=-3z3/4, Li3(1/2)=7z3/8-pi^2log2/12+log^3 2/6 (diffs 0.0).
+step_49: octagon atoms: I111 reduction to Li_{1,1}(x2,x1/x2),Li_{1,1}(x1,x2/x1) verified 60 digits; weight-3 families identified (Li_{2,1},Li_{1,2},H1); octagon-point Landen degeneracies found (Li2(x1)+Li2(x2)+l1^2/2=0). result.md written. DONE.

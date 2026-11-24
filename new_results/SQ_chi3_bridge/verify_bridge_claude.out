@@ -1,0 +1,11 @@
+DIFF: 164 words, max |coeff| 96
+LHS vec - 48 chi3(b)              : 9.26e-139
+RHS vec - (32r2 L8 - 3pi^2 L + 4L^3): 6.88e-139
+DIFF . values                     : 1.55e-138
+p=1000000033 rational base: rank 542, +DIFF 542, in span: True
+p=1000000033 base+Kummer: rank 544, +DIFF 544, in span: True
+p=1000000241 rational base: rank 542, +DIFF 542, in span: True
+p=1000000241 base+Kummer: rank 544, +DIFF 544, in span: True
+independent rows 542; solving 542x542 exactly over Q ...
+solved in 1s; 470 nonzero multipliers
+EXACT CERTIFICATE: DIFF = sum c_i row_i holds on all 576 words

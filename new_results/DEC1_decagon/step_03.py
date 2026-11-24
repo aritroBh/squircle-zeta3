@@ -1,0 +1,1 @@
+print(open('research/08_theory/DEC1_decagon.brief').read())

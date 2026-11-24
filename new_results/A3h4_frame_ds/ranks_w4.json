@@ -1,0 +1,54 @@
+[
+  {
+    "system": "T3",
+    "p": 1000000009,
+    "r": 291087696,
+    "base_rank": 5074,
+    "own_added_rank": 8,
+    "added_rank": 8,
+    "rank": 5082,
+    "quotient": 102,
+    "extra_plus_P4_rank": 9,
+    "extra_plus_P4_D_rank": 9,
+    "D_member": true
+  },
+  {
+    "system": "T3",
+    "p": 1000000033,
+    "r": 12641440,
+    "base_rank": 5074,
+    "own_added_rank": 8,
+    "added_rank": 8,
+    "rank": 5082,
+    "quotient": 102,
+    "extra_plus_P4_rank": 9,
+    "extra_plus_P4_D_rank": 9,
+    "D_member": true
+  },
+  {
+    "system": "T3noR",
+    "p": 1000000009,
+    "r": 291087696,
+    "base_rank": 5059,
+    "own_added_rank": 10,
+    "added_rank": 11,
+    "rank": 5070,
+    "quotient": 114,
+    "extra_plus_P4_rank": 12,
+    "extra_plus_P4_D_rank": 12,
+    "D_member": true
+  },
+  {
+    "system": "T3noR",
+    "p": 1000000033,
+    "r": 12641440,
+    "base_rank": 5059,
+    "own_added_rank": 10,
+    "added_rank": 11,
+    "rank": 5070,
+    "quotient": 114,
+    "extra_plus_P4_rank": 12,
+    "extra_plus_P4_D_rank": 12,
+    "D_member": true
+  }
+]

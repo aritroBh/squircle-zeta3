@@ -1,0 +1,10 @@
+== edge 1: 6*int(local part) zeta(3) coefficient = 18*sqrt(5)/125  (= 0.3219937887599697162829210)
+   local part (exact) = sqrt(5)*(-13015584*log(2)**2 - 826847 - 26352*pi**2 + 165888*zeta(3) + 1626624*log(2)**3 + log(2**(228096*pi**2 + 12130056)))/1152000
+   non-local monomials: 40; their exact zeta(3) content (x6) = 159*sqrt(5)/500 (= 0.7110696168449331234581172)
+   6*int E3 (local exact + non-local quad) = 5.529732546943809731231005981595168710093
+   total zeta(3) coefficient = 231*sqrt(5)/500 (= 1.033063405604902839741038)
+== edge 3: 6*int(local part) zeta(3) coefficient = -15*sqrt(2)/128  (= -0.1657281518405970760314479)
+   local part (exact) = sqrt(2)*(-3072*log(2)**2 - 4*pi**2 - 15*zeta(3) + 1024*log(2)**3 + log(2**(4*pi**2 + 1536)))/128
+   non-local monomials: 0; their exact zeta(3) content (x6) = 0 (= 0)
+   6*int E3 (local exact + non-local quad) = -1.10933191231358597224973922573225918121
+   total zeta(3) coefficient = -15*sqrt(2)/128 (= -0.1657281518405970760314479)

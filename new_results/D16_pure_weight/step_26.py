@@ -1,0 +1,5 @@
+txt=open('research/08_theory/D11_rhombus_resurgence/step1_exact.txt').read()
+print(txt[:600])
+print('...')
+i=txt.find('a_10')
+print(txt[i:i+700])

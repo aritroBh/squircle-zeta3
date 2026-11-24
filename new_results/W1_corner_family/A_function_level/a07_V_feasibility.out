@@ -1,0 +1,74 @@
+alphabet: [c, 1 - c, c + 1, 2*c + 1, 1 - 2*c]
+delta22(V)       = {((0, 1), (1, 2)): Fraction(-1, 1), ((0, 2), (1, 2)): Fraction(-1, 1)}
+delta22(Theta_V) = {((0, 1), (1, 2)): -1, ((0, 2), (1, 2)): -1}
+delta22(V - Theta_V) = {}   (alphabet size now 5)
+admissible arguments found: 180
+rho-space dimension touched: 464  columns: 180  rank: 72
+rank with target: 72 (solvable iff equal)
+nice columns: 66  rank 49  rank with target 50
+   nice: 1/(4*c**2) -> 1/2
+   nice: (4*c**2 - 1)/(4*c**2) -> 1/2
+   nice: (2*c**2 + c - 1)/(2*c**2) -> sqrt(2)/2
+   nice: (1 - c)/(2*c**2) -> 1 - sqrt(2)/2
+   nice: (2*c**2 - c - 1)/(2*c**2) -> -sqrt(2)/2
+   nice: (c**2 - 1)/c**2 -> -1
+   nice: (c**2 - 2*c + 1)/c**2 -> 3 - 2*sqrt(2)
+   nice: 1/(2*c**2 + c) -> 2 - sqrt(2)
+   nice: 1/(2*c) -> sqrt(2)/2
+   nice: -1/(2*c) -> -sqrt(2)/2
+   nice: -1/c -> -sqrt(2)
+   nice: (2*c - 1)/(2*c) -> 1 - sqrt(2)/2
+   nice: (2*c - 1)/c -> 2 - sqrt(2)
+   nice: (2*c**2 + c - 1)/(2*c**2 + c) -> -1 + sqrt(2)
+   nice: (2*c**2 + c - 1)/(2*c) -> 1/2
+   nice: (c - 1)/c -> 1 - sqrt(2)
+   nice: (1 - c)/c -> -1 + sqrt(2)
+   nice: (-2*c**2 + c + 1)/(2*c) -> 1/2
+   nice: (2*c - 1)/(2*c - 2) -> -sqrt(2)/2
+   nice: (2*c - 1)/(c - 1) -> -sqrt(2)
+   nice: (4*c**3 - 3*c + 1)/(4*c**3 - 3*c - 1) -> -3 + 2*sqrt(2)
+   nice: (2*c**2 + c - 1)/(2*c**2 - c - 1) -> -1
+   nice: -1/(2*c**2 + c - 1) -> -sqrt(2)
+   nice: 1/(2*c + 2) -> 1 - sqrt(2)/2
+   nice: 1/(c + 1) -> 2 - sqrt(2)
+   nice: (2*c + 1)/(2*c + 2) -> sqrt(2)/2
+   nice: 1/(4*c**2 + 4*c + 1) -> 3 - 2*sqrt(2)
+   nice: (4*c**2 - 4*c + 1)/(4*c**2 + 4*c + 1) -> 17 - 12*sqrt(2)
+   nice: -1/(4*c**2 - 1) -> -1
+   nice: 1/(2*c + 1) -> -1 + sqrt(2)
+   nice: -1/(2*c + 1) -> 1 - sqrt(2)
+   nice: (2*c - 1)/(2*c + 1) -> 3 - 2*sqrt(2)
+   nice: (1 - 2*c)/(2*c + 1) -> -3 + 2*sqrt(2)
+   nice: 2*c - 1 -> -1 + sqrt(2)
+   nice: 1 - 2*c -> 1 - sqrt(2)
+   nice: 4*c**2 - 4*c + 1 -> 3 - 2*sqrt(2)
+   nice: 1 - 4*c**2 -> -1
+   nice: (c + 1)/(2*c + 1) -> sqrt(2)/2
+   nice: -2*c**2 - c + 1 -> -sqrt(2)/2
+   nice: (c - 1)/(2*c**2 + c - 1) -> 1 - sqrt(2)
+   nice: (c - 1)/(c + 1) -> -3 + 2*sqrt(2)
+   nice: (1 - c)/(c + 1) -> 3 - 2*sqrt(2)
+   nice: (2*c**2 - c - 1)/(2*c**2 + c - 1) -> -1
+   nice: (-2*c**2 + c + 1)/(c + 1) -> -1 + sqrt(2)
+   nice: (c - 1)/(2*c - 1) -> -sqrt(2)/2
+   nice: (2*c - 2)/(2*c - 1) -> -sqrt(2)
+   nice: 1 - c -> 1 - sqrt(2)/2
+   nice: 2 - 2*c -> 2 - sqrt(2)
+   nice: -2*c**2 + c + 1 -> sqrt(2)/2
+   nice: 1 - c**2 -> 1/2
+   nice: (c**2 - 2*c + 1)/(c**2 + 2*c + 1) -> 17 - 12*sqrt(2)
+   nice: (-2*c**3 + 3*c**2 - 1)/(2*c**3 + 3*c**2 - 1) -> -3 + 2*sqrt(2)
+   nice: (2*c**2 - c)/(2*c**2 - c - 1) -> 1 - sqrt(2)
+   nice: c/(c + 1) -> -1 + sqrt(2)
+   nice: -c/(c + 1) -> 1 - sqrt(2)
+   nice: c/(2*c + 1) -> 1 - sqrt(2)/2
+   nice: 2*c/(2*c + 1) -> 2 - sqrt(2)
+   nice: c -> sqrt(2)/2
+   nice: -c -> -sqrt(2)/2
+   nice: -2*c -> -sqrt(2)
+   nice: 2*c**2 - c -> 1 - sqrt(2)/2
+   nice: c**2/(c**2 - 1) -> -1
+   nice: 2*c**2/(2*c**2 - c - 1) -> -sqrt(2)
+   nice: c**2/(c**2 + 2*c + 1) -> 3 - 2*sqrt(2)
+   nice: 2*c**2/(c + 1) -> 2 - sqrt(2)
+   nice: c**2 -> 1/2

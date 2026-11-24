@@ -1,0 +1,7 @@
+(1) mutation of term (0, 1, 0, -1) (c^1) by +1/6: even identity holds? False; odd identity holds? False  (both must be False)
+(2) B2 part 1: 24 HPL terms; even identity True; odd identity True; low orders True
+(2) B2 part z2: 5 HPL terms; even identity True; odd identity True; low orders True
+    B2 (HPL form of M_2) PROVED for all n: True ; mu_{2,n} has no z3 part: True
+(3a) shuffle compatibility on 136 pairs: True
+(3b) x -> -x symmetry for all words of weight <= 4: True
+(3c) last-slot derivative identity for all words of weight 2..4: True

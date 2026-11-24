@@ -1,0 +1,38 @@
+== rhombus a=1,b=2 power convention: vertices [(1, 0), (0, 2), (-1, 0), (0, -2)]
+   all non-local ratios r_i = 1 (fully local, closed form exact): True
+   P^(0)(1) = 4*sqrt(5)
+   P^(1)(1) = 0
+   P^(2)(1) = 32*sqrt(5)*z2/25
+   P^(3)(1) = -192*sqrt(5)*z2/25 + 96*sqrt(5)*z3/25
+   z3-coefficient of P'''(1): 96*sqrt(5)/25   edge-law prediction: 96*sqrt(5)/25   difference: 0
+   R2 target P'''(1) = 24a^2b^2/r^3 (z3 - pi^2/3):  difference = 0
+== rhombus a=1,b=2 fixed-weight convention: vertices [(1, 0), (0, 2), (-1, 0), (0, -2)]
+   all non-local ratios r_i = 1 (fully local, closed form exact): True
+   P^(0)(1) = 4*sqrt(5)
+   P^(1)(1) = -16*sqrt(5)*log(2)/5
+   P^(2)(1) = 32*sqrt(5)*z2/25 + 96*sqrt(5)*log(2)**2/25 + 32*sqrt(5)*log(2)/5
+   P^(3)(1) = z2*(-192*sqrt(5)/25 + 192*sqrt(5)*log(2)/125) + 96*sqrt(5)*z3/25 - 96*sqrt(5)*log(2)/5 - 576*sqrt(5)*log(2)**2/25 - 448*sqrt(5)*log(2)**3/125
+   z3-coefficient of P'''(1): 96*sqrt(5)/25   edge-law prediction: 96*sqrt(5)/25   difference: 0
+== regular hexagon m=3: vertices [(sqrt(3)/3, 0), (sqrt(3)/6, 1/2), (-sqrt(3)/6, 1/2), (-sqrt(3)/3, 0), (-sqrt(3)/6, -1/2), (sqrt(3)/6, -1/2)]
+   all non-local ratios r_i = 1 (fully local, closed form exact): True
+   P^(0)(1) = 2*sqrt(3)
+   P^(1)(1) = 2*sqrt(3)*log(2)
+   P^(2)(1) = 3*sqrt(3)*z2/4 - 4*sqrt(3)*log(2) + 2*sqrt(3)*log(2)**2
+   P^(3)(1) = z2*(-9*sqrt(3)/2 + 9*sqrt(3)*log(2)/4) - 9*sqrt(3)*z3/8 - 12*sqrt(3)*log(2)**2 + 2*sqrt(3)*log(2)**3 + 12*sqrt(3)*log(2)
+   z3-coefficient of P'''(1): -9*sqrt(3)/8   edge-law prediction: -9*sqrt(3)/8   difference: 0
+   D15 PSLQ formula difference: 0
+== H_p fixed-weight: |x|^p+|y|^p+sqrt2|(x-y)/sqrt2|^p<=1: vertices [(1/2, 0), (1/2, 1/2), (0, 1/2), (-1/2, 0), (-1/2, -1/2), (0, -1/2)]
+   all non-local ratios r_i = 1 (fully local, closed form exact): True
+   P^(0)(1) = sqrt(2) + 2
+   P^(1)(1) = 5*sqrt(2)*log(2)/4 + 2*log(2)
+   P^(2)(1) = z2*(sqrt(2)/8 + 1) - 4*log(2) - 5*sqrt(2)*log(2)/2 + 3*sqrt(2)*log(2)**2/2 + 17*log(2)**2/8
+   P^(3)(1) = z2*(-6 - 3*sqrt(2)/4 + 21*sqrt(2)*log(2)/32 + 15*log(2)/4) + z3*(-3/2 - 3*sqrt(2)/16) - 147*sqrt(2)*log(2)**2/16 - 51*log(2)**2/4 + 19*log(2)**3/8 + 55*sqrt(2)*log(2)**3/32 + 15*sqrt(2)*log(2)/2 + 12*log(2)
+   z3-coefficient of P'''(1): -3/2 - 3*sqrt(2)/16   edge-law prediction: -3/2 - 3*sqrt(2)/16   difference: 0
+== H_p power: |x|^p+|y|^p+|x-y|^p<=1: vertices [(1/2, 0), (1/2, 1/2), (0, 1/2), (-1/2, 0), (-1/2, -1/2), (0, -1/2)]
+   all non-local ratios r_i = 1 (fully local, closed form exact): True
+   P^(0)(1) = sqrt(2) + 2
+   P^(1)(1) = sqrt(2)*log(2) + 2*log(2)
+   P^(2)(1) = z2*(sqrt(2)/8 + 1) - 4*log(2) - 2*sqrt(2)*log(2) + sqrt(2)*log(2)**2 + 2*log(2)**2
+   P^(3)(1) = z2*(-6 - 3*sqrt(2)/4 + 3*sqrt(2)*log(2)/8 + 3*log(2)) + z3*(-3/2 - 3*sqrt(2)/16) - 12*log(2)**2 - 6*sqrt(2)*log(2)**2 + sqrt(2)*log(2)**3 + 2*log(2)**3 + 6*sqrt(2)*log(2) + 12*log(2)
+   z3-coefficient of P'''(1): -3/2 - 3*sqrt(2)/16   edge-law prediction: -3/2 - 3*sqrt(2)/16   difference: 0
+saved s04_closed_forms.pkl/.txt

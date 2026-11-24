@@ -1,0 +1,41 @@
+Step (2) symbolic checks (all must be 0):
+   t(v) = (v-b)(v+a)/(4v)                          : 0
+   1-t(v) = (a-v)(v+b)/(4v)                        : 0
+   q(t(v))^2 = t^2+(1-t)^2                         : 0
+   t(b) = 0                                        : 0
+   t(a) = 1                                        : 0
+   rational factor = (1-1/sqrt2)/v - 2/(v+a)       : 0
+   log t = log(v-b)+log(v+a)-log v-2log2           : 0
+   dt/dv = (v^2+1)/(4v^2) > 0                      : 0
+
+Step (3) elementary integrals I(x,y) = int_b^a log|v-x|/(v-y) dv:
+   I((-1+1*sqrt2), 0) = -1/3*pi^2 + 1*Li2((3-2*sqrt2)) + 1*Li2(1)      [quadrature check 6.22e-61]
+   I((-1+1*sqrt2), (-1-1*sqrt2)) = -1/3*pi^2 + -5/8*log^2(2) + 1*log2*L + 1/2*L^2 + 1*Li2((2-1*sqrt2)) + 1*Li2(1)      [quadrature check 5.25e-61]
+   I((-1-1*sqrt2), 0) = 2*L^2 + 1*Li2((-3+2*sqrt2)) + -1*Li2(-1)      [quadrature check 3.11e-61]
+   I((-1-1*sqrt2), (-1-1*sqrt2)) = -5/8*log^2(2) + 1*log2*L + 1/2*L^2      [quadrature check 0.0]
+   I(0, 0) = 0      [quadrature check -4.41e-62]
+   I(0, (-1-1*sqrt2)) = -5/8*log^2(2) + 1*log2*L + 1/2*L^2 + -1*Li2((1/2+1/4*sqrt2)) + 1*Li2(1/2)      [quadrature check 9.72e-62]
+
+M1 before Li2 reduction: (1/3+1/6*sqrt2)*pi^2 + -3/4*log^2(2) + (-2+2*sqrt2)*log2*L + (1-1*sqrt2)*L^2 + (1-1/2*sqrt2)*Li2((-3+2*sqrt2)) + -2*Li2((1/2+1/4*sqrt2)) + -2*Li2((2-1*sqrt2)) + (1-1/2*sqrt2)*Li2((3-2*sqrt2)) + (-1+1/2*sqrt2)*Li2(-1) + (-1-1/2*sqrt2)*Li2(1) + 2*Li2(1/2)
+   numerical value: 0.25261909620704479461836352096565486053362715072438
+
+Step (4) certificate of Li2 reductions (each line is one classical identity):
+  Li2((3-2*sqrt2)) = 2*Li2((-1+1*sqrt2)) + 2*Li2((1-1*sqrt2))      [duplication (D)]
+  Li2((1-1*sqrt2)) = -1/8*pi^2 + 1/2*L^2 + 1*Li2((-1+1*sqrt2))      [Landen's chi_2 value (X)]
+  Li2(1) = 1/6*pi^2      [value (V)]
+  Li2((2-1*sqrt2)) = 1/6*pi^2 + 1/2*log2*L + -1*L^2 + -1*Li2((-1+1*sqrt2))      [reflection (R)]
+  Li2(-1) = -1/12*pi^2      [value (V)]
+  Li2((-3+2*sqrt2)) = 1/2*log2*L + 1*Li2((1-1*sqrt2)) + 1*Li2((3-2*sqrt2)) + -1*Li2(-1) + 1*Li2(-1*sqrt2)      [Abel five-term (A) at (x,y)=(-1*sqrt2, (1-1*sqrt2))]
+  Li2(-1*sqrt2) = -1/2*L^2 + -1*Li2((2-1*sqrt2))      [Landen (La)]
+  Li2(1/2) = 1/12*pi^2 + -1/2*log^2(2)      [value (V)]
+  Li2((-3-2*sqrt2)) = -1/6*pi^2 + -2*L^2 + -1*Li2((-3+2*sqrt2))      [inversion (I)]
+  Li2((1/2+1/4*sqrt2)) = -9/8*log^2(2) + -3/2*log2*L + -1/2*L^2 + -1*Li2((-3-2*sqrt2))      [Landen (La)]
+
+M1 after reduction: (-1/24+19/48*sqrt2)*pi^2 + 1/2*log^2(2) + 2*sqrt2*log2*L + (-1-5/2*sqrt2)*L^2 + -5*sqrt2*Li2((-1+1*sqrt2))
+
+Step (5) exact difference  M1(derived) - M1(claim) = 0
+=> 48*M1 = -2pi^2 + 19 sqrt2 pi^2 + 24 log^2 2 - 48 L^2 - 120 sqrt2 L^2 + 96 sqrt2 log2 L - 240 sqrt2 Li2(sqrt2-1)   PROVED (exact arithmetic).
+
+Sanity: quadrature of step (1) integral = 0.25261909620704479461836352096565486053362715072438
+        closed form                     = 0.25261909620704479461836352096565486053362715072438
+        8*M1 = kappa (Ahmed)            = 2.0209527696563583569469081677252388842690172057951

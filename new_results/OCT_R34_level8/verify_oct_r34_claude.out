@@ -1,0 +1,15 @@
+weight-3 atoms ['z3', 'L3x1', 'L3x2', 'L3k', 'L3d', 'L3r2h', 'L3mr2h']: worst |vector - mpmath| = 3.13e-140 (lower-weight atoms are checked via the products below)
+
+Lam: vector 50 words; vector - depth2 series = 1.92e-140
+Lam: reduction vector - depth2 series = 4.0e-140
+Lam: DIFF 233 words, DIFF . values = 5.4e-140
+Lam: p=1000000033 rational base rank 542, +DIFF 543, in span: False
+Lam: p=1000000241 rational base rank 542, +DIFF 543, in span: False
+Lam: not in the rational base span; (Kummer / R1-R5 test not implemented here)
+
+swap: vector 52 words; vector - depth2 series = 3.61e-140
+swap: reduction vector - depth2 series = 1.61e-139
+swap: DIFF 311 words, DIFF . values = 1.26e-139
+swap: p=1000000033 rational base rank 542, +DIFF 543, in span: False
+swap: p=1000000241 rational base rank 542, +DIFF 543, in span: False
+swap: not in the rational base span; (Kummer / R1-R5 test not implemented here)

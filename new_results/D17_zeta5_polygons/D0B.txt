@@ -1,0 +1,3 @@
+Mul(Pow(Symbol('S0'), Integer(-1)), Pow(Add(Integer(1), Mul(Pow(Symbol('S0'), Integer(-2)), Pow(Symbol('Sc'), Integer(2)))), Rational(1, 2)))
+###
+Add(Integer(1), Mul(Pow(Symbol('S0'), Integer(-2)), Pow(Symbol('Sc'), Integer(2))))

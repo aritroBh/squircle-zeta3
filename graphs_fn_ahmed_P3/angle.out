@@ -1,0 +1,36 @@
+====================================================================================================
+theta = pi/3:  rho_0 - (1-c) = 0.0 ;  rho_1 - C(theta) = 4.16e-112   (Ahmed's C(theta) = 0.0684768913223286088411714910093)
+  f = expm1   exact constant (1-c) log f'(1) + C(theta) = 0.297814464015869554351993313543
+      P_1 from engine: [0.18825464542093884445, 0.3160602794142788392]   expected [C/a, (1-c)/a] = [0.18825464542093884445, 0.3160602794142788392]
+      n=1e6   C_est - C = -1.08e-49
+      n=1e10  C_est - C = -1.94e-83
+      n=1e15  C_est - C = -1.65e-103
+      n=1e20  C_est - C = -1.68e-98
+      Richardson (P_1..P_4 unknown, 14 coeffs; P_5..P_9 from engine): C_fit - C = -1.61e-82
+
+  f = mobius  exact constant (1-c) log f'(1) + C(theta) = -0.27809669895764404586744456972
+      P_1 from engine: [-0.55619339791528809173, 1.0]   expected [C/a, (1-c)/a] = [-0.55619339791528809173, 1.0]
+      n=1e6   C_est - C = -1.65e-43
+      n=1e10  C_est - C = -1.04e-76
+      n=1e15  C_est - C = -6.66e-105
+      n=1e20  C_est - C = 1.82e-100
+      Richardson (P_1..P_4 unknown, 14 coeffs; P_5..P_9 from engine): C_fit - C = -3.76e-76
+
+====================================================================================================
+theta = 2pi/3:  rho_0 - (1-c) = 0.0 ;  rho_1 - C(theta) = 2.49e-111   (Ahmed's C(theta) = 0.806852819440054690582767878542)
+  f = expm1   exact constant (1-c) log f'(1) + C(theta) = 1.49486553752067752711523334614
+      P_1 from engine: [0.94493523895112293427, 0.94818083824283651761]   expected [C/a, (1-c)/a] = [0.94493523895112293427, 0.94818083824283651761]
+      n=1e6   C_est - C = -3.58e-49
+      n=1e10  C_est - C = -6.44e-83
+      n=1e15  C_est - C = -4.67e-103
+      n=1e20  C_est - C = -4.94e-98
+      Richardson (P_1..P_4 unknown, 14 coeffs; P_5..P_9 from engine): C_fit - C = -5.39e-82
+
+  f = mobius  exact constant (1-c) log f'(1) + C(theta) = -0.232867951399863273543080303645
+      P_1 from engine: [-0.46573590279972654709, 3.0]   expected [C/a, (1-c)/a] = [-0.46573590279972654709, 3.0]
+      n=1e6   C_est - C = -5.19e-43
+      n=1e10  C_est - C = -3.48e-76
+      n=1e15  C_est - C = -1.76e-104
+      n=1e20  C_est - C = 1.26e-100
+      Richardson (P_1..P_4 unknown, 14 coeffs; P_5..P_9 from engine): C_fit - C = -1.23e-75
+

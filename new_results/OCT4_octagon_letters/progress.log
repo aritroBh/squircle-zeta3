@@ -1,0 +1,31 @@
+OCT4 progress log
+step_03: loaded hidata, basis34, consts62, vals. vals['4'] has 4 entries
+step: octagon edge V0=(0,sqrt2-1), V1=(1-sqrt2/2,1-sqrt2/2); both on S=1
+step: a_j zeros at t=0,1,-(1+sqrt2),2+sqrt2; computed |y|^2 roots (complex)
+step: complex letter t* has arg=3pi/8 (tan=1+sqrt2), |t*|^2=1+sqrt2/2; Re=1/2
+step: E3(t) via closed form; t-denominator = -48*(-99 + 70*sqrt(2))*(10 - 7*sqrt(2))**(3/2)*sqrt(40 - 28*sqrt(2)) (constant => only real log singularities)
+step: real-letter cross-ratios computed, 15 distinct
+step: complex-letter cross-ratios: 3 real, 42 complex
+step: 12 canonical complex cross-ratios (Im>0,|z|<=1), all in Q(zeta_8), args = k*pi/8
+step: quadrature timing test done; P'''(1) framework OK
+step: P'''(1) and P'''/u at 300 dps; P'''=-4.39449630527605215997911 ; saved targets300.json
+step: defined 8 real + 12 complex letter points
+step: computed 33 pure weight-3 constants at 300dps; sanity Li3(-1),Li3(1/2) OK
+step: LLL ran; 2 candidate relations among 33 pure-w3 consts
+step: E3 L-monomial structure extracted; 20 total, 4 with both L1,L2
+step: J21,J12 double-log integrals do NOT reduce to single Li3's (pslq negative)
+step: proper LLL hunt for J21,J12 over single-Li3 basis
+step: tested K against fuller single-polylog basis
+step: re-hunted cross integrals with fuller basis
+step: computed Li21 candidates
+step: hunted J21/J12 with Li21 candidates added
+step: sympy symbolic integration attempt for cross integral
+step: focused pslq for J21/J12
+step: tested three-letter cross integrals T_t, T_1mt for Li_2,1 need
+step: reduced single-Li3 basis to 12 independent
+step: hunted T_t,T_1mt vs independent singles
+step: one-at-a-time Li21 hunt for T_t
+step: verified U = -(1/a)Li21(x1,x2/x1), diff=8.93e-103
+step: computed basis + double polylogs D1,D2 at 280dps
+step: reduced 46 consts to 20 independent at 280dps
+step: hunted P3u at 280dps with/without D1,D2

@@ -1,0 +1,1 @@
+print(open('research/08_theory/OCT6_octagon_closed/result.md').read())

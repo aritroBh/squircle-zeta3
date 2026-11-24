@@ -1,0 +1,30 @@
+{
+  "weight3": {
+    "(2,1)": {
+      "z3": 2
+    },
+    "(1,2)": {
+      "z3": 2
+    }
+  },
+  "weight5": {
+    "(4,1)": {
+      "z5": 24,
+      "z2z3": 0
+    },
+    "(1,4)": {
+      "z5": 24,
+      "z2z3": 0
+    },
+    "(3,2)": {
+      "z5": 24,
+      "z2z3": -12
+    },
+    "(2,3)": {
+      "z5": 24,
+      "z2z3": -12
+    }
+  },
+  "rule": "[zeta(n)] int_0^1 log^a t log^b(1-t) dt = single-zeta weight; z5 weight = a!b!*24/(a!b!)=24 for all cross",
+  "proof_sketch": "log B(1+u,1+v)=logG(1+u)+logG(1+v)-logG(2+u+v); cross u^a v^b coeff (a+b=5) = -psi4(2)/(a!b!)=24(z5-1)/(a!b!); moment=a!b!*[coeff in exp]; single z5 only from direct L term"
+}

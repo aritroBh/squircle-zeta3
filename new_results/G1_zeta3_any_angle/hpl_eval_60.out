@@ -1,0 +1,9 @@
+   pi_2 (c=0.70710678): |M0 formula - series| = 4.15e-76, |M1 formula - series| = 6.91e-77, |M2 formula - series| = 2.16e-76
+  2pi_3 (c=0.5): |M0 formula - series| = 0.0, |M1 formula - series| = 1.73e-76, |M2 formula - series| = 1.1e-76
+   pi_3 (c=0.8660254): |M0 formula - series| = 2.76e-76, |M1 formula - series| = 1.38e-76, |M2 formula - series| = 4.32e-76
+  3pi_4 (c=0.38268343): |M0 formula - series| = 1.04e-76, |M1 formula - series| = 1.73e-77, |M2 formula - series| = 3.13e-77
+   pi_6 (c=0.96592583): |M0 formula - series| = 2.76e-76, |M1 formula - series| = 1.38e-76, |M2 formula - series| = 2.42e-76
+  5pi_6 (c=0.25881905): |M0 formula - series| = 6.91e-77, |M1 formula - series| = 6.05e-77, |M2 formula - series| = 7.45e-77
+   pi_4 (c=0.92387953): |M0 formula - series| = 0.0, |M1 formula - series| = 2.07e-76, |M2 formula - series| = 2.42e-76
+ gen1p3 (c=0.7960838): |M0 formula - series| = 2.76e-76, |M1 formula - series| = 2.07e-76, |M2 formula - series| = 2.07e-76
+ gen2p0 (c=0.54030231): |M0 formula - series| = 2.07e-76, |M1 formula - series| = 1.04e-76, |M2 formula - series| = 9.5e-77

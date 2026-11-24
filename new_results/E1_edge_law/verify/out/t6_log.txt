@@ -1,0 +1,14 @@
+== t4_fd_120_0.001_20.json, working at 38 digits
+   arc1 (r=2 edge): PSLQ [P'''/sqrt5, z3, pi2 log2, log2^3, pi2, log2^2, log2, 1] -> [500, -231, -111, -52, 80, 1440, -2400, 0]
+   zeta(3) coefficient of P'''_arc1 = (231/500) sqrt5 ; edge law Z_e = (72/500) sqrt5
+   remainder (P'''_arc1 - Z_e z3)/sqrt5 on the z3-free basis (maxcoeff 1e6): [8059, 23369, 56998, -18847, -61891, 1573, 17272]
+   TOTAL perimeter: (P''' - sum_e Z_e z3) on {sqrt5,sqrt2} x z3-free basis: [347, -241, 153, -90, 47, -63, -355, 274, 422, -188, 217, -508, 13]
+   TOTAL perimeter: P''' on {sqrt5,sqrt2} x full basis (z3 first): [9, 6, 61, -58, 70, 54, 11, -15, 42, 1, -29, -53, -71, -7, 43]
+   => total zeta(3) coefficient = (-6/9) sqrt5 + (-61/9) sqrt2 ; edge law = (72/125) sqrt5 - (15/64) sqrt2
+== t4_fd_170_0.0004_26.json, working at 60 digits
+   arc1 (r=2 edge): PSLQ [P'''/sqrt5, z3, pi2 log2, log2^3, pi2, log2^2, log2, 1] -> [500, -231, -111, -52, 80, 1440, -2400, 0]
+   zeta(3) coefficient of P'''_arc1 = (231/500) sqrt5 ; edge law Z_e = (72/500) sqrt5
+   remainder (P'''_arc1 - Z_e z3)/sqrt5 on the z3-free basis (maxcoeff 1e6): None
+   TOTAL perimeter: (P''' - sum_e Z_e z3) on {sqrt5,sqrt2} x z3-free basis: [1757, -3636, 4126, -114, 159, 447, -981, 1114, 1235, 591, 893, -133, 2379]
+   TOTAL perimeter: P''' on {sqrt5,sqrt2} x full basis (z3 first): [-416, -695, -722, -1680, 801, 2485, 705, -3054, -120, -1283, 511, -312, 426, 923, 857]
+   => total zeta(3) coefficient = (695/-416) sqrt5 + (722/-416) sqrt2 ; edge law = (72/125) sqrt5 - (15/64) sqrt2

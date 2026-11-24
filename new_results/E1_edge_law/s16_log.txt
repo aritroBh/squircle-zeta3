@@ -1,0 +1,3 @@
+hexA_w123: max |angle form - Z_e|, |alpha - w0 L sin psi0|, |beta - w1 L sin psi1| = 1.38e-40
+hexB_angles: max |angle form - Z_e|, |alpha - w0 L sin psi0|, |beta - w1 L sin psi1| = 2.87e-41
+generic octagon: max |angle form - Z_e|, |alpha - w0 L sin psi0|, |beta - w1 L sin psi1| = 1.72e-41

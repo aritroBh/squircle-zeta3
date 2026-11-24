@@ -1,0 +1,13 @@
+== limit rhombus |y|^p + 2|x|^p <= 1: vertices [(1/2, 0), (0, 1), (-1/2, 0), (0, -1)]
+   all non-local ratios r_i = 1 (fully local, closed form exact): True
+   P^(0)(1) = 2*sqrt(5)
+   P^(1)(1) = 2*sqrt(5)*log(2)/5
+   P^(2)(1) = 16*sqrt(5)*z2/25 - 4*sqrt(5)*log(2)/5 + 18*sqrt(5)*log(2)**2/25
+   P^(3)(1) = z2*(-96*sqrt(5)/25 + 336*sqrt(5)*log(2)/125) + 48*sqrt(5)*z3/25 - 108*sqrt(5)*log(2)**2/25 + 146*sqrt(5)*log(2)**3/125 + 12*sqrt(5)*log(2)/5
+   z3-coefficient of P'''(1): 48*sqrt(5)/25   edge-law prediction: 48*sqrt(5)/25   difference: 0
+limit rhombus: P'''(1) = -2.161877308317571006751704, edge law Z = 4.293250516799596217105613
+eps=0.1: P'''(1) = -1.645086286388585361 (minus limit: 0.517),  Z_hex = -2.0538007147371508504,  Z_hex - Z_rhombus = -6.34705123154,  ratios r = ['0.182', '0.9995', '5.497']
+eps=0.03: P'''(1) = 3.0143006156040543543 (minus limit: 5.18),  Z_hex = -1.0790535947479027561,  Z_hex - Z_rhombus = -5.37230411155,  ratios r = ['0.05826', '1.0', '17.17']
+eps=0.01: P'''(1) = 2.7116003514915125789 (minus limit: 4.87),  Z_hex = -0.66528450713538778316,  Z_hex - Z_rhombus = -4.95853502393,  ratios r = ['0.0198', '1.0', '50.5']
+eps=0.003: P'''(1) = 0.91641563318822738745 (minus limit: 3.08),  Z_hex = -0.50229631695134934065,  Z_hex - Z_rhombus = -4.79554683375,  ratios r = ['0.005982', '1.0', '167.2']
+eps=0.001: P'''(1) = -0.44126900869846189793 (minus limit: 1.72),  Z_hex = -0.45386173089663079408,  Z_hex - Z_rhombus = -4.7471122477,  ratios r = ['0.001998', '1.0', '500.5']

@@ -1,0 +1,2 @@
+random-point check of the real form on D (max |lhs-rhs|): 1.91791807581858495190726507434e-29
+133 instances with S-unit arguments; first few: [((-1-1*sqrt2), 1/2*sqrt2), ((-2-2*sqrt2), 1/2*sqrt2), (-1*sqrt2, 1/2*sqrt2), (-1, 1/2*sqrt2), (-1/2*sqrt2, 1/2*sqrt2), ((-3-2*sqrt2), 1/2*sqrt2), ((1-1*sqrt2), 1/2*sqrt2), ((17-12*sqrt2), 1/2*sqrt2)]

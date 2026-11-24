@@ -1,0 +1,30 @@
+[
+  {
+    "p": 1000000009,
+    "r": 291087696,
+    "base": 544,
+    "rank": 545,
+    "quotient": 31,
+    "R_members": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "p": 1000000033,
+    "r": 12641440,
+    "base": 544,
+    "rank": 545,
+    "quotient": 31,
+    "R_members": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  }
+]

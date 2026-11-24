@@ -1,0 +1,2 @@
+p=1000000033: base+K 544, +R1..R5 549 | Lam: +DIFF 545, +R+DIFF 549 | swap: +DIFF 545, +R+DIFF 549 | both DIFFs: 545 | base+both DIFFs+R1: 546 | base+both DIFFs+R2: 546 | base+both DIFFs+R3: 546 | base+both DIFFs+R4: 546 | base+both DIFFs+R5: 546
+p=1000000241: base+K 544, +R1..R5 549 | Lam: +DIFF 545, +R+DIFF 549 | swap: +DIFF 545, +R+DIFF 549 | both DIFFs: 545 | base+both DIFFs+R1: 546 | base+both DIFFs+R2: 546 | base+both DIFFs+R3: 546 | base+both DIFFs+R4: 546 | base+both DIFFs+R5: 546

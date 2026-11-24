@@ -1,0 +1,17 @@
+sanity P(2) - 2pi = 0.0
+last Chebyshev coefficients (decay check): ['3.55e-57', '1.82e-58', '8.96e-60', '2.92e-60', '5.51e-60', '3.98e-60']
+P_0 = 6.283185307179586476925286766559005768394   claim diff -8.71e-60
+P_1 = -1.21357952701741102253873441319572501048   claim diff 3.63e-57
+P_2 = 0.528409614708903613475245426503624442858   claim diff 6.96e-55
+P_3 = 0.04619103622385858953297502235317420643612   claim diff -1.08e-52
+P_4 = 0.02310683618452510900254893130269459493789
+P_5 = 0.0003629588683375167093414964714272930047923
+D_0, D_1 = -1.1e-58 4.56e-56
+D_2/(2pi^2) = 0.4393173084921981319133632708152720405666  claim 7pi^2/48-1 diff 4.42e-55
+D_3/(4pi^2) = -0.07528565094495853764924857827832311815366  claim diff -3.46e-53
+   circle_end stored P_0 - this run = 8.71e-60
+   circle_end stored P_1 - this run = -3.63e-57
+   circle_end stored P_2 - this run = -6.96e-55
+   circle_end stored P_3 - this run = 1.08e-52
+   circle_end stored P_4 - this run = 7.64e-51
+   circle_end stored P_5 - this run = -9.06e-49

@@ -1,0 +1,17 @@
+  P(b)                                     check 8.02e-51
+  Prat/(v-c), c=a                          check -5.35e-51
+  Prat/(v-c), c=-b                         check -6.68e-51
+  Prat/(v-c), c=0                          check -9.35e-51
+  Plog/(v-c), c=a                          check -5.35e-51
+  Plog/(v-c), c=-b                         check 2.94e-50
+  Plog/(v-c), c=0                          check 1.87e-50
+  int R log(a-v)                           check -2.67e-51
+  int R log(v+b)                           check -3.01e-50
+  int R log v                              check -1.67e-50
+  int R (-2log2)                           check 1.6e-50
+  X1 (exact, unreduced)                    check -2.0e-51
+pool size 54  relations 346
+echelon rows 50
+X1 = 5*r2*Li2((-1+1*r2)) + -2*lr2 + 1*r2*L + -4*r2*lr2*L + (1+5/2*r2)*L*L + (-1/24-19/48*r2)*pi^2
+X1 - (-M1 - M0 - pi^2/12 + log^2 2/2)  (exact) = 0
+hence Zb = M1 - 3 M0 - X1 = 2M1 - 2M0 + pi^2/12 - log^2(2)/2   (PROVED)

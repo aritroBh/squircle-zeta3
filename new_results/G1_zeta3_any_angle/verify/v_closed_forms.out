@@ -1,0 +1,24 @@
+   pi_2 c=0.70710678: B0=3.29e-48  B1=1.21e-47  Phi=1.94e-62  W2closed_vs_tint=7.78e-62  W2+W3x=4.36e-47  B2prime=4.36e-47  B2_hpl=4.36e-47
+  2pi_3 c=0.5: B0=3.29e-48  B1=1.21e-47  Phi=4.86e-62  W2closed_vs_tint=0.0  W2+W3x=4.36e-47  B2prime=4.36e-47  B2_hpl=4.36e-47
+   pi_3 c=0.8660254: B0=3.29e-48  B1=1.21e-47  Phi=0.0  W2closed_vs_tint=0.0  W2+W3x=4.36e-47  B2prime=4.36e-47  B2_hpl=4.36e-47
+  3pi_4 c=0.38268343: B0=4.15e-48  B1=1.57e-47  Phi=4.86e-62  W2closed_vs_tint=0.0  W2+W3x=5.67e-47  B2prime=5.67e-47  B2_hpl=5.67e-47
+   pi_6 c=0.96592583: B0=4.01e-48  B1=1.4e-47  Phi=0.0  W2closed_vs_tint=3.89e-62  W2+W3x=4.79e-47  B2prime=4.79e-47  B2_hpl=4.79e-47
+  5pi_6 c=0.25881905: B0=4.15e-48  B1=1.57e-47  Phi=2.67e-62  W2closed_vs_tint=0.0  W2+W3x=5.67e-47  B2prime=5.67e-47  B2_hpl=5.67e-47
+   pi_4 c=0.92387953: B0=4.01e-48  B1=1.4e-47  Phi=0.0  W2closed_vs_tint=5.83e-62  W2+W3x=4.79e-47  B2prime=4.79e-47  B2_hpl=4.79e-47
+ gen1p3 c=0.7960838: B0=3.29e-48  B1=1.21e-47  Phi=0.0  W2closed_vs_tint=7.78e-62  W2+W3x=4.36e-47  B2prime=4.36e-47  B2_hpl=4.36e-47
+ gen2p0 c=0.54030231: B0=3.29e-48  B1=1.21e-47  Phi=0.0  W2closed_vs_tint=0.0  W2+W3x=4.36e-47  B2prime=4.36e-47  B2_hpl=4.36e-47
+ new0p3 c=0.98877108: B0=4.01e-48  B1=1.4e-47  Phi=0.0  W2closed_vs_tint=1.22e-61  W2+W3x=4.79e-47  B2prime=4.79e-47  B2_hpl=4.79e-47
+ new0p9 c=0.9004471: B0=4.01e-48  B1=1.4e-47  Phi=3.89e-62  W2closed_vs_tint=0.0  W2+W3x=4.79e-47  B2prime=4.79e-47  B2_hpl=4.79e-47
+ new2p6 c=0.26749883: B0=4.15e-48  B1=1.57e-47  Phi=3.65e-62  W2closed_vs_tint=0.0  W2+W3x=5.67e-47  B2prime=5.67e-47  B2_hpl=5.67e-47
+ new3p0 c=0.070737202: B0=4.15e-48  B1=1.57e-47  Phi=4.47e-62  W2closed_vs_tint=7.78e-62  W2+W3x=5.67e-47  B2prime=5.67e-47  B2_hpl=5.67e-47
+WORST over 13 angles: B0=4.15e-48  B1=1.57e-47  Phi=4.86e-62  W2closed_vs_tint=1.22e-61  W2+W3x=5.67e-47  B2prime=5.67e-47  B2_hpl=5.67e-47
+2pi/3 special formula - M2 (Cauchy) = 4.36e-47
+2pi/3 special formula - solver 318-digit M2 = -4.48e-323
+pi/3: B2prime at c=sqrt3/2 (330 dps) - solver 318-digit M2 = -4.77e-322
+pi_2: B2prime (330 dps) - solver 318-digit M2 = -3.34e-322 ; B1 - solver M1 = 2.37e-321
+3pi_4: B2prime (330 dps) - solver 318-digit M2 = -1.41e-323 ; B1 - solver M1 = -1.82e-322
+pi_6: B2prime (330 dps) - solver 318-digit M2 = 2.03e-322 ; B1 - solver M1 = -8.49e-322
+5pi_6: B2prime (330 dps) - solver 318-digit M2 = 3.62e-323 ; B1 - solver M1 = -4.45e-322
+pi_4: B2prime (330 dps) - solver 318-digit M2 = -2.52e-322 ; B1 - solver M1 = 2.32e-321
+gen1p3: B2prime (330 dps) - solver 318-digit M2 = -3.17e-322 ; B1 - solver M1 = 4.22e-321
+gen2p0: B2prime (330 dps) - solver 318-digit M2 = -1.4e-322 ; B1 - solver M1 = -1.89e-322

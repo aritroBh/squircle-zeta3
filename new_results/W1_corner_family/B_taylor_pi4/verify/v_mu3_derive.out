@@ -1,0 +1,12 @@
+mu_{0,n}: 1 monomials; EulerGamma present: False
+mu_{1,n}: 3 monomials; EulerGamma present: False
+mu_{2,n}: 9 monomials; EulerGamma present: False
+mu_{3,n}: 22 monomials; EulerGamma present: False
+k=3: verifier derivation minus typed formula == 0 identically in n: True
+k=2: verifier derivation minus typed formula == 0 identically in n: True
+mu_{0,n} = {(0, 0, 0, 0, 0, 0, 0, 0, 0): -1/(n*(2*n - 1))}
+mu_{1,n} = {(1, 0, 0, 0, 0, 0, 0, 0, 0): -1/(n*(2*n - 1)), (0, 0, 0, 1, 0, 0, 0, 0, 0): 1/(n*(2*n - 1)), (0, 0, 0, 0, 0, 0, 0, 0, 0): -1/(2*n**2)}
+k=0: verifier formula == G1 exact table for all n <= 320: True
+k=1: verifier formula == G1 exact table for all n <= 320: True
+k=2: verifier formula == G1 exact table for all n <= 320: True
+k=3: verifier formula == G1 exact table for all n <= 320: True

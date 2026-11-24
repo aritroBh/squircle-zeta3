@@ -1,0 +1,8 @@
+[P-W2] log g(t1) = 0 : True
+       d_c log g - 4c/(t-ca) = 0
+       dW2/dc - log(1-c^2)/c at c = 0.1, 0.37, 0.8, 0.99: [-0.e-165, -0.e-166, 0.e-165, -0.e-165]
+       symbolic simplify(dW2 - target) = (log(1 - c**2) + 2*log(sqrt(1 - c**2) + 1) - 2*log(-c**2 + sqrt(1 - c**2) + 1))/c
+       W2(c=0) - pi^2/12 = 1.15e-41
+[P-B1] even coefficient minus mu_{1,n} formula: 0
+       odd coefficient: 0
+       A_{2n-1} = H_{2n-1}-H_{n-1} and the B/A sign rules, n < 60: True
