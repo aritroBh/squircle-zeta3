@@ -1,0 +1,2 @@
+import subprocess
+print(subprocess.run(['bash','-c','find ../.. -maxdepth 4 -name "qsqrt2*" 2>/dev/null | grep -v venv | head -20; echo ---; grep -rn "qsqrt2" ../W5C1_certificate_scoping/*.py | head'], capture_output=True, text=True).stdout)

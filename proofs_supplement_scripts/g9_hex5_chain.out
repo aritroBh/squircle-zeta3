@@ -1,0 +1,80 @@
+g9_hex5_s1_engine done in 170 s
+g9_hex5_s2_atoms done in 0 s
+g9_hex5_s3_jloc done in 40 s
+g9_hex5_s4_jtab done in 620 s
+g9_hex5_s5_blocks done in 4 s
+g9_hex5_s6_assembly done in 62 s
+---- g9_hex5_s1_engine.py
+---- g9_hex5_s2_atoms.py
+Lyndon words ending in 1: {1: ['1'], 2: ['01'], 3: ['001', '011'], 4: ['0001', '0011', '0111'], 5: ['00001', '00011', '00101', '00111', '01011', '01111']}
+num generators: 13
+monomial counts per weight: {1: 1, 2: 2, 3: 4, 4: 8, 5: 16, 6: 23} (expect 2,4,8,16,32 for w=1..5 minus... check)
+word counts: {1: 1, 2: 2, 3: 4, 4: 8, 5: 16, 6: 32}
+weight 1: matrix 1x1 inverted
+weight 2: matrix 2x2 inverted
+weight 3: matrix 4x4 inverted
+weight 4: matrix 8x8 inverted
+weight 5: matrix 16x16 inverted
+atoms to reduce: 26
+Atom((),1) = H1   [0s]
+Atom((1,),1) = H1**2/2 + Li2   [0s]
+Atom((1, 1),1) = H1**3/3 + H1*Li2 + Li3   [0s]
+Atom((1, 1, 1),1) = -3*H0011 - 3*H011*H1 + 6*H0111 + H1**4/4 + 3*H1**2*Li2/2 + H1*Li3 + Li2**2 + Li4   [0s]
+Atom((1, 1, 1, 1),1) = -16*H00011 - 4*H00101 - 8*H0011*H1 - 12*H00111 - 8*H01011 - 6*H011*H1**2 + 4*H011*Li2 + 12*H0111*H1 + H1**5/5 + 2*H1**3*Li2 + 2*H1**2*Li3 + H1*Li2**2 + H1*Li4 + 3*Li2*Li3 + Li5   [0s]
+Atom((1, 1, 2),1) = -6*H00011 - 2*H00101 - 2*H0011*H1 + 2*H00111 - H011*H1**2 + 2*H0111*H1 - 4*H01111 + H1**3*Li2/3 + H1**2*Li3 + H1*Li4 + Li2*Li3 + Li5   [0s]
+Atom((1, 2),1) = -H0011 - H011*H1 + H1**2*Li2/2 + H1*Li3 + Li4   [0s]
+Atom((1, 3),1) = -H00011 - H00101 + H0011*H1 - 6*H00111 - 2*H01011 + H011*Li2 + H1**2*Li3/2 - H1*Li2**2/2 + H1*Li4 + Li5   [0s]
+Atom((2,),1) = -2*H011 + H1*Li2 + Li3   [0s]
+Atom((2, 2),1) = 4*H00011 + 4*H00101 - 4*H0011*H1 + 24*H00111 + 8*H01011 - 4*H011*Li2 + H1*Li2**2 + H1*Li4 - Li2*Li3 + Li5   [0s]
+Atom((3,),1) = H1*Li3 - Li2**2/2 + Li4   [0s]
+Atom((4,),1) = 4*H00011 + 2*H00101 + H1*Li4 - Li2*Li3 + Li5   [0s]
+Atom((),2) = Li2   [0s]
+Atom((1,),2) = H011 + Li3   [0s]
+Atom((1, 1),2) = 2*H0111 + Li2**2/2 + Li4   [0s]
+Atom((1, 1, 1),2) = -3*H00011 - 12*H00111 - 6*H01011 + 3*H011*Li2 + 6*H01111 + Li2*Li3 + Li5   [0s]
+Atom((1, 2),2) = -5*H00011 - 2*H00101 - 6*H00111 - 2*H01011 + H011*Li2 + Li2*Li3 + Li5   [0s]
+Atom((2,),2) = -2*H0011 + Li2**2/2 + Li4   [0s]
+Atom((3,),2) = -6*H00011 - 3*H00101 + Li2*Li3 + Li5   [0s]
+Atom((),3) = Li3   [0s]
+Atom((1,),3) = H0011 + Li4   [0s]
+Atom((1, 1),3) = 2*H00011 + H00101 + 2*H00111 + Li5   [0s]
+Atom((2,),3) = H00101 + Li5   [0s]
+Atom((),4) = Li4   [0s]
+Atom((1,),4) = H00011 + Li5   [0s]
+Atom((),5) = Li5   [0s]
+saved atom_table.pkl
+---- g9_hex5_s3_jloc.py
+Jloc(N;1,0) = -DEN**2  (should be -DEN^2)
+Jloc(N;0,1) = -DEN*H1
+saved jloc_sym.pkl
+verification: 12 random N x 21 (a,b), worst |diff| = 9.3e-46
+---- g9_hex5_s4_jtab.py
+total keys: 210
+0/210 [0s]
+30/210 [91s]
+60/210 [149s]
+90/210 [171s]
+120/210 [264s]
+150/210 [327s]
+180/210 [440s]
+saved jtab5.pkl, 555 s
+J-table checks: 160 (40 keys x 4 kappas), worst |diff| = 1.3e-76
+---- g9_hex5_s5_blocks.py
+Saved build_blocks.pkl
+num J5: 210  num JLOC_n: 126
+---- g9_hex5_s6_assembly.py
+assembly accumulated, 60.0 s, 307 distinct monomials
+saved coef_acc_raw.pkl
+x-power distribution: {-6: 39, -5: 44, -4: 44, -3: 44, -2: 44, -1: 44, 0: 48}
+---- step_24.out
+engine built, 136.2 s
+E[0] = sqrt(L2)
+E[0]: 1 monomials, 136s
+E[1]: 8 monomials, 136s
+E[2]: 30 monomials, 136s
+E[3]: 80 monomials, 137s
+E[4]: 175 monomials, 139s
+E[5]: 336 monomials, 169s
+saved E5_polys.pkl
+E[3] vs K1d: monomials mine 80 k1d 80 mismatches 0
+DONE

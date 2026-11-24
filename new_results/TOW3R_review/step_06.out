@@ -1,0 +1,13 @@
+key (3,2) d=5: independent A(v) log-deriv -> a_5, a_6 match data ratios: {5: True, 6: True}  (8s)
+key (5,2) d=7: independent A(v) log-deriv -> a_5, a_6 match data ratios: {5: True, 6: True}  (20s)
+key (4,1) d=5: independent A(v) log-deriv -> a_5, a_6 match data ratios: {5: True, 6: True}  (29s)
+key (3,3) d=6: independent A(v) log-deriv -> a_5, a_6 match data ratios: {5: True, 6: True}  (40s)
+key (4,4) d=8: independent A(v) log-deriv -> a_5, a_6 match data ratios: {5: True, 6: True}  (54s)
+key (7,3) d=10: independent A(v) log-deriv -> a_5, a_6 match data ratios: {5: True, 6: True}  (72s)
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW3R_review/step_06.py", line 57, in <module>
+    ratio = tower_ratio(p, q, delta)
+  File "<project>/research/08_theory/TOW3R_review/step_06.py", line 39, in tower_ratio
+    return qsi_div(H[(p,q)][delta][p+q], H[(p,q)][0][p+q])
+                   ~^^^^^^^
+KeyError: (2, 5)

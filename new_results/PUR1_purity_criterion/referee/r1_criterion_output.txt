@@ -1,0 +1,38 @@
+squircle psi_k: {0: sqrt(2)/2, 1: 0, 2: -3*sqrt(2)/2, 3: 0, 4: 13*sqrt(2)/4, 5: 0, 6: -379*sqrt(2)/60, 7: 0}
+squircle c_0 (8F_n, from B3) = 0   weight-homogeneous: True
+squircle c_1 (8F_n, from B3) = 0   weight-homogeneous: True
+squircle c_2 (8F_n, from B3) = sqrt(2)*z2   weight-homogeneous: True
+   minus claimed (symbolic, z-basis): 0 | after zeta(2k)->pi: 0
+   numeric value c_2 = 2.326288066546293178052520312056468429973
+squircle c_3 (8F_n, from B3) = sqrt(2)*z3   weight-homogeneous: True
+   minus claimed (symbolic, z-basis): 0 | after zeta(2k)->pi: 0
+   numeric value c_3 = 1.699965175192500367776743945951655737725
+squircle c_4 (8F_n, from B3) = -7*sqrt(2)*z2**2/8 + sqrt(2)*z4/8   weight-homogeneous: True
+   minus claimed (symbolic, z-basis): -7*sqrt(2)*z2**2/8 + 35*sqrt(2)*z4/16 | after zeta(2k)->pi: 0
+   numeric value c_4 = -3.156937154220705612484910369973526115094
+squircle c_5 (8F_n, from B3) = -7*sqrt(2)*z2*z3/4 - 3*sqrt(2)*z5/4   weight-homogeneous: True
+   minus claimed (symbolic, z-basis): 0 | after zeta(2k)->pi: 0
+   numeric value c_5 = -5.993406571870706601077259417123032009383
+squircle c_6 (8F_n, from B3) = 169*sqrt(2)*z2**3/96 + 113*sqrt(2)*z2*z4/32 - 7*sqrt(2)*z3**2/8 + 91*sqrt(2)*z6/48   weight-homogeneous: True
+   minus claimed (symbolic, z-basis): 169*sqrt(2)*z2**3/96 + 113*sqrt(2)*z2*z4/32 - 10661*sqrt(2)*z6/768 | after zeta(2k)->pi: 0
+   numeric value c_6 = 20.91147814643259204894245555535839107867
+squircle c_7 (8F_n, from B3) = 169*sqrt(2)*z2**2*z3/32 + 141*sqrt(2)*z2*z5/16 + 113*sqrt(2)*z3*z4/32 + 129*sqrt(2)*z7/16   weight-homogeneous: True
+   minus claimed (symbolic, z-basis): 169*sqrt(2)*z2**2*z3/32 - 845*sqrt(2)*z3*z4/64 | after zeta(2k)->pi: 0
+   numeric value c_7 = 63.54451807765424743136703150673447368701
+squircle F_2: route(a) - B3 = 0.0
+squircle F_3: route(a) - B3 = -2.1895e-47
+squircle F_4: route(a) - B3 = 4.3791e-47
+squircle F_5: route(a) - B3 = -8.7581e-47
+squircle F_6: route(a) - B3 = 0.0
+squircle F_7: route(a) - B3 = 0.0
+soft-max psi_k: {0: 1, 1: 0, 2: -1/2, 3: 5/6, 4: -5/8, 5: 79/120, 6: -67/144, 7: 877/1680}
+soft-max c_2: B1(even via B3 + odd via gammas) = 3.28986813369645287294483033329 ; route(a) = 3.28986813369645287294483033329 ; diff 0.0
+soft-max c_3: B1(even via B3 + odd via gammas) = 2.40411380631918857079947632302 ; route(a) = 2.40411380631918857079947632302 ; diff 0.0
+soft-max c_4: B1(even via B3 + odd via gammas) = 0.270580808427784547879000924135 ; route(a) = 0.270580808427784547879000924135 ; diff 0.0
+soft-max c_5: B1(even via B3 + odd via gammas) = 1.48992283096334707297341790386 ; route(a) = 1.48992283096334707297341790386 ; diff 0.0
+soft-max c_6: B1(even via B3 + odd via gammas) = 0.0429508278802840339294338048351 ; route(a) = 0.0429508278802840339294338048351 ; diff -2.41e-46
+soft-max c_7: B1(even via B3 + odd via gammas) = 5.58574121431910295823282665832 ; route(a) = 5.58574121431910295823282665832 ; diff -1.4e-45
+soft-max even part 8F_n symbolic: {2: 2*z2, 3: 2*z3, 4: -z2**2/2 + 3*z4/2, 5: -z2*z3 + z5, 6: -z2**3/4 - 7*z2*z4/4 - z3**2/2, 7: -3*z2**2*z3/4 - 5*z2*z5/2 - 7*z3*z4/4 - 3*z7/2}
+soft-max c6 claimed 40g32 - z3^2/2 + 11/16 z6 = 0.042950827880284033929433804835135266  minus route(a): -6.57e-47
+soft-max c5 claimed minus route(a): 3.5e-46
+gamma_31 - 15 z5/256 = -5.47e-48 ; gamma_41 - eta(6)/32 = 0.0

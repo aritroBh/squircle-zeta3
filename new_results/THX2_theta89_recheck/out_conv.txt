@@ -1,0 +1,4 @@
+W=5: 192 relations regenerated from labels; relations containing a divergent/wrong-weight word: 0
+W=6: 654 relations regenerated from labels; relations containing a divergent/wrong-weight word: 0
+W=7: 2160 relations regenerated from labels; relations containing a divergent/wrong-weight word: 0
+W=8: 7146 relations regenerated from labels; relations containing a divergent/wrong-weight word: 0

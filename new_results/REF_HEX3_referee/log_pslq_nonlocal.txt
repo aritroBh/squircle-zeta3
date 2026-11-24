@@ -1,0 +1,15 @@
+== H2 paper example edge0 (r=2) r= 2 A0,A1,B= 1/2 3/4 1/4 A/w: 1/2 1/4 1/4
+   relation [100, -231, -111, -52, 80, 1440, -2400, 0]  residual 8.1476e-116
+   z3 coefficient (PSLQ): 231*sqrt(5)/500  Z_e (printed): 18*sqrt(5)/125  N_e (printed): 159*sqrt(5)/500   PSLQ - (Z_e+N_e) = 0
+== H2 paper example edge1 (r=1/2) r= 1/2 A0,A1,B= 3/4 1/2 1/2 A/w: 1/4 1/2 1/2
+   relation [100, -231, -111, -52, 80, 1440, -2400, 0]  residual 8.1476e-116
+   z3 coefficient (PSLQ): 231*sqrt(5)/500  Z_e (printed): 18*sqrt(5)/125  N_e (printed): 159*sqrt(5)/500   PSLQ - (Z_e+N_e) = 0
+== H2 paper example edge2 (r=1) r= 1 A0,A1,B= 1/4 1/4 3/4 A/w: 1/4 1/4 1/4
+   relation [-64, -15, 4, 1024, -4, -3072, 1536, 0]  residual -3.8168e-117
+   z3 coefficient (PSLQ): -15*sqrt(2)/128  Z_e (printed): -15*sqrt(2)/128  N_e (printed): 0   PSLQ - (Z_e+N_e) = 0
+== H7 fresh edge0 (r=2) r= 2 A0,A1,B= 1/4 5/8 3/8 A/w: 1/4 1/8 1/8
+   relation [36992, -130140, -53145, -3904540, 33660, 23933280, -16091520, 0]  residual 2.7598e-112
+   z3 coefficient (PSLQ): 6507*sqrt(170)/157216  Z_e (printed): 945*sqrt(170)/314432  N_e (printed): 12069*sqrt(170)/314432   PSLQ - (Z_e+N_e) = 0
+== H8 fresh edge1 (r=1/2) r= 1/2 A0,A1,B= 5/8 1/4 3/4 A/w: 1/8 1/4 1/4
+   relation [-21632, 224289, 83187, -155228, -46332, -1204320, 1233024, 0]  residual -1.5101e-113
+   z3 coefficient (PSLQ): 17253*sqrt(26)/21632  Z_e (printed): 30375*sqrt(26)/281216  N_e (printed): 96957*sqrt(26)/140608   PSLQ - (Z_e+N_e) = 0

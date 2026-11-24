@@ -1,0 +1,28 @@
+A = [[1, 1], [0, 2]]  Q(xi) = 5*xi1**2/4 - xi1*xi2/2 + xi2**2/4
+kink sign +1: psi_k = {0: 2, 1: 0, 2: 6, 3: 0, 4: -28, 5: 0, 6: 19/15}
+kink sign -1: psi_k = {0: sqrt(2)/2, 1: 0, 2: -3*sqrt(2)/16, 3: 0, 4: -181*sqrt(2)/256, 5: 0, 6: 41039*sqrt(2)/30720}
+  c_0 = 0
+  c_1 = 0
+  c_2 = z2*(sqrt(2) + 4)/4
+  c_3 = z3*(sqrt(2) + 4)/4
+  c_4 = 5*z2**2/8 + 13*z4/8 + sqrt(2)*(-7*z2**2 + 25*z4)/128
+  c_5 = 5*z2*z3/4 + 9*z5/4 + sqrt(2)*(-7*z2*z3 + 9*z5)/64
+  c_6 = -347*z2**3/96 - 307*z2*z4/32 + 5*z3**2/8 - 209*z6/48 - sqrt(2)*(503*z2**3 + 2181*z2*z4 + 336*z3**2 + 478*z6)/6144
+  tau=0.5: per by theta-quadrature 10.43786418941724066201604 ; v-form - theta = 1.24e-60
+  tau=0.2: per by theta-quadrature 9.763216578344267725821462 ; v-form - theta = 1.24e-60
+  tau=0.07: per by theta-quadrature 9.668409734612248983938547 ; v-form - theta = 0.0
+  c_0 = per(A B_1) = 9.65685424949238019520675489684 ; minus polygon perimeter 4+4sqrt2: 7.24e-71
+  c_4: Neville from theta-quadrature 3.539591022062795758539344 ; criterion 3.539591022062795758539219 ; diff 1.24e-22
+  c_5: Neville from theta-quadrature 4.705086968925691122353467 ; criterion 4.705086968925691122351438 ; diff 2.03e-21
+  c_6: Neville from theta-quadrature -38.32766460562338358397669 ; criterion -38.32766460562338358397953 ; diff 2.84e-21
+rectangle soft-max a=6/5, b=3/5: sum_j (1-H_j)/T_j over kinks = -7.7787690973264271339300800672251553007378152109014589163764e-62
+   psi coefficients of this kink: [4, -2/3, -4/3, 152/27, -271/54, 9773/810]
+   psi coefficients of this kink: [1, 2/3, -7/6, 269/216, -22/27, 33793/51840]
+   predicted c_4 = 0.338226010534730684848751155169 ; (5/16)zeta(4) = 0.338226010534730684848751155169
+   predicted c_2 - (5/2)z2 = 0.0 ; c_3 - (5/2)z3 = 3.11e-61
+   c_4: Neville from direct quadrature 0.3382260105347306848487907 ; predicted 0.3382260105347306848487512 ; diff 3.95e-23
+   c_5: Neville from direct quadrature 3.83702182242446836889865 ; predicted 3.837021822424468368898572 ; diff 7.79e-23
+   size of one kink-pair gamma_12 term 2*psi_1*gamma_12 = 0.02926189052
+designed rectangle 1x2, tau=0.9: split at 0.2660800472, jump h'(+)-h'(-) = 1.87522
+designed rectangle 1x2, tau=0.3: split at 0.2660800472, jump h'(+)-h'(-) = 0.194641
+designed rectangle 1x2, tau=0.1: split at 0.2660800472, jump h'(+)-h'(-) = 0.000219362

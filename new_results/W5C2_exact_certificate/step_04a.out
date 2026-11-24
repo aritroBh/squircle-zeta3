@@ -1,0 +1,32 @@
+2026-10-29 06:14:59 step_04a: ctx built+checked (0s)
+2026-10-29 06:14:59 step_04a: loaded rels_std.pkl 94762 rows (0s)
+2026-10-29 06:14:59 step_04a: loaded rels_lift1.pkl 20736 rows (0s)
+2026-10-29 06:14:59 step_04a: loaded rels_lift2old.pkl 31104 rows (1s)
+2026-10-29 06:15:00 step_04a: loaded rels_lift3old.pkl 34496 rows (1s)
+2026-10-29 06:15:00 step_04a: loaded rels_lift4old.pkl 35294 rows (1s)
+2026-10-29 06:15:01 step_04a: frame234 32520 rows, framew5 288 rows
+2026-10-29 06:15:04 step_04a pp: engine replay EXACT match 68585 rows
+2026-10-29 06:15:08 step_04a pp: frame234 replay EXACT match 14274 rows
+2026-10-29 06:15:09 step_04a pp: framew5 replay EXACT match 288 rows
+2026-10-29 06:15:09 step_04a pp: D_rat fold EXACT match support=7120
+2026-10-29 06:15:09 step_04a pp: D_sq fold EXACT match support=6842
+2026-10-29 06:15:09 step_04a pp: foldmap saved (10s)
+2026-10-29 06:15:12 step_04a pm: engine replay EXACT match 61598 rows
+2026-10-29 06:15:16 step_04a pm: frame234 replay EXACT match 14158 rows
+2026-10-29 06:15:17 step_04a pm: framew5 replay EXACT match 288 rows
+2026-10-29 06:15:17 step_04a pm: D_rat fold EXACT match support=6557
+2026-10-29 06:15:17 step_04a pm: D_sq fold EXACT match support=7021
+2026-10-29 06:15:17 step_04a pm: foldmap saved (18s)
+2026-10-29 06:15:20 step_04a mp: engine replay EXACT match 61699 rows
+2026-10-29 06:15:24 step_04a mp: frame234 replay EXACT match 14194 rows
+2026-10-29 06:15:25 step_04a mp: framew5 replay EXACT match 288 rows
+2026-10-29 06:15:25 step_04a mp: D_rat fold EXACT match support=6573
+2026-10-29 06:15:25 step_04a mp: D_sq fold EXACT match support=6940
+2026-10-29 06:15:25 step_04a mp: foldmap saved (26s)
+2026-10-29 06:15:28 step_04a mm: engine replay EXACT match 67971 rows
+2026-10-29 06:15:33 step_04a mm: frame234 replay EXACT match 14298 rows
+2026-10-29 06:15:33 step_04a mm: framew5 replay EXACT match 288 rows
+2026-10-29 06:15:33 step_04a mm: D_rat fold EXACT match support=7070
+2026-10-29 06:15:33 step_04a mm: D_sq fold EXACT match support=6815
+2026-10-29 06:15:33 step_04a mm: foldmap saved (34s)
+2026-10-29 06:15:33 step_04a: ALL SECTORS REPLAYED AND VERIFIED EXACT (34s)

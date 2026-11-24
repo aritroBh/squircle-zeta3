@@ -1,0 +1,10 @@
+[PASS] task1: kernels k=3..15 == wt3_kernels.json    (910s)
+[PASS] task3(b): kernels affine in k for k>=3 (exact)    (910s)
+[PASS] task1 control: slow ibp_reduce == fast reducer, degree-2 keys k=3,4    (978s)
+Traceback (most recent call last):
+  File "<project>/research/08_theory/WT3_weight3_all_k/verify_wt3.py", line 130, in <module>
+    W3p = w3val(k)
+  File "<project>/research/08_theory/WT3_weight3_all_k/verify_wt3.py", line 103, in w3val
+    tot = P()
+TypeError: 'list' object is not callable
+exit 1

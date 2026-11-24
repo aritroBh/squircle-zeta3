@@ -1,0 +1,34 @@
+  built 16 feed terms (18.6s)
+E3 blindness delta=7: exact numerator == 0 : True  (19.5s)
+  built 18 feed terms (35.9s)
+E3 blindness delta=8: exact numerator == 0 : True  (37.1s)
+adj 7 3
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW4_tower_depth8/claude_screen/w6lens/prove_adj78_fast.py", line 113, in <module>
+    main(int(sys.argv[1]), int(sys.argv[2]))
+         ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '7 3'
+adj 8 4
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW4_tower_depth8/claude_screen/w6lens/prove_adj78_fast.py", line 113, in <module>
+    main(int(sys.argv[1]), int(sys.argv[2]))
+         ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '8 4'
+adj 8 3
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW4_tower_depth8/claude_screen/w6lens/prove_adj78_fast.py", line 113, in <module>
+    main(int(sys.argv[1]), int(sys.argv[2]))
+         ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '8 3'
+adj 7 2
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW4_tower_depth8/claude_screen/w6lens/prove_adj78_fast.py", line 113, in <module>
+    main(int(sys.argv[1]), int(sys.argv[2]))
+         ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '7 2'
+adj 8 2
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW4_tower_depth8/claude_screen/w6lens/prove_adj78_fast.py", line 113, in <module>
+    main(int(sys.argv[1]), int(sys.argv[2]))
+         ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '8 2'

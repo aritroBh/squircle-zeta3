@@ -1,0 +1,35 @@
+[val96g] outer nodes=805 chunks=26 (size=32) resumedone=0 pending=26
+[val96g] chunk 5/25 done n=32 el=184s | progress 1/26 elapsed=184s eta=4611s
+[val96g] chunk 3/25 done n=32 el=184s | progress 2/26 elapsed=185s eta=2220s
+[val96g] chunk 1/25 done n=32 el=185s | progress 3/26 elapsed=185s eta=1422s
+[val96g] chunk 0/25 done n=32 el=185s | progress 4/26 elapsed=186s eta=1022s
+[val96g] chunk 4/25 done n=32 el=185s | progress 5/26 elapsed=186s eta=781s
+[val96g] chunk 2/25 done n=32 el=186s | progress 6/26 elapsed=187s eta=622s
+[val96g] chunk 10/25 done n=32 el=167s | progress 7/26 elapsed=353s eta=959s
+[val96g] chunk 11/25 done n=32 el=167s | progress 8/26 elapsed=353s eta=795s
+[val96g] chunk 7/25 done n=32 el=171s | progress 9/26 elapsed=356s eta=672s
+[val96g] chunk 9/25 done n=32 el=170s | progress 10/26 elapsed=356s eta=570s
+[val96g] chunk 8/25 done n=32 el=171s | progress 11/26 elapsed=356s eta=486s
+[val96g] chunk 6/25 done n=32 el=172s | progress 12/26 elapsed=357s eta=416s
+[val96g] chunk 16/25 done n=32 el=140s | progress 13/26 elapsed=496s eta=496s
+[val96g] chunk 17/25 done n=32 el=140s | progress 14/26 elapsed=497s eta=426s
+[val96g] chunk 13/25 done n=32 el=144s | progress 15/26 elapsed=497s eta=365s
+[val96g] chunk 12/25 done n=32 el=144s | progress 16/26 elapsed=497s eta=311s
+[val96g] chunk 14/25 done n=32 el=143s | progress 17/26 elapsed=499s eta=264s
+[val96g] chunk 15/25 done n=32 el=144s | progress 18/26 elapsed=500s eta=222s
+[val96g] chunk 23/25 done n=32 el=111s | progress 19/26 elapsed=611s eta=225s
+[val96g] chunk 22/25 done n=32 el=136s | progress 20/26 elapsed=634s eta=190s
+[val96g] chunk 21/25 done n=32 el=140s | progress 21/26 elapsed=637s eta=152s
+[val96g] chunk 20/25 done n=32 el=142s | progress 22/26 elapsed=639s eta=116s
+[val96g] chunk 19/25 done n=32 el=145s | progress 23/26 elapsed=642s eta=84s
+[val96g] chunk 25/25 done n=5 el=8s | progress 24/26 elapsed=643s eta=54s
+[val96g] chunk 18/25 done n=32 el=147s | progress 25/26 elapsed=644s eta=26s
+[val96g] chunk 24/25 done n=32 el=70s | progress 26/26 elapsed=681s eta=0s
+[val96g] guarded parallel done: 681s N=805 nch=26 stats={'zero_len': 25, 'nbp': 0, 'nsing': 0, 'ninner': 608006}
+
+k=0  E_par=|Sg-Spar|=4.59e-80   E_ref=|Sg-Sref|=1.54e-79   |par-ref|=2.0e-79
+k=1  E_par=|Sg-Spar|=1.71e-80   E_ref=|Sg-Sref|=8.29e-80   |par-ref|=1.0e-79
+k=2  E_par=|Sg-Spar|=1.24e-78   E_ref=|Sg-Sref|=1.94e-78   |par-ref|=7.0e-79
+k=3  E_par=|Sg-Spar|=7.74e-77   E_ref=|Sg-Sref|=1.36e-76   |par-ref|=5.82e-77
+k=4  E_par=|Sg-Spar|=3.14e-75   E_ref=|Sg-Sref|=5.62e-75   |par-ref|=2.47e-75
+[val96g] DONE

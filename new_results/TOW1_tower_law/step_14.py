@@ -1,0 +1,6 @@
+src = open('../WTS_weight_k_structure/theory/fastred.py').read()
+i0 = src.find('def pf_integrate_higher')
+i1 = src.find('def pf_mul_DL')
+print(src[i0:i1])
+i2 = src.find('# ---------- conversion from sympy ----------')
+print(src[i1:i2])

@@ -1,0 +1,7 @@
+V(5,0): rc=0 out=non-adjacent (5,0): numerator == 0 : True  (0.6s) err= (3s)
+V(5,1): rc=0 out=non-adjacent (5,1): numerator == 0 : True  (0.1s) err= (1s)
+V(5,2): rc=0 out=non-adjacent (5,2): numerator == 0 : True  (0.0s) err= (1s)
+V(6,0): rc=0 out=non-adjacent (6,0): numerator == 0 : True  (5.0s) err= (9s)
+V(6,1): rc=0 out=non-adjacent (6,1): numerator == 0 : True  (0.3s) err= (2s)
+V(6,2): rc=0 out=non-adjacent (6,2): numerator == 0 : True  (0.1s) err= (2s)
+V(6,3): rc=0 out=non-adjacent (6,3): numerator == 0 : True  (0.0s) err= (1s)

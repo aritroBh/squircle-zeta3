@@ -1,0 +1,10 @@
+Psi_Delta(v)=Gm(v)-Gm(1/v) for the full discrepancy simplifies to: 0
+single depth 0 Psi == 0 ? False
+single depth 1 Psi == 0 ? False
+single depth 2 Psi == 0 ? False
+single depth 3 Psi == 0 ? False
+single depth 4 Psi == 0 ? False
+single depth 5 Psi == 0 ? False
+single depth 6 Psi == 0 ? False
+single depth 7 Psi == 0 ? False
+single depth 8 Psi == 0 ? True

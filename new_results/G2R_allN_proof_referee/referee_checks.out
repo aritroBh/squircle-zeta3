@@ -1,0 +1,16 @@
+distinct HPL words in B4 (incl. negations): 96; max depth 5
+(1a) own HPL evaluator == hpl.coeffs_exact, all 96 words, m < 84: True
+(1b) part '1' ODD identity: 446 (word,coef) insertions cancel to 0 surviving words
+(1c) at n=5: even HPL side value = -7596252093627541/219583673971200000
+                mu_4 side value      = -7596252093627541/219583673971200000
+     even-side L1 magnitude at n=5: 3.529447e-01 (exact cancellation vs value 3.459e-02)
+(1d) even canonical forms evaluate equal exactly at n=1..6: True
+     odd expression is identically zero dict: True ; odd L1 would-be cancellation checked via insertions above
+(2a) hpl_coeff_at(w, delta) == [c^(2n+delta)] H_w exactly at n=1,2,3, all words, delta=-1..4: True (1728 checks)
+(2b) shift(v, j) == Z_v(2n+j) exactly at n=1,2, all 29 Z-words used, j=-2..3: True (348 checks)
+(2c) harmonic conversions H^(r)_n-1, H^(r)_2n-1 (r<=4) exact at n=1,2,3: True
+(3) denominator factors over all ten canonical forms: ['2*n + 1', '2*n + 3', '2*n - 1', 'n', 'n + 1']
+    any factor vanishing at an integer n >= 1: False []
+ALL REFEREE CHECKS DONE (8s): True
+
+--- STDERR ---

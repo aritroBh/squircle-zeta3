@@ -1,0 +1,43 @@
+=== (f) designed square: int h = 16 + 2 tau Gamma(-tau/2)^2/Gamma(-tau) + E(tau) ===
+E(tau) = -16 tau sum_{n>=1} binom(tau,n) 4^{-n/tau}/(2n - tau)
+tau=1.0   int h = 12.0 ; closed+E - int h = 0.0 ; E = -4.0
+tau=0.7   int h = 10.04606976218073610135388875514462992446 ; closed+E - int h = -2.14e-50 ; E = -0.825765
+tau=0.5   int h = 9.056723146447341631778185495981025513076 ; closed+E - int h = 2.14e-50 ; E = -0.165572
+tau=0.3   int h = 8.364141948657270649937633470138466482256 ; closed+E - int h = 0.0 ; E = -0.00832456
+tau=0.2   int h = 8.152628911720420005496867065897602192721 ; closed+E - int h = -2.14e-50 ; E = -0.000347158
+tau=0.1   int h = 8.035430423800770449801944314832356216326 ; closed+E - int h = -2.14e-50 ; E = -8.03094e-8
+tau=0.05  int h = 8.008532976021039117274064786170690832543 ; closed+E - int h = -4.28e-50 ; E = -1.86563e-14
+tau=0.02  int h = 8.001335376812910036474833073656662944313 ; closed+E - int h = 1.41e-47 ; E = -2.54985e-33
+full-circle quadrature at tau=0.3, 8 pieces: 8.364141948657270649937633470138466482256  (diff to 8x reduced: 0.0)
+
+Expansion of 16 - 8 Gamma(1-tau/2)^2/Gamma(1-tau) through tau^7:
+  tau^0 : 8   = 8.0
+  tau^1 : 0   = 0.0
+  tau^2 : pi**2/3   = 3.28986813369645287294483033329
+  tau^3 : 2*zeta(3)   = 2.40411380631918857079947632302
+  tau^4 : pi**4/80   = 1.21761363792503046545550415861
+  tau^5 : -pi**2*zeta(3)/12 + 3*zeta(5)/2   = 0.566739457566406830398505508943
+  tau^6 : -zeta(3)**2/4 + 79*pi**6/120960   = 0.266656221460118644939132765091
+  tau^7 : -pi**2*zeta(5)/16 - pi**4*zeta(3)/320 + 9*zeta(7)/8   = 0.128853546356481228531228388511
+check: closed(0.01) - series_7(0.01) = 6.37e-18  (expect O(tau^8) ~ 1e-16)
+
+Convexity of the designed square body:
+ tau=1.0  max|formula - (h+h'') numeric| = 2.27e-50 ; min_{[0,pi/4]} (h+h'') = 0.0 ; h'(0+) = -1.31e-54 ; jump of h' at pi/4 = 1.0
+ tau=0.8  max|formula - (h+h'') numeric| = 1.34e-50 ; min_{[0,pi/4]} (h+h'') = 0.435275 ; h'(0+) = -8.52e-55 ; jump of h' at pi/4 = 0.684457
+ tau=0.5  max|formula - (h+h'') numeric| = 2.67e-50 ; min_{[0,pi/4]} (h+h'') = 0.418658 ; h'(0+) = 0.0 ; jump of h' at pi/4 = 0.242536
+ tau=0.2  max|formula - (h+h'') numeric| = 7.48e-50 ; min_{[0,pi/4]} (h+h'') = 0.0151691 ; h'(0+) = 2.25e-54 ; jump of h' at pi/4 = 0.0039032
+ tau=0.1  max|formula - (h+h'') numeric| = 2.35e-49 ; min_{[0,pi/4]} (h+h'') = 2.83226e-5 ; h'(0+) = 5.59e-54 ; jump of h' at pi/4 = 3.81469e-6
+ tau=0.03 max|formula - (h+h'') numeric| = 8.23e-49 ; min_{[0,pi/4]} (h+h'') = 8.17003e-19 ; h'(0+) = 2.09e-53 ; jump of h' at pi/4 = 3.41502e-20
+
+=== (g) designed rectangle [-A,A]x[-B,B], A=1, B=2 ===
+split angle u* = 0.266080047226160247240540428352, V = 0.510825623765990683205514096304 ; c0 = A^2/B, c1 = B^2/A
+ tau=1.0  int h = 19.2 ; predicted - int h = 0.0
+          min(h+h'') on grid = 0.0804362 ; jump h'(u*+)-h'(u*-) = 2.15946 ; h'(0+) = -1.31e-54 ; h'(pi/2-) = -2.02e-51
+ tau=0.5  int h = 14.11081195219518190179279803629506372233 ; predicted - int h = -2.14e-50
+          min(h+h'') on grid = 0.367616 ; jump h'(u*+)-h'(u*-) = 0.731451 ; h'(0+) = 2.77e-54 ; h'(pi/2-) = -1.07e-51
+ tau=0.2  int h = 12.34016968583182013005837183430536325227 ; predicted - int h = -4.28e-50
+          min(h+h'') on grid = 0.0243382 ; jump h'(u*+)-h'(u*-) = 0.0360961 ; h'(0+) = 1.12e-53 ; h'(pi/2-) = 0.0
+ tau=0.1  int h = 12.07971286141240591988978179665794381608 ; predicted - int h = -2.14e-50
+          min(h+h'') on grid = 0.000211474 ; jump h'(u*+)-h'(u*-) = 0.000219307 ; h'(0+) = 2.45e-53 ; h'(pi/2-) = 1.35e-51
+ tau=0.05 int h = 12.01919919599596655002729078442776561588 ; predicted - int h = -4.28e-50
+          min(h+h'') on grid = 1.26998e-8 ; jump h'(u*+)-h'(u*-) = 8.01849e-9 ; h'(0+) = 5.07e-53 ; h'(pi/2-) = 3.92e-51

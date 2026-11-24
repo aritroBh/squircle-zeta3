@@ -1,0 +1,11 @@
+control G(0^4,p;1) + Li5(1/p) symbol = 0: True
+control G(p)G(q) = G(p,q)+G(q,p) symbol: True
+control: Li5 at 7 S-units pairs to 0 (both orders)
+control: shuffle products of G words pair to 0: True
+block local     pairing (order as built): [0, 0]   (reversed order): [0, 0]
+block single-p  pairing (order as built): [(-53955/8+4770*sqrt2), (-10215/2+14445/4*sqrt2)]   (reversed order): [(-53955/8+4770*sqrt2), (-10215/2+14445/4*sqrt2)]
+block single-q  pairing (order as built): [(-53955/8+4770*sqrt2), (-10215/2+14445/4*sqrt2)]   (reversed order): [(-53955/8+4770*sqrt2), (-10215/2+14445/4*sqrt2)]
+block mixed     pairing (order as built): [(48015/4-8505*sqrt2), (11115-15525/2*sqrt2)]   (reversed order): [(48015/4-8505*sqrt2), (11115-15525/2*sqrt2)]
+TOTAL W5/u pairing (order as built): [(-1485+1035*sqrt2), (900-540*sqrt2)]   (reversed): [(-1485+1035*sqrt2), (900-540*sqrt2)]
+paper: (-1485+1035 sqrt2, 900-540 sqrt2)
+paper correction C = (-3600+2160 sqrt2) Li32(b,1) + (11880-8280 sqrt2) Li32(1/sqrt2,1): pairing [(-1485+1035*sqrt2), (900-540*sqrt2)] (reversed [(-1485+1035*sqrt2), (900-540*sqrt2)])

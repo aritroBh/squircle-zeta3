@@ -1,0 +1,26 @@
+mu_4 Z-sum canonical forms built (1s): {'1': 29, 'z2': 5, 'z3': 2, 'z4': 1, 'z2^2': 1}
+part 1: 109 terms; even words 29, mu words 29
+   even identity [c^(2n)] (B4 - mu_4)|_1 == 0 identically in n : True
+   odd identity  [c^(2n+1)] == 0 identically in n                : True
+   low orders c^-3..c^3 exact                                   : True
+   low-order mismatch part (1, 0, 0) at c^2: 247/432 vs 103/432
+part z2: 22 terms; even words 5, mu words 5
+   even identity [c^(2n)] (B4 - mu_4)|_z2 == 0 identically in n : False
+   residual: [((), 1/(3*n))]
+   odd identity  [c^(2n+1)] == 0 identically in n                : True
+   low orders c^-3..c^3 exact                                   : False
+part z3: 15 terms; even words 2, mu words 2
+   even identity [c^(2n)] (B4 - mu_4)|_z3 == 0 identically in n : True
+   odd identity  [c^(2n+1)] == 0 identically in n                : True
+   low orders c^-3..c^3 exact                                   : True
+part z4: 8 terms; even words 1, mu words 1
+   even identity [c^(2n)] (B4 - mu_4)|_z4 == 0 identically in n : True
+   odd identity  [c^(2n+1)] == 0 identically in n                : True
+   low orders c^-3..c^3 exact                                   : True
+part z2^2: 8 terms; even words 1, mu words 1
+   even identity [c^(2n)] (B4 - mu_4)|_z2^2 == 0 identically in n : True
+   odd identity  [c^(2n+1)] == 0 identically in n                : True
+   low orders c^-3..c^3 exact                                   : True
+B4 PROVED for all n (all five parts): False (2s)
+
+--- STDERR ---

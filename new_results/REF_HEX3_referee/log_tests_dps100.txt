@@ -1,0 +1,70 @@
+=== H1_regular_w111: V=[(1/2, sqrt(3)/6), (0, sqrt(3)/3), (-1/2, sqrt(3)/6)] w=[1, 1, 1]
+  edge 0: r=1 B=1/2 L2=1/3  direct E=-0.857575836189269306195280188520662511852592261
+          formula-direct = -2.1145e-99   literal-label formula - direct = -2.1145e-99
+  edge 1: r=1 B=1/2 L2=1/3  direct E=-0.857575836189269306195280188520662511852592261
+          formula-direct = -2.1145e-99   literal-label formula - direct = -2.1145e-99
+  edge 2: r=1 B=1/2 L2=1/3  direct E=-0.857575836189269306195280188520662511852592261
+          formula-direct = -2.0717e-99   literal-label formula - direct = -2.0717e-99
+  P(1) direct - exact perimeter = 0.0
+  P'''(1) direct = -5.1454550171356158371716811311239750711155535664197
+  P'''(1) table  = -5.1454550171356158371716811311239750711155535664197   diff -1.263e-98   (2s)
+=== H2_paper_example_w131: V=[(1, 0), (2, 2), (0, 1)] w=[1, 3, 1]
+  edge 0: r=2 B=1/4 L2=5  direct E=5.52973254694380973123100598159516871009333031
+          formula-direct = -1.463e-98   literal-label formula - direct = -7.8878
+  edge 1: r=1/2 B=1/2 L2=5  direct E=5.52973254694380973123100598159516871009333031
+          formula-direct = -1.4687e-98   literal-label formula - direct = -2.4473
+  edge 2: r=1 B=3/4 L2=2  direct E=-1.10933191231358597224973922573225918120950444
+          formula-direct = -1.543e-99   literal-label formula - direct = -1.543e-99
+  P(1) direct - exact perimeter = 0.0
+  P'''(1) direct = 19.900266363148066980424545474916156477954312358839
+  P'''(1) table  = 19.900266363148066980424545474916156477954312358839   diff -6.195e-98   (2s)
+=== H3_far_r2: V=[(3, 0), (15/2, 3/4), (1, 1/2)] w=[2, 7, 3]
+  edge 0: r=2 B=3/8 L2=333/16  direct E=5.83519728032812599899489295392341498951567012
+          formula-direct = -2.4746e-98   literal-label formula - direct = -47.441
+  edge 1: r=2/3 B=1/4 L2=677/16  direct E=-6.11715124598011050178287170557583954544797235
+          formula-direct = -9.3839e-98   literal-label formula - direct = -0.89545
+  edge 2: r=3/4 B=5/6 L2=65/4  direct E=-22.7986171570610679329926016617617308408880001
+          formula-direct = -2.1488e-98   literal-label formula - direct = 6.5288
+  P(1) direct - exact perimeter = -2.286e-100
+  P'''(1) direct = -46.161142245426104871561160826828310793640604768031
+  P'''(1) table  = -46.161142245426104871561160826828310793640604768031   diff -2.798e-97   (2s)
+=== H4_r_half: V=[(1, 1), (-27/10, 33/10), (-2, 1)] w=[5, 1, 2]
+  edge 0: r=13/10 B=3/26 L2=949/50  direct E=-21.3026587863320888273494632035642195743810773
+          formula-direct = -3.8404e-98   literal-label formula - direct = -3.6775
+  edge 1: r=1/2 B=17/20 L2=289/50  direct E=-12.251255649179656635751207637552365530574346
+          formula-direct = -1.4173e-98   literal-label formula - direct = -14.361
+  edge 2: r=20/13 B=23/40 L2=5  direct E=-7.38015410309648156525776373980077687667730883
+          formula-direct = -1.9431e-99   literal-label formula - direct = 1.3148
+  P(1) direct - exact perimeter = 0.0
+  P'''(1) direct = -81.868137077216454056716869161834723963265464120142
+  P'''(1) table  = -81.868137077216454056716869161834723963265464120142   diff -1.0881e-97   (2s)
+=== H5_irrational: V=[(1, 0), (sqrt(2) + sqrt(5)*(-1/2 + sqrt(3)), -1/2 + sqrt(3)), (sqrt(5), 1)] w=[3/2, 4, 1]
+  edge 0: r=sqrt(2) B=-sqrt(2)*(-1/2 + sqrt(3))*(-sqrt(2)/(-1/2 + sqrt(3)) - 1/(-1/2 + sqrt(3)) + 1)/4 L2=(-1/2 + sqrt(3))**2 + (-1 + sqrt(2) + sqrt(5)*(-1/2 + sqrt(3)))**2  direct E=7.76299242210901835273271886452127911429488859
+          formula-direct = -2.446e-98   literal-label formula - direct = -6.1606
+  edge 1: r=2/11 + 4*sqrt(3)/11 B=(-1/2 + sqrt(3))*(-sqrt(2)/(-1/2 + sqrt(3)) - 1/(-1/2 + sqrt(3)) + 1)/2 + 1 L2=(3/2 - sqrt(3))**2 + (-sqrt(5)*(-1/2 + sqrt(3)) - sqrt(2) + sqrt(5))**2  direct E=16.3800481742042666551473840421351350202529537
+          formula-direct = -8.0009e-99   literal-label formula - direct = -2.7353
+  edge 2: r=sqrt(13/8 - sqrt(3)/2) B=sqrt(2)*(sqrt(2)*(-1/2 + sqrt(3))*(-sqrt(2)/(-1/2 + sqrt(3)) - 1/(-1/2 + sqrt(3)) + 1)/4 + 1)/(-1/2 + sqrt(3)) L2=2*sqrt(5) + 7  direct E=-6.89256775629657840113782062205896773018316245
+          formula-direct = -3.709e-98   literal-label formula - direct = 1.0035
+  P(1) direct - exact perimeter = 0.0
+  P'''(1) direct = 34.500945680033413213484564569194892808729359748907
+  P'''(1) table  = 34.500945680033413213484564569194892808729359748907   diff -1.3899e-97   (2s)
+=== H6_r4: V=[(1, 0), (4, 16/5), (0, 1)] w=[1, 2, 3]
+  edge 0: r=4 B=9/40 L2=481/25  direct E=-0.610793646240109253484430363267044671645868685
+          formula-direct = -5.0277e-98   literal-label formula - direct = -58.41
+  edge 1: r=5/16 B=1/10 L2=521/25  direct E=-3.65152541023646012492492317863962419558832543
+          formula-direct = -6.3093e-98   literal-label formula - direct = -0.1797
+  edge 2: r=4/5 B=31/32 L2=2  direct E=0.604737423167884482576702142922020800084756066
+          formula-direct = -9.9297e-100   literal-label formula - direct = 1.7825
+  P(1) direct - exact perimeter = 2.286e-100
+  P'''(1) direct = -7.3151632666173697916653027979692961342988760938493
+  P'''(1) table  = -7.3151632666173697916653027979692961342988760938493   diff -2.2871e-97   (2s)
+=== H7_r2_pow2logs: V=[(2, 1), (11/2, 13/2), (1, 3)] w=[1, 5, 3]
+  edge 0: r=2 B=3/8 L2=85/2  direct E=4.73994701668348655825193078055579170072754553
+          formula-direct = -4.7263e-98   literal-label formula - direct = -65.612
+  edge 1: r=2/3 B=1/4 L2=65/2  direct E=6.788823449771848945338601262218673050543317
+          formula-direct = -3.9547e-98   literal-label formula - direct = -3.6408
+  edge 2: r=3/4 B=5/6 L2=25  direct E=-17.3667054742051688770415465938509224860055075
+          formula-direct = -1.6916e-98   literal-label formula - direct = 3.7895
+  P(1) direct - exact perimeter = -4.5719e-100
+  P'''(1) direct = -11.675870015499666746902029102152915469469289914204
+  P'''(1) table  = -11.675870015499666746902029102152915469469289914204   diff -2.0734e-97   (2s)

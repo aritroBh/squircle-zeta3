@@ -1,0 +1,3 @@
+import subprocess
+out = subprocess.run(['grep','-n','g_symbol\|li32\|Li32\|li_symbol','../DEC5D_decagon_order5_depth/step_53.py','../DEC5D_decagon_order5_depth/step_54.py','../DEC5D_decagon_order5_depth/step_55.py','../DEC5D_decagon_order5_depth/step_56.py','../DEC5D_decagon_order5_depth/step_57.py','../DEC5D_decagon_order5_depth/step_58.py','../DEC5D_decagon_order5_depth/step_59.py','../DEC5D_decagon_order5_depth/step_60.py'],capture_output=True,text=True)
+print(out.stdout[:4000])

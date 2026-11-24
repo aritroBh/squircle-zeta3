@@ -1,0 +1,28 @@
+# COR8BR referee report — COR8B (depth-two part of M₃(α) at general angle)
+
+Work dir: `new_results/COR8BR_referee_depth_two` (`cor8br_sym.py`, `my_dt_syms.pkl`, `progress.log`, `step_*.py`). All numbers below were printed by my own code, written from definitions (COR8B's engine was read, and executed only as a cross-check, never as my verification).
+
+## What was independently re-derived and verified
+
+**Task 1 — symbols (CORRECT, with one MINOR FIX).**
+- I re-derived the dlog recursions from the convB series `Li_{a,b}(x,y)=Σ_{n>m≥1}xⁿyᵐ/(nᵃmᵇ)` (using `x∂ₓLi_{a,b}=Li_{a−1,b}`, `y∂_yLi_{a,b}=Li_{a,b−1}`, `x∂ₓLi_{1,b}=−Li_b(xy)dlog(1−x)`, `y∂_yLi_{a,1}=−Li_a(xy)dlog(y/(y−1))−Li_a(x)dlog(1−y)`). All six recursions (Li₁₁, Li₁₂, Li₂₁, Li₂₂, Li₃₁, Li₁₃) verified by finite differences at (0.5,0.7), (0.31,1.4), (0.2,0.9); residuals 10⁻²⁸…10⁻³³ (`step_25`). COR8B's corrected `dLi₁₁ = −Li₁(xy)[dlog y+dlog(1−x)−dlog(1−y)] − Li₁(x)dlog(1−y)` is right (the y/(y−1)-form differs only by dlog(−1)).
+- Symbols built from `S(F)=ΣS(Fᵢ)⊗[gᵢ]`, `S(Li_n(z))=−[1−z]⊗[z]^{n−1}`: **byte-identical to `twovar_symbols.json`** (Li₂₂:12, Li₃₁:10, Li₁₃:6, Li₁₂:5, Li₂₁:7, Li₁₁:4 terms; COR8's 15/18-term versions are the Z=X+Y multilinear expansions — consistent). Shuffle/stuffle identities exact (0 residual after multilinear expansion): `Li₂₂(x,y)+Li₂₂(y,x)+Li₄(xy)=Li₂(x)Li₂(y)`, `Li₃₁(x,y)+Li₁₃(y,x)+Li₄(xy)=Li₃(x)Li₁(y)`, `Li₂₁(x,y)+Li₁₂(y,x)+Li₃(xy)=Li₂(x)Li₁(y)` (`step_30`, `step_31`).
+- **MINOR FIX — the printed closed forms are wrong.** My term-by-term δ₂,₂ in the 5-letter space: δ(Li₂₂) = −XU∧XW+XU∧YV−XU∧YW−XW∧YV+YV∧YW, δ(Li₃₁) = XW∧YV−YV∧YW, δ(Li₁₃) = XU∧XW+XU∧YW. Hence the true formulas are δ(Li₂₂)=(W∧Z−U∧X)∧(Y∧V) **+ (X∧U)∧(W∧Z)** and δ(Li₃₁)=**−(W∧Z)∧(Y∧V)** (COR8B's "+(U∧X)∧(V∧X)" is spurious — it cancels between two symbol terms); δ(Li₁₃)=(W∧Z)∧(X∧U) is correct. At (x,y)=(c,c) COR8B's printed Li₂₂ formula gives 2[cp∧cq] where the true δ is 0. All errors vanish when X∧U=0 (x=½), and their *engine* computes δ directly from the symbols: at 61 S-unit pairs (including (c,c) and x=(1+c)²/4c, y=2/(1+c)) my δ matches their database 60/60 for Li₂₂ and Li₃₁ — so the error is confined to result.md §1's displayed formulas and does not propagate.
+
+**Task 2 — δ₂,₂(Ω) and DT (CORRECT, sign +).** With my own HPL code (`S(H_{a₁…aₙ})=g(aₙ)…g(a₁)`, g(0)=[c], g(1)=−[1−c], g(−1)=+[1+c]) on the 56 weight-4 terms of `hpl_fit_k3_(0,0,0).json`: S(Ω) has **24 pure tensors** (= COR8R's count) and is **identical to COR4's `F_symbol.json`** (0 differences after normalizing the trivial convention of folding ± into the letter vs the coefficient). δ₂,₂(Ω) = (1−c⁻¹)([c]∧[1−c])∧([1−c]∧[1+c]) + (−1−c⁻¹)([c]∧[1+c])∧([1−c]∧[1+c]) — **exactly Prop. prop:M3angle, residual 0**. Specializing my symbols at x=½ (X=U=−[2]; y=1∓c ⇒ Y=[1∓c], V=[c], W=[1±c]−[2]): δ(Li₁₃(½,·))≡0 and δ(Li₃₁)=−δ(Li₂₂), so **δ(DT_A)=δ(DT_B) identically, even with [2] kept** (printed). With [2] dropped: δ(DT_A) = **+δ₂,₂(Ω), exact, sign +** (COR8 right; COR8R's "−" was a convA artifact). With [2] kept: R = δ(DT_A)−δ(Ω) has **exactly the 4 components** (c⁻¹−1)[mp∧cp] + (c⁻¹+1)[mp∧cq] + (1−c⁻¹)[mq∧cp] + (−1−c⁻¹)[mq∧cq] — **byte-equal to `DT_A_residual_2kept.json`**. My R satisfies COR8B's functionals f1,f2 (mp^cp+mq^cp=0, mp^cq+mq^cq=0) and violates f3,f4 ((mp^cp)+(cp^pq)=c⁻¹−1≠0, (mp^cq)+(cq^pq)=c⁻¹+1≠0) — consistent with their obstruction statement.
+
+## Verdict table
+
+| Claim | Verdict | Evidence (my prints) |
+|---|---|---|
+| dlog recursions incl. corrected dLi₁₁ | CORRECT | finite-diff residuals 1e-28…1e-33 |
+| Two-variable symbols (12/10/6 terms) | CORRECT | byte-identical to twovar_symbols.json; shuffles exact |
+| Printed closed forms δ(Li₂₂), δ(Li₃₁) | MINOR FIX | false in 5-letter space (shown at (c,c)); correct only at x=½; engine unaffected (60/60 db match) |
+| δ₂,₂(Ω) = paper, 24 tensors, = COR4 F_symbol | CORRECT | residual 0; 0 diffs |
+| δ(DT_A)=δ(DT_B)=+δ(Ω) with [2] dropped | CORRECT | exact, sign + |
+| [2]-kept residual = 4 m-components | CORRECT | byte-equal to DT_A_residual_2kept.json; f3,f4 violated as claimed |
+| 3-dim span, 4 functionals, 38 args, Mason–Stothers exhaustivity, HPL escape hatch (rank 7) | NOT CONFIRMED (ran out of turns) | partial: engine db matches my δ at 60/60 pairs, so the input data are trustworthy; span/enumeration/escape-hatch not re-computed by my own code |
+
+**Gap (mine, not COR8B's):** Tasks 3 and 4 were not independently re-computed within the turn limit; the impossibility class statement ("depth-two MPLs at {2,c,1±c}-unit arguments") therefore rests on COR8B's enumeration, whose Mason–Stothers degree bound (deg ≤ 2, |S|=4, genus 0) is plausible but whose exponent box [−2,2]×[−3,3]³ for the 2-adic factor is not a priori justified by the bound — a repair is to solve the S-unit equation ε₁2ʳM₁+ε₂2ˢM₂=M₃ over monic monomials of degree ≤2 exactly (I verified the method, not the run). **Repair for the MINOR FIX:** replace the two formulas in result.md §1 by δ(Li₂₂)=(W∧Z−U∧X)∧(Y∧V)+(X∧U)∧(W∧Z), δ(Li₃₁)=−(W∧Z)∧(Y∧V), and note the x=½ specialization kills the difference.
+
+**Paper wording I would accept:** "Modulo constant letters, the (2,2) obstruction of the weight-four part of M₃(α) is accounted for by exactly two depth-two functions: δ₂,₂(Ω) = δ₂,₂( ((1−c)/c)Li₂,₂(½,1−c) − ((1+c)/c)Li₂,₂(½,1+c) ) (equivalently with +((1+c)/c)Li₃,₁(½,1+c)); with the constant letter [2] kept there remains a four-component residual, which no ℚ(c)-combination of depth-two multiple polylogarithms at {2,c,1±c}-unit arguments reproduces (their δ₂,₂'s span only a 3-dimensional space), but which is reachable by weight-4 harmonic polylogarithms at S-unit arguments."

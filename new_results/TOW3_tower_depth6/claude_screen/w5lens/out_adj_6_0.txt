@@ -1,0 +1,4 @@
+adjacent (6,0): remainder*DEN == 0 : True  (588.6s)
+real 599.17
+user 176.00
+sys 1.01

@@ -1,0 +1,46 @@
+import pickle, mpmath as mp, json
+from q1s_exact import femb, BASISEL
+mp.mp.dps=100
+sol = pickle.load(open('q3_solve.pkl','rb'))
+sols = pickle.load(open('sunit_li3.pkl','rb'))
+def ReLi3(i):
+    return mp.re(mp.polylog(3, femb(sols[i]['z'],1)))
+def logu(u): return mp.log(femb(BASISEL[u],1))
+def Gvw(v,w):
+    vn=femb(BASISEL[v],1); wn=femb(BASISEL[w],1)
+    return mp.quad(lambda t: mp.log(1-t/wn)/(t-vn), [0, mp.mpf('0.5'), 1])
+li3part = sum(mp.mpf(float(c))*2*ReLi3(i) for (i,j),c in sol['V3p']['li3'])
+decpart = sum(mp.mpf(float(c))*logu(u)*Gvw(v,w) for (u,v,w),c in sol['V3p']['dec'])
+b3 = "<project>/research/07_push/S3_superellipsoid/claude/"
+ref3=mp.mpf(json.load(open(b3+"V3p_1250.json"))['V3p'])
+K = ref3 - li3part - decpart
+print("ReLi3 part:", mp.nstr(li3part,18))
+print("decomp part:", mp.nstr(decpart,18))
+print("K =", mp.nstr(K,25))
+# invisible basis values
+r2=mp.sqrt(2); a=1+r2; L=mp.log(a); lam=mp.log(2); l3=mp.log(3); pi=mp.pi
+z3=mp.zeta(3)
+Lchi8=(mp.zeta(3,mp.mpf(1)/8)-mp.zeta(3,mp.mpf(3)/8)-mp.zeta(3,mp.mpf(5)/8)+mp.zeta(3,mp.mpf(7)/8))/512
+Lchim8=(mp.zeta(3,mp.mpf(1)/8)+mp.zeta(3,mp.mpf(3)/8)-mp.zeta(3,mp.mpf(5)/8)-mp.zeta(3,mp.mpf(7)/8))/512
+beta3=(mp.zeta(3,mp.mpf(1)/4)-mp.zeta(3,mp.mpf(3)/4))/64
+G=mp.catalan
+Cl1=mp.clsin(2,mp.pi/4); Cl3=mp.clsin(2,3*mp.pi/4)
+z2=pi**2/6
+base=[('z3',z3),('Lchi8',Lchi8),('Lchim8',Lchim8),('beta3',beta3),('pi3',pi**3),
+      ('pi*G',pi*G),('pi*Cl1',pi*Cl1),('pi*Cl3',pi*Cl3),
+      ('pi2*lam',pi**2*lam),('pi2*L',pi**2*L),('pi2*l3',pi**2*l3),
+      ('z2*lam',z2*lam),('z2*L',z2*L),('z2*l3',z2*l3)]
+names=[]; vals=[]
+for nm,v in base:
+    for sgn,tag in [(1,''),(1j,'i*')]:
+        names.append(tag+nm); vals.append(sgn*v)
+pickle.dump({'K':mp.nstr(K,90),'names':names,'vals':[mp.nstr(v,90) for v in vals]},open('V3p_R_100.pkl','wb'))
+# quick PSLQ at 90 digits
+mp.mp.dps=90
+Kv = mp.mpc(mp.nstr(K,90))
+vec=[Kv]+[mp.mpc(v) for v in vals]
+rel=mp.pslq(vec, tol=mp.mpf('1e-78'), maxcoeff=10**8, maxsteps=1000)
+print("PSLQ:", rel)
+if rel:
+    print("residual:", mp.nstr(abs(sum(mp.mpf(r)*v for r,v in zip(rel,vec))),6))
+    print("relation terms:", [(names[i-1] if i>0 else 'K', r) for i,r in enumerate(rel) if r!=0])

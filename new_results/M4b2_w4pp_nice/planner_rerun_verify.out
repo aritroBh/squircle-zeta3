@@ -1,0 +1,40 @@
+2026-10-22 18:37:58 weight 1 relation families: {'weight1_branch_nonzero': 4, 'weight1_branch_new': 2, 'distribution_nonzero': 4, 'distribution_new': 4}; unique rows=6
+2026-10-22 18:37:58 weight 2 relation families: {'double_shuffle_nonzero': 35, 'double_shuffle_new': 35, 'distribution_nonzero': 25, 'distribution_new': 25, 'lift_nonzero': 28, 'lift_new': 28}; unique rows=88
+2026-10-22 18:37:58 weight 3 relation families: {'double_shuffle_nonzero': 568, 'double_shuffle_new': 568, 'distribution_nonzero': 119, 'distribution_new': 119, 'lift_nonzero': 634, 'lift_new': 611}; unique rows=1298
+2026-10-22 18:37:59 weight 4 relation families: {'double_shuffle_nonzero': 7704, 'double_shuffle_new': 7703, 'distribution_nonzero': 559, 'distribution_new': 559}; unique rows=8262
+2026-10-22 18:37:59 target: gpl_w4pp.tsv == omega4.json re-derivation (432 terms); weight check True
+2026-10-22 18:38:07 EXACT rebuilt W4pp component=0 support=3524 residual_nonzero=0
+2026-10-22 18:38:08 EXACT rebuilt W4pp component=1 support=2638 residual_nonzero=0
+2026-10-22 18:38:08 EXACT certificate source families={'atom': 29, 'frame_w2': 10, 'frame_w3': 9, 'frame_w4': 9, 'std': 4810, 'lift1': 223, 'lift2old': 7} total_used_rows=5097
+2026-10-22 18:38:08 R''_nice = sum over classical atoms of (c_rat + c_sq*sqrt2)*atom:
+2026-10-22 18:38:08    (-37/96 + 13/48*sqrt2) * log2*log2*log2*log2
+2026-10-22 18:38:08    (7/12 + 13/12*sqrt2) * log2*log2*log2*L
+2026-10-22 18:38:08    (3/2 + 1/8*sqrt2) * log2*log2*L*L
+2026-10-22 18:38:08    (-7/6 - 7/3*sqrt2) * log2*L*L*L
+2026-10-22 18:38:08    (-19/24 - 1/12*sqrt2) * L*L*L*L
+2026-10-22 18:38:08    (19/48 - 157/192*sqrt2) * pi^2*log2*log2
+2026-10-22 18:38:08    (-23/16 + 7/6*sqrt2) * pi^2*log2*L
+2026-10-22 18:38:08    (49/48 + 11/48*sqrt2) * pi^2*L*L
+2026-10-22 18:38:08    (0 - 7/4*sqrt2) * Li2(b)*log2*log2
+2026-10-22 18:38:08    (-4 + 0*sqrt2) * Li2(b)*log2*L
+2026-10-22 18:38:08    (5 + 1*sqrt2) * Li2(b)*L*L
+2026-10-22 18:38:08    (1333/11520 - 391/2880*sqrt2) * pi^2*pi^2
+2026-10-22 18:38:08    (-19/24 - 1/6*sqrt2) * pi^2*Li2(b)
+2026-10-22 18:38:08    (5 + 0*sqrt2) * Li2(b)*Li2(b)
+2026-10-22 18:38:08    (1/16 + 77/64*sqrt2) * z3*log2
+2026-10-22 18:38:08    (63/32 + 3/8*sqrt2) * z3*L
+2026-10-22 18:38:08    (0 + 6*sqrt2) * Li3(b)*log2
+2026-10-22 18:38:08    (10 + 2*sqrt2) * Li3(b)*L
+2026-10-22 18:38:08    (0 - 6*sqrt2) * Li3(-b)*log2
+2026-10-22 18:38:08    (-10 + 2*sqrt2) * Li3(-b)*L
+2026-10-22 18:38:08    (0 - 11*sqrt2) * Li3(1/sqrt2)*log2
+2026-10-22 18:38:08    (-18 + 0*sqrt2) * Li3(1/sqrt2)*L
+2026-10-22 18:38:08    (1 - 104*sqrt2) * Li4((-1+1*sqrt2))
+2026-10-22 18:38:08    (-1 - 104*sqrt2) * Li4((1-1*sqrt2))
+2026-10-22 18:38:08    (0 + 41/4*sqrt2) * Li4((-3+2*sqrt2))
+2026-10-22 18:38:08    (0 + 2*sqrt2) * Li4(1/2*sqrt2)
+2026-10-22 18:38:08    (-37/4 - 1/8*sqrt2) * Li4(1/2)
+2026-10-22 18:38:08    (10 + 16*sqrt2) * Li4((1-1/2*sqrt2))
+2026-10-22 18:38:08    (-10 + 16*sqrt2) * Li4((2-1*sqrt2))
+2026-10-22 18:38:08 VERDICT: W4'' = R''_nice PROVED
+exit=0

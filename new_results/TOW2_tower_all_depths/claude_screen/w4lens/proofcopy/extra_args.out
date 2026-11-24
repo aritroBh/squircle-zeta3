@@ -1,0 +1,10 @@
+### prove_E3b34.py 3
+E3 blindness delta=3: numerator == 0 : True  (1.0s)
+### prove_E3b34.py 4
+E3 blindness delta=4: numerator == 0 : True  (3.1s)
+### prove_S34.py 3
+l=3: total built (0.4s)
+S^3/S identity: numerator == 0 : True  (0.8s)
+### prove_S34.py 4
+l=4: total built (1.7s)
+S^4/S identity: numerator == 0 : True  (3.3s)

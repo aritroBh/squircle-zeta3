@@ -1,0 +1,16 @@
+reflection identity residual at (0.3,-0.45): -1.8967e-57
+R(0,mu) = (-mu*polygamma(0, -mu) - EulerGamma*mu + 1)/(2*mu)
+R(0,mu) rewritten: -polygamma(0, 1 - mu)/2 - EulerGamma/2  series: pi**2*mu/12 + mu**2*zeta(3)/2 + pi**4*mu**3/180 + mu**4*zeta(5)/2 + O(mu**5)
+int_0^inf g        = zeta2/4                  residual 0.0
+int_0^inf s g      = 3zeta3/16                residual 0.0
+int_0^inf g^2/2    = zeta3/16                 residual 0.0
+int_0^inf s^2 g/2  = 7zeta4/64                residual 9.7235e-63
+int_0^inf s^3 g/6  = 7zeta5/32*?              residual 3.4032e-62
+J = int(s g^2/2+g^3/6) = zeta4/32             residual 4.8617e-63
+deg2 reflection: g02+g11 = zeta3/4            residual 0.0
+deg3 reflection: 2g03+2g12+4g21 = zeta4/2     residual 7.7788e-62
+softmax c4 = 4*(int_R g3 + 2J - int_R s^2 g/2) = 0.270580808427784547879000924135  zeta4/4 = 0.270580808427784547879000924135
+squircle c4 = -3.15693715422070561248491036997  -33 sqrt2 zeta4/16 = -3.15693715422070561248491036997
+diagonal G(t,t) residual at t = 0.1 : -2.3336e-61
+diagonal G(t,t) residual at t = 0.5 : -5.7796e-51
+diagonal G(t,t) residual at t = 1.3 : -5.1614e-24

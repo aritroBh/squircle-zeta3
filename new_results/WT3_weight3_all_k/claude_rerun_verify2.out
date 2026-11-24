@@ -1,0 +1,14 @@
+[PASS] task1: kernels k=3..15 == wt3_kernels.json    (845s)
+[PASS] task3(b): kernels affine in k for k>=3 (exact)    (845s)
+[PASS] task1 control: slow ibp_reduce == fast reducer, degree-2 keys k=3,4    (924s)
+[PASS] task2: W3(k) exact vs quadrature, all k=3..15  max residual 1.33e-64 at dps=65  (1736s)
+[PASS] task2 control k=3 == thm:M3 W3'    (1736s)
+[PASS] task2 control k=4 == rem:k4    (1736s)
+[PASS] task3: W3(k) = W3(3)+(k-3)DELTA, DELTA=-z3/8-pi2 lam/24-lam^3/12 (exact)    (1736s)
+[PASS] task2: values == w3_values.json    (1736s)
+Traceback (most recent call last):
+  File "<project>/research/08_theory/WT3_weight3_all_k/verify_wt3.py", line 190, in <module>
+    rhs20 = pf_add(pf_scale(pf_mul_DL(Gm30, DL1), Fr(-3)), pf_neg(pf_mul_DL(Gm21, DL2)))
+                                                           ^^^^^^
+NameError: name 'pf_neg' is not defined
+exit 1

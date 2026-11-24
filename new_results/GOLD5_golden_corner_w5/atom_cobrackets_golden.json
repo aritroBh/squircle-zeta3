@@ -1,0 +1,1740 @@
+{
+ "Li32((Fraction(9, 1), Fraction(-4, 1)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(9, 1), Fraction(-4, 1))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-864",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-864"
+   ]
+  ]
+ },
+ "Li32((Fraction(9, 1), Fraction(-4, 1)),(Fraction(2, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(9, 1), Fraction(-4, 1))",
+   "(Fraction(2, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-459",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-459"
+   ]
+  ]
+ },
+ "Li32((Fraction(9, 1), Fraction(-4, 1)),(Fraction(-2, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(9, 1), Fraction(-4, 1))",
+   "(Fraction(-2, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-459",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-459"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 4)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 4))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "288",
+    "0"
+   ],
+   [
+    "-432",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-288"
+   ],
+   [
+    "-432"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 4)),(Fraction(-1, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 4))",
+   "(Fraction(-1, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "153",
+    "0"
+   ],
+   [
+    "-216",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-153"
+   ],
+   [
+    "-216"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 4)),(Fraction(3, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 4))",
+   "(Fraction(3, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "153",
+    "0"
+   ],
+   [
+    "-243",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-153"
+   ],
+   [
+    "-243"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(1, 4), Fraction(-1, 4)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(1, 4), Fraction(-1, 4))"
+  ],
+  "cvec": [
+   [
+    "171",
+    "0"
+   ],
+   [
+    "-234",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-171"
+   ],
+   [
+    "-234"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "9",
+    "0"
+   ],
+   [
+    "-18",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-9"
+   ],
+   [
+    "-18"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(-1, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(-1, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "81",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "81"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(-1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(-1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "9",
+    "0"
+   ],
+   [
+    "-18",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-9"
+   ],
+   [
+    "-18"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(2, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(2, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(3, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(3, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(-1, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(-1, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "9",
+    "0"
+   ],
+   [
+    "-18",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-9"
+   ],
+   [
+    "-18"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 4), Fraction(-1, 4)),(Fraction(2, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(3, 4), Fraction(-1, 4))",
+   "(Fraction(2, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "-27",
+    "0"
+   ],
+   [
+    "-27",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "27"
+   ],
+   [
+    "-27"
+   ]
+  ]
+ },
+ "Li32((Fraction(2, 1), Fraction(-1, 1)),(Fraction(2, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(2, 1), Fraction(-1, 1))",
+   "(Fraction(2, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-513",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-513"
+   ]
+  ]
+ },
+ "Li32((Fraction(-2, 1), Fraction(1, 1)),(Fraction(-2, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(-2, 1), Fraction(1, 1))",
+   "(Fraction(-2, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-513",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-513"
+   ]
+  ]
+ },
+ "Li32((Fraction(-2, 1), Fraction(1, 1)),(Fraction(1, 4), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(-2, 1), Fraction(1, 1))",
+   "(Fraction(1, 4), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "-27",
+    "0"
+   ],
+   [
+    "54",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "27"
+   ],
+   [
+    "54"
+   ]
+  ]
+ },
+ "Li32((Fraction(2, 1), Fraction(-1, 1)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(2, 1), Fraction(-1, 1))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-27",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-27"
+   ]
+  ]
+ },
+ "Li32((Fraction(-2, 1), Fraction(1, 1)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(-2, 1), Fraction(1, 1))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-27",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-27"
+   ]
+  ]
+ },
+ "Li32((Fraction(2, 1), Fraction(-1, 1)),(Fraction(-1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(2, 1), Fraction(-1, 1))",
+   "(Fraction(-1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-27",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-27"
+   ]
+  ]
+ },
+ "Li32((Fraction(-2, 1), Fraction(1, 1)),(Fraction(-1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(-2, 1), Fraction(1, 1))",
+   "(Fraction(-1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-27",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-27"
+   ]
+  ]
+ },
+ "Li32((Fraction(2, 1), Fraction(-1, 1)),(Fraction(3, 4), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(2, 1), Fraction(-1, 1))",
+   "(Fraction(3, 4), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "-27",
+    "0"
+   ],
+   [
+    "27",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "27"
+   ],
+   [
+    "27"
+   ]
+  ]
+ },
+ "Li32((Fraction(2, 1), Fraction(-1, 1)),(Fraction(-1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(2, 1), Fraction(-1, 1))",
+   "(Fraction(-1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-2, 1), Fraction(1, 1)),(Fraction(1, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(-2, 1), Fraction(1, 1))",
+   "(Fraction(1, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(2, 1), Fraction(-1, 1)),(Fraction(3, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(2, 1), Fraction(-1, 1))",
+   "(Fraction(3, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-2, 1), Fraction(1, 1)),(Fraction(3, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(-2, 1), Fraction(1, 1))",
+   "(Fraction(3, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(2, 1), Fraction(-1, 1)),(Fraction(-1, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(2, 1), Fraction(-1, 1))",
+   "(Fraction(-1, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "27",
+    "0"
+   ],
+   [
+    "54",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-27"
+   ],
+   [
+    "54"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(-1, 4)),(Fraction(3, 4), Fraction(-1, 4)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(-1, 4))",
+   "(Fraction(3, 4), Fraction(-1, 4))"
+  ],
+  "cvec": [
+   [
+    "171",
+    "0"
+   ],
+   [
+    "-279",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-171"
+   ],
+   [
+    "-279"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(-1, 4)),(Fraction(1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(-1, 4))",
+   "(Fraction(1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "9",
+    "0"
+   ],
+   [
+    "-9",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-9"
+   ],
+   [
+    "-9"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(-1, 4)),(Fraction(3, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(-1, 4))",
+   "(Fraction(3, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "81",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "81"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(-1, 4)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(-1, 4))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "9",
+    "0"
+   ],
+   [
+    "-9",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-9"
+   ],
+   [
+    "-9"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(-1, 4)),(Fraction(-1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(-1, 4))",
+   "(Fraction(-1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(-1, 4)),(Fraction(2, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(-1, 4))",
+   "(Fraction(2, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(1, 2), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(1, 2), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(-1, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(-1, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(3, 4), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(3, 4), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(-1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(-1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(1, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(1, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(3, 2), Fraction(-1, 2)),(Fraction(2, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(3, 2), Fraction(-1, 2))",
+   "(Fraction(2, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(0, 1)),(Fraction(3, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(0, 1))",
+   "(Fraction(3, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(0, 1)),(Fraction(1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(0, 1))",
+   "(Fraction(1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(0, 1)),(Fraction(3, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(0, 1))",
+   "(Fraction(3, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(0, 1)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(0, 1))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(0, 1)),(Fraction(-1, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(0, 1))",
+   "(Fraction(-1, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(0, 1)),(Fraction(1, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(0, 1))",
+   "(Fraction(1, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 2)),(Fraction(1, 4), Fraction(-1, 4)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 2))",
+   "(Fraction(1, 4), Fraction(-1, 4))"
+  ],
+  "cvec": [
+   [
+    "27",
+    "0"
+   ],
+   [
+    "-36",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-27"
+   ],
+   [
+    "-36"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 2)),(Fraction(3, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 2))",
+   "(Fraction(3, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-1, 2), Fraction(1, 2)),(Fraction(3, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(-1, 2), Fraction(1, 2))",
+   "(Fraction(3, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 2)),(Fraction(1, 2), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 2))",
+   "(Fraction(1, 2), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-1, 2), Fraction(1, 2)),(Fraction(-1, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(-1, 2), Fraction(1, 2))",
+   "(Fraction(-1, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 2)),(Fraction(1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 2))",
+   "(Fraction(1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-1, 2), Fraction(1, 2)),(Fraction(1, 4), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(-1, 2), Fraction(1, 2))",
+   "(Fraction(1, 4), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(-1, 2), Fraction(1, 2)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(-1, 2), Fraction(1, 2))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-1, 2), Fraction(1, 2)),(Fraction(-1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(-1, 2), Fraction(1, 2))",
+   "(Fraction(-1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 2)),(Fraction(-1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 2))",
+   "(Fraction(-1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(1, 2), Fraction(-1, 2)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 2), Fraction(-1, 2))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-1, 2), Fraction(1, 2)),(Fraction(-1, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(-1, 2), Fraction(1, 2))",
+   "(Fraction(-1, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "-27",
+    "0"
+   ],
+   [
+    "-36",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "27"
+   ],
+   [
+    "-36"
+   ]
+  ]
+ },
+ "Li32((Fraction(-1, 2), Fraction(1, 2)),(Fraction(3, 4), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(-1, 2), Fraction(1, 2))",
+   "(Fraction(3, 4), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "27",
+    "0"
+   ],
+   [
+    "45",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-27"
+   ],
+   [
+    "45"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 1), Fraction(-1, 1)),(Fraction(1, 4), Fraction(-1, 4)))": {
+  "xy": [
+   "(Fraction(3, 1), Fraction(-1, 1))",
+   "(Fraction(1, 4), Fraction(-1, 4))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "81",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "81"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 1), Fraction(-1, 1)),(Fraction(1, 2), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(3, 1), Fraction(-1, 1))",
+   "(Fraction(1, 2), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 1), Fraction(-1, 1)),(Fraction(1, 4), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(3, 1), Fraction(-1, 1))",
+   "(Fraction(1, 4), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "-9",
+    "0"
+   ],
+   [
+    "-18",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "9"
+   ],
+   [
+    "-18"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 1), Fraction(-1, 1)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(3, 1), Fraction(-1, 1))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "-9",
+    "0"
+   ],
+   [
+    "-18",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "9"
+   ],
+   [
+    "-18"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 1), Fraction(-1, 1)),(Fraction(1, 2), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(3, 1), Fraction(-1, 1))",
+   "(Fraction(1, 2), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "153",
+    "0"
+   ],
+   [
+    "198",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-153"
+   ],
+   [
+    "198"
+   ]
+  ]
+ },
+ "Li32((Fraction(3, 1), Fraction(-1, 1)),(Fraction(-1, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(3, 1), Fraction(-1, 1))",
+   "(Fraction(-1, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "-171",
+    "0"
+   ],
+   [
+    "-234",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "171"
+   ],
+   [
+    "-234"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(1, 4)),(Fraction(-2, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(1, 4))",
+   "(Fraction(-2, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "-27",
+    "0"
+   ],
+   [
+    "54",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "27"
+   ],
+   [
+    "54"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(1, 4)),(Fraction(-1, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(1, 4))",
+   "(Fraction(-1, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "0"
+   ],
+   [
+    "0"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(1, 4)),(Fraction(3, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(1, 4))",
+   "(Fraction(3, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "9",
+    "0"
+   ],
+   [
+    "9",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-9"
+   ],
+   [
+    "9"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(1, 4)),(Fraction(-8, 1), Fraction(4, 1)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(1, 4))",
+   "(Fraction(-8, 1), Fraction(4, 1))"
+  ],
+  "cvec": [
+   [
+    "-153",
+    "0"
+   ],
+   [
+    "-261",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "153"
+   ],
+   [
+    "-261"
+   ]
+  ]
+ },
+ "Li32((Fraction(1, 4), Fraction(1, 4)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(1, 4), Fraction(1, 4))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "9",
+    "0"
+   ],
+   [
+    "9",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "-9"
+   ],
+   [
+    "9"
+   ]
+  ]
+ },
+ "Li32((Fraction(-8, 1), Fraction(4, 1)),(Fraction(1, 4), Fraction(1, 4)))": {
+  "xy": [
+   "(Fraction(-8, 1), Fraction(4, 1))",
+   "(Fraction(1, 4), Fraction(1, 4))"
+  ],
+  "cvec": [
+   [
+    "-153",
+    "0"
+   ],
+   [
+    "-216",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "153"
+   ],
+   [
+    "-216"
+   ]
+  ]
+ },
+ "Li32((Fraction(-8, 1), Fraction(4, 1)),(Fraction(1, 1), Fraction(0, 1)))": {
+  "xy": [
+   "(Fraction(-8, 1), Fraction(4, 1))",
+   "(Fraction(1, 1), Fraction(0, 1))"
+  ],
+  "cvec": [
+   [
+    "-288",
+    "0"
+   ],
+   [
+    "-432",
+    "0"
+   ]
+  ],
+  "obs": [
+   [
+    "288"
+   ],
+   [
+    "-432"
+   ]
+  ]
+ },
+ "Li32((Fraction(-1, 1), Fraction(0, 1)),(Fraction(2, 1), Fraction(-1, 1)))": {
+  "xy": [
+   "(Fraction(-1, 1), Fraction(0, 1))",
+   "(Fraction(2, 1), Fraction(-1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-81",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-81"
+   ]
+  ]
+ },
+ "Li32((Fraction(-1, 1), Fraction(0, 1)),(Fraction(-2, 1), Fraction(1, 1)))": {
+  "xy": [
+   "(Fraction(-1, 1), Fraction(0, 1))",
+   "(Fraction(-2, 1), Fraction(1, 1))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "-81",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   [
+    "-81"
+   ]
+  ]
+ },
+ "Li32((Fraction(-1, 1), Fraction(0, 1)),(Fraction(-1, 2), Fraction(1, 2)))": {
+  "xy": [
+   "(Fraction(-1, 1), Fraction(0, 1))",
+   "(Fraction(-1, 2), Fraction(1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ },
+ "Li32((Fraction(-1, 1), Fraction(0, 1)),(Fraction(1, 2), Fraction(-1, 2)))": {
+  "xy": [
+   "(Fraction(-1, 1), Fraction(0, 1))",
+   "(Fraction(1, 2), Fraction(-1, 2))"
+  ],
+  "cvec": [
+   [
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0"
+   ]
+  ],
+  "obs": [
+   [],
+   []
+  ]
+ }
+}

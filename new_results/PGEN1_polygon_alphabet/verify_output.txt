@@ -1,0 +1,104 @@
+======================================================================
+PART 0: CONTROLS
+======================================================================
+delta{1/2}_3 = 0 (empty)  [PROVED, consistent with Li_3(1/2)=7/8 zeta(3)+products]
+delta(Landen triple) = 0 for 7 sample rationals: True  [PROVED]
+thm:hexagon's two arguments in CR{0,1,inf,p} for 6 sample r: True  [PROVED]
+  delta at r=2 (x=-1, x/(x-1)=1/2) = 0 (empty)  [PROVED: canonical non-local zeta(3) there]
+  delta at r=1/2 (x=1/2, x/(x-1)=-1) = 0 (empty)  [PROVED: canonical non-local zeta(3) there]
+
+======================================================================
+PART 1: GENERIC RATIONAL OCTAGON -- alphabet rule and delta per edge
+======================================================================
+edge 1: kappa=(1/3,1/9), p=(-3,-9), |CR_e|=30; letters (2, 3, 5) (n=3): dim Q_3=(n^3-n)/3=8; rank span s(CR) mod D = 8; TW3_1 in span: True [PROVED]
+   delta_1: 9 terms; from OCT9d basis == from CR presentation: True [PROVED]
+   delta_1 != 0: True
+edge 2: kappa=(5/3,-5/9), p=(-3/5,9/5), |CR_e|=30; letters (2, 3, 5) (n=3): dim Q_3=(n^3-n)/3=8; rank span s(CR) mod D = 8; TW3_2 in span: True [PROVED]
+   delta_2: 8 terms; from OCT9d basis == from CR presentation: True [PROVED]
+   delta_2 != 0: True
+edge 3: kappa=(1/4,1/24), p=(-4,-24), |CR_e|=18; letters (2, 3, 5) (n=3): dim Q_3=(n^3-n)/3=8; rank span s(CR) mod D = 5; TW3_3 in span: True [PROVED]
+   delta_3: 6 terms; from OCT9d basis == from CR presentation: True [PROVED]
+   delta_3 != 0: True
+edge 0: kappa=(3/2,-7/12), p=(-2/3,12/7), |CR_e|=30; letters (2, 3, 5, 7) (n=4): dim Q_3=(n^3-n)/3=20; rank span s(CR) mod D = 10; TW3_0 in span: True [PROVED]
+   delta_0: 24 terms; from OCT9d basis == from CR presentation: True [PROVED]
+   delta_0 != 0: True
+edge-0 delta (all terms):
+   1800/68921 * (2^3) (x) 2
+   -5160/68921 * (2^3) (x) 3
+   8820/68921 * (2^3) (x) 5
+   -1360/68921 * (2^3) (x) 7
+   640/1681 * (2^5) (x) 2
+   8480/68921 * (2^5) (x) 3
+   860/68921 * (2^5) (x) 5
+   -7000/68921 * (2^5) (x) 7
+   -26160/68921 * (2^7) (x) 2
+   -4180/68921 * (2^7) (x) 3
+   -4180/68921 * (2^7) (x) 5
+   7000/68921 * (2^7) (x) 7
+   -340/68921 * (3^5) (x) 2
+   -10780/68921 * (3^5) (x) 3
+   26660/68921 * (3^5) (x) 5
+   -6220/68921 * (3^5) (x) 7
+   -2820/68921 * (3^7) (x) 2
+   2020/68921 * (3^7) (x) 3
+   -8240/68921 * (3^7) (x) 5
+   3500/68921 * (3^7) (x) 7
+   2820/68921 * (5^7) (x) 2
+   -2020/68921 * (5^7) (x) 3
+   8240/68921 * (5^7) (x) 5
+   -3500/68921 * (5^7) (x) 7
+wedge^3(delta_edge1) = {}  [empty => in Lie^3, PROVED]
+
+======================================================================
+PART 2: REGULAR POLYGONS -- delta
+======================================================================
+regular octagon delta:
+  P part: {(('r2', 'u'), 'r2'): Fraction(-5, 2), (('r2', 'u'), 'u'): Fraction(-11, 4)}
+  Q part: {(('r2', 'u'), 'r2'): Fraction(15, 8), (('r2', 'u'), 'u'): Fraction(2, 1)}
+  delta != 0: True  [PROVED]  wedge^3: {} {}
+decagon delta: {} {}  == 0: True  [PROVED]
+12-gon delta (P part): {(('g2', 'u'), 'u'): Fraction(1, 4), (('g2', 'g3'), 'g2'): Fraction(5, 1), (('g2', 'g3'), 'g3'): Fraction(-37, 8), (('g3', 'u'), 'g3'): Fraction(-9, 4), (('g3', 'u'), 'u'): Fraction(-17, 16), (('g2', 'u'), 'g2'): Fraction(5, 4), (('g2', 'g3'), 'u'): Fraction(-2, 1), (('g2', 'u'), 'g3'): Fraction(-1, 4), (('g3', 'u'), 'g2'): Fraction(7, 4)}
+12-gon delta (Q part): {(('g2', 'u'), 'u'): Fraction(-3, 4), (('g2', 'g3'), 'g2'): Fraction(-21, 4), (('g2', 'g3'), 'g3'): Fraction(29, 8), (('g3', 'u'), 'g3'): Fraction(17, 8), (('g3', 'u'), 'u'): Fraction(25, 16), (('g2', 'u'), 'g2'): Fraction(5, 4), (('g2', 'g3'), 'u'): Fraction(9, 4), (('g2', 'u'), 'g3'): Fraction(-1, 1), (('g3', 'u'), 'g2'): Fraction(-13, 4)}
+  delta != 0: True  [PROVED]  wedge^3: {} {}
+  12-gon delta invariant under duplication z4 = z1^2: True  [PROVED]
+12-gon: |CR_e| = 63 ; 8 DOD5 points in CR_e: [True, True, True, False, True, True, True, True] ; z4 = z1^2 duplication: True  [PROVED]
+decagon: CR_e = [(Fraction(-1, 2), Fraction(-1, 2)), (Fraction(-1, 2), Fraction(1, 2)), (Fraction(1, 2), Fraction(-1, 2)), (Fraction(1, 2), Fraction(1, 2)), (Fraction(3, 2), Fraction(-1, 2)), (Fraction(3, 2), Fraction(1, 2))] ; +-1/phi in CR: True  [PROVED]
+
+======================================================================
+PART 3: SYMBOL-LEVEL ALPHABET PROOF for s <= 4
+======================================================================
+===== s = 1: n = 2 letters
+  dim V^3 = 8, rank D = 6, dim Q = 2 (Witt 2)
+  #CR pts = 6, #words = 3
+  rank span s(CR) mod D = 2; rank span(words) mod D = 2; rank both mod D = 2
+  => every word-symbol in span s(CR) + D : True
+===== s = 2: n = 5 letters
+  dim V^3 = 125, rank D = 85, dim Q = 40 (Witt 40)
+  #CR pts = 30, #words = 14
+  rank span s(CR) mod D = 10; rank span(words) mod D = 7; rank both mod D = 10
+  => every word-symbol in span s(CR) + D : True
+===== s = 3: n = 9 letters
+  dim V^3 = 729, rank D = 489, dim Q = 240 (Witt 240)
+  #CR pts = 90, #words = 39
+  rank span s(CR) mod D = 30; rank span(words) mod D = 17; rank both mod D = 30
+  => every word-symbol in span s(CR) + D : True
+===== s = 4: n = 14 letters
+  dim V^3 = 2744, rank D = 1834, dim Q = 910 (Witt 910)
+  #CR pts = 210, #words = 84
+  rank span s(CR) mod D = 70; rank span(words) mod D = 34; rank both mod D = 70
+  => every word-symbol in span s(CR) + D : True
+
+======================================================================
+PART 4: TASK 3 -- single-valued L3; DECAGON CANONICAL PAIR
+======================================================================
+edge 1: L3 OCT9c == OCT9d: 0.02367462581917732081212099 ; |diff| = 8.855e-80  [NUMERICAL]
+edge 2: L3 OCT9c == OCT9d: 0.4874364362702959625368298 ; |diff| = 6.431e-79  [NUMERICAL]
+edge 3: L3 OCT9c == OCT9d: -0.02102185222421880354518586 ; |diff| = 1.927e-78  [NUMERICAL]
+edge 0: (Xc-Xd)/zeta(3) = 0.0003869164212165619574101749 ; pslq -> [-206763, 80]  (80/206763)  [NUMERICAL]
+edge 0: (Sc-Sd)/zeta(3) rational: -31119817701814913/654492976038000  [NUMERICAL]
+decagon canonical pair: N3 = (1/64 + 31*sqrt(5)/320) zeta(3) + (875/768 - 125*sqrt(5)/192) L(chi5,3)
+  val(N3) - (a zeta3 + b L5) = -8.22158e-41  [NUMERICAL]
+  golden chi_3 identity residual at 80 dps: 2.108e-81  [NUMERICAL]
+  golden chi_3 identity residual at 150 dps: 1.527e-151  [NUMERICAL]
+
+verify_pgen1.py finished in 8.8 s

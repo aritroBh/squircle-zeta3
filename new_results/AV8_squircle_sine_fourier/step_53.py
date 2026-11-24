@@ -1,0 +1,12 @@
+import sympy as sp
+p = sp.symbols('p', positive=True)
+# N(p) = (4/(p*pi_p)) B(3/p, 1-1/p), pi_p = 2 pi/(p sin(pi/p))
+pip = 2*sp.pi/(p*sp.sin(sp.pi/p))
+N = 4/(p*pip)*sp.beta(3/p, 1-1/p)
+N2 = sp.diff(N, p, 2).subs(p, 2)
+N2 = sp.simplify(N2)
+print("N''(2) =", N2)
+print("float:", sp.N(N2, 30))
+# also N'(2), N'''(2)
+N1 = sp.simplify(sp.diff(N,p,1).subs(p,2))
+print("N'(2) =", N1, sp.N(N1,25))

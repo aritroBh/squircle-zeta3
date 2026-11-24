@@ -1,0 +1,9 @@
+c=1/2 d=2: corner/squircle top ratios ['3']; unmatched []; single factor: True
+c=1/2 d=3: corner/squircle top ratios ['5/2']; unmatched []; single factor: True
+c=1/2 d=4: corner/squircle top ratios ['33/5']; unmatched []; single factor: True
+c=1/2 d=5: corner/squircle top ratios ['91/16']; unmatched []; single factor: True
+c=3/5 d=2: corner/squircle top ratios ['16/9']; unmatched []; single factor: True
+c=3/5 d=3: corner/squircle top ratios ['19/12']; unmatched []; single factor: True
+c=3/5 d=4: corner/squircle top ratios ['352/135']; unmatched []; single factor: True
+c=3/5 d=5: corner/squircle top ratios ['1027/432']; unmatched []; single factor: True
+ALL PASS

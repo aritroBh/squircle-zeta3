@@ -1,0 +1,3 @@
+('prove_adj34.py', '3', '0'): rc=0 out=adjacent (3,0): remainder*DEN == 0 : True  (13.8s) err= (16s)
+('prove_adj34.py', '3', '1'): rc=0 out=adjacent (3,1): remainder*DEN == 0 : True  (0.5s) err= (2s)
+('prove_adj34.py', '4', '2'): rc=0 out=adjacent (4,2): remainder*DEN == 0 : True  (0.0s) err= (1s)

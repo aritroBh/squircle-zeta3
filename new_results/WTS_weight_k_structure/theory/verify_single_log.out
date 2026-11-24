@@ -1,0 +1,2 @@
+closed form Psi = (1/2) e^{eps l1}/t [sqrt(1+y^2)-1-y] reproduces genintegrand coefficients for k=1..7, two exact t values: True
+nice -n 10 timeout 1000 $PY -B verify_single_log.py  3.23s user 0.11s system 17% cpu 18.952 total

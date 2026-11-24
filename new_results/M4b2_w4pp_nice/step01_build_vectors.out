@@ -1,0 +1,5 @@
+2026-10-22 18:29:54 parsed 432 rows from gpl_w4pp.tsv
+2026-10-22 18:29:54 TSV == omega4.json re-derivation: OK (432 terms); weight check: True
+2026-10-22 18:30:01 W4pp supports (rational, sqrt2): (3524, 2638) s=6.9
+2026-10-22 18:30:01 all words admissible: OK
+2026-10-22 18:30:01 saved stage1_w4pp_vectors.pkl

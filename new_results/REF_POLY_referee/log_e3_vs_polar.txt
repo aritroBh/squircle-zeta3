@@ -1,0 +1,6 @@
+gen_hexagon arc 0  |int E_k dt - polar sector coefficient|, k=0..3: ['0.0e+00', '2.6e-46', '4.1e-47', '1.8e-45']
+gen_hexagon arc 1  |int E_k dt - polar sector coefficient|, k=0..3: ['7.0e-46', '8.8e-47', '1.5e-46', '2.6e-45']
+gen_octagon arc 0  |int E_k dt - polar sector coefficient|, k=0..3: ['4.4e-47', '8.8e-47', '1.2e-46', '7.0e-46']
+gen_octagon arc 1  |int E_k dt - polar sector coefficient|, k=0..3: ['2.2e-46', '6.1e-46', '6.6e-47', '5.3e-46']
+reg_octagon arc 0  |int E_k dt - polar sector coefficient|, k=0..3: ['5.7e-46', '0.0e+00', '7.7e-47', '6.6e-46']
+reg_octagon arc 1  |int E_k dt - polar sector coefficient|, k=0..3: ['5.3e-46', '4.4e-47', '4.4e-47', '6.3e-46']

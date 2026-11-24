@@ -1,0 +1,6 @@
+tex = open('../../../paper/ieee/main.tex').read()
+i = tex.find('label{tab:corner}')
+print(i)
+j = tex.find('label{app:corner}')
+print(j)
+print(tex[j:j+1500])

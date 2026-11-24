@@ -1,0 +1,2 @@
+max rel diff a_k (ours vs author's), k<= 40: 0.0
+max rel diff a_k (ours vs author's), k<= 100: 0.0

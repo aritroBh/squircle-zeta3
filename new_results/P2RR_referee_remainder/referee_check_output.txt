@@ -1,0 +1,30 @@
+theta= 1.0 z= 0.229848847066 a1= -0.12490661043946564491 (-1-u= -0.12490661043946564491 ) a2= 1.5174291124257586794 closed form diff -2.11e-81
+  formula - quadrature at n=50: 0.0
+  formula - quadrature at n=400: -2.11e-81
+  claimed log coefficient -2 z a2 = -0.697558663990677
+  n=1e2   E*n^3/log n = -0.548181847281091   slope of E*n^3 in log n = 
+  n=1e3   E*n^3/log n = -0.596622569703013   slope of E*n^3 in log n = -0.693504014546858
+  n=1e4   E*n^3/log n = -0.622168977813237   slope of E*n^3 in log n = -0.698808202143907
+  n=1e5   E*n^3/log n = -0.637333839338588   slope of E*n^3 in log n = -0.697993285439991
+  n=1e6   E*n^3/log n = -0.647386124000209   slope of E*n^3 in log n = -0.697647547308313
+  n=1e7   E*n^3/log n = -0.654555754814295   slope of E*n^3 in log n = -0.697573539698815
+  n=1e8   E*n^3/log n = -0.659931397317983   slope of E*n^3 in log n = -0.697560894843797
+  n=1e9   E*n^3/log n = -0.664112239378163   slope of E*n^3 in log n = -0.697558975859607
+  n=1e10  E*n^3/log n = -0.667456885990497   slope of E*n^3 in log n = -0.697558705501495
+  n=1e11  E*n^3/log n = -0.670193411747607   slope of E*n^3 in log n = -0.697558669318708
+  n=1e12  E*n^3/log n = -0.672473849489942   slope of E*n^3 in log n = -0.69755866465563
+theta= 2.5 z= 0.900571807773 a1= -0.74514853663977692894 (-1-u= -0.74514853663977692894 ) a2= 0.81128042606902576572 closed form diff -1.05e-81
+  formula - quadrature at n=50: 4.22e-81
+  formula - quadrature at n=400: -2.11e-81
+  claimed log coefficient -2 z a2 = -1.46123255983242
+  n=1e2   E*n^3/log n = -1.22715826454821   slope of E*n^3 in log n = 
+  n=1e3   E*n^3/log n = -1.30743593712025   slope of E*n^3 in log n = -1.46799128226432
+  n=1e4   E*n^3/log n = -1.34719869878842   slope of E*n^3 in log n = -1.46648698379292
+  n=1e5   E*n^3/log n = -1.37026294289805   slope of E*n^3 in log n = -1.4625199193366
+  n=1e6   E*n^3/log n = -1.38546374772148   slope of E*n^3 in log n = -1.46146777183858
+  n=1e7   E*n^3/log n = -1.39629317744899   slope of E*n^3 in log n = -1.46126975581407
+  n=1e8   E*n^3/log n = -1.40441127397895   slope of E*n^3 in log n = -1.46123794968871
+  n=1e9   E*n^3/log n = -1.41072483199513   slope of E*n^3 in log n = -1.46123329612456
+  n=1e10  E*n^3/log n = -1.41577561441766   slope of E*n^3 in log n = -1.46123265622042
+  n=1e11  E*n^3/log n = -1.4199080651115   slope of E*n^3 in log n = -1.46123257204992
+  n=1e12  E*n^3/log n = -1.42335177313074   slope of E*n^3 in log n = -1.46123256134232

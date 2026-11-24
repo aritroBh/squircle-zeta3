@@ -1,0 +1,2 @@
+S^1/S identity remainder: 0
+S^2/S identity remainder: 0

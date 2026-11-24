@@ -1,0 +1,7 @@
+y = 4*s**5*tau**4/3 + 4*s**3*tau**2/3 + 2*s
+{1: log(1 + exp(-2*s)), 2: 0, 3: -4*s**3/(3*exp(2*s) + 3), 4: 0}
+g3 = kappa s^3 g1' with kappa = 2/3
+int_0^inf Phi4 = sqrt(2)*gam_04/2 + sqrt(2)*gam_13/2 - 5*sqrt(2)*gam_22/2 - 17*sqrt(2)*gam_31/2
+after reflection relation: -7*sqrt(2)*z2*z3/32 - 3*sqrt(2)*z5/32
+c5(squircle) = -7*sqrt(2)*z2*z3/4 - 3*sqrt(2)*z5/4
+difference from -sqrt2(3/4 z5+7/4 z2 z3): 0

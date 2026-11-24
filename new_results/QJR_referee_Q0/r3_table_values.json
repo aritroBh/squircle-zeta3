@@ -1,0 +1,20 @@
+{
+ "-1 + sqrt(2)": "Symbol('Lambda')",
+ "-17 + 12*sqrt(2)": "Symbol('M')",
+ "1/2": "Add(Mul(Integer(-1), Rational(1, 2), Pow(Symbol('lambda', real=True), Integer(2))), Mul(Rational(1, 12), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "-1": "Mul(Integer(-1), Rational(1, 12), Pow(Symbol('pi_', real=True), Integer(2)))",
+ "-17 - 12*sqrt(2)": "Add(Mul(Integer(-1), Integer(8), Pow(Symbol('L', real=True), Integer(2))), Mul(Integer(-1), Symbol('M')), Mul(Integer(-1), Rational(1, 6), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "-sqrt(2)/2": "Add(Mul(Integer(-1), Rational(1, 2), Pow(Symbol('L', real=True), Integer(2))), Mul(Rational(1, 2), Symbol('L', real=True), Symbol('lambda', real=True)), Mul(Integer(-1), Symbol('Lambda')), Mul(Integer(-1), Rational(1, 8), Pow(Symbol('lambda', real=True), Integer(2))))",
+ "sqrt(2)/2": "Add(Mul(Rational(1, 2), Pow(Symbol('L', real=True), Integer(2))), Mul(Integer(-1), Rational(1, 2), Symbol('L', real=True), Symbol('lambda', real=True)), Symbol('Lambda'), Mul(Integer(-1), Rational(1, 8), Pow(Symbol('lambda', real=True), Integer(2))), Mul(Rational(1, 24), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "-sqrt(2) - 1": "Add(Mul(Integer(-1), Pow(Symbol('L', real=True), Integer(2))), Mul(Integer(-1), Symbol('Lambda')), Mul(Integer(-1), Rational(1, 24), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "1 - sqrt(2)": "Add(Mul(Rational(1, 2), Pow(Symbol('L', real=True), Integer(2))), Symbol('Lambda'), Mul(Integer(-1), Rational(1, 8), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "3 - 2*sqrt(2)": "Add(Pow(Symbol('L', real=True), Integer(2)), Mul(Integer(4), Symbol('Lambda')), Mul(Integer(-1), Rational(1, 4), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "-2 + 2*sqrt(2)": "Add(Mul(Integer(-1), Integer(3), Pow(Symbol('L', real=True), Integer(2))), Mul(Integer(2), Symbol('L', real=True), Symbol('lambda', real=True)), Mul(Integer(-1), Integer(4), Symbol('Lambda')), Mul(Rational(5, 12), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "-2*sqrt(2) - 2": "Add(Pow(Symbol('L', real=True), Integer(2)), Mul(Integer(-1), Integer(2), Symbol('L', real=True), Symbol('lambda', real=True)), Mul(Integer(4), Symbol('Lambda')), Mul(Integer(-1), Rational(5, 12), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "-3 - 2*sqrt(2)": "Add(Mul(Integer(-1), Integer(4), Pow(Symbol('L', real=True), Integer(2))), Mul(Integer(-1), Integer(6), Symbol('Lambda')), Mul(Rational(7, 24), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "2 - sqrt(2)": "Add(Mul(Integer(-1), Pow(Symbol('L', real=True), Integer(2))), Mul(Rational(1, 2), Symbol('L', real=True), Symbol('lambda', real=True)), Mul(Integer(-1), Symbol('Lambda')), Mul(Rational(1, 6), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "-sqrt(2)": "Add(Mul(Rational(1, 2), Pow(Symbol('L', real=True), Integer(2))), Mul(Integer(-1), Rational(1, 2), Symbol('L', real=True), Symbol('lambda', real=True)), Symbol('Lambda'), Mul(Integer(-1), Rational(1, 6), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "1/2 - sqrt(2)/2": "Add(Mul(Integer(-1), Rational(3, 2), Pow(Symbol('L', real=True), Integer(2))), Mul(Symbol('L', real=True), Symbol('lambda', real=True)), Mul(Integer(-1), Integer(4), Symbol('Lambda')), Mul(Integer(-1), Rational(1, 2), Pow(Symbol('lambda', real=True), Integer(2))), Mul(Rational(1, 4), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "1/2 - sqrt(2)/4": "Add(Mul(Integer(-1), Rational(5, 2), Pow(Symbol('L', real=True), Integer(2))), Mul(Rational(3, 2), Symbol('L', real=True), Symbol('lambda', real=True)), Mul(Integer(-1), Integer(6), Symbol('Lambda')), Mul(Integer(-1), Rational(9, 8), Pow(Symbol('lambda', real=True), Integer(2))), Mul(Rational(11, 24), Pow(Symbol('pi_', real=True), Integer(2))))",
+ "1 - sqrt(2)/2": "Add(Mul(Integer(-1), Rational(1, 2), Pow(Symbol('L', real=True), Integer(2))), Mul(Integer(-1), Symbol('Lambda')), Mul(Integer(-1), Rational(1, 8), Pow(Symbol('lambda', real=True), Integer(2))), Mul(Rational(1, 8), Pow(Symbol('pi_', real=True), Integer(2))))"
+}

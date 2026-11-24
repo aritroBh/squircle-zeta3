@@ -1,0 +1,7 @@
+standalone zeta5 monomials (x-powers): [0]
+standalone zeta2zeta3 monomials (x-powers): [0]
+zeta patterns present (has HPL factor, (z2,z3,z5) powers): [(False, (0, 0, 0)), (False, (0, 0, 1)), (False, (0, 1, 0)), (False, (1, 0, 0)), (False, (1, 1, 0)), (False, (2, 0, 0)), (True, (0, 0, 0)), (True, (0, 1, 0)), (True, (1, 0, 0)), (True, (2, 0, 0))]
+trial 0: B=3/10 kap=27/10  [z5] table - printed = 0 ; [z2z3] table - printed = 0
+trial 1: B=4/5 kap=19/10  [z5] table - printed = 0 ; [z2z3] table - printed = 0
+trial 2: B=2/5 kap=-3/10  [z5] table - printed = 0 ; [z2z3] table - printed = 0
+trial 3: B=7/10 kap=9/5  [z5] table - printed = 0 ; [z2z3] table - printed = 0

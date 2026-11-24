@@ -1,0 +1,26 @@
+c=1: V = 0.65327932051967509783813032715, Phi(V)-1 = 1.19e-56, phi(V) = 2.3467206794803249022
+kappa^2=9/7: V = 0.776780305889861281371713221322, Phi(V)-1 = -1.56e-61, phi(V) = 1.384141758813537281
+c=1 Lambert check: V - (5 - W(e^5))/2 = 5.06e-57
+c=1 Lambert check at u=0.37: Lam - (q - W(e^q))/2 = -3.89e-62
+Lemma 1 at alpha=0.3+0.7i, beta=-0.45-0.7i (tau=-0.15 complex-free test): lhs-rhs = 2.04e-48
+Lemma 1 at alpha=0.6+0.9i, beta=0.2-0.4i: lhs-rhs = 8.64e-28
+
+== perimeter: 8*int_0^{pi/4} h du and full-circle int_0^{2pi} h du vs closed form - tail ==
+c=1 tau=0.3: 8*int h = 8.371206555925532810555312805924362497395087116368
+    closed - E      = 8.371206555925532810555312805924362497395087116368  (imag part 0.0)
+    difference = 3.65e-58 ; E = 0.01447817735 ; (1s)
+c=1 tau=0.9: 8*int h = 11.349886726036415898525151299603347382989380033782
+    closed - E      = 11.349886726036415898525151299603347382989380033782  (imag part 0.0)
+    difference = 1.98e-56 ; E = 14.37388397 ; (0s)
+c=1 tau=0.3 full circle (dps 40): int_0^2pi h - (closed - E) = 1.84e-40
+kappa^2=9/7 tau=0.3: 8*int h = 8.354257372662867849879798894775448144815797846848
+    closed - E      = 8.354257372662867849879798894775448144815797846848  (imag part 0.0)
+    difference = 0.0 ; E = 0.002404066381 ; (1s)
+kappa^2=9/7 tau=0.9: 8*int h = 11.18730278932085423976972864298375489387023253798
+    closed - E      = 11.18730278932085423976972864298375489387023253798  (imag part 0.0)
+    difference = 0.0 ; E = -0.09909707198 ; (0s)
+kappa^2=9/7 tau=0.3 full circle (dps 40): int_0^2pi h - (closed - E) = -1.84e-40
+
+c=1 tau=1: 8*int h - (8+4V+2(1-e^{-2V})) = -2.57e-56  value 12.071616874837143819238625163
+   closed-E at tau = 1-1e-10 minus tau=1 value: -7.53e-10
+   closed-E at tau = 1-1e-20 minus tau=1 value: -7.53e-20

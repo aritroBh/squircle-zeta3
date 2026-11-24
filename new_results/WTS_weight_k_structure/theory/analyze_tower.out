@@ -1,0 +1,170 @@
+levels: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+n=2 depth delta=0 (order r=2): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=12
+n=3 depth delta=0 (order r=4): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=11
+n=3 depth delta=1 (order r=3): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=11
+n=3 depth delta=2 (order r=2): poly degree in k over keys = [1];  k=n on polynomial: [True]; npts=11
+n=4 depth delta=0 (order r=6): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=10
+n=4 depth delta=1 (order r=5): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=10
+n=4 depth delta=2 (order r=4): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=10
+n=4 depth delta=3 (order r=3): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=10
+n=4 depth delta=4 (order r=2): poly degree in k over keys = [2];  k=n on polynomial: [False, True]; npts=10
+n=5 depth delta=0 (order r=8): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=9
+n=5 depth delta=1 (order r=7): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=9
+n=5 depth delta=2 (order r=6): poly degree in k over keys = [1];  k=n on polynomial: [True]; npts=9
+n=5 depth delta=3 (order r=5): poly degree in k over keys = [1];  k=n on polynomial: [True]; npts=9
+n=5 depth delta=4 (order r=4): poly degree in k over keys = [2];  k=n on polynomial: [True]; npts=9
+n=5 depth delta=5 (order r=3): poly degree in k over keys = [2];  k=n on polynomial: [True]; npts=9
+n=5 depth delta=6 (order r=2): poly degree in k over keys = [3];  k=n on polynomial: [True]; npts=9
+n=6 depth delta=0 (order r=10): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=1 (order r=9): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=2 (order r=8): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=3 (order r=7): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=4 (order r=6): poly degree in k over keys = [2];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=5 (order r=5): poly degree in k over keys = [2];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=6 (order r=4): poly degree in k over keys = [3];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=7 (order r=3): poly degree in k over keys = [3];  k=n on polynomial: [False, True]; npts=8
+n=6 depth delta=8 (order r=2): poly degree in k over keys = [4];  k=n on polynomial: [False, True]; npts=8
+n=7 depth delta=0 (order r=12): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=1 (order r=11): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=2 (order r=10): poly degree in k over keys = [1];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=3 (order r=9): poly degree in k over keys = [1];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=4 (order r=8): poly degree in k over keys = [2];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=5 (order r=7): poly degree in k over keys = [2];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=6 (order r=6): poly degree in k over keys = [3];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=7 (order r=5): poly degree in k over keys = [3];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=8 (order r=4): poly degree in k over keys = [4];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=9 (order r=3): poly degree in k over keys = [4];  k=n on polynomial: [True]; npts=7
+n=7 depth delta=10 (order r=2): poly degree in k over keys = [5];  k=n on polynomial: [None]; npts=7
+n=8 depth delta=0 (order r=14): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=1 (order r=13): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=2 (order r=12): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=3 (order r=11): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=4 (order r=10): poly degree in k over keys = [2];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=5 (order r=9): poly degree in k over keys = [2];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=6 (order r=8): poly degree in k over keys = [3];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=7 (order r=7): poly degree in k over keys = [3];  k=n on polynomial: [False, True]; npts=6
+n=8 depth delta=8 (order r=6): poly degree in k over keys = [4];  k=n on polynomial: [None]; npts=6
+n=8 depth delta=9 (order r=5): poly degree in k over keys = [4];  k=n on polynomial: [None]; npts=6
+n=8 depth delta=10 (order r=4): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=6
+n=8 depth delta=11 (order r=3): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=6
+n=8 depth delta=12 (order r=2): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=6
+n=9 depth delta=0 (order r=16): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=5
+n=9 depth delta=1 (order r=15): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=5
+n=9 depth delta=2 (order r=14): poly degree in k over keys = [1];  k=n on polynomial: [True]; npts=5
+n=9 depth delta=3 (order r=13): poly degree in k over keys = [1];  k=n on polynomial: [True]; npts=5
+n=9 depth delta=4 (order r=12): poly degree in k over keys = [2];  k=n on polynomial: [True]; npts=5
+n=9 depth delta=5 (order r=11): poly degree in k over keys = [2];  k=n on polynomial: [True]; npts=5
+n=9 depth delta=6 (order r=10): poly degree in k over keys = [3];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=7 (order r=9): poly degree in k over keys = [3];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=8 (order r=8): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=9 (order r=7): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=10 (order r=6): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=11 (order r=5): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=12 (order r=4): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=13 (order r=3): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=5
+n=9 depth delta=14 (order r=2): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=5
+n=10 depth delta=0 (order r=18): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=4
+n=10 depth delta=1 (order r=17): poly degree in k over keys = [0];  k=n on polynomial: [False, True]; npts=4
+n=10 depth delta=2 (order r=16): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=4
+n=10 depth delta=3 (order r=15): poly degree in k over keys = [1];  k=n on polynomial: [False, True]; npts=4
+n=10 depth delta=4 (order r=14): poly degree in k over keys = [2];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=5 (order r=13): poly degree in k over keys = [2];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=6 (order r=12): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=7 (order r=11): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=8 (order r=10): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=9 (order r=9): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=10 (order r=8): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=11 (order r=7): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=12 (order r=6): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=13 (order r=5): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=14 (order r=4): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=15 (order r=3): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=10 depth delta=16 (order r=2): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=4
+n=11 depth delta=0 (order r=20): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=3
+n=11 depth delta=1 (order r=19): poly degree in k over keys = [0];  k=n on polynomial: [True]; npts=3
+n=11 depth delta=2 (order r=18): poly degree in k over keys = [1];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=3 (order r=17): poly degree in k over keys = [1];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=4 (order r=16): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=5 (order r=15): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=6 (order r=14): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=7 (order r=13): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=8 (order r=12): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=9 (order r=11): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=10 (order r=10): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=11 (order r=9): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=12 (order r=8): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=13 (order r=7): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=14 (order r=6): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=15 (order r=5): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=16 (order r=4): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=17 (order r=3): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=11 depth delta=18 (order r=2): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=3
+n=12 depth delta=0 (order r=22): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=1 (order r=21): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=2 (order r=20): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=3 (order r=19): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=4 (order r=18): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=5 (order r=17): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=6 (order r=16): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=7 (order r=15): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=8 (order r=14): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=9 (order r=13): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=10 (order r=12): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=11 (order r=11): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=12 (order r=10): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=13 (order r=9): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=14 (order r=8): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=15 (order r=7): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=16 (order r=6): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=17 (order r=5): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=18 (order r=4): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=19 (order r=3): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=12 depth delta=20 (order r=2): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=2
+n=13 depth delta=0 (order r=24): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=1 (order r=23): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=2 (order r=22): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=3 (order r=21): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=4 (order r=20): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=5 (order r=19): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=6 (order r=18): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=7 (order r=17): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=8 (order r=16): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=9 (order r=15): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=10 (order r=14): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=11 (order r=13): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=12 (order r=12): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=13 (order r=11): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=14 (order r=10): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=15 (order r=9): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=16 (order r=8): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=17 (order r=7): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=18 (order r=6): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=19 (order r=5): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=20 (order r=4): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=21 (order r=3): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=13 depth delta=22 (order r=2): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=1
+n=14 depth delta=0 (order r=26): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=1 (order r=25): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=2 (order r=24): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=3 (order r=23): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=4 (order r=22): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=5 (order r=21): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=6 (order r=20): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=7 (order r=19): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=8 (order r=18): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=9 (order r=17): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=10 (order r=16): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=11 (order r=15): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=12 (order r=14): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=13 (order r=13): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=14 (order r=12): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=15 (order r=11): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=16 (order r=10): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=17 (order r=9): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=18 (order r=8): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=19 (order r=7): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=20 (order r=6): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=21 (order r=5): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=22 (order r=4): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=23 (order r=3): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0
+n=14 depth delta=24 (order r=2): poly degree in k over keys = [None];  k=n on polynomial: [None]; npts=0

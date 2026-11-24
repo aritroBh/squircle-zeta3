@@ -1,0 +1,43 @@
+2026-10-29 04:22:46 step_02 pp: |S|=12156 |C|=12156 p=16777199
+2026-10-29 04:22:47 pp-S row 4000/12156 pivots=4000 elims=0.1e6 nnz_avg=335 max=1329 el=2s
+2026-10-29 04:23:03 pp-S row 8000/12156 pivots=8000 elims=1.8e6 nnz_avg=1243 max=2583 el=18s
+2026-10-29 04:24:43 pp-S row 12000/12156 pivots=12000 elims=9.1e6 nnz_avg=1077 max=2212 el=118s
+2026-10-29 04:24:52 step_02 pp: (a) rank mod p2 = 12156 == |S| OK
+2026-10-29 04:24:52 step_02 pp: (b) D_rat in_span=True
+2026-10-29 04:24:52 step_02 pp: (b) D_sq in_span=True
+2026-10-29 04:24:53 pp-SC row 4000/12156 pivots=4000 elims=0.1e6 nnz_avg=298 max=1267 el=128s
+2026-10-29 04:25:09 pp-SC row 8000/12156 pivots=8000 elims=1.8e6 nnz_avg=1183 max=2521 el=143s
+2026-10-29 04:26:46 pp-SC row 12000/12156 pivots=12000 elims=9.1e6 nnz_avg=1017 max=2150 el=240s
+2026-10-29 04:26:54 step_02 pp: (c) rank of R_S,C mod p2 = 12156 (|S|=12156)
+2026-10-29 04:26:54 step_02 pp: ALL CHECKS PASSED time=249s SAVED
+2026-10-29 04:26:55 step_02 pm: |S|=11101 |C|=11101 p=16777199
+2026-10-29 04:26:56 pm-S row 4000/11101 pivots=4000 elims=0.1e6 nnz_avg=519 max=1950 el=1s
+2026-10-29 04:27:16 pm-S row 8000/11101 pivots=8000 elims=1.9e6 nnz_avg=1613 max=3654 el=22s
+2026-10-29 04:29:02 step_02 pm: (a) rank mod p2 = 11101 == |S| OK
+2026-10-29 04:29:02 step_02 pm: (b) D_rat in_span=True
+2026-10-29 04:29:02 step_02 pm: (b) D_sq in_span=True
+2026-10-29 04:29:03 pm-SC row 4000/11101 pivots=4000 elims=0.1e6 nnz_avg=472 max=1887 el=129s
+2026-10-29 04:29:23 pm-SC row 8000/11101 pivots=8000 elims=1.9e6 nnz_avg=1551 max=3591 el=149s
+2026-10-29 04:31:05 step_02 pm: (c) rank of R_S,C mod p2 = 11101 (|S|=11101)
+2026-10-29 04:31:05 step_02 pm: ALL CHECKS PASSED time=251s SAVED
+2026-10-29 04:31:06 step_02 mp: |S|=11041 |C|=11041 p=16777199
+2026-10-29 04:31:07 mp-S row 4000/11041 pivots=4000 elims=0.1e6 nnz_avg=493 max=1724 el=1s
+2026-10-29 04:31:27 mp-S row 8000/11041 pivots=8000 elims=1.9e6 nnz_avg=1569 max=3444 el=21s
+2026-10-29 04:33:05 step_02 mp: (a) rank mod p2 = 11041 == |S| OK
+2026-10-29 04:33:05 step_02 mp: (b) D_rat in_span=True
+2026-10-29 04:33:05 step_02 mp: (b) D_sq in_span=True
+2026-10-29 04:33:06 mp-SC row 4000/11041 pivots=4000 elims=0.1e6 nnz_avg=421 max=1601 el=121s
+2026-10-29 04:33:25 mp-SC row 8000/11041 pivots=8000 elims=1.9e6 nnz_avg=1450 max=3321 el=139s
+2026-10-29 04:34:57 step_02 mp: (c) rank of R_S,C mod p2 = 11041 (|S|=11041)
+2026-10-29 04:34:57 step_02 mp: ALL CHECKS PASSED time=232s SAVED
+2026-10-29 04:34:58 step_02 mm: |S|=11999 |C|=11999 p=16777199
+2026-10-29 04:34:59 mm-S row 4000/11999 pivots=4000 elims=0.1e6 nnz_avg=351 max=1255 el=2s
+2026-10-29 04:35:16 mm-S row 8000/11999 pivots=8000 elims=2.0e6 nnz_avg=1175 max=2614 el=19s
+2026-10-29 04:36:55 step_02 mm: (a) rank mod p2 = 11999 == |S| OK
+2026-10-29 04:36:55 step_02 mm: (b) D_rat in_span=True
+2026-10-29 04:36:55 step_02 mm: (b) D_sq in_span=True
+2026-10-29 04:36:56 mm-SC row 4000/11999 pivots=4000 elims=0.1e6 nnz_avg=315 max=1144 el=119s
+2026-10-29 04:37:13 mm-SC row 8000/11999 pivots=8000 elims=2.0e6 nnz_avg=1066 max=2503 el=136s
+2026-10-29 04:38:46 step_02 mm: (c) rank of R_S,C mod p2 = 11999 (|S|=11999)
+2026-10-29 04:38:46 step_02 mm: ALL CHECKS PASSED time=229s SAVED
+STEP02_ALL_DONE

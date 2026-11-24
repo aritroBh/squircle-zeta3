@@ -1,0 +1,10 @@
+rA0, rB0 re-derived OK
+NA N(0,0) remainder = 0   (0.0s)
+NA N(1,0) remainder = 0   (0.0s)
+NA N(2,0) remainder = 0   (0.2s)
+NA N(2,1) remainder = 0   (0.2s)
+NA N(3,0) remainder = 0   (0.4s)
+NA N(3,1) remainder = 0   (0.4s)
+NA N(4,0) remainder = 0   (1.1s)
+NA N(4,1) remainder = 0   (1.3s)
+NA N(4,2) remainder = 0   (1.3s)

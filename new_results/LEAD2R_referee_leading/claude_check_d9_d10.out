@@ -1,0 +1,11 @@
+d=1 (w=2): points k=2..21 (20), spare checks = 19, degree<=d-1: True, sqrt2 in top: False, c(w) = 0.5313467701916069652848794, law = 0.5313467701916069652848794, resid 2.41e-50
+d=2 (w=3): points k=3..21 (19), spare checks = 17, degree<=d-1: True, sqrt2 in top: False, c(w) = -0.4630545198880732650201834, law = -0.4630545198880732650201834, resid -7.11e-48
+d=3 (w=4): points k=4..21 (18), spare checks = 15, degree<=d-1: True, sqrt2 in top: False, c(w) = -0.5121519594615276802222006, law = -0.5121519594615276802222006, resid -2.74e-46
+d=4 (w=5): points k=5..21 (17), spare checks = 13, degree<=d-1: True, sqrt2 in top: False, c(w) = 0.4094811942125643569152192, law = 0.4094811942125643569152192, resid 6.58e-45
+d=5 (w=6): points k=6..21 (16), spare checks = 11, degree<=d-1: True, sqrt2 in top: False, c(w) = 0.3356875582240203570076723, law = 0.3356875582240203570076723, resid 1.21e-43
+d=6 (w=7): points k=7..21 (15), spare checks = 9, degree<=d-1: True, sqrt2 in top: False, c(w) = -0.2531224169604404872239475, law = -0.2531224169604404872239475, resid -1.47e-42
+d=7 (w=8): points k=8..21 (14), spare checks = 7, degree<=d-1: True, sqrt2 in top: False, c(w) = -0.1892425414133782082091414, law = -0.1892425414133782082091414, resid -2.17e-41
+d=8 (w=9): points k=9..21 (13), spare checks = 5, degree<=d-1: True, sqrt2 in top: False, c(w) = 0.1372633407921429380156702, law = 0.1372633407921429380156702, resid 2.27e-40
+d=9 (w=10): points k=10..21 (12), spare checks = 3, degree<=d-1: True, sqrt2 in top: False, c(w) = 0.09845988714189179727065029, law = 0.09845988714189179727065029, resid 2.07e-39
+d=10 (w=11): points k=11..21 (11), spare checks = 1, degree<=d-1: True, sqrt2 in top: False, c(w) = -0.0695939815235764999468454, law = -0.0695939815235764999468454, resid -1.68e-38
+RESULT: PASS

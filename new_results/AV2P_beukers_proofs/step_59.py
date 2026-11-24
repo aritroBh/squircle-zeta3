@@ -1,0 +1,353 @@
+report = r"""# AV2P — Proofs for the squircle Beukers integral B2(p) (follow-up to AV2)
+
+Work dir: `research/08_theory/AV2P_beukers_proofs`. This report upgrades AV2's NUMERICAL items
+to proofs. Notation as in AV2: $D_p=\{x,y\ge0:x^p+y^p\le1\}$,
+$B2(p)=-\tfrac12\iint_{D_p}\frac{\log(xy)}{1-xy}\,dx\,dy$, $\varepsilon=1/p$,
+$\varphi(w)=w^3\frac{\Gamma(w)^2}{\Gamma(2w+1)}(\psi(2w+1)-\psi(w))$, $\varphi(0)=1$.
+Clausen values: $\mathrm{Cl}_2(\theta)=\sum_{k\ge1}\sin(k\theta)/k^2$,
+$\mathrm{Cl}_3(\theta)=\sum_{k\ge1}\cos(k\theta)/k^3$, $G=\mathrm{Cl}_2(\pi/2)$ (Catalan),
+$\mathrm{Cl}_2(\pi/3)=1.014941606409653625021202554274520285942\ldots$ (Gieseking).
+Every number quoted below was printed by the cited scripts (residuals and digit counts given).
+
+We reuse AV2's PROVED reductions (re-verified numerically in this work):
+(R1) $B2(p)=\sum_{n\ge1}\varphi(n\varepsilon)/n^3$;
+(R2) $B2(p)=\frac1p\int_0^{\pi/4}(\cos\theta\sin\theta)^{2/p-1}g(c)\,d\theta$, $c=(\cos\theta\sin\theta)^{2/p}$,
+$g(c)=(\operatorname{Li}_2(c)+\log c\log(1-c))/c=(\zeta(2)-\operatorname{Li}_2(1-c))/c$;
+(R3) $B2(p)=\frac12\int_0^{2^{-2/p}}g(c)/\sqrt{1-4c^p}\,dc$ (c-form);
+$B2(\infty)=\zeta(3)$ (Beukers).
+
+================================================================================
+## 1. Task 1 — $B2(1)=2\zeta(3)/3$:  STATUS **PROVED**
+
+**Theorem.** $B2(1)=2\zeta(3)/3$.
+
+**Lemma 1.1 (series, PROVED).** $B2(1)=S:=\sum_{n\ge1}\frac{H_{2n}-H_{n-1}}{n^2\binom{2n}{n}}$.
+*Proof.* Expand $1/(1-xy)=\sum(xy)^n$ in the triangle integral and use the Dirichlet moments
+$\iint_{x+y\le1}(xy)^n\,dxdy=\frac{n!^2}{(2n+2)!}$ and $\iint(xy)^n\log(xy)\,dxdy=\frac{n!^2}{(2n+2)!}(2\psi(n+1)-2\psi(2n+3))$:
+$B2(1)=\sum_{n\ge0}\frac{H_{2n+2}-H_n}{(2n+1)(2n+2)\binom{2n}{n}}=\sum_{n\ge1}\frac{H_{2n}-H_{n-1}}{n^2\binom{2n}{n}}$
+(reindex; $(2n+1)(2n+2)\binom{2n}{n}=(n+1)^2\binom{2n+2}{n+1}$). This is also the $\varepsilon=1$ case of (R1). $\square$
+
+Split $S=T+U$ with $T=\sum_{n\ge1}\frac{H_{2n}-H_n}{n^2\binom{2n}{n}}$, $U=\sum_{n\ge1}\frac{1}{n^3\binom{2n}{n}}$.
+
+**Lemma 1.2 (arcsin kernel, PROVED).** For $|x|\le1$, $f(x):=\sum_{n\ge1}\frac{x^n}{n^2\binom{2n}{n}}=2\arcsin^2(\sqrt{x}/2)$.
+*Proof.* This is the classical $\arcsin^2(z)=\frac12\sum_{n\ge1}\frac{(2z)^{2n}}{n^2\binom{2n}{n}}$ at $z=\sqrt{x}/2$
+(termwise differentiation reduces it to the binomial expansion of $1/\sqrt{1-t}$). Verified at $x=0.37$ to 50 digits (step_05). $\square$
+
+**Lemma 1.3 ($U$, PROVED).** $U=\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)-\frac{4}{3}\zeta(3)$.
+*Proof.* $U=\int_0^1\frac{f(y)}{y}\,dy$ (since $1/n=\int_0^1y^{n-1}dy$). With $y=4\sin^2\theta$:
+$U=4\int_0^{\pi/6}\theta^2\cot\theta\,d\theta$ (verified to 80 digits, step_53). IBP:
+$U=4[\theta^2\log\sin\theta]_0^{\pi/6}-8\int_0^{\pi/6}\theta\log\sin\theta\,d\theta
+=-\frac{\pi^2}{9}\log2-8\int_0^{\pi/6}\theta(\log(2\sin\theta)-\log2)\,d\theta
+=\frac{\pi^2}{9}\log2-8\int_0^{\pi/6}\theta\log(2\sin\theta)\,d\theta$.
+Using $\log(2\sin\theta)=-\mathrm{Cl}_2'(2\theta)$:
+$\int_0^{\pi/6}\theta\log(2\sin\theta)\,d\theta=-\frac14\int_0^{\pi/3}s\,\mathrm{Cl}_2'(s)\,ds
+=-\frac{\pi}{12}\mathrm{Cl}_2(\pi/3)+\frac14\int_0^{\pi/3}\mathrm{Cl}_2(s)\,ds
+=-\frac{\pi}{12}\mathrm{Cl}_2(\pi/3)+\frac{\zeta(3)-\mathrm{Cl}_3(\pi/3)}4$
+(since $\mathrm{Cl}_3'=-\mathrm{Cl}_2$). With $\mathrm{Cl}_3(\pi/3)=\zeta(3)/3$ (proved by the residue-class sum
+$\mathrm{Cl}_3(\pi/3)=\frac{\zeta(3)}{1728}[8+\tfrac12(1456)-\tfrac12(208)-56]=\frac{576}{1728}\zeta(3)$; verified to 52 digits, step_05):
+$U=\frac{\pi^2}{9}\log2-8[-\frac{\pi}{12}\mathrm{Cl}_2(\pi/3)+\frac{\zeta(3)}6]=\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)-\frac{4\zeta(3)}3$
+(the $\log2$ cancels). Verified to 81 digits (step_53). $\square$
+
+**Lemma 1.4 ($T$, PROVED).** $T=2\zeta(3)-\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)$.
+*Proof.* $H_{2n}-H_n=\int_0^1\frac{x^n-x^{2n}}{1-x}dx$, so by Lemma 1.2
+$T=\int_0^1\frac{f(x)-f(x^2)}{1-x}\,dx$ (verified to 60 digits, step_56).
+IBP with $v=-\log(1-x)$ (boundary terms vanish since $f(x)-f(x^2)=O(x)$ at $0$ and $O(1-x)$ at $1$):
+$T=\int_0^1\log(1-x)\left(\frac{2\arcsin(\sqrt{x}/2)}{\sqrt{x(4-x)}}-\frac{4\arcsin(x/2)}{\sqrt{4-x^2}}\right)dx$.
+Substitute $x=4\sin^2\theta$ in the first piece and $x=2\sin\theta$ in the second:
+$T=4\int_0^{\pi/6}\theta\big[\log(1-4\sin^2\theta)-\log(1-2\sin\theta)\big]d\theta
+=4\int_0^{\pi/6}\theta\log\!\frac{(1-2\sin\theta)(1+2\sin\theta)}{1-2\sin\theta}\,d\theta
+=4L$, $L:=\int_0^{\pi/6}\theta\log(1+2\sin\theta)\,d\theta$ (verified to 62 digits, step_56).
+Factorize (sine-product identity): $1+2\sin\theta=1+2\cos(\frac{\pi}{2}-\theta)
+=\frac{\sin(\frac{3\pi}{4}-\frac{3\theta}{2})}{\sin(\frac{\pi}{4}-\frac{\theta}{2})}$, so
+$L=\int_0^{\pi/6}\theta\big[\log(2\sin(\tfrac{3\pi}{4}-\tfrac{3\theta}{2}))-\log(2\sin(\tfrac{\pi}{4}-\tfrac{\theta}{2}))\big]d\theta$.
+Substitute $s=\frac{3\pi}{4}-\frac{3\theta}{2}$ in the first and $r=\frac{\pi}{4}-\frac{\theta}{2}$ in the second:
+$L=\frac23\int_{\pi/2}^{3\pi/4}(\frac{\pi}{2}-\frac{2s}{3})\log(2\sin s)\,ds-2\int_{\pi/6}^{\pi/4}(\frac{\pi}{2}-2r)\log(2\sin r)\,dr$.
+With $\int\log(2\sin x)\,dx=-\frac12\mathrm{Cl}_2(2x)$ and
+$\int x\log(2\sin x)\,dx=-\frac{x}{2}\mathrm{Cl}_2(2x)-\frac14\mathrm{Cl}_3(2x)$ (both checked by differentiation):
+* first piece: $\frac23[\,-\frac{\pi}{4}\mathrm{Cl}_2(2s)+\frac23(\frac{s}{2}\mathrm{Cl}_2(2s)+\frac14\mathrm{Cl}_3(2s))\,]_{\pi/2}^{3\pi/4}
+=\frac23[(-\frac{\zeta(3)}{64})-(-\frac{\zeta(3)}{8})]=\frac{7\zeta(3)}{96}$,
+  using $\mathrm{Cl}_2(3\pi/2)=-G$, $\mathrm{Cl}_3(3\pi/2)=-\frac{3\zeta(3)}{32}$, $\mathrm{Cl}_2(\pi)=0$, $\mathrm{Cl}_3(\pi)=-\frac{3\zeta(3)}4$;
+* second piece: $2[\,-\frac{\pi}{4}\mathrm{Cl}_2(2r)+2(\frac{r}{2}\mathrm{Cl}_2(2r)+\frac14\mathrm{Cl}_3(2r))\,]_{\pi/6}^{\pi/4}
+=-\frac{3\zeta(3)}{32}+\frac{\pi}{6}\mathrm{Cl}_2(\pi/3)-\frac{\zeta(3)}{3}$,
+  using $\mathrm{Cl}_2(\pi/2)=G$, $\mathrm{Cl}_3(\pi/2)=-\frac{3\zeta(3)}{32}$, $\mathrm{Cl}_3(\pi/3)=\zeta(3)/3$.
+Hence $L=\frac{7\zeta(3)}{96}-(-\frac{3\zeta(3)}{32}+\frac{\pi}{6}\mathrm{Cl}_2(\pi/3)-\frac{\zeta(3)}3)
+=\frac{7+9+32}{96}\zeta(3)-\frac{\pi}{6}\mathrm{Cl}_2(\pi/3)=\frac{\zeta(3)}2-\frac{\pi}{6}\mathrm{Cl}_2(\pi/3)$
+(verified to 62 digits, step_56). Therefore $T=4L=2\zeta(3)-\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)$ (verified to 81 digits). $\square$
+
+*Proof of Theorem.* $B2(1)=T+U=\left(2\zeta(3)-\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)\right)
++\left(\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)-\frac{4}{3}\zeta(3)\right)=\frac{2}{3}\zeta(3)$. $\square$
+The Clausen constants cancel. Cross-check: independent Dirichlet-series value and c-form quadrature agree with
+$2\zeta(3)/3$ to 101 digits (AV2; re-verified to 62 digits in step_56).
+
+================================================================================
+## 2. Task 2 — $C_2=-\pi^2/12$ and the whole $\varepsilon$-expansion:  STATUS **PROVED**
+
+### 2.1 The Mellin form of the expansion (PROVED)
+
+**Theorem 2.1.** As $\varepsilon=1/p\to0^+$,
+$$B2(p)=\zeta(3)+C_2\varepsilon^2+\sum_{k\ge3}\varphi_k\,\zeta(3-k)\,\varepsilon^k,\qquad
+C_2=\int_0^\infty\frac{\varphi(w)-1}{w^3}\,dw,$$
+where $\varphi(w)=\sum_{k\ge0}\varphi_kw^k$ (radius $1/2$) and the sum has only $k=3,4,6,8,\dots$
+since $\zeta(3-k)=0$ for odd $k\ge5$ (trivial zeros). There is **no $\varepsilon$ term, no $\varepsilon^2\log\varepsilon$
+term, and no logarithm anywhere**.
+
+*Proof.* $\varphi$ is $C^\infty$ on $[0,\infty)$, decays like $w^{5/2}4^{-w}$ (Stirling), so its Mellin transform
+$M[\varphi](s)$ is holomorphic for $\Re s>0$, extends meromorphically to $\mathbb C$ with simple poles at $s=-k$
+of residue $\varphi_k$, and decays faster than any power of $|\operatorname{Im}s|$ on vertical lines (IBP $N$ times).
+Mellin inversion and absolute convergence ($\sum_n n^{-3}(n\varepsilon)^{-c}=\varepsilon^{-c}\zeta(3+c)$, $c>0$) give
+$$B2(p)=\frac1{2\pi i}\int_{(c)}M[\varphi](s)\,\zeta(3+s)\,\varepsilon^{-s}\,ds,\qquad c>0.$$
+Shift the contour to $\Re s=-K-\tfrac12$: the poles crossed give
+$s=0$: $\varphi_0\zeta(3)=\zeta(3)$;
+$s=-1$: $\varphi_1\zeta(2)\varepsilon=0$ (since $\varphi_1=0$);
+$s=-2$: the $\zeta$-pole meets the $\varphi_2$-residue; because $\varphi_2=0$ the product
+$M[\varphi](s)\zeta(3+s)\varepsilon^{-s}$ has only a simple pole with residue $M[\varphi](-2)\varepsilon^2$,
+where $M[\varphi](-2)=\int_0^\infty(\varphi(w)-1)w^{-3}dw=C_2$ (the analytic continuation in the strip
+$-3<\Re s<-2$, convergent since $\varphi(w)-1=-\zeta(3)w^3+O(w^4)$). In particular the would-be double pole
+$\varphi_2/(s+2)^2$ — the only source of an $\varepsilon^2\log\varepsilon$ term — vanishes exactly;
+$s=-k$ ($3\le k\le K$): residue $\varphi_k\zeta(3-k)\varepsilon^k$.
+The remaining integral is $O_K(\varepsilon^{K+1/2})$. $\square$
+
+**Corollary (general coefficient).** For $k\ge3$, $c_k=\varphi_k\zeta(3-k)$; $c_2=C_2$; and $c_k=0$ for odd $k\ge5$.
+With $\log\varphi(w)=\sum_{k\ge2}(-1)^k\zeta(k)(2-2^k)\frac{w^k}{k}+\log\!\big(1+\sum_{m\ge2}(-1)^m\zeta(m)(2^{m-1}-1)w^m\big)$
+(from $\log\Gamma$ and $\psi$ expansions):
+$\varphi_0=1$, $\varphi_1=\varphi_2=0$, $\varphi_3=-\zeta(3)$, $\varphi_4=\frac94\zeta(4)=\frac{\pi^4}{40}$,
+$\varphi_5=3\zeta(2)\zeta(3)-9\zeta(5)$, $\varphi_6=\frac{79\pi^6}{7560}-4\zeta(3)^2$,
+$\varphi_8=-36\zeta(3)\zeta(5)+\pi^2\zeta(3)^2+\frac{2339\pi^8}{604800}$ (computed numerically to 250 terms at 130 digits, step_18;
+matching AV2's exact values). Hence
+$B2(p)=\zeta(3)+C_2\varepsilon^2+\frac{\zeta(3)}2\varepsilon^3-\frac{3\zeta(4)}{16}\varepsilon^4
++\frac{\varphi_6}{120}\varepsilon^6-\frac{\varphi_8}{252}\varepsilon^8+\cdots$
+($\zeta(0)=-1/2,\ \zeta(-1)=-1/12,\ \zeta(-3)=1/120,\ \zeta(-5)=-1/252$).
+
+### 2.2 The c-form (Watson) form of the expansion, and the value of $C_2$ (PROVED)
+
+**Theorem 2.2.** The same expansion holds with
+$c_k=\frac{\beta_{k-2}}2\left(\frac{(2\log2)^k}{k}-M_{k-1}\right)$ for $k\ge2$, where
+$\beta_n=\frac{B_n}{n!(n+1)}$ (Bernoulli numbers; $\beta_{2j+1}=0$ for $j\ge1$, consistent with $c_5=c_7=\dots=0$) and
+$$M_k=\int_{\log4}^\infty x^k\big[(1-4e^{-x})^{-1/2}-1\big]\,dx=2\int_0^1\frac{\log^k\!\big(4/(1-u^2)\big)}{1+u}\,du.$$
+
+*Proof.* From (R3): $B2(p)-\zeta(3)=X(p)-Y(p)$ with
+$X(p)=\frac12\int_0^{c^*}g(c)\big[(1-4c^p)^{-1/2}-1\big]dc$ and $Y(p)=\frac12\int_{c^*}^1 g(c)\,dc$, $c^*=2^{-2/p}$.
+Substitute $c=e^{-x\varepsilon}$ in $X$ (so $c^p=e^{-x}$, $x\in[\log4,\infty)$) and $c=e^{-y}$ in $Y$
+($y\in[0,2\log2\cdot\varepsilon]$). With $h(c)=cg(c)=\operatorname{Li}_2(c)+\log c\log(1-c)$:
+$h(e^{-z})=\zeta(2)-\int_0^z\frac{t}{e^t-1}dt=\zeta(2)-\sum_{n\ge0}\beta_n z^{n+1}$
+(differentiate: $\frac{d}{dz}h(e^{-z})=-z/(e^z-1)$; no $\log z$ terms — the origin of the no-log phenomenon).
+Watson's lemma (the kernel $(1-4e^{-x})^{-1/2}-1$ is integrable at $\log4^+$ and decays like $2e^{-x}$ at $\infty$;
+the tail $x>\varepsilon^{-1+\delta}$ is beyond all orders) gives
+$X(p)=\frac{\varepsilon}{2}\big[\zeta(2)M_0-\sum_{n\ge0}\beta_n\varepsilon^{n+1}M_{n+1}\big]$,
+$Y(p)=\frac12\big[2\log2\,\zeta(2)\varepsilon-\sum_{n\ge0}\beta_n\frac{(2\log2)^{n+2}}{n+2}\varepsilon^{n+2}\big]$.
+Comparing: $c_1=\frac{\zeta(2)}2(M_0-2\log2)$ and $c_k=\frac{\beta_{k-2}}2\big(\frac{(2\log2)^k}{k}-M_{k-1}\big)$. $\square$
+
+**Lemma 2.3 (PROVED).** $M_0=2\log2$ and $M_1=2\log^22+\pi^2/6$.
+*Proof.* Substitute $u=\sqrt{1-4e^{-x}}$: $M_k=2\int_0^1\log^k(4/(1-u^2))/(1+u)\,du$.
+$M_0=2\int_0^1\frac{du}{1+u}=2\log2$ (hence $c_1=0$: no $\varepsilon$ term).
+$M_1=2\log4\int_0^1\frac{du}{1+u}-2\int_0^1\frac{\log(1-u)+\log(1+u)}{1+u}du
+=4\log^22-2[(\log^22/2-\pi^2/12)+\log^22/2]=2\log^22+\pi^2/6$,
+using $\int_0^1\frac{\log(1+u)}{1+u}du=\frac12\log^22$ and
+$\int_0^1\frac{\log(1-u)}{1+u}du=-\operatorname{Li}_2(1/2)=\frac{\log^22}2-\frac{\pi^2}{12}$
+(the series $\int_0^1\frac{\log(1-u)}{1+u}du=\frac12\sum_{k\ge0}2^{-k}\int_0^1v^k\log v\,dv\cdot(-2)$-evaluation to
+$-\operatorname{Li}_2(1/2)$, and Landen's identity $\operatorname{Li}_2(1/2)=-\operatorname{Li}_2(-1)-\frac12\log^22
+=\frac{\pi^2}{12}-\frac{\log^22}2$ at $z=1/2$). Verified to 80 digits (step_53). $\square$
+
+**Corollary (PROVED).** $C_2=c_2=\frac{\beta_0}2\big(\frac{(2\log2)^2}2-M_1\big)=\log^22-\frac{M_1}2=-\frac{\pi^2}{12}$.
+The $\log^22$ cancels. Independent numerical check: direct evaluation of
+$\int_0^\infty(\varphi(w)-1)w^{-3}dw$ gives
+$-0.82246703342411321823620758332301259460947495060339921886777911468500373520160043691681445030987935265200215948$
+$=-\pi^2/12$ to **131 digits** (step_18, $\varphi$ from a 250-term series on $[0,0.2]$ + quadrature on $[0.2,\infty]$).
+
+**Further $M_k$ (NUMERICAL, 55–75 digits, step_19/53):**
+$M_2=4\zeta(3)+\frac83\log^32$; $M_3=4\log^42+\frac{3\pi^4}{20}$;
+$M_5=\frac{32}3\log^62+\frac{79\pi^6}{126}-240\zeta(3)^2$.
+These give exactly $c_3=\zeta(3)/2$, $c_4=-3\zeta(4)/16$, $c_6=\varphi_6/120$
+(verified to 40 digits, step_19) — matching Theorem 2.1. The identities
+$M_{k-1}=\frac{(2\log2)^k}{k}-\frac{2c_k}{\beta_{k-2}}$ are the content of the equality of the two forms.
+**Expansion cross-check:** the series value of $B2(2^{14})$ matches the proved expansion through $\varepsilon^6$
+to $4.7{\rm e}{-36}$ (step_53); AV2's fits at $p\le2^{24}$ give $c_2$ vs $-\pi^2/12$ to $1.4{\rm e}{-54}$.
+
+================================================================================
+## 3. Task 3 — the quarter disc:  $B2(2)=\zeta(3)/12+\pi G/3$:  STATUS **PROVED**
+
+**Theorem.** $B2(2)=\frac{\zeta(3)}{12}+\frac{\pi G}{3}$
+($=1.05936833579935324104250490229980343260203365771260126540342$; verified to 60 digits, step_53).
+
+*Even part (PROVED).* $\sum_{n\ {\rm even}}\varphi(n/2)/n^3=\sum_{m\ge1}\varphi(m)/(2m)^3=\frac18B2(1)=\frac{\zeta(3)}{12}$
+(by Task 1; verified to 221 digits, step_20).
+
+*Odd part (PROVED).* $\sum_{k\ge0}\varphi(k+\tfrac12)/(2k+1)^3=\frac{\pi G}{3}$.
+Using $\Gamma(k+\tfrac12)^2/\Gamma(2k+2)=\frac{\pi\binom{2k}{k}}{16^k(2k+1)}$ and
+$\psi(2k+2)-\psi(k+\tfrac12)=2\log2+H_k-H_{2k}+\frac1{2k+1}$:
+$${\rm odd}=\frac{\pi}{8}\Big(2\log2\,S_3+S_1-S_1'+S_2\Big),\quad
+S_3=\sum\frac{\binom{2k}{k}}{16^k(2k+1)},\ S_2=\sum\frac{\binom{2k}{k}}{16^k(2k+1)^2},\
+S_1=\sum\frac{\binom{2k}{k}H_k}{16^k(2k+1)},\ S_1'=\sum\frac{\binom{2k}{k}H_{2k}}{16^k(2k+1)}.$$
+
+**Lemma 3.1 (generating functions, PROVED).** With $c=\sqrt{1-4y}$:
+$\sum_{k\ge0}\binom{2k}{k}y^k=\frac1c$; $\sum\binom{2k}{k}\frac{y^k}{2k+1}=\frac{\arcsin(2\sqrt y)}{2\sqrt y}$;
+$\sum\binom{2k}{k}H_ky^k=\frac2c\log\frac{1+c}{2c}$; $\sum\binom{2k}{k}H_{2k}y^k=\frac1c\log\frac{1+c}{2c^2}$.
+*Proof.* The first two are classical. For the last two use
+$\sum\binom{2k}{k}H_ky^k=\int_0^1\frac{(1-4y)^{-1/2}-(1-4yt)^{-1/2}}{1-t}dt$ and
+$\sum\binom{2k}{k}H_{2k}y^k=\int_0^1\frac{(1-4y)^{-1/2}-(1-4yt^2)^{-1/2}}{1-t}dt$;
+both integrate in closed form (the $u=\sqrt{1-4yt}$ substitution gives a log for the first;
+the Weierstrass substitution $t=\tan(\phi/2)$-form gives a log for the second).
+Verified at $y=0.02,0.03,0.05$ to 100+ digits (step_23/29/53). $\square$
+
+**Lemma 3.2 (the four sums, PROVED).**
+$S_3=\frac{\arcsin(2\sqrt y)}{2\sqrt y}\big|_{y=1/16}=\frac{\pi}3$;
+$S_2=2\int_0^1\frac{\arcsin(u/2)}u\,du=\mathrm{Cl}_2(\pi/3)$
+(the latter: $u=2\sin\theta$, IBP, and $\int_0^{\pi/6}\log(2\sin\theta)\,d\theta=-\mathrm{Cl}_2(\pi/3)/2$);
+$S_1=\int_0^1F(s^2/16)\,ds$ with $F(y)=\frac2c\log\frac{1+c}{2c}$: setting $s=2\sin\theta$,
+$S_1=4\int_0^{\pi/6}\log\frac{1+\cos\theta}{2\cos\theta}\,d\theta
+=4\int_0^{\pi/6}[2\log\cos\frac\theta2-\log\cos\theta]\,d\theta
+=-\frac{2\pi}{3}\log2+8\,\mathrm{Cl}_2(5\pi/6)-2\,\mathrm{Cl}_2(2\pi/3)$;
+$S_1'=\int_0^1G(s^2/16)\,ds$ with $G(y)=\frac1c\log\frac{1+c}{2c^2}$: same substitution,
+$S_1'=4\int_0^{\pi/6}[\log\cos\frac\theta2-\log\cos\theta]\,d\theta
+=4\,\mathrm{Cl}_2(5\pi/6)-2\,\mathrm{Cl}_2(2\pi/3)$,
+using $\int_0^\theta\log\cos x\,dx=-\theta\log2+\frac12\mathrm{Cl}_2(\pi-2\theta)$
+(from the Fourier series $\log\cos x=-\log2-\sum(-1)^k\cos(2kx)/k$).
+All verified to 100+ digits (step_29/53).
+
+*Proof of the odd part.* Hence
+$S_1-S_1'=-\frac{2\pi}{3}\log2+4\,\mathrm{Cl}_2(5\pi/6)
+=-\frac{2\pi}{3}\log2+4\,\mathrm{Cl}_2(\pi/6)-2\,\mathrm{Cl}_2(\pi/3)$
+(using $\mathrm{Cl}_2(5\pi/6)=\mathrm{Cl}_2(\pi/6)-\mathrm{Cl}_2(\pi/3)/2$, proved by parity-splitting the series, verified to 102 digits), and
+$${\rm odd}=\frac{\pi}{8}\Big(\frac{2\pi\log2}{3}-\frac{2\pi\log2}{3}+4\,\mathrm{Cl}_2(\pi/6)-2\,\mathrm{Cl}_2(\pi/3)+\mathrm{Cl}_2(\pi/3)\Big)
+=\frac{\pi}{8}\big(4\,\mathrm{Cl}_2(\pi/6)-\mathrm{Cl}_2(\pi/3)\big).$$
+Finally the identity $\mathrm{Cl}_2(\pi/6)=\frac14\mathrm{Cl}_2(\pi/3)+\frac{2G}{3}$ (**PROVED** by direct absolutely-convergent
+series rearrangement: $\mathrm{Cl}_2(\pi/6)-\frac14\mathrm{Cl}_2(\pi/3)=\sum_{k\ {\rm odd}}\frac{\sin(k\pi/6)}{k^2}
+=\frac12\sum_m\big[\frac1{(12m+1)^2}+\frac1{(12m+5)^2}-\frac1{(12m+7)^2}-\frac1{(12m+11)^2}\big]+\frac{G}{9}
+=\frac12\cdot\frac{10G}{9}+\frac{G}{9}=\frac{2G}{3}$; verified to 100+ digits, step_29) gives
+${\rm odd}=\frac{\pi}{8}\big(4(\frac{\mathrm{Cl}_2(\pi/3)}4+\frac{2G}3)-\mathrm{Cl}_2(\pi/3)\big)=\frac{\pi}{8}\cdot\frac{8G}{3}=\frac{\pi G}{3}$. $\square$
+Direct check: odd part $=0.95919692720272038392586005550718260003828480001755969192073193405162\ldots$
+$=\pi G/3$ to **200+ digits** (step_20; PSLQ $[-3,1]$ at 100 digits, step_29).
+
+================================================================================
+## 4. Task 4 — the $\tau=1-1/p$ slope at the triangle:  structural identity PROVED; closed form NUMERICAL
+
+**Definition.** $B2=\frac{2\zeta(3)}3+d_1\tau+d_2\tau^2+\cdots$, $\tau=1-1/p$; then
+$d_1=B2'(p)|_{p=1}=-\sum_{n\ge1}\varphi'(n)/n^2=0.524664448852056928181428100965551051111928417616155814312366751895781363359109387\ldots$
+(150 digits, step_30).
+
+**Theorem 4.1 (PROVED).** $d_1=P_1-B2(1)$ where
+$P_1=\int_0^1\frac{\log^2\!\big(4/(1-t^2)\big)}{3+t^2}\,dt$ and
+$P_2:=2\int_0^1\frac{\log(4/(1-t^2))\,t\,\operatorname{artanh}t}{3+t^2}\,dt=B2(1)=\frac{2\zeta(3)}3$.
+*Proof.* Differentiate the v-form $B2(p)=\frac12\int_0^\infty h(c)\,dv$,
+$c=(2\cosh(pv/2))^{-2/p}$, $h(c)=cg(c)$, at $p=1$:
+$d_1=\frac12\int_0^\infty h'(c)\,\partial_p c|_1\,dv
+=\int_0^\infty\frac{cL}{1-c}(2L-v\tanh\tfrac v2)\,dv$ with $L=\log(2\cosh\tfrac v2)$
+(using $h'(c)=-\log c/(1-c)$). The substitution $t=\tanh(v/2)$ turns this into
+$d_1=\int_0^1\frac{\log^2(4/(1-t^2))}{3+t^2}dt-2\int_0^1\frac{\log(4/(1-t^2))\,t\,\operatorname{artanh}t}{3+t^2}dt=P_1-P_2$.
+And $P_2=\int_0^\infty\frac{cLv\tanh(v/2)}{1-c}dv$ equals $B2(1)$: IBP on
+$B2(1)=\frac12\int_0^\infty h(c)\,dv$ with $dc/dv=-c\tanh(v/2)$ gives
+$B2(1)=\frac12\int_0^\infty h'(c)\,c\tanh(v/2)\,v\,dv=\int_0^\infty\frac{cLv\tanh(v/2)}{1-c}dv=P_2$.
+(The identities $d_1=P_1-P_2$ and $P_2=2\zeta(3)/3$ are verified to 100+ digits, step_46/53.) $\square$
+
+**Theorem 4.2 (NUMERICAL, 100–102 digits).**
+$P_1=\frac{2\pi^3}{27\sqrt3}$, hence
+$$\boxed{\ d_1=\frac{2\pi^3}{27\sqrt3}-\frac{2\zeta(3)}{3}=\frac{2\sqrt3\,\pi^3}{81}-\frac{2\zeta(3)}3\ }$$
+(direct residual $-7.1{\rm e}{-102}$ at 102 digits, step_47/53).
+Evidence: PSLQ gives $P_1\sqrt3=\frac87\mathrm{Ls}_3(\pi/3)$ with residual $0.0$ at 100 digits (step_46),
+where $\mathrm{Ls}_3(\pi/3)=\int_0^{\pi/3}\log^2(2\sin(x/2))\,dx=\frac{7\pi^3}{108}$.
+
+**Status of the two log-sine values used.**
+* $\mathrm{Ls}_3(\pi/3)=\frac{7\pi^3}{108}$: NUMERICAL (101 digits, step_47/53), with the following reduction:
+  $A:=\int_0^{\pi/6}\log^2(2\sin\theta)\,d\theta=\sum_{m\ge0}\frac{\binom{2m}{m}}{16^m(2m+1)^3}$ is **PROVED**
+  ($u=2\sin\theta$ + binomial series + termwise integration; verified to 61 digits), and
+  $\mathrm{Ls}_3(\pi/3)=2A$. The Fourier double-series evaluation gives the absolutely-convergent rearranged sum
+  $\sum_{j,k}\frac1{jk}(f(j-k)+g(j+k))=\frac{\pi^3}{36}+2S-\frac{5\pi^3}{162}$
+  ($f(d)=\frac{\sin(d\pi/3)}{2d}$, $f(0)=\pi/6$, $g(m)=\frac{\sin(m\pi/3)}{2m}$), where
+  **$S=\sum_{m\ge1}\frac{\sin(m\pi/3)H_m}{m^2}=\frac{11\pi^3}{324}$ is PROVED**:
+  from the generating function $\sum_{n\ge1}H_nz^n/n^2=\operatorname{Li}_3(z)+\frac12\log z\log^2(1-z)+\zeta(3)
+  +\log(1-z)\operatorname{Li}_2(1-z)-\operatorname{Li}_3(1-z)$ (proved by two integrations by parts and the geometric
+  expansion of $\int_0^z\log^2(1-t)/t\,dt$) at $z=e^{i\pi/3}$, using
+  $\operatorname{Re}\operatorname{Li}_2(e^{i\pi/3})=\pi^2/36$ (classical Fourier),
+  $\operatorname{Im}\operatorname{Li}_2(e^{i\pi/3})=\mathrm{Cl}_2(\pi/3)$, and
+  $\operatorname{Im}\operatorname{Li}_3(e^{i\pi/3})=\sum\sin(k\pi/3)/k^3=\frac{5\pi^3}{162}$
+  (proved by the polygamma reflection $\psi_2(1-z)-\psi_2(z)=2\pi^3\cot(\pi z)\csc^2(\pi z)$ at $z=1/6,1/3$;
+  verified to 25 digits, step_47). Then $\frac{\pi^3}{36}+2\cdot\frac{11\pi^3}{324}-\frac{5\pi^3}{162}=\frac{7\pi^3}{108}$
+  (**PROVED as a number**), and $(1/2)\sum_{j,k}\frac1{jk}(f(j-k)+g(j+k))=A$ matches to 30 digits (NUMERICAL;
+  note the naive iterated sum instead converges to $A+\pi^3/324$, exhibited numerically in step_50 — the
+  conditional-convergence trap; a Fejér-mean justification is standard but not written out here).
+* $P_1\sqrt3=\frac87\mathrm{Ls}_3(\pi/3)$: NUMERICAL (100 digits, PSLQ residual $0.0$). The related proved pieces of $P_1$:
+  $P_1=\frac12(4J_1-4J_2+J_3)$ with $J_3=\int_0^1\frac{\log^2w}{1+w+w^2}dw=\frac{8\pi^3}{81\sqrt3}$ **PROVED**
+  ($1/(1+w+w^2)=(1-w)/(1-w^3)$, the Hurwitz-zeta series, and the polygamma reflection
+  $\psi_2(2/3)-\psi_2(1/3)=8\pi^3/(3\sqrt3)$; verified to 61 digits); $J_1,J_2$ remain OPEN
+  (level-3 mixed log integrals; PSLQ finds nothing).
+* The alternative decomposition $P_1\sqrt3=4T_1+T_2+T_3-4T_4-4T_5+2T_6$ has
+  $T_2,T_3$ identified (in terms of $\mathrm{Ls}_3(\pi/3),\mathrm{Ls}_3(2\pi/3),\mathrm{Cl}_2(\pi/3),\log2$, step_50)
+  and $T_1,T_4,T_5,T_6$ OPEN.
+
+So $d_1$'s closed form is NUMERICAL (102 digits), while $d_1=P_1-2\zeta(3)/3$ is PROVED;
+$d_2\approx0.0427434684$ remains NUMERICAL (~10 digits, AV2 fit).
+
+================================================================================
+## 5. Task 5 — plain words: where does $\zeta(3)$ live on this path?
+
+Along the squircle homotopy from the square ($p=\infty$, $B2=\zeta(3)$) to the triangle ($p=1$, $B2=2\zeta(3)/3$),
+$\zeta(3)$ does not live at any single point — it appears as the *common diagonal moment* of the square
+($M(j,j,\infty)=2\zeta(3)-2H_j^{(3)}$, the miracle that lets Beukers factor it out with the Apéry coefficient),
+and it **reappears by cancellation** at every rational point of the path. At the triangle, $B2(1)=2\zeta(3)/3$
+emerges from two inverse-central-binomial sums $T$ and $U$ that are individually *Clausen-valued*
+($\mathrm{Cl}_2(\pi/3)$, the Gieseking constant) — $\zeta(3)$ is what is left when the non-rational
+geometry of the hexagonal lattice cancels. At the quarter disc, $B2(2)=\zeta(3)/12+\pi G/3$:
+the even harmonics remember the triangle ($B2(1)/8$), and the odd harmonics are pure level-4 — Catalan $G$ —
+with the Gieseking and $\log2$ parts cancelling by the elementary identity
+$\mathrm{Cl}_2(\pi/6)=\mathrm{Cl}_2(\pi/3)/4+2G/3$. At the square end, the deformation is maximally gentle:
+$C_2=-\pi^2/12$ is a pure $\zeta(2)$-correction (the $\log^22$ of the corner layer cancels), and every
+coefficient $c_k=\varphi_k\zeta(3-k)$ is a zeta-value — the path **dodges the logarithm**
+($\varphi_2=0$ kills $\varepsilon^2\log\varepsilon$) precisely because the Beukers integrand is a pure
+harmonic sum $\sum\varphi(n\varepsilon)/n^3$ (in contrast to the triple integral $B3$, whose corner
+singularity does produce $\varepsilon^2\log\varepsilon$). Even the triangle slope is built from
+$\zeta(3)$ and a log-sine constant: $d_1=\frac{2\pi^3}{27\sqrt3}-\frac{2\zeta(3)}3$, with $B2(1)$ itself
+reappearing as the IBP partner integral. In the language of the paper's model: the homotopy keeps hitting
+"classical" values exactly at the rational squircles $p=1,2,\infty$, because the underlying periods are
+level-(2,3,4,6) Clausen/dilogarithm constants whose non-zeta parts are forced to cancel by elementary
+trigonometric product identities — $\zeta(3)$ is the residue of that cancellation.
+
+================================================================================
+## 6. Evidence table
+
+| # | Statement | Value | Digits/residual | Status |
+|---|---|---|---|---|
+| 1 | $B2(1)=2\zeta(3)/3$ | 0.80137126877306285693315877434096666051 | series+quadrature 101 d (AV2); $T,U$ closed forms 81 d | **PROVED** |
+| 2 | $T=\sum\frac{H_{2n}-H_n}{n^2\binom{2n}{n}}=2\zeta(3)-\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)$ | 0.27842507663972774844197359081366312035 | $2.6{\rm e}{-81}$ | **PROVED** |
+| 3 | $U=\sum\frac1{n^3\binom{2n}{n}}=\frac{2\pi}{3}\mathrm{Cl}_2(\pi/3)-\frac{4\zeta(3)}3$ | 0.52294619213333510849118518352730354016 | $2.1{\rm e}{-81}$ | **PROVED** |
+| 4 | $\mathrm{Cl}_3(\pi/3)=\zeta(3)/3$; $f(x)=2\arcsin^2(\sqrt x/2)$; Clausen antiderivatives | — | 50–62 d | **PROVED** |
+| 5 | $C_2=\int_0^\infty(\varphi-1)w^{-3}dw=-\pi^2/12$ | −0.82246703342411321823620758332301259461 (131 d) | $1.1{\rm e}{-131}$ | **PROVED** |
+| 6 | $B2(p)=\zeta(3)+C_2\varepsilon^2+\sum_{k\ge3}\varphi_k\zeta(3-k)\varepsilon^k$; general $c_k$ | $c_2=-\pi^2/12$, $c_3=\zeta(3)/2$, $c_4=-3\zeta(4)/16$, $c_6=\varphi_6/120$ | fit at $2^{14}$: $4.7{\rm e}{-36}$; AV2 fits to $1{\rm e}{-54}$ | **PROVED** (Mellin + c-form) |
+| 7 | No $\varepsilon$ term, no $\varepsilon^2\log\varepsilon$ | $\varphi_2=0$; $M_0=2\log2$ | exact | **PROVED** |
+| 8 | $M_1=2\log^22+\pi^2/6$, $M_0=2\log2$ | — | 80 d | **PROVED** |
+| 9 | $M_2=4\zeta(3)+\frac83\log^32$; $M_3=4\log^42+\frac{3\pi^4}{20}$; $M_5=\frac{32}3\log^62+\frac{79\pi^6}{126}-240\zeta(3)^2$ | — | $0$–$1{\rm e}{-75}$ (55–75 d) | NUMERICAL |
+| 10 | $B2(2)=\zeta(3)/12+\pi G/3$ | 1.05936833579935324104250490229980343260 | $1.2{\rm e}{-60}$ | **PROVED** |
+| 11 | even part $=B2(1)/8=\zeta(3)/12$ | 0.10017140859663285711664484679262083256 | $1.7{\rm e}{-221}$ | **PROVED** |
+| 12 | odd part $=\pi G/3$ | 0.95919692720272038392586005550718260004 | 200+ d | **PROVED** |
+| 13 | $S_3=\pi/3$, $S_2=\mathrm{Cl}_2(\pi/3)$; generating functions $F,G$ | — | 100–210 d | **PROVED** |
+| 14 | $S_1=-\frac{2\pi}{3}\log2+8\mathrm{Cl}_2(5\pi/6)-2\mathrm{Cl}_2(2\pi/3)$; $S_1'=4\mathrm{Cl}_2(5\pi/6)-2\mathrm{Cl}_2(2\pi/3)$ | — | $1.8{\rm e}{-81}$, $1.5{\rm e}{-81}$ | **PROVED** |
+| 15 | $\mathrm{Cl}_2(\pi/6)=\mathrm{Cl}_2(\pi/3)/4+2G/3$; $\mathrm{Cl}_2(2\pi/3)=\frac23\mathrm{Cl}_2(\pi/3)$; $\mathrm{Cl}_2(5\pi/6)=\mathrm{Cl}_2(\pi/6)-\mathrm{Cl}_2(\pi/3)/2$ | — | 100+ d | **PROVED** (series rearrangement) |
+| 16 | $d_1=P_1-2\zeta(3)/3$; $P_2=B2(1)$ by IBP | $P_2=0.80137126877306285693315877434096666$ | $1.1{\rm e}{-81}$ | **PROVED** |
+| 17 | $d_1=\frac{2\pi^3}{27\sqrt3}-\frac{2\zeta(3)}3$ | 0.52466444885205692818142810096555105111 | $7.1{\rm e}{-102}$ | NUMERICAL |
+| 18 | $P_1=\frac{2\pi^3}{27\sqrt3}$; $P_1\sqrt3=\frac87\mathrm{Ls}_3(\pi/3)$ | 1.32603571762511978511458687530651771162 | PSLQ residual $0.0$ (100 d) | NUMERICAL |
+| 19 | $\mathrm{Ls}_3(\pi/3)=\int_0^{\pi/3}\log^2(2\sin\frac x2)dx=\frac{7\pi^3}{108}$ | 2.00966608113054390026235375435 | $2.9{\rm e}{-101}$ | NUMERICAL |
+| 20 | $A=\int_0^{\pi/6}\log^2(2\sin\theta)d\theta=\sum\frac{\binom{2m}{m}}{16^m(2m+1)^3}=\frac{7\pi^3}{216}$ | 1.00483304056527195013117687717 | 61 d | identity **PROVED**, value NUMERICAL |
+| 21 | $S=\sum\frac{\sin(m\pi/3)H_m}{m^2}=\frac{11\pi^3}{324}$ | 1.052682232973162117428381 | $2{\rm e}{-14}$ (tail); GF identity verified 80 d | **PROVED** |
+| 22 | $J_3=\int_0^1\frac{\log^2w}{1+w+w^2}dw=\frac{8\pi^3}{81\sqrt3}$ | — | $3.1{\rm e}{-61}$ | **PROVED** |
+| 23 | $J_1,J_2$ (level-3 mixed logs); $T_1,T_4,T5,T6$; $d_2\approx0.0427434684$ | — | — | OPEN |
+
+## 7. Files (in `research/08_theory/AV2P_beukers_proofs/`)
+
+- `progress.log` — one line per finished step.
+- `phicoef.json` — $\varphi_k$, $k\le250$, at 130 digits (step_18).
+- `odd2.txt` — odd part of $B2(2)$ at 200 digits (step_20); `d1.txt` — $d_1$ at 150 digits (step_30).
+- Key scripts: `step_05` (Clausen/dilog identities, $T,U$ closed forms at 50 d),
+  `step_18` ($\varphi$ series, $C_2$ at 131 d), `step_19` ($M_k$ closed forms, $c_2\ldots c_6$),
+  `step_20`–`step_24` (odd part, $S$-sums, PSLQ: odd $=\pi G/3$),
+  `step_29` (Task-3 certificate: Clausen identities, generating functions, $S_1,S_1',S_2,S_3$),
+  `step_30`–`step_33` ($d_1$ at 150 d, PSLQ weight-3/4 bases),
+  `step_46` ($d_1=P_1-P_2$, $P_2=2\zeta(3)/3$, $P_1\sqrt3=\frac87\mathrm{Ls}_3$),
+  `step_47`–`step_50` ($d_1$ closed form 102 d, $S=11\pi^3/324$, double-sum analysis, naive-sum trap),
+  `step_53` (full certificate script: every identity re-verified at 80 d),
+  `step_56` (corrected Task-1 chain: $T=4L$, $L=\zeta(3)/2-(\pi/6)\mathrm{Cl}_2(\pi/3)$).
+- Reused from AV2: `../AV2_beukers_squircle/av2core.py` (integrators/series), `result.md`.
+"""
+with open('result.md', 'w') as f:
+    f.write(report)
+print("result.md written:", len(report), "chars")
+with open('progress.log','a') as fh:
+    fh.write("step_57: result.md written\n")

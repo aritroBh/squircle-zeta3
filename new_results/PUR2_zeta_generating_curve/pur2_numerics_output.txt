@@ -1,0 +1,58 @@
+V values:
+  c=1                        V = 0.65327932051967509783813032715   Phi(V)-1 = -7.78e-62   phi(V) = 2.34672067948032
+  c=1/2                      V = 0.681906620282034893636325407993   Phi(V)-1 = -7.78e-62   phi(V) = 2.09371242003947
+  kappa^2=9/7 (c=i kappa)    V = 0.776780305889861281371713221322   Phi(V)-1 = 0.0   phi(V) = 1.38414175881354
+  c=0 (PUR1)                 V = 0.693147180559945309417232121458   Phi(V)-1 = 0.0   phi(V) = 2.0
+  c=1 check V = (5 - W(e^5))/2 : 0.65327932051967509783813032715
+
+=== (F) perimeter: direct u-quadrature of h vs closed form minus tail (dps 60) ===
+c=1                        tau=0.5   int h = 9.08083797485323736848623271077471697789365114 | closed - tail - int h = 1.24e-60 | tail = 0.30545639
+c=1                        tau=0.2   int h = 8.15446356642325109885142123516278617123205254 | closed - tail - int h = 0.0 | tail = 0.0006535943
+c=1                        tau=0.1   int h = 8.03554204092969452808047118366066193485885701 | closed - tail - int h = 0.0 | tail = 2.1607941e-7
+c=1                        tau=0.05  int h = 8.00853939513026973543145328292188661040949078 | closed - tail - int h = -1.24e-60 | tail = 1.0951212e-13
+c=1/2                      tau=0.5   int h = 9.06303713755488051896767763605563383980218886 | closed - tail - int h = 0.0 | tail = 0.19669744
+c=1/2                      tau=0.2   int h = 8.15309087667533640027170001307298351057175022 | closed - tail - int h = 1.24e-60 | tail = 0.00041535141
+c=1/2                      tau=0.1   int h = 8.0354582759934502776897133738987979089007784 | closed - tail - int h = 0.0 | tail = 1.0624899e-7
+c=1/2                      tau=0.05  int h = 8.00853457997715587461304994280427265214541039 | closed - tail - int h = 0.0 | tail = 3.0752241e-14
+kappa^2=9/7 (c=i kappa)    tau=0.5   int h = 9.02004451543642351432486129685425748377291271 | closed - tail - int h = (0.0 + 0.0j) | tail = 0.038848111
+kappa^2=9/7 (c=i kappa)    tau=0.2   int h = 8.15021505033253291083355832602676979972141777 | closed - tail - int h = (-1.24e-60 + 0.0j) | tail = 8.6842062e-5
+kappa^2=9/7 (c=i kappa)    tau=0.1   int h = 8.0352877499955753527152882476406415624873461 | closed - tail - int h = (0.0 + 0.0j) | tail = 9.646046e-9
+kappa^2=9/7 (c=i kappa)    tau=0.05  int h = 8.0085247357384665959865369587426053437869009 | closed - tail - int h = (2.49e-60 + 0.0j) | tail = 4.3871088e-16
+c=1 tau=1: int h = 12.0716168748371438192386251629641173275005311 ; 8 + 4V + 2(1-e^{-2V}) - int h = 0.0
+c=1 tau=1-1e-25: closed - tail = 12.0716168748371438192386244104 (limit value above, differs by O(1e-25))
+c=1/2                      tau=1: int h = 12.0190894355127902046797118180477444956475808 | closed - tail - int h = -2.49e-60
+kappa^2=9/7 (c=i kappa)    tau=1: int h = 11.8830165085179060081404356149009550656536909 | closed - tail - int h = (1.24e-60 + 0.0j)
+
+=== (E) convexity data ===
+c=1                        formula check rel.err 1.4e-60 ; h'(0+) = 6.23e-65 ; jump at pi/4: -2h'(pi/4-) = 0.0433823082902 vs 8 f sigma/phi(V) = 0.0433823082902
+    min over grid of D = 0.013730938 at u = 0.0019635 ; min D phi/M^2 = 0.013704135
+    tau=1.0  min (h+h'') on grid = 0.027354087 at u=0.001963 ; jump at pi/4 = 0.92299081
+    tau=0.5  min (h+h'') on grid = 0.39519314 at u=0.7854 ; jump at pi/4 = 0.24121508
+    tau=0.2  min (h+h'') on grid = 0.017259707 at u=0.7854 ; jump at pi/4 = 0.0049541302
+    tau=0.1  min (h+h'') on grid = 4.691013e-5 at u=0.7854 ; jump at pi/4 = 7.2163183e-6
+    tau=0.05 min (h+h'') on grid = 1.9135883e-10 at u=0.7854 ; jump at pi/4 = 1.5275816e-11
+    tau=1.2: (h+h'') at u=1e-6: -0.382883  (expected sign of 1/tau-1 < 0)
+c=1/2                      formula check rel.err 2.52e-60 ; h'(0+) = 6.23e-65 ; jump at pi/4: -2h'(pi/4-) = 0.0402385975072 vs 8 f sigma/phi(V) = 0.0402385975072
+    min over grid of D = 0.012259785 at u = 0.0019635 ; min D phi/M^2 = 0.012235837
+    tau=1.0  min (h+h'') on grid = 0.024423365 at u=0.001963 ; jump at pi/4 = 0.97695912
+    tau=0.5  min (h+h'') on grid = 0.4120512 at u=0.7854 ; jump at pi/4 = 0.24200744
+    tau=0.2  min (h+h'') on grid = 0.015716833 at u=0.7854 ; jump at pi/4 = 0.0041716771
+    tau=0.1  min (h+h'') on grid = 3.2611854e-5 at u=0.7854 ; jump at pi/4 = 4.5625417e-6
+    tau=0.05 min (h+h'') on grid = 7.5740634e-11 at u=0.7854 ; jump at pi/4 = 5.4480573e-12
+    tau=1.2: (h+h'') at u=1e-6: -0.382885  (expected sign of 1/tau-1 < 0)
+kappa^2=9/7 (c=i kappa)    formula check rel.err 9.83e-61 ; h'(0+) = 6.23e-65 ; jump at pi/4: -2h'(pi/4-) = 0.0324482615145 vs 8 f sigma/phi(V) = 0.0324482615145
+    min over grid of D = 0.0092473983 at u = 0.0019635 ; min D phi/M^2 = 0.0092293071
+    tau=1.0  min (h+h'') on grid = 0.018422285 at u=0.001963 ; jump at pi/4 = 1.2223811
+    tau=0.5  min (h+h'') on grid = 0.45748431 at u=0.7854 ; jump at pi/4 = 0.25293089
+    tau=0.2  min (h+h'') on grid = 0.012018598 at u=0.7854 ; jump at pi/4 = 0.0024448287
+    tau=0.1  min (h+h'') on grid = 1.0375793e-5 at u=0.7854 ; jump at pi/4 = 1.0348594e-6
+    tau=0.05 min (h+h'') on grid = 3.7509385e-12 at u=0.7854 ; jump at pi/4 = 1.852906e-13
+    tau=1.2: (h+h'') at u=1e-6: -0.382889  (expected sign of 1/tau-1 < 0)
+c=0 (PUR1)                 formula check rel.err 1.21e-60 ; h'(0+) = 6.23e-65 ; jump at pi/4: -2h'(pi/4-) = 0.0391034982688 vs 8 f sigma/phi(V) = 0.0391034982688
+    min over grid of D = 0.011769399 at u = 0.0019635 ; min D phi/M^2 = 0.011746403
+    tau=1.0  min (h+h'') on grid = 0.023446452 at u=0.001963 ; jump at pi/4 = 1.0
+    tau=0.5  min (h+h'') on grid = 0.41865831 at u=0.7854 ; jump at pi/4 = 0.24253563
+    tau=0.2  min (h+h'') on grid = 0.015169118 at u=0.7854 ; jump at pi/4 = 0.0039032009
+    tau=0.1  min (h+h'') on grid = 2.8322635e-5 at u=0.7854 ; jump at pi/4 = 3.814694e-6
+    tau=0.05 min (h+h'') on grid = 5.2735009e-11 at u=0.7854 ; jump at pi/4 = 3.6379788e-12
+    tau=1.2: (h+h'') at u=1e-6: -0.382886  (expected sign of 1/tau-1 < 0)

@@ -1,0 +1,1 @@
+{"launcher_pid": 66142, "cmd": "nohup nice -n 10 <project>/.venv/bin/python3 <project>/tools/detach.py <project>/.venv/bin/python3 <project>/research/08_theory/K4h_tetrakis_parallel/jobA_h768.py &"}

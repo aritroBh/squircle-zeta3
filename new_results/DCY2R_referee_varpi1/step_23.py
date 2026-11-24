@@ -1,0 +1,5 @@
+txt = open('../CX6_decay_rest/proof.md').read()
+lines = txt.split('\n')
+print('\n'.join(lines[118:175]))
+print(".....")
+print('\n'.join(lines[400:432]))

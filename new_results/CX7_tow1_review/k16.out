@@ -1,0 +1,6 @@
+k=16: fresh integrand built in 77.36s
+PASS k=16 key=(2, 0): exact zero residual; no imaginary poles or polynomial part
+  kernel = 1/(4*(v - sqrt(2) - 1)) + 25/(4*(v + 1 + sqrt(2))) - 7/(v - 1 + sqrt(2)) + (1/4 - sqrt(2)/4)/v
+PASS k=16 key=(1, 1): exact zero residual; no imaginary poles or polynomial part
+  kernel = -27/(2*(v + 1 + sqrt(2))) + (sqrt(2)/4 + 27/4)/v
+PASS: both fresh k=16 kernels; total 197.15s

@@ -1,0 +1,31 @@
+===== k = 4: pure pieces (weight = i+j+1)
+  weight 5  l1^2 l2^2:
+         7*sqrt(2)/(128*v)
+  weight 5  l1^3 l2^1:
+         -5*sqrt(2)/(96*v)
+  weight 5  l1^4 l2^0:
+         -1/(12*v + 12 + 12*sqrt(2))
+         (16 - 9*sqrt(2))/(384*v)
+  weight 4  l1^2 l2^1:
+         -7/(8*v + 8 + 8*sqrt(2))
+         -5/(16*v - 16 + 16*sqrt(2))
+         5/(16*(v - sqrt(2) - 1))
+         (2*sqrt(2) + 7)/(16*v)
+  weight 4  l1^3 l2^0:
+         -1/(6*v - 6 + 6*sqrt(2))
+         1/(8*(-v + 1 + sqrt(2)))
+         5/(24*(v + 1 + sqrt(2)))
+         (1 - 3*sqrt(2))/(24*v)
+  weight 3  l1^1 l2^1:
+         -3/(2*v + 2 + 2*sqrt(2))
+         (sqrt(2) + 3)/(4*v)
+  weight 3  l1^2 l2^0:
+         -1/(v - 1 + sqrt(2))
+         1/(4*(v + 1 + sqrt(2)))
+         1/(4*(v - sqrt(2) - 1))
+         (1 - sqrt(2))/(4*v)
+  weight 2  l1^1 l2^0:
+         1/(2*v)
+         1/(2*(v - sqrt(2) - 1))
+         -1/(v + 1 + sqrt(2))
+         -1/(2*v - 2 + 2*sqrt(2))

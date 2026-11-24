@@ -1,0 +1,29 @@
+[   0.0s] PART A: exact certificate verification
+[   0.0s]   built relations weight 1: 4 rows, families {'weight1_branch_new': 2, 'distribution_nonzero': 3, 'distribution_new': 2}
+[   0.0s]   built relations weight 2: 57 rows, families {'double_shuffle_nonzero': 20, 'double_shuffle_new': 20, 'distribution_nonzero': 17, 'distribution_new': 17, 'lift_nonzero': 20, 'lift_new': 20}
+[   0.0s]   weight 2: certificate rows=28 target_support=26 residual_words=0  => PASS
+[   0.1s]   built relations weight 3: 682 rows, families {'double_shuffle_nonzero': 246, 'double_shuffle_new': 246, 'distribution_nonzero': 67, 'distribution_new': 67, 'lift_nonzero': 429, 'lift_new': 369}
+[   0.1s]   weight 3: certificate rows=229 target_support=177 residual_words=0  => PASS
+[   1.6s]   built relations weight 4: 7869 rows, families {'double_shuffle_nonzero': 2604, 'double_shuffle_new': 2603, 'distribution_nonzero': 251, 'distribution_new': 251, 'lift_nonzero': 6470, 'lift_new': 5015}
+[   2.6s]   weight 4: certificate rows=1695 target_support=920 residual_words=0  => PASS
+[   2.6s] PART A PASSED: ID2, ID3, ID4 are exact rational combinations of proved relations
+[   2.7s]   bonus: zeta(2)=pi^2/6 exact (28 rows), residual_words=0  => PASS
+[   2.7s] PART B: numeric audit at 62 dps (validates conversion code; the proof is Part A)
+[   2.7s]   [PASS] task Mobius map f on {0,1/2,1,-1}: |resid| = 3.75e-66
+[   2.7s]   [PASS] task Mobius map f(inf) = zeta^4: |resid| = 3.56e-66
+[  14.8s]   [PASS] all 38 HPL-word conversions (worst: H[0, 1]): |resid| = 1.19e-65
+[  16.7s]   [PASS] all 9 Li-atom conversions (worst: Li_4(2/3)): |resid| = 1.12e-65
+[  16.7s]   [PASS] zeta(2) atom: |resid| = 0.0
+[  16.7s]   [PASS] zeta(3) atom: |resid| = 0.0
+[  16.7s]   [PASS] log2 atom: |resid| = 4.6e-74
+[  16.7s]   [PASS] log3 atom: |resid| = 0.0
+[  16.7s]   [PASS] i*pi atom: |resid| = 4.75e-66
+[  16.7s]   [PASS] (i*pi)^2 atom = -pi^2: |resid| = 3.58e-73
+[  16.7s]   [PASS] (i*pi)^4 atom = pi^4: |resid| = 3.04e-64
+[  16.7s]   [PASS] target ID2 value (support 26): |resid| = 1.34e-66
+[  17.0s]   [PASS] target ID3 value (support 177): |resid| = 2.71e-65
+[  18.0s]   [PASS] target ID4 value (support 920): |resid| = 2.32e-64
+[  18.0s]   [PASS] Li4(1/9) distribution (input): |resid| = 1.19e-66
+[  25.1s]   [PASS] two independent CMZV evaluators (10 random words): |resid| = 1.95e-63
+[  25.1s] PART B PASSED
+[  25.1s] VERDICT: HEXC2 CERTIFICATE VALID — ID2, ID3, ID4 PROVED

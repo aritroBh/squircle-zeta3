@@ -1,0 +1,12 @@
+L keys [1, 2, 3, 4, 5, 6, 7, 8]
+tau1(8)= (-169/128+41/128i) tau2(8)= (-169/128+-41/128i)
+closing delta= 0 checked at 44 points; running bad = 0 time 0.7
+closing delta= 1 checked at 44 points; running bad = 0 time 0.7
+closing delta= 2 checked at 44 points; running bad = 0 time 0.7
+closing delta= 3 checked at 44 points; running bad = 0 time 0.8
+closing delta= 4 checked at 44 points; running bad = 0 time 1.0
+closing delta= 5 checked at 44 points; running bad = 0 time 1.2
+closing delta= 6 checked at 44 points; running bad = 0 time 1.6
+closing delta= 7 checked at 44 points; running bad = 0 time 2.2
+closing delta= 8 checked at 44 points; running bad = 0 time 3.3
+closing total 396 bad 0

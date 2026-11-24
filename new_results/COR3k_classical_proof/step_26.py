@@ -1,0 +1,5 @@
+src = open("cor3_common.py").read()
+i = src.find("_dLi2_at")
+print(src[i-50:i+400])
+print("---")
+print("has polylog(1, w) patch:", "sp.Wild" in src)

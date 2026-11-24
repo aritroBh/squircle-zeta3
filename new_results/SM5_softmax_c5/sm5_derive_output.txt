@@ -1,0 +1,17 @@
+y = s**5*tau**4/60 - s**3*tau**2/3 + 2*s
+g1 = log(1 + exp(-2*s))
+g2 = 0
+g3 = s**3/(3*(exp(2*s) + 1))
+g4 = 0
+g5 = s**5*(10*s*exp(2*s) - 3*exp(2*s) - 3)/(180*(exp(4*s) + 2*exp(2*s) + 1))
+M = {0: 1, 1: s, 2: -s**2/2, 3: -s**3/6}
+G = {1: g1, 2: g1**2/2, 3: g1**3/6 + g3, 4: g1**4/24 + g1*g3}
+Phi4 = g1**4/24 + g1**3*s/6 - g1**2*s**2/4 + g1*g3 - g1*s**3/6 + g3*s
+Phi4 in (s, g, g') = g1**4/24 + g1**3*s/6 - g1**2*s**2/4 - g1*gp*s**3/6 - g1*s**3/6 - gp*s**4/6
+int_0^inf Phi4 ds = gam_04 + gam_13 + 3*gam_31
+c5 = 8 * that
+RHS degree 4: lam**2*mu**2*z2*z3/8 + lam**2*mu**2*z5/8 - lam*mu**3*z2*z3/4 - lam*mu**3*z5/4 + mu**4*z5/2
+pole check: 0
+solution of reflection relations: [{gam_04: -gam_13 + 2*gam_31 - z2*z3/8 + z5/8, gam_22: -3*gam_31 + z2*z3/16 + z5/16}]
+int Phi4 (reduced) = 5*gam_31 - z2*z3/8 + z5/8
+c5 = 40*gam_31 - z2*z3 + z5

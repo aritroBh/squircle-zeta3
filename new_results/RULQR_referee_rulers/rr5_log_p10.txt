@@ -1,0 +1,2 @@
+p=10 K=34 rho=0.35 delta=0.05 rho2=0.6 delta2=1 c=0.01  mid   bound 1.5960e-15   (R0 5.1962e-81, R1 1.5960e-15, R2 1.4508e-21)
+p=10 K=34 rho=0.35 delta=0.05 rho2=0.6 delta2=1 c=0.01  cert  bound 1.6133e-15   (R0 5.1962e-81, R1 1.6133e-15, R2 1.4913e-21)

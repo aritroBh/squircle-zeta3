@@ -1,0 +1,14 @@
+[PASS] task1: kernels k=3..15 == wt3_kernels.json    (341s)
+[PASS] task3(b): kernels affine in k for k>=3 (exact)    (341s)
+[PASS] task1 control: slow ibp_reduce == fast reducer, degree-2 keys k=3,4    (370s)
+[PASS] task2: W3(k) exact vs quadrature, all k=3..15  max residual 1.33e-64 at dps=65  (710s)
+[PASS] task2 control k=3 == thm:M3 W3'    (710s)
+[PASS] task2 control k=4 == rem:k4    (710s)
+[PASS] task3: W3(k) = W3(3)+(k-3)DELTA, DELTA=-z3/8-pi2 lam/24-lam^3/12 (exact)    (710s)
+[PASS] task2: values == w3_values.json    (710s)
+[PASS] task4 (P2): degree-2 fixed-point equations k=3..7    (719s)
+[PASS] task4 (P3): reduction identities C1-C4 (exact)    (719s)
+
+verify_wt3: 10/10 checks PASS, 719s total, dps=65
+OVERALL: PASS
+exit 0

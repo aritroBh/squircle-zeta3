@@ -1,0 +1,10 @@
+outer nodes N=8835 built in 3.1s
+sample: 60 nodes, wall=772s with 6 workers
+per-node time s: min=0.0 med=77.0 mean=75.0 max=94.8
+inner evals per node: min=0 med=8833 mean=8508 max=8833 ; zero_len-only nodes: 1
+ESTIMATE single-process total: 662765 s = 184.1 h
+ESTIMATE 6-worker wall (mean-based): 110461 s = 30.7 h
+ESTIMATE 6-worker wall (throughput-based): 113667 s = 31.6 h
+chunks=369 (size 24), per-chunk ~1800 s (~30.0 min); checkpoint cadence ~5.0 min
+guard=20 (workers accumulate at 290 digits)
+saved pilot_h768.json

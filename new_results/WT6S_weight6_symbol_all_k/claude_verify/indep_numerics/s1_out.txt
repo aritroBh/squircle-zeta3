@@ -1,0 +1,8 @@
+TOWN1 copy == WT6S copy of deg5_residue_polynomials.json : True
+cells (key,pole,part) compared: 24  exact matches: 24  ALL MATCH: True
+keys in e5m_binomial_coeffs.json: 12  my cells: 12
+same key set: True
+reconstruction mismatches over k in 6..52,100,1000 (all 15 cells x 2 parts): 0
+e_{ij,r,5} == 24 * k^4-coefficient, all cells/parts: True
+pickle cells compared (k=6..18): 156  mismatches vs binomial-basis e (rat,sqrt2,0,0): 0 []
+wrote my_e5m.json

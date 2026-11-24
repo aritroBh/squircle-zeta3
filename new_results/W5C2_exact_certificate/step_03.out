@@ -1,0 +1,151 @@
+2026-10-29 05:08:14 step_03 pp: building A=R_S,C^T (12156x12156) and B
+2026-10-29 05:08:14 step_03 pp: fill 4000/12156
+2026-10-29 05:08:14 step_03 pp: fill 8000/12156
+2026-10-29 05:08:14 step_03 pp: fill 12000/12156
+2026-10-29 05:08:14 step_03 pp: A filled maxentry=79 nnz=220176 (1s)
+2026-10-29 05:08:14 step_03 pp: B built Ls={'rat': 7680, 'sq': 1290240} maxB=17644547520
+2026-10-29 05:08:14 dixon: r=12156 m=2 maxA=79 int64 bounds 1.61e+13 3.42e+18 (<9.2e18)
+2026-10-29 05:08:23 dixon: nmod A built 9.6s; inverting
+2026-10-29 05:15:33 dixon: nmod inv done 429.1s
+2026-10-29 05:15:37 dixon: step=25 M_digits=181 el=434s
+2026-10-29 05:15:42 dixon: step=50 M_digits=362 el=439s
+2026-10-29 05:15:47 dixon: step=75 M_digits=542 el=443s
+2026-10-29 05:15:52 dixon: step=100 M_digits=723 el=448s
+2026-10-29 05:15:56 dixon: step=125 M_digits=904 el=453s
+2026-10-29 05:16:01 dixon: step=150 M_digits=1084 el=458s
+2026-10-29 05:16:06 dixon: step=175 M_digits=1265 el=463s
+2026-10-29 05:16:11 dixon: step=200 M_digits=1445 el=468s
+2026-10-29 05:16:16 dixon: step=225 M_digits=1626 el=472s
+2026-10-29 05:16:21 dixon: step=250 M_digits=1807 el=477s
+2026-10-29 05:16:26 dixon: step=275 M_digits=1987 el=483s
+2026-10-29 05:16:31 dixon: step=300 M_digits=2168 el=488s
+2026-10-29 05:16:36 dixon: step=325 M_digits=2349 el=493s
+2026-10-29 05:16:41 dixon: step=350 M_digits=2529 el=498s
+2026-10-29 05:16:47 dixon: step=375 M_digits=2710 el=503s
+2026-10-29 05:16:52 dixon: step=400 M_digits=2890 el=508s
+2026-10-29 05:16:57 dixon: step=425 M_digits=3071 el=514s
+2026-10-29 05:17:03 dixon: step=450 M_digits=3252 el=519s
+2026-10-29 05:17:08 dixon: step=475 M_digits=3432 el=525s
+2026-10-29 05:17:14 dixon: step=500 M_digits=3613 el=530s
+2026-10-29 05:17:19 dixon: step=525 M_digits=3793 el=536s
+2026-10-29 05:17:27 dixon: step=550 M_digits=3974 el=544s
+2026-10-29 05:17:39 dixon: step=575 M_digits=4155 el=556s
+2026-10-29 05:20:57 dixon: step=576 full reconstruction succeeded (need repeat) M_digits=4162
+2026-10-29 05:24:16 dixon: CONVERGED step=577 stable-repeat, M_digits=4169 el=953s
+2026-10-29 05:24:16 step_03 pp: CONVERGED steps=577 M_digits=4169 total=963s
+2026-10-29 05:24:17 step_03 pp: y_rat nonzero=12149/12156 max_num_digits=2078 max_den_digits=2065
+2026-10-29 05:24:19 step_03 pp: y_sq nonzero=12142/12156 max_num_digits=2081 max_den_digits=2069
+2026-10-29 05:24:19 step_03 pp: cross-check mod p2 (A.Y==B): True
+2026-10-29 05:24:19 step_03 pp: SAVED work/yexact_pp.pkl
+2026-10-29 05:24:20 step_03 pm: building A=R_S,C^T (11101x11101) and B
+2026-10-29 05:24:20 step_03 pm: fill 4000/11101
+2026-10-29 05:24:20 step_03 pm: fill 8000/11101
+2026-10-29 05:24:20 step_03 pm: A filled maxentry=219 nnz=205167 (1s)
+2026-10-29 05:24:20 step_03 pm: B built Ls={'rat': 720, 'sq': 120960} maxB=1748746770
+2026-10-29 05:24:20 dixon: r=11101 m=2 maxA=219 int64 bounds 4.08e+13 3.12e+18 (<9.2e18)
+2026-10-29 05:24:28 dixon: nmod A built 7.8s; inverting
+2026-10-29 05:29:54 dixon: nmod inv done 326.1s
+2026-10-29 05:29:58 dixon: step=25 M_digits=181 el=330s
+2026-10-29 05:30:02 dixon: step=50 M_digits=362 el=334s
+2026-10-29 05:30:06 dixon: step=75 M_digits=542 el=338s
+2026-10-29 05:30:10 dixon: step=100 M_digits=723 el=342s
+2026-10-29 05:30:14 dixon: step=125 M_digits=904 el=346s
+2026-10-29 05:30:18 dixon: step=150 M_digits=1084 el=350s
+2026-10-29 05:30:23 dixon: step=175 M_digits=1265 el=355s
+2026-10-29 05:30:27 dixon: step=200 M_digits=1445 el=359s
+2026-10-29 05:30:31 dixon: step=225 M_digits=1626 el=363s
+2026-10-29 05:30:35 dixon: step=250 M_digits=1807 el=367s
+2026-10-29 05:30:39 dixon: step=275 M_digits=1987 el=371s
+2026-10-29 05:30:44 dixon: step=300 M_digits=2168 el=376s
+2026-10-29 05:30:48 dixon: step=325 M_digits=2349 el=380s
+2026-10-29 05:30:53 dixon: step=350 M_digits=2529 el=385s
+2026-10-29 05:30:57 dixon: step=375 M_digits=2710 el=389s
+2026-10-29 05:31:02 dixon: step=400 M_digits=2890 el=394s
+2026-10-29 05:31:06 dixon: step=425 M_digits=3071 el=398s
+2026-10-29 05:31:11 dixon: step=450 M_digits=3252 el=403s
+2026-10-29 05:31:16 dixon: step=475 M_digits=3432 el=408s
+2026-10-29 05:31:20 dixon: step=500 M_digits=3613 el=412s
+2026-10-29 05:31:25 dixon: step=525 M_digits=3793 el=417s
+2026-10-29 05:31:30 dixon: step=550 M_digits=3974 el=422s
+2026-10-29 05:34:41 dixon: step=562 full reconstruction succeeded (need repeat) M_digits=4061
+2026-10-29 05:37:44 dixon: CONVERGED step=563 stable-repeat, M_digits=4068 el=796s
+2026-10-29 05:37:44 step_03 pm: CONVERGED steps=563 M_digits=4068 total=805s
+2026-10-29 05:37:45 step_03 pm: y_rat nonzero=11082/11101 max_num_digits=2023 max_den_digits=2012
+2026-10-29 05:37:47 step_03 pm: y_sq nonzero=11087/11101 max_num_digits=2027 max_den_digits=2018
+2026-10-29 05:37:47 step_03 pm: cross-check mod p2 (A.Y==B): True
+2026-10-29 05:37:47 step_03 pm: SAVED work/yexact_pm.pkl
+2026-10-29 05:37:48 step_03 mp: building A=R_S,C^T (11041x11041) and B
+2026-10-29 05:37:48 step_03 mp: fill 4000/11041
+2026-10-29 05:37:48 step_03 mp: fill 8000/11041
+2026-10-29 05:37:48 step_03 mp: A filled maxentry=20 nnz=123859 (1s)
+2026-10-29 05:37:48 step_03 mp: B built Ls={'rat': 144, 'sq': 120960} maxB=943503536
+2026-10-29 05:37:48 dixon: r=11041 m=2 maxA=20 int64 bounds 3.70e+12 3.11e+18 (<9.2e18)
+2026-10-29 05:37:56 dixon: nmod A built 7.9s; inverting
+2026-10-29 05:43:12 dixon: nmod inv done 315.9s
+2026-10-29 05:43:16 dixon: step=25 M_digits=181 el=320s
+2026-10-29 05:43:20 dixon: step=50 M_digits=362 el=324s
+2026-10-29 05:43:24 dixon: step=75 M_digits=542 el=328s
+2026-10-29 05:43:28 dixon: step=100 M_digits=723 el=332s
+2026-10-29 05:43:32 dixon: step=125 M_digits=904 el=336s
+2026-10-29 05:43:36 dixon: step=150 M_digits=1084 el=340s
+2026-10-29 05:43:40 dixon: step=175 M_digits=1265 el=344s
+2026-10-29 05:43:44 dixon: step=200 M_digits=1445 el=348s
+2026-10-29 05:43:48 dixon: step=225 M_digits=1626 el=352s
+2026-10-29 05:43:52 dixon: step=250 M_digits=1807 el=356s
+2026-10-29 05:43:56 dixon: step=275 M_digits=1987 el=361s
+2026-10-29 05:44:01 dixon: step=300 M_digits=2168 el=365s
+2026-10-29 05:44:05 dixon: step=325 M_digits=2349 el=369s
+2026-10-29 05:44:09 dixon: step=350 M_digits=2529 el=373s
+2026-10-29 05:44:14 dixon: step=375 M_digits=2710 el=378s
+2026-10-29 05:44:18 dixon: step=400 M_digits=2890 el=382s
+2026-10-29 05:44:23 dixon: step=425 M_digits=3071 el=387s
+2026-10-29 05:44:27 dixon: step=450 M_digits=3252 el=391s
+2026-10-29 05:44:32 dixon: step=475 M_digits=3432 el=396s
+2026-10-29 05:44:37 dixon: step=500 M_digits=3613 el=401s
+2026-10-29 05:44:42 dixon: step=525 M_digits=3793 el=406s
+2026-10-29 05:44:47 dixon: step=550 M_digits=3974 el=411s
+2026-10-29 05:47:46 dixon: step=552 full reconstruction succeeded (need repeat) M_digits=3989
+2026-10-29 05:50:43 dixon: CONVERGED step=553 stable-repeat, M_digits=3996 el=767s
+2026-10-29 05:50:43 step_03 mp: CONVERGED steps=553 M_digits=3996 total=776s
+2026-10-29 05:50:44 step_03 mp: y_rat nonzero=11037/11041 max_num_digits=1991 max_den_digits=1981
+2026-10-29 05:50:45 step_03 mp: y_sq nonzero=11038/11041 max_num_digits=1991 max_den_digits=1982
+2026-10-29 05:50:45 step_03 mp: cross-check mod p2 (A.Y==B): True
+2026-10-29 05:50:46 step_03 mp: SAVED work/yexact_mp.pkl
+2026-10-29 05:50:46 step_03 mm: building A=R_S,C^T (11999x11999) and B
+2026-10-29 05:50:46 step_03 mm: fill 4000/11999
+2026-10-29 05:50:46 step_03 mm: fill 8000/11999
+2026-10-29 05:50:47 step_03 mm: A filled maxentry=32 nnz=132747 (1s)
+2026-10-29 05:50:47 step_03 mm: B built Ls={'rat': 48, 'sq': 8064} maxB=217893162
+2026-10-29 05:50:47 dixon: r=11999 m=2 maxA=32 int64 bounds 6.44e+12 3.38e+18 (<9.2e18)
+2026-10-29 05:50:56 dixon: nmod A built 9.2s; inverting
+2026-10-29 05:57:47 dixon: nmod inv done 410.6s
+2026-10-29 05:57:51 dixon: step=25 M_digits=181 el=415s
+2026-10-29 05:57:56 dixon: step=50 M_digits=362 el=420s
+2026-10-29 05:58:00 dixon: step=75 M_digits=542 el=424s
+2026-10-29 05:58:05 dixon: step=100 M_digits=723 el=429s
+2026-10-29 05:58:10 dixon: step=125 M_digits=904 el=434s
+2026-10-29 05:58:15 dixon: step=150 M_digits=1084 el=439s
+2026-10-29 05:58:19 dixon: step=175 M_digits=1265 el=443s
+2026-10-29 05:58:24 dixon: step=200 M_digits=1445 el=448s
+2026-10-29 05:58:29 dixon: step=225 M_digits=1626 el=453s
+2026-10-29 05:58:34 dixon: step=250 M_digits=1807 el=458s
+2026-10-29 05:58:39 dixon: step=275 M_digits=1987 el=463s
+2026-10-29 05:58:44 dixon: step=300 M_digits=2168 el=468s
+2026-10-29 05:58:49 dixon: step=325 M_digits=2349 el=473s
+2026-10-29 05:58:54 dixon: step=350 M_digits=2529 el=478s
+2026-10-29 05:58:59 dixon: step=375 M_digits=2710 el=483s
+2026-10-29 05:59:04 dixon: step=400 M_digits=2890 el=488s
+2026-10-29 05:59:10 dixon: step=425 M_digits=3071 el=494s
+2026-10-29 05:59:15 dixon: step=450 M_digits=3252 el=499s
+2026-10-29 05:59:20 dixon: step=475 M_digits=3432 el=504s
+2026-10-29 05:59:26 dixon: step=500 M_digits=3613 el=510s
+2026-10-29 05:59:32 dixon: step=525 M_digits=3793 el=516s
+2026-10-29 05:59:45 dixon: step=550 M_digits=3974 el=529s
+2026-10-29 06:02:47 dixon: step=551 full reconstruction succeeded (need repeat) M_digits=3981
+2026-10-29 06:05:50 dixon: CONVERGED step=552 stable-repeat, M_digits=3989 el=894s
+2026-10-29 06:05:50 step_03 mm: CONVERGED steps=552 M_digits=3989 total=905s
+2026-10-29 06:05:52 step_03 mm: y_rat nonzero=11994/11999 max_num_digits=1990 max_den_digits=1979
+2026-10-29 06:05:53 step_03 mm: y_sq nonzero=11996/11999 max_num_digits=1989 max_den_digits=1980
+2026-10-29 06:05:53 step_03 mm: cross-check mod p2 (A.Y==B): True
+2026-10-29 06:05:53 step_03 mm: SAVED work/yexact_mm.pkl
+STEP03_ALL_DONE

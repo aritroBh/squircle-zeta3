@@ -1,0 +1,7 @@
+L keys [1, 2, 3, 4, 5, 6, 7, 8]
+tau1(8)= (-169/128+41/128i) tau2(8)= (-169/128+-41/128i)
+(6, 0) checked, running bad = 0  cells 423
+(5, 1) checked, running bad = 0  cells 846
+(4, 2) checked, running bad = 0  cells 1269
+off-diagonal degree-6 towers vs own forced recursion (k=6..52, delta 0..8): 1269 cells, bad 0
+negative control (tau1(8) perturbed): closing F(8,5) fails at 3 of 3 points (should be 3)

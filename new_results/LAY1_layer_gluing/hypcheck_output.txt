@@ -1,0 +1,6 @@
+max |L-tau g1| / claimed bound: squircle 0.70703  softmax 0.714699 (must be <= 1)
+softmax tau=1.0: min_[0,pi/4] (h+h'') = 0.54134113
+softmax tau=0.5: min_[0,pi/4] (h+h'') = 0.8678096
+softmax tau=0.2: min_[0,pi/4] (h+h'') = 0.027385523
+softmax tau=0.1: min_[0,pi/4] (h+h'') = 4.3691315e-5
+softmax tau=0.05: min_[0,pi/4] (h+h'') = 6.0952495e-11

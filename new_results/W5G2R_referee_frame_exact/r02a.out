@@ -1,0 +1,6 @@
+2026-11-23 01:37:54 lift1: regenerated 20736 rows (stored 20736); label missing in stored: 0; mismatching rows: 0 (1s)
+2026-11-23 01:37:56 lift2old: regenerated 31104 rows (stored 31104); label missing in stored: 0; mismatching rows: 0 (3s)
+2026-11-23 01:38:00 lift3old: regenerated 34496 rows (stored 34496); label missing in stored: 0; mismatching rows: 0 (7s)
+2026-11-23 01:38:05 lift4old: regenerated 35294 rows (stored 35294); label missing in stored: 0; mismatching rows: 0 (12s)
+2026-11-23 01:38:06 frame234 lifts in the frame bases: 15 distinct; regenerated with own shuffle; mismatches 0; base rows [(2, 3), (3, 6)]
+2026-11-23 01:38:07 saved my_lifts.pkl (14s)

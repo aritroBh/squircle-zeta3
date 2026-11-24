@@ -1,0 +1,2 @@
+E3(5): rc=0 out=E3 blindness delta=5: numerator == 0 : True  (7.5s) err= (9s)
+E3(6): rc=0 out=E3 blindness delta=6: numerator == 0 : True  (15.3s) err= (16s)

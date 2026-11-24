@@ -1,0 +1,8 @@
+lambdified 307 coefficients (13 s)
+self-test H1: 1.56e-61  Li3: 1.56e-61  H011: -9.72e-63  H00101 (Li_{3,2}): 0.0
+hexagon A : ratios r = ['1.3', '0.5', '1.5384615']
+P5(1) from the closed form  = -1474.678480049841208073026350118910024964
+P5(1) finite differences     = -1474.678480049841208073026350118910848135  (dps 60, h0 0.002, 7 Richardson levels)
+reference of the notes (referee, 110 digits) = -1474.678480049841208073026350118910024963
+|closed form - finite differences| = 8.23e-31    |closed form - reference| = 7.11e-39
+done (21 s)

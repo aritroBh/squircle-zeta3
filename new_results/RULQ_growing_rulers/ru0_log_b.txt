@@ -1,0 +1,2 @@
+max rel err of J_{1,j} vs closed form: 9.28e-80
+wrote ru0_J_K90_dps80_deg5_S640.txt in 140s

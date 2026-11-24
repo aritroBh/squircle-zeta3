@@ -1,0 +1,34 @@
+2026-10-22 18:30:08 two-N convergence (6 words, N=2000 vs 1000): max diff=0.0
+2026-10-22 18:30:08 atom log2*log2*log2*log2: support=1 err_vs_direct=4.06e-116
+2026-10-22 18:30:08 atom log2*log2*log2*L: support=16 err_vs_direct=7.04e-118
+2026-10-22 18:30:09 atom log2*log2*L*L: support=96 err_vs_direct=8.43e-117
+2026-10-22 18:30:11 atom log2*L*L*L: support=256 err_vs_direct=2.14e-116
+2026-10-22 18:30:12 atom L*L*L*L: support=256 err_vs_direct=1.23e-116
+2026-10-22 18:30:12 atom pi^2*log2*log2: support=24 err_vs_direct=3.65e-115
+2026-10-22 18:30:13 atom pi^2*log2*L: support=128 err_vs_direct=4.51e-115
+2026-10-22 18:30:13 atom pi^2*L*L: support=176 err_vs_direct=4.93e-115
+2026-10-22 18:30:14 atom Li2(b)*log2*log2: support=69 err_vs_direct=4.96e-116
+2026-10-22 18:30:17 atom Li2(b)*log2*L: support=545 err_vs_direct=2.43e-116
+2026-10-22 18:30:24 atom Li2(b)*L*L: support=1312 err_vs_direct=3.12e-116
+2026-10-22 18:30:24 atom pi^2*pi^2: support=16 err_vs_direct=3.18e-114
+2026-10-22 18:30:25 atom pi^2*Li2(b): support=330 err_vs_direct=8.38e-116
+2026-10-22 18:30:27 atom Li2(b)*Li2(b): support=448 err_vs_direct=4.57e-116
+2026-10-22 18:30:27 atom z3*log2: support=4 err_vs_direct=4.89e-117
+2026-10-22 18:30:28 atom z3*L: support=16 err_vs_direct=3.21e-115
+2026-10-22 18:30:28 atom Li3(b)*log2: support=186 err_vs_direct=3.98e-116
+2026-10-22 18:30:33 atom Li3(b)*L: support=960 err_vs_direct=7.41e-117
+2026-10-22 18:30:34 atom Li3(-b)*log2: support=186 err_vs_direct=1.96e-116
+2026-10-22 18:30:37 atom Li3(-b)*L: support=664 err_vs_direct=1.32e-116
+2026-10-22 18:30:38 atom Li3(1/sqrt2)*log2: support=212 err_vs_direct=3.78e-116
+2026-10-22 18:30:41 atom Li3(1/sqrt2)*L: support=766 err_vs_direct=2.37e-116
+2026-10-22 18:30:43 atom Li4((-1+1*sqrt2)): support=256 err_vs_direct=4.11e-117
+2026-10-22 18:30:44 atom Li4((1-1*sqrt2)): support=256 err_vs_direct=1.67e-117
+2026-10-22 18:30:45 atom Li4((-3+2*sqrt2)): support=248 err_vs_direct=2.21e-116
+2026-10-22 18:30:47 atom Li4(1/2*sqrt2): support=256 err_vs_direct=4.41e-116
+2026-10-22 18:30:47 atom Li4(1/2): support=62 err_vs_direct=3.96e-118
+2026-10-22 18:30:49 atom Li4((1-1/2*sqrt2)): support=256 err_vs_direct=1.13e-116
+2026-10-22 18:30:50 atom Li4((2-1*sqrt2)): support=256 err_vs_direct=2.07e-116
+2026-10-22 18:30:50 (a) all 29 atoms agree with direct mpmath < 1e-45; worst=3.18e-114
+2026-10-22 18:31:18 (b) eval(W4pp_rat)+sqrt2*eval(W4pp_sq) = 1.424453676008872921514422491257270535637099847675524471725467791684572
+2026-10-22 18:31:18     imag part = 1.25e-207; err vs M4a G-value = 3.01e-90
+2026-10-22 18:31:18 step03 done s=69.3

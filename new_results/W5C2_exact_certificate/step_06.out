@@ -1,0 +1,4 @@
+2026-10-29 06:35:33 step_06: unfolded row set built 248192 unique normalized rows (6s)
+2026-10-29 06:35:34 step_06: unique used unfolded rows 13464
+2026-10-29 06:35:36 step_06: g.r present in row files: 36016/40392; missing=4376 (9s)
+2026-10-29 06:35:36 step_06: missing by (family, g): {('lift1', 1): 1730, ('lift1', 2): 2119, ('lift2old', 1): 24, ('lift2old', 2): 24, ('lift4old', 1): 8, ('lift4old', 2): 8, ('lift1', 3): 389, ('framew5', 2): 37, ('framew5', 3): 37}

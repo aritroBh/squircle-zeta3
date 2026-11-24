@@ -1,0 +1,13 @@
+c12 k=15: 44.7s
+c12 k=16: 64.2s
+c12: saved kernx_c12.pkl
+c35 k=15: 47.9s
+c35 k=16: 63.9s
+c35: saved kernx_c35.pkl
+c13 k=15: 49.8s
+c13 k=16: 66.4s
+c13: saved kernx_c13.pkl
+c45 k=15: 51.5s
+c45 k=16: 71.2s
+c45: saved kernx_c45.pkl
+EXT DONE

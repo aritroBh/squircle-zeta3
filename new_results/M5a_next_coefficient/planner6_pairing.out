@@ -1,0 +1,5 @@
+independent: 200 shuffle products pair to zero: True
+independent: 100 Li6 symbols pair to zero: True
+W6 (3,3) pairing [X,P]x[Y,P]: [Fraction(0, 1), Fraction(449, 4)]
+W6 (4,2) pairings B4 x P: [[Fraction(-30, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(15, 1)], [Fraction(-9, 1), Fraction(0, 1)]]
+W5 control pairings ([X,P]xP, [Y,P]xP): [Fraction(84, 1), Fraction(0, 1)] [Fraction(0, 1), Fraction(-38, 1)]  (expect [84,0],[0,-38])

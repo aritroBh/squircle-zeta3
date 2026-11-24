@@ -1,0 +1,8 @@
+partial fractions: 3/(16*(2*n + 3)) - 5/(8*(2*n + 1)) + 7/(16*(2*n - 1))   |   3/(16*(2*n + 3)) - 1/(8*(2*n + 1)) - 1/(16*(2*n - 1))
+F1 from partial fractions == closed form: True ; F2: True
+   sum c^(2n)/(2n+(-1)) series to c^40 matches: True
+   sum c^(2n)/(2n+(1)) series to c^40 matches: True
+   sum c^(2n)/(2n+(3)) series to c^40 matches: True
+   F1: Taylor coefficients of the closed form = f(n), n<=30: True
+   F2: Taylor coefficients of the closed form = f(n), n<=30: True
+F1/90 + F2/36 == (1/2880)[(9c - 30/c + 21/c^3) artanh c + 23 - 21/c^2]: True

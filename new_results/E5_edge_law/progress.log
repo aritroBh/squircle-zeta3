@@ -1,6 +1,0 @@
-E5 start. CWD is work dir. Reused E1: s01_edge_sym.py (radial-projection d-series), s03 beta table, D17 targets C_m^(5), C_m^(2,3).
-step_01: E5 reduced built (475 terms, deg 5); cross g_ab extracted, poly in t deg 5. step_02: full E5 (1910 terms), g_ab tau/gam-free, matches reduced. step_03 written.
-step_03: Beta table to weight 5 verified (max err 4.8e-35); z5 rule 24B, z2z3 rule -12B for (3,2)/(2,3). step_04/05: edge laws Z_e^(5)=360 ab h^2/L[A5+r B5], Z_e^(2,3)=120 ab h^2/L[A23+r B23]; match raw integrals; regular 2m-gon per-edge matches D17 targets symbolically; diamond m=2 gives -90 sqrt2, -210 sqrt2 exactly.
-step_06: exact sheared parallelogram P^(5); z5/z2z3 coords == law sums (diff 0); E1 P3 law reproduced. step_07: independent numeric |diff| 7.8e-57 (P5). result.md written.
-step_08: exact rhombus P^(5), z5=1152 sqrt5/25, z2z3=-768 sqrt5/25 == 4 Z_e. step_09: full E5 validated on decagon edge (<=3e-17), non-local defect exhibited. step_10: rhombus numeric P5 |diff| 6.9e-57. step_11: PSLQ relation found, z5 coord 1152/25 sqrt5 == sum Z_e.
-step_12: general parallelogram F_2..F_5 (power convention); F_2=z2 h^2/L, F_3=(z3-2z2)h^2/L (E1), F_4/F_5 verified vs sheared exact. result.md finalized.

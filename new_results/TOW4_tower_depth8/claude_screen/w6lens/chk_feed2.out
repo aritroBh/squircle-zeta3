@@ -1,0 +1,23 @@
+K32^(6): true vs stable-extrapolated (3,3) tower vs quartic
+  true: real-residue poles nonzero: 4; simple +-i nonzero: 0; higher(+i) nonzero orders: 7; higher(-i): 7; const zero: True
+  stable (3,3): real-residue poles nonzero: 4; simple +-i nonzero: 0; higher(+i) nonzero orders: 7; higher(-i): 7; const zero: True
+  true real residues == stable real residues: True
+  key (5, 0) true==stable: True
+  key (4, 1) true==stable: True
+  key (3, 2) true==stable: True
+
+Feed of the full discrepancy Delta_33 (all depths 0..8) into W_32^(6):
+  Phi_Delta: real-residue poles nonzero: 0; simple +-i nonzero: 0; higher(+i) nonzero orders: 0; higher(-i): 0; const zero: True
+  real residues of Phi_Delta: {}
+  higher part (+i orders) nonzero count: 0
+
+Feed of each single depth Delta_33(delta) into the W_32^(6) (real residues / higher part):
+  delta=0: nonzero real poles=2  higher (+i) nonzero orders=[2, 3, 4, 5, 6, 7]  simple(+-i) nonzero=[QSI(0,105/128,0,-3255/512)]
+  delta=1: nonzero real poles=0  higher (+i) nonzero orders=[2, 3, 4, 5, 6, 7]  simple(+-i) nonzero=[QSI(0,0,0,15435/512)]
+  delta=2: nonzero real poles=2  higher (+i) nonzero orders=[2, 3, 4, 5]  simple(+-i) nonzero=[QSI(0,-9625/1024,0,-67375/1024)]
+  delta=3: nonzero real poles=2  higher (+i) nonzero orders=[2, 3, 4, 5]  simple(+-i) nonzero=[QSI(0,26215/1024,0,86135/1024)]
+  delta=4: nonzero real poles=2  higher (+i) nonzero orders=[2, 3]  simple(+-i) nonzero=[QSI(0,-35775/1024,0,-35775/512)]
+  delta=5: nonzero real poles=2  higher (+i) nonzero orders=[2, 3]  simple(+-i) nonzero=[QSI(0,30255/1024,0,10085/256)]
+  delta=6: nonzero real poles=2  higher (+i) nonzero orders=[]  simple(+-i) nonzero=[QSI(0,-33401/2048,0,-33401/2048)]
+  delta=7: nonzero real poles=2  higher (+i) nonzero orders=[]  simple(+-i) nonzero=[QSI(0,9581/2048,0,9581/2048)]
+  delta=8: nonzero real poles=0  higher (+i) nonzero orders=[]  simple(+-i) nonzero=[]

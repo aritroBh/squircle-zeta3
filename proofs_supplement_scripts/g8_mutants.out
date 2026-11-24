@@ -1,0 +1,8 @@
+k=2 unmodified: (True, 0, 0, 0)
+k=2 mutant a (coefficient of c^-1 H_101 doubled): (False, 1, 0, 0)
+k=2 mutant b (H_{0,1,-1} replaced by H_{0,1,1}): (False, 3, 0, 0)
+k=2 mutant c (Li_2(c^2) term dropped): (False, 1, 0, 0)
+k=2 mutant d (c^-1 H_{1,0,-1} -> c^0 H_{1,0,-1}): (False, 2, 0, 0)
+k=4 part 1 unmodified: (True, 0, 0, 0)
+k=4 part 1 mutant (coefficient of term 4 increased by 1): (False, 2, 0, 1)
+k=4 part zeta(2) mutant (coefficient of term 6 doubled): (False, 1, 0, 1)

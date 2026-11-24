@@ -1,0 +1,43 @@
+direct partial sum of zeta(-5,-1): -0.0299016355811  integral: -0.0299016355811
+--- basis independence (no target), 13 elements at 200 digits
+None
+--- (a) c6 numeric, 50 digits
+c6 vs {zeta6, zeta3^2} -> None
+c6 vs +zeta5 log2 -> None
+c6 vs 12-element alternating set (no zeta(-5,-1)) -> [-6910, -440, 6218, -8651, -617, -9510, 5131, 5119, 345, 3149, 239, 1421, -2162]
+    zeta(6): -440
+    zeta(3)^2: 6218
+    zeta(5)log2: -8651
+    zeta(4)log2^2: -617
+    zeta(3)log2^3: -9510
+    zeta(2)log2^4: 5131
+    log2^6: 5119
+    Li6(1/2): 345
+    Li5(1/2)log2: 3149
+    Li4(1/2)log2^2: 239
+    zeta(2)Li4(1/2): 1421
+    zeta(2)zeta(3)log2: -2162
+    target coefficient: -6910
+c6 vs all 13 (50 digits, maxcoeff 1e3) -> [32, 173, -44, -155, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80]
+    zeta(6): 173
+    zeta(3)^2: -44
+    zeta(5)log2: -155
+    zeta(-5,-1): 80
+    target coefficient: 32
+--- (b) gamma32 at 250 digits
+gamma32 = 0.00164994679956980918331363168768428290424162265441038446989217
+gamma32 vs {zeta6, zeta3^2} -> None
+gamma32 vs all 13 -> [256, 39, -12, -31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16]
+    zeta(6): 39
+    zeta(3)^2: -12
+    zeta(5)log2: -31
+    zeta(-5,-1): 16
+    target coefficient: 256
+c6 (reduced, quadrature) = 0.0429508278802840339294338048351352655102967276920578655
+c6 vs all 13 -> [32, 173, -44, -155, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80]
+    zeta(6): 173
+    zeta(3)^2: -44
+    zeta(5)log2: -155
+    zeta(-5,-1): 80
+    target coefficient: 32
+c6 vs {zeta6, zeta3^2} -> None

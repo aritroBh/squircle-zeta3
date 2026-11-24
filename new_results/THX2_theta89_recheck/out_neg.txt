@@ -1,0 +1,6 @@
+7 1 |V| terms: 19  genuine: True
+   target coeff perturbed by 1e-6 -> False
+   certificate entry perturbed by 1e-9 -> False
+8 2 |V| terms: 21  genuine: True
+   target coeff perturbed by 1e-6 -> False
+   certificate entry perturbed by 1e-9 -> False

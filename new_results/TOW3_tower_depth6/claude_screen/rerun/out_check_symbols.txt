@@ -1,0 +1,58 @@
+--- symbols ---
+tow3lib.d: type=Symbol, is_Symbol=True, assumptions0={'commutative': True}, free_symbols={d}
+tow3lib.m: type=Symbol, is_Symbol=True, assumptions0={'commutative': True}, free_symbols={m}
+prove_adj56.p: type=Symbol, is_Symbol=True, assumptions0={'commutative': True}, free_symbols={p}
+prove_E3b56.p: type=Symbol, is_Symbol=True, assumptions0={'commutative': True}, free_symbols={p}
+prove_adj56.d is the expression 2*p - 1 ; free symbols {p}
+prove_V56 uses d,m from tow3lib: True True
+--- identity sizes / free symbols (non-adjacent) ---
+(5,0): lhs free=['d', 'm'] ops=290 | rhs free=['d', 'm'] ops=822
+(5,1): lhs free=['d', 'm'] ops=97 | rhs free=['d', 'm'] ops=321
+(5,2): lhs free=['d'] ops=16 | rhs free=['d'] ops=58
+(6,0): lhs free=['d', 'm'] ops=641 | rhs free=['d', 'm'] ops=1503
+(6,1): lhs free=['d', 'm'] ops=277 | rhs free=['d', 'm'] ops=653
+(6,2): lhs free=['d', 'm'] ops=78 | rhs free=['d', 'm'] ops=187
+(6,3): lhs free=['d'] ops=10 | rhs free=['d'] ops=26
+--- adjacent: free symbols of feed terms ---
+adj (5,2): 18 feed terms, free symbols of terms=['p'], lhs free=['p']
+adj (6,3): 21 feed terms, free symbols of terms=['p'], lhs free=['p']
+--- pointwise exact evaluation, non-adjacent, random rational (d,m) incl. non-integer ---
+(5,0) residual at 5 points: [0, 0, 0, 0, 0]
+(5,1) residual at 5 points: [0, 0, 0, 0, 0]
+(5,2) residual at 5 points: [0, 0, 0, 0, 0]
+(6,0) residual at 5 points: [0, 0, 0, 0, 0]
+(6,1) residual at 5 points: [0, 0, 0, 0, 0]
+(6,2) residual at 5 points: [0, 0, 0, 0, 0]
+(6,3) residual at 5 points: [0, 0, 0, 0, 0]
+--- negative controls (perturbed e-family must break the identity) ---
+non-adjacent (5,0): numerator == 0 : False  (0.8s)
+perturb a_5 -> V(5,0) numerator==0 ? False
+non-adjacent (6,0): numerator == 0 : False  (6.2s)
+perturb a_6 -> V(6,0) numerator==0 ? False
+non-adjacent (5,1): numerator == 0 : False  (0.3s)
+non-adjacent (5,0): numerator == 0 : False  (0.6s)
+perturb e(5,1) -> V(5,1) numerator==0 ? False | V(5,0): False
+non-adjacent (6,1): numerator == 0 : False  (0.7s)
+non-adjacent (6,0): numerator == 0 : False  (5.2s)
+perturb e(6,1) -> V(6,1) numerator==0 ? False | V(6,0): False
+non-adjacent (6,2): numerator == 0 : False  (0.2s)
+non-adjacent (6,1): numerator == 0 : False  (0.6s)
+perturb e(6,2) -> V(6,2) numerator==0 ? False | V(6,1): False
+non-adjacent (6,3): numerator == 0 : True  (0.0s)
+perturb zigzag A_4 5->6 -> V(6,3) numerator==0 ? True
+non-adjacent (5,2): numerator == 0 : True  (0.0s)
+perturb zigzag A_3 2->3 -> V(5,2) numerator==0 ? True
+non-adjacent (5,1): numerator == 0 : True  (0.4s)
+non-adjacent (6,3): numerator == 0 : True  (0.0s)
+restored: V(5,1), V(6,3) numerator==0 ? True True
+--- pointwise adjacent identities at integer p (unperturbed) and with perturbed e(5,1), a_5 ---
+adj (5,2) residual at p=3,4,5,8,13/2: [0, 0, 0, 0, 0] (0.9s)
+adj (6,3) residual at p=3,4,5,8,13/2: [0, 0, 0, 0, 0] (1.2s)
+adj (5,1) residual at p=3,4,5,8,13/2: [0, 0, 0, 0, 0] (4.2s)
+adj (6,2) residual at p=3,4,5,8,13/2: [0, 0, 0, 0, 0] (5.4s)
+perturbed e(5,1): adj (5,1) residual at p=3,5: [-259/16 - 123*I/16, -2909/336 - 391*I/112]
+perturbed a_5: adj (5,2) residual at p=3,5 (top, uses s=2 only): [0, 0]
+perturbed A_3: adj (5,2) residual at p=3,5: [0, 0]
+--- E3 negative control (perturbed e(5,1)): feed(5) numerator zero? ---
+perturbed e(5,1): E3 delta=5 numerator == 0 ? False
+done 15.6

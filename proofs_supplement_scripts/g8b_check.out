@@ -1,0 +1,58 @@
+=== Part 1: T_4(M_3) from the data ===
+R_3: number of terms by word length: {2: 2, 3: 16, 4: 56}
+Psi: number of terms by word length: {0: 1, 1: 6, 2: 8} (length 0 = the constant 1/2)
+Phi = 1/2 - (1-c^2)/(4c) (H_1 + H_{-1}): length <= 1
+all words regular (last letter nonzero): True
+rho(T_4(M_3)) has 24 pure tensors
+rho(T_4(M_3)) equals the 24-row table of sec_g8_M3alpha.tex: True
+    (('x', 'y'), ('y', 'z')) : (c - 1)/c
+    (('x', 'z'), ('y', 'z')) : -(c + 1)/c
+delta22(T_4(M_3)) equals (1-1/c) p^r - (1+1/c) q^r: True
+
+=== Part 2: S_4 of classical functions (formal base-point constants) ===
+  Li_3(g), g = (1-z)/(1+z): S_4 has 0 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_4(g), g = (1-z)/(1+z): S_4 has 16 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_5(g), g = (1-z)/(1+z): S_4 has 16 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_6(g), g = (1-z)/(1+z): S_4 has 16 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_3(g), g = z^2: S_4 has 0 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_4(g), g = z^2: S_4 has 2 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_5(g), g = z^2: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_6(g), g = z^2: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_3(g), g = 4z/(1+z)^2: S_4 has 0 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_4(g), g = 4z/(1+z)^2: S_4 has 16 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_5(g), g = 4z/(1+z)^2: S_4 has 16 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_6(g), g = 4z/(1+z)^2: S_4 has 16 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_3(g), g = -z: S_4 has 0 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_4(g), g = -z: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_5(g), g = -z: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_6(g), g = -z: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_3(g), g = z: S_4 has 0 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_4(g), g = z: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_5(g), g = z: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  Li_6(g), g = z: S_4 has 1 tensors; equals the formula of Lemma g8b:lem:classical: True; delta22(S_4) = 0: True
+  product Li_2(gA) Li_2(gB): S_4 has 29 tensors; delta22(S_4) = 0: True
+  product Li_3(gA) log(gC): S_4 has 38 tensors; delta22(S_4) = 0: True
+  product Li_2(gC) Li_3(gB)  (length 5): S_4 has 19 tensors; delta22(S_4) = 0: True
+  product log(gA)^4: S_4 has 16 tensors; delta22(S_4) = 0: True
+  product Li_1(gA) Li_1(gB) Li_2(gC): S_4 has 50 tensors; delta22(S_4) = 0: True
+  product Li_4(gB) Li_2(gA)  (length 6): S_4 has 20 tensors; delta22(S_4) = 0: True
+Part 2 all as claimed: True
+
+=== Part 3: numerical checks of the expansions (mpmath, 50 digits) ===
+  Li_4((1-z)/(1+z)) at z = 0.31: |expansion - Li_4| = 1.34e-51
+  Li_4((1-z)/(1+z)) at z = 0.62: |expansion - Li_4| = 6.68e-52
+  Li_4((1-z)/(1+z)) at z = (0.5 + 0.15j): |expansion - Li_4| = 6.68e-52
+  Li_5((1-z)/(1+z)) at z = 0.31: |expansion - Li_5| = 1.34e-51
+  Li_5((1-z)/(1+z)) at z = 0.62: |expansion - Li_5| = 3.34e-52
+  Li_5((1-z)/(1+z)) at z = (0.5 + 0.15j): |expansion - Li_5| = 6.68e-52
+  H_(0, 1, 0, -1) at z = 0.31: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 0.0
+  H_(0, 1, 0, -1) at z = 0.62: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 0.0
+  H_(-1, 1, -1, 1) at z = 0.31: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 1.17e-53
+  H_(-1, 1, -1, 1) at z = 0.62: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 1.04e-53
+  H_(1, 0, -1, 1) at z = 0.31: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 2.61e-53
+  H_(1, 0, -1, 1) at z = 0.62: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 8.35e-53
+  H_(0, 0, 0, 1) at z = 0.31: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 1.34e-51
+  H_(0, 0, 0, 1) at z = 0.62: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 0.0
+  H_(0, -1, 1, -1) at z = 0.31: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 1.31e-53
+  H_(0, -1, 1, -1) at z = 0.62: |sum_(w=uv) s_u L_u(z) H_v(1/2) - H_w(z)| = 0.0
+largest difference in Part 3: 1.34e-51 ; below 1e-40: True

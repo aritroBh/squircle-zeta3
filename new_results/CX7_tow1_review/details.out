@@ -1,0 +1,4 @@
+PASS symbolic: fold identity, t derivatives, both log derivatives, non-adjacent E1
+PASS numerical S, S-prime and rho spot checks: relative-scaled max error 2.2564e-81
+PASS exact: E3 and first diagonal/adjacent levels p=2,3,4
+PASS exact: p=1 degree-two diagonal, k=2,3,4; child degree one has no higher part

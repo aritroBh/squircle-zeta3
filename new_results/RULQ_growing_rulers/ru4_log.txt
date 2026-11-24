@@ -1,0 +1,4 @@
+ p   K   actual R_K      bound          bound/|R_K|   bound*p^(5/2)e^(pi p)   (R0, R1, R2)   params
+  5  18  -2.6259e-09  1.5181e-06  5.781e+02  5.631e+02   (8.2e-34, 1.27e-06, 2.49e-07)  rho=0.6 delta=0.5
+ 10  34  -8.2256e-17  1.5960e-15  1.940e+01  2.222e+01   (5.2e-81, 1.60e-15, 1.45e-21)  rho=0.35 delta=0.05
+ 20  66  -3.6374e-31  5.4069e-30  1.486e+01  1.875e+01   (8.0e-193, 5.41e-30, 7.09e-40)  rho=0.2 delta=0.05 rho2=0.9 delta2=1.5 (single admissible choice, not optimised)

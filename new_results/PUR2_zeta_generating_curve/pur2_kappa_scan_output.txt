@@ -1,0 +1,7 @@
+kappa=1.3 kappa^2=1.69 V=0.8228563 phi(V)=1.09381 minDphi/M^2=0.0112394 D<0 on u in [-,-] tau0(proved)=0.296426 tau*(grid)=1.0
+kappa=1.36 kappa^2=1.8496 V=0.84800409 phi(V)=0.946803 minDphi/M^2=-0.0658928 D<0 on u in [0.7828,0.7854] tau0(proved)=0.245948 tau*(grid)=0.962829
+kappa=1.4 kappa^2=1.96 V=0.86975625 phi(V)=0.825296 minDphi/M^2=-0.798276 D<0 on u in [0.7435,0.7854] tau0(proved)=0.208408 tau*(grid)=0.698233
+kappa=1.45 kappa^2=2.1025 V=0.90772937 phi(V)=0.624251 minDphi/M^2=-2.57187 D<0 on u in [0.699,0.7854] tau0(proved)=0.152164 tau*(grid)=0.433745
+kappa=1.48 kappa^2=2.1904 V=0.94366087 phi(V)=0.445269 minDphi/M^2=-5.41094 D<0 on u in [0.6754,0.7854] tau0(proved)=0.106259 tau*(grid)=0.269691
+kappa=1.5 kappa^2=2.25 V=0.98660165 phi(V)=0.243451 minDphi/M^2=-13.4573 D<0 on u in [0.6571,0.7854] tau0(proved)=0.0572826 tau*(grid)=0.129389
+kappa=1.507 kappa^2=2.271 V=1.0231432 phi(V)=0.0804407 minDphi/M^2=-49.0956 D<0 on u in [0.6519,0.7854] tau0(proved)=0.0188339 tau*(grid)=0.0391423

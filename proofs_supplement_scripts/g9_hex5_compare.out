@@ -1,0 +1,11 @@
+monomials: rebuilt 307  notes 307  same key set: True
+coefficients differing (exact, sympy expand of the difference): 0
+x-exponents: {-6: 39, -5: 44, -4: 44, -3: 44, -2: 44, -1: 44, 0: 48}
+atoms occurring: 13 ['H00011', 'H00101', 'H0011', 'H00111', 'H01011', 'H011', 'H0111', 'H01111', 'H1', 'Li2', 'Li3', 'Li4', 'Li5']
+(z2,z3,z5)-exponents occurring: {(0, 0, 0): 210, (0, 0, 1): 1, (0, 1, 0): 27, (1, 0, 0): 55, (1, 1, 0): 1, (2, 0, 0): 13}
+monomials with z5 or with z2*z3 (z2>=1 and z3>=1): [((), 0, (0, 0, 1)), ((), 0, (1, 1, 0))]
+powers of L2 in the coefficients (L2^e, e half-integers): {-9/2: 1992, -7/2: 8444, -5/2: 20908, -3/2: 37134, -1/2: 40813, 1/2: 26206}  -> sqrt(L2) = L, so L^-9 ... L^1
+largest weight of a term of the table (atoms + zeta weights + degree in lA0,lA1,lB): 5
+120 x [zeta5] - Z_e^(5) = 0 ;  120 x [zeta2 zeta3] - Z_e^(2,3) = 0  (after A1 = 1-B, A0 = 1-B-B kappa)
+wrote g9_hex5_table.txt: 307 lines, 5348394 bytes, sha256 f0fd1f7a771301273e14f4f8f94a5e109e50f78c10c3265a23dc080bf9c2030a
+done (45 s)

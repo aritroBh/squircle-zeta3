@@ -1,0 +1,21 @@
+"""WT5 step C: e1/e2/e3 TSVs vs Arb quadrature (600-bit values) + W5pp control."""
+import sys, json, time
+sys.dont_write_bytecode = True
+sys.path.insert(0, ".")
+from g_eval_lib import evaluate, mp
+t0 = time.time()
+out = {}
+for name, tsv, quadjson in [("e1","e1.tsv","e1_600.json"), ("e2","e2.tsv","e2_600.json"), ("e3","e3.tsv","e3_600.json"),
+                            ("w5pp","gpl_w5pp.tsv","w5pp_600.json")]:
+    val, n_reg = evaluate(tsv)
+    q = json.load(open(quadjson))
+    expected = mp.mpf(q["value"])
+    got = mp.mpf(val.real.mid().str(160, radius=False, more=True))
+    err = abs(got - expected)
+    print(f"{tsv}: ({time.time()-t0:.0f}s, {n_reg} endpoint-regularized words)")
+    print(f"   |G - quad| = {mp.nstr(err, 4)}   flint rad = {val.real.rad().str(5)}", flush=True)
+    out[name] = {"G_value": mp.nstr(got, 150), "err_vs_quad": mp.nstr(err, 6), "flint_rad": val.real.rad().str(8)}
+json.dump(out, open("check_tsv_vs_quad.json", "w"), indent=1)
+with open("progress.log","a") as f:
+    f.write("step_C check: " + "; ".join(f"{k} |G-quad|={v['err_vs_quad']}" for k,v in out.items()) + "\n")
+print("DONE")

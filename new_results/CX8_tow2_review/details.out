@@ -1,0 +1,23 @@
+PASS Lemma T derivatives r=1..8 and exact tau table n=0..7
+log(A) derivative/1! = I*(2 - d)
+log(A) derivative/2! = (2*d**2 - d*(9 - 2*I) - 4*I*m + 9)/(4*(2*d - 3))
+log(A) derivative/3! = (2*I*d**2 - d*(6 + 13*I) + 12*m + 15*I)/(12*(2*d - 3))
+log(A) derivative/4! = (-8*d**4 + d**3*(228 - 144*I) + 288*I*d**2*m + d**2*(-1090 + 576*I) + d*m*(96 - 1152*I) + d*(1743 - 540*I) - 96*m**2 + 1080*I*m - 945)/(768*d**3 - 4224*d**2 + 7488*d - 4320)
+PASS independently derived rho(delta)/rho(0), delta=0..4 equals the submitted cache
+PASS independent symbolic non-adjacent N(0,0) in d,m
+PASS independent symbolic non-adjacent N(1,0) in d,m
+PASS independent symbolic non-adjacent N(2,0) in d,m
+PASS independent symbolic non-adjacent N(2,1) in d,m
+PASS independent symbolic non-adjacent N(3,0) in d,m
+PASS independent symbolic non-adjacent N(3,1) in d,m
+PASS independent symbolic non-adjacent N(4,0) in d,m
+PASS independent symbolic non-adjacent N(4,1) in d,m
+PASS independent symbolic non-adjacent N(4,2) in d,m
+PASS exact S derivative ratios l=1..4 for d=1..4, all m=0..d
+PASS numerical S derivatives through 4 and rho(3),rho(4) vs exact initial towers; max scaled error 8.5690111e-79
+PASS 129 exact diagonal/adjacent boundary cells p=1..4; E3 feeds at every admissible depth <=4 for p=2,3,4
+PASS fitted N1..N4 in submitted certificates equal the library polynomials
+PASS independent h-coefficient derivation S^3/S for symbolic d,m
+PASS independent h-coefficient derivation S^4/S for symbolic d,m
+PASS displayed Delta(3) is normalized by rho_pp(0); diagonal leading Newton ratio = (1 + I)*(2*p - 3)/(4*p - 3)
+PASS displayed Delta(4) is normalized by rho_pp(0); diagonal leading Newton ratio = 2*I*(-1 - I)/((4*p - 5)*(4*p - 3))

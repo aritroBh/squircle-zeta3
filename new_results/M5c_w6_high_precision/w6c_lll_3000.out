@@ -1,0 +1,13 @@
+planted relation control: PASS
+build[w6]: W6-N6-particular target = 36888.4158825289944132346846765; kernel dim=89; atoms=149
+LLL start W6c symbol-kernel enlarged basis[w6] @3000: rows=179, digits=3000, gram=exact
+LLL done W6c symbol-kernel enlarged basis[w6] @3000: seconds=3250.39; small-residual relations=0
+  row 60: maxcoef=587854616483223211 residual=1.5125752e-2985
+  row 131: maxcoef=487792988419813786 residual=1.9700429e-2984
+  row 94: maxcoef=640880970202180555 residual=2.1494868e-2984
+  row 40: maxcoef=718559467282746913 residual=-2.6539873e-2984
+  row 135: maxcoef=694310487519880062 residual=2.7736787e-2984
+  row 130: maxcoef=619406886514187424 residual=-3.8897116e-2984
+  row 138: maxcoef=742759468044426408 residual=-4.6028672e-2984
+  row 108: maxcoef=818302554630198540 residual=5.5169061e-2984
+W6c LLL[w6] @3000: target-involving relations=0

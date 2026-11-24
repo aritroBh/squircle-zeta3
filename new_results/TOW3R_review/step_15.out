@@ -1,0 +1,2 @@
+check_tau(n<=7): True
+conj(tau1_n)=(-1)^n tau2_n and conj(tau2_n)=(-1)^n tau1_n for n=0..7: True

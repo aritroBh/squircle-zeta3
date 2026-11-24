@@ -1,0 +1,28 @@
+== (1a) TOWN1 data: degree-6 keys, depth 0..8, k from k0 to 52
+(6, 0) k0= 6 [(0, 0, 'OK', 46), (1, 0, 'OK', 46), (2, 1, 'OK', 45), (3, 1, 'OK', 45), (4, 2, 'OK', 44), (5, 2, 'OK', 44), (6, 3, 'OK', 43), (7, 3, 'OK', 43), (8, 4, 'OK', 42)]
+(5, 1) k0= 6 [(0, 0, 'OK', 46), (1, 0, 'OK', 46), (2, 1, 'OK', 45), (3, 1, 'OK', 45), (4, 2, 'OK', 44), (5, 2, 'OK', 44), (6, 3, 'OK', 43), (7, 3, 'OK', 43), (8, 4, 'OK', 42)]
+(4, 2) k0= 6 [(0, 0, 'OK', 46), (1, 0, 'OK', 46), (2, 1, 'OK', 45), (3, 1, 'OK', 45), (4, 2, 'OK', 44), (5, 2, 'OK', 44), (6, 3, 'OK', 43), (7, 3, 'OK', 43), (8, 4, 'OK', 42)]
+(3, 3) k0= 7 [(0, 0, 'OK', 45), (1, 0, 'OK', 45), (2, 1, 'OK', 44), (3, 1, 'OK', 44), (4, 2, 'OK', 43), (5, 2, 'OK', 43), (6, 3, 'OK', 42), (7, 3, 'OK', 42), (8, 4, 'OK', 41)]
+all degree-6 (key,depth) cells: polynomial of degree exactly floor(delta/2) from k0..52 : True
+
+== (1b) diagonal (3,3): is k=6 on the stable polynomial (fit k=7..)?
+delta 0 deg 0 k=6 on polynomial? False  disc= ('0', '-105/16', '0', '0')
+delta 1 deg 0 k=6 on polynomial? False  disc= ('0', '0', '0', '105/4')
+delta 2 deg 1 k=6 on polynomial? False  disc= ('0', '9625/192', '0', '0')
+delta 3 deg 1 k=6 on polynomial? False  disc= ('0', '0', '0', '-3745/64')
+delta 4 deg 2 k=6 on polynomial? False  disc= ('0', '-11925/256', '0', '0')
+delta 5 deg 2 k=6 on polynomial? False  disc= ('0', '0', '0', '10085/384')
+delta 6 deg 3 k=6 on polynomial? False  disc= ('0', '33401/3072', '0', '0')
+delta 7 deg 3 k=6 on polynomial? False  disc= ('0', '0', '0', '-9581/3072')
+delta 8 deg 4 k=6 on polynomial? False  disc= ('0', '-1657/2304', '0', '0')
+
+== (1c) off-diagonal degree-6: is k=6 ON the polynomial (fit from k=7..)?
+(6, 0) [True, True, True, True, True, True, True, True, True]
+(5, 1) [True, True, True, True, True, True, True, True, True]
+(4, 2) [True, True, True, True, True, True, True, True, True]
+
+== (1d) independent full-reducer towers (WTS tower_k.pkl, k<=14) vs TOWN1 for degree-6 keys, delta 0..8
+cells 324 bad 0
+
+== (1e) same law from WTS-only data (k=6/7..14)
+WTS-only degree-6 tower law OK: True

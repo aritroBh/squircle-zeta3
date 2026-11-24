@@ -1,0 +1,36 @@
+1 1
+2 1
+3 1
+[2*g21 - 7*p**2/2880, -4*g21 + 7*p**2/1440, 2*g03 + 2*g12 + 4*g21 - p**2/180, g01 - p/24, g11 - 3*z3/16, g21 - 7*p**2/5760] [{g01: p/24, g03: -g12 + p**2/2880, g11: 3*z3/16, g21: 7*p**2/5760}]
+4 1
+5 1
+6 1
+free gamma-combinations (solve returns unsolved symbols): [g12, g13, g14, g15, g32, g33]
+c4 = 8*g03 + 8*g12
+   reduced:  p**2/360
+c5 = 8*g04 + 8*g13 + 24*g31
+   reduced:  -p*z3/6 + 107*z5/32
+c6 = 8*g05 + 8*g14 + 24*g32
+   reduced:  40*g32 + 11*p**3/15120 - z3**2/2
+c7 = 8*g06 + 8*g15 + 24*g33 + 360*g51
+   reduced:  40*g33 + p**2*z3/120 + 2339*z7/512
+c4 free symbols after reduction: set()
+c5 free symbols after reduction: set()
+c6 free symbols after reduction: {g32}
+c7 free symbols after reduction: {g33}
+solved:
+g01 = p/24
+g02 = z3/16
+g03 = -g12 + p**2/2880
+g04 = -g13 - p*z3/48 + 31*z5/128
+g05 = -g14 + 2*g32 + 11*p**3/120960 - z3**2/16
+g06 = -g15 + 2*g33 + p**2*z3/960 - 31*z7/256
+g11 = 3*z3/16
+g21 = 7*p**2/5760
+g22 = p*z3/96 - 29*z5/256
+g23 = -3*g32 - p**3/24192 + z3**2/32
+g24 = -3*g33 - p**2*z3/576 - p*z5/96 + 315*z7/1024
+g31 = 15*z5/256
+g41 = 31*p**3/967680
+g42 = 7*p**2*z3/23040 + p*z5/384 - 251*z7/4096
+g51 = 63*z7/4096

@@ -1,0 +1,4 @@
+D=21: letters ['lE21', 'ls21', 'la', 'l2'], kernel 17 (exact-zero combos dropped: [1, 6, 7, 8, 15]), dim 94
+P=830: LLL 75s; exact (residual < 1e-1200) relations with T: 0; exact zero-relations: 7
+P=1000: LLL 90s; exact (residual < 1e-1200) relations with T: 0; exact zero-relations: 7
+P=1150: LLL 121s; exact (residual < 1e-1200) relations with T: 0; exact zero-relations: 7

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<project>/research/08_theory/CHN5_p5_w12_exact/run_ideal.py", line 27, in <module>
+    lg.write(f"{name}: IN ideal (C4,Q7')! U deg4 {len(sp.Poly(mem[0]).terms())} terms, V deg2 {len(sp.Poly(mem[1]).terms())} terms, verify={check==0} [{time.time()-t0:.0f}s]\n")
+                                                                                                   ~~~~~~~^^^^^^^^
+  File "<project>/.venv/lib/python3.14/site-packages/sympy/polys/polytools.py", line 190, in __new__
+    return cls._from_expr(rep, opt)
+           ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "<project>/.venv/lib/python3.14/site-packages/sympy/polys/polytools.py", line 320, in _from_expr
+    return cls._from_dict(rep, opt)
+           ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "<project>/.venv/lib/python3.14/site-packages/sympy/polys/polytools.py", line 257, in _from_dict
+    raise GeneratorsNeeded(
+        "Cannot initialize from 'dict' without generators")
+sympy.polys.polyerrors.GeneratorsNeeded: Cannot initialize from 'dict' without generators

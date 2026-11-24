@@ -1,0 +1,11 @@
+c=1/2 w=2: ratios=['-1', '1'] F_d(closed)=1 single-factor False; c(w)=0.68864071388274691478 law=0.68864071388274691478 diff=1.15e-41
+c=1/2 w=3: ratios=['3'] F_d(closed)=3 single-factor True; c(w)=-0.65066112870892987869 law=-0.65066112870892987869 diff=2.3e-41
+c=1/2 w=4: ratios=['-5/4', '5/4'] F_d(closed)=5/2 single-factor False; c(w)=-1.8399875005993818348 law=-1.8399875005993818348 diff=2.69e-39
+c=1/2 w=5: ratios=['11/10'] F_d(closed)=33/5 single-factor False; c(w)=1.3249734714770159283 law=1.3249734714770159283 diff=-5.14e-38
+c=1/2 w=6: ratios=['-91/384', '91/384'] F_d(closed)=91/16 single-factor False; c(w)=2.8314812605581191071 law=2.8314812605581191071 diff=-2.2e-36
+c=3/5 w=2: ratios=['-1', '1'] F_d(closed)=1 single-factor False; c(w)=0.62298789975244636532 law=0.62298789975244636532 diff=0.0
+c=3/5 w=3: ratios=['16/9'] F_d(closed)=16/9 single-factor True; c(w)=-0.5703635402142808432 law=-0.5703635402142808432 diff=3.44e-41
+c=3/5 w=4: ratios=['-19/24', '19/24'] F_d(closed)=19/12 single-factor False; c(w)=-1.0122095706183842529 law=-1.0122095706183842529 diff=9.41e-40
+c=3/5 w=5: ratios=['176/405'] F_d(closed)=352/135 single-factor False; c(w)=0.76005828674797859173 law=0.76005828674797859173 diff=-1.89e-38
+c=3/5 w=6: ratios=['-1027/10368', '1027/10368'] F_d(closed)=1027/432 single-factor False; c(w)=1.0148417396335999197 law=1.0148417396335999197 diff=-9.7e-37
+8 FAILURES

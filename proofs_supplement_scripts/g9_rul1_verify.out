@@ -1,0 +1,51 @@
+# command: cd research/08_theory/RUL1_level2_exact_reductions && nice .venv/bin/python -B verify_rul1.py   (project verifier of the notes, run in place, read only)
+17:27:59 rebuilding relations (DS+DUAL) and RREF ...
+17:28:00 PASS relations span codimension (1,2,3,5,8)   {1: (1, 0, 1, 1), 2: (5, 2, 4, 2), 3: (16, 9, 12, 3), 4: (58, 31, 36, 5), 5: (192, 100, 108, 8)}
+17:28:00 rebuilt: (1, 2, 3, 5, 8)
+17:28:00 PASS CONTROL zeta(bar2,1) = zeta(3)/8   {'z3': 1/8}
+17:28:00 PASS CONTROL Li_4(1/2) primitive   {'Li4h': 1}
+17:28:00 PASS CONTROL zeta(bar3,bar1) reduced (certificate) + 100-digit   {'Li4h': -2, 'pi4': 1/180, 'pi2*log2^2': 1/12, 'log2^4': -1/12}; |diff|=1.33e-121
+17:28:00 PASS CONTROL J_{2,0} = zeta(3)/4   {'z3': 1/4}
+17:28:00 PASS CONTROL sum (-1)^{n+1} H_n/n^2 = 5/8 zeta(3)
+17:28:00 PASS T1 J_{3,0} proved + 100-digit   |diff|=7.5e-121
+17:28:00 PASS T1 J_{2,1} proved + 100-digit   |diff|=4.84e-121
+17:28:00 PASS T1 J_{4,0} proved + 100-digit   |diff|=3.9e-120
+17:28:00 PASS T1 J_{3,1} proved + 100-digit   |diff|=1.97e-120
+17:28:00 PASS T1 J_{2,2} proved + 100-digit   |diff|=2.18e-121
+17:28:00 PASS T1 (1/12)J30+(1/8)J21 = pi^4/2880
+17:28:00 PASS T1 (1/48)(J40+2J31) = -z3 pi2/48 + 31 z5/128
+17:28:00 PASS T1 N4 closed form exact   -l2s**5/120 + l2s**2*pi2s/48 - l2s*pi2s/24 - l2s*z3s/4 + pi2s**2/2880 + pi2s/24 + z3s/4
+17:28:00 PASS T1 N5 closed form exact   l2s**6/720 - l2s**3*pi2s/144 + l2s**2*pi2s/48 + l2s**2*z3s/8 - l2s*pi2s**2/2880 - l2s*pi2s/24 - l2s*z3s/4 - 19*pi2s**2/5760 - pi2s*z3s/48 + pi2s/24 + z3s/4 + z5s/8
+17:28:00 PASS T1 Li4h,Li5h cancel in N4,N5
+17:28:01 PASS T1 N4 100-digit vs quad assembly   5.64e-132
+17:28:01 PASS T1 N5 100-digit vs quad assembly   1.69e-131
+17:28:01 Target 1 done (3s)
+17:28:01 PASS T2 atom H1      proved + 100-digit   |diff|=2.9e-121
+17:28:01 PASS T2 atom Li2     proved + 100-digit   |diff|=8.71e-121
+17:28:01 PASS T2 atom Li3     proved + 100-digit   |diff|=1.94e-121
+17:28:01 PASS T2 atom H011    proved + 100-digit   |diff|=7.26e-122
+17:28:01 PASS T2 atom Li4     proved + 100-digit   |diff|=3.87e-121
+17:28:02 PASS T2 atom H0011   proved + 100-digit   |diff|=2.06e-121
+17:28:02 PASS T2 atom H0111   proved + 100-digit   |diff|=1.39e-121
+17:28:02 PASS T2 atom Li5     proved + 100-digit   |diff|=2.9e-121
+17:28:02 PASS T2 atom H00011  proved + 100-digit   |diff|=2.42e-122
+17:28:02 PASS T2 atom H00101  proved + 100-digit   |diff|=2.42e-121
+17:28:02 PASS T2 atom H00111  proved + 100-digit   |diff|=2.04e-121
+17:28:02 PASS T2 atom H01011  proved + 100-digit   |diff|=5.9e-121
+17:28:02 PASS T2 atom H01111  proved + 100-digit   |diff|=1.82e-121
+17:28:28 PASS T2 zeta5 coord = -20187/2000 sqrt5   -20187*sq5/2000
+17:28:28 PASS T2 zeta2zeta3 coord = -858/125 sqrt5   -858*sq5/125
+17:28:28 PASS T2 far-kink zeta5 = -711/400 sqrt5   -711*sq5/400
+17:28:28 PASS T2 far-kink zeta2zeta3 = -1239/250 sqrt5   -1239*sq5/250
+17:28:28 Target 2 zeta-coords done (30s)
+17:28:50 PASS T2 conv-B fold == sqrt5 * E5e closed form (all 20 constants)
+17:28:50 PASS T2 conv-B fold 100-digit vs E5e data   |diff|=2.96e-123
+17:28:50 Target 2 fold done (52s)
+17:28:55 PASS T3 (128/sqrt3) P^(5)(1) == paper's 15-term closed form
+17:28:55 PASS T3 zeta5 = 2835 sqrt3/32   2835*sqrt(3)/32
+17:28:55 PASS T3 zeta2zeta3 = 1395 sqrt3/32   1395*sqrt(3)/32
+17:28:55 PASS T3 P5 100-digit vs D17 data   |diff|=4.98e-98
+17:28:55 Target 3 done (57s)
+17:28:55 ======================================================================
+17:28:55 SUMMARY: 41/41 checks PASS  (total 57s)
+17:28:55 ALL CHECKS PASS

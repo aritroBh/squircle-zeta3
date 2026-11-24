@@ -1,0 +1,6 @@
+src = open('../G2_M4alpha/step_10.py').read()
+i = src.find('def load_terms')
+print(src[i:i+1200])
+src12 = open('../G2_M4alpha/step_12.py').read()
+print("=====")
+print(src12[:2500])

@@ -1,0 +1,8 @@
+g4 engine, K=5: monomials per order {0: 1, 1: 8, 2: 30, 3: 80, 4: 175, 5: 336} (907 s)
+order 0 : monomials t^n X^a Y^b W^c mine 1  notes 1  differing coefficients 0
+order 1 : monomials t^n X^a Y^b W^c mine 8  notes 8  differing coefficients 0
+order 2 : monomials t^n X^a Y^b W^c mine 30  notes 30  differing coefficients 0
+order 3 : monomials t^n X^a Y^b W^c mine 80  notes 80  differing coefficients 0
+order 4 : monomials t^n X^a Y^b W^c mine 175  notes 175  differing coefficients 0
+order 5 : monomials t^n X^a Y^b W^c mine 336  notes 336  differing coefficients 0
+done (967 s)

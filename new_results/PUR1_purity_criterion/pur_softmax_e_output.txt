@@ -1,0 +1,61 @@
+=== (d) soft-max: phi = 1 + v/sqrt(1-v^2), psi = e^{-v} phi ===
+psi Taylor coefficients: [1, 0, -1/2, 5/6, -5/8, 79/120, -67/144, 877/1680]
+odd part: {3: 5/6, 5: 79/120, 7: 877/1680}
+c_2 = 8F_2 = pi**2/3
+      numeric: (b)+odd = 3.289868133696452872944830333292050378438 ; (a) - that = 0.0
+c_3 = 8F_3 = 2*z3
+      numeric: (b)+odd = 2.40411380631918857079947632302289998153 ; (a) - that = 0.0
+c_4 = 8F_4 = pi**4/360
+      numeric: (b)+odd = 0.2705808084277845478790009241352919756937 ; (a) - that = 0.0
+c_5 = 8F_5 = -pi**2*z3/6 + 107*z5/32
+      numeric: (b)+odd = 1.489922830963347072973417903855582427359 ; (a) - that = 1.81e-71
+c_6 = 8F_6 = 40*g_3_2 - z3**2/2 + 11*pi**6/15120
+      numeric: (b)+odd = 0.0429508278802840339294338048351352655103 ; (a) - that = -4.64e-71
+c_7 = 8F_7 = 40*g_3_3 + 160*g_4_2 - 29*pi**4*z3/720 - 5*pi**2*z5/12 + 7359*z7/512
+      numeric: (b)+odd = 5.585741214319102958232826658315468061732 ; (a) - that = 1.45e-70
+c6 - SM6 form (11/16 z6 - z3^2/2 + 40 g32), symbolic in pi: 0
+c7 from criterion: 40*g_3_3 + 160*g_4_2 - 3*z2**2*z3/4 - 5*z2*z5/2 - 7*z3*z4/4 + 7359*z7/512
+c7 - SM6 form (40 g33 + 3/4 z3 z4 + 2339/512 z7) = 160*g_4_2 - 3*z2**2*z3/4 - 5*z2*z5/2 - 5*z3*z4/2 + 1255*z7/128  numeric: 0.0
+  -> requires the gamma_42 term to be pure; see PSLQ below
+c6 numeric 0.0429508278802840339294338048351352655102967277 ; minus SM6 Richardson value = -2.13e-51
+c7 numeric 5.58574121431910295823282665831546806173150468 ; minus SM6 Richardson value = -1.99e-47
+
+=== (e) gamma_{a,2} = 2^{-(a+1)} sum_{n>=2} (-1)^n H_{n-1}/n^{a+2} ===
+a=0  gamma_a2 = 0.07512855644747464283748363509446562442281   series - quad = 0.0
+a=1  gamma_a2 = 0.02194641789216382550914832374944048355376   series - quad = 0.0
+a=2  gamma_a2 = 0.006117049631246132920092843580109446404918   series - quad = 0.0
+a=3  gamma_a2 = 0.001649946799569809183313631687684282904242   series - quad = 0.0
+a=4  gamma_a2 = 0.0004348854296158102928884964362454428033848   series - quad = -5.15e-85
+a=5  gamma_a2 = 0.0001127796230530343995408498174832679694991   series - quad = -1.29e-85
+a=6  gamma_a2 = 0.000028916503822556344489925969622209433104   series - quad = -3.22e-86
+
+Classical: A := sum_{n>=1} (-1)^{n+1} H_n/n^3 = 11/4 z4 - 7/4 z3 log2 + z2/2 log^2 2 - log^4 2/12 - 2 Li4(1/2)
+A = 0.85924715792859061553990993947575998071288435086041 ; A - closed form = -2.86e-101
+gamma_12 = 0.021946417892163825509148323749440483553755683017118 ; minus (eta(4)-A)/4 = 4.46e-102
+gamma_12 = -15/32 z4 + 7/16 z3 log2 - 1/8 z2 log^2 2 + log^4 2/48 + 1/2 Li4(1/2): 6.25e-102
+
+PSLQ (dps 100, maxcoeff 1e12): gamma_{a,2} against pure-zeta bases of weight a+3
+  a=1 basis ['z4'] : None
+  a=2 basis ['z5', 'z2z3'] : [-256, -29, 16]
+  a=3 basis ['z6', 'z3^2'] : None
+  a=4 basis ['z7', 'z2z5', 'z3z4'] : [4096, 251, -64, -112]
+  a=5 basis ['z8', 'z3z5', 'z2z3^2'] : None
+  gamma_12 vs {z4, z3 log2, z2 log^2 2, log^4 2, Li4(1/2)}: [-96, -45, 42, -12, 2, 48]
+
+=== test example for (e), j=0: psi = (1+v) e^{-v^2}, omega = 1 ===
+F_0 = 0   [(a) minus this: 0]
+F_1 = 0   [(a) minus this: 0]
+F_2 = pi**2/24   [(a) minus this: 0.0]
+F_3 = 7*z3/16   [(a) minus this: 0.0]
+F_4 = g_1_2 + pi**4/640   [(a) minus this: 0.0]
+F_5 = g_1_3 + 2*g_2_2 - pi**2*z3/32 - 29*z5/256   [(a) minus this: 0.0]
+  F_4 decomposes as pure + 1!*gamma_12 + 2!*gamma_21 (omega=1, j=0)
+
+=== (g) p-norm rhombus diag(a,b), psi = q(v)+q(-v), q = 2/(ab (e^{2v}/a^2 + e^{-2v}/b^2)^{3/2}) ===
+odd part of psi (should be empty): {}
+c_2 = 4F_2 = 16*sqrt(5)*z2/25
+c_3 = 4F_3 = 16*sqrt(5)*z3/25
+c_4 = 4F_4 = 16*sqrt(5)*(-z2**2 + 4*z4)/125
+c_5 = 4F_5 = 16*sqrt(5)*(-2*z2*z3 + 3*z5)/125
+c_6 = 4F_6 = 16*sqrt(5)*(-338*z2**3 - 1164*z2*z4 - 75*z3**2 - 526*z6)/9375
+paper thm:rhombus check: c2 = 4 a^2 b^2 zeta(2)/r^3 -> 0 ; c3 = 4 a^2 b^2 zeta(3)/r^3 -> 0

@@ -1,0 +1,6 @@
+mp.mp.dps = 70
+133 Kummer relations
+Computing exact slope integral
+PASS slope: exact residual zero; 70-dps quadrature error 0.0
+Computing exact base integral
+PASS base: exact residual zero; 70-dps quadrature error 3.62227e-71

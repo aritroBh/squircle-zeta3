@@ -10,6 +10,17 @@ Further parts: the exact coefficients and the divergence of the expansion at the
 The later results (the pure-weight theorem, Fourier series of the squircle, the polygon and ζ(5) laws, the area of xⁿyⁿ to order n⁻³, the octahedron end, and more) are in `new_results/`; numbers such as "Theorem 13" are those of the paper.
 Every result in the table below comes with the script that checks it. The *Check* column says whether that check is exact (a proof by exact arithmetic) or numerical (agreement to the stated number of digits).
 
+## State of the repository
+
+The code here is as of draft 50 of the paper (2026-11-23).
+
+- `new_results/` now has 236 folders, 181 more than before. They cover the later results of the paper.
+- `proofs_supplement_scripts/` holds the check scripts that the written proofs supplement of the paper runs. The supplement itself is not here.
+- `VERIFICATION_MAP_draft50.md` is the current map from every theorem and every row of Table II to its folders, reports and scripts. `VERIFICATION_MAP.md` is the older map, from draft 10.
+- `OMITTED_LARGE_FILES.md` lists the files that were left out because they are too large.
+
+Most scripts were written to run inside the research tree, so some need their paths adjusted. `verify_all.py` and the certificates named in the map run from this layout.
+
 ## The parts
 
 All of these sit under *Investigating ζ(3)*:

@@ -1,0 +1,45 @@
+alpha = pi/3  c = 0.866025403784  s = 0.5  (HPL series order 806)
+   M_2 (definition)       = -0.0428717549768528825323064250525
+   |M2def - M2g|          = 1.2e-45     (integral of the u^2 coefficient, Lemma 1)
+   |M2g   - M2t|          = 1.07e-50     (Euler substitution)
+   |W2int - W2|           = 4.28e-50     (W_2 = zeta(2)/2 - Li2(c^2)/2)
+   W_3 = M2def - W2       = -0.376104091935813048896980675113
+   |W_3 - W3y|            = 1.2e-45     (the theorem: iterated-integral form)
+   |W_3 - (Y(c)+Y(-c)-zeta(2)(1-c^2)/(2c) artanh c)| = 1.2e-45
+   |W2 + W3y - M2def|     = 1.2e-45
+alpha = pi/2  c = 0.707106781187  s = 0.707106781187  (HPL series order 338)
+   M_2 (definition)       = -0.0221619110872693994237549377398
+   |M2def - M2g|          = 1.08e-45     (integral of the u^2 coefficient, Lemma 1)
+   |M2g   - M2t|          = 2.67e-51     (Euler substitution)
+   |W2int - W2|           = 0.0     (W_2 = zeta(2)/2 - Li2(c^2)/2)
+   W_3 = M2def - W2       = -0.553508681278876364708634360983
+   |W_3 - W3y|            = 1.08e-45     (the theorem: iterated-integral form)
+   |W_3 - (Y(c)+Y(-c)-zeta(2)(1-c^2)/(2c) artanh c)| = 1.08e-45
+   |W2 + W3y - M2def|     = 1.08e-45
+alpha = 2pi/3  c = 0.5  s = 0.866025403784  (HPL series order 172)
+   M_2 (definition)       = -0.00956789565295638477571972238565
+   |M2def - M2g|          = 8.28e-46     (integral of the u^2 coefficient, Lemma 1)
+   |M2g   - M2t|          = 2.94e-50     (Euler substitution)
+   |W2int - W2|           = 0.0     (W_2 = zeta(2)/2 - Li2(c^2)/2)
+   W_3 = M2def - W2       = -0.698208609535703299552335391465
+   |W_3 - W3y|            = 8.29e-46     (the theorem: iterated-integral form)
+   |W_3 - (Y(c)+Y(-c)-zeta(2)(1-c^2)/(2c) artanh c)| = 8.28e-46
+   |W2 + W3y - M2def|     = 8.29e-46
+alpha = 1.8  c = 0.621609968271  s = 0.783326909627  (HPL series order 248)
+   M_2 (definition)       = -0.0158727917967640666062708962581
+   |M2def - M2g|          = 1.28e-45     (integral of the u^2 coefficient, Lemma 1)
+   |M2g   - M2t|          = 2.41e-50     (Euler substitution)
+   |W2int - W2|           = 0.0     (W_2 = zeta(2)/2 - Li2(c^2)/2)
+   W_3 = M2def - W2       = -0.622338426961406627908038971131
+   |W_3 - W3y|            = 1.28e-45     (the theorem: iterated-integral form)
+   |W_3 - (Y(c)+Y(-c)-zeta(2)(1-c^2)/(2c) artanh c)| = 1.28e-45
+   |W2 + W3y - M2def|     = 1.28e-45
+alpha = 5pi/6  c = 0.258819045103  s = 0.965925826289  (HPL series order 91)
+   M_2 (definition)       = -0.00239241339321074168609894060877
+   |M2def - M2g|          = 8.51e-46     (integral of the u^2 coefficient, Lemma 1)
+   |M2g   - M2t|          = 7.02e-51     (Euler substitution)
+   |W2int - W2|           = 0.0     (W_2 = zeta(2)/2 - Li2(c^2)/2)
+   W_3 = M2def - W2       = -0.790787528403640760816896039301
+   |W_3 - W3y|            = 8.51e-46     (the theorem: iterated-integral form)
+   |W_3 - (Y(c)+Y(-c)-zeta(2)(1-c^2)/(2c) artanh c)| = 8.51e-46
+   |W2 + W3y - M2def|     = 8.51e-46

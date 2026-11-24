@@ -1,0 +1,98 @@
+2026-11-23 09:12:33 p=4194287 sector +: dim 23382 (fixed words 108)
+2026-11-23 09:12:39 generators: 216392 rows (std + lifts), nnz 7450447 (6s)
+2026-11-23 09:12:41 e sh G: 5136 weight-4 generators (9s)
+2026-11-23 09:13:08 targets 74 built (35s)
+2026-11-23 09:13:11 M' 23446 x 23382 dense, test rows 2479 (39s)
+2026-11-23 09:13:34     elim: cols 128/23382, rank 128, 22s
+2026-11-23 09:23:43     elim: cols 2688/23382, rank 2688, 632s
+2026-11-23 09:32:14     elim: cols 5248/23382, rank 5248, 1143s
+2026-11-23 09:41:15     elim: cols 7808/23382, rank 7808, 1684s
+2026-11-23 09:47:08     elim: cols 10368/23382, rank 10368, 2036s
+2026-11-23 09:52:58     elim: cols 12928/23382, rank 12928, 2386s
+2026-11-23 09:56:39     elim: cols 15488/23382, rank 15488, 2607s
+2026-11-23 09:58:40     elim: cols 18048/23382, rank 18048, 2729s
+2026-11-23 09:59:47     elim: cols 20608/23382, rank 20608, 2795s
+2026-11-23 10:00:16     elim: cols 23168/23382, rank 23102, 2825s
+2026-11-23 10:00:16 rank of span(Lgen) in sector +: 23113; codim 269 (2863s)
+2026-11-23 10:00:16 residue ranks: e sh G -> 7; I = e sh words(4) -> 72 (of 1200 random combinations each)
+2026-11-23 10:00:19 targets x_t in span(Lgen): 0/74; in span(Lgen) + e sh span(G): 74/74
+2026-11-23 10:00:19   u3.f4: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f4: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f5: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f5: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f7: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f7: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f9: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f9: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f10: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f10: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f12: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f12: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f14: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f14: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f15: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f15: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f16: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f16: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f17: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f17: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f52: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f52: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f53: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f53: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f54: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f54: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f56: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f56: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f58: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f58: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f59: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f59: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f61: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f61: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f63: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f63: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f64: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f64: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f65: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f65: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f66: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f66: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f67: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f67: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f68: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f68: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f69: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f69: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f70: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f70: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f71: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f71: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f72: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f72: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f73: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f73: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f74: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f74: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f75: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f75: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f87: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f87: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f91: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f91: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f95: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f95: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f103: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f103: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f104: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f104: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f107: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f107: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u3.f113: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:19   u5.f113: in L: 0, in L + e sh G: 1
+2026-11-23 10:00:20   control v=u3.f4 itself (no frame terms): in L 0, in L + e sh G 0, in L + I 0
+2026-11-23 10:00:20   control v=u5.f113 itself: in L 0, in L + e sh G 0, in L + I 0
+2026-11-23 10:00:20   control x(u3.f4) + unit vector: in L 0, in L + e sh G 0, in L + I 0
+2026-11-23 10:00:20   control e sh (1,-1,-1,1): in L 0, in L + e sh G 0, in L + I 1
+2026-11-23 10:00:21   control random vector: in L 0, in L + e sh G 0, in L + I 0
+2026-11-23 10:00:21 done (2868s)

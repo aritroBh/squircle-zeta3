@@ -1,0 +1,14 @@
+w_k: [1, 1, -5/2, -17/6, 121/24, 721/120, -1369/144, -58337/5040]
+w_k softmax: [1, 1, 0, 1/2, 0, 3/8, 0, 5/16]
+n=2 squircle: sqrt(2)*p/6    free left: set()
+     softmax: p/3    free left: set()
+n=3 squircle: sqrt(2)*z3    free left: set()
+     softmax: 2*z3    free left: set()
+n=4 squircle: -11*sqrt(2)*p**2/480    free left: set()
+     softmax: p**2/360    free left: set()
+n=5 squircle: -sqrt(2)*(7*p*z3 + 18*z5)/24    free left: set()
+     softmax: -p*z3/6 + 107*z5/32    free left: set()
+n=6 squircle: -sqrt(2)*(-577*p**3 + 30240*z3**2)/34560    free left: set()
+     softmax: 40*g32 + 11*p**3/15120 - z3**2/2    free left: {g32}
+n=7 squircle: sqrt(2)*(119*p**2*z3 + 940*p*z5 + 5160*z7)/640    free left: set()
+     softmax: 40*g33 + p**2*z3/120 + 2339*z7/512    free left: {g33}

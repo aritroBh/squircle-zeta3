@@ -1,0 +1,98 @@
+==============================================================================
+TASK 1, step 0: weight-1 definitions  H_0 = log x, H_1 = -log(1-x), H_-1 = log(1+x)
+==============================================================================
+
+=== TASK 1, step 1 (weight 2): C_{a,b} = H_{a,b} for the six words with b != 0 ===
+  H[0,1] = C[0,1] (derivative EXACT True, C(0+)=0 EXACT True, regular True): PROVED 
+  H[0,-1] = C[0,-1] (derivative EXACT True, C(0+)=0 EXACT True, regular True): PROVED 
+  H[1,1] = C[1,1] (derivative EXACT True, C(0+)=0 EXACT True, regular True): PROVED 
+  H[-1,-1] = C[-1,-1] (derivative EXACT True, C(0+)=0 EXACT True, regular True): PROVED 
+  H[1,-1] = C[1,-1] (derivative EXACT True, C(0+)=0 EXACT True, regular True): PROVED 
+  H[-1,1] = C[-1,1] (derivative EXACT True, C(0+)=0 EXACT True, regular True): PROVED 
+
+=== TASK 1, step 1b: proved classical Li2-atom identities (Euler/Landen/five-term) ===
+  Li2(1-x) reduction (derivative EXACT True, value at 0+ EXACT True): PROVED 
+  Li2(1/(1+x)) reduction (derivative EXACT True, value at 0+ EXACT True): PROVED 
+  Li2(-(1-x)/(1+x)) reduction (derivative EXACT True, value at 0+ EXACT True): PROVED 
+  Li2((1-x)/(1+x)) reduction (derivative EXACT True, value at 0+ EXACT True): PROVED 
+  Li2(2x/(1+x)) reduction (derivative EXACT True, value at 0+ EXACT True): PROVED 
+  duplication Li2(x)+Li2(-x) = Li2(x^2)/2 (derivative EXACT, value 0 at 0 by Li2(0)=0): PROVED 
+
+=== TASK 1, step 2 (weight 3): the ten identities H_w = C_w ===
+  w = [-1, 0, -1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [-1, 0, 1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [-1, 1, -1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [0, -1, 1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [0, 0, -1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [0, 0, 1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [0, 1, -1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [1, -1, 1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [1, 0, -1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+  w = [1, 0, 1]: derivative identity EXACT True; constant EXACT 0 True -> H_w = C_w: PROVED (lim C_w = 0; the reduced derivative is the zero polynomial over Q(x))
+
+=== TASK 1, step 3: Li-argument ranges on (0,1) ===
+  arg x: in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min 0.000000, max 1.000000)
+  arg -x: in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min -1.000000, max -0.000000)
+  arg 1-x: in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min 0.000000, max 1.000000)
+  arg 1/(1+x): in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min 0.500000, max 1.000000)
+  arg (1+x)/2: in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min 0.500000, max 1.000000)
+  arg (1-x)/(1+x): in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min 0.000000, max 1.000000)
+  arg -(1-x)/(1+x): in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min -1.000000, max -0.000000)
+  arg 2x/(1+x): in (-1,1] and strictly monotone: CHECKED (numerical, not a proof) (grid min 0.000000, max 1.000000)
+
+=== TASK 1, step 4 (NUMERICAL, not part of the proof): H_w by quad vs C_w ===
+  quadrature cross-check (proved weight-2 vs fully nested): 1.81e-65
+  NUMERICAL  [-1, 0, -1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 5.93e-66 (65 dps)
+  NUMERICAL   [-1, 0, 1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 1.19e-66 (65 dps)
+  NUMERICAL  [-1, 1, -1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 3.41e-66 (65 dps)
+  NUMERICAL   [0, -1, 1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 1.91e-65 (65 dps)
+  NUMERICAL   [0, 0, -1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 0.0 (65 dps)
+  NUMERICAL    [0, 0, 1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 0.0 (65 dps)
+  NUMERICAL   [0, 1, -1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 2.14e-65 (65 dps)
+  NUMERICAL   [1, -1, 1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 8.31e-66 (65 dps)
+  NUMERICAL   [1, 0, -1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 4.75e-66 (65 dps)
+  NUMERICAL    [1, 0, 1]: max |quad - C_w| over x = 0.3, 0.7, 0.95 = 1.42e-65 (65 dps)
+
+==============================================================================
+TASK 2: B2 -> B2' exactly
+==============================================================================
+  sign rule H_w(-x) = (-1)^nnz H_{-w}(x) (one-line t -> -t proof; NUMERICAL check): CHECKED (numerical, not a proof) 
+  hpl_fit_k2 json == typed B2 (S(c)+S(-c) with sign rule), all 12 coefficients: PROVED 
+
+  coefficient-by-coefficient comparison in Q(c) (assembled from PROVED dict vs typed B2'):
+                       ('1', 'log2^3'): diff = 0
+                     ('1', 'pi2*log2'): diff = 0
+                           ('1', 'z3'): diff = 0
+             ('Li2((1+x)/2)*l1m', '1'): diff = 0
+             ('Li2((1+x)/2)*l1p', '1'): diff = 0
+                      ('Li2(-x)', '1'): diff = 0
+                  ('Li2(-x)*l1m', '1'): diff = 0
+                  ('Li2(-x)*l1p', '1'): diff = 0
+                       ('Li2(x)', '1'): diff = 0
+                   ('Li2(x)*l1m', '1'): diff = 0
+                   ('Li2(x)*l1p', '1'): diff = 0
+                 ('Li3((1+x)/2)', '1'): diff = 0
+             ('Li3((1-x)/(1+x))', '1'): diff = 0
+            ('Li3(-(1-x)/(1+x))', '1'): diff = 0
+                      ('Li3(-x)', '1'): diff = 0
+                     ('Li3(1-x)', '1'): diff = 0
+                 ('Li3(1/(1+x))', '1'): diff = 0
+                ('Li3(2x/(1+x))', '1'): diff = 0
+                       ('Li3(x)', '1'): diff = 0
+                     ('l1m', 'log2^2'): diff = 0
+                        ('l1m', 'pi2'): diff = 0
+                   ('l1m*l1m', 'log2'): diff = 0
+                  ('l1m*l1m*l1p', '1'): diff = 0
+                   ('l1m*l1p', 'log2'): diff = 0
+                  ('l1m*l1p*l1p', '1'): diff = 0
+                     ('l1p', 'log2^2'): diff = 0
+                        ('l1p', 'pi2'): diff = 0
+                   ('l1p*l1p', 'log2'): diff = 0
+                  ('l1p*l1p*l1p', '1'): diff = 0
+                   ('lx*l1m*l1m', '1'): diff = 0
+                   ('lx*l1m*l1p', '1'): diff = 0
+                   ('lx*l1p*l1p', '1'): diff = 0
+  B2 -> B2': all coefficients in Q(c) agree (Z(c) = 7/4 + 2c included): PROVED 
+
+==============================================================================
+SUMMARY: 24/24 exact items PROVED;  9/9 numerical items CHECKED (8 range grids, sign rule; not proofs);  total time 17.3s

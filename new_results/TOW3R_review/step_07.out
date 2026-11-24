@@ -1,0 +1,5 @@
+key (5,5) d=10: independent A(v) log-deriv: {5: True, 6: True}  (41s)
+key (15,10) d=25: independent A(v) log-deriv: {5: True, 6: True}  (229s)
+key (13,13) d=26: independent A(v) log-deriv: {5: True, 6: True}  (427s)
+key (26,26) d=52: independent A(v) log-deriv: {5: True, 6: True}  (1111s)
+key (9,0) d=9: independent A(v) log-deriv: {5: True, 6: True}  (1144s)

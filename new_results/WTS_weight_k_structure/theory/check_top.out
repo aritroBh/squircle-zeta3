@@ -1,0 +1,32 @@
+d=2: C_d = D_d/((-1)^(j+1) binom(d,j)) at pole -a over keys: [(Fraction(-1, 2), Fraction(0, 1))]  key-independent: True
+d=3: C_d = D_d/((-1)^(j+1) binom(d,j)) at pole -a over keys: [(Fraction(-1, 3), Fraction(0, 1))]  key-independent: True
+d=4: C_d = D_d/((-1)^(j+1) binom(d,j)) at pole -a over keys: [(Fraction(5, 24), Fraction(0, 1))]  key-independent: True
+d=5: C_d = D_d/((-1)^(j+1) binom(d,j)) at pole -a over keys: [(Fraction(2, 15), Fraction(0, 1))]  key-independent: True
+d=6: C_d = D_d/((-1)^(j+1) binom(d,j)) at pole -a over keys: [(Fraction(-61, 720), Fraction(0, 1))]  key-independent: True
+d=7: C_d = D_d/((-1)^(j+1) binom(d,j)) at pole -a over keys: [(Fraction(-17, 315), Fraction(0, 1))]  key-independent: True
+d=8: C_d = D_d/((-1)^(j+1) binom(d,j)) at pole -a over keys: [(Fraction(277, 8064), Fraction(0, 1))]  key-independent: True
+series of (1+sinh x)/cosh x: 62*X**9/2835 + 277*X**8/8064 - 17*X**7/315 - 61*X**6/720 + 2*X**5/15 + 5*X**4/24 - X**3/3 - X**2/2 + X + 1
+d=2: C_d = -1/2   [x^2] (sech x + tanh x) = -1/2   equal: True
+d=3: C_d = -1/3   [x^3] (sech x + tanh x) = -1/3   equal: True
+d=4: C_d = 5/24   [x^4] (sech x + tanh x) = 5/24   equal: True
+d=5: C_d = 2/15   [x^5] (sech x + tanh x) = 2/15   equal: True
+d=6: C_d = -61/720   [x^6] (sech x + tanh x) = -61/720   equal: True
+d=7: C_d = -17/315   [x^7] (sech x + tanh x) = -17/315   equal: True
+d=8: C_d = 277/8064   [x^8] (sech x + tanh x) = 277/8064   equal: True
+C_d = [x^d](sech x + tanh x) for d=2..8 (exact): True
+
+leading coefficient D_d(key,pole)/binom(d,j) (exact; pole '0','a','-a','-b'):
+  d=2 key=(2,0): {'-a': '1/2', '0': '0', '-b': '-1/2', 'a': '0'}
+  d=2 key=(1,1): {'-a': '-1/2', '0': '1/4'}
+  d=3 key=(3,0): {'-a': '1/3', '0': '0', '-b': '0', 'a': '-1/3'}
+  d=3 key=(2,1): {'-a': '-1/3', '0': '1/6', '-b': '-1/6', 'a': '1/6'}
+  d=4 key=(4,0): {'-a': '-5/24', '0': '0', '-b': '5/24', 'a': '0'}
+  d=4 key=(3,1): {'-a': '5/24', '0': '0', '-b': '-5/24', 'a': '0'}
+  d=4 key=(2,2): {'-a': '-5/24', '0': '5/48'}
+  d=5 key=(5,0): {'-a': '-2/15', '0': '0', '-b': '0', 'a': '2/15'}
+  d=5 key=(4,1): {'-a': '2/15', '0': '0', '-b': '0', 'a': '-2/15'}
+  d=5 key=(3,2): {'-a': '-2/15', '0': '1/15', '-b': '-1/15', 'a': '1/15'}
+  d=6 key=(6,0): {'-a': '61/720', '0': '0', '-b': '-61/720', 'a': '0'}
+  d=6 key=(5,1): {'-a': '-61/720', '0': '0', '-b': '61/720', 'a': '0'}
+  d=6 key=(4,2): {'-a': '61/720', '0': '0', '-b': '-61/720', 'a': '0'}
+  d=6 key=(3,3): {'-a': '-61/720', '0': '61/1440'}

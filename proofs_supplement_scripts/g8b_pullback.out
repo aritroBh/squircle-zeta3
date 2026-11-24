@@ -1,0 +1,49 @@
+=== Part 1: letters of phi = (t+1/t)/2 ===
+  phi - (0) = (t - I)*(t + I)/(2*t)   [phi-(0)] = {'e0': -1, 'ei': 1, 'e-i': 1}
+  phi - (1) = (t - 1)**2/(2*t)   [phi-(1)] = {'e0': -1, 'e1': 2}
+  phi - (-1) = (t + 1)**2/(2*t)   [phi-(-1)] = {'e0': -1, 'e-1': 2}
+  every zero and pole of phi, phi-1, phi+1 in C lies in Sigma_t = {0, i, -i, 1, -1}: True (asserted above)
+
+=== Part 2: the map phi_* and its exterior powers ===
+  matrix of phi_* (rows e0, ei, e-i, e1, e-1; columns x=e_0, y=e_1, z=e_-1):
+⎡-1  -1  -1⎤
+⎢          ⎥
+⎢1   0   0 ⎥
+⎢          ⎥
+⎢1   0   0 ⎥
+⎢          ⎥
+⎢0   2   0 ⎥
+⎢          ⎥
+⎣0   0   2 ⎦
+  rank of phi_* = 3 (injective iff 3)
+  rank of Lambda^2 Lambda^2 phi_* on span(p^q, p^r, q^r) = 3 (injective iff 3)
+
+=== Part 3: the pulled-back (2,2) part ===
+  S(Omega) has 24 pure tensors
+  delta_{2,2}(S_4(M_3 o phi)), computed directly in T^4(V_Sigma_t): non-zero components = 21 of 45
+  formula (1-1/phi) L2L2phi_*(p^r) - (1+1/phi) L2L2phi_*(q^r): non-zero components = 21
+  direct computation equals the formula by naturality: True
+  components (basis (a^b)^(c^d) of Lambda^2 Lambda^2) with coefficient as a rational function of t:
+     (e0^ei) ^ (e0^e1) : -8*t/(t**2 + 1)
+     (e0^ei) ^ (e0^e-1) : 8*t/(t**2 + 1)
+     (e0^ei) ^ (e1^e-1) : -16*t/(t**2 + 1)
+     (e0^e-i) ^ (e0^e1) : -8*t/(t**2 + 1)
+     (e0^e-i) ^ (e0^e-1) : 8*t/(t**2 + 1)
+     (e0^e-i) ^ (e1^e-1) : -16*t/(t**2 + 1)
+     (e0^e1) ^ (e0^e-1) : -16*t/(t**2 + 1)
+     (e0^e1) ^ (ei^e1) : -4*(t - 1)**2/(t**2 + 1)
+     (e0^e1) ^ (ei^e-1) : 4*(t + 1)**2/(t**2 + 1)
+     (e0^e1) ^ (e-i^e1) : -4*(t - 1)**2/(t**2 + 1)
+     (e0^e1) ^ (e-i^e-1) : 4*(t + 1)**2/(t**2 + 1)
+     (e0^e1) ^ (e1^e-1) : -8*(t - 1)**2/(t**2 + 1)
+     (e0^e-1) ^ (ei^e1) : 4*(t - 1)**2/(t**2 + 1)
+     (e0^e-1) ^ (ei^e-1) : -4*(t + 1)**2/(t**2 + 1)
+     (e0^e-1) ^ (e-i^e1) : 4*(t - 1)**2/(t**2 + 1)
+     (e0^e-1) ^ (e-i^e-1) : -4*(t + 1)**2/(t**2 + 1)
+     (e0^e-1) ^ (e1^e-1) : 8*(t + 1)**2/(t**2 + 1)
+     (ei^e1) ^ (e1^e-1) : 8*(t - 1)**2/(t**2 + 1)
+     (ei^e-1) ^ (e1^e-1) : -8*(t + 1)**2/(t**2 + 1)
+     (e-i^e1) ^ (e1^e-1) : 8*(t - 1)**2/(t**2 + 1)
+     (e-i^e-1) ^ (e1^e-1) : -8*(t + 1)**2/(t**2 + 1)
+  RESULT: phi_* injective (rank 3), Lambda^2Lambda^2 phi_* injective (rank 3), pulled-back delta_{2,2} non-zero with 21 non-zero components: True
+"<project>/.venv/bin/python" g8b_pullback.py  0.43s user 0.07s system 64% cpu 0.779 total

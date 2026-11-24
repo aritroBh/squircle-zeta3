@@ -1,0 +1,63 @@
+== diamond
+  run1 vs run2 |diff| for P,P1,P2,P3: ['8.6e-71', '1.1e-75', '1.6e-70', '1.8e-69']
+  P(1) - polygon perimeter: 4.5e-85  #edges 4
+  P'(1) - referee general first-order formula: 3.0e-90
+  P'(1) = 3.04485202709330052071211807290847292972689089e-90
+  E = 1.41421356237309504880168872421  sum Z_e = 8.48528137423857029281013234526
+  thm:poly: P(1) formula diff 4.5e-85 ; P'(1)-P(1)R1: 3.0e-90
+  sum Z_e - C_m: 0  C_m = 8.48528137423857029281013234526
+  parallelogram law: P''(1)-pi^2E/3: 4.0e-85 ; P'''(1)-6E(z3-pi^2/3): 2.5e-84
+== parallelogram
+  run1 vs run2 |diff| for P,P1,P2,P3: ['3.1e-70', '1.4e-76', '6.7e-71', '1.4e-69']
+  P(1) - polygon perimeter: 3.8e-85  #edges 4
+  P'(1) - referee general first-order formula: 4.5e-91
+  P'(1) = 4.49615275208015003283818127591170731875638028e-91
+  E = 1.33562621308911766626679165925  sum Z_e = 8.01375727853470599760074995548
+  parallelogram law: P''(1)-pi^2E/3: 2.7e-85 ; P'''(1)-6E(z3-pi^2/3): 1.5e-84
+== reg_hexagon
+  run1 vs run2 |diff| for P,P1,P2,P3: ['3.4e-71', '2.1e-70', '4.4e-70', '1.8e-70']
+  P(1) - polygon perimeter: 2.9e-85  #edges 6
+  P'(1) - referee general first-order formula: 3.8e-85
+  P'(1) = 2.40113226770588735429020690407746529554651722
+  E = 2.59807621135331594029116951226  sum Z_e = -1.94855715851498695521837713419
+  thm:poly: P(1) formula diff 2.9e-85 ; P'(1)-P(1)R1: 3.8e-85
+  sum Z_e - C_m: 2.9e-101  C_m = -1.94855715851498695521837713419
+  hexagon law diffs P..P3: ['2.9e-85', '3.8e-85', '6.3e-86', '2.6e-85']
+  coefficient of zeta(3) in P'''(1) from law: -3E/4 = -1.948557158514986955218377  sum Z_e = -1.948557158514986955218377
+  printed regular hexagon P'''(1) diff: 2.6e-85 ; P'(1)-2sqrt3 log2: 3.8e-85
+== affreg_hexagon
+  run1 vs run2 |diff| for P,P1,P2,P3: ['2.6e-70', '1.2e-70', '2.3e-71', '1.4e-70']
+  P(1) - polygon perimeter: 3.4e-85  #edges 6
+  P'(1) - referee general first-order formula: 1.1e-85
+  P'(1) = 1.71407279875174167024387819763863331834023999
+  E = 2.28941241940180626513608959157  sum Z_e = -1.71705931455135469885206719368
+  hexagon law diffs P..P3: ['3.4e-85', '1.1e-85', '7.3e-87', '8.1e-86']
+  coefficient of zeta(3) in P'''(1) from law: -3E/4 = -1.717059314551354698852067  sum Z_e = -1.717059314551354698852067
+== reg_octagon
+  run1 vs run2 |diff| for P,P1,P2,P3: ['3.3e-71', '4.5e-70', '2.6e-70', '3.4e-70']
+  P(1) - polygon perimeter: 2.2e-87  #edges 8
+  P'(1) - referee general first-order formula: 4.9e-85
+  P'(1) = 2.75023713004966371870863005296385194252854498
+  E = 3.69551813004514702451273275759  sum Z_e = -2.13292174913839951097438307247
+  thm:poly: P(1) formula diff 2.2e-87 ; P'(1)-P(1)R1: 4.9e-85
+  sum Z_e - C_m: 0  C_m = -2.13292174913839951097438307247
+== reg_decagon
+  run1 vs run2 |diff| for P,P1,P2,P3: ['4.5e-70', '4.9e-70', '1.5e-71', '3.1e-70']
+  P(1) - polygon perimeter: 4.5e-85  #edges 10
+  P'(1) - referee general first-order formula: 3.1e-85
+  P'(1) = 2.72735150517983661148798551464963366249252626
+  E = 4.7552825814757678605821966669  sum Z_e = -1.48510280041350954453523545755
+  thm:poly: P(1) formula diff 4.5e-85 ; P'(1)-P(1)R1: 3.1e-85
+  sum Z_e - C_m: 1.4e-101  C_m = -1.48510280041350954453523545755
+== gen_hexagon
+  run1 vs run2 |diff| for P,P1,P2,P3: ['1.6e-70', '1.8e-70', '2.4e-70', '3.7e-72']
+  P(1) - polygon perimeter: 3.2e-85  #edges 6
+  P'(1) - referee general first-order formula: 3.7e-85
+  P'(1) = 2.48093338826291779845204329873712025069270951
+  E = 3.26654246936178657137980042572  sum Z_e = -2.20886016144891113414710215919
+== gen_octagon
+  run1 vs run2 |diff| for P,P1,P2,P3: ['2.8e-70', '1.1e-70', '3.5e-70', '3.7e-70']
+  P(1) - polygon perimeter: 2.6e-85  #edges 8
+  P'(1) - referee general first-order formula: 4.7e-85
+  P'(1) = 3.12578670502275155423890845932239224932822081
+  E = 4.58272420337793335786354631082  sum Z_e = -2.30118904614375831725208834343

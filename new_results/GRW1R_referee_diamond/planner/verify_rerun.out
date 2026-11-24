@@ -1,0 +1,37 @@
+==== [1] Claim C: E* = 5/24 CERTIFIED (arb cover + exact series) ====
+  piece A [0,0.1]: psi(s) <= (5/24)^2 since c1+(c2+T)u < [-0.00178852210083916 +/- 1.95e-18]  [series+Cauchy tail, M_E(3)<=[1.19000472941971 +/- 4.20e-15]]
+  piece B: certified max psi on [0.1, 1.9 rho] = [0.0433847019005062 +/- 3.68e-17]
+  (5/24)^2 = [0.0434027777777778 +/- 4.93e-17]  =>  E* = max|E| on slit = [0.208333333333333 +/- 3.60e-16] = 5/24  CERTIFIED
+==== [2] Claim C: exact H_n, two-term law, repaired remainder 7.06 (claimed 4.45+circle true) ====
+  |H_n-law2| <= 7.06 rho^-n n^-7/2 : worst ratio 0.648464 (n=12)  PASS
+  |H_n-law2| <= 4.45 rho^-n n^-7/2 + 135(2.9rho)^-n : worst ratio 0.986446 (n=18)  TRUE on 10..220
+  C_H = max |H_n| rho^n n^1.5 = 5.8739238 at n=3 (claimed 5.874 @3)  PASS
+==== [3] Claim C: certified honest remainder sup over 10..500 (+ Stirling tail) ====
+  certified sup (|A+B-law2|+Ebnd+tails)/(rho^-n n^-7/2) over 10..500 = [7.05229299615373 +/- 2.94e-15] at n=11
+  (Stirling tail n>=500 proved <= 5.19; => |R_n| <= 7.06 rho^-n n^-7/2 + 135(2.9rho)^-n for ALL n>=10)
+==== [4] Claim D: uniformity bound vs true tail (450-digit f_n) ====
+  n=20: |tail|=2.843e+5 <= D-bound 9.427e+8 : True ; |tail|/|main|=9.21e-8
+  n=40: |tail|=1.779e+24 <= D-bound 1.802e+28 : True ; |tail|/|main|=3.95e-14
+  n=80: |tail|=3.45e+74 <= D-bound 1.028e+79 : True ; |tail|/|main|=1.71e-26
+  n=120: |tail|=1.502e+134 <= D-bound 8.327e+138 : True ; |tail|/|main|=1.02e-38
+==== [5] Claim E: two-term law per residue class mod 4 (Richardson) ====
+  class 0: const=0.999997703608 (~1), c1=-0.8020225764 (pred -0.8030972451)
+  class 1: const=0.999997726459 (~1), c1=1.554156692 (pred 1.553097245)
+  class 2: const=0.999997789713 (~1), c1=-0.8020496179 (pred -0.8030972451)
+  class 3: const=0.999997813903 (~1), c1=1.554129054 (pred 1.553097245)
+==== [6] Theorem 2 (F): S(eta)=I(eta) by own conformal-map Borel-Laplace ====
+  eta=0.5: S=0.707106781186548  I=0.707106781186548  |S-I|=3.46e-24
+  eta=2.0: S=0.424769185832607  I=0.424769186707155  |S-I|=8.75e-10
+  eta=-0.5: S=2.22144146907918  I=2.22144146907918  |S-I|=4.62e-23
+  eta=-0.9: S=13.3950920123808  I=13.395092012376  |S-I|=4.78e-12
+  [G] |r_180|^(1/180) = 0.30483619  vs 1/pi = 0.31830989
+==== [7] Claim B (Lemma 2) spot check, own quadrature ====
+  n=1: |sum - f_n|/|f_n| = 0.0
+  n=2: |sum - f_n|/|f_n| = 1.84e-59
+  n=3: |sum - f_n|/|f_n| = 2.09e-63
+  n=5: |sum - f_n|/|f_n| = 8.73e-62
+==== [8] Claim A spot check, eta=0.37 ====
+  Laplace form vs perimeter: |diff| = 7.78e-62
+==== [9] Claim H: Stokes jump integral asymptotics ====
+  eps=0.1: |J|=1.680979728e-7 |pred|=1.680947491e-7 ratio=1.0000192; J/pred-1=(1.88411e-5 + 0.000820616j)
+\nTOTAL TIME: 40.3s

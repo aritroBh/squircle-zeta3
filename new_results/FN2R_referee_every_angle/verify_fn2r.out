@@ -1,0 +1,37 @@
+== R1: Lemma B tail coefficients ==
+  d_l l<=10: True  c=0 -> -C(-1/2,m): True  Legendre identity: True  [  2.8s]
+== R2: theta_ij reversion + master -> displayed ==
+  master - displayed at general c = 0: True  ; pi/2 -> P3 Q's = 0: True  [  9.4s]
+== R3: thm:P2 exact series (f=x) through eps^3 ==
+  exact series - displayed J (f=x), general c = 0: True  [ 10.2s]
+== R4: cumulants + Mellin ==
+  cumulants worst |diff| (3 angles): 1.2e-60  Mellin=Legendre w=+-0.9: 6.2e-60  [ 14.0s]
+== R5: residual after J3 / eps^4 log^4 n ==
+  f=   exp th= pi/3 n=  10000: scaled resid = 0.000848371
+  f=   exp th= pi/3 n= 100000: scaled resid = 0.00134358
+  f=   exp th= pi/3 n=1000000: scaled resid = 0.00158503
+  f=   exp th=2pi/3 n=  10000: scaled resid = 0.00298661
+  f=   exp th=2pi/3 n= 100000: scaled resid = 0.00453614
+  f=   exp th=2pi/3 n=1000000: scaled resid = 0.00525515
+  f=linexp th= pi/3 n=  10000: scaled resid = -0.000547956
+  f=linexp th= pi/3 n= 100000: scaled resid = -0.00027675
+  f=linexp th= pi/3 n=1000000: scaled resid = -0.000158353
+  f=linexp th=2pi/3 n=  10000: scaled resid = -0.00186755
+  f=linexp th=2pi/3 n= 100000: scaled resid = -0.000918142
+  f=linexp th=2pi/3 n=1000000: scaled resid = -0.000514863
+  max |scaled| = 0.005255  [ 51.5s]
+== R6: resid = eps^4 J4 (1+o(1)) at exp, pi/3, n=1e5 ==
+  resid/(eps^4 J4) = 0.99999617  [ 56.2s]
+== R7: contact sin(pi x/2) ==
+  th= pi/3 n=  100000: D/L0=1.143549 D/L3=0.9961176 D/Fm=0.999989427 scaled(D/L0-pred)=0.7461
+  th= pi/3 n= 1000000: D/L0=1.129031 D/L3=0.998454 D/Fm=0.999998743 scaled(D/L0-pred)=0.76756
+  th=2pi/3 n=  100000: D/L0=1.181202 D/L3=0.9983847 D/Fm=0.999988848 scaled(D/L0-pred)=0.832
+  th=2pi/3 n= 1000000: D/L0=1.159102 D/L3=0.9993916 D/Fm=0.999998683 scaled(D/L0-pred)=0.82531
+  [ 76.9s]
+== R8: gap regime m=3/2 and m=1/2 (exact-Phi) ==
+  m=1.5 n=1e5: |1 - D/Fm| = 8.49e-35
+  m=0.5 n=1e5: |1 - D/Fm| = 4.25e-33
+  [ 86.0s]
+== R9: Klayer identity ==
+  Klayer - (1-c)k1/2 = 7.3e-29  [ 86.2s]
+TOTAL runtime: 86.2s

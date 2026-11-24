@@ -1,0 +1,11 @@
+engine built, 149.8 s
+E[0] = sqrt(L2)
+E[0]: 1 monomials, 150s
+E[1]: 8 monomials, 150s
+E[2]: 30 monomials, 150s
+E[3]: 80 monomials, 150s
+E[4]: 175 monomials, 154s
+E[5]: 336 monomials, 187s
+saved E5_polys.pkl
+E[3] vs K1d: monomials mine 80 k1d 80 mismatches 0
+DONE

@@ -1,0 +1,7 @@
+E3 closed form - TWOEND1 E_44 = 1.56e-60  E3 - WT5 1500-digit value = -3.11e-61
+CONTROL W5 (3,2) pairings: ['84', '-38*sqrt2'] (expect 84 and -38*sqrt2)
+CONTROL W5'' (3,2) pairings: ['15', '-13*sqrt2'] (expect 15 and -13*sqrt2)
+E1 (3,2) pairings ([X,P]xP, [Y,P]xP): ['-17/2', '0']   classical-at-symbol-level: False
+E2 (3,2) pairings ([X,P]xP, [Y,P]xP): ['-2', '0']   classical-at-symbol-level: False
+E3 (3,2) pairings ([X,P]xP, [Y,P]xP): ['0', '0']   classical-at-symbol-level: True
+saved pairings.json

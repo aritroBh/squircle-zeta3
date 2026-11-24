@@ -1,0 +1,24 @@
+<project>/research/08_theory/SRF4_octahedron_uniformity/referee/r2_lemmaZ.py:7: RuntimeWarning: overflow encountered in exp
+  def E(z, w):  return 1 + np.exp(w*z) + np.exp(z)
+<project>/research/08_theory/SRF4_octahedron_uniformity/referee/r2_lemmaZ.py:7: RuntimeWarning: invalid value encountered in multiply
+  def E(z, w):  return 1 + np.exp(w*z) + np.exp(z)
+<project>/research/08_theory/SRF4_octahedron_uniformity/referee/r2_lemmaZ.py:7: RuntimeWarning: invalid value encountered in add
+  def E(z, w):  return 1 + np.exp(w*z) + np.exp(z)
+w-points: 2007  Newton count != winding count at 0 points
+global min |zeta|/rho* = 1.0000000000000002  at w = 0.0
+min over 0<w<1 of |zeta|/rho* - 1 = 5.0000033668951e-07
+min |Im zeta|/pi over all w = 1.0
+  w=0  min|zeta|/rho*=1.000000000  (1+w/2 ~ 1.000000)  #zeros=2
+  w=1e-06  min|zeta|/rho*=1.000000500  (1+w/2 ~ 1.000001)  #zeros=2
+  w=0.0001  min|zeta|/rho*=1.000050003  (1+w/2 ~ 1.000050)  #zeros=2
+  w=0.001  min|zeta|/rho*=1.000500337  (1+w/2 ~ 1.000500)  #zeros=2
+  w=0.01  min|zeta|/rho*=1.005033920  (1+w/2 ~ 1.005000)  #zeros=2
+  w=0.05  min|zeta|/rho*=1.025873934  (1+w/2 ~ 1.025000)  #zeros=2
+  w=0.19  min|zeta|/rho*=1.108927152  (1+w/2 ~ 1.095000)  #zeros=2
+  w=0.5  min|zeta|/rho*=1.302018724  (1+w/2 ~ 1.250000)  #zeros=2
+  w=0.81  min|zeta|/rho*=1.108927152  (1+w/2 ~ 1.095000)  #zeros=2
+  w=0.95  min|zeta|/rho*=1.025873934  (1+w/2 ~ 1.025000)  #zeros=2
+  w=0.999  min|zeta|/rho*=1.000500337  (1+w/2 ~ 1.000500)  #zeros=2
+  w=1  min|zeta|/rho*=1.000000000  (1+w/2 ~ 1.000000)  #zeros=2
+max |m(w)-m(1-w)| on grid: 1.6381784817554035e-11
+band zeros checked: 78  violations of a>=log(2cos beta): 0

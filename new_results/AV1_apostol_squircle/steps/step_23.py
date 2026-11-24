@@ -1,0 +1,70 @@
+
+# step_23.py : exact assembly of d11 from individual I_ab relations; verify.
+import mpmath as mp
+from fractions import Fraction as Fr
+mp.mp.dps = 130
+import sympy as sp
+Kmax = 80
+u = sp.symbols('u')
+ex = sp.log(sum((-u)**j/sp.factorial(j+1) for j in range(Kmax+3)))
+cs=[sp.expand(ex).series(u,0,Kmax+1).removeO().coeff(u,k) for k in range(Kmax+1)]
+c=[mp.mpf(x) for x in cs]
+def gpow(j):
+    poly=[mp.mpf(1)]
+    for _ in range(j):
+        new=[mp.mpf(0)]*(len(poly)+Kmax)
+        for i,a in enumerate(poly):
+            for k2 in range(1,Kmax+1): new[i+k2]+=a*c[k2]
+        poly=new
+    return poly
+GP={j:gpow(j) for j in range(0,12)}
+def int_u_log(s,m,delta):
+    ld=mp.log(delta); tot=mp.mpf(0)
+    for i in range(m+1): tot+=(-1)**(m-i)*mp.factorial(m)/mp.factorial(i)*ld**i/(s+1)**(m-i+1)
+    return delta**(s+1)*tot
+def I_ab(a,b,delta=mp.mpf('0.5')):
+    near=mp.mpf(0)
+    for j in range(0,b+1):
+        for k2,coeff in enumerate(GP[j]):
+            if coeff==0: continue
+            near+=mp.binomial(b,j)*coeff*int_u_log(a+k2,b-j,delta)
+    return near+mp.quad(lambda uu: uu**a*mp.log(1-mp.exp(-uu))**b,[delta,1,3,8,20,60,200])
+need=[(10-j,j) for j in range(1,11)]
+I={ab:I_ab(*ab) for ab in need}
+# relations as I_ab = sum_j r_j basis_j ; basis = [z11,z2z9,pi4z7,pi6z5,pi8z3,z3^2z5,z2z3^3]
+# from PSLQ rows [q0,q1,...]: q0*I + q1*b1 + ... = 0 => I = -(q1 b1+...)/q0
+rows = {(9,1):[1, 362880, 0, 0, 0, 0, 0, 0],
+        (8,2):[-15, 6048000, -1209600, -13440, -1280, -128, 0, 0],
+        (7,3):[-5, -2268000, 604800, 5460, 440, 36, -75600, 0],
+        (6,4):[105, -54432000, 16934400, 136080, 9480, 728, -3628800, 302400],
+        (5,5):[-6, -3628800, 1209600, 8880, 560, 47, -302400, 43200],
+        (4,6):[5, -3628800, 1209600, 8880, 560, 47, -302400, 43200],
+        (3,7):[15, 13608000, -4233600, -34020, -2370, -182, 907200, -75600],
+        (2,8):[15, -18144000, 4838400, 43680, 3520, 288, -604800, 0],
+        (1,9):[5, 9072000, -1814400, -20160, -1920, -192, 0, 0],
+        (0,10):[-1, 3628800, 0, 0, 0, 0, 0, 0]}
+z=mp.zeta
+basis=[z(11),z(2)*z(9),mp.pi**4*z(7),mp.pi**6*z(5),mp.pi**8*z(3),z(3)**2*z(5),z(2)*z(3)**3]
+rels={}
+for ab,row in rows.items():
+    q0=row[0]
+    rels[ab]=[Fr(-x,q0) for x in row[1:]]
+# verify individuals
+def mpf(x): return mp.mpf(x.numerator)/x.denominator
+for ab in need:
+    val=sum(mpf(x)*b for x,b in zip(rels[ab],basis))
+    print(f'I_{ab} residual: {mp.nstr(abs(I[ab]-val),3)}')
+# assemble d11 = (1/479001600) * sum_{j=1..10} C(10,j)(-1)^j I_{10-j,j}
+d11r=[Fr(0)]*7
+for j in range(1,11):
+    w = Fr(sp.binomial(10,j))*((-1)**j)
+    for jj in range(7): d11r[jj] += w*rels[(10-j,j)][jj]
+d11r=[x/Fr(479001600) for x in d11r]
+print('d11 coeffs [z11,z2z9,pi4z7,pi6z5,pi8z3,z3^2z5,z2z3^3]:')
+for x in d11r: print('   ', x)
+B10=mp.mpf(5)/66
+d11num = B10/(10*mp.factorial(10))*sum(mp.binomial(10,j)*(-1)**j*I[(10-j,j)] for j in range(1,11))
+d11asm = sum(mpf(x)*b for x,b in zip(d11r,basis))
+print('d11 numeric   =', mp.nstr(d11num,50))
+print('d11 assembled =', mp.nstr(d11asm,50))
+print('|diff| =', mp.nstr(abs(d11num-d11asm),4))

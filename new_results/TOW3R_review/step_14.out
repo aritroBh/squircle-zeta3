@@ -1,0 +1,2 @@
+tau1/tau2 from definition == tow2lib table (n=0..7), Q(i)-valued: OK
+T1 recursion at fresh cells (degrees 12..30, k=d+1..52, depths<=6): tested 44443, bad 0  (25s)

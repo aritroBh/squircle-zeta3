@@ -1,0 +1,4 @@
+t(1/v)-(1-t(v)) = 0
+F(DL1)+DL2 = 0
+DL2 at v=i: 0  derivative at i nonzero: -1/2 + I/2
+2*(v - 1)/(v**2 - 2*v - 1) - 1/v

@@ -1,0 +1,8 @@
+D~_{8,0}: non-zeta symbols left: 0; zeta part == stored target: True
+D~_{8,1}: non-zeta symbols left: 0; zeta part == stored target: True
+D~_{8,2}: non-zeta symbols left: 0; zeta part == stored target: True
+D~_{8,3}: non-zeta symbols left: 0; zeta part == stored target: True
+D~_{9,0}: non-zeta symbols left: 0; zeta part == stored target: True
+D~_{9,1}: non-zeta symbols left: 0; zeta part == stored target: True
+D~_{9,2}: non-zeta symbols left: 0; zeta part == stored target: True
+D~_{9,3}: non-zeta symbols left: 0; zeta part == stored target: True

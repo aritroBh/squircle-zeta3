@@ -1,0 +1,5 @@
+adjacent (3,0): remainder*DEN == 0 : True  (9.6s)
+adjacent (3,1): remainder*DEN == 0 : True  (0.3s)
+adjacent (4,2): remainder*DEN == 0 : True  (0.0s)
+adjacent (4,1): remainder*DEN == 0 : True  (2.8s)
+adjacent (4,0): remainder*DEN == 0 : True  (52.5s)

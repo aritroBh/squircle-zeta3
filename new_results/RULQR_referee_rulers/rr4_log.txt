@@ -1,0 +1,56 @@
+(a) direct quadrature (40 dps; cos^{2/p} parametrisation and graph form) vs w-form (Arb) vs closed form for the dual ruler
+p=3    q=2     direct 6.74499314012634013610515283788  |direct - wform| 0.0e+00  |graph - wform| 0.0e+00
+p=5    q=5     direct 6.99691361609089815183651456927  |direct - wform| 0.0e+00  |graph - wform| 0.0e+00
+p=4    q=8     direct 6.74281533119284835321032714079  |direct - wform| 0.0e+00  |graph - wform| 9.2e-41
+p=10   q=5     direct 7.47984647746379597824775234993  |direct - wform| 0.0e+00  |graph - wform| 0.0e+00
+p=6    q=7     direct 7.14035568500358004767912728955  |direct - wform| 0.0e+00  |graph - wform| 0.0e+00
+p=2.5  q=2.4   direct 6.39686879651360276383202978169  |direct - wform| 0.0e+00  |graph - wform| 9.2e-41
+p=4    q=4/3   direct 7.41629870920548767373540138878  |direct - wform| 0.0e+00  |graph - wform| 9.2e-41  |direct - 8G(1+1/p)^2/G(1+2/p)| 0.0e+00  area*2 = 7.41629870921
+p=1.5  q=3     direct 5.47570724783780581608861583093  |direct - wform| 0.0e+00  |graph - wform| 0.0e+00  |direct - 8G(1+1/p)^2/G(1+2/p)| 0.0e+00  area*2 = 5.47570724784
+p=7    q=7/6   direct 7.78034947525137826712277190374  |direct - wform| 9.2e-41  |graph - wform| 0.0e+00  |direct - 8G(1+1/p)^2/G(1+2/p)| 1.8e-40  area*2 = 7.78034947525
+p=20   q=40    direct 7.72759707583120290463599694073  |direct - wform| 0.0e+00  |graph - wform| 0.0e+00
+
+(b) |L/8 - S_{K*}| (S_{K*} = sum up to the smallest term), N_k from rr2 (k <= 50)
+  lam2     p=4.0 K*=28  smallest term 4.00e-13  |L/8 - S| 5.50e-14  e^{-pi lam p} 1.22e-11
+  lam2     p=6.0 K*=40  smallest term 3.25e-19  |L/8 - S| 1.24e-19  e^{-pi lam p} 4.24e-17
+  lamhalf  p=8.0 K*=15  smallest term 4.80e-08  |L/8 - S| 7.06e-08  e^{-pi lam p} 3.49e-06
+  lamhalf  p=16.0 K*=27  smallest term 1.75e-14  |L/8 - S| 4.25e-14  e^{-pi lam p} 1.22e-11
+  p1       p=8.0 K*=26  smallest term 3.28e-14  |L/8 - S| 5.89e-14  e^{-pi lam p} 1.22e-11
+  p1       p=12.0 K*=40  smallest term 3.62e-20  |L/8 - S| 8.62e-20  e^{-pi lam p} 4.24e-17
+  gen      p=8.0 K*=27  smallest term 2.19e-13  |L/8 - S| 2.66e-15  e^{-pi lam p} 1.22e-11
+  gen      p=12.0 K*=39  smallest term 2.24e-19  |L/8 - S| 9.72e-21  e^{-pi lam p} 4.24e-17
+
+(c) pi_p/4 (Arb w-form), optimal truncation; ref = sqrt2 p^{-5/2} e^{-pi p}
+ p= 5 pi_p/4 = 0.8746142020113622689795643211591525758908
+      K_s=18 |t_Ks|=4.943e-09 R_Ks=-2.6259e-09  K_opt=14 R_Kopt=-1.6202e-09  ref=3.812e-09  |R_Ks|/ref=0.689
+      K=14 R=-1.620e-09 R/Rsimple=0.300
+      K=15 R=-1.142e-08 R/Rsimple=2.553
+      K=16 R=2.166e-09 R/Rsimple=0.543
+      K=17 R=8.077e-09 R/Rsimple=2.121
+      K=18 R=-2.626e-09 R/Rsimple=0.677
+      K=19 R=-7.569e-09 R/Rsimple=1.803
+      K=20 R=3.623e-09 R/Rsimple=0.753
+      K=21 R=9.048e-09 R/Rsimple=1.555
+      K=22 R=-5.884e-09 R/Rsimple=0.794
+ p=10 pi_p/4 = 0.9334902023057070748950684949593799075115
+      K_s=34 |t_Ks|=6.923e-17 R_Ks=-8.2256e-17  K_opt=32 R_Kopt=7.8641e-17  ref=1.016e-16  |R_Ks|/ref=0.810
+      K=30 R=-8.443e-17 R/Rsimple=0.724
+      K=31 R=-1.720e-16 R/Rsimple=1.598
+      K=32 R=7.864e-17 R/Rsimple=0.765
+      K=33 R=1.514e-16 R/Rsimple=1.492
+      K=34 R=-8.226e-17 R/Rsimple=0.796
+      K=35 R=-1.515e-16 R/Rsimple=1.396
+      K=36 R=9.621e-17 R/Rsimple=0.819
+      K=37 R=1.710e-16 R/Rsimple=1.307
+      K=38 R=-1.253e-16 R/Rsimple=0.835
+ p=20 pi_p/4 = 0.9659905074146057882242775528804953593616
+      K_s=66 |t_Ks|=1.585e-31 R_Ks=-3.6374e-31  K_opt=64 R_Kopt=3.5262e-31  ref=4.078e-31  |R_Ks|/ref=0.892
+      K=62 R=-3.637e-31 R/Rsimple=0.854
+      K=63 R=-5.343e-31 R/Rsimple=1.293
+      K=64 R=3.526e-31 R/Rsimple=0.865
+      K=65 R=5.119e-31 R/Rsimple=1.252
+      K=66 R=-3.637e-31 R/Rsimple=0.873
+      K=67 R=-5.223e-31 R/Rsimple=1.212
+      K=68 R=3.985e-31 R/Rsimple=0.880
+      K=69 R=5.666e-31 R/Rsimple=1.174
+      K=70 R=-4.628e-31 R/Rsimple=0.886

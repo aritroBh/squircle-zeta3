@@ -1,0 +1,11 @@
+gamma33 residual: 7.67e-423
+c7 = -(5/24) Xs + 8339/512 z7 + -75/16 z2 z5 + -279/128 z3 z4
+c7 closed form  : 5.5857412143191029582328266583154680617315046779801499346392  diff to gamma formula -1.73e-420
+c7 Richardson   : 5.5857412143191029582328266583154680617315046779809  diff 7.69e-49
+c6 closed form  : 0.0429508278802840339294338048351352655102967276920578654966257  diff to Richardson 1.47e-55
+c7 vs {z7, z2 z5, z3 z4}: None
+c7 vs {z7, z2 z5, z3 z4, Xs}: [-1536, 25017, -7200, -3348, -320]
+gamma33 vs {z7, z2 z5, z3 z4}: None
+Xs vs {z7, z2 z5, z3 z4}: None
+Xs vs {z7, z2 z5, z3 z4, ln2*(wt 6 pure zeta), ...} skipped; see sm6_pslq7_output.txt for the 21-element basis
+gamma32 vs (1/16) sum: 0.0016499467995698091833 0.0016499467995698091833

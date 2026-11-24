@@ -1,0 +1,6 @@
+a5 symbolic Bell==displayed: True
+a6 symbolic Bell==displayed: True
+rho(3): tested 723 bad 0 []  (1s)
+rho(4): tested 723 bad 0 []  (3s)
+rho(5): tested 720 bad 0 []  (5s)
+rho(6): tested 720 bad 0 []  (8s)

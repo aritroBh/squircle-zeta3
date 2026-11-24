@@ -1,0 +1,7 @@
+(4a) [c^(2n)] B4 part == flat_exact mu_{4,n} part, exact, n=1..40, all five parts: True
+(4b) odd coefficients c^1..c^79 vanish, all parts: True
+(4c) low orders c^-3..c^1 vanish, all parts: True
+(4d) mu4_formula.pkl (proof's mu input) == flat_exact definition, all n<= 40, all parts: True
+SPOT CHECK DONE (7s): True
+
+--- STDERR ---

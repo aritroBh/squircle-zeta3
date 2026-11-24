@@ -1,0 +1,65 @@
+##### prove_tops.py  start 01:13:40
+E0 bracket (should be 0): 0
+tau1_1-feed bracket (should be 0): 0
+odd-top identity remainder (should be 0): 0
+real 0.57
+user 0.27
+sys 0.04
+##### prove_tops.py  end 01:13:41
+##### prove_E3b34.py  start 01:13:41
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW2_tower_all_depths/claude_screen/w4lens/proofcopy/prove_E3b34.py", line 60, in <module>
+    delta = int(sys.argv[1])
+                ~~~~~~~~^^^
+IndexError: list index out of range
+real 0.82
+user 0.36
+sys 0.03
+##### prove_E3b34.py  end 01:13:41
+##### prove_S12.py  start 01:13:41
+S^1/S identity remainder: 0
+S^2/S identity remainder: 0
+real 0.62
+user 0.30
+sys 0.03
+##### prove_S12.py  end 01:13:42
+##### prove_S34.py  start 01:13:42
+Traceback (most recent call last):
+  File "<project>/research/08_theory/TOW2_tower_all_depths/claude_screen/w4lens/proofcopy/prove_S34.py", line 66, in <module>
+    l = int(sys.argv[1])
+            ~~~~~~~~^^^
+IndexError: list index out of range
+real 0.41
+user 0.22
+sys 0.03
+##### prove_S34.py  end 01:13:43
+##### prove_adj34.py 3 0  start 01:13:43
+adjacent (3,0): remainder*DEN == 0 : True  (9.9s)
+real 11.26
+user 4.58
+sys 0.05
+##### prove_adj34.py 3 0  end 01:13:54
+##### prove_adj34.py 3 1  start 01:13:54
+adjacent (3,1): remainder*DEN == 0 : True  (0.4s)
+real 1.24
+user 0.56
+sys 0.04
+##### prove_adj34.py 3 1  end 01:13:55
+##### prove_adj34.py 4 2  start 01:13:55
+adjacent (4,2): remainder*DEN == 0 : True  (0.1s)
+real 0.79
+user 0.38
+sys 0.03
+##### prove_adj34.py 4 2  end 01:13:56
+##### prove_adj34.py 4 1  start 01:13:56
+adjacent (4,1): remainder*DEN == 0 : True  (2.6s)
+real 3.65
+user 1.53
+sys 0.04
+##### prove_adj34.py 4 1  end 01:14:00
+##### prove_adj34.py 4 0  start 01:14:00
+adjacent (4,0): remainder*DEN == 0 : True  (52.9s)
+real 54.86
+user 22.14
+sys 0.13
+##### prove_adj34.py 4 0  end 01:14:54

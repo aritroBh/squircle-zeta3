@@ -1,0 +1,5 @@
+D=17: letters ['lE17', 'ls17', 'lp', "lp'"], kernel 63 (exact-zero combos dropped: [15, 18, 39, 61, 62]), dim 140
+P=830: LLL 205s; exact (residual < 1e-1200) relations with T: 1; exact zero-relations: 38
+   maxcoef 1419857  nterms 89  residual -6.65e-1270  T-coef 1419857  z5-coef 73
+P=1150: LLL 337s; exact (residual < 1e-1200) relations with T: 1; exact zero-relations: 38
+   maxcoef 1419857  nterms 89  residual 6.32e-1271  T-coef -1419857  z5-coef -809

@@ -1,0 +1,9 @@
+L_parsed keys: [1, 2, 3, 4, 5, 6, 7, 8]
+free symbols of L_parsed[r]: [['d'], ['d', 'm'], ['d', 'm']]
+r=1: L(r) [tow2lib proved assembly from N_1..N_4] - L_parsed[r] at 3 exact points: [0, 0, 0] 0.4
+r=2: L(r) [tow2lib proved assembly from N_1..N_4] - L_parsed[r] at 3 exact points: [0, 0, 0] 1.4
+r=3: L(r) [tow2lib proved assembly from N_1..N_4] - L_parsed[r] at 3 exact points: [0, 0, 0] 1.9
+r=4: L(r) [tow2lib proved assembly from N_1..N_4] - L_parsed[r] at 3 exact points: [0, 0, 0] 2.0
+r=5: L(r) [tow2lib proved assembly from N_1..N_4] - L_parsed[r] at 3 exact points: [0, 0, 0] 2.5
+r=6: L(r) [tow2lib proved assembly from N_1..N_4] - L_parsed[r] at 3 exact points: [0, 0, 0] 3.4
+[a_5/a_6 complete_bell-vs-arho symbolic-radical comparison killed after >3 min; not completed]

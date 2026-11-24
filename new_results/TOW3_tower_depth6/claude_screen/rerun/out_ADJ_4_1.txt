@@ -1,0 +1,1 @@
+adjacent (4,1): remainder*DEN == 0 : True  (6.1s)

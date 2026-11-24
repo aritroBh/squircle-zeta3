@@ -1,0 +1,7 @@
+Psi built (0.1 s), 21 monomials
+Z5/L - law  = 0    Z23/L - law = 0    (0.4 s)
+order three: Z_e/L - 6 xi0 xi1 (h^2/L^2)(3 xibar - 2) = 0
+parallelogram short forms, difference: 0 0
+regular 2m-gon: 2m Z_e^(5) - C_m^(5) = 0 ;  2m Z_e^(2,3) - C_m^(2,3) = 0
+per edge: Z_e^(5) - 1440 s^4 c(...) = 0 ;  Z_e^(2,3) + 480 c s^4(...) = 0
+done 0.6 s

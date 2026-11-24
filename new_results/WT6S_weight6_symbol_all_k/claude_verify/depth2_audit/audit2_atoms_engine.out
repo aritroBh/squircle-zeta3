@@ -1,0 +1,9 @@
+control: shuffle products with nonzero pairing: 0 / 300  (expect 0)
+control: Li6(S-unit) with nonzero pairing: 0 / 10  (expect 0)
+control: Li42(b,1) = [0, 0, 0, -1/4]  expect [0,0,0,-1/4]
+control: Li33(b,1) = [0, 0, 0, 3/4]  expect [0,0,0,3/4]
+Li33(b,1)          regenerated [0, 0, 0, 3/4]  M5a table ['0', '0', '0', '3/4']  match=True
+Li33(1/sqrt2,1)    regenerated [0, 3/16, 0, 0]  M5a table ['0', '3/16', '0', '0']  match=True
+Li33(b,2)          regenerated [1, 0, 0, -3]  M5a table ['1', '0', '0', '-3']  match=True
+Li42(b,1/sqrt2)    regenerated [1/4, -1/8, 1/8, 3/4]  M5a table ['1/4', '-1/8', '1/8', '3/4']  match=True
+ALL FOUR ATOM PAIRING VECTORS REGENERATED INDEPENDENTLY AND MATCH M5a TABLE: True

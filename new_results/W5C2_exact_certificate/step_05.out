@@ -1,0 +1,20 @@
+2026-10-29 06:29:15 step_05 pp: 3000/12149 rows el=14s
+2026-10-29 06:29:27 step_05 pp: 6000/12149 rows el=26s
+2026-10-29 06:29:41 step_05 pp: 9000/12149 rows el=40s
+2026-10-29 06:29:53 step_05 pp: 12000/12149 rows el=52s
+2026-10-29 06:29:55 step_05 pp: accumulated (53s)
+2026-10-29 06:30:05 step_05 pm: 3000/11087 rows el=63s
+2026-10-29 06:30:18 step_05 pm: 6000/11087 rows el=76s
+2026-10-29 06:30:33 step_05 pm: 9000/11087 rows el=91s
+2026-10-29 06:30:42 step_05 pm: accumulated (101s)
+2026-10-29 06:30:52 step_05 mp: 3000/11040 rows el=110s
+2026-10-29 06:31:05 step_05 mp: 6000/11040 rows el=123s
+2026-10-29 06:31:19 step_05 mp: 9000/11040 rows el=138s
+2026-10-29 06:31:27 step_05 mp: accumulated (145s)
+2026-10-29 06:31:37 step_05 mm: 3000/11996 rows el=156s
+2026-10-29 06:31:50 step_05 mm: 6000/11996 rows el=168s
+2026-10-29 06:32:02 step_05 mm: 9000/11996 rows el=181s
+2026-10-29 06:32:13 step_05 mm: accumulated (192s)
+2026-10-29 06:32:14 step_05 EXACT unfolded rat: words_checked=46656 residual_nonzero=0
+2026-10-29 06:32:14 step_05 EXACT unfolded sq: words_checked=46656 residual_nonzero=0
+2026-10-29 06:32:14 step_05: EXACT UNFOLDED IDENTITY HOLDS for D_rat and D_sq on all words (192s)

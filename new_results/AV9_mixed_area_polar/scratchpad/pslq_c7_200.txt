@@ -1,0 +1,1 @@
+c_7 dps=200: resid=3.41e-151 max|c|=123858 dim=36 match=False time=224s

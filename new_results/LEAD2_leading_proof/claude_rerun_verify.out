@@ -1,0 +1,43 @@
+[PASS] A: D-table (d=1..9, all keys/poles) == binomial x zigzag; kernel degrees == d (d=9: determined fit)
+[PASS] B: u-measures, t=(1+u)/2, 1-t=(1-u)/2, m_odd=1/(1-u)-u m_e, deck v+*v-=-1 (symbolic)
+[PASS] C: even d=2: key sum == -(1/2)int log^d m_e == (d!/2)e_{d+1}   residual=1.8111e-71
+[PASS] C: even d=4: key sum == -(1/2)int log^d m_e == (d!/2)e_{d+1}   residual=4.2728e-67
+[PASS] C: even d=6: key sum == -(1/2)int log^d m_e == (d!/2)e_{d+1}   residual=1.2568e-62
+[PASS] C: even d=8: key sum == -(1/2)int log^d m_e == (d!/2)e_{d+1}   residual=3.7526e-58
+[PASS] C: even d=10: key sum == -(1/2)int log^d m_e == (d!/2)e_{d+1}   residual=1.1281e-53
+[PASS] C: odd d=1: key sum == T_d - piece2 == (d!/2)e_{d+1}   residual=9.0557e-72
+[PASS] C: odd d=3: key sum == T_d - piece2 == (d!/2)e_{d+1}   residual=6.8823e-70
+[PASS] C: odd d=5: key sum == T_d - piece2 == (d!/2)e_{d+1}   residual=1.3836e-64
+[PASS] C: odd d=7: key sum == T_d - piece2 == (d!/2)e_{d+1}   residual=6.0671e-60
+[PASS] C: odd d=9: key sum == T_d - piece2 == (d!/2)e_{d+1}   residual=1.295e-55
+[PASS] C: odd d=11: key sum == T_d - piece2 == (d!/2)e_{d+1}   residual=3.9302e-51
+[PASS] D: odd d=1: T_d == d!(1-2^-d)zeta(d+1); piece2 == T_d - (d!/2)e_{d+1}   residual=4.5278e-72
+[PASS] D: odd d=3: T_d == d!(1-2^-d)zeta(d+1); piece2 == T_d - (d!/2)e_{d+1}   residual=6.5201e-70
+[PASS] D: odd d=5: T_d == d!(1-2^-d)zeta(d+1); piece2 == T_d - (d!/2)e_{d+1}   residual=1.3394e-64
+[PASS] D: odd d=7: T_d == d!(1-2^-d)zeta(d+1); piece2 == T_d - (d!/2)e_{d+1}   residual=4.0398e-60
+[PASS] D: odd d=9: T_d == d!(1-2^-d)zeta(d+1); piece2 == T_d - (d!/2)e_{d+1}   residual=1.2167e-55
+[PASS] D: odd d=11: T_d == d!(1-2^-d)zeta(d+1); piece2 == T_d - (d!/2)e_{d+1}   residual=3.6629e-51
+[PASS] E: Master Lemma at s=0.3   residual=8.6511e-46
+[PASS] E: Master Lemma at s=-0.4   residual=3.0296e-39
+[PASS] E: Master Lemma at s=0.73   residual=1.4465e-17
+[PASS] E: Master Lemma at s=(0.0 + 0.2j)   residual=1.8669e-60
+[PASS] E: Beta sub + IBP at s=0.3   residual=8.6117e-46
+[PASS] E: Beta sub + IBP at s=-0.4   residual=1.215e-39
+[PASS] E: Beta sub + IBP at s=0.73   residual=1.446e-17
+[PASS] E: Beta sub + IBP at s=(0.0 + 0.2j)   residual=0.0
+[PASS] E: F partial-fraction series (n>=0 second sum) at y=0.3   residual=8.6511e-46
+[PASS] E: F partial-fraction series (n>=0 second sum) at y=-0.45   residual=7.7788e-62
+[PASS] E: recursion aa_{p,q} = aa_{q+1,p-1}, p=1..5 q=0..4   residual=4.367e-58
+[PASS] E: B(1+z,-z) == -pi/sin(pi z) at z=0.37   residual=0.0
+[PASS] E: [z^1] pi/sin(pi z) == 2(1-2^-1) zeta(2)   residual=-3.1115e-61
+[PASS] E: [z^3] pi/sin(pi z) == 2(1-2^-3) zeta(4)   residual=-3.1115e-61
+[PASS] E: [z^5] pi/sin(pi z) == 2(1-2^-5) zeta(6)   residual=-4.6673e-61
+[PASS] F: kernels -> D-table -> c(w) == law, w=2..10 (dps 100)   residual=8.5197e-91
+[PASS] G: delta_d = eps_{d-1}A_d/d! and eps_mA_{m+1}/m! = [z^m](1-sinh)/cosh^2, d,m <= 20 (symbolic)
+[PASS] G: duplication E(y) = 2^y Gamma(1-y)Gamma(1+y/2)/Gamma(1-y/2) at y=0.31   residual=-2.6728e-51
+[PASS] G: log E = y log2 + sum s_n y^n/n at y=0.1 (truncation O(1e-41))   residual=2.7029e-43
+[PASS] G: sum c(w)u^w == (1/2)[u^2(1-sinh)/cosh^2 ⊙ E](u) at u=0.21 (law coefficients)   residual=-5.8807e-42
+
+ALL: PASS   (36s)
+nice -n 10 "<project>/.venv/bin/python" -u  >   8.27s user 0.11s system 22% cpu 36.557 total
+rc=0

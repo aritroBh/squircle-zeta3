@@ -1,0 +1,1 @@
+entries (n<=5, k<=3, a+b<=5): 504  rule failures: 0  worst |formal value - quadrature| (5 pairs (n,k), all a+b<=5, 40 digits): 4.8e-35

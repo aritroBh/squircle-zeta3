@@ -1,0 +1,16 @@
+{
+ "c_exact_identity": true,
+ "c_height_digits": 381,
+ "d_rows": 5068,
+ "d_max_abs": "5.9161e-151",
+ "d_max_rel": "9.6685e-152",
+ "d_family_max": {
+  "std": "5.2818e-151",
+  "lift1": "2.1602e-151",
+  "lift2old": "1.0801e-151",
+  "frame_w2": "5.2715e-151",
+  "frame_w3": "5.9161e-151",
+  "frame_w4": "5.728e-151"
+ },
+ "d_std_all_max": "1.4099e-148"
+}

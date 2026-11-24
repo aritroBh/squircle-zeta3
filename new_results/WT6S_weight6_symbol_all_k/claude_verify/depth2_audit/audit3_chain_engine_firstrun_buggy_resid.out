@@ -1,0 +1,41 @@
+pv(N_50, 0) words=   32  ['-21240', '0', '-1800', '0']   [3.3s]
+pv(N_50, a) words=   48  ['-10620', '-1800', '-900', '-540']   [3.5s]
+pv(N_50,-a) words=   64  ['-10620', '1800', '-900', '540']   [3.2s]
+pv(N_50,-b) words=   48  ['-10620', '1800', '-900', '540']   [3.8s]
+pv(N_41, 0) words=   31  ['-16176', '0', '-360', '0']   [15.2s]
+pv(N_41, a) words=   55  ['-8088', '-1140', '-180', '-252']   [16.5s]
+pv(N_41,-a) words=   62  ['-8088', '1140', '-180', '252']   [14.8s]
+pv(N_41,-b) words=   55  ['-8088', '1140', '-180', '252']   [15.2s]
+pv(N_32, 0) words=   29  ['-13788', '0', '360', '0']   [21.0s]
+pv(N_32, a) words=   56  ['-6894', '-390', '180', '-72']   [19.1s]
+pv(N_32,-a) words=   57  ['-6894', '390', '180', '72']   [17.6s]
+pv(N_32,-b) words=   56  ['-6894', '390', '180', '72']   [17.5s]
+total engine time 150.9s
+pv(N_{ij,r}) regenerated == WT6S n6_symbols_pairings.json for all 12: True
+my binomial-basis rewrite of residue polynomials == e5m_binomial_coeffs.json (all 12 cells x 5 m): True
+pv(E_5,1) from engine-regenerated pv(N) and my e's: [46*sqrt2, -75/2, 15*sqrt2, 0]
+pv(E_5,2) from engine-regenerated pv(N) and my e's: [-21/2*sqrt2, -35/2, 0, 21]
+pv(E_5,3) from engine-regenerated pv(N) and my e's: [-6*sqrt2, -10, 0, 12]
+pv(E_5,4) from engine-regenerated pv(N) and my e's: [0, 0, 0, 0]
+pv(E_5,5) from engine-regenerated pv(N) and my e's: [0, 0, 0, 0]
+REGENERATED pv(E_5,m) == result.md table B (all m=1..5): True
+DIRECT sum res(k)*pv(N) == stated power-basis P(k) at every k=6..52: True
+k=5 pairings from M5a omega5.json residues with regenerated pv(N): [449/4*sqrt2, -30, 15*sqrt2, -9]   (M5a: [449/4*sqrt2, -30, 15*sqrt2, -9])
+matches M5a k=5 target: True
+k=5 residue cells: omega5.json residue vs quartic-family polynomial evaluated at k=5, and difference:
+   (5,0) pole  0: omega5 =  -1/3840*sqrt2   quartic(k=5) = 17/1920+-1/384*sqrt2   diff = -17/1920+3/1280*sqrt2
+   (5,0) pole  a: omega5 =              0   quartic(k=5) =        -1/1920   diff = 1/1920
+   (5,0) pole -a: omega5 =          -1/60   quartic(k=5) =       -41/1920   diff = 3/640
+   (5,0) pole -b: omega5 =              0   quartic(k=5) =          1/240   diff = -1/240
+   (4,1) pole  0: omega5 =  -17/768*sqrt2   quartic(k=5) = -1/128+-5/384*sqrt2   diff = 1/128+-7/768*sqrt2
+   (4,1) pole  a: omega5 =              0   quartic(k=5) =          1/128   diff = -1/128
+   (4,1) pole -a: omega5 =              0   quartic(k=5) =          7/384   diff = -7/384
+   (4,1) pole -b: omega5 =              0   quartic(k=5) =          -1/96   diff = 1/96
+   (3,2) pole  0: omega5 =    7/384*sqrt2   quartic(k=5) = 1/384+1/64*sqrt2   diff = -1/384+1/384*sqrt2
+   (3,2) pole  a: omega5 =              0   quartic(k=5) =         -1/384   diff = 1/384
+   (3,2) pole -a: omega5 =              0   quartic(k=5) =         -1/192   diff = 1/192
+   (3,2) pole -b: omega5 =              0   quartic(k=5) =          1/384   diff = -1/384
+pairing of (true k=5 kernel - quartic-family k=5 kernel): [177+247/4*sqrt2, 0, 15, 0]   expected [247/4*sqrt2,0,0,0]
+expected match: False
+poles in omega5 absent from the 12-cell set (should be none): []
+ALL DONE

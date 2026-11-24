@@ -1,0 +1,5 @@
+dps 1700
+L(chi8,5) = 0.9956338563129674563422177171275176821832
+L(chi8,5) - M4e Lchi8_5.json = 4.24342e-1656
+L_relation.json: 26 terms, all coefficients pure sqrt2: True, max |num| 4815, lcm den 638976
+RHS - L(chi8,5)[Hurwitz] = 3.61833e-1740

@@ -1,0 +1,20 @@
+blocks parsed: ['zeta3', 'Li3(x)', 'Li3(x/(x-1))', 'Li2(x)*ln(1-x)', 'zeta2*ln(1-x)', 'zeta2', 'Li2(x)', 'ln^3(1-x)', 'ln^2(1-x)', 'ln(1-x)', '1']
+c_z3/L^5 - Z_e = 0
+c_Li3(x)/L^5 - (2PhiA+PhiL) = 0
+c_Li3(x/(x-1))/L^5 - PhiA = 0
+d/dx[RHS/6] - (Li2+log^2(1-x)/2)/x = 0
+  Landen Li2 at -3.5 2.67e-51
+  Landen Li2 at -1.0 0.0
+  Landen Li2 at 0.5 0.0
+  Landen Li2 at 0.9 0.0
+  NK at -1.0 -2.67e-51
+  NK at 0.5 1.34e-51
+  NK at -0.7 -1.34e-51
+  NK at 0.3 -1.34e-51
+A(-1)+5/8 z3 = 0.0  A(1/2)-(z3-pi^2 log2/12) = 0.0
+Li3(1/2) check 1.34e-51  Li3(-1)+3/4 z3 1.34e-51
+  sum H2_n x^n/n - (3Li3-2A+Li2 l) = -1.15e-41    sum H_n^2 x^n/n - (Li3+Li2 l+l^3/3) = -5.74e-42
+  sum H2_n x^n/n - (3Li3-2A+Li2 l) = -5.74e-42    sum H_n^2 x^n/n - (Li3+Li2 l+l^3/3) = 2.3e-41
+  sum H2_n x^n/n - (3Li3-2A+Li2 l) = -6.89e-41    sum H_n^2 x^n/n - (Li3+Li2 l+l^3/3) = -2.76e-40
+  orientation: E(forward)-E(backward) = 5.51e-39
+  orientation: E(forward)-E(backward) = -3.21e-39

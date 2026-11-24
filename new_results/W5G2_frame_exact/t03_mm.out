@@ -1,0 +1,15 @@
+2026-11-22 21:45:10 mm: r=12006 free=104 rhs=90 (37 open rows + 53 basis); maxB=284 (1s)
+2026-11-22 21:45:24 dixon: nmod_mat built (14s), inverting r=12006
+2026-11-22 21:49:27 dixon: inverse done (257s)
+2026-11-22 21:49:45 dixon: inverse extracted/saved (275s)
+2026-11-22 21:50:00 dixon: step 64, M digits 463, probe ok False, 15s
+2026-11-22 21:50:20 dixon: step 128, M digits 925, probe ok False, 35s
+2026-11-22 21:50:46 dixon: step 192, M digits 1388, probe ok False, 61s
+2026-11-22 21:51:17 dixon: step 256, M digits 1850, probe ok False, 92s
+2026-11-22 21:51:51 dixon: step 320, M digits 2312, probe ok False, 127s
+2026-11-22 21:52:30 dixon: step 384, M digits 2775, probe ok False, 165s
+2026-11-22 21:53:15 dixon: step 448, M digits 3237, probe ok False, 210s
+2026-11-22 21:56:07 dixon: candidate at step 496 (M 3584 digits) passes mod 2^31-1; exact check ...
+2026-11-22 21:56:13 dixon: EXACT solution, step 496, 388s, max den digits 1719
+2026-11-22 21:56:41 mm: exact y for 90 rhs, Dixon steps 496; max numerator digits 1734, max common-denominator digits 1719; NF nonzero for 19/90 rhs (692s)
+2026-11-22 21:56:42 mm: saved ysol_mm.pkl (693s)

@@ -1,0 +1,4 @@
+build[w6]: W6-N6-particular target = 36888.4158825289944132346846765; kernel dim=89; atoms=149
+control LLL start: rows=179, digits=1300, planted={2: 3, 3: -5, 10: 7, 11: 11, 80: -13, 81: 2}
+control LLL done: seconds=1127.9; planted relation recovered=True; residual=2.46073e-1538
+full-lattice planted control: PASS

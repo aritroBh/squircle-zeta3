@@ -1,0 +1,9 @@
+control: 200 random shuffle products pair to zero: True
+control: 100 Li6(S-unit) symbols pair to zero: True
+Li_{4,2}(b,1) pairings (33, 42a,42b,42c): ['0', '0', '0', '-1/4']
+Li_{3,3}(b,1) pairings (33, 42a,42b,42c): ['0', '0', '0', '3/4']
+weight-5 control pairings ([X,P]xP, [Y,P]xP): ['84', '-38*sqrt2']  (expect 84 and -38 sqrt2)
+W6 gpl terms: 3158
+W6 (3,3) pairing [X,P]x[Y,P]: 449/4*sqrt2
+W6 (4,2) pairings ([X,[X,P]]xP, [Y,[X,P]]xP, [Y,[Y,P]]xP): ['-30', '15*sqrt2', '-9']
+saved symbol6.json

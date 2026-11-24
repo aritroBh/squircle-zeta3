@@ -1,0 +1,16 @@
+mp.mp.dps = 90
+  W_4(3) = 0.7957850598322408113203598196297267625465
+  W_4(4) = 1.424453676008872921514422491257270535637
+  W_4(5) = 0.8743508421955756648853738941820874178765
+  W_4(6) = -0.7000559105407769521880758201067125626995
+  W_4(7) = -3.298766582200184929705926651609129406091
+  W_4(8) = -6.921781172782648267668178600325163112297
+max |n-th finite difference| (n = order):
+  order 0: n_terms 6  max|.| = 6.92178
+  order 1: n_terms 5  max|.| = 3.62301
+  order 2: n_terms 4  max|.| = 1.17877
+  order 3: n_terms 3  max|.| = 0.154468
+  order 4: n_terms 2  max|.| = 0.154468
+  order 5: n_terms 1  max|.| = 0.154468
+working-precision threshold: 1.0e-75
+smallest degree d with vanishing (d+1)-th differences: -1

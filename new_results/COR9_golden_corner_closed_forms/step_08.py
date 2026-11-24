@@ -1,0 +1,15 @@
+base = '<project>/research/'
+t = open(base+'08_theory/COR7_classical_corners/cor7_pt.py').read()
+print(t[3800:6200])
+print('##### GOLDEN LI4:')
+print(open(base+'08_theory/COR7_classical_corners/golden_li4_combo.json').read())
+print('##### CENSUS:')
+print(open(base+'08_theory/COR7_classical_corners/census_rank2.json').read())
+print('##### W3 relation b21:')
+print(open(base+'08_theory/COR7_classical_corners/b21_W3_relation.json').read())
+print('##### W4 relation b21:')
+print(open(base+'08_theory/COR7_classical_corners/b21_W4_relation.json').read())
+print('##### COR9 existing step_01:')
+print(open(base+'08_theory/COR9_golden_corner_closed_forms/step_01.py').read())
+import os
+print('##### planner:', os.listdir(base+'08_theory/COR7_classical_corners/planner'))

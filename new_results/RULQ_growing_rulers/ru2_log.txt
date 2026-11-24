@@ -1,0 +1,49 @@
+(a) two quadratures of L_q(p)/8
+  p=3 q=6.0  L/8 = 0.7987066830532866551952019444397085241967   |v-form - w-form| = 0.0
+  p=3 q=1.5  L/8 = 0.8833193751427249786568447498242193512859   |v-form - w-form| = 0.0
+  p=5 q=6.0  L/8 = 0.8733212573586280034653337496352024847817   |v-form - w-form| = 0.0
+  p=8 q=16.0  L/8 = 0.917224022884252486135400032341369357274   |v-form - w-form| = 0.0
+  p=8 q=4.0  L/8 = 0.9209541245128410235543940239047297260063   |v-form - w-form| = 0.0
+  p=6 q=7.0  L/8 = 0.8925444606254475059598909111932111499205   |v-form - w-form| = 0.0
+  p=4 q=1.33333  L/8 = 0.9270373386506859592169251735976300231088   |v-form - w-form| = 0.0
+
+(b) growing rulers: direct value vs series truncated at the smallest term
+  lam_2     p= 4  K*=28  smallest term=4.00e-13  |L/8 - S_K*|=5.50e-14  e^{-pi lam p}=1.22e-11
+  lam_2     p= 8  K*=52  smallest term=4.20e-25  |L/8 - S_K*|=2.52e-25  e^{-pi lam p}=1.48e-22
+  lam_2     p=12  K*=78  smallest term=1.28e-36  |L/8 - S_K*|=1.34e-36  e^{-pi lam p}=1.80e-33
+  lam_2     p=16  K*=90  smallest term=1.41e-47  |L/8 - S_K*|=1.62e-47  e^{-pi lam p}=2.19e-44
+  lam_0.5   p= 4  K*= 7  smallest term=6.67e-05  |L/8 - S_K*|=5.99e-04  e^{-pi lam p}=1.87e-03
+  lam_0.5   p= 8  K*=15  smallest term=4.80e-08  |L/8 - S_K*|=7.06e-08  e^{-pi lam p}=3.49e-06
+  lam_0.5   p=12  K*=21  smallest term=2.38e-11  |L/8 - S_K*|=4.66e-11  e^{-pi lam p}=6.51e-09
+  lam_0.5   p=16  K*=27  smallest term=1.75e-14  |L/8 - S_K*|=4.25e-14  e^{-pi lam p}=1.22e-11
+  lam_1     p= 4  K*=16  smallest term=2.63e-07  |L/8 - S_K*|=1.23e-07  e^{-pi lam p}=3.49e-06
+  lam_1     p= 8  K*=28  smallest term=7.88e-14  |L/8 - S_K*|=7.59e-14  e^{-pi lam p}=1.22e-11
+  lam_1     p=12  K*=40  smallest term=7.03e-20  |L/8 - S_K*|=9.88e-20  e^{-pi lam p}=4.24e-17
+  lam_1     p=16  K*=52  smallest term=9.48e-26  |L/8 - S_K*|=1.72e-25  e^{-pi lam p}=1.48e-22
+  lin_1_1   p= 4  K*=14  smallest term=5.20e-08  |L/8 - S_K*|=7.60e-08  e^{-pi lam p}=3.49e-06
+  lin_1_1   p= 8  K*=26  smallest term=3.28e-14  |L/8 - S_K*|=5.89e-14  e^{-pi lam p}=1.22e-11
+  lin_1_1   p=12  K*=40  smallest term=3.62e-20  |L/8 - S_K*|=8.62e-20  e^{-pi lam p}=4.24e-17
+  lin_1_1   p=16  K*=52  smallest term=5.43e-26  |L/8 - S_K*|=1.55e-25  e^{-pi lam p}=1.48e-22
+  lin_1_0.5 p= 4  K*= 7  smallest term=5.30e-08  |L/8 - S_K*|=2.88e-06  e^{-pi lam p}=3.49e-06
+  lin_1_0.5 p= 8  K*=27  smallest term=5.18e-14  |L/8 - S_K*|=6.64e-14  e^{-pi lam p}=1.22e-11
+  lin_1_0.5 p=12  K*=39  smallest term=5.19e-20  |L/8 - S_K*|=9.08e-20  e^{-pi lam p}=4.24e-17
+  lin_1_0.5 p=16  K*=53  smallest term=7.30e-26  |L/8 - S_K*|=1.67e-25  e^{-pi lam p}=1.48e-22
+  lam_1.5   p= 4  K*=21  smallest term=3.05e-10  |L/8 - S_K*|=6.07e-11  e^{-pi lam p}=6.51e-09
+  lam_1.5   p= 8  K*=41  smallest term=1.72e-19  |L/8 - S_K*|=1.32e-19  e^{-pi lam p}=4.24e-17
+  lam_1.5   p=12  K*=59  smallest term=2.81e-28  |L/8 - S_K*|=3.31e-28  e^{-pi lam p}=2.76e-25
+  lam_1.5   p=16  K*=77  smallest term=7.02e-37  |L/8 - S_K*|=1.10e-36  e^{-pi lam p}=1.80e-33
+
+(c) dual ruler q = p/(p-1)
+  p=3.0  L/8 quad = 0.883319375142724978656844749824  Gamma form = 0.883319375142724978656844749824  diff=7.78e-62
+  p=1.5  L/8 quad = 0.684463405979725727011076978866  Gamma form = 0.684463405979725727011076978866  diff=-7.78e-62
+  p=7.0  L/8 quad = 0.972543684406422283390346487968  Gamma form = 0.972543684406422283390346487968  diff=-7.78e-62
+  p=2.0  L/8 quad = 0.78539816339744830961566084582  Gamma form = 0.78539816339744830961566084582  diff=7.78e-62
+  coefficients D_k of L/8 = sum D_k h^k:
+   D_2 = -1.644934066848226436472415 (-zeta(2) = -1.644934066848226436472415)
+   D_3 = 2.404113806319188570799476 (2 zeta(3) = 2.404113806319188570799476)
+   D_4 = -2.435227275850060930911008 (-pi^4/40 = -2.435227275850060930911008)
+   |D_k| for k=20,40,60,80: ['2.0000057', '2.0', '2.0', '2.0']
+   residue check: D_k (-1)^k -> 2*Res = -2.0
+   p=10.0: partial sum (80 terms) - exact = 0.0
+   p=2.0: partial sum (80 terms) - exact = -5.51e-25
+   p=1.25: partial sum (80 terms) - exact = -1.57e-8

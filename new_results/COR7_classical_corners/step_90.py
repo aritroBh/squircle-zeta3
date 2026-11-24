@@ -1,0 +1,8 @@
+import json
+
+# store the c=1/3 W3 relation (from the LLL output, identical at dps 600/900)
+json.dump({"a0": 12, "coeffs": [312, 1044, 1560, -63, 43, -804, 540, -260, 780, -654, 148],
+           "basis": ["zeta3", "Li3(1/3)", "Li3(-1/2)", "pi2*log2", "pi2*log3",
+                     "Li2(1/3)*log2", "Li2(1/3)*log3", "log2^3", "log2^2*log3", "log2*log3^2", "log3^3"]},
+          open("c13_W3_relation.json", "w"))
+print("c13_W3_relation.json written")

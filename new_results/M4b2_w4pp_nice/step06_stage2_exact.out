@@ -1,0 +1,10 @@
+2026-10-22 18:33:11 G supports rat=4039 sq=4007; Lrat=27360 Lsq=54720 s=1.2
+2026-10-22 18:33:11 B nnz=48241 s=1.8
+2026-10-22 18:33:23 B nonsingular mod p1 s=13.4
+2026-10-22 18:33:23 fmpz B and RHS built s=13.5; starting exact solve
+2026-10-22 18:34:25 solve done s=61.9
+2026-10-22 18:34:25 y_rat: nonzero=5040 maxheight_digits=380
+2026-10-22 18:34:25 y_sq: nonzero=5040 maxheight_digits=382
+2026-10-22 18:34:25 EXACT verify rat: accumulated_cols=5184 residual_nonzero=0 s=75.9
+2026-10-22 18:34:26 EXACT verify sq: accumulated_cols=5184 residual_nonzero=0 s=76.3
+2026-10-22 18:34:26 EXACT VERIFICATION PASSED: G_rat and G_sq are in rowspace_Q(T0), witness rows S (all 5184 columns)

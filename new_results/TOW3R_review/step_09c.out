@@ -1,0 +1,1 @@
+adj(6,1): rc=0 out=adjacent (6,1): remainder*DEN == 0 : True  (102.7s) err= (106s)

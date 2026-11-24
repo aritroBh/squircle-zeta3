@@ -1,0 +1,11 @@
+== Task A: engine == recorded towers (k<=12, depths<=6) ==
+  [PASS] A1: rho == towlib.rho (d=2..12)  303 coeffs, 0 mismatch
+  [PASS] A2: tower == towlib.u (k=2..12, all keys)  1323 coeffs, 0 mismatch
+== Task B (sample): tower law T, n=2..18, D=6 (harvest K=22) ==
+  [PASS] B1: T holds, all genuine cells n=2..18, D=6  659 cells, 0 fails, min nchecks=1
+  [PASS] B2: diagonal shift (k=n off polynomial)  41/41 off
+== Task C (sample): degree-2 kernels == closed forms R_20, R_11, k=16..22 ==
+  [PASS] C1: R_20(k;v), R_11(k;v) exact from tower, k=16..22  0 mismatches
+
+VERIFY_TOWN1: 5/5 PASS   (2.5s)
+ALL PASS

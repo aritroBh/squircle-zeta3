@@ -1,0 +1,13 @@
+c12 k=17: 77.9s
+c12 k=18: 98.0s
+c12: saved kern18_c12.pkl
+c35 k=17: 77.0s
+c35 k=18: 107.8s
+c35: saved kern18_c35.pkl
+c13 k=17: 78.6s
+c13 k=18: 100.7s
+c13: saved kern18_c13.pkl
+c45 k=17: 78.8s
+c45 k=18: 101.0s
+c45: saved kern18_c45.pkl
+GRP DONE old

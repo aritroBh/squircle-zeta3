@@ -1,0 +1,8 @@
+Q0 closed (paper, thm:S) = -2.832935683494847760462057251515769215938 ; my integral - closed = 1.59e-35
+M0 closed - numeric = 4.06e-32
+M1 closed (thm:M1) - numeric = -3.45e-31
+s1: 48*M0closed = -26.5585583865847544337987858741 ; numeric s1 diff 4.13e-24
+s2 from closed M1,Q0 = -4.68921551846050224996005698103 ; T6 closed form - that = 7.48e-50 ; numeric s2 - T6 = -1.9e-26
+s3 numeric = 48.28743248601444775921586 (printed 48.2874324860...)
+Q1 numeric = 6.50432557374100975876610779051 (printed 6.5043255737...)
+printed decimals: s1 -26.5585583866 s2 -4.68921551846

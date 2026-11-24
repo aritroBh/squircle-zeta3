@@ -1,0 +1,36 @@
+tau=1.0  int_0^{2pi} h = 12.0  closed form - quadrature = 0.0
+tau=0.7  int_0^{2pi} h = 10.04606976218073610135388875514462992446  closed form - quadrature = -4.62e-57
+tau=0.37  int_0^{2pi} h = 8.568140896358803953502010031659757790131  closed form - quadrature = 1.24e-60
+tau=0.1  int_0^{2pi} h = 8.035430423800770449801944314832356216326  closed form - quadrature = 1.24e-60
+tau=0.04  int_0^{2pi} h = 8.00542082853631133638892314262757217917  closed form - quadrature = 0.0
+T(log2) at tau=0.6: series - quadrature = -6.54e-48
+[tau^0]: taylor - claimed = 0.0
+[tau^1]: taylor - claimed = 0.0
+[tau^2]: taylor - claimed = 0.0
+[tau^3]: taylor - claimed = 0.0
+[tau^4]: taylor - claimed = 1.56e-61
+[tau^5]: taylor - claimed = 0.0
+[tau^6]: taylor - claimed = 1.17e-61
+[tau^7]: taylor - claimed = 5.83e-62
+79 pi^6/120960 - 237/384 zeta(6) = -1.56e-61
+claimed tau^7 coefficient in sympy variables: -pi^2 z5/16 - pi^4 z3/320 + 9 z7/8 minus claim = 7.78e-62
+tau=1.0: min_grid(h+h") = 1.2e-59 at u=1.0e-60 ; all >0: True ; rel.dev author formula 6.19e-210
+     (h+h")(0+) = 1.2e-99, predicted 2^tau*(1/tau-1) = 0.0
+     h'(0+) = -2.0e-100 ; h'(pi/4-) = -0.5 ; jump -2h'(pi/4-) = 1.0 ; formula 4(1+4^(-1/t))^t/(1+4^(1/t)) = 1.0
+tau=0.5: min_grid(h+h") = 0.418658 at u=0.785398 ; all >0: True ; rel.dev author formula 2.02e-210
+     (h+h")(0+) = 1.4142136, predicted 2^tau*(1/tau-1) = 1.4142136
+     h'(0+) = 4.24e-200 ; h'(pi/4-) = -0.12126781 ; jump -2h'(pi/4-) = 0.24253563 ; formula 4(1+4^(-1/t))^t/(1+4^(1/t)) = 0.24253563
+tau=0.2: min_grid(h+h") = 0.0151691 at u=0.785398 ; all >0: True ; rel.dev author formula 5.45e-210
+     (h+h")(0+) = 4.5947934, predicted 2^tau*(1/tau-1) = 4.5947934
+     h'(0+) = 3.45e-100 ; h'(pi/4-) = -0.0019516005 ; jump -2h'(pi/4-) = 0.0039032009 ; formula 4(1+4^(-1/t))^t/(1+4^(1/t)) = 0.0039032009
+tau=0.1: min_grid(h+h") = 2.83226e-5 at u=0.785398 ; all >0: True ; rel.dev author formula 1.37e-207
+     (h+h")(0+) = 9.6459612, predicted 2^tau*(1/tau-1) = 9.6459612
+     h'(0+) = 8.57e-100 ; h'(pi/4-) = -1.907347e-6 ; jump -2h'(pi/4-) = 3.814694e-6 ; formula 4(1+4^(-1/t))^t/(1+4^(1/t)) = 3.814694e-6
+tau=0.05: min_grid(h+h") = 5.2735e-11 at u=0.785398 ; all >0: True ; rel.dev author formula 5.58e-203
+     (h+h")(0+) = 19.670034, predicted 2^tau*(1/tau-1) = 19.670034
+     h'(0+) = 1.86e-99 ; h'(pi/4-) = -1.8189894e-12 ; jump -2h'(pi/4-) = 3.6379788e-12 ; formula 4(1+4^(-1/t))^t/(1+4^(1/t)) = 3.6379788e-12
+tau=0.02: min_grid(h+h") = 1.12677e-28 at u=0.785398 ; all >0: True ; rel.dev author formula 1.16e-184
+     (h+h")(0+) = 49.684015, predicted 2^tau*(1/tau-1) = 49.684015
+     h'(0+) = 4.87e-99 ; h'(pi/4-) = -1.5777218e-30 ; jump -2h'(pi/4-) = 3.1554436e-30 ; formula 4(1+4^(-1/t))^t/(1+4^(1/t)) = 3.1554436e-30
+outside the claimed range, tau=1.2: (h+h")(0+) = -0.382899
+outside the claimed range, tau=1.5: (h+h")(0+) = -0.942809

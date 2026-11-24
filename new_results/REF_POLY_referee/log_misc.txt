@@ -1,0 +1,3 @@
+(i) regular hexagon, one edge: 6*int(mixed terms) = -11*sqrt(3)*pi**2/72 - 3*sqrt(3)*zeta(3)/16 + 131*sqrt(3)/72
+    x 6 edges, zeta(3) part: -9*sqrt(3)/8  (C_3 = -9*sqrt(3)/8)
+    x 6 edges, the rest: sqrt(3)*(131 - 11*pi**2)/12 = 3.2381197321090887658

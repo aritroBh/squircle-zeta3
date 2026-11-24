@@ -1,0 +1,16 @@
+mp.mp.dps = 120
+max |W_4(k)[dps90] - W_4(k)[dps120]| over k=3..10: 8.0811e-88
+fit(4,5,6) vs fit(8,9,10) max coefficient difference: 4.163e-119
+fit(4,5,6) vs fit(5,7,9)  max coefficient difference: 4.1146e-120
+  k=3: P(k) - W_4(k) = 0.154468
+  k=4: P(k) - W_4(k) = -3.87259e-121
+  k=5: P(k) - W_4(k) = -3.87259e-121
+  k=6: P(k) - W_4(k) = -6.77704e-121
+  k=7: P(k) - W_4(k) = -1.54904e-120
+  k=8: P(k) - W_4(k) = 1.54904e-120
+  k=9: P(k) - W_4(k) = 0.0
+  k=10: P(k) - W_4(k) = -3.09807e-120
+third differences starting at k=3..7: ['0.154468', '3.87259e-121', '-1.54904e-120', '3.96941e-120', '-1.54904e-120']
+c_2 - closed form (dps 120 fit): 9.2458e-120
+c_2(dps90 fit) - closed form, mp.mp.dps = 90 : 2.3809e-89
+wrote values_w4.json

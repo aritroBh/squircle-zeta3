@@ -1,0 +1,69 @@
+Own exact reduction of alternating MZVs, weight <= 5 (relations: SH, ST, DUAL, DIST; exact rational arithmetic)
+weight | convergent words | rank SH+ST | rank DUAL | rank SH+ST+DUAL | rank +DIST | codim | Deligne bound (Fibonacci)
+  1    |     1            |     0      |     0     |     0           |     0      |  1   |  1
+  2    |     4            |     1      |     1     |     2           |     2      |  2   |  2
+  3    |    12            |     4      |     5     |     9           |     9      |  3   |  3
+  4    |    36            |    20      |    15     |    31           |    31      |  5   |  5
+  5    |   108            |    75      |    51     |   100           |   100      |  8   |  8
+relations counted before elimination (SH+ST, DUAL, DIST):
+  weight 1: {'SH+ST': 0, 'DUAL': 0, 'DIST': 0}
+  weight 2: {'SH+ST': 1, 'DUAL': 3, 'DIST': 1}
+  weight 3: {'SH+ST': 4, 'DUAL': 11, 'DIST': 2}
+  weight 4: {'SH+ST': 28, 'DUAL': 35, 'DIST': 4}
+  weight 5: {'SH+ST': 84, 'DUAL': 107, 'DIST': 8}
+(1 s)
+
+Named constants modulo the relations (independent in each weight, hence a basis of the quotient of dimension = codim):
+  weight 1: 1 named constants, rank of their images in the quotient = 1, quotient dimension = 1
+  weight 2: 2 named constants, rank of their images in the quotient = 2, quotient dimension = 2
+  weight 3: 3 named constants, rank of their images in the quotient = 3, quotient dimension = 3
+  weight 4: 5 named constants, rank of their images in the quotient = 5, quotient dimension = 5
+  weight 5: 8 named constants, rank of their images in the quotient = 8, quotient dimension = 8
+
+Derived values H_w(-1) (every one is an exact solution of  T - sum c_i N_i in span(relations)):
+  H1      = -l2
+  Li2     = -pi**2/12
+  Li3     = -3*z3/4
+  H011    = z3/8
+  Li4     = -7*pi**4/720
+  H0011   = 2*Li4h + l2**4/12 - l2**2*pi**2/12 + 7*l2*z3/4 - pi**4/48
+  H0111   = Li4h + l2**4/24 - l2**2*pi**2/24 + 7*l2*z3/8 - pi**4/90
+  Li5     = -15*z5/16
+  H00011  = pi**2*z3/12 - 29*z5/32
+  H00101  = -5*pi**2*z3/48 + 41*z5/32
+  H00111  = -2*Li4h*l2 - 2*Li5h - l2**5/15 + l2**3*pi**2/18 - 7*l2**2*z3/8 + pi**2*z3/12 + 33*z5/32
+  H01011  = 4*Li4h*l2 + 4*Li5h + 2*l2**5/15 - l2**3*pi**2/9 + 7*l2**2*z3/4 - pi**2*z3/4 - 73*z5/64
+  H01111  = -Li4h*l2 - Li5h - l2**5/30 + l2**3*pi**2/36 - 7*l2**2*z3/16 + z5
+
+Exact comparison (derived - value used in g9_hex5_r2fold.py), expanded over the polynomial ring Q[l2, pi, z3, z5, Li4h, Li5h]:
+  H1      difference = 0
+  Li2     difference = 0
+  Li3     difference = 0
+  H011    difference = 0
+  Li4     difference = 0
+  H0011   difference = 0
+  H0111   difference = 0
+  Li5     difference = 0
+  H00011  difference = 0
+  H00101  difference = 0
+  H00111  difference = 0
+  H01011  difference = 0
+  H01111  difference = 0
+all 13 differences are exactly 0: True
+
+Numerical check (mpmath, 90 digits; direct nested series summed with Cohen-Villegas-Zagier acceleration, 130 and 150 terms):
+  H1      series = -0.6931471805599453094172321214581765680755001343602552541   |series - derived| = 2.45e-91   (130 vs 150 terms: 3.68e-91)
+  Li2     series = -0.8224670334241132182362075833230125946094749506033992189   |series - derived| = 8.59e-91   (130 vs 150 terms: 2.45e-91)
+  Li3     series = -0.9015426773696957140498036211335874930737397192553741613   |series - derived| = 1.23e-91   (130 vs 150 terms: 0.0)
+  H011    series = 0.1502571128949492856749672701889312488456232865425623602   |series - derived| = 3.07e-92   (130 vs 150 terms: 9.2e-92)
+  Li4     series = -0.9470328294972459175765032344735219149279070829288860442   |series - derived| = 2.45e-91   (130 vs 150 terms: 3.68e-91)
+  H0011   series = 0.08778567156865530203659329499776193421502273206847111746   |series - derived| = 9.2e-92   (130 vs 150 terms: 9.2e-92)
+  H0111   series = -0.023752366322618485951453583534942026815910568460684873   |series - derived| = 1.07e-91   (130 vs 150 terms: 1.15e-92)
+  Li5     series = -0.9721197704469093059356551435534695325535133620330432612   |series - derived| = 2.45e-91   (130 vs 150 terms: 1.23e-90)
+  H00011  series = 0.0489363970499690633607427486408755712393461500314586185   |series - derived| = 1.53e-92   (130 vs 150 terms: 8.44e-92)
+  H00101  series = 0.09274846734163264423888362859487154527179026144924190991   |series - derived| = 1.99e-91   (130 vs 150 terms: 6.14e-92)
+  H00111  series = -0.009601568443129832539131914818197563243143333703941384522   |series - derived| = 1.05e-91   (130 vs 150 terms: 1.15e-92)
+  H01011  series = -0.01353126398959424318355133327858928587716759325635846176   |series - derived| = 8.44e-92   (130 vs 150 terms: 7.67e-93)
+  H01111  series = 0.003135009601680862247917839722245750510539036866734773865   |series - derived| = 1.97e-92   (130 vs 150 terms: 9.59e-94)
+worst |series - derived| over the 13 values = 8.59e-91 ;  worst change between 130 and 150 terms = 1.23e-90
+total time 1 s

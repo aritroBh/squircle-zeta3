@@ -1,0 +1,3 @@
+planted relation control: PASS
+build[w6x14_15_13]: W6-N6-particular target = 36888.4158825289944132346846765; kernel dim=92; atoms=152
+LLL start W6c symbol-kernel enlarged basis[w6x14_15_13] @3300: rows=185, digits=3300, gram=exact

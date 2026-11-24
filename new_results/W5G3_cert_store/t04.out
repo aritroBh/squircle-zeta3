@@ -1,0 +1,112 @@
+2026-11-23 12:18:15 loaded 4 sectors (8s); rhs 90, frame basis 90
+2026-11-23 12:18:19 exact quotient: dim 408, rank of frame basis + targets = 90 (basis 90) (11s)
+2026-11-23 12:18:21 exact a_j found and checked for all 74 targets; max height digits 27 (14s)
+2026-11-23 12:18:25 literal indices built (18s)
+2026-11-23 12:18:38 RESUME skip u3.f4: both store files pass integrity check (xz decode, JSON, counts); sha256 core d66bfc598295a800 lit 8376cb0475bc77de
+2026-11-23 12:18:46 RESUME skip u5.f4: both store files pass integrity check (xz decode, JSON, counts); sha256 core 004912fe222ec536 lit f4dde83b03b79be8
+2026-11-23 12:18:56 RESUME skip u3.f5: both store files pass integrity check (xz decode, JSON, counts); sha256 core b891420a73eb8dfd lit 64e74afb303da702
+2026-11-23 12:19:04 RESUME skip u5.f5: both store files pass integrity check (xz decode, JSON, counts); sha256 core 1ff32c9598f39e18 lit 0b150f8c7fd65461
+2026-11-23 12:19:13 RESUME skip u3.f7: both store files pass integrity check (xz decode, JSON, counts); sha256 core a7b1a3d673553d03 lit 35268e844d1086a4
+2026-11-23 12:19:20 RESUME skip u5.f7: both store files pass integrity check (xz decode, JSON, counts); sha256 core 014b6b4e661b36d4 lit 473564af6a10617c
+2026-11-23 12:19:28 RESUME skip u3.f9: both store files pass integrity check (xz decode, JSON, counts); sha256 core e4ac8456170f6eb3 lit 39de32391d9eb2e6
+2026-11-23 12:19:36 RESUME skip u5.f9: both store files pass integrity check (xz decode, JSON, counts); sha256 core 19f169bc21d02db3 lit 75b533857c66c090
+2026-11-23 12:19:45 RESUME skip u3.f10: both store files pass integrity check (xz decode, JSON, counts); sha256 core 418bc8ef2a8f184b lit e714291a2a302930
+2026-11-23 12:19:53 RESUME skip u5.f10: both store files pass integrity check (xz decode, JSON, counts); sha256 core a61d2ba289d2a566 lit be6a0b80382b7d1b
+2026-11-23 12:20:01 RESUME skip u3.f12: both store files pass integrity check (xz decode, JSON, counts); sha256 core 8a101b9e0acc9257 lit b235204d42936a1f
+2026-11-23 12:20:10 RESUME skip u5.f12: both store files pass integrity check (xz decode, JSON, counts); sha256 core 26a6706542bad0e6 lit 3a24cec76731d1f8
+2026-11-23 12:20:18 RESUME skip u3.f14: both store files pass integrity check (xz decode, JSON, counts); sha256 core 0bc00fdd07e16599 lit 4844369879efd402
+2026-11-23 12:20:26 RESUME skip u5.f14: both store files pass integrity check (xz decode, JSON, counts); sha256 core b1c4c7d84d048acf lit a1fe06586d06f80f
+2026-11-23 12:20:34 RESUME skip u3.f15: both store files pass integrity check (xz decode, JSON, counts); sha256 core 6650f5d72eeda070 lit bbc5f52cb2ddf65b
+2026-11-23 12:20:44 RESUME skip u5.f15: both store files pass integrity check (xz decode, JSON, counts); sha256 core 6d36b001b34443eb lit 8f6cb6f3b7174229
+2026-11-23 12:20:52 RESUME skip u3.f16: both store files pass integrity check (xz decode, JSON, counts); sha256 core 5f8d6a2063c328ef lit fc9c3888a62f5502
+2026-11-23 12:21:00 RESUME skip u5.f16: both store files pass integrity check (xz decode, JSON, counts); sha256 core e48bf71392005c8a lit da3ca8cb8bb3311e
+2026-11-23 12:21:08 RESUME skip u3.f17: both store files pass integrity check (xz decode, JSON, counts); sha256 core 924e5ed87f62d24a lit 96989e512b8471d4
+2026-11-23 12:21:16 RESUME skip u5.f17: both store files pass integrity check (xz decode, JSON, counts); sha256 core db86a48c525372ac lit 79d08d294d93ec45
+2026-11-23 12:21:24 RESUME skip u3.f52: both store files pass integrity check (xz decode, JSON, counts); sha256 core 5e8bc800afbc9aae lit 2a007ca1a19db0f4
+2026-11-23 12:21:31 RESUME skip u5.f52: both store files pass integrity check (xz decode, JSON, counts); sha256 core 1a13e0ae576d2e1a lit 8f1c0d664d0e2712
+2026-11-23 12:21:42 RESUME skip u3.f53: both store files pass integrity check (xz decode, JSON, counts); sha256 core 4be20f2236515dd7 lit d03ae7d3bf673d91
+2026-11-23 12:21:50 RESUME skip u5.f53: both store files pass integrity check (xz decode, JSON, counts); sha256 core 6e1611a349dbc844 lit 5128014688de61e4
+2026-11-23 12:21:58 RESUME skip u3.f54: both store files pass integrity check (xz decode, JSON, counts); sha256 core 3f8f16d3592994be lit 1d8439fa85c61f01
+2026-11-23 12:22:06 RESUME skip u5.f54: both store files pass integrity check (xz decode, JSON, counts); sha256 core 75b888b5d687b097 lit 9598085b9ed491fd
+2026-11-23 12:22:14 RESUME skip u3.f56: both store files pass integrity check (xz decode, JSON, counts); sha256 core d0a961304001afac lit bd194f7ee4f21c63
+2026-11-23 12:22:22 RESUME skip u5.f56: both store files pass integrity check (xz decode, JSON, counts); sha256 core b9366a0dc141be07 lit ba90be3324156cbf
+2026-11-23 12:22:30 RESUME skip u3.f58: both store files pass integrity check (xz decode, JSON, counts); sha256 core 34b741572b100c18 lit 323337002010a3d5
+2026-11-23 12:22:39 RESUME skip u5.f58: both store files pass integrity check (xz decode, JSON, counts); sha256 core 962b4b15baf783c5 lit 03b7d2187c5dddb4
+2026-11-23 12:22:47 RESUME skip u3.f59: both store files pass integrity check (xz decode, JSON, counts); sha256 core e53a5893b4acdb22 lit ee292d38f20325cd
+2026-11-23 12:22:56 RESUME skip u5.f59: both store files pass integrity check (xz decode, JSON, counts); sha256 core 75d2b918174d0dd5 lit c59e443d45ce23e6
+2026-11-23 12:23:04 RESUME skip u3.f61: both store files pass integrity check (xz decode, JSON, counts); sha256 core 993f9d69e8bc19c6 lit 853539b427810ba7
+2026-11-23 12:23:12 RESUME skip u5.f61: both store files pass integrity check (xz decode, JSON, counts); sha256 core 306d8f31389b86c4 lit 54f0da5aa4a151d6
+2026-11-23 12:23:20 RESUME skip u3.f63: both store files pass integrity check (xz decode, JSON, counts); sha256 core ca7ebd9ae1ba477c lit f6a30c6aacf24092
+2026-11-23 12:23:29 RESUME skip u5.f63: both store files pass integrity check (xz decode, JSON, counts); sha256 core 71aad332d1054121 lit ed0492aa63b23908
+2026-11-23 12:23:38 RESUME skip u3.f64: both store files pass integrity check (xz decode, JSON, counts); sha256 core 6e258789a199a760 lit 1b46985c70cfe2b2
+2026-11-23 12:23:46 RESUME skip u5.f64: both store files pass integrity check (xz decode, JSON, counts); sha256 core 3a721dc5e55dc0ce lit a06f940bc46eca7d
+2026-11-23 12:23:54 RESUME skip u3.f65: both store files pass integrity check (xz decode, JSON, counts); sha256 core 6e15cd5fd8e82a7e lit 545a735e7df73ad9
+2026-11-23 12:24:02 RESUME skip u5.f65: both store files pass integrity check (xz decode, JSON, counts); sha256 core cc1e09e51158fa00 lit 470defd6c93283fd
+2026-11-23 12:24:10 RESUME skip u3.f66: both store files pass integrity check (xz decode, JSON, counts); sha256 core d59b8522ffcdedb1 lit 44391c4e05c07bce
+2026-11-23 12:24:18 RESUME skip u5.f66: both store files pass integrity check (xz decode, JSON, counts); sha256 core 4fbbc360806fc2c3 lit 1531b5b06df8c324
+2026-11-23 12:24:26 RESUME skip u3.f67: both store files pass integrity check (xz decode, JSON, counts); sha256 core 1a83091596b42140 lit 296217fd8f1cbf27
+2026-11-23 12:24:34 RESUME skip u5.f67: both store files pass integrity check (xz decode, JSON, counts); sha256 core 0a7f3c2d6cc303e4 lit 5c7757b16c537105
+2026-11-23 12:24:35 RESUME redo u3.f68: lit missing/empty
+2026-11-23 12:24:35 RESUME redo u5.f68: core missing/empty
+2026-11-23 12:24:35 RESUME redo u3.f69: core missing/empty
+2026-11-23 12:24:35 RESUME redo u5.f69: core missing/empty
+2026-11-23 12:25:57   decompositions at weight 1: 6 (j,u) pairs, exact; with e-part: 2 (470s)
+2026-11-23 12:27:11   decompositions at weight 4: 6 (j,u) pairs, exact; with e-part: 0 (544s)
+2026-11-23 12:27:11   decompositions at weight 2: 4 (j,u) pairs, exact; with e-part: 0 (544s)
+2026-11-23 12:29:01 u3.f68: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13837; EXACT identity on 46656 words: mismatches = 0 (654s)
+2026-11-23 12:30:38 u5.f68: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13841; EXACT identity on 46656 words: mismatches = 0 (751s)
+2026-11-23 12:32:32 u3.f69: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13839; EXACT identity on 46656 words: mismatches = 0 (865s)
+2026-11-23 12:34:41 u5.f69: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (994s)
+2026-11-23 12:34:49 RESUME redo u3.f70: core missing/empty
+2026-11-23 12:34:49 RESUME redo u5.f70: core missing/empty
+2026-11-23 12:34:49 RESUME redo u3.f71: core missing/empty
+2026-11-23 12:34:49 RESUME redo u5.f71: core missing/empty
+2026-11-23 12:34:49 RESUME redo u3.f72: core missing/empty
+2026-11-23 12:34:49 RESUME redo u5.f72: core missing/empty
+2026-11-23 12:34:49 RESUME redo u3.f73: core missing/empty
+2026-11-23 12:34:49 RESUME redo u5.f73: core missing/empty
+2026-11-23 12:39:37 u3.f70: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13843; EXACT identity on 46656 words: mismatches = 0 (1290s)
+2026-11-23 12:41:22 u5.f70: frame terms 72, literal terms 51549 {'std': 38367, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13843; EXACT identity on 46656 words: mismatches = 0 (1395s)
+2026-11-23 12:43:26 u3.f71: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (1519s)
+2026-11-23 12:45:20 u5.f71: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13837; EXACT identity on 46656 words: mismatches = 0 (1632s)
+2026-11-23 12:47:15 u3.f72: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (1748s)
+2026-11-23 12:49:08 u5.f72: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13841; EXACT identity on 46656 words: mismatches = 0 (1861s)
+2026-11-23 12:51:18 u3.f73: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (1991s)
+2026-11-23 12:52:58 u5.f73: frame terms 72, literal terms 51548 {'std': 38366, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (2090s)
+2026-11-23 12:53:03 RESUME redo u3.f74: core missing/empty
+2026-11-23 12:53:03 RESUME redo u5.f74: core missing/empty
+2026-11-23 12:53:03 RESUME redo u3.f75: core missing/empty
+2026-11-23 12:53:03 RESUME redo u5.f75: core missing/empty
+2026-11-23 12:53:03 RESUME redo u3.f87: core missing/empty
+2026-11-23 12:53:03 RESUME redo u5.f87: core missing/empty
+2026-11-23 12:53:03 RESUME redo u3.f91: core missing/empty
+2026-11-23 12:53:03 RESUME redo u5.f91: core missing/empty
+2026-11-23 12:57:06 u3.f74: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13836; EXACT identity on 46656 words: mismatches = 0 (2339s)
+2026-11-23 12:59:20 u5.f74: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13836; EXACT identity on 46656 words: mismatches = 0 (2473s)
+2026-11-23 13:01:12 u3.f75: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13838; EXACT identity on 46656 words: mismatches = 0 (2585s)
+2026-11-23 13:02:54 u5.f75: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13838; EXACT identity on 46656 words: mismatches = 0 (2687s)
+2026-11-23 13:04:37 u3.f87: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (2790s)
+2026-11-23 13:06:39 u5.f87: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (2912s)
+2026-11-23 13:08:38 u3.f91: frame terms 72, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13838; EXACT identity on 46656 words: mismatches = 0 (3031s)
+2026-11-23 13:10:15 u5.f91: frame terms 72, literal terms 51549 {'std': 38367, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13841; EXACT identity on 46656 words: mismatches = 0 (3128s)
+2026-11-23 13:10:21 RESUME redo u3.f95: core missing/empty
+2026-11-23 13:10:21 RESUME redo u5.f95: core missing/empty
+2026-11-23 13:10:21 RESUME redo u3.f103: core missing/empty
+2026-11-23 13:10:21 RESUME redo u5.f103: core missing/empty
+2026-11-23 13:10:21 RESUME redo u3.f104: core missing/empty
+2026-11-23 13:10:21 RESUME redo u5.f104: core missing/empty
+2026-11-23 13:10:21 RESUME redo u3.f107: core missing/empty
+2026-11-23 13:10:21 RESUME redo u5.f107: core missing/empty
+2026-11-23 13:14:34 u3.f95: frame terms 73, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13837; EXACT identity on 46656 words: mismatches = 0 (3387s)
+2026-11-23 13:16:40 u5.f95: frame terms 73, literal terms 51548 {'std': 38366, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13829; EXACT identity on 46656 words: mismatches = 0 (3513s)
+2026-11-23 13:18:46 u3.f103: frame terms 77, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13841; EXACT identity on 46656 words: mismatches = 0 (3639s)
+2026-11-23 13:20:48 u5.f103: frame terms 77, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13841; EXACT identity on 46656 words: mismatches = 0 (3761s)
+2026-11-23 13:22:31 u3.f104: frame terms 74, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13840; EXACT identity on 46656 words: mismatches = 0 (3864s)
+2026-11-23 13:24:15 u5.f104: frame terms 74, literal terms 51548 {'std': 38366, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13838; EXACT identity on 46656 words: mismatches = 0 (3968s)
+2026-11-23 13:25:52 u3.f107: frame terms 72, literal terms 51548 {'std': 38366, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13842; EXACT identity on 46656 words: mismatches = 0 (4065s)
+2026-11-23 13:27:29 u5.f107: frame terms 72, literal terms 51548 {'std': 38366, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13839; EXACT identity on 46656 words: mismatches = 0 (4162s)
+2026-11-23 13:27:37 RESUME redo u3.f113: core missing/empty
+2026-11-23 13:27:37 RESUME redo u5.f113: core missing/empty
+2026-11-23 13:30:08 u3.f113: frame terms 81, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13844; EXACT identity on 46656 words: mismatches = 0 (4321s)
+2026-11-23 13:31:55 u5.f113: frame terms 81, literal terms 51547 {'std': 38365, 'lift1': 8268, 'lift4old': 4721, 'lift2old': 193} (u=7 conj 1766), |supp W| 5180, max coef digits 13844; EXACT identity on 46656 words: mismatches = 0 (4427s)
+2026-11-23 13:33:07 ALL 74 targets: exact identity v = sum a_j F_j + literal rows + e sh W verified (4500s)

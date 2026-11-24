@@ -1,0 +1,107 @@
+[
+ {
+  "name": "W_2(2) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(3) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(4) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(5) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(6) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(7) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(8) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(9) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_2(10) - (pi^2+6 log^2 2)/24",
+  "residual": "-1.2273e-91",
+  "pass": true
+ },
+ {
+  "name": "W_3(2) - [W3' - (k-3) S]",
+  "residual": "0.2878",
+  "pass": false
+ },
+ {
+  "name": "W_3(3) - [W3' - (k-3) S]",
+  "residual": "9.8182e-91",
+  "pass": true
+ },
+ {
+  "name": "W_3(4) - [W3' - (k-3) S]",
+  "residual": "1.4727e-90",
+  "pass": true
+ },
+ {
+  "name": "W_3(5) - [W3' - (k-3) S]",
+  "residual": "1.4727e-90",
+  "pass": true
+ },
+ {
+  "name": "W_3(6) - [W3' - (k-3) S]",
+  "residual": "1.9636e-90",
+  "pass": true
+ },
+ {
+  "name": "W_3(7) - [W3' - (k-3) S]",
+  "residual": "2.4545e-90",
+  "pass": true
+ },
+ {
+  "name": "W_3(8) - [W3' - (k-3) S]",
+  "residual": "2.4545e-90",
+  "pass": true
+ },
+ {
+  "name": "W_3(9) - [W3' - (k-3) S]",
+  "residual": "2.9455e-90",
+  "pass": true
+ },
+ {
+  "name": "W_3(10) - [W3' - (k-3) S]",
+  "residual": "2.9455e-90",
+  "pass": true
+ },
+ {
+  "name": "W_4(3) - W4 (thm:W4 closed form)",
+  "residual": "9.2046e-90",
+  "pass": true
+ },
+ {
+  "name": "W_4(4) - W4'' (W4pp_800.txt)",
+  "residual": "-6.7009e-89",
+  "pass": true
+ },
+ {
+  "name": "W_4(4) - W4'' (w4pp_closed_form.json)",
+  "residual": "-6.9955e-89",
+  "pass": true
+ }
+]

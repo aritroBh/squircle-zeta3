@@ -1,0 +1,24 @@
+k = 5: pieces {(5, 0): '-1/(60*(v + 1 + sqrt(2))) - (-32 + sqrt(2))/(3840*v)', (4, 1): '-17*sqrt(2)/(768*v)', (3, 2): '7*sqrt(2)/(384*v)', (4, 0): '-11/(192*(v - sqrt(2) - 1)) - 1/(64*(v + 1 + sqrt(2))) + 1/(8*(v - 1 + sqrt(2))) + (-5 + sqrt(2))/(192*v)', (3, 1): '5/(48*(v - sqrt(2) - 1)) + 13/(48*(v + 1 + sqrt(2))) - 2/(3*(v - 1 + sqrt(2))) - 7*(-1 + sqrt(2))/(48*v)', (2, 2): '-27/(32*(v + 1 + sqrt(2))) + 9*(sqrt(2) + 3)/(64*v)', (3, 0): '-5/(8*(v - sqrt(2) - 1)) + 25/(24*(v + 1 + sqrt(2))) - 1/(3*(v - 1 + sqrt(2))) - (1 + 3*sqrt(2))/(24*v)', (2, 1): '17/(16*(v - sqrt(2) - 1)) - 23/(8*(v + 1 + sqrt(2))) - 17/(16*(v - 1 + sqrt(2))) + (2*sqrt(2) + 23)/(16*v)', (2, 0): '1/(4*(v - sqrt(2) - 1)) + 3/(4*(v + 1 + sqrt(2))) - 3/(2*(v - 1 + sqrt(2))) - (-1 + sqrt(2))/(4*v)', (1, 1): '-5/(2*(v + 1 + sqrt(2))) + (sqrt(2) + 5)/(4*v)', (1, 0): '1/(2*(v - sqrt(2) - 1)) - 1/(v + 1 + sqrt(2)) - 1/(2*(v - 1 + sqrt(2))) + 1/(2*v)'}
+
+weight-2 piece before reduction: 1/3*pi2 + 1/2*Li2(-1*sqrt2) + -1/2*Li2(-1) + -1/2*Li2((1-1*sqrt2)) + 1/2*Li2((-3+2*sqrt2)) + 1/2*Li2((1/2-1/4*sqrt2)) + 1/2*Li2((3-2*sqrt2)) + -1/2*Li2((1-1/2*sqrt2)) + 1/2*Li2((-1+1*sqrt2)) + 1/2*Li2(1/2) + -1*Li2((2-1*sqrt2)) + -1/2*Li2((-2+2*sqrt2)) + -1*Li2((1/2+1/4*sqrt2)) + -1/2*Li2(1) + -1/8*lam*lam + -1/2*lam*L + 1/2*L*L
+weight-2 piece T = 1/24*pi2 + 1/4*lam*lam    [quadrature check: -3.27e-60 ]
+T - (pi^2+6log^2 2)/24 = 0
+
+weight-3 piece: exact-expression numeric = -2.230470348308207729188875466773230430193   quadrature = -2.230470348308207729188875466773230430193
+Li3 reduction: rank (196, 255); 14 relations used:
+    (21/4-5/8*sqrt2) x [inversion (I3)]
+    (1/2+1/2*sqrt2) x [three-term (T3) at (1-1/2*sqrt2)]
+    (1/2+3/8*sqrt2) x [inversion (I3)]
+    (-9/4-1/8*sqrt2) x [three-term (T3) at (3-2*sqrt2)]
+    (11/2+1/2*sqrt2) x [inversion (I3)]
+    (1/2-1/2*sqrt2) x [three-term (T3) at (-1+1*sqrt2)]
+    (-63/16-1/32*sqrt2) x [three-term (T3) at 1/2]
+    (7/8-3/16*sqrt2) x [duplication (D3) w=-1/2*sqrt2]
+    (-63/16-1/32*sqrt2) x [inversion (I3)]
+    (11/8+1/16*sqrt2) x [three-term (T3) at (1/2-1/4*sqrt2)]
+    (7/8+1/16*sqrt2) x [duplication (D3) w=(1-1*sqrt2)]
+    (-7/8-1/16*sqrt2) x [Kummer (K) at (x,y)=((-1+1*sqrt2), 1/2*sqrt2)]
+    (-7/8-1/16*sqrt2) x [Kummer (K) at (x,y)=(1/2*sqrt2, (-2+2*sqrt2))]
+    (-7/16-1/32*sqrt2) x [Kummer (K) at (x,y)=(-1, (3-2*sqrt2))]
+weight-3 piece W3' = (-7/16+7/32*sqrt2)*z3 + (1-1*sqrt2)*Li3((1-1*sqrt2)) + (1+1*sqrt2)*Li3((-1+1*sqrt2)) + -2*sqrt2*Li3(1/2*sqrt2) + (-1/8-1/24*sqrt2)*lam*pi2 + -1*sqrt2*lam*Li2((-1+1*sqrt2)) + (-1/8+1/12*sqrt2)*L*pi2 + 2*L*Li2((-1+1*sqrt2)) + (-1/8+1/24*sqrt2)*lam*lam*lam + 1/4*sqrt2*lam*lam*L + (-1/2-1/2*sqrt2)*lam*L*L + (5/6-1/6*sqrt2)*L*L*L
+   check vs quadrature: 0.0

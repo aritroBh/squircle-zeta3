@@ -1,0 +1,2 @@
+time 23 s
+lowest power of L in each coefficient (random data): [(-9, 87), (-7, 43), (-5, 44), (-3, 43), (-1, 45), (1, 45)]

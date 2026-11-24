@@ -1,0 +1,14 @@
+prove_S12 exit=0 1.40s
+prove_S34_3 exit=0 2.31s
+prove_S34_4 exit=0 6.12s
+prove_tops exit=0 0.97s
+prove_adj34_3_0 exit=0 18.01s
+prove_adj34_3_1 exit=0 2.20s
+prove_adj34_4_0 exit=0 81.84s
+prove_adj34_4_1 exit=0 5.89s
+prove_adj34_4_2 exit=0 1.50s
+prove_E3b34_3 exit=0 3.22s
+prove_E3b34_4 exit=0 6.99s
+step_48 exit=0 34.88s
+step_49 exit=0 274.64s
+step_52 exit=0 1.79s

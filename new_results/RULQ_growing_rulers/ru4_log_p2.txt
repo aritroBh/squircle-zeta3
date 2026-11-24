@@ -1,0 +1,1 @@
+p=2 K=8 actual R=3.7838e-03  best bound 424.8 parts ['3.98e-10', '47.1', '378.0'] rho,delta,rho2= (0.6, 1.5, 0.6)

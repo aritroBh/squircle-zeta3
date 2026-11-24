@@ -1,0 +1,22 @@
+[1] forward-difference recomputation of all e_(ij,r,m) from deg5_residue_polynomials.json: cells*parts=24, mismatches=0
+    pole/key sets equal: True
+[2] E5,1: direct-kernel (46*sqrt2, -75/2, 15*sqrt2, 0)  | linear combo of 12 N-cells (46*sqrt2, -75/2, 15*sqrt2, 0)  equal=True
+[2] E5,2: direct-kernel (-21/2*sqrt2, -35/2, 0, 21)  | linear combo of 12 N-cells (-21/2*sqrt2, -35/2, 0, 21)  equal=True
+[2] E5,3: direct-kernel (-6*sqrt2, -10, 0, 12)  | linear combo of 12 N-cells (-6*sqrt2, -10, 0, 12)  equal=True
+[2] E5,4: direct-kernel (0, 0, 0, 0)  | linear combo of 12 N-cells (0, 0, 0, 0)  equal=True
+[2] E5,5: direct-kernel (0, 0, 0, 0)  | linear combo of 12 N-cells (0, 0, 0, 0)  equal=True
+[3] E5,1 vs WT6S e5m_pairings.json: equal=True
+[3] E5,2 vs WT6S e5m_pairings.json: equal=True
+[3] E5,3 vs WT6S e5m_pairings.json: equal=True
+[3] E5,4 vs WT6S e5m_pairings.json: equal=True
+[3] E5,5 vs WT6S e5m_pairings.json: equal=True
+    n6_symbols_pairings.json keys sample: ['symbol_words', 'pairing_vectors', 'pairing_vectors_pq']
+[4] k=6: direct kernel (46*sqrt2, -75/2, 15*sqrt2, 0)  | sum_m C(k-6,m-1) pv(E5,m) (46*sqrt2, -75/2, 15*sqrt2, 0)  equal=True
+[4] k=7: direct kernel (71/2*sqrt2, -55, 15*sqrt2, 21)  | sum_m C(k-6,m-1) pv(E5,m) (71/2*sqrt2, -55, 15*sqrt2, 21)  equal=True
+[4] k=8: direct kernel (19*sqrt2, -165/2, 15*sqrt2, 54)  | sum_m C(k-6,m-1) pv(E5,m) (19*sqrt2, -165/2, 15*sqrt2, 54)  equal=True
+[4] k=9: direct kernel (-7/2*sqrt2, -120, 15*sqrt2, 99)  | sum_m C(k-6,m-1) pv(E5,m) (-7/2*sqrt2, -120, 15*sqrt2, 99)  equal=True
+[5] k=6: result.md polynomial P(k) (46*sqrt2, -75/2, 15*sqrt2, 0) equals direct kernel pairing: True
+[5] k=7: result.md polynomial P(k) (71/2*sqrt2, -55, 15*sqrt2, 21) equals direct kernel pairing: True
+[5] k=8: result.md polynomial P(k) (19*sqrt2, -165/2, 15*sqrt2, 54) equals direct kernel pairing: True
+[5] k=9: result.md polynomial P(k) (-7/2*sqrt2, -120, 15*sqrt2, 99) equals direct kernel pairing: True
+ALL POST CHECKS PASS

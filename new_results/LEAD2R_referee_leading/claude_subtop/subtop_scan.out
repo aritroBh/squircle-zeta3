@@ -1,0 +1,126 @@
+--- d=2
+  key=(2, 0) pole=-a rat: top=       1/2  sub=        -1/4  sub/top=-1/2
+  key=(2, 0) pole= 0 rat: top=         0  sub=         1/4  sub/top=-
+  key=(2, 0) pole= 0 s2 : top=         0  sub=        -1/4  sub/top=-
+  key=(2, 0) pole=-b rat: top=      -1/2  sub=        -1/2  sub/top=1
+  key=(2, 0) pole= a rat: top=         0  sub=         1/4  sub/top=-
+  key=(1, 1) pole=-a rat: top=        -1  sub=        -1/2  sub/top=1/2
+  key=(1, 1) pole= 0 rat: top=       1/2  sub=         1/4  sub/top=1/2
+  key=(1, 1) pole= 0 s2 : top=         0  sub=         1/4  sub/top=-
+--- d=3
+  key=(3, 0) pole=-a rat: top=       1/3  sub=         5/6  sub/top=5/2
+  key=(3, 0) pole= 0 rat: top=         0  sub=       -1/12  sub/top=-
+  key=(3, 0) pole=-b rat: top=         0  sub=        -1/6  sub/top=-
+  key=(3, 0) pole= a rat: top=      -1/3  sub=        -1/2  sub/top=3/2
+  key=(2, 1) pole=-a rat: top=        -1  sub=          -2  sub/top=2
+  key=(2, 1) pole= 0 rat: top=       1/2  sub=           1  sub/top=2
+  key=(2, 1) pole=-b rat: top=      -1/2  sub=        -3/4  sub/top=3/2
+  key=(2, 1) pole= a rat: top=       1/2  sub=         3/4  sub/top=3/2
+--- d=4
+  key=(4, 0) pole=-a rat: top=     -5/24  sub=       -5/16  sub/top=3/2
+  key=(4, 0) pole= 0 rat: top=         0  sub=       -1/24  sub/top=-
+  key=(4, 0) pole= 0 s2 : top=         0  sub=        1/24  sub/top=-
+  key=(4, 0) pole=-b rat: top=      5/24  sub=       25/48  sub/top=5/2
+  key=(4, 0) pole= a rat: top=         0  sub=        -1/8  sub/top=-
+  key=(3, 1) pole=-a rat: top=       5/6  sub=       19/12  sub/top=19/10
+  key=(3, 1) pole= 0 rat: top=         0  sub=         1/6  sub/top=-
+  key=(3, 1) pole= 0 s2 : top=         0  sub=        -1/6  sub/top=-
+  key=(3, 1) pole=-b rat: top=      -5/6  sub=      -25/12  sub/top=5/2
+  key=(3, 1) pole= a rat: top=         0  sub=         1/6  sub/top=-
+  key=(2, 2) pole=-a rat: top=      -5/4  sub=       -23/8  sub/top=23/10
+  key=(2, 2) pole= 0 rat: top=       5/8  sub=       23/16  sub/top=23/10
+  key=(2, 2) pole= 0 s2 : top=         0  sub=         1/8  sub/top=-
+--- d=5
+  key=(5, 0) pole=-a rat: top=     -2/15  sub=    -131/240  sub/top=131/32
+  key=(5, 0) pole= 0 rat: top=         0  sub=        1/48  sub/top=-
+  key=(5, 0) pole=-b rat: top=         0  sub=        1/12  sub/top=-
+  key=(5, 0) pole= a rat: top=      2/15  sub=     101/240  sub/top=101/32
+  key=(4, 1) pole=-a rat: top=       2/3  sub=      121/48  sub/top=121/32
+  key=(4, 1) pole= 0 rat: top=         0  sub=       -5/48  sub/top=-
+  key=(4, 1) pole=-b rat: top=         0  sub=       -5/24  sub/top=-
+  key=(4, 1) pole= a rat: top=      -2/3  sub=     -101/48  sub/top=101/32
+  key=(3, 2) pole=-a rat: top=      -4/3  sub=       -37/8  sub/top=111/32
+  key=(3, 2) pole= 0 rat: top=       2/3  sub=       37/16  sub/top=111/32
+  key=(3, 2) pole=-b rat: top=      -2/3  sub=     -101/48  sub/top=101/32
+  key=(3, 2) pole= a rat: top=       2/3  sub=      101/48  sub/top=101/32
+--- d=6
+  key=(6, 0) pole=-a rat: top=    61/720  sub=     197/720  sub/top=197/61
+  key=(6, 0) pole= 0 rat: top=         0  sub=        1/90  sub/top=-
+  key=(6, 0) pole= 0 s2 : top=         0  sub=       -1/90  sub/top=-
+  key=(6, 0) pole=-b rat: top=   -61/720  sub=    -253/720  sub/top=253/61
+  key=(6, 0) pole= a rat: top=         0  sub=        1/18  sub/top=-
+  key=(5, 1) pole=-a rat: top=   -61/120  sub=      -71/40  sub/top=213/61
+  key=(5, 1) pole= 0 rat: top=         0  sub=       -1/15  sub/top=-
+  key=(5, 1) pole= 0 s2 : top=         0  sub=        1/15  sub/top=-
+  key=(5, 1) pole=-b rat: top=    61/120  sub=     253/120  sub/top=253/61
+  key=(5, 1) pole= a rat: top=         0  sub=        -1/5  sub/top=-
+  key=(4, 2) pole=-a rat: top=     61/48  sub=      229/48  sub/top=229/61
+  key=(4, 2) pole= 0 rat: top=         0  sub=         1/6  sub/top=-
+  key=(4, 2) pole= 0 s2 : top=         0  sub=        -1/6  sub/top=-
+  key=(4, 2) pole=-b rat: top=    -61/48  sub=     -253/48  sub/top=253/61
+  key=(4, 2) pole= a rat: top=         0  sub=         1/6  sub/top=-
+  key=(3, 3) pole=-a rat: top=    -61/36  sub=     -245/36  sub/top=245/61
+  key=(3, 3) pole= 0 rat: top=     61/72  sub=      245/72  sub/top=245/61
+  key=(3, 3) pole= 0 s2 : top=         0  sub=         1/9  sub/top=-
+--- d=7
+  key=(7, 0) pole=-a rat: top=    17/315  sub=  3151/10080  sub/top=3151/544
+  key=(7, 0) pole= 0 rat: top=         0  sub=   -61/10080  sub/top=-
+  key=(7, 0) pole=-b rat: top=         0  sub=    -61/1680  sub/top=-
+  key=(7, 0) pole= a rat: top=   -17/315  sub= -2663/10080  sub/top=2663/544
+  key=(6, 1) pole=-a rat: top=    -17/45  sub=  -3029/1440  sub/top=3029/544
+  key=(6, 1) pole= 0 rat: top=         0  sub=     61/1440  sub/top=-
+  key=(6, 1) pole=-b rat: top=         0  sub=      61/360  sub/top=-
+  key=(6, 1) pole= a rat: top=     17/45  sub=   2663/1440  sub/top=2663/544
+  key=(5, 2) pole=-a rat: top=     17/15  sub=     969/160  sub/top=171/32
+  key=(5, 2) pole= 0 rat: top=         0  sub=     -61/480  sub/top=-
+  key=(5, 2) pole=-b rat: top=         0  sub=     -61/240  sub/top=-
+  key=(5, 2) pole= a rat: top=    -17/15  sub=   -2663/480  sub/top=2663/544
+  key=(4, 3) pole=-a rat: top=     -17/9  sub=   -2785/288  sub/top=2785/544
+  key=(4, 3) pole= 0 rat: top=     17/18  sub=    2785/576  sub/top=2785/544
+  key=(4, 3) pole=-b rat: top=    -17/18  sub=   -2663/576  sub/top=2663/544
+  key=(4, 3) pole= a rat: top=     17/18  sub=    2663/576  sub/top=2663/544
+--- d=8
+  key=(8, 0) pole=-a rat: top= -277/8064  sub=-13849/80640  sub/top=13849/2770
+  key=(8, 0) pole= 0 rat: top=         0  sub=    -17/5040  sub/top=-
+  key=(8, 0) pole= 0 s2 : top=         0  sub=     17/5040  sub/top=-
+  key=(8, 0) pole=-b rat: top=  277/8064  sub= 16297/80640  sub/top=16297/2770
+  key=(8, 0) pole= a rat: top=         0  sub=     -17/720  sub/top=-
+  key=(7, 1) pole=-a rat: top=  277/1008  sub= 14393/10080  sub/top=14393/2770
+  key=(7, 1) pole= 0 rat: top=         0  sub=      17/630  sub/top=-
+  key=(7, 1) pole= 0 s2 : top=         0  sub=     -17/630  sub/top=-
+  key=(7, 1) pole=-b rat: top= -277/1008  sub=-16297/10080  sub/top=16297/2770
+  key=(7, 1) pole= a rat: top=         0  sub=      17/126  sub/top=-
+  key=(6, 2) pole=-a rat: top=  -277/288  sub=   -4979/960  sub/top=14937/2770
+  key=(6, 2) pole= 0 rat: top=         0  sub=     -17/180  sub/top=-
+  key=(6, 2) pole= 0 s2 : top=         0  sub=      17/180  sub/top=-
+  key=(6, 2) pole=-b rat: top=   277/288  sub=  16297/2880  sub/top=16297/2770
+  key=(6, 2) pole= a rat: top=         0  sub=      -17/60  sub/top=-
+  key=(5, 3) pole=-a rat: top=   277/144  sub=  15481/1440  sub/top=15481/2770
+  key=(5, 3) pole= 0 rat: top=         0  sub=       17/90  sub/top=-
+  key=(5, 3) pole= 0 s2 : top=         0  sub=      -17/90  sub/top=-
+  key=(5, 3) pole=-b rat: top=  -277/144  sub= -16297/1440  sub/top=16297/2770
+  key=(5, 3) pole= a rat: top=         0  sub=       17/90  sub/top=-
+  key=(4, 4) pole=-a rat: top= -1385/576  sub= -16025/1152  sub/top=3205/554
+  key=(4, 4) pole= 0 rat: top= 1385/1152  sub=  16025/2304  sub/top=3205/554
+  key=(4, 4) pole= 0 s2 : top=         0  sub=      17/144  sub/top=-
+--- d=9
+  key=(9, 0) pole=-a rat: top=  -62/2835  sub=-119969/725760  sub/top=119969/15872
+  key=(9, 0) pole= 0 rat: top=         0  sub=  277/145152  sub/top=-
+  key=(9, 0) pole=-b rat: top=         0  sub=   277/18144  sub/top=-
+  key=(9, 0) pole= a rat: top=   62/2835  sub= 11791/80640  sub/top=106119/15872
+  key=(8, 1) pole=-a rat: top=    62/315  sub=117199/80640  sub/top=117199/15872
+  key=(8, 1) pole= 0 rat: top=         0  sub=  -277/16128  sub/top=-
+  key=(8, 1) pole=-b rat: top=         0  sub=   -277/2688  sub/top=-
+  key=(8, 1) pole= a rat: top=   -62/315  sub= -11791/8960  sub/top=106119/15872
+  key=(7, 2) pole=-a rat: top=  -248/315  sub=   -5449/960  sub/top=114429/15872
+  key=(7, 2) pole= 0 rat: top=         0  sub=    277/4032  sub/top=-
+  key=(7, 2) pole=-b rat: top=         0  sub=    277/1008  sub/top=-
+  key=(7, 2) pole= a rat: top=   248/315  sub=  11791/2240  sub/top=106119/15872
+  key=(6, 3) pole=-a rat: top=   248/135  sub= 111659/8640  sub/top=111659/15872
+  key=(6, 3) pole= 0 rat: top=         0  sub=   -277/1728  sub/top=-
+  key=(6, 3) pole=-b rat: top=         0  sub=    -277/864  sub/top=-
+  key=(6, 3) pole= a rat: top=  -248/135  sub=  -11791/960  sub/top=106119/15872
+  key=(5, 4) pole=-a rat: top=   -124/45  sub=-108889/5760  sub/top=108889/15872
+  key=(5, 4) pole= 0 rat: top=     62/45  sub=108889/11520  sub/top=108889/15872
+  key=(5, 4) pole=-b rat: top=    -62/45  sub= -11791/1280  sub/top=106119/15872
+  key=(5, 4) pole= a rat: top=     62/45  sub=  11791/1280  sub/top=106119/15872

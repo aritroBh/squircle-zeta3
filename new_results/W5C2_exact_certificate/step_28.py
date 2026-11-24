@@ -1,0 +1,2 @@
+import subprocess
+print(subprocess.run(['grep','-n','sys.path\|qsqrt2','../W5C1_certificate_scoping/w5_build_D.py','../W5C1_certificate_scoping/w5_frame_validate.py','../W5C1_certificate_scoping/w5_gen_relations.py'], capture_output=True, text=True).stdout)

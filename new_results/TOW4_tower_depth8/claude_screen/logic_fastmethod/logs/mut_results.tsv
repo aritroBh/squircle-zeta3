@@ -1,0 +1,42 @@
+M13_poison_cached_ehat	(8,4)	detected: numerator != 0
+M13_poison_cached_ehat	(7,3)	detected: numerator != 0
+M13_poison_cached_ehat	(8,3)	detected: numerator != 0
+M13b_poison_cached_ehat_conj	(7,3)	detected: numerator != 0
+M13_poison_cached_ehat	(7,2)	detected: numerator != 0
+M13b_poison_cached_ehat_conj	(8,4)	detected: numerator != 0
+M13b_poison_cached_ehat_conj	(8,3)	detected: numerator != 0
+M13b_poison_cached_ehat_conj	(7,2)	detected: numerator != 0
+M13_poison_cached_ehat	(8,2)	detected: numerator != 0
+M14_poison_cached_Ediag	(7,3)	detected: numerator != 0
+M14_poison_cached_Ediag	(8,4)	detected: numerator != 0
+M13_poison_cached_ehat	(7,1)	detected: numerator != 0
+M14_poison_cached_Ediag	(8,3)	detected: numerator != 0
+M14_poison_cached_Ediag	(7,2)	detected: numerator != 0
+M13b_poison_cached_ehat_conj	(8,2)	detected: numerator != 0
+M14b_poison_cached_Ediag_conj	(7,3)	detected: numerator != 0
+M13b_poison_cached_ehat_conj	(7,1)	detected: numerator != 0
+M14b_poison_cached_Ediag_conj	(8,4)	detected: numerator != 0
+M14b_poison_cached_Ediag_conj	(8,3)	detected: numerator != 0
+M14b_poison_cached_Ediag_conj	(7,2)	detected: numerator != 0
+M14_poison_cached_Ediag	(8,2)	detected: numerator != 0
+M14_poison_cached_Ediag	(7,1)	detected: numerator != 0
+M20_DEN_drop_factor_consistent	(7,3)	detected: numerator != 0
+M20_DEN_drop_factor_consistent	(8,4)	UNDETECTED (printed True)
+M20_DEN_drop_factor_consistent	(8,3)	detected: numerator != 0
+M20_DEN_drop_factor_consistent	(7,2)	detected: numerator != 0
+M14b_poison_cached_Ediag_conj	(8,2)	detected: numerator != 0
+M21_DEN_drop_factor_lcm_only	(7,3)	detected: AssertionError
+M14b_poison_cached_Ediag_conj	(7,1)	detected: numerator != 0
+M21_DEN_drop_factor_lcm_only	(8,4)	detected: AssertionError
+M21_DEN_drop_factor_lcm_only	(8,3)	detected: AssertionError
+M21_DEN_drop_factor_lcm_only	(7,2)	detected: AssertionError
+M20_DEN_drop_factor_consistent	(8,2)	detected: numerator != 0
+M22_DEN_drop_and_noassert	(7,3)	detected: numerator != 0
+M20_DEN_drop_factor_consistent	(7,1)	detected: numerator != 0
+M22_DEN_drop_and_noassert	(8,4)	UNDETECTED (printed True)
+M22_DEN_drop_and_noassert	(8,3)	detected: numerator != 0
+M22_DEN_drop_and_noassert	(7,2)	detected: numerator != 0
+M21_DEN_drop_factor_lcm_only	(8,2)	detected: AssertionError
+M21_DEN_drop_factor_lcm_only	(7,1)	detected: AssertionError
+M22_DEN_drop_and_noassert	(8,2)	detected: numerator != 0
+M22_DEN_drop_and_noassert	(7,1)	detected: numerator != 0

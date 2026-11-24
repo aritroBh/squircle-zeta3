@@ -1,0 +1,28 @@
+n6_values.json keys: ['dps', 'values'] ...
+worst |N_mine(A) - n6_values.json| over 12 integrals: 9.025e-133
+worst |N_mine(A) - N_mine(B)| (re-read from json): 0.0
+--- E_{5,m} from my quadrature (A) vs e5m_values.json ---
+E5,1 mine(A) = -4.41870646197775037198141504611527166079436950275303087843903
+      mine(B) - mine(A) = 0.0   |mine(A) - e5m_values.json| = 1.99e-134
+E5,2 mine(A) = -6.29244733603084778660704978980340560792302240656996945498308
+      mine(B) - mine(A) = 0.0   |mine(A) - e5m_values.json| = 1.26e-133
+E5,3 mine(A) = 7.33899196402872399563347513223623441214340123590067947723826
+      mine(B) - mine(A) = 0.0   |mine(A) - e5m_values.json| = 3.01e-133
+E5,4 mine(A) = 17.957475903672145702821029549088656826649556951836575264682
+      mine(B) - mine(A) = 0.0   |mine(A) - e5m_values.json| = 2.7e-133
+E5,5 mine(A) = 8.05650139737648856818413471624428385307684730569340301147664
+      mine(B) - mine(A) = 0.0   |mine(A) - e5m_values.json| = 8.12e-134
+n6_values.json first entry type: <class 'int'>
+--- E_{5,5}/24 vs c(6) ---
+E5,5/24 mine   = 0.3356875582240203570076722798435118272115353044038917921448599321443099
+task c(6) (38d) = 0.33568755822402035700767227984351182721
+|mine - task c(6)| = 1.54e-39  (task value has 38 sig digits, rounding bound ~5e-39)
+|mine - c6_lead_reference.json (405d)| = 3.4e-135
+E(y) coefficients [y^0..y^8]: ['1.0', '0.69314718056', '1.06269354038', '0.926109039776', '1.02430391892', '0.98275486611', '1.00706267467', '0.995891476566', '1.00187227807']
+mp.taylor [y^6] = 1.00706267467206107102301683953   series [y^6] = 1.00706267467206107102301683953   diff = 1.26e-61
+LEAD c(6) = sigma4*A5/(2*4!)*[y^6]E = 0.3356875582240203570076722798435118272115353044038917921448599321443099
+|LEAD law - E5,5/24 (mine)| = 3.35e-135
+|LEAD law - c6_lead_reference.json| = 4.3e-137
+|LEAD law - task c(6)| = 1.54e-39
+E5,5 itself = 24*c = 8.05650139737648856818413471624428385307684730569340301147664   vs 24*LEAD = 8.05650139737648856818413471624428385307684730569340301147664
+agreement digits (mine vs LEAD law): ~ 134

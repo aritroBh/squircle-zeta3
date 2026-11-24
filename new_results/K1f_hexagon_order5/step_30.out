@@ -1,0 +1,10 @@
+total keys: 210
+0/210 [0s]
+30/210 [106s]
+60/210 [178s]
+90/210 [206s]
+120/210 [336s]
+150/210 [409s]
+180/210 [531s]
+saved jtab5.pkl, 659 s
+J-table checks: 160 (40 keys x 4 kappas), worst |diff| = 1.3e-76

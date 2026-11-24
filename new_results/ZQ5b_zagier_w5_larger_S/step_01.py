@@ -1,0 +1,10 @@
+import os, subprocess
+os.chdir('<project>')
+print(os.getcwd())
+print(os.listdir('.'))
+print('---ZQ5---')
+print(os.listdir('ZQ5_zagier_weight5'))
+print('---planner---')
+print(os.listdir('ZQ5_zagier_weight5/planner'))
+print('---out---')
+print(os.listdir('ZQ5_zagier_weight5/out')[:30])

@@ -1,0 +1,7 @@
+mp.mp.dps = 120
+delta = P(3) - W_4(3) = 0.15446753106687400637871015148911002803587706268747
+c_2 over Q4 (pi^4, pi^2 lam^2, lam^4, z3 lam, Li4(1/2)): relation = [-960, -3, -20, -20, -120, 0]
+   residual -1.7374e-113  (dps 120 )
+delta over Q4 (pi^4, pi^2 lam^2, lam^4, z3 lam, Li4(1/2)): relation = None
+c_1 over Q4 (pi^4, pi^2 lam^2, lam^4, z3 lam, Li4(1/2)): relation = None
+c_0 over Q4 (pi^4, pi^2 lam^2, lam^4, z3 lam, Li4(1/2)): relation = None

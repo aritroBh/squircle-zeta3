@@ -1,0 +1,4 @@
+build: W6-N6-particular target = 36888.4158825289944132346846765
+LLL start W6 symbol-kernel enlarged basis @1300: rows=179, digits=1300, gram=exact
+LLL done W6 symbol-kernel enlarged basis @1300: seconds=1151.61; small relations=0
+W6 final LLL @1300: target-involving relations=0

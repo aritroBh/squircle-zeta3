@@ -1,0 +1,33 @@
+sum x^k Hk/k^2                   x=0.3333: num=0.384654440535  esum=0.384654440535  |d|=1.1e-81
+sum x^k Hk/k^2                   x=-0.5: num=-0.425661389277  esum=-0.425661389277  |d|=1.6e-81
+sum x^k Hk/k^2                   x=0.6: num=0.809066059054  esum=0.809066059054  |d|=1.6e-80
+sum x^k Hk/(k+2)^2               x=0.3333: num=0.0511489328684  esum=0.0511489328684  |d|=2.0e-82
+sum x^k Hk/(k+2)^2               x=-0.5: num=-0.0387016548153  esum=-0.0387016548153  |d|=4.4e-80
+sum x^k Hk/(k+2)^2               x=0.6: num=0.131017071907  esum=0.131017071907  |d|=1.3e-80
+sum x^k Hk^2 H2k/(k+1)           x=0.3333: num=0.336302413502  esum=0.336302413502  |d|=0.0
+sum x^k Hk^2 H2k/(k+1)           x=-0.5: num=-0.107757100175  esum=-0.107757100175  |d|=1.2e-81
+sum x^k Hk^2 H2k/(k+1)           x=0.6: num=1.29001923537  esum=1.29001923537  |d|=3.6e-80
+sum x^k Hk/(k(k+1))              x=0.3333: num=0.201811276084  esum=0.201811276084  |d|=2.6e-82
+sum x^k Hk/(k(k+1))              x=-0.5: num=-0.201811276084  esum=-0.201811276084  |d|=1.6e-81
+sum x^k Hk/(k(k+1))              x=0.6: num=0.447723405944  esum=0.447723405944  |d|=3.7e-81
+sum x^k Hk^3/(k+3)               x=0.3333: num=0.221903799926  esum=0.221903799926  |d|=1.1e-79
+sum x^k Hk^3/(k+3)               x=-0.5: num=-0.0337854170854  esum=-0.0337854170854  |d|=4.9e-80
+sum x^k Hk^3/(k+3)               x=0.6: num=1.1024143838  esum=1.1024143838  |d|=8.4e-80
+Traceback (most recent call last):
+  File "<project>/research/08_theory/K1f_hexagon_order5/step_28.py", line 101, in <module>
+    red = esum5.esum(g, K, k)
+  File "<project>/research/08_theory/K1f_hexagon_order5/esum5.py", line 104, in esum
+    return Ssum(shift_h(g, k), K, k)
+  File "<project>/research/08_theory/K1f_hexagon_order5/esum5.py", line 74, in Ssum
+    v = base(e, d, a, k)
+  File "<project>/research/08_theory/K1f_hexagon_order5/esum5.py", line 100, in base
+    return sp.expand(x**(-s) * Ssum(g, s+1, m))
+                               ~~~~^^^^^^^^^^^
+  File "<project>/research/08_theory/K1f_hexagon_order5/esum5.py", line 74, in Ssum
+    v = base(e, d, a, k)
+  File "<project>/research/08_theory/K1f_hexagon_order5/esum5.py", line 95, in base
+    return atom_expr(a, ms)
+  File "<project>/research/08_theory/K1f_hexagon_order5/esum5.py", line 21, in atom_expr
+    return _atom_tab[(a, tuple(sorted(ms)))]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: (6, ())

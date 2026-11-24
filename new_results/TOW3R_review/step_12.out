@@ -1,0 +1,8 @@
+e(4, 1): fit pickle == tow3lib closed form: False
+e(5, 1): fit pickle == tow3lib closed form: False
+e(6, 2): fit pickle == tow3lib closed form: False
+e(6,1): e61_closed == tow3lib: True
+fit denominators: e(4,1): Pi_2, e(5,1): Pi_2, e(6,2): Pi_3
+e(5,1) fit numerator/denominator vs lib (lib = N51/(12 Pi_2)): equal already checked above
+depth 5: off-diagonal ACTUAL Newton coefficients vs closed forms: tested 1932, bad 0 []  (3s)
+depth 6: off-diagonal ACTUAL Newton coefficients vs closed forms: tested 2476, bad 0 []  (10s)

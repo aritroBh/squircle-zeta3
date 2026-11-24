@@ -1,0 +1,102 @@
+=== dps 90 k=4..8
+mp.mp.dps = 90
+max |n-th finite difference| (n = order):
+  order 0: n_terms 5  max|.| = 6.92178
+  order 1: n_terms 4  max|.| = 3.62301
+  order 2: n_terms 3  max|.| = 1.0243
+  order 3: n_terms 2  max|.| = 3.92727e-90
+  order 4: n_terms 1  max|.| = 6.13637e-90
+working-precision threshold: 1.0e-75
+smallest degree d with vanishing (d+1)-th differences: 2
+  c_0 = -6.618174177968491656413394292578165621473613938766172537513873744769093222566394374573
+  c_1 = 4.059264801340451865370756430386092764908322547268284936894285739965805512087483058613
+  c_2 = -0.5121519594615276802222005586068084314076610251644651711461125889630973035394207374238
+check at remaining k (fit - computed), mp.mp.dps = 90
+    k=7: residual 0.0
+    k=8: residual 0.0
+worst residual: 0.0
+=== dps 90 k=4..10
+mp.mp.dps = 90
+max |n-th finite difference| (n = order):
+  order 0: n_terms 7  max|.| = 17.2407
+  order 1: n_terms 6  max|.| = 5.67162
+  order 2: n_terms 5  max|.| = 1.0243
+  order 3: n_terms 4  max|.| = 3.92727e-90
+  order 4: n_terms 3  max|.| = 7.36364e-90
+  order 5: n_terms 2  max|.| = 1.35e-89
+  order 6: n_terms 1  max|.| = 2.23364e-89
+working-precision threshold: 1.0e-75
+smallest degree d with vanishing (d+1)-th differences: 2
+  c_0 = -6.618174177968491656413394292578165621473613938766172537513873744769093222566394374573
+  c_1 = 4.059264801340451865370756430386092764908322547268284936894285739965805512087483058613
+  c_2 = -0.5121519594615276802222005586068084314076610251644651711461125889630973035394207374238
+check at remaining k (fit - computed), mp.mp.dps = 90
+    k=7: residual 0.0
+    k=8: residual 0.0
+    k=9: residual -5.8909e-90
+    k=10: residual -1.1782e-89
+worst residual: 1.1782e-89
+=== dps 90 k=3..10
+mp.mp.dps = 90
+max |n-th finite difference| (n = order):
+  order 0: n_terms 8  max|.| = 17.2407
+  order 1: n_terms 7  max|.| = 5.67162
+  order 2: n_terms 6  max|.| = 1.17877
+  order 3: n_terms 5  max|.| = 0.154468
+  order 4: n_terms 4  max|.| = 0.154468
+  order 5: n_terms 3  max|.| = 0.154468
+  order 6: n_terms 2  max|.| = 0.154468
+  order 7: n_terms 1  max|.| = 0.154468
+working-precision threshold: 1.0e-75
+smallest degree d with vanishing (d+1)-th differences: -1
+=== dps 120 k=4..8
+mp.mp.dps = 120
+max |n-th finite difference| (n = order):
+  order 0: n_terms 5  max|.| = 6.92178
+  order 1: n_terms 4  max|.| = 3.62301
+  order 2: n_terms 3  max|.| = 1.0243
+  order 3: n_terms 2  max|.| = 1.16178e-120
+  order 4: n_terms 1  max|.| = 1.16178e-120
+working-precision threshold: 1.0e-105
+smallest degree d with vanishing (d+1)-th differences: 2
+  c_0 = -6.618174177968491656413394292578165621473613938766172537513873744769093222566394374572822657052789490473550174356927
+  c_1 = 4.059264801340451865370756430386092764908322547268284936894285739965805512087483058613426311896880336809658284408031
+  c_2 = -0.512151959461527680222200558606808431407661025164465171146112588963097303539420737423755188595587430648881031575508
+check at remaining k (fit - computed), mp.mp.dps = 120
+    k=7: residual -1.549e-120
+    k=8: residual 1.549e-120
+worst residual: 1.549e-120
+=== dps 120 k=4..10
+mp.mp.dps = 120
+max |n-th finite difference| (n = order):
+  order 0: n_terms 7  max|.| = 17.2407
+  order 1: n_terms 6  max|.| = 5.67162
+  order 2: n_terms 5  max|.| = 1.0243
+  order 3: n_terms 4  max|.| = 2.32356e-120
+  order 4: n_terms 3  max|.| = 3.48533e-120
+  order 5: n_terms 2  max|.| = 5.80889e-120
+  order 6: n_terms 1  max|.| = 1.0456e-119
+working-precision threshold: 1.0e-105
+smallest degree d with vanishing (d+1)-th differences: 2
+  c_0 = -6.618174177968491656413394292578165621473613938766172537513873744769093222566394374572822657052789490473550174356927
+  c_1 = 4.059264801340451865370756430386092764908322547268284936894285739965805512087483058613426311896880336809658284408031
+  c_2 = -0.512151959461527680222200558606808431407661025164465171146112588963097303539420737423755188595587430648881031575508
+check at remaining k (fit - computed), mp.mp.dps = 120
+    k=7: residual -1.549e-120
+    k=8: residual 1.549e-120
+    k=9: residual 0.0
+    k=10: residual -3.0981e-120
+worst residual: 3.0981e-120
+=== dps 120 k=3..10
+mp.mp.dps = 120
+max |n-th finite difference| (n = order):
+  order 0: n_terms 8  max|.| = 17.2407
+  order 1: n_terms 7  max|.| = 5.67162
+  order 2: n_terms 6  max|.| = 1.17877
+  order 3: n_terms 5  max|.| = 0.154468
+  order 4: n_terms 4  max|.| = 0.154468
+  order 5: n_terms 3  max|.| = 0.154468
+  order 6: n_terms 2  max|.| = 0.154468
+  order 7: n_terms 1  max|.| = 0.154468
+working-precision threshold: 1.0e-105
+smallest degree d with vanishing (d+1)-th differences: -1

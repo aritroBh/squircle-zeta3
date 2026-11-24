@@ -1,0 +1,9 @@
+L_parsed keys: [1, 2, 3, 4, 5, 6, 7, 8]
+r=1: L_parsed == tow2lib.L(r) symbolically: False  (0.0s)
+r=2: L_parsed == tow2lib.L(r) symbolically: False  (0.0s)
+r=3: L_parsed == tow2lib.L(r) symbolically: False  (0.0s)
+r=4: L_parsed == tow2lib.L(r) symbolically: False  (0.1s)
+r=5: L_parsed == tow2lib.L(r) symbolically: False  (0.0s)
+r=6: L_parsed == tow2lib.L(r) symbolically: False  (0.2s)
+r=7: L_simplified == tow2lib.L(r) at 20 random points: False
+r=8: L_simplified == tow2lib.L(r) at 20 random points: False

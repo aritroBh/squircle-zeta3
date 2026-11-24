@@ -1,0 +1,22 @@
+controls: delta22(Li4(x)) = {}  delta22(Li_2(x)^2) = {}
+point         deg dimU        my true d22 cor6 true_zero verdict
+sin(pi/3)       2    3   NONZERO(3 comp.)        NONZERO AGREE
+sin(pi/4)       2    2      ZERO(0 comp.)           ZERO AGREE
+sin(pi/5)       4    4   NONZERO(6 comp.)        NONZERO AGREE
+sin(pi/6)       1    2      ZERO(0 comp.)           ZERO AGREE
+sin(pi/7)       6    4   NONZERO(6 comp.)        NONZERO AGREE
+sin(pi/8)       4    3   NONZERO(3 comp.)        NONZERO AGREE
+sin(pi/9)       6    4   NONZERO(6 comp.)        NONZERO AGREE
+sin(pi/10)      2    3   NONZERO(3 comp.)        NONZERO AGREE
+sin(pi/11)     10    4   NONZERO(6 comp.)        NONZERO AGREE
+sin(pi/12)      4    3   NONZERO(3 comp.)        NONZERO AGREE
+cos(pi/12)      4    3   NONZERO(3 comp.)        NONZERO AGREE
+1/3             1    2      ZERO(0 comp.)           ZERO AGREE
+2/5             1    4  NONZERO(15 comp.)        NONZERO AGREE
+3/7             1    4  NONZERO(12 comp.)        NONZERO AGREE
+value check c=2/5: MATCH EXACTLY
+value check c=3/7: MATCH EXACTLY
+Lie class 1/3: Omega(1/3) == -(11/81)Li4(-8)-2Li4(-3)+(20/3)Li4(2/3) mod shuffles: True
+Lie class 1/2: Omega(1/2) == -21Li4(-2)+(13/2)Li4(1/3)+(13/2)Li4(2/3) mod shuffles: True
+
+SUMMARY: sin:AGREE, sin:AGREE, sin:AGREE, sin:AGREE, sin:AGREE, sin:AGREE, sin:AGREE, sin:AGREE, sin:AGREE, sin:AGREE, cos:AGREE, 1/3:AGREE, 2/5:AGREE, 3/7:AGREE

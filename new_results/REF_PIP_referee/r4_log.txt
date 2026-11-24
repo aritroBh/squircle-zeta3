@@ -1,0 +1,33 @@
+q=1.5  F(0.3) direct vs series: -2.41e-35
+   |c_k|^(1/k) at k=20,60,120,199: ['0.57297', '0.72716', '0.80137', '0.84421']
+   p=3     K=10  series - L_q(p) = 1.61e-9
+   p=3     K=40  series - L_q(p) = 4.06e-27
+   p=3     K=199 series - L_q(p) = -9.63e-35
+   p=1.5   K=10  series - L_q(p) = 7.07e-6
+   p=1.5   K=40  series - L_q(p) = 2.36e-14
+   p=1.5   K=199 series - L_q(p) = 9.63e-35
+   p=1.25  K=10  series - L_q(p) = 5.9e-5
+   p=1.25  K=40  series - L_q(p) = 5.31e-11
+   p=1.25  K=199 series - L_q(p) = -8.67e-34
+q=3  F(0.3) direct vs series: 0.0
+   |c_k|^(1/k) at k=20,60,120,199: ['0.66145', '0.76892', '0.85136', '0.87421']
+   p=3     K=10  series - L_q(p) = 1.85e-10
+   p=3     K=40  series - L_q(p) = -4.15e-25
+   p=3     K=199 series - L_q(p) = 0.0
+   p=1.5   K=10  series - L_q(p) = 2.01e-5
+   p=1.5   K=40  series - L_q(p) = -3.09e-12
+   p=1.5   K=199 series - L_q(p) = 1.93e-34
+   p=1.25  K=10  series - L_q(p) = 0.000372
+   p=1.25  K=40  series - L_q(p) = -8.87e-9
+   p=1.25  K=199 series - L_q(p) = -1.63e-30
+q=4  F(0.3) direct vs series: -9.63e-35
+   |c_k|^(1/k) at k=20,60,120,199: ['0.66814', '0.80968', '0.86105', '0.8904']
+   p=3     K=10  series - L_q(p) = -2.14e-8
+   p=3     K=40  series - L_q(p) = -1.13e-25
+   p=3     K=199 series - L_q(p) = -9.63e-35
+   p=1.5   K=10  series - L_q(p) = -0.000114
+   p=1.5   K=40  series - L_q(p) = -1.78e-12
+   p=1.5   K=199 series - L_q(p) = -1.93e-34
+   p=1.25  K=10  series - L_q(p) = -0.00108
+   p=1.25  K=40  series - L_q(p) = -7.77e-9
+   p=1.25  K=199 series - L_q(p) = 8.34e-29

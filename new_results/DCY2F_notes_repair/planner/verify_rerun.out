@@ -1,0 +1,67 @@
+====================================================================================================
+DCY2 VERIFIER (REPAIRED, referee DCY2R R1-R6) — first correction of the decay law of M_k
+====================================================================================================
+[1] varpi1 = [0.8412150877675843970753486379098149990800 +/- 2.99e-41] + [-0.04501183768517361657373510376075759231874 +/- 4.88e-42]j
+    paper's 81-digit value: 0.84121508776758439707534863790981499908 -0.04501183768517361657373510376075759232i
+    match: Re diff = [2.9854e-41 +/- 8.72e-46],  Im diff = [1.2551e-39 +/- 2.55e-44]
+    (exact sympy derivation diff = 0: see step_02_varpi1.py / section 11)
+----------------------------------------------------------------------------------------------------
+[2] R1 discrepancy exhibit (the sign bug and its repair)
+    N=381: |M_main - X| N^2 e^th = [1409.465710 +/- 4.08e-7]   <- the OLD (wrong-sign) quantity ~ 2|X|
+           |M_main + X| N^2 e^th = [1.619635093 +/- 4.78e-10]   <- the THEOREM quantity
+    (M_main/X = [-1.00230 +/- 8.70e-7]: M_main ~ -X, so the wrong sign measures ~2|X|, the '1409')
+----------------------------------------------------------------------------------------------------
+[3] finite range [100,400] REPAIRED: |M_main + X| <= C2 N^-2 e^-th, 301 certified quadratures
+    N=100: res/bound = [3.1504939e-7 +/- 1.81e-15]   |M_k - M_main| = [1.64857e-13 +/- 4.09e-19]
+    N=200: res/bound = [1.6103581e-6 +/- 4.09e-14]   |M_k - M_main| = [4.21136e-18 +/- 4.31e-25]
+    N=400: res/bound = [1.3347060e-6 +/- 1.74e-16]   |M_k - M_main| = [4.69506e-25 +/- 3.25e-31]
+    ALL PASS (301 values): max res/bound = [1.751172383e-6 +/- 4.93e-17] at N=116
+      i.e. max |M_main + X| N^2 e^th = [1.751172383 +/- 4.93e-11]  (constant needed on [100,400]; ~1.75)
+      full M_k: max |M_k + X| N^2 e^th = [1.743787030 +/- 1.32e-10] at N=158
+    elapsed: 99.9s
+----------------------------------------------------------------------------------------------------
+[4] region B sweep [400, 100000] (repaired two-sided window tail + Mtilde correction + endpoints)
+    ALL 279 CELLS PASS: worst LHS_cell = [396111.3989 +/- 1.04e-5] at (3075.23,3136.74)
+      margin to C2=1e6: 2.525x;  +C_b=29.5 still < C2
+    elapsed: 100.5s
+----------------------------------------------------------------------------------------------------
+[5] region C [1e5, inf): LHS(N) <= LHS(1e5) <= C2
+    LHS(1e5) = [76889.42704 +/- 3.80e-6] (< C2);  pointwise monotone on 116-pt grid [1e5,3e6]: True
+    LHS at 1e7,1e9,1e12,1e20 = [26952.9 +/- 0.0258], [17719.2 +/- 0.0344], [14739.1 +/- 0.0367], [14026.2 +/- 0.0158]
+    analytic regime: every piece non-increasing for N >= 1e5 (y-scaling, proof_repaired.md)
+----------------------------------------------------------------------------------------------------
+[6] part (b): |model - T1| N^2 e^th <= C_b  (R3: NO spurious (1+varpi1/sqrt N) factor)
+    cross = [2.4951160 +/- 2.78e-8], C_S2 = [1.1350952 +/- 3.47e-8], C_F = [8.7457113 +/- 3.77e-8] <= 10.155
+    |model-T1| N^2 e^th = (pi^1.5/2)|delta_F| <= (pi^1.5/2) C_F = [24.349494 +/- 4.38e-7]  (corrected)
+    conservative (spurious factor kept): [25.375118 +/- 3.63e-7];  paper value C_b = 29.5 covers both
+    pointwise D(N) = [1.65739 +/- 9.68e-7], [1.61977 +/- 4.62e-6], [1.60148 +/- 2.55e-6], [1.59352 +/- 4.13e-6], [1.57777 +/- 4.89e-6], [1.56497 +/- 7.06e-7]
+      at N = 400,1000,2000,3000,10000,100000 (truth ~1.66 decreasing << C_b)
+----------------------------------------------------------------------------------------------------
+[7] rest combination (CX6: |M_k - M_main| <= 10,600,000 e^{-2 sqrt N})
+    N3 = 25711.0000000 (Crest N^2 e^{-(2-sqrt pi) sqrt N} <= 1 for N >= N3)
+    max h(N) = h(309) = [1748.976914 +/- 4.42e-7]
+    C3 (100 <= N <= N3) = C2 + Crest*h(309) = [18540155283.7 +/- 0.0250]
+    for N >= N3: C3 = C2+1 = [1.00000e+6 +/- 1.00]
+----------------------------------------------------------------------------------------------------
+[8] tail-machinery certificates (arb, outward)
+    c2, rDelta, eLamD, lamL conditions hold at N = 400..1e6: True
+----------------------------------------------------------------------------------------------------
+[9] R4/R5 repair-delta quantification at the worst region-B cell (3075.23, 3136.74)
+    worst LHS_cell (repaired, two-sided) = [396111.3989 +/- 1.04e-5]  (< C2, margin 2.525x)
+    one-sided window-tail sum Et at worst cell = [9.75298 +/- 4.66e-6]
+    -> R4 two-sided doubling costs exactly one Et share; cell total [396111.40 +/- 1.09e-3] >> Et,
+       and both one-sided (~390k) and two-sided ([396111.40 +/- 1.09e-3]) forms are < C2 = 1e6
+----------------------------------------------------------------------------------------------------
+[10] R6: step_03_watson.py re-certification (repaired; passes its asserts)
+alternating bound: |rho3/u^3| <= 1/16 = 0.0625000 ; with c8 margin: 0.06250000000
+interval grid max |rho3/u^3| = [0.06246572645 +/- 1.74e-12]
+C_rho2 (u>=1) <= [2.415440115 +/- 4.81e-10]
+    CERTIFIED: C_rho = 0.062500000 <= 0.5 (truth 0.0117 on (0,1]);  C_rho2 = [2.4154401 +/- 1.46e-8] < 2.42
+----------------------------------------------------------------------------------------------------
+[11] R3: corrected P(u) u-coefficient (sympy) and P(1) < 0 exact
+    diff(exact, typo -2b_R y^3) = pi*u*y**2*(sqrt(2)*u**2*y - sqrt(2)*u**2 + 2*u*y**2 - 2*u*y + sqrt(2)*y**3 - sqrt(2)*y**2)/(2*(u**2 + sqrt(2)*u*y + y**2))   (nonzero: the typo)
+    diff(exact, corrected -2b_R y^2) = 0   (zero: repaired)
+    P(1) = y*(-4*y**4 - 8*sqrt(2)*y**3 - sqrt(2)*pi*y**3 - 16*y**2 - 2*pi*y**2 - 8*sqrt(2)*y - sqrt(2)*pi*y - 4)/(2*(y**2 + sqrt(2)*y + 1))  < 0 for y > 0  (single-max lemma intact)
+====================================================================================================
+TOTAL elapsed: 101.8s
+VERIFY_DCY2_REPAIRED: ALL CHECKS PASSED

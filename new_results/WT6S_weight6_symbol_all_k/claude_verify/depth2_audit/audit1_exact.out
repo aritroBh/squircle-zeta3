@@ -1,0 +1,86 @@
+======================================================================
+(1) ATOM PAIRING VECTORS from M5a atom_pairings.json (order 33, 42a, 42b, 42c)
+  Li_33(b,1)           [0, 0, 0, 3/4]
+  Li_33(1/sqrt2,1)     [0, 3/16, 0, 0]
+  Li_33(b,2)           [1, 0, 0, -3]
+  Li_42(b,1/sqrt2)     [1/4, -1/8, 1/8, 3/4]
+[PASS] M5a table: Li42(b,1) = (0,0,0,-1/4) 
+[PASS] M5a table: Li33(b,1) = (0,0,0,3/4) 
+[PASS] M5a n6_solution.json == M5b n6_solution.json (parsed) sha256 equal bytes: True
+[PASS] n6_solution.json atoms == (Li33(b,1), Li33(1/sqrt2,1), Li33(b,2), Li42(b,1/sqrt2)) with b=sqrt2-1 
+  N6 coefficients (M5a/M5b): ['(-12 + 209*sqrt2)', '(-160 + 80*sqrt2)', '(329/4)*sqrt2', '(120)*sqrt2']
+  pairings of N6 : [(449/4)*sqrt2, -30, (15)*sqrt2, -9]
+  M5a W6(k=5)    : [(449/4)*sqrt2, -30, (15)*sqrt2, -9]
+[PASS] N6 pairings == W6(k=5) pairings (449sqrt2/4, -30, 15sqrt2, -9) 
+[PASS] atom pairing entries all rational (sqrt2 part 0) 
+  4x4 determinant (rows = atoms in WT6S order, cols = 33,42a,42b,42c): 9/512
+[PASS] |det| == 9/512 (det = 9/512)
+[PASS] sympy det agrees (sympy 9/512)
+  independent solve for M5a target: ['(-12 + 209*sqrt2)', '(-160 + 80*sqrt2)', '(329/4)*sqrt2', '(120)*sqrt2']
+[PASS] solve(M5a target) == M5a N6 coefficients 
+======================================================================
+(1b) WT6S N(E_{5,m}) (result.md section D, hand-transcribed) -> pairings, vs section B table
+  m=1: pairings of stated N(E_5,1) = [(46)*sqrt2, -75/2, (15)*sqrt2, 0]   table B = [(46)*sqrt2, -75/2, (15)*sqrt2, 0]
+[PASS] pairings(N(E_5,1)) == table B row 
+[PASS] independent solve of table-B row 1 reproduces stated N(E_5,1) coefficients (solve = ['(-56)*sqrt2', '(-200 + 80*sqrt2)', '(16)*sqrt2', '(120)*sqrt2'])
+  m=2: pairings of stated N(E_5,2) = [(-21/2)*sqrt2, -35/2, 0, 21]   table B = [(-21/2)*sqrt2, -35/2, 0, 21]
+[PASS] pairings(N(E_5,2)) == table B row 
+[PASS] independent solve of table-B row 2 reproduces stated N(E_5,2) coefficients (solve = ['(28 + -42*sqrt2)', '-280/3', '(-21/2)*sqrt2', '0'])
+  m=3: pairings of stated N(E_5,3) = [(-6)*sqrt2, -10, 0, 12]   table B = [(-6)*sqrt2, -10, 0, 12]
+[PASS] pairings(N(E_5,3)) == table B row 
+[PASS] independent solve of table-B row 3 reproduces stated N(E_5,3) coefficients (solve = ['(16 + -24*sqrt2)', '-160/3', '(-6)*sqrt2', '0'])
+  m=4: pairings of stated N(E_5,4) = [0, 0, 0, 0]   table B = [0, 0, 0, 0]
+[PASS] pairings(N(E_5,4)) == table B row 
+[PASS] independent solve of table-B row 4 reproduces stated N(E_5,4) coefficients (solve = ['0', '0', '0', '0'])
+  m=5: pairings of stated N(E_5,5) = [0, 0, 0, 0]   table B = [0, 0, 0, 0]
+[PASS] pairings(N(E_5,5)) == table B row 
+[PASS] independent solve of table-B row 5 reproduces stated N(E_5,5) coefficients (solve = ['0', '0', '0', '0'])
+[PASS] transcription of section D == n_e5m_solution.json 
+[PASS] n_e5m_solution.json det string is 9/512 
+[PASS] transcription of section B == e5m_pairings.json 
+======================================================================
+(2) P(k) = sum_m C(k-6,m-1) pv(E_5,m)  vs stated power-basis polynomials
+  P33(k) from table = -3*k**2*r + 57*k*r/2 - 17*r;  stated = -3*k**2*r + 57*k*r/2 - 17*r;  diff = 0
+[PASS] P33(k) polynomial identity (symbolic in k) 
+  P42a(k) from table = -5*k**2 + 95*k/2 - 285/2;  stated = -5*k**2 + 95*k/2 - 285/2;  diff = 0
+[PASS] P42a(k) polynomial identity (symbolic in k) 
+  P42b(k) from table = 15*r;  stated = 15*r;  diff = 0
+[PASS] P42b(k) polynomial identity (symbolic in k) 
+  P42c(k) from table = 6*k**2 - 57*k + 126;  stated = 6*k**2 - 57*k + 126;  diff = 0
+[PASS] P42c(k) polynomial identity (symbolic in k) 
+[PASS] P(k) == stated polynomial, exact, at every integer k = 6..52 (math.comb) 
+----------------------------------------------------------------------
+depth-two part of W6(k): sum_m C(k-6,m-1) N(E_5,m) coefficient polynomials
+  Li33(b,1)         : -12*k**2*r + 8*k**2 + 114*k*r - 76*k - 308*r + 168   diff vs stated: 0
+[PASS] depth-two coefficient polynomial of Li33(b,1) 
+  Li33(1/sqrt2,1)   : -80*k**2/3 + 760*k/3 + 80*r - 760   diff vs stated: 0
+[PASS] depth-two coefficient polynomial of Li33(1/sqrt2,1) 
+  Li33(b,2)         : -3*k**2*r + 57*k*r/2 - 47*r   diff vs stated: 0
+[PASS] depth-two coefficient polynomial of Li33(b,2) 
+  Li42(b,1/sqrt2)   : 120*r   diff vs stated: 0
+[PASS] depth-two coefficient polynomial of Li42(b,1/sqrt2) 
+[PASS] n_w6k_polynomial.json Li33(b,1) == stated 
+[PASS] n_w6k_polynomial.json Li33(1/sqrt2,1) == stated 
+[PASS] n_w6k_polynomial.json Li33(b,2) == stated 
+[PASS] n_w6k_polynomial.json Li42(b,1/sqrt2) == stated 
+[PASS] pairing of depth-two polynomial combination == P33(k) (symbolic) 
+[PASS] pairing of depth-two polynomial combination == P42a(k) (symbolic) 
+[PASS] pairing of depth-two polynomial combination == P42b(k) (symbolic) 
+[PASS] pairing of depth-two polynomial combination == P42c(k) (symbolic) 
+[PASS] depth-two combination pairing == P(k) exactly at every k = 6..52 
+======================================================================
+(3) k = 5 observation
+  stated polynomials at k=5: [(101/2)*sqrt2, -30, (15)*sqrt2, -9]
+[PASS] polynomials at k=5 == claimed (101sqrt2/2, -30, 15sqrt2, -9) 
+  via C(-1,m-1) = (-1)^(m-1) alternating sum of table B: [(101/2)*sqrt2, -30, (15)*sqrt2, -9]
+[PASS] alternating-sum extrapolation == polynomial at k=5 
+[PASS] M5a true k=5 target == (449sqrt2/4, -30, 15sqrt2, -9) 
+  true(k=5) - extrapolated = [(247/4)*sqrt2, 0, 0, 0]
+[PASS] difference is purely in (3,3), equal to +247sqrt2/4 (extrapolated - true = -247sqrt2/4) 
+  depth-two coefficients extrapolated to k=5: ['(-12 + -38*sqrt2)', '(-160 + 80*sqrt2)', '(41/2)*sqrt2', '(120)*sqrt2']
+  M5a N6 coefficients                        : ['(-12 + 209*sqrt2)', '(-160 + 80*sqrt2)', '(329/4)*sqrt2', '(120)*sqrt2']
+  N6 - extrapolated: ['(247)*sqrt2', '0', '(247/4)*sqrt2', '0']
+[PASS] N6 - extrapolated(k=5) = 247sqrt2*Li33(b,1) + (247sqrt2/4)*Li33(b,2), others 0 
+  pairing of that difference: [(247/4)*sqrt2, 0, 0, 0]
+======================================================================
+SUMMARY: 45 checks, 0 FAIL

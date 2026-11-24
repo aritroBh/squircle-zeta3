@@ -1,0 +1,6 @@
+c=1/2 ab = 0.1875 max |taylor - table| (tau^2..tau^6): 2.67e-51 ; tau^4 coefficient: 1.4544
+kappa^2=9/7 ab = (0.5714285714 + 0.0j) max |taylor - table| (tau^2..tau^6): 5.79e-51 ; tau^4 coefficient: 0.0
+ab=4/7: tau^5 = 6/7 z5 - 8/7 z2 z3 = -1.3709811816454499125 ; tau^6 = -22/49 z6 - 4/7 z3^2 = -1.2824467289755028495 check -2.67e-51
+tau=0.3: integral - (-gamma - psi(1-tau)) = -2.51e-52
+tau=0.77: integral - (-gamma - psi(1-tau)) = 8.24e-51
+Beta lemma, tau=0.6, alpha=0.3+0.7i: lhs - rhs = (5.13e-41 + 0.0j)

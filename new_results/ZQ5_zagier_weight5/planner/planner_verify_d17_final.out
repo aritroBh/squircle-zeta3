@@ -1,0 +1,4 @@
+(1) residual at 1350 digits: 4.1312e-1365;  at 900 digits: -1.8482e-916;  L(chi17,5) = 1.027634038145162923246265
+(2) all 103 arguments: x and 1-x are S-units over the 4 letters; worst |log - exponents.letters| = 5.41e-115
+(3) exact symbol: 0 nonzero entries -> ZERO
+(4) Li5 terms 103, products 33, T_coef -1419857 (17^5 = 1419857), z5 -5464; max |numerator| 89612, lcm denominator 16

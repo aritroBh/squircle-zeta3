@@ -1,0 +1,6 @@
+kernels built from degree-6 towers for k=6..52; nonzero +-i simple poles: 0  nonzero const: 0
+pole union [('-1', '-1'), ('0', '0'), ('1', '-1'), ('1', '1')]
+5th differences over every window k0..k0+5, k0=6..47 (so k up to 52), 3 keys x poles x 4 comps: 2016 bad 0
+(5, 0) 4th difference nonzero (degree exactly 4): True
+(4, 1) 4th difference nonzero (degree exactly 4): True
+(3, 2) 4th difference nonzero (degree exactly 4): True

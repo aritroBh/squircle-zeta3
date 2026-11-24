@@ -1,0 +1,9 @@
+('prove_S12.py',): rc=0 out=S^1/S identity remainder: 0
+S^2/S identity remainder: 0 err= (1s)
+('prove_S34.py', '3'): rc=0 out=l=3: total built (0.5s)
+S^3/S identity: numerator == 0 : True  (1.1s) err= (2s)
+('prove_S34.py', '4'): rc=0 out=l=4: total built (2.2s)
+S^4/S identity: numerator == 0 : True  (4.6s) err= (5s)
+('prove_tops.py',): rc=0 out=E0 bracket (should be 0): 0
+tau1_1-feed bracket (should be 0): 0
+odd-top identity remainder (should be 0): 0 err= (1s)

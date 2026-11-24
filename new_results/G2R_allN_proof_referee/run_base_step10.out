@@ -1,0 +1,15 @@
+  part (0, 0, 0): 109 terms; even match through c^1280: True; odd vanish: True
+  part (1, 0, 0): 22 terms; even match through c^1280: True; odd vanish: True
+  part (0, 1, 0): 15 terms; even match through c^1280: True; odd vanish: True
+  part (0, 0, 1): 8 terms; even match through c^1280: True; odd vanish: True
+  part (2, 0, 0): 8 terms; even match through c^1280: True; odd vanish: True
+(1) EXACT through c^1280, all five parts: True
+(1) exact check done (35s)
+(2)    pi_6 (c=0.965926): |B4 - M4 quadrature| = 3.99e-92
+(2)    pi_4 (c=0.92388): |B4 - M4 quadrature| = 2.55e-92
+(2)    pi_3 (c=0.866025): |B4 - M4 quadrature| = 2.87e-92
+(2)    pi_2 (c=0.707107): |B4 - M4 quadrature| = 1.75e-93; |B4 - M4_800| = 9.64e-121
+(2)   2pi_3 (c=0.5): |B4 - M4 quadrature| = 4.87e-93
+(2)  gen1p3 (c=0.796084): |B4 - M4 quadrature| = 1.56e-93
+
+--- STDERR ---

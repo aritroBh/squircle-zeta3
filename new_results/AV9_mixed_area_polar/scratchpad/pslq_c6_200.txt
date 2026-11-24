@@ -1,0 +1,1 @@
+c_6 dps=200: resid=5.02e-198 max|c|=3600 dim=25 match=True time=39s

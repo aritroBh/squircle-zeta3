@@ -1,0 +1,1 @@
+print(open('../DEC2_decagon_exact_assembly/result.md').read())

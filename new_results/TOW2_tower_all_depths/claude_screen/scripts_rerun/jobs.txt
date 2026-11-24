@@ -1,0 +1,14 @@
+S12 prove_S12.py
+S34_3 prove_S34.py 3
+S34_4 prove_S34.py 4
+tops prove_tops.py
+E3b_3 prove_E3b34.py 3
+E3b_4 prove_E3b34.py 4
+adj_3_0 prove_adj34.py 3 0
+adj_3_1 prove_adj34.py 3 1
+adj_4_0 prove_adj34.py 4 0
+adj_4_1 prove_adj34.py 4 1
+adj_4_2 prove_adj34.py 4 2
+V3 step_48.py
+V4 step_49.py
+slope41 step_52.py

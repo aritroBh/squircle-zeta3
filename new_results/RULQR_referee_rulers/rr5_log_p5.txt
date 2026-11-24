@@ -1,0 +1,2 @@
+p=5 K=18 rho=0.6 delta=0.5 rho2=0.6 delta2=2 c=0.01  mid   bound 1.5181e-6   (R0 8.1506e-34, R1 1.2694e-6, R2 2.4870e-7)
+p=5 K=18 rho=0.6 delta=0.5 rho2=0.6 delta2=2 c=0.01  cert  bound 1.5828e-6   (R0 8.1506e-34, R1 1.3289e-6, R2 2.5393e-7)

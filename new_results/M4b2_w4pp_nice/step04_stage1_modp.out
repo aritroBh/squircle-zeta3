@@ -1,0 +1,10 @@
+2026-10-22 18:32:56 28 A3h5-chosen frame lifts verified against stage1 labels
+2026-10-22 18:33:00 nf computed at 8 primes, dim=142, s=4.3
+2026-10-22 18:33:00 column rank at p1: 57 of 57 ([28 frames | 29 atoms]); selected=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
+2026-10-22 18:33:00 unselected (dependent) atom indexes: [] ([])
+2026-10-22 18:33:00 M4a closed form parsed: 49 terms over all 29 atoms (49 terms expected: True)
+2026-10-22 18:33:00 all 57 columns independent: c_k unique; solving for c_k and z_j (M4b step04 style)
+2026-10-22 18:33:00   rat: CRT over 7 primes (210 bits): reconstructed 57/57, hold-out agrees: True; max height digits=5
+2026-10-22 18:33:00   sq: CRT over 7 primes (210 bits): reconstructed 57/57, hold-out agrees: True; max height digits=6
+2026-10-22 18:33:00 [free 57-column solve] term-by-term comparison vs M4a: 58/58 components agree; mismatches: 0
+2026-10-22 18:33:00 wrote stage1_exact_cz_nice.json (method=free_solve_all_independent) s=4.3

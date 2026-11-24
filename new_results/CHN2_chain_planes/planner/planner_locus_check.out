@@ -1,0 +1,18 @@
+P8 = a1a2a3a4(Sum a)C3/10 confirmed; Q5 quintic, irreducible over Q: True
+Q5 on Pi1: 0 | on Pi2: 0
+Res_a4(C3,Q5)|a3=1 = 729000000*a1*a2*(a1 - 1)*(a1 + 1)*(a1 + 2)*(a1 - a2)*(a1 + a2)*(a1 + 2*a2)*(2*a1 + 1)*(2*a1 + a2)*(a2 + 1)*(a1 - a2 + 1)*(a1 + a2 - 1)*(2*a1 + a2 + 1)
+  factor a1 - 1: no a2-solution (constrains a1 only)
+  factor a1: no a2-solution (constrains a1 only)
+  factor a2: no a2-solution (constrains a1 only)
+  factor a1 + 1: no a2-solution (constrains a1 only)
+  factor a2 + 1: no a2-solution (constrains a1 only)
+  factor a1 + 2: no a2-solution (constrains a1 only)
+  factor 2*a1 + 1: no a2-solution (constrains a1 only)
+  factor a1 - a2: a2 = a1, a4 = 1   [positive region in a1: []]
+  factor a1 + a2 - 1: a2 = 1 - a1, a4 = a1 - 1   [positive region in a1: False]
+  factor a1 + a2: no a2-solution (constrains a1 only)
+  factor a1 + 2*a2: no a2-solution (constrains a1 only)
+  factor 2*a1 + a2: no a2-solution (constrains a1 only)
+  factor 2*a1 + a2 + 1: no a2-solution (constrains a1 only)
+sampled 2980 positive points on C3=0; 2278 with plane-distance > 0.05; min |Q5|/|a|^5 among them = 3.208e-02
+closest-to-plane samples (dist, |Q5|): [(0.0, '3.35e-06'), (0.0, '1.68e-04'), (0.0001, '1.18e-04')]

@@ -1,0 +1,10 @@
+letter lE13 = 3/2+1/2*sqrt13, norm -1
+letter ls13 = 0+1*sqrt13, norm -13
+letter l2 = 2+0*sqrt13, norm 4
+letter lp3 = 5/2+1/2*sqrt13, norm 3
+letter lp3c = 5/2+-1/2*sqrt13, norm 3
+row 8: T_coef = -13216098208787298968 = -35594794969976 * 13^5; z5 -2741044435242405; 143 Li5, 80 products; max |num| 4733289657058745840, lcm den 1
+(1) residual at 1300 digits: -1.496e-1305   (29s; L(chi13,5) = 0.9733289777974914332695234)
+(1) residual at 2200 digits: -5.7912e-2205   (116s; L(chi13,5) = 0.9733289777974914332695234)
+(2) all 143 arguments: x and 1-x factor over the 5 letters (PSLQ, to 1e-100)
+(3) exact symbol: 0 nonzero entries

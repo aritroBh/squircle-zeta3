@@ -1,0 +1,3 @@
+adj(5,0): rc=0 out=adjacent (5,0): remainder*DEN == 0 : True  (168.8s) err= (174s)
+adj(5,1): rc=0 out=adjacent (5,1): remainder*DEN == 0 : True  (24.9s) err= (27s)
+adj(5,2): rc=0 out=adjacent (5,2): remainder*DEN == 0 : True  (1.7s) err= (3s)

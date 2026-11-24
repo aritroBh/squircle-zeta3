@@ -1,0 +1,16 @@
+pair 0 1 DEPENDENT
+pair 0 2 DEPENDENT
+pair 0 3 DEPENDENT
+pair 0 4 DEPENDENT
+pair 0 5 DEPENDENT
+pair 0 6 DEPENDENT
+pair 0 7 DEPENDENT
+pair 1 2 independent
+   gamma33 relation: [1536, 8, 8, 0, -450, 0, 0, 180, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+candidates used: (3, 2, 1, 'x') (3, 1, 2, 'x')
+coefficient of gamma33: 1536
+  8  *X2^1
+  8  *X1^1
+  -450  *z7^1
+  180  *z2^1*z5^1
+  45  *z2^2*z3^1

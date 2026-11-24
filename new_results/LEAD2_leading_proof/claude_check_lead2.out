@@ -1,0 +1,37 @@
+PASS WW(0.37) = E(s)+E(-s) -1.87e-28
+PASS GG(0.37) = 2pi/sin(pi s) - (E(s)+E(-s))/s -1.93e-28
+PASS WW((-0.2 + 0.3j)) = E(s)+E(-s) (-3.72e-36 - 1.25e-36j)
+PASS GG((-0.2 + 0.3j)) = 2pi/sin(pi s) - (E(s)+E(-s))/s (3.71e-36 + 1.24e-36j)
+FAIL H(0.3,0.4) = B(1.3,0.4) -3.58e-18
+PASS T_1/d! = (1-2^-d) zeta(d+1) 0.0
+PASS (u m_e part)_1/d! = (1-2^-d)zeta(d+1) - e_(d+1)/2 0.0
+PASS T_3/d! = (1-2^-d) zeta(d+1) -7.46e-40
+PASS (u m_e part)_3/d! = (1-2^-d)zeta(d+1) - e_(d+1)/2 -1.95e-40
+PASS T_5/d! = (1-2^-d) zeta(d+1) -4.0e-37
+PASS (u m_e part)_5/d! = (1-2^-d)zeta(d+1) - e_(d+1)/2 -1.04e-37
+PASS K_1 (eq. (3), diagonal included) = (d!/2) e_(d+1) 0.0
+PASS K_2 (eq. (3), diagonal included) = (d!/2) e_(d+1) -2.3e-41
+PASS K_3 (eq. (3), diagonal included) = (d!/2) e_(d+1) -1.15e-39
+PASS K_4 (eq. (3), diagonal included) = (d!/2) e_(d+1) -1.19e-37
+PASS K_5 (eq. (3), diagonal included) = (d!/2) e_(d+1) -1.28e-35
+PASS K_6 (eq. (3), diagonal included) = (d!/2) e_(d+1) -1.3e-33
+PASS K_7 (eq. (3), diagonal included) = (d!/2) e_(d+1) -1.38e-31
+PASS m_odd at u=-0.71 -3.44e-41
+PASS m_e at u=-0.71 -3.44e-41
+PASS m_diag at u=-0.71 -2.3e-41
+PASS m_oddlast at u=-0.71 -4.16e-41
+PASS t = (1+u)/2 at u=-0.71 8.61e-42
+PASS m_odd at u=0.13 4.59e-41
+PASS m_e at u=0.13 -1.72e-41
+PASS m_diag at u=0.13 -5.74e-42
+PASS m_oddlast at u=0.13 1.15e-41
+PASS t = (1+u)/2 at u=0.13 1.15e-41
+PASS m_odd at u=0.88 1.29e-39
+PASS m_e at u=0.88 1.15e-41
+PASS m_diag at u=0.88 7.89e-42
+PASS m_oddlast at u=0.88 8.27e-40
+PASS t = (1+u)/2 at u=0.88 0.0
+32/33 PASS FAILURES
+rc=0
+0.3 1.4 H-B = 0.0
+0.3 0.4 H-B = 0.0

@@ -1,0 +1,82 @@
+2026-11-23 01:19:27 frame-w5 rows used: [4, 5, 7, 9, 10, 12, 14, 15, 16, 17, 52, 53, 54, 56, 58, 59, 61, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 80, 85, 87, 91, 92, 95, 98, 101, 102, 103, 106, 107, 109, 111, 112, 113, 114, 115, 116, 117, 118, 120, 121, 125, 133, 137, 141, 144, 146, 147, 149, 150, 151, 152, 154, 156]
+2026-11-23 01:19:27 A3h4 frame rows (weight, index) used via lifts: [(2, 3), (3, 3), (3, 5), (3, 6), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]
+2026-11-23 01:19:27   frame-w5 row 4: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:28   frame-w5 row 5: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:28   frame-w5 row 7: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:28   frame-w5 row 9: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:28   frame-w5 row 10: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:29   frame-w5 row 12: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:29   frame-w5 row 14: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:29   frame-w5 row 15: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:29   frame-w5 row 16: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:29   frame-w5 row 17: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:30   frame-w5 row 52: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:30   frame-w5 row 53: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:30   frame-w5 row 54: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:30   frame-w5 row 56: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:31   frame-w5 row 58: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:31   frame-w5 row 59: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:31   frame-w5 row 61: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:31   frame-w5 row 63: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:32   frame-w5 row 64: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:32   frame-w5 row 65: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:32   frame-w5 row 66: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:33   frame-w5 row 67: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:33   frame-w5 row 68: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:33   frame-w5 row 69: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:33   frame-w5 row 70: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:34   frame-w5 row 71: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:34   frame-w5 row 72: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:34   frame-w5 row 73: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:35   frame-w5 row 74: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:35   frame-w5 row 75: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:35   frame-w5 row 80: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:35   frame-w5 row 85: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:36   frame-w5 row 87: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:36   frame-w5 row 91: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:36   frame-w5 row 92: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:36   frame-w5 row 95: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:37   frame-w5 row 98: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:37   frame-w5 row 101: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:37   frame-w5 row 102: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:38   frame-w5 row 103: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:38   frame-w5 row 106: regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:38   frame-w5 row 107: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:39   frame-w5 row 109: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:39   frame-w5 row 111: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:40   frame-w5 row 112: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:40   frame-w5 row 113: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:40   frame-w5 row 114: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:41   frame-w5 row 115: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:41   frame-w5 row 116: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:41   frame-w5 row 117: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:42   frame-w5 row 118: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:42   frame-w5 row 120: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:42   frame-w5 row 121: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:43   frame-w5 row 125: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:43   frame-w5 row 133: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:43   frame-w5 row 137: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:44   frame-w5 row 141: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:44   frame-w5 row 144: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:44   frame-w5 row 146: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:45   frame-w5 row 147: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:45   frame-w5 row 149: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:45   frame-w5 row 150: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:46   frame-w5 row 151: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:46   frame-w5 row 152: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:47   frame-w5 row 154: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   frame-w5 row 156: regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w2, 3): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w3, 3): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w3, 5): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w3, 6): regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:48   A3h4 frame row (w4, 4): regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:48   A3h4 frame row (w4, 6): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w4, 8): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w4, 9): regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:48   A3h4 frame row (w4, 11): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w4, 12): regenerated in domain, equals stored: True; max|z| 0.8284
+2026-11-23 01:19:48   A3h4 frame row (w4, 40): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w4, 41): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48   A3h4 frame row (w4, 43): regenerated in domain, equals stored: True; max|z| 0.7071
+2026-11-23 01:19:48 ALL frame rows regenerated from provenance within the domain: True (66 weight-5, 13 weight 2-4) (24s)

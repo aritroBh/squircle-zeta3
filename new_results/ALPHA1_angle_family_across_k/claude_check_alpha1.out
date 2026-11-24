@@ -1,0 +1,7 @@
+(a)+(b-kernel): 160 residue sequences polynomial of degree <= d-1 at 4 angles, W2 kernel universal; failures: 0
+c=0.3: W2 - T(alpha) = 1.15e-41;  slope - s J(c) = 4.59e-41;  slope = -0.76216014589858228083
+c=0.5: W2 - T(alpha) = 1.15e-41;  slope - s J(c) = 0.0;  slope = -0.65066112870892987869
+c=0.707107: W2 - T(alpha) = 1.15e-41;  slope - s J(c) = 3.44e-41;  slope = -0.46305451988807326502
+c=0.8: W2 - T(alpha) = 1.15e-41;  slope - s J(c) = 2.3e-41;  slope = -0.34875387083404749879
+c=0.95: W2 - T(alpha) = 1.15e-41;  slope - s J(c) = 2.01e-41;  slope = -0.10662388840814765997
+squircle slope target -(z3/8+pi^2 log2/24+log^3 2/12) = -0.46305451988807326502

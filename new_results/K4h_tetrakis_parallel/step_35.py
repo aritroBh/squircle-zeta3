@@ -1,0 +1,12 @@
+import subprocess, sys, os, time
+subprocess.run(["rm","-rf","ckpt_h768"],capture_output=True)
+subprocess.run(["rm","-f","bgA768.log"],capture_output=True)
+r = subprocess.run([sys.executable, "step_06.py"], capture_output=True, text=True)
+print(r.stdout); print("ERR:", r.stderr[-2000:] if r.returncode else "(clean)")
+time.sleep(50)
+print("=== bgA768.log ===")
+print(open("bgA768.log").read() if os.path.exists("bgA768.log") else "(no log yet)")
+print("=== jobA_h768_out.txt ===")
+print(open("jobA_h768_out.txt").read() if os.path.exists("jobA_h768_out.txt") else "(no out yet)")
+print("=== pgrep ===")
+print(subprocess.run(["pgrep","-fl","jobA_h768"],capture_output=True,text=True).stdout)

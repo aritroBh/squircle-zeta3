@@ -1,0 +1,4 @@
+nice: setpriority: Operation not permitted
+[PASS] V1 (T1) depth recursion vs towers, k<=13  2207 cells, 0 bad
+[PASS] V2 rho(delta) closed forms, d<=10  98 cells, 0 bad
+[PASS] V3 S(t*), S'(t*) closed forms, d<=10  0 bad

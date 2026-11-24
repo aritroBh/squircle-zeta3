@@ -1,0 +1,18 @@
+weight 8: basis size 34; all basis words have weight 8: True
+  I_{0,7} = sum c_b b   [w=8] certificate EXACT: True (relation-row mismatches 0)  t=1s
+  I_{1,6} = sum c_b b   [w=8] certificate EXACT: True (relation-row mismatches 0)  t=1s
+  I_{2,5} = sum c_b b   [w=8] certificate EXACT: True (relation-row mismatches 0)  t=2s
+  I_{3,4} = sum c_b b   [w=8] certificate EXACT: True (relation-row mismatches 0)  t=2s
+  I_{4,3} = sum c_b b   [w=8] certificate EXACT: True (relation-row mismatches 0)  t=2s
+  I_{5,2} = sum c_b b   [w=8] certificate EXACT: True (relation-row mismatches 0)  t=3s
+  I_{6,1} = sum c_b b   [w=8] certificate EXACT: True (relation-row mismatches 0)  t=3s
+weight 9: basis size 55; all basis words have weight 9: True
+  I_{0,8} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=23s
+  I_{1,7} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=42s
+  I_{2,6} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=59s
+  I_{3,5} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=59s
+  I_{4,4} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=76s
+  I_{5,3} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=76s
+  I_{6,2} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=112s
+  I_{7,1} = sum c_b b   [w=9] certificate EXACT: True (relation-row mismatches 0)  t=150s
+all I-reduction certificates (w8,w9) exact: True 15

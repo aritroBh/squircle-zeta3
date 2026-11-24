@@ -1,0 +1,1 @@
+Fresh T1 recursion: 5628 cells, 0 bad. Now nail the provenance of the misdisplayed F(7,3): reconstruct the stale e_fits (7,3):

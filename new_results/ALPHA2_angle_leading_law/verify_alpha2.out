@@ -1,0 +1,16 @@
+[PASS] A1a single factor F_d per (c,d): 0 multi-ratio failures, 8 angles d<=8
+[PASS] A1b F_d(t) closed forms d<=8: 0 point failures over 63 points
+[PASS] S1 corner measures + LEAD2 identities: sympy residuals zero
+[FAIL] C1 Master Lemma (i)(ii)(iii): worst residuals i=2.4e-44, ii=1.9e-22, iii=4.1e-22
+[FAIL] C2 E_alpha closed form + squircle reduction + Jfull: Ecf-int=9.3e-36, squircle=3.5e-46, Jfull=6.4e-15
+[PASS] B1 leading law c(w;a), w=2..8, c=1/2,2/3: worst |asm-pred|=2.0e-39
+[PASS] D1 e_2=2T/(1-ca), e_3=-J/(2c^2), e_1=-ln sin(a/2)/cos^2(a/2): worst=3.5e-46
+
+TOTAL: 5/7 PASS, 13s
+  [PASS] A1a single factor F_d per (c,d)
+  [PASS] A1b F_d(t) closed forms d<=8
+  [PASS] S1 corner measures + LEAD2 identities
+  [FAIL] C1 Master Lemma (i)(ii)(iii)
+  [FAIL] C2 E_alpha closed form + squircle reduction + Jfull
+  [PASS] B1 leading law c(w;a), w=2..8, c=1/2,2/3
+  [PASS] D1 e_2=2T/(1-ca), e_3=-J/(2c^2), e_1=-ln sin(a/2)/cos^2(a/2)

@@ -1,0 +1,62 @@
+
+step10 = r'''
+# step_10.py : circle-end self-dual a_10 (and check pure-pi persistence)
+import sympy as sp
+import av9core as C
+import time, pickle
+t0=time.time()
+lv, lw = C.lv, C.lw
+s, v = sp.symbols('s v')
+pg = sp.polygamma
+N = 10
+def pgeval(m, z):
+    z = sp.Rational(z)
+    if sp.denom(z) == 2:
+        val = sp.expand_func(pg(m, sp.Rational(1,2)))
+        for i in range(int(z - sp.Rational(1,2))):
+            val += (-1)**m * sp.factorial(m) / (sp.Rational(1,2)+i)**(m+1)
+        return sp.expand(val)
+    return sp.expand_func(pg(m, z))
+Bjd = {}
+def get_Bjd(j):
+    if j not in Bjd:
+        terms = 0
+        for k in range(1, N+1):
+            terms += (pgeval(k-1, j+sp.Rational(1,2))*C.x**k + pgeval(k-1, sp.Rational(1,2))*C.y**k
+                      - pgeval(k-1, j+1)*(C.x+C.y)**k)/sp.factorial(k)
+        terms = sp.expand(terms.subs({C.x: C.t*C.x, C.y: C.t*C.y}))
+        e = C.series_exp_var(terms, C.t, N)
+        B = sp.expand(sum(e[k]*C.t**k for k in range(N+1)).subs(C.t,1))
+        Bjd[j] = {mn: cf for mn, cf in sp.Poly(B, C.x, C.y).terms()}
+    return Bjd[j]
+def int_half(j, a, b):
+    coeff = get_Bjd(j).get((a,b), 0)
+    if coeff == 0: return sp.Integer(0)
+    return sp.expand(sp.pi*sp.binomial(2*j, j)/4**j * sp.factorial(a)*sp.factorial(b) * coeff)
+def integrate_vpoly(expr):
+    expr = sp.expand(expr)
+    total = 0
+    for (j,), cf in sp.Poly(expr, v).terms():
+        for (a,b), c2 in sp.Poly(sp.expand(cf), lv, lw).terms():
+            if c2: total += c2*int_half(j, a, b)
+    return sp.expand(total)
+S1 = sum((4*s/(1-2*s))**k * (v*lv**k + (1-v)*lw**k)/sp.factorial(k) for k in range(1, N+1))
+S1 = sp.series(S1, s, 0, N+1).removeO()
+lnS = C.series_log1p_var(S1, s, N)
+lnS_ser = sum(lnS[k]*s**k for k in range(1, N+1))
+lnI = sp.log(1-2*s) + (-sp.Rational(1,2)-s)*(lv+lw) + (sp.Rational(1,2)-s)*lnS_ser
+lnI = sp.series(sp.expand(lnI), s, 0, N+1).removeO()
+e = C.series_exp_var(lnI - lnI.coeff(s,0), s, N)
+a9 = sp.simplify(integrate_vpoly(e[9])); print("a_9 =", a9, flush=True)
+a10 = sp.simplify(integrate_vpoly(e[10])); print("a_10 =", a10, flush=True)
+print("a_10 numeric:", sp.N(a10, 25))
+print("a_10 has zeta(3):", a10.has(sp.zeta(3)), " zeta(5):", a10.has(sp.zeta(5)), " zeta(7):", a10.has(sp.zeta(7)), " ln2:", a10.has(sp.log(2)))
+pickle.dump({'a9': str(a9), 'a10': str(a10)}, open('scratchpad/circle_a10.pkl','wb'))
+print("time", time.time()-t0)
+'''
+open('step_10.py','w').write(step10)
+import subprocess
+r = subprocess.run(['<project>/.venv/bin/python','step_10.py'],capture_output=True,text=True,timeout=1700)
+print(r.stdout); print(r.stderr[-600:])
+with open('progress.log','a') as f:
+    f.write("step_09c: bivariate circle-end b_jk (order<=5) exact; swap ok; self-dual line reproduced; zeta3 at total order 3 in ALL directions except lam=-1; P3(lam)=-(lam+1)(23lam^2-38lam+23)/8\n")

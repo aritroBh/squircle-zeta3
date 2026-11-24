@@ -1,0 +1,6 @@
+r=1: L_parsed == tow2lib.L(r) in Q(i,sqrt2)(d,m): True  (0.0s)
+r=2: L_parsed == tow2lib.L(r) in Q(i,sqrt2)(d,m): True  (0.0s)
+r=3: L_parsed == tow2lib.L(r) in Q(i,sqrt2)(d,m): True  (0.1s)
+r=4: L_parsed == tow2lib.L(r) in Q(i,sqrt2)(d,m): True  (0.6s)
+r=5: L_parsed == tow2lib.L(r) in Q(i,sqrt2)(d,m): True  (0.8s)
+r=6: L_parsed == tow2lib.L(r) in Q(i,sqrt2)(d,m): True  (7.0s)

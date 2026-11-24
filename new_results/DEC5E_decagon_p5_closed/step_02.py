@@ -1,0 +1,1 @@
+print(open('../DEC5D_decagon_order5_depth/result.md').read())

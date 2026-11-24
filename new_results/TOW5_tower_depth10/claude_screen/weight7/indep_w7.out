@@ -1,0 +1,22 @@
+levels [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+--- d=6, k=7..13: d-th (6th) diffs zero; first nonzero diff order => degree+1
+6 (6, 0) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 5 (=> degree 5 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+6 (5, 1) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 5 (=> degree 5 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+6 (4, 2) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 5 (=> degree 5 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+6 (3, 3) comps 8 poles 2 nonuniform-presence 0 max nonzero diff order 5 (=> degree 5 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+--- d=6 including k=6 : should FAIL
+k=6 included: 6th diff nonzero at ((6, 0), (Fraction(-1, 1), Fraction(-1, 1)), 0)
+fit [8, 9, 10, 11, 12, 13] target 6 bad 18 / 56
+fit [8, 9, 10, 11, 12, 13] target 7 bad 0 / 56
+fit [7, 8, 9, 10, 11, 12] target 6 bad 18 / 56
+fit [9, 10, 11, 12, 13, 14] target 6 bad 18 / 56
+fit [9, 10, 11, 12, 13, 14] target 7 bad 0 / 56
+--- controls: d=5 (quartic) k=6..14 ; d=4 k=5..14 ; d=5 k=5 should fail
+5 (5, 0) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 4 (=> degree 4 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+5 (4, 1) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 4 (=> degree 4 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+5 (3, 2) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 4 (=> degree 4 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+4 (4, 0) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 3 (=> degree 3 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+4 (3, 1) comps 16 poles 4 nonuniform-presence 0 max nonzero diff order 3 (=> degree 3 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+4 (2, 2) comps 8 poles 2 nonuniform-presence 0 max nonzero diff order 3 (=> degree 3 ) iPoles empty True const {'(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))'}
+keys at k=7 degree 7: [(7, 0), (6, 1), (5, 2), (4, 3)]
+degree of d=6 sequences: exact degree 5?

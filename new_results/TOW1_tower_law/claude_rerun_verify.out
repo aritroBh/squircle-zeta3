@@ -1,0 +1,15 @@
+[PASS] V1 (T1) depth recursion vs towers, k<=13  2207 cells, 0 bad
+[PASS] V2 rho(delta) closed forms, d<=10  98 cells, 0 bad
+[PASS] V3 S(t*), S'(t*) closed forms, d<=10  0 bad
+[PASS] V4 Newton identities E1,E2a,E2b, d<=11  0 bad
+[PASS] V5 T1 for e-built family (incl. E3 blindness), k<=14  0 bad
+[PASS] V6 tower law delta<=2 vs data, k<=14  0 bad
+[PASS] V7 fold identity -p DL2[Gm(v)-Gm(1/v)]  
+[PASS] V8 affine Gm law with WT3 slopes, k=4..14  
+[PASS] V9 E1 adjacent (symbolic, all d)  E1-adjacent remainder: 0
+[PASS] V9 E2b non-adjacent (symbolic, all d)  E2b-non-adjacent remainder: 0
+[PASS] V9 E2b adjacent (symbolic, all d)  E2b-adjacent remainder: 0
+[PASS] V9 E3 blindness (symbolic, all d)  E3 delta=0: feed remainder = 0 | E3 delta=1: feed remainder = 0 | E3 delta=2: feed remainder = 0
+
+verify_tower: 12/12 PASS, 0 FAIL
+exit 0

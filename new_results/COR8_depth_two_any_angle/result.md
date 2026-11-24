@@ -1,0 +1,21 @@
+**COR8 is incomplete.** The core question is answered at symbol level (two depth-two terms suffice for δ₂,₂), but the full function identity was not obtained; no function-level identity is claimed.
+
+## Established (PROVED at symbol level, exact rational arithmetic)
+
+**1. The δ₂,₂ obstruction and its answer with exactly TWO depth-two terms.** Recomputed COR4's
+$$\delta_{2,2}(\Omega) = (1-c^{-1})([c]\wedge[1-c])\wedge([1-c]\wedge[1+c]) + (-1-c^{-1})([c]\wedge[1+c])\wedge([1-c]\wedge[1+c]) \neq 0,$$
+and found, using newly derived **true constant-coefficient symbols** of Li$_{3,1}(x,y)$ (18 terms) and Li$_{2,2}(x,y)$ (15 terms; derived from the differential recursion with 1-forms converted to exact dlog form — the naive rational-coefficient recursion gives wrong symbols), the exact match
+$$\delta_{2,2}(\Omega) = \delta_{2,2}\!\Big(\underbrace{\tfrac{1-c}{c}\operatorname{Li}_{2,2}\!\big(\tfrac12,1-c\big) - \tfrac{1+c}{c}\operatorname{Li}_{2,2}\!\big(\tfrac12,1+c\big)}_{\mathrm{DT}_A}\Big) = \delta_{2,2}\!\Big(\underbrace{\tfrac{1-c}{c}\operatorname{Li}_{2,2}\!\big(\tfrac12,1-c\big) + \tfrac{1+c}{c}\operatorname{Li}_{3,1}\!\big(\tfrac12,1+c\big)}_{\mathrm{DT}_B}\Big).$$
+Both arguments have convergent double-sum definitions on $c\in(0,1)$; both verified with residual **0 exactly** (step_02, step_60). The DGR 3-term variant (Li$_{2,2}(-1,c)$, Li$_{2,2}(\frac12,\frac{2c}{c\pm1})$) also works but needs 3 terms with poles; our 2-term form is minimal (one term is impossible: $\delta_{2,2}$ has nonconstant coefficients while true MPL symbols have constant coefficients).
+
+**2. A bug in COR4's `sunit_args.json`:** 20 of 40 `[1−r]` letter-vectors have the `[1−c]` exponent **sign flipped** (their `factor_vec` treated $(c-1)^e$ as $-e[1-c]$; since $[c-1]=[1-c]$ it must be $+e$). Verified by independent factorization. This poisoned my first symbol solve; all tables were rebuilt with corrected vectors.
+
+**3. With [2] dropped, an exact symbol identity exists:** $S(\Omega-\mathrm{DT}) = \sum a_i(c)S(\operatorname{Li}_4(g_i)) + \sum p_k(c)S(\text{products})$, residual **exactly 0 in all 243 components** (~19 Li₄ + ~33 products, small rational coefficients; `full_sols_v3.pkl`). Its numeric function check **fails** (residual ≈ −38.9 at c=0.5) — precisely the expected Step-4 gap: the symbol identity holds only modulo symbol-invisible terms (log2·w₃, ζ(2)·w₂, ζ(3)·w₁, ζ(4)), which I had not finished fitting.
+
+**4. Validated machinery and constants:** Ω(1/2) matches the M₃ decomposition to **40 digits**; MPL series = genuine double sums (residual **0.0**); Re(polylog) = Re(inversion) at x=2,4 to **60 digits**; Puiseux engine `cor8_series.py` validated on all 24 args to 40+ digits; residual series $D$ computed: $c^{-1}(\zeta(2)\log^2c + \mathrm{const}) +$ regular terms. Level-2 reductions at **120 digits**: Li$_{2,2}$(1/2,1) $= (3\zeta(4){+}12\zeta(3)\log2{-}12\zeta(2)\log^22{+}2\log^42)/48$; Li$_{3,1}$(1/2,1) $= \zeta(4)/8 - \zeta(3)\log2/8 + \operatorname{Li}_4(1/2)/24$.
+
+## Unfinished (honest status)
+
+The [2]-kept rebuild (to make log2-terms symbol-visible) leaves a 4-component [2]-residual in δ₂,₂(Ω−DT); the full [2]-kept ansatz (38 Li₄ + 1212 products + 209 log2-terms + 448 depth-two symbols, rank 121 < 256) **does not yet span the residual** — 2 violated left-null constraints at $E=-1$ (patterns `m2cm/mcm2/mcmp/mcpm` and `2mcm/2pcm/m2cm/pcm2/pcmp/pcpm`) whose parent functions are not any of the 224 S-unit depth-two pairs (all enumerated and pairing-checked; one apparent fit at $((1-c)/2,1/(1+c))$ was spurious since $1-xy=(1+3c)/(2(1+c))$ leaves the alphabet). Consequently: the complete function identity, the corner checks (c = 1/√2 vs thm:W4R, c = 1/2 vs COR5's 1095 digits, c = 1/3), simplification of the Li₄ tail, `verify_cor8.py` and `proof.md` remain open.
+
+**Key files:** `cor8_sym.py` (validated symbol engine), `cor8_series.py` (validated Puiseux engine), `result.md` (full state), `progress.log`, `full_sols_v3.pkl`, `solve256.pkl`, `pairs_delta22_2kept.pkl`, `step_01.out`/`step_01.py` (engine validation, all PASS), `step_02.py`/`step_60.py` (δ₂,₂ match), `step_118.py` (series fit, converging slowly), `step_155.py` (last constraint hunt).

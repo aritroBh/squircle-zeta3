@@ -1,0 +1,27 @@
+kappa_max (phi>0 on [0,V] iff kappa < kappa_max): 1.5078108109059533501 ; kappa_max^2 = 2.2734934414848686102
+  at kappa^2=9/7: kappa e^{pi/2kappa} - 2 - kappa^2 = 1.245406673
+
+kappa^2=9/7: V = 0.7767803058898612813717132 ; Phi(V-1e-20) = [0.99999999999999999998615858241076762, 0.99999999999999999998615858241303559] (<1), Phi(V+1e-20) = [1.0000000000000000000138414175868658, 1.0000000000000000000138414175894296] (>1)
+  interval: 3 e^V cos^3(kappa V) in [1.6825197373002186654733929735968524, 1.682519737300218665645732918953378] ; kappa^2 = 9/7 = 1.285714286 ; certified kappa^2 < rhs: True ; kappa^2 < 3: True
+  kappa V = 0.880786076878823 < pi/2 ; phi(V) = 1.38414175881354
+
+kappa_s (sufficient condition kappa^2 <= min(3, 3e^V cos^3 kappa V) holds for kappa <= kappa_s): 1.18270978935371, kappa_s^2 = 1.39880244583309
+kappa_D (numerical, grid 300): min D >= 0 iff kappa <= 1.35542156199 ; kappa_D^2 = 1.83716761072
+
+kappa beyond kappa_D: proved convex for tau <= tau0 = 1/(1+kappa tan(kappa V)); numerical sharp tau*
+  kappa=1.4 kappa^2=1.96: V=0.86975625 minD*phi/M^2=-0.798276 tau0(proved)=0.208408 tau*(numerical)=0.698233
+
+real c: grid min of D*phi/M^2 (D >= 0 proved for |c| < 6)
+  c=0    V=0.69314718 min D*phi/M^2 = 0.015646582
+  c=0.5  V=0.68190662 min D*phi/M^2 = 0.016298524
+  c=1    V=0.65327932 min D*phi/M^2 = 0.018254343
+  c=2    V=0.57905868 min D*phi/M^2 = 0.026077517
+  c=3    V=0.51094789 min D*phi/M^2 = 0.039115784
+  c=6    V=0.37510357 min D*phi/M^2 = 0.10951469
+  c=10   V=0.28048871 min D*phi/M^2 = 0.27633407
+  c=30   V=0.13310919 min D*phi/M^2 = 2.3554214
+  c=100  V=0.052556391 min D*phi/M^2 = 25.241677
+
+check of D*phi = 6p + (2-w^2)chi - 3w int_0^p chi dp' (c=1/2, kappa^2=9/7) at u=0.5:
+  c: D phi = 3.7773638623782371764 ; formula = 3.7773638623782371764
+  k: D phi = 2.5566006211546457194 ; formula = 2.5566006211546457194

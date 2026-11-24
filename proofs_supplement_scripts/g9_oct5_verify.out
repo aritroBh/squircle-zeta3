@@ -1,0 +1,25 @@
+# command: cd research/08_theory/OCT5D2_octagon_depth_test && .venv/bin/python -B verify_oct5d2.py   (project verifier of the notes, run in place, read only)
+PASS  exact rewrite: 756 integrals, 1024 distinct words, weights<=5
+PASS  no word starting with 1 has a nonzero coefficient (regularisation consistent)
+PASS  G-table: G(0^4,p;1) = -Li_5(1/p)   1.84e-91
+PASS  G-table: G(p,q;1) vs direct quadrature   4.6e-92
+PASS  all 756 rewritten integrals match itab110 (its own 110-digit accuracy)   worst 2.88e-86
+PASS  rewrite check (local block, >=50 digits)   residual 5.0e-84
+PASS  rewrite check (single block, >=50 digits)   residual 1.28e-83
+PASS  rewrite check (mixed block, >=50 digits)   residual 1.1e-83
+PASS  mixed block vs task-quoted value (49 digits as quoted)   residual 2.61e-50
+PASS  control: Li_5 at 7 S-units pairs to 0
+PASS  control: 300 random shuffle products pair to 0
+PASS  control: M4c W5 pairs to (84, -38 sqrt2)   [84, -38*sqrt2]
+PASS  control: G-symbol identities (0,p)=-Li_2(1/p), (p,q)-shuffle, (0^4,p)=-Li_5(1/p)
+PASS  pairing (local block)   (0, 0)
+PASS  pairing (single-p block)   ((-53955/8+4770*sqrt2), (-10215/2+14445/4*sqrt2))
+PASS  pairing (single-q block)   ((-53955/8+4770*sqrt2), (-10215/2+14445/4*sqrt2))
+PASS  pairing (mixed block)   ((48015/4-8505*sqrt2), (11115-15525/2*sqrt2))
+PASS  pairing (total W5/u) = (-1485+1035 sqrt2, 900-540 sqrt2)   ((-1485+1035*sqrt2), (900-540*sqrt2))
+PASS  TOTAL OBSTRUCTION IS NONZERO (depth two needed, symbol level)
+ratio to M4c: pair1/84 = (-495/28+345/28*sqrt2)  pair2/(-38 sqrt2) = (270/19-225/19*sqrt2)  proportional: False
+PASS  not proportional to M4c (84,-38 sqrt2)
+
+total time 2.9s
+ALL CHECKS PASS

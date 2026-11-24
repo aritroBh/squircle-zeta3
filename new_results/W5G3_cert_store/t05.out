@@ -1,0 +1,114 @@
+2026-11-23 13:35:29 W vectors: 74, nonzero: 74
+2026-11-23 13:35:31 generators 8686 (93s)
+2026-11-23 13:36:12 rank 5070; independent generators chosen; frame lifts among them: 28 (134s)
+2026-11-23 13:38:54 dixon: nmod_mat built (3s), inverting r=5070
+2026-11-23 13:39:10 dixon: inverse done (18s)
+2026-11-23 13:39:13 dixon: inverse extracted/saved (21s)
+2026-11-23 13:43:58 dixon: step 64, M digits 463, probe ok False, 285s
+2026-11-23 13:48:37 dixon: step 128, M digits 925, probe ok False, 565s
+2026-11-23 13:53:23 dixon: step 192, M digits 1388, probe ok False, 851s
+2026-11-23 13:57:22 dixon: step 256, M digits 1850, probe ok False, 1089s
+2026-11-23 14:00:56 dixon: step 320, M digits 2312, probe ok False, 1303s
+2026-11-23 14:03:43 dixon: step 384, M digits 2775, probe ok False, 1470s
+2026-11-23 14:06:20 dixon: step 448, M digits 3237, probe ok False, 1628s
+2026-11-23 14:08:40 dixon: step 512, M digits 3700, probe ok False, 1767s
+2026-11-23 14:10:43 dixon: step 576, M digits 4162, probe ok False, 1890s
+2026-11-23 14:12:46 dixon: step 640, M digits 4624, probe ok False, 2013s
+2026-11-23 14:14:30 dixon: step 704, M digits 5087, probe ok False, 2117s
+2026-11-23 14:16:01 dixon: step 768, M digits 5549, probe ok False, 2208s
+2026-11-23 14:17:30 dixon: step 832, M digits 6011, probe ok False, 2297s
+2026-11-23 14:18:24 dixon: step 896, M digits 6474, probe ok False, 2351s
+2026-11-23 14:18:58 dixon: step 960, M digits 6936, probe ok False, 2386s
+2026-11-23 14:19:35 dixon: step 1024, M digits 7399, probe ok False, 2422s
+2026-11-23 14:20:06 dixon: step 1088, M digits 7861, probe ok False, 2454s
+2026-11-23 14:20:39 dixon: step 1152, M digits 8323, probe ok False, 2487s
+2026-11-23 14:21:14 dixon: step 1216, M digits 8786, probe ok False, 2521s
+2026-11-23 14:21:58 dixon: step 1280, M digits 9248, probe ok False, 2565s
+2026-11-23 14:22:51 dixon: step 1344, M digits 9711, probe ok False, 2618s
+2026-11-23 14:24:37 dixon: step 1408, M digits 10173, probe ok False, 2724s
+2026-11-23 14:25:31 dixon: step 1472, M digits 10635, probe ok False, 2778s
+2026-11-23 14:26:41 dixon: step 1536, M digits 11098, probe ok False, 2848s
+2026-11-23 14:27:38 dixon: step 1600, M digits 11560, probe ok False, 2905s
+2026-11-23 14:28:34 dixon: step 1664, M digits 12022, probe ok False, 2961s
+2026-11-23 14:29:38 dixon: step 1728, M digits 12485, probe ok False, 3025s
+2026-11-23 14:30:48 dixon: step 1792, M digits 12947, probe ok False, 3095s
+2026-11-23 14:31:43 dixon: step 1856, M digits 13410, probe ok False, 3150s
+2026-11-23 14:32:58 dixon: step 1920, M digits 13872, probe ok False, 3225s
+2026-11-23 14:34:07 dixon: step 1984, M digits 14334, probe ok False, 3294s
+2026-11-23 14:36:24 dixon: candidate at step 2048 (M 14797 digits) passes mod 2^31-1; exact check ...
+2026-11-23 14:36:41 dixon: EXACT solution, step 2048, 3448s, max den digits 364
+2026-11-23 14:37:23 W(u3.f4): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:38:04 W(u5.f4): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:38:44 W(u3.f5): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:39:25 W(u5.f5): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:40:27 W(u3.f7): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:41:08 W(u5.f7): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:41:48 W(u3.f9): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:42:28 W(u5.f9): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:43:08 W(u3.f10): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:43:49 W(u5.f10): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:44:29 W(u3.f12): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:45:10 W(u5.f12): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:45:52 W(u3.f14): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:46:35 W(u5.f14): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:47:16 W(u3.f15): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:47:56 W(u5.f15): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:48:36 W(u3.f16): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:49:16 W(u5.f16): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:49:56 W(u3.f17): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:50:36 W(u5.f17): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:51:17 W(u3.f52): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:51:57 W(u5.f52): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:52:37 W(u3.f53): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:53:18 W(u5.f53): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:53:58 W(u3.f54): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:54:38 W(u5.f54): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:55:19 W(u3.f56): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:55:59 W(u5.f56): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:56:39 W(u3.f58): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:57:35 W(u5.f58): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:58:15 W(u3.f59): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:58:56 W(u5.f59): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 14:59:36 W(u3.f61): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:00:16 W(u5.f61): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:00:56 W(u3.f63): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:01:37 W(u5.f63): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:02:17 W(u3.f64): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:02:58 W(u5.f64): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:03:39 W(u3.f65): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:04:21 W(u5.f65): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:05:02 W(u3.f66): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:05:45 W(u5.f66): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:06:29 W(u3.f67): |supp| 5180; = exact combination of 5067 proved weight-4 rows (27 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (3, 6), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:07:10 W(u5.f67): |supp| 5180; = exact combination of 5068 proved weight-4 rows (28 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (3, 6), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:07:53 W(u3.f68): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:08:35 W(u5.f68): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:09:18 W(u3.f69): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:10:00 W(u5.f69): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:10:41 W(u3.f70): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:11:22 W(u5.f70): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:12:04 W(u3.f71): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:12:46 W(u5.f71): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:13:29 W(u3.f72): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:14:39 W(u5.f72): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:15:19 W(u3.f73): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:16:01 W(u5.f73): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:16:41 W(u3.f74): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:17:22 W(u5.f74): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:18:03 W(u3.f75): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:18:45 W(u5.f75): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:19:27 W(u3.f87): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:20:08 W(u5.f87): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:20:50 W(u3.f91): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:21:32 W(u5.f91): |supp| 5180; = exact combination of 5056 proved weight-4 rows (16 frame lifts, frame rows [(2, 3), (3, 3), (3, 5)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:22:14 W(u3.f95): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:22:56 W(u5.f95): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:23:36 W(u3.f103): |supp| 5180; = exact combination of 5067 proved weight-4 rows (27 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (3, 6), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:24:19 W(u5.f103): |supp| 5180; = exact combination of 5068 proved weight-4 rows (28 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (3, 6), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:25:00 W(u3.f104): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:25:41 W(u5.f104): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:26:23 W(u3.f107): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:27:05 W(u5.f107): |supp| 5180; = exact combination of 5065 proved weight-4 rows (25 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (4, 4), (4, 6), (4, 8), (4, 9), (4, 11), (4, 12), (4, 40), (4, 41), (4, 43)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:27:46 W(u3.f113): |supp| 5180; = exact combination of 5059 proved weight-4 rows (19 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (3, 6)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:28:27 W(u5.f113): |supp| 5180; = exact combination of 5059 proved weight-4 rows (19 frame lifts, frame rows [(2, 3), (3, 3), (3, 5), (3, 6)]); EXACT check on 5184 words: mismatches 0
+2026-11-23 15:28:27 ALL W in the proved weight-4 span (exact): True (6869s)

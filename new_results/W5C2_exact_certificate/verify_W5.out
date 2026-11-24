@@ -1,0 +1,19 @@
+06:24:39 orbit structure OK: N=46656 sectors={'pp': 12218, 'pm': 11164, 'mp': 11164, 'mm': 12110}
+06:24:39 fold/unfold lemma verified on all 46656 unit vectors (0s)
+06:24:41 sources loaded: {'std': 94762, 'lift1': 20736, 'lift2old': 31104, 'lift3old': 34496, 'lift4old': 35294, 'frame234': 32520} framew5=288
+06:24:56 verify pp rat: sector equation residual_nonzero=0 cols=7120
+06:24:56 verify pp sq: sector equation residual_nonzero=0 cols=6842
+06:24:56 verify pp: OK used_rows=12149 families={'std': 9835, 'lift1': 2248, 'lift2old': 20, 'lift3old': 4, 'lift4old': 6, 'framew5': 36} (17s)
+06:25:10 verify pm rat: sector equation residual_nonzero=0 cols=6557
+06:25:10 verify pm sq: sector equation residual_nonzero=0 cols=7021
+06:25:10 verify pm: OK used_rows=11087 families={'std': 9019, 'lift1': 2007, 'lift2old': 8, 'lift3old': 6, 'lift4old': 11, 'framew5': 36} (31s)
+06:25:23 verify mp rat: sector equation residual_nonzero=0 cols=6573
+06:25:23 verify mp sq: sector equation residual_nonzero=0 cols=6940
+06:25:23 verify mp: OK used_rows=11040 families={'std': 8980, 'lift1': 2037, 'lift2old': 12, 'lift3old': 6, 'lift4old': 5} (44s)
+06:25:36 verify mm rat: sector equation residual_nonzero=0 cols=7070
+06:25:36 verify mm sq: sector equation residual_nonzero=0 cols=6815
+06:25:36 verify mm: OK used_rows=11996 families={'std': 9681, 'lift1': 2275, 'lift2old': 22, 'lift4old': 10, 'lift3old': 8} (58s)
+06:25:36 verify unfolded rat: assembly over ALL 4 sectors mod 2^61-1 residual_nonzero=0 (words=25406)
+06:25:36 verify unfolded sq: assembly over ALL 4 sectors mod 2^61-1 residual_nonzero=0 (words=28535)
+06:25:36 TOTAL used rows (with multiplicity across sectors): 46272
+06:25:36 VERDICT: EXACT — all 8 sector systems verified exactly; unfold lemma verified; unfolded assembly consistent mod 2^61-1.

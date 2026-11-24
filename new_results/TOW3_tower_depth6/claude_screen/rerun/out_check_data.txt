@@ -1,0 +1,28 @@
+parsed md closed forms; free symbols: {d, m} {d, m}
+md a_5 - tow3lib.arho(5) == 0 : True ; md a_6 - tow3lib.arho(6) == 0 : True
+PART A delta=5: cells(d=5..52) = 720, bad = 0; cells with d in 6..40: 429 (bad among them counted below)
+PART A delta=6: cells(d=5..52) = 720, bad = 0; cells with d in 6..40: 429 (bad among them counted below)
+PART A bad cells total: 0 ; bad with d in 6..40: 0
+   delta=5: d in 6..40 -> 429 cells checked (ratio in Q(i) asserted, exact equality of real & imag parts)
+   delta=6: d in 6..40 -> 429 cells checked (ratio in Q(i) asserted, exact equality of real & imag parts)
+   d=5 keys: 3 (included in the d=5..52 totals above)
+PART B delta=5 (poly degree 2): keys d=5..52: 720, genuine (>= 4 levels): 641, non-genuine skipped: 79, finite-diff order 3 nonzero: 0, order-2 identically zero (degree < 2): 0; min points 4, min #checks 1
+          restricted to d<=40: keys 432, genuine 432, bad 0, deg-deficient 0
+          diagonal keys: 22; initial level k=2p OFF the stable polynomial in 22
+PART B delta=6 (poly degree 3): keys d=5..52: 720, genuine (>= 5 levels): 615, non-genuine skipped: 105, finite-diff order 4 nonzero: 0, order-3 identically zero (degree < 3): 0; min points 5, min #checks 1
+          restricted to d<=40: keys 432, genuine 432, bad 0, deg-deficient 0
+          diagonal keys: 21; initial level k=2p OFF the stable polynomial in 21
+PART C off-diagonal Newton coefficients: 4408 coefficients compared to tow3lib.e(delta,s)(d,m)*rho(0); bad = 0
+   symbolic link ehat_adj(5,0) - (rB0/rB0d) * ehat_E3(5,0) == 0 : True
+   symbolic link ehat_adj(5,1) - (rB0/rB0d) * ehat_E3(5,1) == 0 : True
+   symbolic link ehat_adj(5,2) - (rB0/rB0d) * ehat_E3(5,2) == 0 : True
+   symbolic link ehat_adj(6,0) - (rB0/rB0d) * ehat_E3(6,0) == 0 : True
+   symbolic link ehat_adj(6,1) - (rB0/rB0d) * ehat_E3(6,1) == 0 : True
+   symbolic link ehat_adj(6,2) - (rB0/rB0d) * ehat_E3(6,2) == 0 : True
+   symbolic link ehat_adj(6,3) - (rB0/rB0d) * ehat_E3(6,3) == 0 : True
+   rB0_adj/rB0d_E3 = (-4*I*p + 3*I)/(2*p)
+PART C diagonal ehat (E3 convention, /rho_pp(0)) vs data shifted-Newton coeffs, p=3..26: 154 compared, bad = 0
+PART C diagonal ehat (adjacent-script convention, /e00_child) vs data: 154 compared, bad = 0
+PART C data ratio rho_pp(0)/e00_(p,p-1) vs rB0/rB0d: 44 compared, bad = 0
+PART C diagonal Delta_pp(delta) (E3 input, symbolic) vs data: 44 compared, bad = 0
+total time 33.4 s

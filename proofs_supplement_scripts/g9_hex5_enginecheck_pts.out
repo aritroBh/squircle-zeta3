@@ -1,0 +1,3 @@
+point B=1/3 kappa=2/5: 630 coefficients (orders 0..5) compared, differing: 0  (14 s)
+point B=2/7 kappa=-3/4: 630 coefficients (orders 0..5) compared, differing: 0  (28 s)
+point B=3/5 kappa=1/9: 630 coefficients (orders 0..5) compared, differing: 0  (42 s)

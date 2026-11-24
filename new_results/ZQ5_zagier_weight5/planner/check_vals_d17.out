@@ -1,0 +1,20 @@
+BAD  16 x=+0.903882 |planner-stored|=1.06e-583
+BAD  28 x=+0.985071 |planner-stored|=1.97e-848
+BAD  52 x=+0.970143 |planner-stored|=4.81e-751
+BAD  74 x=+0.984845 |planner-stored|=2.52e-846
+BAD  84 x=+0.921165 |planner-stored|=1.52e-612
+BAD  91 x=+0.951941 |planner-stored|=1.38e-683
+BAD  93 x=+0.981238 |planner-stored|=2.11e-816
+BAD  99 x=+0.941176 |planner-stored|=1.03e-654
+BAD 107 x=+0.949515 |planner-stored|=1.45e-676
+BAD 112 x=+0.966590 |planner-stored|=3.63e-735
+BAD 114 x=+0.993570 |planner-stored|=4.33e-966
+BAD 119 x=+0.935340 |planner-stored|=3.87e-641
+BAD 126 x=+0.923518 |planner-stored|=6.23e-617
+BAD 131 x=+0.988692 |planner-stored|=2.74e-887
+BAD 133 x=+0.967670 |planner-stored|=8.24e-740
+BAD 135 x=+0.937514 |planner-stored|=4.71e-646
+BAD 137 x=+0.996338 |planner-stored|=1.64e-1044
+BAD 146 x=+0.997451 |planner-stored|=5.84e-1095
+D=17 vals_1150.pkl: 147 values, 18 bad (> 1e-1150), 22s
+BADLIST 16,28,52,74,84,91,93,99,107,112,114,119,126,131,133,135,137,146

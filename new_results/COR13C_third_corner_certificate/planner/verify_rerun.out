@@ -1,0 +1,37 @@
+[   0.0s] PART A: exact certificate verification
+[   0.3s]   [PASS] N=6: 12 injective maps into mu_N (expected 2N=12), maps using 0/inf: 0
+[   0.3s]   [PASS] N=12: 24 injective maps into mu_N (expected 2N=24), maps using 0/inf: 0
+[   0.4s]   [PASS] N=18: 36 injective maps into mu_N (expected 2N=36), maps using 0/inf: 0
+[   0.4s]   [PASS] N=24: 48 injective maps into mu_N (expected 2N=48), maps using 0/inf: 0
+[   0.6s]   [PASS] N=30: 60 injective maps into mu_N (expected 2N=60), maps using 0/inf: 0
+[   0.8s]   [PASS] N=36: 72 injective maps into mu_N (expected 2N=72), maps using 0/inf: 0
+[   0.8s]   [PASS] N=6 direct exact enumeration: 12 maps, matches mobius_maps_13.json: True
+[   0.8s]   [PASS] all 6 Li arguments are cross-ratios of the configuration
+[   0.8s]   built relations weight 1: 4 rows, families {'weight1_branch_new': 2, 'distribution_nonzero': 3, 'distribution_new': 2}
+[   0.8s]   built relations weight 2: 57 rows, families {'double_shuffle_nonzero': 20, 'double_shuffle_new': 20, 'distribution_nonzero': 17, 'distribution_new': 17, 'lift_nonzero': 20, 'lift_new': 20}
+[   0.8s]   [PASS] weight 2: certificate rows=28 target_support=26 residual_words=0
+[   0.9s]   built relations weight 3: 682 rows, families {'double_shuffle_nonzero': 246, 'double_shuffle_new': 246, 'distribution_nonzero': 67, 'distribution_new': 67, 'lift_nonzero': 429, 'lift_new': 369}
+[   0.9s]   [PASS] weight 3: certificate rows=229 target_support=170 residual_words=0
+[   1.8s]   built relations weight 4: 7869 rows, families {'double_shuffle_nonzero': 2604, 'double_shuffle_new': 2603, 'distribution_nonzero': 251, 'distribution_new': 251, 'lift_nonzero': 6470, 'lift_new': 5015}
+[   2.3s]   [PASS] weight 4: certificate rows=1695 target_support=1083 residual_words=0
+[   2.3s]         (pi^4 comes out exactly: T4 coefficient of (1,1,1,1) = 2395/6, killed by certificate)
+[   2.3s]   [PASS] bonus: zeta(2)=pi^2/6 exact (28 rows), residual_words=0
+[   2.3s] PART A PASSED
+[   2.3s] PART B: numeric audit at 62 dps (validation of the conversion code)
+[   2.3s]   [PASS] 12 Mobius maps on {1/3,-1} (numeric): |resid| = 3.2e-66
+[   9.9s]   [PASS] all 38 HPL-word conversions at 1/3 (worst: H[0, 1, 0, -1]): |resid| = 2.77e-66
+[  11.2s]   [PASS] all 9 Li-atom conversions (worst: Li_4(-2)): |resid| = 2.14e-65
+[  11.2s]   [PASS] zeta(2) atom: |resid| = 0.0
+[  11.2s]   [PASS] zeta(3) atom: |resid| = 0.0
+[  11.2s]   [PASS] log2 atom: |resid| = 4.6e-74
+[  11.2s]   [PASS] log3 atom: |resid| = 0.0
+[  11.2s]   [PASS] i*pi atom: |resid| = 4.75e-66
+[  11.2s]   [PASS] (i*pi)^2 atom = -pi^2: |resid| = 3.58e-73
+[  11.2s]   [PASS] (i*pi)^4 atom = pi^4: |resid| = 3.04e-64
+[  11.2s]   [PASS] target ID2 value (support 26): |resid| = 2.65e-66
+[  11.3s]   [PASS] target ID3 value (support 170): |resid| = 4.38e-64
+[  12.7s]   [PASS] target ID4 value (support 1083): |resid| = 5.81e-65
+[  12.7s]   [PASS] Li4(1/9) = 8(Li4(1/3)+Li4(-1/3)) (input theorem): |resid| = 1.19e-66
+[  24.3s]   [PASS] two independent CMZV evaluators (12 random words): |resid| = 1.9e-63
+[  24.3s] PART B PASSED
+[  24.3s] VERDICT: COR13C CERTIFICATE VALID - ID2, ID3, ID4 PROVED

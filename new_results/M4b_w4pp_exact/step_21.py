@@ -1,0 +1,6 @@
+import os
+ROOT = '<project>'
+WORK = os.path.join(ROOT, 'research/08_theory/M4b_w4pp_exact')
+os.chdir(WORK)
+src = open(os.path.join(ROOT,'research/08_theory/A3c_claude_elementary/Q/relations.py')).read()
+print(src[:9000])

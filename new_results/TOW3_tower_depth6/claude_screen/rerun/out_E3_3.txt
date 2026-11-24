@@ -1,0 +1,1 @@
+E3 blindness delta=3: numerator == 0 : True  (1.6s)

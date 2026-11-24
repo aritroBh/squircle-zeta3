@@ -1,0 +1,3 @@
+04:40:38 nmod 12156 built; inv start
+04:47:25 nmod inv(12156) 406.3s
+04:49:54 fmpz solve n=4000 148.2s sample_height_bits=50804

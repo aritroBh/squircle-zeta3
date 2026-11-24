@@ -1,0 +1,8 @@
+octagon: P(1) = 2.53620268449771540274021154138 (8(sqrt2-1)sqrt(2-sqrt2) = 2.53620268449771540274021154138)
+octagon: P5 = 164.12775911330597065104567331245436130507711746936 ; minus paper 164.12775911330597065104567331245 = 4.36e-30
+octagon: P5 minus OCT5D 120-digit value: 1.99e-59
+paper hexagon edge 0 (r=2): Z5 = -2079*sqrt(5)/250, Z23 = -477*sqrt(5)/250
+paper hexagon edge 1 (r=1/2): Z5 = -2079*sqrt(5)/250, Z23 = -477*sqrt(5)/250
+paper hexagon edge 2 (r=1): Z5 = 3195*sqrt(2)/2048, Z23 = 1515*sqrt(2)/2048
+diamond exact P5 - printed = 0
+HPL(-1) vs quoted exact reductions, worst |diff| = 3.65e-61

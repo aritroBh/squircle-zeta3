@@ -1,0 +1,77 @@
+
+import sys, time, pickle
+import numpy as np, mpmath as mp
+sys.path.insert(0,'.')
+import sympy as sp
+import survey_lib as SL
+from fractions import Fraction as F
+a1s,a2s,a3s,a4s,a5s=sp.symbols('a1 a2 a3 a4 a5')
+C4=sp.sympify(open('C4.txt').read()); Q7=sp.sympify(open('Q7p.txt').read())
+Q11sp=sum(sp.Rational(c.numerator,c.denominator)*sp.prod([a1s,a2s,a3s,a4s,a5s][i]**e[i] for i in range(5)) for e,c in SL.Q11.items())
+Q=pickle.load(open('Q8_quotients.pkl','rb'))
+mp.mp.dps=60
+def mpoly(Qd, pt):
+    tot=mp.mpf(0)
+    for e,c in Qd.items():
+        pw=mp.mpf(1)
+        for x,ei in zip(pt,e):
+            if ei: pw*=x**ei
+        tot+=mp.mpf(c.numerator)/c.denominator*pw
+    return tot
+QA=Q['A']; QC=Q['CLASS']
+def mk_f(a1v, dps):
+    mp.mp.dps=dps
+    C4s=C4.subs({a1s:mp.mpf(a1v),a3s:1}); Q7s=Q7.subs({a1s:mp.mpf(a1v),a3s:1}); Qs=Q11sp.subs({a1s:mp.mpf(a1v),a3s:1})
+    return [sp.lambdify((a2s,a4s,a5s), e, 'mpmath') for e in (C4s,Q7s,Qs)]
+def newton(f, g, tol, maxsteps=80):
+    try:
+        r=mp.findroot(f, g, tol=tol, maxsteps=maxsteps)
+        a2r,a4r,a5r=r[0],r[1],r[2]
+        if a2r>mp.mpf('1e-9') and a4r>mp.mpf('1e-9') and a5r>mp.mpf('1e-9'):
+            return (a2r,a4r,a5r)
+    except Exception: return None
+    return None
+def dense_guesses(a1v):
+    gs=[]
+    for a2v in np.logspace(-3,3,80):
+        for (a4v,a5v) in SL.v10_points(a1v, a2v):
+            gs.append((mp.mpf(a2v),mp.mpf(a4v),mp.mpf(a5v)))
+    return gs
+def gamma_points(a1v, cont, do_dense):
+    f35=mk_f(a1v,35)
+    guesses=list(cont)
+    if do_dense: guesses += dense_guesses(a1v)
+    cand=[]
+    for g in guesses:
+        s=newton(f35, g, mp.mpf('1e-25'))
+        if s:
+            key=tuple(mp.nstr(x,16) for x in s)
+            if not any(key==k for k,_ in cand): cand.append((key,s))
+    f60=mk_f(a1v,60)
+    out=[]
+    for _,s in cand:
+        r=newton(f60, s, mp.mpf('1e-50'), maxsteps=200)
+        if r:
+            a2r,a4r,a5r=r
+            pt=[mp.mpf(a1v),a2r,mp.mpf(1),a4r,a5r]
+            res=max(abs(fi(a2r,a4r,a5r)) for fi in f60)
+            qa=mpoly(QA,pt); qc=mpoly(QC,pt)
+            out.append({'a1':mp.mpf(a1v),'a2':a2r,'a4':a4r,'a5':a5r,'QA':qa,'QC':qc,'res':res})
+    return out
+schedule=list(np.logspace(-5,5,121))
+results={}
+lg=open('gamma_trace.log','w')
+prev=[]; t0=time.time()
+for idx,a1v in enumerate(schedule):
+    do_dense = (idx%5==0) or (idx==len(schedule)-1)
+    sols=gamma_points(a1v, prev, do_dense)
+    # merge: also keep previous solutions that Newton from cont found (already in sols via cont)
+    results[a1v]=sols
+    prev=[(s['a2'],s['a4'],s['a5']) for s in sols]
+    sgA=sorted(set('+' if s['QA']>0 else '-' for s in sols))
+    sgC=sorted(set('+' if s['QC']>0 else '-' for s in sols))
+    lg.write(f"a1={a1v:.6g} ({'dense' if do_dense else 'cont'}): {len(sols)} pts signQA={sgA} signQC={sgC} [{time.time()-t0:.0f}s]\n"); lg.flush()
+    pickle.dump(results, open('gamma_trace_partial.pkl','wb'))
+pickle.dump(results, open('gamma_trace.pkl','wb'))
+lg.write("DONE\n"); lg.close()
+print("trace done")

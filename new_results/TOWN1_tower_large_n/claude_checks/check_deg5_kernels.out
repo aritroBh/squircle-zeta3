@@ -1,0 +1,20 @@
+towers meta {'k_done': 52, 'D': 8, 'K': 52}
+degree-5 kernels from towers built for k = 6..52
+(1) towers vs reducers, k = 6..21, 3 keys: 48/48 match ALL MATCH
+(2) quartic law k = 6..52: 15/15 residue sequences quartic (min 42 spare checks); i-parts/simple +-i poles present: False
+   K_32 pole  -a rat  : -k**4/18 + 43*k**3/48 - 1565*k**2/288 + 1411*k/96 - 2861/192
+   K_32 pole   0 rat  : k**4/36 - 43*k**3/96 + 1565*k**2/576 - 1411*k/192 + 2861/384
+   K_32 pole   0 sqrt2: k**2/48 - 19*k/96 + 31/64
+   K_32 pole  -b rat  : -k**4/36 + 139*k**3/288 - 1847*k**2/576 + 5593*k/576 - 1453/128
+   K_32 pole   a rat  : k**4/36 - 139*k**3/288 + 1847*k**2/576 - 5593*k/576 + 1453/128
+   K_41 pole  -a rat  : k**4/36 - 119*k**3/288 + 1259*k**2/576 - 2657*k/576 + 349/128
+   K_41 pole   0 rat  : -5*k**3/288 + 17*k**2/64 - 197*k/144 + 907/384
+   K_41 pole   0 sqrt2: -k**2/32 + 19*k/64 - 275/384
+   K_41 pole  -b rat  : -5*k**3/144 + 15*k**2/32 - 155*k/72 + 27/8
+   K_41 pole   a rat  : -k**4/36 + 139*k**3/288 - 1835*k**2/576 + 5473*k/576 - 4157/384
+   K_50 pole  -a rat  : -k**4/180 + 109*k**3/1440 - 929*k**2/2880 + 889*k/2880 + 979/1920
+   K_50 pole   0 rat  : k**3/288 - 11*k**2/192 + 221*k/720 - 1013/1920
+   K_50 pole   0 sqrt2: k**2/96 - 19*k/192 + 89/384
+   K_50 pole  -b rat  : k**3/72 - 3*k**2/16 + 307*k/360 - 157/120
+   K_50 pole   a rat  : k**4/180 - 139*k**3/1440 + 1799*k**2/2880 - 5113*k/2880 + 3559/1920
+RESULT: PASS

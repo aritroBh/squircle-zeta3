@@ -1,0 +1,9 @@
+(1) Phi(pi/(2k)) = [1.5448654194632196270 +/- 4.60e-20]  > 1 certified: True
+    (Phi' = e^v cos(kv) > 0 on [0, pi/(2k)), so Phi is a strictly increasing bijection [0,V] -> [0,1].)
+(2) Phi(Vlo) < 1: True  Phi(Vhi) > 1: True  Vhi < pi/(2k): True
+    V in [0.7767803058898612813717132213220636897389, 0.7767803058898612813717132213220636897389]
+    3 e^V cos^3(kV) in [1.682519737300218665559563 +/- 5.38e-26] ; > 9/7 certified: True
+    phi(V) = e^V cos(kV) in [1.3841417588135372810 +/- 4.98e-20]
+(3) kappa^2 < 3 e^v cos^3(kappa v) for all v in [0, Vhi]: True ; certified lower bound of min: [1.68219270771489 +/- 4.04e-15]
+(4) q(1.50781081090595335) = [4.2488e-19 +/- 2.88e-24]  >0: True ; q(...36) = [-3.0915e-17 +/- 2.75e-22]  <0: True
+    q(sqrt(9/7)) = [1.24540667305879 +/- 2.29e-15]  > 0: True

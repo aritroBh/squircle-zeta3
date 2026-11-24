@@ -1,0 +1,32 @@
+== Task A: engine == recorded towers (k<=12, depths<=6) ==
+  [PASS] A1: rho == towlib.rho (d=2..12)  303 coeffs, 0 mismatch
+  [PASS] A2: tower == towlib.u (k=2..12, all keys)  1323 coeffs, 0 mismatch
+== Task B (sample): tower law T, n=2..18, D=6 (harvest K=22) ==
+  level k=2 harvested (0.0s)
+  level k=3 harvested (0.0s)
+  level k=4 harvested (0.0s)
+  level k=5 harvested (0.0s)
+  level k=6 harvested (0.0s)
+  level k=7 harvested (0.2s)
+  level k=8 harvested (0.1s)
+  level k=9 harvested (0.1s)
+  level k=10 harvested (0.3s)
+  level k=11 harvested (0.1s)
+  level k=12 harvested (0.3s)
+  level k=13 harvested (0.4s)
+  level k=14 harvested (0.3s)
+  level k=15 harvested (0.4s)
+  level k=16 harvested (0.5s)
+  level k=17 harvested (0.4s)
+  level k=18 harvested (0.6s)
+  level k=19 harvested (0.6s)
+  level k=20 harvested (0.9s)
+  level k=21 harvested (1.0s)
+  level k=22 harvested (1.0s)
+  [PASS] B1: T holds, all genuine cells n=2..18, D=6  659 cells, 0 fails, min nchecks=1
+  [PASS] B2: diagonal shift (k=n off polynomial)  41/41 off
+== Task C (sample): degree-2 kernels == closed forms R_20, R_11, k=16..22 ==
+  [PASS] C1: R_20(k;v), R_11(k;v) exact from tower, k=16..22  0 mismatches
+
+VERIFY_TOWN1: 5/5 PASS   (10.3s)
+ALL PASS

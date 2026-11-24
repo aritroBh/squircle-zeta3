@@ -1,0 +1,11 @@
+BAD  10 x=+0.956439 |planner-stored|=1.44e-697
+BAD  36 x=+0.947822 |planner-stored|=7.37e-672
+BAD  38 x=+0.990990 |planner-stored|=5.02e-919
+BAD  47 x=+0.990908 |planner-stored|=9.21e-918
+BAD  55 x=+0.965215 |planner-stored|=1.84e-729
+BAD  60 x=+0.981981 |planner-stored|=4.61e-822
+BAD  70 x=+0.979592 |planner-stored|=1.35e-804
+BAD  71 x=+0.984375 |planner-stored|=4.78e-842
+BAD  76 x=+0.964286 |planner-stored|=9.84e-726
+D=21 vals_b10.pkl: 78 values, 9 bad (> 1e-1150), 13s
+BADLIST 10,36,38,47,55,60,70,71,76

@@ -1,0 +1,20 @@
+B_n: [1, a1, a1**2/2 + a2, a1**3/6 + a1*a2 + a3, a1**4/24 + a1**2*a2/2 + a1*a3 + a2**2/2 + a4]
+B2 check: 0  B3 check: 0
+s sign +1: Phi_0 = 0
+   Phi_1 - claimed = 0
+   Phi_2 - claimed = 0
+   Phi_3 - claimed = 0
+   M_a: [H, s*(S + T), -H*s**2/2, -s**3*(S + T)/6]   P_2: a1_d0**2/2 + a1_d1*s + a2_d0
+   P_3 (not used in c4, for reference): a1_d0**3/6 + a1_d0*a1_d1*s + a1_d0*a2_d0 + a1_d2*s**2/2 + a2_d1*s + a3_d0
+s sign -1: Phi_0 = 0
+   Phi_1 - claimed = 0
+   Phi_2 - claimed = 0
+   Phi_3 - claimed = 0
+   M_a: [H, s*(S - T), -H*s**2/2, -s**3*(S - T)/6]   P_2: a1_d0**2/2 + a1_d1*s + a2_d0
+   P_3 (not used in c4, for reference): a1_d0**3/6 + a1_d0*a1_d1*s + a1_d0*a2_d0 + a1_d2*s**2/2 + a2_d1*s + a3_d0
+Prop4 identity tau^2(1+eps)^2 Q - RHS = 0
+(Phi+Phi'')/f - tau Q = 0
+i=2  psi' = -2*c   2M'psi'-M psi = -4*c**2 + 6*c*sn + 2*sn**2
+i=3  psi' = 2*sn   2M'psi'-M psi = 2*c**2 + 6*c*sn - 4*sn**2
+i=4  psi' = -2*c + 2*sn   2M'psi'-M psi = -2*c**2 + 12*c*sn - 2*sn**2
+RHS - lower bound - (1-tau)M[eps*sum psi'^2E - (sum psi'E)^2] = 0

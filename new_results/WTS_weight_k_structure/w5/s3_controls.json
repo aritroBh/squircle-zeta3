@@ -1,0 +1,95 @@
+{
+ "controls": [
+  {
+   "name": "weight2_k2",
+   "residual": "2.62417e-141",
+   "pass_": true
+  },
+  {
+   "name": "weight2_k3",
+   "residual": "2.62417e-141",
+   "pass_": true
+  },
+  {
+   "name": "weight2_k5",
+   "residual": "2.62417e-141",
+   "pass_": true
+  },
+  {
+   "name": "weight2_k8",
+   "residual": "2.62417e-141",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k3",
+   "residual": "4.98592e-140",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k4",
+   "residual": "8.92218e-140",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k5",
+   "residual": "3.149e-140",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k6",
+   "residual": "6.82284e-140",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k7",
+   "residual": "1.10215e-139",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k8",
+   "residual": "1.46954e-139",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k9",
+   "residual": "9.44701e-140",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k10",
+   "residual": "1.2596e-139",
+   "pass_": true
+  },
+  {
+   "name": "weight3_k11",
+   "residual": "1.78444e-139",
+   "pass_": true
+  },
+  {
+   "name": "W5_k4_vs_W5_600_dps80",
+   "residual": "1.28453e-79",
+   "pass_": true
+  },
+  {
+   "name": "W5_k4_vs_W5_600_dps110",
+   "residual": "2.01752e-107",
+   "pass_": true
+  },
+  {
+   "name": "W5_k4_vs_W5_600_dps140",
+   "residual": "3.21192e-137",
+   "pass_": true
+  }
+ ],
+ "dps": 140,
+ "cross_precision_80_vs_140": {
+  "4": "1.28453e-79",
+  "5": "-1.85905e-78",
+  "6": "-1.06574e-77",
+  "7": "-2.9102e-77",
+  "8": "-5.80248e-77",
+  "9": "-1.03058e-76",
+  "10": "-1.66832e-76",
+  "11": "-2.46981e-76"
+ }
+}

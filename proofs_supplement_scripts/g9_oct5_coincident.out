@@ -1,0 +1,9 @@
+G(p,p;1): Sym(G(p)^2) = 2 Sym G(p,p): True
+G(q,q;1): Sym(G(q)^2) = 2 Sym G(q,q): True
+G(p)G(q) = G(p,q)+G(q,p): True
+G(q)G(p) = G(q,p)+G(p,q): True
+G(0)G(p) = G(0,p)+G(p,0): True
+G(p)G(0) = G(p,0)+G(0,p): True
+G(0)G(q) = G(0,q)+G(q,0): True
+pass
+<project>/.venv/bin/python -B   0.02s user 0.01s system 94% cpu 0.030 total

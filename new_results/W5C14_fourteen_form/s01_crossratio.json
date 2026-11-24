@@ -1,0 +1,174 @@
+{
+ "b": {
+  "x": "(-1+1*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "b",
+   "-1"
+  ],
+  "ntuples": 96
+ },
+ "-b": {
+  "x": "(1-1*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "a",
+   "-1"
+  ],
+  "ntuples": 96
+ },
+ "-b^2": {
+  "x": "(-3+2*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "a",
+   "inf",
+   "-b"
+  ],
+  "ntuples": 16
+ },
+ "1/sqrt2": {
+  "x": "(0+1/2*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "b",
+   "a"
+  ],
+  "ntuples": 96
+ },
+ "1/2": {
+  "x": "(1/2+0*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "-a",
+   "b"
+  ],
+  "ntuples": 80
+ },
+ "1-1/sqrt2": {
+  "x": "(1-1/2*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "a",
+   "b"
+  ],
+  "ntuples": 96
+ },
+ "2-sqrt2": {
+  "x": "(2-1*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "-1",
+   "b"
+  ],
+  "ntuples": 96
+ },
+ "-b/2": {
+  "x": "(1/2-1/2*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "a",
+   "-b"
+  ],
+  "ntuples": 32
+ },
+ "(2-sqrt2)/4": {
+  "x": "(1/2-1/4*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "inf",
+   "a",
+   "-b"
+  ],
+  "ntuples": 16
+ },
+ "(2+sqrt2)/4": {
+  "x": "(1/2+1/4*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "inf",
+   "b",
+   "-a"
+  ],
+  "ntuples": 16
+ },
+ "2b": {
+  "x": "(-2+2*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "a",
+   "b",
+   "inf"
+  ],
+  "ntuples": 32
+ },
+ "(4-3sqrt2)/8": {
+  "x": "(1/2-3/8*r2)",
+  "level8": false,
+  "example": null,
+  "ntuples": 0
+ },
+ "b^4": {
+  "x": "(17-12*r2)",
+  "level8": false,
+  "example": null,
+  "ntuples": 0
+ },
+ "1-b^4": {
+  "x": "(-16+12*r2)",
+  "level8": false,
+  "example": null,
+  "ntuples": 0
+ },
+ "b^2": {
+  "x": "(3-2*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "a",
+   "1",
+   "-b"
+  ],
+  "ntuples": 32
+ },
+ "-1": {
+  "x": "(-1+0*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "inf",
+   "-1"
+  ],
+  "ntuples": 80
+ },
+ "-1/sqrt2": {
+  "x": "(0-1/2*r2)",
+  "level8": true,
+  "example": [
+   "0",
+   "1",
+   "a",
+   "-a"
+  ],
+  "ntuples": 96
+ }
+}

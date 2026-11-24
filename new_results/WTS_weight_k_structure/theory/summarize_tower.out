@@ -1,0 +1,13 @@
+cells (n, depth) in analyze_tower.out: 169
+cells with a genuine exact test (npts >= degree+2): 64
+cells where minimal polynomial degree != floor(depth/2): []
+  degree n=2: depths 0..0 tested (of 0..0); all have degree floor(depth/2)
+  degree n=3: depths 0..2 tested (of 0..2); all have degree floor(depth/2)
+  degree n=4: depths 0..4 tested (of 0..4); all have degree floor(depth/2)
+  degree n=5: depths 0..6 tested (of 0..6); all have degree floor(depth/2)
+  degree n=6: depths 0..8 tested (of 0..8); all have degree floor(depth/2)
+  degree n=7: depths 0..10 tested (of 0..10); all have degree floor(depth/2)
+  degree n=8: depths 0..9 tested (of 0..12); all have degree floor(depth/2)
+  degree n=9: depths 0..7 tested (of 0..14); all have degree floor(depth/2)
+  degree n=10: depths 0..5 tested (of 0..16); all have degree floor(depth/2)
+  degree n=11: depths 0..3 tested (of 0..18); all have degree floor(depth/2)

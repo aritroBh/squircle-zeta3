@@ -1,0 +1,1 @@
+print(open('../OCT5D3_octagon_p5_closed/oct5d3_atoms.py').read())

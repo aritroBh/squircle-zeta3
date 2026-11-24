@@ -1,0 +1,39 @@
+================================================================================
+PART A: thm:pw (pure weight)
+================================================================================
+[PASS] A1 gamma cancels exactly, n=2, all k<=8  
+[PASS] A2 weight-k homogeneity of w_k(2), all k<=8  
+[PASS] A3 Rat_2 = 1 (logRat vanishes)  
+[PASS] A4 single-zeta u_k(2) = 1/4,1/4,1/32,-3/16,91/192,129/64,-5039/1024  [1/4, 1/4, 1/32, -3/16, 91/192, 129/64, -5039/1024]
+[PASS] A5 P/sqrt2 + logP exact vs D16 tau_series_2d.json through tau^8  
+[PASS] A6 w_2(3) = -2 Z2/3, w_3(3) = -16 Z3/9 (H1 T5 L2,L3)  
+[PASS] A7 logRat_3 = log(1-tau)-log(1-2 tau)  [Rat_3 = 1/(2-p)]  
+[PASS] A8 n=3: gamma-free, pure weight through tau^8  
+   [engine part: 57s]
+   n=2 remainder test at tau=0.002: R/(w9 tau^9) = 0.9880709301 (->1), (R-w9 t9)/(w10 t10) = 1.0109411 (->1)
+[PASS] A9 quadrature remainder test (expect ~0.988, ~1.011)  
+[PASS] A10 rhombus w2 = (1-q^2) Z2/4, w3 = (1-q^2) Z3/4  
+[PASS] A11 rhombus: pure weight + coefficients in Q[q^2] through tau^6 (exact)  
+================================================================================
+PART B: prop:degree (degree of Fourier coefficients)
+================================================================================
+[PASS] B1 e_{r,m} exact rebuild == K3 table (50 entries)  
+[PASS] B2 e_{r,2r}=1, e_{r,2r+1}=1/2 (all r<=5)  
+[PASS] B3 I_{m,1} = m! eta(m+2) (m=0..5), I_{0,2} = zeta(3)/4  
+[PASS] B4 even tops D~_{2n,n-1} = 2(2n-2)! eta(2n) != 0, n=2..5  
+[PASS] B5 odd tops D~_{2n+1,n-1} = (2n-2)![z(2n+1)+2 sum eta zeta] != 0, n=1..4  
+[PASS] B6 leading coeff Theta_{2m} = (-1)^{m-1}(2^{2m-1}-1) zeta(2m), m=1..6  
+[PASS] B7 Theta_n(u) [my D~-build] == K3 Qpolys (zeta products), n<=8, u in {0,1,2,5,7}  
+   fresh a_k extraction: max rel.err n=2 over k=0..4 = 8.9e-10 (threshold 1e-8)
+   fresh a_k extraction: max rel.err n=3 over k=0..4 = 2.9e-6 (threshold 1e-5)
+   fresh a_k extraction: max rel.err n=4 over k=0..4 = 2.4e-5 (threshold 1e-4)
+[PASS] B8a fresh a_k quadrature extraction matches Theta_n(k^2), n=2..4, k<=4  
+   saved dataset: max rel.err n=2 over k=0..6 = 6.5e-12 (threshold 1e-9)
+   saved dataset: max rel.err n=3 over k=0..6 = 3.1e-8 (threshold 1e-6)
+   saved dataset: max rel.err n=4 over k=0..6 = 1.7e-7 (threshold 1e-5)
+   saved dataset: max rel.err n=5 over k=0..6 = 6.5e-5 (threshold 1e-3)
+   saved dataset: max rel.err n=6 over k=0..6 = 0.00018 (threshold 5e-3)
+[PASS] B8b saved 90-dps dataset: extraction matches Theta_n, n<=6, k<=6  
+[PASS] B9 overfit u^{deg+1} coefficient negligible (degree exactly floor(n/2)-1), n<=6  
+================================================================================
+SUMMARY: 21/21 checks PASS; failures: NONE; runtime 106s

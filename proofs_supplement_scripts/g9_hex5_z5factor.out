@@ -1,0 +1,5 @@
+Psi built (0.1 s), 21 monomials
+(1) 120*c5/L - law5 = 0 ;  120*c23/L - law23 = 0
+(2) 120 x table[z5] - Z5 = 0 ;  120 x table[z2 z3] - Z23 = 0
+pass
+G9WORK=/tmp <project>/.venv/bin/python -B   1.41s user 0.04s system 99% cpu 1.457 total

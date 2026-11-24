@@ -1,0 +1,53 @@
+R_3 has 74 terms; 56 of weight four (Omega); weights 2,3,4: 2, 16, 56
+S(Omega): 24 pure tensors with nonzero Laurent coefficient (letters C=[c], A=[1-c], B=[1+c]); exponents of c: [-1, 0, 1]
+delta22(Omega) =
+    ([C]^[A]) ^ ([A]^[B])  with coefficient  (-1)c^-1 + (1)c^0
+    ([C]^[B]) ^ ([A]^[B])  with coefficient  (-1)c^-1 + (-1)c^0
+equals the displayed formula of Proposition 5: True
+it is not zero (two nonzero components, coefficients 1 - 1/c and -(1 + 1/c) are nonzero Laurent polynomials)
+control 1: delta22 of 900 random shuffle products (1,3),(2,2),(3,1): nonzero in 0
+control 2: delta22 of ALL 243 shuffle products of words over {C,A,B} of total length 4: nonzero in 0
+control 3: delta22 of -[a](x)[b](x)[b](x)[b] (symbol of Li_4(r) with [a]=[1-r], [b]=[r]) nonzero in 0 of 16 pairs
+control 4 (positive): delta22 of C(x)A(x)A(x)B is nonzero: True
+part 3: the two components are (-1)c^-1 + (1)c^0 and (-1)c^-1 + (-1)c^0
+   A (1+c) = (-1)c^-1 + (1)c^1   and  B (1-c) = (-1)c^-1 + (1)c^1 ; equal: True  (so A/B = (1-c)/(1+c), not a constant)
+two-variable symbols: Li_{1,1}: 4 terms, Li_{2,2}: 15 tensors, Li_{3,1}: 18 tensors (letters X,U,Y,V,W, Z=X+Y expanded)
+delta22(Li_{2,2}(x,y)) generic (5 letters X,U,Y,V,W; Z=X+Y):
+    ([X]^[U]) ^ ([X]^[W])  with coefficient  (-1)c^0
+    ([X]^[U]) ^ ([Y]^[V])  with coefficient  (1)c^0
+    ([X]^[U]) ^ ([Y]^[W])  with coefficient  (-1)c^0
+    ([X]^[W]) ^ ([Y]^[V])  with coefficient  (-1)c^0
+    ([Y]^[V]) ^ ([Y]^[W])  with coefficient  (1)c^0
+delta22(Li_{3,1}(x,y)) generic:
+    ([X]^[W]) ^ ([Y]^[V])  with coefficient  (1)c^0
+    ([Y]^[V]) ^ ([Y]^[W])  with coefficient  (-1)c^0
+
+[iterated-differential symbol: a constant has no letter (X, U -> 0)]  delta22 of Li_{2,2}(1/2,1-c):
+    ([C]^[A]) ^ ([A]^[B])  with coefficient  (-1)c^0
+[iterated-differential symbol: a constant has no letter (X, U -> 0)]  delta22 of Li_{2,2}(1/2,1+c):
+    ([C]^[B]) ^ ([A]^[B])  with coefficient  (1)c^0
+[iterated-differential symbol: a constant has no letter (X, U -> 0)]  delta22(DT), DT = ((1-c)/c) Li_{2,2}(1/2,1-c) - ((1+c)/c) Li_{2,2}(1/2,1+c):
+    ([C]^[A]) ^ ([A]^[B])  with coefficient  (-1)c^-1 + (1)c^0
+    ([C]^[B]) ^ ([A]^[B])  with coefficient  (-1)c^-1 + (-1)c^0
+[iterated-differential symbol: a constant has no letter (X, U -> 0)]  delta22(DT) - delta22(Omega) has 0 nonzero components (zero)
+
+[constant letter [2] kept as a formal letter, no letter dropped (NOT used in the section)]  delta22 of Li_{2,2}(1/2,1-c):
+    ([C]^[A]) ^ ([A]^[B])  with coefficient  (-1)c^0
+    ([C]^[A]) ^ ([A]^[T])  with coefficient  (1)c^0
+    ([C]^[A]) ^ ([B]^[T])  with coefficient  (-1)c^0
+[constant letter [2] kept as a formal letter, no letter dropped (NOT used in the section)]  delta22 of Li_{2,2}(1/2,1+c):
+    ([C]^[B]) ^ ([A]^[B])  with coefficient  (1)c^0
+    ([C]^[B]) ^ ([A]^[T])  with coefficient  (-1)c^0
+    ([C]^[B]) ^ ([B]^[T])  with coefficient  (1)c^0
+[constant letter [2] kept as a formal letter, no letter dropped (NOT used in the section)]  delta22(DT), DT = ((1-c)/c) Li_{2,2}(1/2,1-c) - ((1+c)/c) Li_{2,2}(1/2,1+c):
+    ([C]^[A]) ^ ([A]^[B])  with coefficient  (-1)c^-1 + (1)c^0
+    ([C]^[A]) ^ ([A]^[T])  with coefficient  (1)c^-1 + (-1)c^0
+    ([C]^[A]) ^ ([B]^[T])  with coefficient  (-1)c^-1 + (1)c^0
+    ([C]^[B]) ^ ([A]^[B])  with coefficient  (-1)c^-1 + (-1)c^0
+    ([C]^[B]) ^ ([A]^[T])  with coefficient  (1)c^-1 + (1)c^0
+    ([C]^[B]) ^ ([B]^[T])  with coefficient  (-1)c^-1 + (-1)c^0
+[constant letter [2] kept as a formal letter, no letter dropped (NOT used in the section)]  delta22(DT) - delta22(Omega) has 4 nonzero components:
+    ([C]^[A]) ^ ([A]^[T])  with coefficient  (1)c^-1 + (-1)c^0
+    ([C]^[A]) ^ ([B]^[T])  with coefficient  (-1)c^-1 + (1)c^0
+    ([C]^[B]) ^ ([A]^[T])  with coefficient  (1)c^-1 + (1)c^0
+    ([C]^[B]) ^ ([B]^[T])  with coefficient  (-1)c^-1 + (-1)c^0

@@ -1,0 +1,18 @@
+{
+ "target": "c3",
+ "D": 1400,
+ "flags": [
+  "nosqrt2"
+ ],
+ "coeffs": {
+  "target": 3456,
+  "lam^5 L^0": -12,
+  "pi2 lam^3 L^0": -20,
+  "pi4 lam": -9,
+  "z3 lam^2": -180,
+  "z3 pi2": -30,
+  "z5": -270
+ },
+ "maxcoef": "3456",
+ "last": "-255"
+}

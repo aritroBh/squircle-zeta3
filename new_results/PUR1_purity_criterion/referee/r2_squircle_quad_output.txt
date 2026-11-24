@@ -1,0 +1,13 @@
+tau=0.5  P_theta=6.28318530717958647692528676656  P_v - P_theta=0.0
+tau=0.3  P_theta=5.88582783044688730210965194571  P_v - P_theta=0.0
+tau=0.1  P_theta=5.68146529961939039831467574205  P_v - P_theta=-1.07e-50
+tau=0.03  P_theta=5.65899112146966491159401559223  P_v - P_theta=-3.69e-48
+tau=1/2: P_theta - 2pi = 0.0
+c_6 from theta-quadrature, Neville on 8 smallest taus: 20.9114781464325920489424555459804620175 ; minus exact = -9.38e-27
+c_6 from theta-quadrature, Neville on 10 smallest taus: 20.91147814643259204894245555536216359948 ; minus exact = 3.77e-30
+c_6 from theta-quadrature, Neville on 12 smallest taus: 20.91147814643259204894245555535835634679 ; minus exact = -3.47e-32
+c_6 from theta-quadrature, Neville on 14 smallest taus: 20.91147814643259204894245555535839581473 ; minus exact = 4.74e-33
+c_7 from theta-quadrature, Neville on 8 smallest taus: 63.54451807765424743136703143295512449458 ; minus exact = -7.38e-26
+c_7 from theta-quadrature, Neville on 10 smallest taus: 63.54451807765424743136703150676553102745 ; minus exact = 3.11e-29
+c_7 from theta-quadrature, Neville on 12 smallest taus: 63.54451807765424743136703150673427580338 ; minus exact = -1.98e-31
+c_7 from theta-quadrature, Neville on 14 smallest taus: 63.54451807765424743136703150673444829877 ; minus exact = -2.54e-32

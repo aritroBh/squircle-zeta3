@@ -1,0 +1,8 @@
+w3_D5.json: D=5, 38 Li3, 11 products, T=125, z3=0, max|x|=0.996894
+  (1) residuals: 650 dps: 1.082e-668;  850 dps: -9.707e-869;  L(chi_5,3)/sqrt5 = 0.3822892574153074499003056
+  (2) all 38 arguments: x and 1-x are S-units over the 3 letters (PSLQ, checked to 1e-100)
+  (3) exact symbol: 0 nonzero entries -> ZERO
+w3_D13.json: D=13, 257 Li3, 39 products, T=2197, z3=-4, max|x|=0.999408
+  (1) residuals: 650 dps: 1.753e-667;  850 dps: -7.903e-868;  L(chi_13,3)/sqrt13 = 0.2530841625066797909772352
+  (2) all 257 arguments: x and 1-x are S-units over the 5 letters (PSLQ, checked to 1e-100)
+  (3) exact symbol: 0 nonzero entries -> ZERO

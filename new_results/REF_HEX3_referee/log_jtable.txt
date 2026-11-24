@@ -1,0 +1,8 @@
+kappa -0.9  worst rel. error over 40 J entries: 2.83e-45
+kappa -0.5  worst rel. error over 40 J entries: 6.68e-45
+kappa 0.4  worst rel. error over 40 J entries: 1.09e-44
+kappa 1  worst rel. error over 40 J entries: 1.12e-45
+kappa 1.7  worst rel. error over 40 J entries: 1.49e-45
+kappa 3.5  worst rel. error over 40 J entries: 1.59e-45
+kappa 9  worst rel. error over 40 J entries: 1.47e-42
+local Beta integrals ( 40 ): worst abs error 7.71e-45

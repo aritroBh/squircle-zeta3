@@ -1,0 +1,49 @@
+== h+h'': my formula vs mp.diff (dps 40) at 12 points ==
+  c=1: max rel. diff (h+h'' and h') = 3.1e-35
+  kappa^2=9/7: max rel. diff (h+h'' and h') = 8.99e-36
+
+== min of h+h'' on a grid of 4000 points u = (pi/4) i/4000, i=1..4000 (formula) ==
+  c=1 tau=0.3: min h+h'' = 0.10694558 at u = 0.785398 ; value at u->0 limit 2^tau(1/tau-1) = 2.8726703
+  c=1 tau=0.9: min h+h'' = 0.20990412 at u = 0.00019635 ; value at u->0 limit 2^tau(1/tau-1) = 0.20734066
+  c=1 tau=1.0: min h+h'' = 0.0027475443 at u = 0.00019635 ; value at u->0 limit 2^tau(1/tau-1) = 0.0
+  c=1 tau=0.1: min h+h'' = 4.691013e-5 at u = 0.785398 ; value at u->0 limit 2^tau(1/tau-1) = 9.6459612
+  c=1 tau=0.2999999999999999999999999974150605857718: jump -2h'(pi/4-) = 0.043382308290183130749 ; claimed 8 f sigma/phi(V) = 0.043382308290183211128
+  c=1 tau=0.9000000000000000000000000051698788284564: jump -2h'(pi/4-) = 0.78164969873510331545 ; claimed 8 f sigma/phi(V) = 0.78164969873510336596
+  c=1 tau=1.2: (h+h'')(1e-6) = -0.38288337 vs 2^1.2(1/1.2-1) = -0.38289945
+  kappa^2=9/7 tau=0.3: min h+h'' = 0.10388041 at u = 0.785398 ; value at u->0 limit 2^tau(1/tau-1) = 2.8726703
+  kappa^2=9/7 tau=0.9: min h+h'' = 0.20906708 at u = 0.00019635 ; value at u->0 limit 2^tau(1/tau-1) = 0.20734066
+  kappa^2=9/7 tau=1.0: min h+h'' = 0.0018503871 at u = 0.00019635 ; value at u->0 limit 2^tau(1/tau-1) = 0.0
+  kappa^2=9/7 tau=0.1: min h+h'' = 1.0375793e-5 at u = 0.785398 ; value at u->0 limit 2^tau(1/tau-1) = 9.6459612
+  kappa^2=9/7 tau=0.2999999999999999999999999974150605857718: jump -2h'(pi/4-) = 0.032448261514546120126 ; claimed 8 f sigma/phi(V) = 0.032448261514546200506
+  kappa^2=9/7 tau=0.9000000000000000000000000051698788284564: jump -2h'(pi/4-) = 1.0118740638217316676 ; claimed 8 f sigma/phi(V) = 1.0118740638217317105
+  kappa^2=9/7 tau=1.2: (h+h'')(1e-6) = -0.38288862 vs 2^1.2(1/1.2-1) = -0.38289945
+
+== E1 check c=1: min over grid of (D phi - 6p) ; E2 imaginary: D phi vs 6p - 2 kappa tan ==
+  c=1: min (D phi - lower bound) = 0.000392776 (should be >= 0)
+  kappa^2=9/7: min (D phi - lower bound) = 7.99959e-17 (should be >= 0)
+
+== curve reconstruction x = h cos u - h' sin u, y = h sin u + h' cos u ==
+  c=1 tau=0.3 N/octant=100: vertices 804, length = 8.37118548801988359, L - perimeter = -2.107e-5, turning/2pi = 1.0, min normalized cross = 0.003954 (0s)
+  c=1 tau=0.3 N/octant=200: vertices 1604, length = 8.37120128860370586, L - perimeter = -5.267e-6, turning/2pi = 1.0, min normalized cross = 0.00197 (0s)
+  c=1 tau=0.3 N/octant=400: vertices 3204, length = 8.3712052390734831, L - perimeter = -1.317e-6, turning/2pi = 1.0, min normalized cross = 0.0009834 (1s)
+  c=1 tau=0.3 N/octant=800: vertices 6404, length = 8.37120622671117075, L - perimeter = -3.292e-7, turning/2pi = 1.0, min normalized cross = 0.0004913 (1s)
+    Richardson: 8.37120655592553271 ; minus perimeter = -1.01e-16
+  c=1 tau=0.9 N/octant=100: vertices 804, length = 11.3498655933913145, L - perimeter = -2.113e-5, turning/2pi = 1.0, min normalized cross = 0.003936 (0s)
+  c=1 tau=0.9 N/octant=200: vertices 1604, length = 11.3498814423269252, L - perimeter = -5.284e-6, turning/2pi = 1.0, min normalized cross = 0.001966 (0s)
+  c=1 tau=0.9 N/octant=400: vertices 3204, length = 11.3498854050746187, L - perimeter = -1.321e-6, turning/2pi = 1.0, min normalized cross = 0.0009823 (1s)
+  c=1 tau=0.9 N/octant=800: vertices 6404, length = 11.3498863957938124, L - perimeter = -3.302e-7, turning/2pi = 1.0, min normalized cross = 0.000491 (1s)
+    Richardson: 11.3498867260364122 ; minus perimeter = -3.73e-15
+  kappa^2=9/7 tau=0.3 N/octant=100: vertices 804, length = 8.35423623567225746, L - perimeter = -2.114e-5, turning/2pi = 1.0, min normalized cross = 0.003958 (0s)
+  kappa^2=9/7 tau=0.3 N/octant=200: vertices 1604, length = 8.35425208811418357, L - perimeter = -5.285e-6, turning/2pi = 1.0, min normalized cross = 0.001971 (0s)
+  kappa^2=9/7 tau=0.3 N/octant=400: vertices 3204, length = 8.35425605150687953, L - perimeter = -1.321e-6, turning/2pi = 1.0, min normalized cross = 0.0009837 (1s)
+  kappa^2=9/7 tau=0.3 N/octant=800: vertices 6404, length = 8.35425704237269465, L - perimeter = -3.303e-7, turning/2pi = 1.0, min normalized cross = 0.0004914 (1s)
+    Richardson: 8.35425737266286779 ; minus perimeter = -6.15e-17
+  kappa^2=9/7 tau=0.9 N/octant=100: vertices 804, length = 11.1872844402899524, L - perimeter = -1.835e-5, turning/2pi = 1.0, min normalized cross = 0.003935 (0s)
+  kappa^2=9/7 tau=0.9 N/octant=200: vertices 1604, length = 11.1872982017319426, L - perimeter = -4.588e-6, turning/2pi = 1.0, min normalized cross = 0.001966 (0s)
+  kappa^2=9/7 tau=0.9 N/octant=400: vertices 3204, length = 11.1873016424028742, L - perimeter = -1.147e-6, turning/2pi = 1.0, min normalized cross = 0.0009823 (0s)
+  kappa^2=9/7 tau=0.9 N/octant=800: vertices 6404, length = 11.1873025025900614, L - perimeter = -2.867e-7, turning/2pi = 1.0, min normalized cross = 0.000491 (1s)
+    Richardson: 11.187302789320853 ; minus perimeter = -1.2e-15
+
+== E2(iii) spot checks (numerical, grid 600) ==
+  kappa=1.3: phi(V)=1.094 minDphi/M^2=0.005631 tau0=0.2964 tau*=1
+  kappa=1.4: phi(V)=0.8253 minDphi/M^2=-0.7983 tau0=0.2084 tau*=0.6982

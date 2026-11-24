@@ -1,0 +1,7 @@
+('prove_adj34.py', '4', '0'): rc=0 out=adjacent (4,0): remainder*DEN == 0 : True  (75.9s) err= (79s)
+('prove_adj34.py', '4', '1'): rc=0 out=adjacent (4,1): remainder*DEN == 0 : True  (3.8s) err= (5s)
+('step_48.py',): rc=1 out= err=^^^
+PermissionError: [Errno 1] Operation not permitted: '<project>/research/08_theory/TOW3_tower_depth6/prove_adj56.py' (0s)
+('step_52.py',): rc=0 out=adjacent (6,2): remainder*DEN == 0 : True  (13.6s) | rc= 0
+adjacent (6,3): remainder*DEN == 0 : True  (0.7s) | rc= 0
+adjacent (6,1): remainder*DEN == 0 : True  (102.5s) | rc= 0 err= (125s)

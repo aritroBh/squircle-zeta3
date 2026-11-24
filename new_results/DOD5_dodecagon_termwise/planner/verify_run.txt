@@ -1,0 +1,10 @@
+[setup] 36 values recomputed at 330 dps, t=7s
+[1] 36 depth-2 constant identities, worst residual: 1.06e-327
+[2] 23 Li3-point reductions, worst residual: 3.02e-328
+[3] 12 R pieces sym vs (T3a quad - swaps/x), worst residual: 8.83e-330  t=11s
+[4] Xi36 (36-term sum) vs Xi36 closed form, residual: 1.22e-328
+[5] 72*L*S_calc vs P3_630:
+    P3_calc = -5.20324042951766621029582970427243461666281
+    P3_630  = -5.20324042951766621029582970427243461666281
+    residual: 3.63e-322   (321 digits)
+ALL CHECKS PASS   total time 19s

@@ -1,0 +1,31 @@
+=== verify_wt4_cert.py D2
+2026-10-27 16:56:15 [D2] R = sum over classical atoms of (c_rat + c_sq*sqrt2)*atom:
+2026-10-27 16:56:15    (-1/24 + 0*sqrt2) * log2*log2*log2*log2
+2026-10-27 16:56:15    (-1/24 + 0*sqrt2) * pi^2*log2*log2
+2026-10-27 16:56:15    (-1/160 + 0*sqrt2) * pi^2*pi^2
+2026-10-27 16:56:15    (-1/4 + 0*sqrt2) * z3*log2
+2026-10-27 16:56:15 VERDICT: D2 = R PROVED
+=== verify_wt4_cert.py D1
+2026-10-27 16:56:38    (-1 + 0*sqrt2) * Li3(b)*log2
+2026-10-27 16:56:38    (-2 + 0*sqrt2) * Li3(b)*L
+2026-10-27 16:56:38    (-1 + 0*sqrt2) * Li3(-b)*log2
+2026-10-27 16:56:38    (2 + 0*sqrt2) * Li3(-b)*L
+2026-10-27 16:56:38    (4 + 0*sqrt2) * Li3(1/sqrt2)*L
+2026-10-27 16:56:38 VERDICT: D1 = R PROVED
+=== verify_wt4.py
+[PASS] control k=4 kernels == M4a omega4.json (exact)  
+[PASS] quadratic kernel law k=7..10 (exact; k=11..14 done in wt4_A_kernels.py)  
+[PASS] G-expr(D1) == d1.tsv (exact)  
+[PASS] G-expr(D2) == d2.tsv (exact)  
+[PASS] G-expr(W4pp) == gpl_w4pp.tsv (exact control)  
+[PASS] TSV-vs-quadrature D1 (dps 60)  |G-quad|=6.22e-61 flint_rad=[1.011e-147 +/- 1.50e-151]
+[PASS] TSV-vs-quadrature D2 (dps 60)  |G-quad|=1.71e-60 flint_rad=[6.230e-148 +/- 1.94e-152]
+[PASS] TSV-vs-quadrature W4pp(ctl) (dps 60)  |G-quad|=2.33e-60 flint_rad=[4.292e-148 +/- 8.50e-153]
+[PASS] closed form R_D1 vs quadrature (200 dps)  |R-D1|=2.87e-198
+[PASS] closed form R_D2 vs quadrature (200 dps)  |R-D2|=5.74e-198
+[PASS] exact certificate D2  2026-10-27 16:57:55 [D2] EXACT rebuilt component=0 support=3269 residual_nonzero=0; 2026-10-27 16:57:55 [D2] EXACT rebuilt component=1 support=0 residual_nonzero=0; 2026-10-27 16:57:56 VERDICT: D2 = R PROVED
+[PASS] exact certificate D1  2026-10-27 16:58:22 [D1] EXACT rebuilt component=0 support=3489 residual_nonzero=0; 2026-10-27 16:58:22 [D1] EXACT rebuilt component=1 support=0 residual_nonzero=0; 2026-10-27 16:58:22 VERDICT: D1 = R PROVED
+[PASS] W_4(3) quadrature == thm:W4 closed form (120 dps)  |diff|=1.72e-119
+[PASS] k=3 offset delta = P(3)-W_4(3) is nonzero  delta=0.1544675310668740063787102
+
+verify_wt4.py: 14/14 checks PASS  (108s)

@@ -1,0 +1,14 @@
+Lyndon words ending in 1: {1: ['1'], 2: ['01'], 3: ['001', '011'], 4: ['0001', '0011', '0111'], 5: ['00001', '00011', '00101', '00111', '01011', '01111']}
+num generators: 13
+monomial counts per weight: {1: 1, 2: 2, 3: 4, 4: 8, 5: 16, 6: 23} (expect 2,4,8,16,32 for w=1..5 minus... check)
+word counts: {1: 1, 2: 2, 3: 4, 4: 8, 5: 16, 6: 32}
+weight 1: matrix 1x1 inverted
+weight 2: matrix 2x2 inverted
+weight 3: matrix 4x4 inverted
+weight 4: matrix 8x8 inverted
+weight 5: matrix 16x16 inverted
+weight 1: 1 words, 1 monomials, det(M) = 1, M invertible over Q: True
+weight 2: 2 words, 2 monomials, det(M) = -2, M invertible over Q: True
+weight 3: 4 words, 4 monomials, det(M) = -6, M invertible over Q: True
+weight 4: 8 words, 8 monomials, det(M) = -96, M invertible over Q: True
+weight 5: 16 words, 16 monomials, det(M) = 5760, M invertible over Q: True

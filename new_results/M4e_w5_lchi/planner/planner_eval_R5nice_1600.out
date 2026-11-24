@@ -1,0 +1,16 @@
+dps 1600
+L(chi8,5) = 0.9956338563129674563422177171275176821832
+L(chi8,5) - M4e Lchi8_5.json = 2.43514e-1641
+[1200 as given] terms 73 (Li5 14, z5 False), max |num| 3061997, lcm den 7741440.0
+   R5_nice - W5_M4c(5400 bits) = -2.10527e-1596
+   R5_nice - W5_M4a(600 digits) = 2.79579e-601
+[1200 reduced] terms 72 (Li5 12, z5 True), max |num| 3061997, lcm den 7741440.0
+   R5_nice - W5_M4c(5400 bits) = -2.10527e-1596
+   R5_nice - W5_M4a(600 digits) = 2.79579e-601
+[1500 as given] terms 73 (Li5 14, z5 False), max |num| 27581557, lcm den 7741440.0
+   R5_nice - W5_M4c(5400 bits) = -2.10527e-1596
+   R5_nice - W5_M4a(600 digits) = 2.79579e-601
+[1500 reduced] terms 72 (Li5 12, z5 True), max |num| 27581557, lcm den 7741440.0
+   R5_nice - W5_M4c(5400 bits) = -2.10527e-1596
+   R5_nice - W5_M4a(600 digits) = 2.79579e-601
+rep1200 - rep1500 = -1.36855e-1638

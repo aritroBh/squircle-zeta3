@@ -1,0 +1,2 @@
+TOW2R copy ('step_48.py',): rc=0 out=V(3) non-adjacent remainder: 0  ( 29.6 s ) err= (31s)
+TOW2R copy ('step_52.py',): rc=0 out=E4-slope (4,1) non-adjacent remainder: 0  ( 0.2 s ) err= (2s)

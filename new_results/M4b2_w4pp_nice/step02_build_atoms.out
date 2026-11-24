@@ -1,0 +1,12 @@
+2026-10-22 18:30:01 22 weight-4 product atoms (same as M4b)
+2026-10-22 18:30:01 seven Li4 arguments: ['(-1+1*sqrt2)', '(1-1*sqrt2)', '(-3+2*sqrt2)', '1/2*sqrt2', '1/2', '(1-1/2*sqrt2)', '(2-1*sqrt2)']
+2026-10-22 18:30:01   Li4((-1+1*sqrt2)): find_cross OK, cross=(p0,p1,pinf,e)=('0', '1', 'None', '(-1+1*sqrt2)')
+2026-10-22 18:30:01   Li4((1-1*sqrt2)): find_cross OK, cross=(p0,p1,pinf,e)=('0', '1', 'None', '(1-1*sqrt2)')
+2026-10-22 18:30:01   Li4((-3+2*sqrt2)): find_cross OK, cross=(p0,p1,pinf,e)=('0', '(1+1*sqrt2)', 'None', '(1-1*sqrt2)')
+2026-10-22 18:30:01   Li4(1/2*sqrt2): find_cross OK, cross=(p0,p1,pinf,e)=('0', 'None', '1', '(-1-1*sqrt2)')
+2026-10-22 18:30:01   Li4(1/2): find_cross OK, cross=(p0,p1,pinf,e)=('0', 'None', '1', '-1')
+2026-10-22 18:30:01   Li4((1-1/2*sqrt2)): find_cross OK, cross=(p0,p1,pinf,e)=('0', 'None', '1', '(1-1*sqrt2)')
+2026-10-22 18:30:01   Li4((2-1*sqrt2)): find_cross OK, cross=(p0,p1,pinf,e)=('0', '1', '-1', '(-1+1*sqrt2)')
+2026-10-22 18:30:01 find_cross converts 7/7 of the seven NICE arguments
+2026-10-22 18:30:02 29 atoms (22 products + 7 Li4), all vectors admissible weight-4. s=0.1
+2026-10-22 18:30:02 saved stage2_atoms_nice.pkl

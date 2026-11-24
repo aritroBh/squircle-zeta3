@@ -1,0 +1,1 @@
+print(open('../OCT5D3_octagon_p5_closed/step_58.py').read()[:3500])

@@ -1,0 +1,11 @@
+a-v=0.0001  log t/(v-a) = 0.292899285040025   log(1-t)=-10.438281
+a-v=1.0e-8  log t/(v-a) = 0.292893219420054   log(1-t)=-19.648628
+a-v=1.0e-16  log t/(v-a) = 0.292893218813452   log(1-t)=-38.069309
+a-v=1.0e-30  log t/(v-a) = 0.292893218813452   log(1-t)=-70.3055
+predicted limit: -(a+b)/(4a)*(-1) = (a+b)/(4a) = 0.292893218813452  (log t ~ -(a-v)(a+b)/(4a))
+key (5, 0) a-v=1.0e-6 integrand = 2.1555e-27
+key (5, 0) a-v=1.0e-12 integrand = 2.15549e-51
+key (4, 1) a-v=1.0e-6 integrand = 1.1071e-19
+key (4, 1) a-v=1.0e-12 integrand = 2.12382e-37
+key (3, 2) a-v=1.0e-6 integrand = 5.68622e-12
+key (3, 2) a-v=1.0e-12 integrand = 2.09262e-23

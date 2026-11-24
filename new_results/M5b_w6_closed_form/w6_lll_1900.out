@@ -1,0 +1,10 @@
+build: W6-N6-particular target = 36888.4158825289944132346846765
+LLL start W6 symbol-kernel enlarged basis @1900: rows=179, digits=1900, gram=exact
+LLL done W6 symbol-kernel enlarged basis @1900: seconds=1274.27; small-residual relations=0
+  row 57: maxcoef=563541035949 residual=-7.7749829e-1891
+  row 5: maxcoef=499926852369 residual=-8.7071605e-1891
+  row 38: maxcoef=561970279271 residual=1.3003569e-1890
+  row 137: maxcoef=507856328214 residual=-1.9186242e-1890
+  row 61: maxcoef=404664458264 residual=2.2595893e-1890
+  row 23: maxcoef=445876415597 residual=-2.5648444e-1890
+W6 final LLL @1900: target-involving relations=0

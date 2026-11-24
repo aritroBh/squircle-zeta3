@@ -1,0 +1,42 @@
+{
+ "verdict": "W6 is NOT classical at the symbol level: it needs depth-two polylogarithms (Li_{4,2} and Li_{3,3}).",
+ "pairings": {
+  "33_[X,P]^_[Y,P]": "449/4*sqrt2",
+  "42_[X,[X,P]]^P": "-30",
+  "42_[Y,[X,P]]^P": "15*sqrt2",
+  "42_[Y,[Y,P]]^P": "-9"
+ },
+ "controls": {
+  "200_shuffle_products_zero": true,
+  "100_Li6_symbols_zero": true,
+  "Li42(b,1)": [
+   "0",
+   "0",
+   "0",
+   "-1/4"
+  ],
+  "Li33(b,1)": [
+   "0",
+   "0",
+   "0",
+   "3/4"
+  ],
+  "W5_control": [
+   "84",
+   "-38*sqrt2"
+  ]
+ },
+ "N6": "(-12+209 sqrt2) Li_{3,3}(b,1) + (-160+80 sqrt2) Li_{3,3}(1/sqrt2,1) + (329 sqrt2/4) Li_{3,3}(b,2) + 120 sqrt2 Li_{4,2}(b,1/sqrt2)",
+ "checks": {
+  "pieces_sum_vs_M5_quad": "1.0e-126",
+  "pieces_sum_exact_tails": "4.0e-100",
+  "neville_vs_quad_M5": "2.2e-56",
+  "T_exact": true,
+  "W3_exact_vs_quad": "2.5e-102",
+  "gexpr_vs_quad_W6": "4.3e-101",
+  "W6_two_run": "2.1e-421",
+  "M5_two_run": "2.5e-423",
+  "W6_quad_vs_gexpr": "2.6e-111",
+  "N6_atoms_series_vs_integral": "<=4.1e-73"
+ }
+}

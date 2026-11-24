@@ -1,0 +1,9 @@
+free symbols: ['A0', 'A1', 'B', 'L2', 'V02', 'kap', 'lA0', 'lA1', 'lB', 'q0']
+negative or fractional powers (base, exponent): count of coefficients containing them
+   ('L2', '-1/2') 263
+   ('L2', '-3/2') 219
+   ('L2', '-5/2') 175
+   ('L2', '-7/2') 131
+   ('L2', '-9/2') 87
+   ('L2', '1/2') 273
+x-powers of the monomials: [(-6, 39), (-5, 44), (-4, 44), (-3, 44), (-2, 44), (-1, 44), (0, 48)]

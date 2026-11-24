@@ -1,0 +1,3 @@
+D=21: letters ['lE21', 'ls21', 'la', 'l2'], candidates 78, kernel 17, products 80, extra 22, dim 121
+P=600: LLL 57s; rows with residual < 1e-660: 11 ; with T coefficient != 0: 0
+P=700: LLL 72s; rows with residual < 1e-760: 11 ; with T coefficient != 0: 0

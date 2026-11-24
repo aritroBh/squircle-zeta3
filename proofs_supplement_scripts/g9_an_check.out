@@ -1,0 +1,6 @@
+paper - 120*sqrt2*a5 = 0
+V3,V5,V7 = 7 1 967
+omega3,5,7 = 1 -3/4 129/16  (zeta5 coeff of a5 is -3/4: True )
+a_5 numeric from P(p) interpolation : 5.3237934003
+a_5 from the closed form            : 5.3237934003
+a_2,a_3 check: 1.644934067 1.644934067 -2.087811231 -2.087811231

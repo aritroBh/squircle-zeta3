@@ -1,0 +1,5 @@
+lam_2 max rel diff run a vs run b: 4.69e-77
+lam_0.5 max rel diff run a vs run b: 2.9e-78
+lin_1_1 max rel diff run a vs run b: 7.03e-78
+lam_1 max rel diff run a vs run b: 4.37e-78
+lam_1 vs PIPDIV pd1 (k<=90): max rel diff 3.95e-98

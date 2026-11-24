@@ -1,0 +1,22 @@
+[   0.0s] weight 1: 1 conv words, 1 relations, rank 0, codim 1
+[   0.0s] weight 2: 4 conv words, 5 relations, rank 2, codim 2
+[   0.0s] weight 3: 12 conv words, 16 relations, rank 9, codim 3
+[   0.0s] weight 4: 36 conv words, 64 relations, rank 31, codim 5
+[   0.2s] weight 5: 108 conv words, 192 relations, rank 100, codim 8
+[   0.2s] control zeta(bar2,1) = G(0,-1,-1) = zeta(3)/8 : PROVED
+[   0.2s] control J_{2,0} = zeta(3)/4 : PROVED
+[   0.2s] J_{1,0} = 0! eta(2) (word identity) : OK
+[   0.2s] J_{1,1} = 1! eta(3) (word identity) : OK
+[   0.2s] J_{1,2} = 2! eta(4) (word identity) : OK
+[   0.2s] J_{1,3} = 3! eta(5) (word identity) : OK
+[   0.2s] N_0: weights present [1]; N_k - closed form in span(DS+DUAL): YES (exact)
+[   0.2s] N_1: weights present [2]; N_k - closed form in span(DS+DUAL): YES (exact)
+[   0.2s] N_2: weights present [2, 3]; N_k - closed form in span(DS+DUAL): YES (exact)
+[   0.2s] N_3: weights present [2, 3, 4]; N_k - closed form in span(DS+DUAL): YES (exact)
+[   0.2s] N_4: weights present [2, 3, 4, 5]; N_k - closed form in span(DS+DUAL): YES (exact)
+[   0.2s] N_5: weights present [2, 3, 4, 5, 6]; N_k - closed form in span(DS+DUAL): YES (exact)
+[   0.2s] negative control N_4 with perturbation P2**2/1000000: correctly NOT in span
+[   0.2s] negative control N_5 with perturbation Z5/1000000: correctly NOT in span
+[   0.2s] negative control N_5 with perturbation P2*Z3/1000000: correctly NOT in span
+[   0.2s] negative control N_3 with perturbation Z3/1000: correctly NOT in span
+[   0.2s] done

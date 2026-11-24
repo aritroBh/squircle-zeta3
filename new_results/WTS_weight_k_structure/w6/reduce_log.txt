@@ -1,0 +1,41 @@
+k=5: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 1.0s)
+k=5: reduce 0.4s; keys: [(3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=5: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_5.json
+k=4: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 0.6s)
+k=4: reduce 0.1s; keys: [(2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=4: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_4.json
+k=3: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 0.2s)
+k=3: reduce 0.0s; keys: [(2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=3: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_3.json
+k=6: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 1.9s)
+k=6: reduce 1.2s; keys: [(3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=6: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_6.json
+k=7: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 3.3s)
+k=7: reduce 1.9s; keys: [(4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=7: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_7.json
+k=8: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 5.3s)
+k=8: reduce 3.2s; keys: [(4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=8: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_8.json
+k=9: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 7.9s)
+k=9: reduce 5.8s; keys: [(5, 4), (6, 3), (7, 2), (8, 1), (9, 0), (4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=9: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_9.json
+k=10: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 13.0s)
+k=10: reduce 11.3s; keys: [(5, 5), (6, 4), (7, 3), (8, 2), (9, 1), (10, 0), (5, 4), (6, 3), (7, 2), (8, 1), (9, 0), (4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=10: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_10.json
+reduce chain done: 5 4 3 6 7 8 9 10
+k=11: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 24.5s)
+k=11: reduce 24.7s; keys: [(6, 5), (7, 4), (8, 3), (9, 2), (10, 1), (11, 0), (5, 5), (6, 4), (7, 3), (8, 2), (9, 1), (10, 0), (5, 4), (6, 3), (7, 2), (8, 1), (9, 0), (4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=11: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_11.json
+k=12: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 29.8s)
+k=12: reduce 28.5s; keys: [(6, 6), (7, 5), (8, 4), (9, 3), (10, 2), (11, 1), (12, 0), (6, 5), (7, 4), (8, 3), (9, 2), (10, 1), (11, 0), (5, 5), (6, 4), (7, 3), (8, 2), (9, 1), (10, 0), (5, 4), (6, 3), (7, 2), (8, 1), (9, 0), (4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=12: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_12.json
+k=13: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 37.8s)
+k=13: reduce 64.3s; keys: [(7, 6), (8, 5), (9, 4), (10, 3), (11, 2), (12, 1), (13, 0), (6, 6), (7, 5), (8, 4), (9, 3), (10, 2), (11, 1), (12, 0), (6, 5), (7, 4), (8, 3), (9, 2), (10, 1), (11, 0), (5, 5), (6, 4), (7, 3), (8, 2), (9, 1), (10, 0), (5, 4), (6, 3), (7, 2), (8, 1), (9, 0), (4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=13: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_13.json
+k=14: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 81.2s)
+k=14: reduce 101.6s; keys: [(7, 7), (8, 6), (9, 5), (10, 4), (11, 3), (12, 2), (13, 1), (14, 0), (7, 6), (8, 5), (9, 4), (10, 3), (11, 2), (12, 1), (13, 0), (6, 6), (7, 5), (8, 4), (9, 3), (10, 2), (11, 1), (12, 0), (6, 5), (7, 4), (8, 3), (9, 2), (10, 1), (11, 0), (5, 5), (6, 4), (7, 3), (8, 2), (9, 1), (10, 0), (5, 4), (6, 3), (7, 2), (8, 1), (9, 0), (4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=14: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_14.json
+k=15: pickle == rebuilt closed-form integrand: True  (load 0.0s, rebuild 104.9s)
+k=15: reduce 133.0s; keys: [(8, 7), (9, 6), (10, 5), (11, 4), (12, 3), (13, 2), (14, 1), (15, 0), (7, 7), (8, 6), (9, 5), (10, 4), (11, 3), (12, 2), (13, 1), (14, 0), (7, 6), (8, 5), (9, 4), (10, 3), (11, 2), (12, 1), (13, 0), (6, 6), (7, 5), (8, 4), (9, 3), (10, 2), (11, 1), (12, 0), (6, 5), (7, 4), (8, 3), (9, 2), (10, 1), (11, 0), (5, 5), (6, 4), (7, 3), (8, 2), (9, 1), (10, 0), (5, 4), (6, 3), (7, 2), (8, 1), (9, 0), (4, 4), (5, 3), (6, 2), (7, 1), (8, 0), (4, 3), (5, 2), (6, 1), (7, 0), (3, 3), (4, 2), (5, 1), (6, 0), (3, 2), (4, 1), (5, 0), (2, 2), (3, 1), (4, 0), (2, 1), (3, 0), (1, 1), (2, 0), (1, 0)]
+k=15: saved <project>/research/08_theory/WTS_weight_k_structure/w6/finals_15.json
+reduce chain done: 11 12 13 14 15

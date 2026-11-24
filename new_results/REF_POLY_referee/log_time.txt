@@ -1,0 +1,2 @@
+../../../.venv/bin/python run_jet.py 75 64 > log_jet_75_64.txt 2>&1  4.08s user 0.01s system 99% cpu 4.087 total
+../../../.venv/bin/python run_jet.py 90 128 > log_jet_90_128.txt 2>&1  9.66s user 0.01s system 99% cpu 9.675 total

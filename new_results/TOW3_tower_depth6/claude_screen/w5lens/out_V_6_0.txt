@@ -1,0 +1,4 @@
+non-adjacent (6,0): numerator == 0 : True  (5.2s)
+real 9.47
+user 2.65
+sys 0.06

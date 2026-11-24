@@ -1,0 +1,12 @@
+diamond: P5(1) - sqrt2(-90 z5 - 210 z2 z3 + 396 z2^2 + 720 z3 - 480 z2) = 0   (2 s)
+         lower orders: P(1)=4*sqrt(2), P'(1)=0
+regular hexagon: number of monomials t^n log^a t log^b(1-t) in the d^5 integrand of an edge: 91  (the paper says 91)
+regular hexagon: P5(1) - (paper closed form) = 0   (3 s)
+         numerical value of the closed form: 656.4153619676247544766476090583112096483
+         [z5] = 2835*sqrt(3)/32  [z2 z3] = 1395*sqrt(3)/32
+sheared parallelogram: P5(1) - (value in our notes) = 0   (4 s)
+third edge of the paper hexagon: A0, A1, B, r = 1/4 1/4 3/4 1  L2, q0, V02 = 2 -1 1
+table at x = +10^-12 : -57.5387113057200324793111203503
+table at x = -10^-12 : -57.5387113057692173654407062842
+exact local value of the edge (g9_local5 engine): -57.5387113057446249223761112732
+|table limit - local value| = 1.98e-22    (error of the average of the two signs is O(x^2) = 1e-24)

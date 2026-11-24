@@ -1,0 +1,57 @@
+=== regular 2m-gons: sum_e Z_e (printed law) vs printed C_m
+  m=2: sum Z5 = -127.27922061357855439, C_m5 = -127.27922061357855439, diff 2.21e-47 ; sum Z23 = -296.98484809834996025, C_m23 = -296.98484809834996025, diff 6.84e-49
+  m=3: sum Z5 = 153.44887623305522272, C_m5 = 153.44887623305522272, diff 3.42e-49 ; sum Z23 = 75.506589892455744515, C_m23 = 75.506589892455744515, diff -8.55e-49
+  m=4: sum Z5 = 78.202843373784773699, C_m5 = 78.202843373784773699, diff 0.0 ; sum Z23 = 42.535432731525986608, C_m23 = 42.535432731525986608, diff 2.57e-49
+  m=5: sum Z5 = 13.172615759603917734, C_m5 = 13.172615759603917734, diff 1.5e-49 ; sum Z23 = 26.394551980889309379, C_m23 = 26.394551980889309379, diff 1.28e-49
+  m=6: sum Z5 = -9.3156536788663278789, C_m5 = -9.3156536788663278789, diff -6.41e-50 ; sum Z23 = 17.618761474405470047, C_m23 = 17.618761474405470047, diff 4.28e-50
+  m=7: sum Z5 = -14.688302900641177348, C_m5 = -14.688302900641177348, diff 2.14e-50 ; sum Z23 = 12.266340476903020969, C_m23 = 12.266340476903020969, diff -2.14e-50
+  m=8: sum Z5 = -14.42434277757082811, C_m5 = -14.42434277757082811, diff -2.14e-50 ; sum Z23 = 8.819300535432874956, C_m23 = 8.819300535432874956, diff -4.28e-50
+  m=9: sum Z5 = -12.600195942510231535, C_m5 = -12.600195942510231535, diff -8.55e-50 ; sum Z23 = 6.5172028076811172959, C_m23 = 6.5172028076811172959, diff 5.35e-50
+  m=10: sum Z5 = -10.574585650251116427, C_m5 = -10.574585650251116427, diff -2.14e-50 ; sum Z23 = 4.9326519381134526244, C_m23 = 4.9326519381134526244, diff 2.14e-50
+  m=3 printed: 2835 sqrt3/32 = 153.44887623305522272, 1395 sqrt3/32 = 75.506589892455744515; m=2: -90 sqrt2 = -127.27922061357855439, -210 sqrt2 = -296.98484809834996025
+=== parallelogram_(3,1)_(1,2), direct P5 = 1112.174461305833551844178363754625921915
+  edge 0: direct 510.432738595298093773456527062  exact 510.432738595298093773456527062  diff 1.59e-58
+          [z5] exact 0   printed Z5 0   diff 0
+          [z2z3] exact -120*sqrt(5) printed Z23 -120*sqrt(5)  diff 0
+  edge 1: direct 45.654492057618682148632654815  exact 45.654492057618682148632654815  diff 5.48e-59
+          [z5] exact 0   printed Z5 0   diff 0
+          [z2z3] exact -24 printed Z23 -24  diff 0
+  sum: [z5] 0 = True ; [z2z3] -240*sqrt(5) - 48 = True
+  P5 direct - exact = 3.19e-58
+=== parallelogram_(2,0)_(1,2), direct P5 = 3729.09034386508348436667079095401959123
+  edge 0: direct 1736.86462786869673290113985701  exact 1736.86462786869673290113985701  diff -3.19e-58
+          [z5] exact -3456*sqrt(5)/25   printed Z5 -3456*sqrt(5)/25   diff 0
+          [z2z3] exact -5376*sqrt(5)/25 printed Z23 -5376*sqrt(5)/25  diff 0
+  edge 1: direct 127.680544063845009282195538465  exact 127.680544063845009282195538465  diff 6.97e-59
+          [z5] exact -86400*sqrt(13)/28561   printed Z5 -86400*sqrt(13)/28561   diff 0
+          [z2z3] exact -410880*sqrt(13)/28561 printed Z23 -410880*sqrt(13)/28561  diff 0
+  sum: [z5] -6912*sqrt(5)/25 - 172800*sqrt(13)/28561 = True ; [z2z3] -10752*sqrt(5)/25 - 821760*sqrt(13)/28561 = True
+  P5 direct - exact = -6.37e-58
+=== affine_regular_hexagon_w124, direct P5 = 198.2597006146265267940101883699301862965
+  edge 0: direct -59.8676521880935889307285130496  exact -59.8676521880935889307285130496  diff 1.49e-59
+          [z5] exact 135/4   printed Z5 135/4   diff 0
+          [z2z3] exact 15/4 printed Z23 15/4  diff 0
+  edge 1: direct 109.654704448863841731618969069  exact 109.654704448863841731618969069  diff -1.1e-58
+          [z5] exact 135/4   printed Z5 135/4   diff 0
+          [z2z3] exact 15/4 printed Z23 15/4  diff 0
+  edge 2: direct 49.3427980465430105961146381658  exact 49.3427980465430105961146381658  diff 1.05e-58
+          [z5] exact 675*sqrt(2)/64   printed Z5 675*sqrt(2)/64   diff 0
+          [z2z3] exact 195*sqrt(2)/64 printed Z23 195*sqrt(2)/64  diff 0
+  sum: [z5] 675*sqrt(2)/32 + 135 = True ; [z2z3] 195*sqrt(2)/32 + 15 = True
+  P5 direct - exact = 0.0
+  PSLQ parallelogram_(3,1)_(1,2) edge 0 dps 110: maxcoeff 720 resid -5.73e-107 ; [z5]=0*L  [z2z3]=-120*L
+  PSLQ parallelogram_(3,1)_(1,2) edge 0 dps 150: maxcoeff 720 resid 8.99e-148 ; [z5]=0*L  [z2z3]=-120*L
+    printed Z5/L = 0, Z23/L = -120 ; match: True True ; same relation at both precisions: True
+  PSLQ parallelogram_(3,1)_(1,2) edge 1 dps 110: maxcoeff 720 resid -4.26e-108 ; [z5]=0*L  [z2z3]=-24/5*L
+  PSLQ parallelogram_(3,1)_(1,2) edge 1 dps 150: maxcoeff 720 resid -3.91e-149 ; [z5]=0*L  [z2z3]=-24/5*L
+    printed Z5/L = 0, Z23/L = -24/5 ; match: True True ; same relation at both precisions: True
+  PSLQ affine_regular_hexagon_w124 edge 0 dps 160: maxcoeff 46890 resid 4.14e-157 ; [z5]=135/4*L  [z2z3]=15/4*L
+  PSLQ affine_regular_hexagon_w124 edge 0 dps 200: maxcoeff 46890 resid -3.01e-197 ; [z5]=135/4*L  [z2z3]=15/4*L
+    printed Z5/L = 135/4, Z23/L = 15/4 ; match: True True ; same relation at both precisions: True
+  PSLQ affine_regular_hexagon_w124 edge 1 dps 160: maxcoeff 46890 resid 6.7e-157 ; [z5]=135/4*L  [z2z3]=15/4*L
+  PSLQ affine_regular_hexagon_w124 edge 1 dps 200: maxcoeff 46890 resid -1.16e-197 ; [z5]=135/4*L  [z2z3]=15/4*L
+    printed Z5/L = 135/4, Z23/L = 15/4 ; match: True True ; same relation at both precisions: True
+  PSLQ affine_regular_hexagon_w124 edge 2 dps 160: maxcoeff 478080 resid 1.47e-156 ; [z5]=675/64*L  [z2z3]=195/64*L
+  PSLQ affine_regular_hexagon_w124 edge 2 dps 200: maxcoeff 478080 resid 8.36e-197 ; [z5]=675/64*L  [z2z3]=195/64*L
+    printed Z5/L = 675/64, Z23/L = 195/64 ; match: True True ; same relation at both precisions: True
+time 69 s

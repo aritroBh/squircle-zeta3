@@ -1,0 +1,37 @@
+atom identity I_{m,j}=j!m!G(0^{m+1}(-1)^j): worst abs error over all m+j+1<=9: 7.27e-70
+D~_{5,0} quadrature vs zeta products: |diff| = 1.11e-75   (value -4.23797842938)
+D~_{5,1} quadrature vs zeta products: |diff| = 2.21e-75   (value 6.02846421088)
+D~_{6,0} quadrature vs zeta products: |diff| = 2.68e-73   (value 14.786648002)
+D~_{6,1} quadrature vs zeta products: |diff| = 8.14e-73   (value -45.1620882287)
+D~_{6,2} quadrature vs zeta products: |diff| = 8.49e-73   (value 47.3064523823)
+D~_{7,0} quadrature vs zeta products: |diff| = 3.36e-71   (value 44.9327596399)
+D~_{7,1} quadrature vs zeta products: |diff| = 9.34e-71   (value -124.704866795)
+D~_{7,2} quadrature vs zeta products: |diff| = 8.96e-71   (value 119.779242411)
+D~_{8,0} quadrature vs zeta products: |diff| = 5.44e-69   (value -212.767930171)
+D~_{8,1} quadrature vs zeta products: |diff| = 2.33e-68   (value 909.38290992)
+D~_{8,2} quadrature vs zeta products: |diff| = 4.73e-68   (value -1852.10287081)
+D~_{8,3} quadrature vs zeta products: |diff| = 3.67e-68   (value 1434.57552267)
+D~_{9,0} quadrature vs zeta products: |diff| = 6.62e-67   (value -910.561770143)
+D~_{9,1} quadrature vs zeta products: |diff| = 2.64e-66   (value 3639.04157824)
+D~_{9,2} quadrature vs zeta products: |diff| = 5.03e-66   (value -6923.65500965)
+D~_{9,3} quadrature vs zeta products: |diff| = 3.66e-66   (value 5035.72514959)
+Li_4(1/2) via word combination vs polylog: 2.76e-76
+Li_5(1/2) via word combination vs polylog: 2.76e-76
+Li_6(1/2) via word combination vs polylog: 9.67e-76
+Li_7(1/2) via word combination vs polylog: 9.67e-76
+Li_8(1/2) via word combination vs polylog: 5.53e-76
+I_{0,7} (w8) quadrature vs reduction: |diff| = 1.7e-72  (|I|=0.014652)
+I_{1,6} (w8) quadrature vs reduction: |diff| = 3.17e-73  (|I|=0.00522685)
+I_{2,5} (w8) quadrature vs reduction: |diff| = 2.38e-74  (|I|=0.00519439)
+I_{3,4} (w8) quadrature vs reduction: |diff| = 6.48e-78  (|I|=0.0121154)
+I_{4,3} (w8) quadrature vs reduction: |diff| = 0.0  (|I|=0.0730954)
+I_{5,2} (w8) quadrature vs reduction: |diff| = 8.84e-75  (|I|=1.7323)
+I_{6,1} (w8) quadrature vs reduction: |diff| = 1.83e-68  (|I|=717.288)
+I_{0,8} (w9) quadrature vs reduction: |diff| = 1.79e-72  (|I|=0.00892444)
+I_{1,7} (w9) quadrature vs reduction: |diff| = 2.96e-72  (|I|=0.00270174)
+I_{2,6} (w9) quadrature vs reduction: |diff| = 1.71e-72  (|I|=0.00215834)
+I_{3,5} (w9) quadrature vs reduction: |diff| = 5.4e-79  (|I|=0.00369069)
+I_{4,4} (w9) quadrature vs reduction: |diff| = 8.39e-73  (|I|=0.0136638)
+I_{5,3} (w9) quadrature vs reduction: |diff| = 1.73e-76  (|I|=0.130649)
+I_{6,2} (w9) quadrature vs reduction: |diff| = 7.13e-73  (|I|=5.32989)
+I_{7,1} (w9) quadrature vs reduction: |diff| = 3.66e-66  (|I|=5030.4)

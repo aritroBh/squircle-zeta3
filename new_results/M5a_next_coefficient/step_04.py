@@ -1,0 +1,1 @@
+print(open('<project>/paper/squircle_note/scripts/ibp_reduce.py').read())

@@ -1,0 +1,16 @@
+from cor8r_num import *
+setdps(45)
+x, y = mp.mpf('0.3'), mp.mpf('0.4')
+# series values
+L22 = Li_ab(2,2,x,y)
+L31 = Li_ab(3,1,x,y)
+print("Li_{2,2}(x,y) series:", mp.nstr(L22,30))
+print("Li_{3,1}(x,y) series:", mp.nstr(L31,30))
+# convA G-forms: Li_{2,2} = G(0,1/y,0,1/(xy);1); Li_{3,1} = G(1/y,0,0,1/(xy);1)
+G22 = G_int([0, 1/y, 0, 1/(x*y)], 1)
+G31 = G_int([1/y, 0, 0, 1/(x*y)], 1)
+print("G(0,1/y,0,1/(xy);1) :", mp.nstr(G22,30))
+print("G(1/y,0,0,1/(xy);1) :", mp.nstr(G31,30))
+# convB: Li_{a,b}(x,y) = convA-Li_{b,a}(y,x): check Li_{2,2}(y,x) = G(0,1/x,0,1/(xy);1)
+G22b = G_int([0, 1/x, 0, 1/(x*y)], 1)
+print("G(0,1/x,0,1/(xy);1) :", mp.nstr(G22b,30), " vs Li22(y,x):", mp.nstr(Li_ab(2,2,y,x),30))

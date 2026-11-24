@@ -1,9 +1,11 @@
+The current map, for draft 50 of the paper, is [VERIFICATION_MAP_draft50.md](VERIFICATION_MAP_draft50.md). This file describes the state at draft 10.
+
 # Verification map for "Investigating ζ(3)"
 
 This is the material that was moved out of Table II of the paper (the old Table III and its continuation): the *Method*,
-*Re-check* and *Script* columns, and the list of folders. It is linked from the README of the private repository and maps every row of Table II to its scripts.
+*Re-check* and *Script* columns, and the list of folders. It is linked from the README of this repository and maps every row of Table II to its scripts.
 Numbers in the *Result* column are those of the theorems, propositions, sections and tables in the IEEE copy of the
-paper (`paper/ieee/main.tex`). The repository is private.
+paper (`paper/ieee/main.tex`). The repository is public.
 
 ## Table A: results of Sections IX to XIV (the old Table III)
 

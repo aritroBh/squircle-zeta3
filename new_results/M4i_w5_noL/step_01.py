@@ -1,0 +1,3 @@
+"""step_01: copy (never edit in place) M4f scripts+data into M4i_w5_noL.
+Files: m4f_common.py, nice_search.py, w5_symbol.py, w5_search.py, w5_cobracket.py, w5_precision.py, w5_verify.py, overcomplete.py, overcomplete_1200.json, overcomplete_1500.json, subset_exact.py, subset_exact.pkl, drop_L.py, optimize6.py, optimize7.py, export_forms.py, verify_json.py, pool.json, nice_ksat_s0.json, nice_symbol.json, nice_atoms.pkl, cobracket.json, Lchi8_5.json, W5_5400.json, R5_best.json, R5_pareto.json, R5_min3.json, state_opt.pkl, state_opt2.pkl, pareto.pkl, state_min3.pkl, vals_cache_1200.pkl, vals_cache_1500.pkl, height_lll.py
+"""

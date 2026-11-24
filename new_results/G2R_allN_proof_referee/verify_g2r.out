@@ -1,0 +1,23 @@
+[1] pristine run  (3.4s): B4 PROVED for all n (all five parts): True (2s)
+     even identity [c^(2n)] (B4 - mu_4)|_1 == 0 identically in n : True
+     odd identity  [c^(2n+1)] == 0 identically in n                : True
+     low orders c^-3..c^3 exact                                   : True
+     even identity [c^(2n)] (B4 - mu_4)|_z2 == 0 identically in n : True
+     odd identity  [c^(2n+1)] == 0 identically in n                : True
+     low orders c^-3..c^3 exact                                   : True
+     even identity [c^(2n)] (B4 - mu_4)|_z3 == 0 identically in n : True
+     odd identity  [c^(2n+1)] == 0 identically in n                : True
+     low orders c^-3..c^3 exact                                   : True
+     even identity [c^(2n)] (B4 - mu_4)|_z4 == 0 identically in n : True
+     odd identity  [c^(2n+1)] == 0 identically in n                : True
+     low orders c^-3..c^3 exact                                   : True
+     even identity [c^(2n)] (B4 - mu_4)|_z2^2 == 0 identically in n : True
+     odd identity  [c^(2n+1)] == 0 identically in n                : True
+     low orders c^-3..c^3 exact                                   : True
+[2] mutant: R4 weight-5 term c^0 He[0, 0, 0, 0, 1]: coeff 1 -> 2
+[2] mutant run  (3.4s): B4 PROVED for all n (all five parts): False (2s)   (must be False)
+     low-order mismatch part (0, 0, 0) at c^2: -1007/2160 vs -571/1080
+     residual: [((), 1/(16*n**5))]
+VERIFY_G2R: pristine PROVED=True, mutant FAILED as required=True (7s total) -> PASS
+
+--- STDERR ---

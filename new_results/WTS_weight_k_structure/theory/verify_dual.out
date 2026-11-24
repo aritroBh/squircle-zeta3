@@ -1,0 +1,8 @@
+mp.mp.dps = 30
+p=3.0: direct 6.7449931401263401361 | Cauchy 6.7449931401263401361*(P/8 form: x8 included) | F-form 6.7449931401263401361
+   |direct-Cauchy| = 7.89e-31  |direct-Fform| = 7.89e-31  |M - Y-form| = 4.93e-32
+p=4.0: direct 7.0176979435640416471 | Cauchy 7.0176979435640416471*(P/8 form: x8 included) | F-form 7.0176979435640416471
+   |direct-Cauchy| = 0.0  |direct-Fform| = 0.0  |M - Y-form| = 4.93e-32
+p=2.5: direct 6.5467047229647988524 | Cauchy 6.5467047229647988524*(P/8 form: x8 included) | F-form 6.5467047229647988524
+   |direct-Cauchy| = 7.89e-31  |direct-Fform| = 7.89e-31  |M - Y-form| = 0.0
+nice -n 10 timeout 900 $PY -B verify_dual.py  0.13s user 0.02s system 25% cpu 0.558 total

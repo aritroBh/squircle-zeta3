@@ -1,0 +1,57 @@
+2026-10-29 03:03:03 step_01v3 pp: feed=83147 (eng 68585, fw5 288, f234 14274) cols=12218
+2026-10-29 03:03:05 step_01v3 pp: converted 3s
+2026-10-29 03:03:05 step_01v3 pp: stopcheck rank=1908 in_span={'rat': False, 'sq': False} el2026-10-29 09:30:14 pp row 16000/83147 pivots=12040 nnz_avg=1036 max=2172 ops=19.28e9 el=34080s
+2026-10-30 02:41:41 pp row 24000/83147 pivots=12120 nnz_avg=953 max=2096 ops=38.45e9 el=89966s
+2026-10-30 18:13:07 pp row 32000/83147 pivots=12120 nnz_avg=953 max=2096 ops=54.81e9 el=134443s
+2026-10-31 15:19:10 pp row 40000/83147 pivots=12120 nnz_avg=953 max=2096 ops=79.17e9 el=202599s
+2026-11-01 23:21:07 pp row 48000/83147 pivots=12120 nnz_avg=953 max=2096 ops=103.58e9 el=271863s
+6-10-29 03:03:39 step_01v3 pp: stopcheck rank=9284 in_span={'rat': False, 'sq': False} el=37s
+2026-10-29 03:04:26 ppv3 row 12000/83147 pivots=11122 elims=6.8e6 nnz_avg=1855 max=2878 el=84s
+2026-10-29 03:04:26 step_01v3 pp: stopcheck rank=11122 in_span={'rat': False, 'sq': False} el=84s
+2026-10-29 03:06:00 step_01v3 pp: stopcheck rank=12037 in_span={'rat': False, 'sq': False} el=178s
+2026-10-29 03:07:17 ppv3 row 16000/83147 pivots=12040 elims=19.2e6 nnz_avg=1036 max=2172 el=255s
+2026-10-29 03:07:17 step_01v3 pp: stopcheck rank=12040 in_span={'rat': False, 'sq': False} el=255s
+2026-10-29 03:08:04 step_01v3 pp: stopcheck rank=12118 in_span={'rat': False, 'sq': False} el=302s
+2026-10-29 03:09:21 ppv3 row 20000/83147 pivots=12120 elims=29.0e6 nnz_avg=953 max=2096 el=379s
+2026-10-29 03:09:21 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=379s
+2026-10-29 03:10:29 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=447s
+2026-10-29 03:11:27 ppv3 row 24000/83147 pivots=12120 elims=38.9e6 nnz_avg=953 max=2096 el=505s
+2026-10-29 03:11:27 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=505s
+2026-10-29 03:12:07 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=545s
+2026-10-29 03:12:58 ppv3 row 28000/83147 pivots=12120 elims=46.8e6 nnz_avg=953 max=2096 el=596s
+2026-10-29 03:12:58 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=596s
+2026-10-29 03:14:00 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=658s
+2026-10-29 03:15:08 ppv3 row 32000/83147 pivots=12120 elims=57.2e6 nnz_avg=953 max=2096 el=726s
+2026-10-29 03:15:08 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=726s
+2026-10-29 03:16:24 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=802s
+2026-10-29 03:17:54 ppv3 row 36000/83147 pivots=12120 elims=70.0e6 nnz_avg=953 max=2096 el=892s
+2026-10-29 03:17:54 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=892s
+2026-10-29 03:19:07 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=965s
+2026-10-29 03:20:21 ppv3 row 40000/83147 pivots=12120 elims=81.5e6 nnz_avg=953 max=2096 el=1039s
+2026-10-29 03:20:22 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1040s
+2026-10-29 03:21:31 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1109s
+2026-10-29 03:22:42 ppv3 row 44000/83147 pivots=12120 elims=92.7e6 nnz_avg=953 max=2096 el=1180s
+2026-10-29 03:22:42 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1180s
+2026-10-29 03:24:07 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1265s
+2026-10-29 03:25:36 ppv3 row 48000/83147 pivots=12120 elims=106.0e6 nnz_avg=953 max=2096 el=1354s
+2026-10-29 03:25:36 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1354s
+2026-10-29 03:27:05 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1443s
+2026-10-29 03:28:33 ppv3 row 52000/83147 pivots=12120 elims=119.3e6 nnz_avg=953 max=2096 el=1531s
+2026-10-29 03:28:33 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1531s
+2026-10-29 03:30:06 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1624s
+2026-10-29 03:31:36 ppv3 row 56000/83147 pivots=12120 elims=133.2e6 nnz_avg=953 max=2096 el=1714s
+2026-10-29 03:31:36 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1714s
+2026-10-29 03:33:14 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1812s
+2026-10-29 03:34:50 ppv3 row 60000/83147 pivots=12120 elims=147.8e6 nnz_avg=953 max=2096 el=1908s
+2026-10-29 03:34:51 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=1909s
+2026-10-29 03:36:25 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=2003s
+2026-10-29 03:38:04 ppv3 row 64000/83147 pivots=12120 elims=162.3e6 nnz_avg=953 max=2096 el=2102s
+2026-10-29 03:38:04 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=2102s
+2026-10-29 03:39:45 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=2203s
+2026-10-29 03:41:25 ppv3 row 68000/83147 pivots=12120 elims=177.3e6 nnz_avg=953 max=2096 el=2303s
+2026-10-29 03:41:25 step_01v3 pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=2303s
+2026-10-29 03:43:15 step_01v3 pp: stopcheck rank=12156 in_span={'rat': True, 'sq': True} el=2413s
+2026-10-29 03:43:15 ppv3 early stop at row 70000 pivots=12156
+2026-10-29 03:43:15 step_01v3 pp: feed done rank=12156 stopped_at=70000 in_span={'rat': True, 'sq': True} elims=185591328 time=2413s
+2026-10-29 03:43:15 step_01v3 pp: |S|=12156 families={'engine': 12120, 'framew5': 36} |C|=12156
+2026-10-29 03:43:15 step_01v3 pp: SAVED work/step01_pp.pkl

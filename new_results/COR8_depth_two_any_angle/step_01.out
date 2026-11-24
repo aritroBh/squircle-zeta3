@@ -1,0 +1,18 @@
+PASS Li31(x,1): Q-terms cancel
+PASS Li31(x,1) == PPXX
+PASS Li22(x,1) == PXPX
+FAIL Li31(x,-1) == M P X X
+FAIL Li22(x,-1) == M X P X
+PASS stuffle Li11
+PASS delta22 Li4(g=c) == 0
+PASS delta22 Li4(g=1-c) == 0
+PASS delta22 Li4(g=(1-c)/(1+c)) == 0
+PASS delta22 Li2(c) sh Li2(1-c) == 0
+PASS delta22 Li3(c)*log(1+c) == 0
+delta22(F) components:
+   ((0, 1), (1, 2)) {-1: '-1', 0: '1'}
+   ((0, 2), (1, 2)) {-1: '-1', 0: '-1'}
+PASS delta22(F) == (1-1/c) e1^e3 + (-1-1/c) e2^e3
+delta22 Li22(c,-1): {((0, 1), (0, 2)): {0: '-1'}}
+PASS delta22 Li22(c,-1) != 0
+SOME FAILED

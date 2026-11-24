@@ -1,0 +1,52 @@
+[val96] cfg: {'HO': '0.010416666666666666666666666666666666666666666666666666666666666666666666666666667', 'TO': '4.4', 'WMIN': '1.0e-45', 'LMIN': '1.0e-35', 'dps': 80, 'chunk': 32}
+[val96] outer nodes=805 chunks=26 (size=32) resumedone=0 pending=26
+[val96] chunk 1/25 done n=32 el=111s | progress 1/26 elapsed=112s eta=2791s
+[val96] chunk 2/25 done n=32 el=112s | progress 2/26 elapsed=113s eta=1351s
+[val96] chunk 0/25 done n=32 el=112s | progress 3/26 elapsed=113s eta=864s
+[val96] chunk 5/25 done n=32 el=112s | progress 4/26 elapsed=113s eta=621s
+[val96] chunk 4/25 done n=32 el=113s | progress 5/26 elapsed=113s eta=476s
+[val96] chunk 3/25 done n=32 el=113s | progress 6/26 elapsed=114s eta=380s
+[val96] chunk 7/25 done n=32 el=125s | progress 7/26 elapsed=238s eta=646s
+[val96] chunk 9/25 done n=32 el=126s | progress 8/26 elapsed=239s eta=537s
+[val96] chunk 8/25 done n=32 el=127s | progress 9/26 elapsed=239s eta=452s
+[val96] chunk 6/25 done n=32 el=128s | progress 10/26 elapsed=239s eta=383s
+[val96] chunk 10/25 done n=32 el=126s | progress 11/26 elapsed=240s eta=327s
+[val96] chunk 11/25 done n=32 el=126s | progress 12/26 elapsed=240s eta=280s
+[val96] chunk 14/25 done n=32 el=115s | progress 13/26 elapsed=355s eta=355s
+[val96] chunk 15/25 done n=32 el=115s | progress 14/26 elapsed=355s eta=304s
+[val96] chunk 13/25 done n=32 el=117s | progress 15/26 elapsed=356s eta=261s
+[val96] chunk 12/25 done n=32 el=119s | progress 16/26 elapsed=357s eta=223s
+[val96] chunk 16/25 done n=32 el=117s | progress 17/26 elapsed=357s eta=189s
+[val96] chunk 17/25 done n=32 el=118s | progress 18/26 elapsed=358s eta=159s
+[val96] chunk 23/25 done n=32 el=99s | progress 19/26 elapsed=457s eta=168s
+[val96] chunk 22/25 done n=32 el=121s | progress 20/26 elapsed=478s eta=144s
+[val96] chunk 21/25 done n=32 el=128s | progress 21/26 elapsed=485s eta=115s
+[val96] chunk 20/25 done n=32 el=130s | progress 22/26 elapsed=485s eta=88s
+[val96] chunk 19/25 done n=32 el=131s | progress 23/26 elapsed=486s eta=63s
+[val96] chunk 18/25 done n=32 el=132s | progress 24/26 elapsed=487s eta=41s
+[val96] chunk 25/25 done n=5 el=10s | progress 25/26 elapsed=488s eta=20s
+[val96] chunk 24/25 done n=32 el=72s | progress 26/26 elapsed=529s eta=0s
+[val96] parallel done: 529s N=805 nch=26 stats={'zero_len': 25, 'nbp': 0, 'nsing': 0, 'ninner': 608006}
+[val96] [d^0]S_par = 1.490711984999859797606115779154184156960412228981971888459164994193766
+[val96] [d^1]S_par = 4.310068730207151345980382494723116602408017899575032289918691035376093
+[val96] [d^2]S_par = 2.175841230811692460507624858609765605772122655212784377879510352007836
+[val96] [d^3]S_par = -2.330156241024368053549557284389126408582401673935746590296236160461469
+[val96] [d^4]S_par = 0.004482674056558090243652254900043497256638384331055667503191104557691145
+[val96-resume] deleted ckpt_val96/chunk_0025.json; rerunning run_job
+[val96-resume] outer nodes=805 chunks=26 (size=32) resumedone=25 pending=1
+[val96-resume] chunk 25/25 done n=5 el=7s | progress 26/26 elapsed=7s eta=0s
+[val96-resume] rerun done: 8s; max |S_resume - S_par| = 0.0
+[val96] sequential chamber_S done: 2819s stats={'zero_len': 25, 'nbp': 0, 'nsing': 0}
+[val96] [d^0]S_ref = 1.490711984999859797606115779154184156960412228981971888459164994193766
+[val96] [d^1]S_ref = 4.310068730207151345980382494723116602408017899575032289918691035376093
+[val96] [d^2]S_ref = 2.175841230811692460507624858609765605772122655212784377879510352007836
+[val96] [d^3]S_ref = -2.330156241024368053549557284389126408582401673935746590296236160461469
+[val96] [d^4]S_ref = 0.004482674056558090243652254900043497256638384331055667503191104557691145
+[val96] stats match: True
+[val96] k=0  |S_par - S_ref| = 1.64e-79
+[val96] k=1  |S_par - S_ref| = 1.1e-79
+[val96] k=2  |S_par - S_ref| = 6.41e-79
+[val96] k=3  |S_par - S_ref| = 5.83e-77
+[val96] k=4  |S_par - S_ref| = 2.47e-75
+[val96] max diff = 2.47e-75  -> FAIL (bound 1e-75)
+[val96] DONE

@@ -1,0 +1,20 @@
+(A) image of degree-4 towers -> degree-3 kernels
+ k= 4 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k= 5 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k= 6 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k= 7 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k= 8 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k= 9 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k=10 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k=11 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k=12 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k=13 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+ k=14 [((3, 0), True, 'has_i=False'), ((2, 1), True, 'has_i=False')]
+(B0) quadratic-from-(5,6,7) tower extrapolation mismatches at k=8..14, all 3 degree-4 keys, r=2..6: 0
+(B1) key (4, 0): deviation (actual k=4 - quadratic extrapolation) nonzero at orders r: NONE
+(B1) key (3, 1): deviation (actual k=4 - quadratic extrapolation) nonzero at orders r: NONE
+(B1) key (2, 2): deviation (actual k=4 - quadratic extrapolation) nonzero at orders r: {2: ['0', '-27/64', '0', '0'], 3: ['0', '0', '0', '-63/64'], 4: ['0', '123/64', '0', '0'], 5: ['0', '0', '0', '15/8'], 6: ['0', '-15/16', '0', '0']}
+(B2) key (3, 0): image(quadratic-extrapolated degree-4 towers at k=4) == exact k=4 kernel: True
+(B2) key (2, 1): image(quadratic-extrapolated degree-4 towers at k=4) == exact k=4 kernel: True
+(B3) feed of the (2,2) k=4 deviation alone into the (2,1) kernel: real residues = {} ; +i simple: [] ; -i simple: [] ; const: (Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))
+nice -n 10 '<project>/.venv/bin/python' -B   0.88s user 0.05s system 42% cpu 2.188 total

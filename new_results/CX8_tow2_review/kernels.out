@@ -1,0 +1,10 @@
+PASS (3, 0): k=4 equals extrapolation 3*K5 - 3*K6 + K7; all +/-i coefficients and constants zero at k=4,5,6,7
+K4 = -1/(8*(v - sqrt(2) - 1)) + 5/(24*(v + 1 + sqrt(2))) - 1/(6*(v - 1 + sqrt(2))) + (1/24 - sqrt(2)/8)/v
+Delta K4 = -1/(2*(v - sqrt(2) - 1)) + 5/(6*(v + 1 + sqrt(2))) - 1/(6*(v - 1 + sqrt(2))) - 1/(12*v)
+Delta^2 K4 = -1/(3*(v - sqrt(2) - 1)) + 1/(3*(v + 1 + sqrt(2)))
+PASS (3, 0): first/second difference kernels equal the WT4 D1/D2 certificate targets
+PASS (2, 1): k=4 equals extrapolation 3*K5 - 3*K6 + K7; all +/-i coefficients and constants zero at k=4,5,6,7
+K4 = 5/(16*(v - sqrt(2) - 1)) - 7/(8*(v + 1 + sqrt(2))) - 5/(16*(v - 1 + sqrt(2))) + (sqrt(2)/8 + 7/16)/v
+Delta K4 = 3/(4*(v - sqrt(2) - 1)) - 2/(v + 1 + sqrt(2)) - 3/(4*(v - 1 + sqrt(2))) + 1/v
+Delta^2 K4 = 1/(2*(v - sqrt(2) - 1)) - 1/(v + 1 + sqrt(2)) - 1/(2*(v - 1 + sqrt(2))) + 1/(2*v)
+PASS (2, 1): first/second difference kernels equal the WT4 D1/D2 certificate targets

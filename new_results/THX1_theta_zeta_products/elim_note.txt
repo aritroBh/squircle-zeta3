@@ -1,0 +1,1 @@
+eliminate_indexed defined in step_34.py; will modularize next

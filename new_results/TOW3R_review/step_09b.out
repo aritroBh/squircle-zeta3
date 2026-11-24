@@ -1,0 +1,2 @@
+adj(6,2): rc=0 out=adjacent (6,2): remainder*DEN == 0 : True  (14.1s) err= (16s)
+adj(6,3): rc=0 out=adjacent (6,3): remainder*DEN == 0 : True  (0.8s) err= (2s)

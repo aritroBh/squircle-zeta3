@@ -1,0 +1,7 @@
+2026-11-22 12:46:06 Z_rat: support 662; in P_4 (exact): False
+2026-11-22 12:46:06 Z_sq: support 666; in P_4 (exact): False
+2026-11-22 12:49:02 with frame lifts (rank 5070): in span: [True, True]
+2026-11-22 12:49:02 e.V = (0.0 + 1.5707963267949j)  (i*pi/2 = 1.5707963267949i)
+2026-11-22 12:49:23 rat: |Z.V|/max|Z| = 1.03e-58;  |X.V|/max|X| = 2.34e-59
+2026-11-22 12:49:23 sq: |Z.V|/max|Z| = 1.49e-58;  |X.V|/max|X| = 7.98e-60
+2026-11-22 12:49:24 max scaled |u.f . V| over the 76 frame (row,u) pairs: 2.07e-61

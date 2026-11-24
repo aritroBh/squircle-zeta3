@@ -1,0 +1,92 @@
+2026-10-29 03:37:39 step_01b pp: feed=83147 (eng 68585, fw5 288, f234 14274) cols=12218
+2026-10-29 03:37:41 step_01b pp: stopcheck rank=1908 in_span={'rat': False, 'sq': False} el=2s
+2026-10-29 03:37:41 ppb row 4000/83147 pivots=3768 elims=0.1e6 nnz_avg=291 el=3s
+2026-10-29 03:37:41 step_01b pp: stopcheck rank=3768 in_span={'rat': False, 'sq': False} el=3s
+2026-10-29 03:37:45 step_01b pp: stopcheck rank=5666 in_span={'rat': False, 'sq': False} el=6s
+2026-10-29 03:37:55 ppb row 8000/83147 pivots=7539 elims=1.6e6 nnz_avg=1271 el=16s
+2026-10-29 03:37:55 step_01b pp: stopcheck rank=7539 in_span={'rat': False, 'sq': False} el=16s
+2026-10-29 03:38:15 step_01b pp: stopcheck rank=9284 in_span={'rat': False, 'sq': False} el=37s
+2026-10-29 03:39:03 ppb row 12000/83147 pivots=11122 elims=6.8e6 nnz_avg=1855 el=84s
+2026-10-29 03:39:03 step_01b pp: stopcheck rank=11122 in_span={'rat': False, 'sq': False} el=84s
+2026-10-29 03:40:38 step_01b pp: stopcheck rank=12037 in_span={'rat': False, 'sq': False} el=180s
+2026-10-29 03:41:56 ppb row 16000/83147 pivots=12040 elims=19.2e6 nnz_avg=1036 el=258s
+2026-10-29 03:41:57 step_01b pp: stopcheck rank=12040 in_span={'rat': False, 'sq': False} el=258s
+2026-10-29 03:42:44 step_01b pp: stopcheck rank=12118 in_span={'rat': False, 'sq': False} el=305s
+2026-10-29 03:44:01 ppb row 20000/83147 pivots=12120 elims=29.0e6 nnz_avg=953 el=383s
+2026-10-29 03:44:02 step_01b pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=383s
+2026-10-29 03:45:10 step_01b pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=451s
+2026-10-29 03:46:08 ppb row 24000/83147 pivots=12120 elims=38.9e6 nnz_avg=953 el=510s
+2026-10-29 03:46:09 step_01b pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=510s
+2026-10-29 03:46:49 step_01b pp: stopcheck rank=12120 in_span={'rat': False, 'sq': False} el=550s
+2026-10-29 03:47:35 step_01b pp: plateau at row 27820 (rank 12120), skipping engine[27820:68585] for now
+2026-10-29 03:48:57 step_01b pp: stopcheck rank=12156 in_span={'rat': True, 'sq': True} el=679s
+2026-10-29 03:48:57 step_01b pp: feed done rank=12156 in_span={'rat': True, 'sq': True} skipped=(27820, 68585) elims=52451427 time=679s
+2026-10-29 03:48:57 step_01b pp: |S|=12156 families={'engine': 12120, 'framew5': 36} |C|=12156
+2026-10-29 03:48:57 step_01b pp: SAVED work/step01_pp.pkl
+2026-10-29 03:48:58 step_01b pm: feed=76044 (eng 61598, fw5 288, f234 14158) cols=11164
+2026-10-29 03:48:59 step_01b pm: stopcheck rank=2000 in_span={'rat': False, 'sq': False} el=2s
+2026-10-29 03:49:00 pmb row 4000/76044 pivots=4000 elims=0.1e6 nnz_avg=519 el=3s
+2026-10-29 03:49:00 step_01b pm: stopcheck rank=4000 in_span={'rat': False, 'sq': False} el=3s
+2026-10-29 03:49:05 step_01b pm: stopcheck rank=5996 in_span={'rat': False, 'sq': False} el=7s
+2026-10-29 03:49:21 pmb row 8000/76044 pivots=7966 elims=1.9e6 nnz_avg=1620 el=23s
+2026-10-29 03:49:21 step_01b pm: stopcheck rank=7966 in_span={'rat': False, 'sq': False} el=23s
+2026-10-29 03:50:14 step_01b pm: stopcheck rank=9917 in_span={'rat': False, 'sq': False} el=77s
+2026-10-29 03:51:53 pmb row 12000/76044 pivots=10983 elims=12.1e6 nnz_avg=1071 el=175s
+2026-10-29 03:51:53 step_01b pm: stopcheck rank=10983 in_span={'rat': False, 'sq': False} el=176s
+2026-10-29 03:53:21 step_01b pm: stopcheck rank=10986 in_span={'rat': False, 'sq': False} el=264s
+2026-10-29 03:54:22 pmb row 16000/76044 pivots=11060 elims=23.0e6 nnz_avg=995 el=324s
+2026-10-29 03:54:22 step_01b pm: stopcheck rank=11060 in_span={'rat': False, 'sq': False} el=325s
+2026-10-29 03:55:34 step_01b pm: stopcheck rank=11061 in_span={'rat': False, 'sq': False} el=396s
+2026-10-29 03:56:58 pmb row 20000/76044 pivots=11061 elims=34.6e6 nnz_avg=994 el=480s
+2026-10-29 03:56:58 step_01b pm: stopcheck rank=11061 in_span={'rat': False, 'sq': False} el=481s
+2026-10-29 03:57:59 step_01b pm: stopcheck rank=11062 in_span={'rat': False, 'sq': False} el=542s
+2026-10-29 03:58:57 pmb row 24000/76044 pivots=11064 elims=43.8e6 nnz_avg=991 el=599s
+2026-10-29 03:58:57 step_01b pm: stopcheck rank=11064 in_span={'rat': False, 'sq': False} el=600s
+2026-10-29 04:00:08 step_01b pm: stopcheck rank=11065 in_span={'rat': False, 'sq': False} el=671s
+2026-10-29 04:01:30 pmb row 28000/76044 pivots=11065 elims=55.3e6 nnz_avg=990 el=753s
+2026-10-29 04:01:31 step_01b pm: stopcheck rank=11065 in_span={'rat': False, 'sq': False} el=753s
+2026-10-29 04:02:57 step_01b pm: stopcheck rank=11065 in_span={'rat': False, 'sq': False} el=840s
+2026-10-29 04:04:31 pmb row 32000/76044 pivots=11065 elims=68.4e6 nnz_avg=990 el=933s
+2026-10-29 04:04:31 step_01b pm: stopcheck rank=11065 in_span={'rat': False, 'sq': False} el=934s
+2026-10-29 04:04:57 step_01b pm: plateau at row 32703 (rank 11065), skipping engine[32703:61598] for now
+2026-10-29 04:05:30 step_01b pm: stopcheck rank=11101 in_span={'rat': True, 'sq': True} el=992s
+2026-10-29 04:05:30 step_01b pm: feed done rank=11101 in_span={'rat': True, 'sq': True} skipped=(32703, 61598) elims=72725602 time=992s
+2026-10-29 04:05:30 step_01b pm: |S|=11101 families={'engine': 11065, 'framew5': 36} |C|=11101
+2026-10-29 04:05:30 step_01b pm: SAVED work/step01_pm.pkl
+2026-10-29 04:05:31 step_01b mp: feed=76181 (eng 61699, fw5 288, f234 14194) cols=11164
+2026-10-29 04:05:32 step_01b mp: stopcheck rank=1999 in_span={'rat': False, 'sq': False} el=2s
+2026-10-29 04:05:33 mpb row 4000/76181 pivots=3991 elims=0.1e6 nnz_avg=489 el=3s
+2026-10-29 04:05:33 step_01b mp: stopcheck rank=3991 in_span={'rat': False, 'sq': False} el=3s
+2026-10-29 04:05:37 step_01b mp: stopcheck rank=5987 in_span={'rat': False, 'sq': False} el=7s
+2026-10-29 04:05:52 mpb row 8000/76181 pivots=7950 elims=1.8e6 nnz_avg=1573 el=22s
+2026-10-29 04:05:52 step_01b mp: stopcheck rank=7950 in_span={'rat': False, 'sq': False} el=22s
+2026-10-29 04:06:45 step_01b mp: stopcheck rank=9917 in_span={'rat': False, 'sq': False} el=75s
+2026-10-29 04:08:18 mpb row 12000/76181 pivots=10975 elims=11.7e6 nnz_avg=1074 el=168s
+2026-10-29 04:08:18 step_01b mp: stopcheck rank=10975 in_span={'rat': False, 'sq': False} el=168s
+2026-10-29 04:09:46 step_01b mp: stopcheck rank=10975 in_span={'rat': False, 'sq': False} el=256s
+2026-10-29 04:10:44 mpb row 16000/76181 pivots=11040 elims=22.4e6 nnz_avg=1008 el=313s
+2026-10-29 04:10:44 step_01b mp: stopcheck rank=11040 in_span={'rat': False, 'sq': True} el=314s
+2026-10-29 04:11:55 step_01b mp: stopcheck rank=11041 in_span={'rat': True, 'sq': True} el=385s
+2026-10-29 04:11:55 step_01b mp: feed done rank=11041 in_span={'rat': True, 'sq': True} skipped=None elims=27808359 time=385s
+2026-10-29 04:11:55 step_01b mp: |S|=11041 families={'engine': 11041} |C|=11041
+2026-10-29 04:11:55 step_01b mp: SAVED work/step01_mp.pkl
+2026-10-29 04:11:56 step_01b mm: feed=82557 (eng 67971, fw5 288, f234 14298) cols=12110
+2026-10-29 04:11:57 step_01b mm: stopcheck rank=1942 in_span={'rat': False, 'sq': False} el=2s
+2026-10-29 04:11:58 mmb row 4000/82557 pivots=3811 elims=0.1e6 nnz_avg=314 el=3s
+2026-10-29 04:11:58 step_01b mm: stopcheck rank=3811 in_span={'rat': False, 'sq': False} el=3s
+2026-10-29 04:12:01 step_01b mm: stopcheck rank=5701 in_span={'rat': False, 'sq': False} el=6s
+2026-10-29 04:12:12 mmb row 8000/82557 pivots=7581 elims=1.7e6 nnz_avg=1163 el=17s
+2026-10-29 04:12:12 step_01b mm: stopcheck rank=7581 in_span={'rat': False, 'sq': False} el=17s
+2026-10-29 04:12:32 step_01b mm: stopcheck rank=9273 in_span={'rat': False, 'sq': False} el=37s
+2026-10-29 04:13:19 mmb row 12000/82557 pivots=11113 elims=7.0e6 nnz_avg=1775 el=84s
+2026-10-29 04:13:19 step_01b mm: stopcheck rank=11113 in_span={'rat': False, 'sq': False} el=84s
+2026-10-29 04:14:51 step_01b mm: stopcheck rank=11931 in_span={'rat': False, 'sq': False} el=176s
+2026-10-29 04:16:03 mmb row 16000/82557 pivots=11934 elims=19.1e6 nnz_avg=1043 el=248s
+2026-10-29 04:16:03 step_01b mm: stopcheck rank=11934 in_span={'rat': False, 'sq': False} el=249s
+2026-10-29 04:16:52 step_01b mm: stopcheck rank=11994 in_span={'rat': False, 'sq': False} el=297s
+2026-10-29 04:18:05 mmb row 20000/82557 pivots=11999 elims=28.8e6 nnz_avg=978 el=371s
+2026-10-29 04:18:06 step_01b mm: stopcheck rank=11999 in_span={'rat': True, 'sq': True} el=371s
+2026-10-29 04:18:06 step_01b mm: feed done rank=11999 in_span={'rat': True, 'sq': True} skipped=None elims=28860394 time=371s
+2026-10-29 04:18:06 step_01b mm: |S|=11999 families={'engine': 11999} |C|=11999
+2026-10-29 04:18:06 step_01b mm: SAVED work/step01_mm.pkl
+ALL_SECTORS_DONE

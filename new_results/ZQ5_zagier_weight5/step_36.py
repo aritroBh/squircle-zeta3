@@ -1,0 +1,120 @@
+import sys, subprocess
+src = r'''
+import sys; sys.path.insert(0,'.')
+from fractions import Fraction
+import json
+import mpmath as mp
+import w5lib as W
+import pipe
+D=8
+C = W.letters_info(D)
+J, cands = pipe.load_cands(D)
+RM = json.load(open(pipe.cand_dir(D)+"/rel_min.json"))
+names = RM["names"]; c = [Fraction(x) for x in RM["c"]]
+
+# (b) EXACT symbol check
+d = 2
+T = {}
+for i, cd in enumerate(cands):
+    key = f"Li5({pipe.fmt_qd(cd['x'])})"
+    q = dict(zip(names, c)).get(key, Fraction(0))
+    if not q: continue
+    s = W.symbol_li5_dense(cd['vx'], cd['v1m'], d)
+    for idx, cf in enumerate(s):
+        if cf:
+            T[idx] = T.get(idx, Fraction(0)) + q*cf
+T = {k:v for k,v in T.items() if v}
+print("exact full symbol of RHS (16 Li5 + z5):", "ZERO" if not T else f"NONZERO: {T}")
+# also cobracket of the (zero) tensor is trivially zero; compute on Li5-part symbols individually
+bad = 0
+for i, cd in enumerate(cands):
+    s = W.symbol_li5_dense(cd['vx'], cd['v1m'], d)
+    dic = {}
+    for idx, cf in enumerate(s):
+        if cf:
+            tup = []
+            x = idx
+            for _ in range(5):
+                tup.append(x % d); x //= d
+            dic[tuple(reversed(tup))] = cf
+    for mode in ("full","cut"):
+        cb = W.cobracket32(dic, d, mode=mode)
+        if cb: bad += 1
+print("(c) individual Li5 symbols with nonzero (3,2)-cobracket:", bad, "(expect 0)")
+
+# fresh independent evaluation at 1300 digits
+P = 1300
+mp.mp.dps = P+30
+tot = mp.mpf(0)
+for nm, cf in zip(names, c):
+    if not cf: continue
+    if nm == "T": v = -W.Lchi_hurwitz(D, P)/mp.sqrt(2)  # c_T = -1
+    elif nm == "z5": v = mp.zeta(5)
+    elif nm.startswith("Li5("):
+        i = [j for j,cd in enumerate(cands) if f"Li5({pipe.fmt_qd(cd['x'])})" == nm][0]
+        v = W.li5_series(cands[i]['x'].emb(P+30), P)
+    else:
+        v = mp.mpf(1)
+        for f in nm.split("*"):
+            v *= {"ls2": mp.log(mp.sqrt(2)), "lE": mp.log(1+mp.sqrt(2)), "pi2": mp.pi**2}[f]
+    tot += (1 if nm=="T" else 1)*cf*v if nm!="T" else -(-W.Lchi_hurwitz(D,P)/mp.sqrt(2))*0  # placeholder
+print("placeholder")
+'''
+# the above got messy at the end; rewrite cleanly
+src = r'''
+import sys; sys.path.insert(0,'.')
+from fractions import Fraction
+import json
+import mpmath as mp
+import w5lib as W
+import pipe
+D=8
+C = W.letters_info(D)
+J, cands = pipe.load_cands(D)
+RM = json.load(open(pipe.cand_dir(D)+"/rel_min.json"))
+names = RM["names"]; c = [Fraction(x) for x in RM["c"]]
+cmap = dict(zip(names, c))
+assert cmap["T"] == -1
+d = 2
+T = {}
+for i, cd in enumerate(cands):
+    q = cmap.get(f"Li5({pipe.fmt_qd(cd['x'])})", Fraction(0))
+    if not q: continue
+    s = W.symbol_li5_dense(cd['vx'], cd['v1m'], d)
+    for idx, cf in enumerate(s):
+        if cf: T[idx] = T.get(idx, Fraction(0)) + q*cf
+T = {k:v for k,v in T.items() if v}
+print("(b) exact full symbol of RHS:", "ZERO" if not T else f"NONZERO: {T}")
+bad = 0
+for i, cd in enumerate(cands):
+    s = W.symbol_li5_dense(cd['vx'], cd['v1m'], d)
+    dic = {}
+    for idx, cf in enumerate(s):
+        if cf:
+            tup = []
+            x = idx
+            for _ in range(5): tup.append(x % d); x //= d
+            dic[tuple(reversed(tup))] = cf
+    for mode in ("full","cut"):
+        if W.cobracket32(dic, d, mode=mode): bad += 1
+print("(c) Li5 symbols with nonzero (3,2)-cobracket:", bad, "(expect 0: each individually kills delta)")
+P = 1300
+mp.mp.dps = P+30
+lam = mp.log(mp.sqrt(2)); lL = mp.log(1+mp.sqrt(2)); pi2 = mp.pi**2
+tot = -(-1)*0 + W.Lchi_hurwitz(D, P)/mp.sqrt(2)   # +T (since c_T=-1 => residual = RHS - T)
+for nm, cf in cmap.items():
+    if nm == "T" or not cf: continue
+    if nm == "z5": v = mp.zeta(5)
+    elif nm.startswith("Li5("):
+        i = [j for j,cd in enumerate(cands) if f"Li5({pipe.fmt_qd(cd['x'])})" == nm][0]
+        v = W.li5_series(cands[i]['x'].emb(P+30), P)
+    else:
+        v = mp.mpf(1)
+        for f in nm.split("*"): v *= {"ls2": lam, "lE": lL, "pi2": pi2}[f]
+    tot -= cf*v
+print("T - RHS at fresh 1300 digits:", mp.nstr(tot, 4))
+'''
+open('steps/step_18_tinycheck.py','w').write(src)
+r = subprocess.run(['nice','-n','10',sys.executable,'steps/step_18_tinycheck.py'],capture_output=True,text=True,timeout=1800)
+print(r.stdout); print("STDERR:", r.stderr[-1000:])
+with open('progress.log','a') as f: f.write("step_18_tinycheck: tiny D=8 relation symbol + fresh 1300d\n")

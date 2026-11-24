@@ -1,0 +1,33 @@
+S(nu,y) series up to weight 7
+S series vs Gamma form at (nu,y)=(0.031,0.017): diff = 1.9181e-11 (truncation O(0.05^8) expected)
+psi Taylor: [sqrt(2)/2, 0, -3*sqrt(2)/2, 0, 13*sqrt(2)/4, 0, -379*sqrt(2)/60, 0]
+
+P = 4 sqrt2 + 8 F.  Coefficients c_n = 8 F_n from (b):
+n=1  c_n(b) = 0
+      c_n(b) in pi: 0
+      exact minus known (symbolic, zeta(2k)->pi^2k): 0
+      numeric c_n(b) = 0.0 ;  (a) with quadrature gammas minus (b) = 0.0
+n=2  c_n(b) = sqrt(2)*z2
+      c_n(b) in pi: sqrt(2)*pi**2/6
+      exact minus known (symbolic, zeta(2k)->pi^2k): 0
+      numeric c_n(b) = 2.326288066546293178052520312056468429973 ;  (a) with quadrature gammas minus (b) = 0.0
+n=3  c_n(b) = sqrt(2)*z3
+      c_n(b) in pi: sqrt(2)*z3
+      exact minus known (symbolic, zeta(2k)->pi^2k): 0
+      numeric c_n(b) = 1.699965175192500367776743945951655737725 ;  (a) with quadrature gammas minus (b) = 0.0
+n=4  c_n(b) = -sqrt(2)*(7*z2**2 - z4)/8
+      c_n(b) in pi: -11*sqrt(2)*pi**4/480
+      exact minus known (symbolic, zeta(2k)->pi^2k): 0
+      numeric c_n(b) = -3.156937154220705612484910369973526115094 ;  (a) with quadrature gammas minus (b) = 0.0
+n=5  c_n(b) = -sqrt(2)*(7*z2*z3 + 3*z5)/4
+      c_n(b) in pi: sqrt(2)*(-7*pi**2*z3 - 18*z5)/24
+      exact minus known (symbolic, zeta(2k)->pi^2k): 0
+      numeric c_n(b) = -5.993406571870706601077259417123032009383 ;  (a) with quadrature gammas minus (b) = 7.2445e-71
+n=6  c_n(b) = sqrt(2)*(169*z2**3 + 339*z2*z4 - 84*z3**2 + 182*z6)/96
+      c_n(b) in pi: sqrt(2)*(-30240*z3**2 + 577*pi**6)/34560
+      exact minus known (symbolic, zeta(2k)->pi^2k): 0
+      numeric c_n(b) = 20.91147814643259204894245555535839107867 ;  (a) with quadrature gammas minus (b) = 2.8978e-70
+n=7  c_n(b) = sqrt(2)*(169*z2**2*z3 + 282*z2*z5 + 113*z3*z4 + 258*z7)/32
+      c_n(b) in pi: sqrt(2)*(119*pi**4*z3 + 940*pi**2*z5 + 5160*z7)/640
+      exact minus known (symbolic, zeta(2k)->pi^2k): 0
+      numeric c_n(b) = 63.54451807765424743136703150673447368701 ;  (a) with quadrature gammas minus (b) = 0.0

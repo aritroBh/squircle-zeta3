@@ -1,0 +1,53 @@
+import flint, mpmath, json, time
+from mpmath import mp, mpf, pi, nstr, log, polylog, zeta, catalan, sqrt
+mp.dps = 300
+sq2 = sqrt(2); b = sq2-1; lam = log(2); L = log(1+sq2)
+c = mp.cos(3*pi/8)
+l1mc = log(1-c)
+r = (1-c)/(1+c)
+Li2r = polylog(2, r); Li2b2 = polylog(2, b**2); G = catalan
+M1 = mpf(json.load(open('ckpt_M1_3pi4_formula.json'))['M1_formula'])
+consts = {'lam':lam, 'L':L, 'ln(1-c)':l1mc, 'pi^2':pi**2, 'lam^2':lam**2, 'L^2':L**2, 'lam*L':lam*L,
+ 'ln(1-c)^2':l1mc**2, 'lam*ln(1-c)':lam*l1mc, 'L*ln(1-c)':L*l1mc,
+ 'Li2(r)':Li2r, 'Li2(b^2)':Li2b2, 'G':G, '1':mpf(1)}
+names, vals = list(consts.keys()), [+v for v in consts.values()]
+basis, bnames = [], []
+for nm, v in zip(names, vals):
+    basis.append(v); bnames.append(nm)
+    basis.append(c*v); bnames.append('c*'+nm)
+x = basis + [M1]; bnames = bnames + ['M1']
+def int_rel(xvals, Cexp, dps):
+    mp.dps = dps
+    n = len(xvals)
+    Cf = mpf(10)**Cexp
+    rows = []
+    for i, v in enumerate(xvals):
+        cv = int(mpmath.nint(Cf * (+v)))
+        row = [0]*(n+1); row[i] = 1; row[n] = cv
+        rows.append(row)
+    B = flint.fmpz_mat(rows).lll(delta=mpf('0.99'))
+    out = []
+    for rr in range(n):
+        vec = [int(B[rr,cc]) for cc in range(n)]
+        out.append((sum(a*a for a in vec), vec, int(B[rr,n])))
+    out.sort()
+    return out
+for Cexp, dps in [(230, 250), (260, 280)]:
+    out = int_rel([+v for v in x], Cexp, dps)
+    found = None
+    for norm2, vec, last in out:
+        if vec[-1] != 0 and norm2 < 10**10:
+            found = (norm2, vec, last); break
+    if found:
+        norm2, vec, last = found
+        sgn = 1 if vec[-1]>0 else -1
+        vec = [sgn*a for a in vec]
+        nz = [(n_, r_) for n_, r_ in zip(bnames, vec) if r_]
+        mp.dps = 290
+        resv = sum(mpf(r_)*v for r_, v in zip(vec, x))
+        print(f"C=1e{Cexp}: norm2={norm2} residual@290={nstr(resv,4)}")
+        print("  ", nz)
+    else:
+        print(f"C=1e{Cexp}: NONE; shortest {out[0][0]}, last {out[0][2]}")
+with open('progress.log','a') as f:
+    f.write("step_63: LLL short-form search for M1(3pi/4) at two precisions\n")

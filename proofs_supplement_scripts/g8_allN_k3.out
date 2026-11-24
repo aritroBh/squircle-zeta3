@@ -1,0 +1,14 @@
+k=3: mu side built in 0.3s; formal zeta monomials: 1(12 words), z3(1 words), z2(2 words)
+   mu side equals g6_common.py (independent, numeric n) for n=1..8: True
+   part 1: 74 terms (0 constant); numbers of terms by word length {2: 2, 3: 16, 4: 56}; exponents e in [-2, -1, 0, 1]
+      HPL side 12 words, mu side 12 words; depth of the words <= 3, indices [-3, -2, -1, 2, 3]
+      even identity [c^(2n)] HPL side - mu_(k,n) == 0 as an element of Q(n)-combinations of Z-words, all n>=1: True
+      odd identity  [c^(2n+1)] HPL side == 0, all n>=1: True
+      [c^N], N=-4..1, exact rational arithmetic, all zero: True
+   part z2: 15 terms (1 constant); numbers of terms by word length {1: 6, 2: 8}; exponents e in [-2, -1, 0, 1]
+      HPL side 2 words, mu side 2 words; depth of the words <= 1, indices [-1]
+      even identity [c^(2n)] HPL side - mu_(k,n) == 0 as an element of Q(n)-combinations of Z-words, all n>=1: True
+      odd identity  [c^(2n+1)] HPL side == 0, all n>=1: True
+      [c^N], N=-4..1, exact rational arithmetic, all zero: True
+   [zeta(3)] P_{3,n} == -1/(4n^2-1): True
+R_3 identity (all n): True

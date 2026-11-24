@@ -1,0 +1,26 @@
+2026-11-23 13:01:06 p=4194301 sector -: dim 23274
+2026-11-23 13:01:13 L: 216392 rows (std + own lifts), nnz 7359639 (7s)
+2026-11-23 13:01:16 e sh G: 5136 gens; F: 33 literal frame rows; U: 74 certified images (10s)
+2026-11-23 13:01:21 M' 23338 x 23274 float32 (2.17 GB), test rows 1316 (15s)
+2026-11-23 13:01:43     elim: cols 128/23274, rank 128, 22s
+2026-11-23 13:12:43     elim: cols 2688/23274, rank 2688, 683s
+2026-11-23 13:21:36     elim: cols 5248/23274, rank 5248, 1216s
+2026-11-23 13:27:59     elim: cols 7808/23274, rank 7808, 1598s
+2026-11-23 13:32:53     elim: cols 10368/23274, rank 10368, 1892s
+2026-11-23 13:36:21     elim: cols 12928/23274, rank 12928, 2100s
+2026-11-23 13:38:41     elim: cols 15488/23274, rank 15488, 2240s
+2026-11-23 13:40:10     elim: cols 18048/23274, rank 18048, 2330s
+2026-11-23 13:40:59     elim: cols 20608/23274, rank 20608, 2378s
+2026-11-23 13:41:17     elim: cols 23168/23274, rank 22993, 2397s
+2026-11-23 13:41:17 rank of span(L) in sector -: 22993; codim 281 (2412s)
+2026-11-23 13:41:18 residue ranks mod L: L: 0, L+eG: 21, L+eG+F: 21, L+eG+U: 21, L+F+U: 17, L+eG+F+U (claim): 21
+2026-11-23 13:41:18   Delta_rat: in L: 1, in L+eG: 1, in L+eG+F: 1, in L+eG+U: 1, in L+F+U: 1, in L+eG+F+U (claim): 1
+2026-11-23 13:41:18   Delta_sq: in L: 1, in L+eG: 1, in L+eG+F: 1, in L+eG+U: 1, in L+F+U: 1, in L+eG+F+U (claim): 1
+2026-11-23 13:41:19   dup b^4: Li5(b^4)-256Li5(b)-256Li5(-b)-16Li5(-b^2): in L: 1, in L+eG: 1, in L+eG+F: 1, in L+eG+U: 1, in L+F+U: 1, in L+eG+F+U (claim): 1
+2026-11-23 13:41:19   CONTROL Delta_rat + unit vector: in L: 0, in L+eG: 0, in L+eG+F: 0, in L+eG+U: 0, in L+F+U: 0, in L+eG+F+U (claim): 0
+2026-11-23 13:41:20   CONTROL Delta_rat + vec(Li5(b^4)): in L: 1, in L+eG: 1, in L+eG+F: 1, in L+eG+U: 1, in L+F+U: 1, in L+eG+F+U (claim): 1
+2026-11-23 13:41:20   CONTROL Delta_sq + vec(Li5((4-3r2)/8)): in L: 1, in L+eG: 1, in L+eG+F: 1, in L+eG+U: 1, in L+F+U: 1, in L+eG+F+U (claim): 1
+2026-11-23 13:41:20   CONTROL Delta_sq + vec(Li5(1-b^4)): in L: 1, in L+eG: 1, in L+eG+F: 1, in L+eG+U: 1, in L+F+U: 1, in L+eG+F+U (claim): 1
+2026-11-23 13:41:21   CONTROL Delta_rat - vec(Li5(b)): in L: 1, in L+eG: 1, in L+eG+F: 1, in L+eG+U: 1, in L+F+U: 1, in L+eG+F+U (claim): 1
+2026-11-23 13:41:21   CONTROL random vector: in L: 0, in L+eG: 0, in L+eG+F: 0, in L+eG+U: 0, in L+F+U: 0, in L+eG+F+U (claim): 0
+2026-11-23 13:41:21 done (2415s)

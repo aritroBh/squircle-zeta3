@@ -1,0 +1,9 @@
+(1) k=4: fast vs slow on 8 keys: ALL EQUAL [67s]
+(1) k=5: fast vs slow on 11 keys: ALL EQUAL [227s]
+(2,3) d=1: k=2..14: Delta^1 K == 0 identically (remaining diffs 12), so polynomial degree = 0; Q-rank of the 13 vectors = 1
+(2,3) d=2: k=3..14: Delta^2 K == 0 identically (remaining diffs 10), so polynomial degree = 1; Q-rank of the 12 vectors = 2
+(2,3) d=3: k=4..14: Delta^3 K == 0 identically (remaining diffs 8), so polynomial degree = 2; Q-rank of the 11 vectors = 3
+(2,3) d=4: k=5..14: Delta^4 K == 0 identically (remaining diffs 6), so polynomial degree = 3; Q-rank of the 10 vectors = 4
+(2,3) d=5: k=6..14: Delta^5 K == 0 identically (remaining diffs 4), so polynomial degree = 4; Q-rank of the 9 vectors = 5
+
+[exited with code 0]
