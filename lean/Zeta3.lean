@@ -48,3 +48,8 @@ import Zeta3.Wave7.V01_CauchyFormula
 import Zeta3.Wave7.V02_Theta6
 import Zeta3.Wave7.V04_AreaValues
 import Zeta3.Wave7.V05_FlatAngle
+import Zeta3.Wave8.Q01_PureWeight
+import Zeta3.Wave8.Q02_PiPAllOrders
+import Zeta3.Wave8.Q03_Theta7
+import Zeta3.Wave8.Q04_FlatAllK
+import Zeta3.Wave8.Q05_Decay

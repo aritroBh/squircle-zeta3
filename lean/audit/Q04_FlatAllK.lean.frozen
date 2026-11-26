@@ -1,0 +1,363 @@
+import Mathlib
+import Zeta3.Wave2.D04_MalphaForms
+import Zeta3.Wave4.X05_DiamondA4A5
+import Zeta3.Wave7.V05_FlatAngle
+/-!
+# Q04 -- expanding the corner coefficients `M_k(α)` about the flat angle, every order `k`
+
+Target id: Q04.
+Paper labels: `thm:flat` (paper/ieee/main.tex, lines 1501-1511) and the first rung of
+`thm:zladder` (main.tex, lines 1591-1593).
+Supplement: paper/ieee/proofs/sec_g6_flat.tex (`g6:thm:flat` 13-20; "What the statement means"
+22-23; Lemma `g6:lem:series` 36-48; Lemma `g6:lem:En` 82-88 with proof 90-97; Section
+`g6:sec:flat:beta` 99-104 with `g6:eq:iso`; Lemma `g6:lem:gamma` 110-112 with proof 114-120;
+Definition `g6:def:formal` 122-127; Lemma `g6:prop:formula` 129-131; proof of the theorem
+180-186, including the coefficient bound) and paper/ieee/proofs/sec_g6_ladder.tex (meaning of
+`[z]M` 8-12, `g6:thm:zladder` 15-17, precise form `g6:thm:ladderprecise` 29-35, the rung for
+`ζ(3)` line 109).
+
+Wave 7 file `Zeta3.Wave7.V05_FlatAngle` proved `thm:flat` for `k ≤ 3` (with a formal coefficient
+in two variables `x2, x3`), and its `V05.stmt_4`, `V05.stmt_5` (Lemma `g6:lem:series`(c)) hold
+for every `k`. They are imported, not restated: `M_k(α)` is `V05.Mk k α`
+`= iteratedDeriv k (D04.Mint · α) 0 / k!` (the paper's Taylor coefficient `M^{(k)}(0;α)/k!` of
+the corner integral `M(u;α) = D04.Mint u α`), `c = D04.c α = cos(α/2)`, the kernel
+`E_n(u,y)` is `V05.E n u y`, `H^{(r)}_N` is `V05.Hr r N` (real) and `V05.HrQ r N` (rational),
+`ρ_j(n)` is `V05.rhoQ j n`, `B(p,q) = (p-1)!(q-1)!/(p+q-1)!` is `V05.Bet p q`, and
+`Φ(c) = 1/2 - (1-c²)/(2c) artanh c` is `V05.Phi`.
+
+Quoted verbatim (main.tex 1501-1511, `thm:flat`):
+
+  \begin{theorem}[Expanding about the flat angle$^\dagger$]\label{thm:flat}
+  For every $k\ge0$ and $0<\alpha<\pi$, $M_k(\alpha)=\sum_{n\ge1}\mu_{k,n}c^{2n}$, where each
+  $\mu_{k,n}$ is a polynomial with rational coefficients in $\zeta(2),\dots,\zeta(k)$ of weight at
+  most $k$. In particular, with $r_n,r_n',q_n'\in\mathbb Q$,
+  \[
+  \mu_{2,n}=r_n+\frac{\zeta(2)}{4n^2-1},\qquad
+  \mu_{3,n}=r_n'+q_n'\,\zeta(2)-\frac{\zeta(3)}{4n^2-1}.
+  \]
+  So, with $\Phi(c)=\sum_{n\ge1}\frac{c^{2n}}{4n^2-1}=\frac12-\frac{1-c^2}{2c}\operatorname{artanh}c$,
+  the functions $M_2-\zeta(2)\Phi$ and $M_3+\zeta(3)\Phi-\zeta(2)\Psi$ are power series in $c^2$
+  with rational coefficients, for some $\Psi\in\mathbb Q[[c^2]]$.
+  \end{theorem}
+
+Quoted verbatim (main.tex 1591-1593, `thm:zladder`, first sentence formalized):
+
+  \begin{theorem}[The zeta ladder$^\dagger$]\label{thm:zladder}
+  For every $k\ge0$ and $0<\alpha<\pi$, $[\zeta(3)]M_{k+1}(\alpha)=-[\zeta(2)]M_k(\alpha)$. More
+  generally, ...
+
+Quoted verbatim (main.tex 1589): "As in Theorem~\ref{thm:flat}, we treat the zeta values as
+symbols, and we write $[z]M$ for the coefficient of the product $z$ of zeta values in $M$."
+
+Quoted verbatim (supplement, flat, line 23): "``A polynomial in $\zeta(2),\dots,\zeta(k)$ of weight
+at most $k$'' means an expression $P(\zeta(2),\dots,\zeta(k))$ with $P\in\QQ[\gvs2,\dots,\gvs k]$
+in which every monomial has weight at most $k$ ($\gvs w$ has weight $w$)."
+
+Quoted verbatim (supplement, ladder, line 10):
+  [z]M_k(\alpha):=\sum_{n\ge1}\bigl([\gvs z]P_{k,n}\bigr)c^{2n}\ ,\qquad [z]M_k:=0\ \text{ for }k<0 .
+
+Quoted verbatim (supplement, Lemma `g6:lem:En`, line 84): "For $n\ge1$ and $k\ge0$ there is a
+polynomial $E_{n,k}(y,a,b)=\sum e^{(k)}_{j,i,m}(n)\,y^ja^ib^m$, with coefficients
+$e^{(k)}_{j,i,m}\in\QQ[n]$, such that $\partial_u^kE_n(0,y)/k!=E_{n,k}(y,\log y,\log(1-y))$. Here
+$j\le k$ and $i+m=k$ in every monomial." (proof, line 91: "$\log f=\sum_{m\ge1}(-1)^{m-1}y^m
+(\eu^x-1)^m/m$ ... $\log E_n=uA+(1-2n)\log f$ is a formal series in $u$ ... Exponentiating gives
+the same for $E_n$".)
+
+Quoted verbatim (supplement, Section `g6:sec:flat:beta`, line 102):
+  \Delta_\star=\sum_{r\ge1}\frac{(-1)^{r-1}}r\Bigl[x^rh^{(r)}_1+x'^rh^{(r)}_2-(x+x')^rh^{(r)}_3\Bigr]
+  +\sum_{w\ge2}\frac{(-1)^{w+1}}w\,\gvs w\Bigl[(x+x')^w-x^w-x'^w\Bigr],
+"and define $\mathfrak D_{i,m}$ by $\exp(\Delta_\star)=\sum_{i,m\ge0}\mathfrak D_{i,m}\,x^ix'^m/
+(i!\,m!)$." ... "let $D^\sharp_{i,m}(p,q)\in\QQ[\gvs2,\gvs3,\dots]$ be $\mathfrak D_{i,m}$ with
+$h^{(r)}_1,h^{(r)}_2,h^{(r)}_3$ replaced by the harmonic numbers $H^{(r)}_{p-1}$, $H^{(r)}_{q-1}$,
+$H^{(r)}_{p+q-1}$".
+
+Quoted verbatim (supplement, Lemma `g6:lem:gamma`, line 111): "For integers $p,q\ge1$ and
+$i,m\ge0$, $D_{i,m}(p,q):=\partial_p^i\partial_q^m\gBeta(p,q)/\gBeta(p,q)$ is the value of
+$D^\sharp_{i,m}(p,q)$ at $\gvs w=\zeta(w)$. In particular $D^\sharp_{i,m}$ has rational
+coefficients, only $\gvs2,\dots,\gvs{i+m}$ occur in it, and its monomials have weight at most
+$i+m$." (proof, line 116: "$\log\Gamma(1+x)=-\gamma_{\mathrm E}x+\sum_{w\ge2}(-1)^w\zeta(w)x^w/w$
+for $|x|<1$ ... it follows from $\psi(1)=-\gamma_{\mathrm E}$ and $\psi^{(m)}(1)=(-1)^{m+1}m!\,
+\zeta(m+1)$".)
+
+Quoted verbatim (supplement, Definition `g6:def:formal` and Lemma `g6:prop:formula`, 123-130):
+  P_{k,n}=-\frac1{n(2n-1)}\sum_{j=0}^k\ \sum_{i+m=k}e^{(k)}_{j,i,m}(n)\,\rho_j(n)\,
+  D^\sharp_{i,m}(n+j,n)\ \in\QQ[\gvs2,\dots,\gvs k].
+  "For $0<\alpha<\pi$ and $k\ge0$, $M_k(\alpha)=\sum_{n\ge1}\mu_{k,n}c^{2n}$ with
+  $\mu_{k,n}=P_{k,n}(\zeta(2),\dots,\zeta(k))$, absolutely convergent. Every monomial of $P_{k,n}$
+  has weight at most $k$."
+
+Quoted verbatim (supplement, proof of `g6:thm:flat`, line 185): "Hence every coefficient of
+$P_{k,n}$ (in particular $r_n,r'_n,q'_n$) is at most $C_k\,n^{k}(1+\log(2n+k))^{k}$ in absolute
+value".
+
+## Formalization choices
+
+* Real zeta values: `ζ(w)` is `X05.z w = (riemannZeta w).re` (imported from
+  `Zeta3.Wave4.X05_DiamondA4A5`; `riemannZeta w` is real for real `w > 1`, and
+  `zeta_nat_eq_tsum_of_gt_one` identifies it with `Σ_{n≥1} n^{-w}`; `X05.z 2 = π²/6`). Note that
+  `V05.z2 = π²/6 = X05.z 2` and `V05.z3 = X05.z 3`.
+* Formal zeta values: `MvPolynomial ℕ ℚ`, the variable `X w` standing for `𝔷_w` (only `w ≥ 2`
+  occurs, which is part of the weight predicate). The specialisation `𝔷_w ↦ ζ(w)` is
+  `MvPolynomial.aeval X05.z`. "Polynomial with rational coefficients in `ζ(2),…,ζ(k)` of weight at
+  most `k`" is the predicate `WeightLE k P`: every monomial `∏ 𝔷_w^{e_w}` of the support has all
+  `w ≥ 2` and `Σ e_w w ≤ k` (so only `𝔷_2,…,𝔷_k` occur). "The coefficient `[𝔷_z]P`" is
+  `MvPolynomial` coefficient extraction `P.coeff s`; `[𝔷_2]` is `coeff (single 2 1)`, `[𝔷_3]` is `coeff (single 3 1)`.
+* `E_{n,k}` (Lemma `g6:lem:En`) is constructed exactly as in its proof, as a truncated formal
+  computation in `ℚ[y,a,b][u]` (variables `y = X 0`, `a = X 1`, `b = X 2` of
+  `MvPolynomial (Fin 3) ℚ`): `x = uℓ`, `ℓ = b - a`, `e^{x} - 1 ↦ Σ_{r=1}^K x^r/r!`,
+  `log(1+w) ↦ Σ_{m=1}^K (-1)^{m-1} w^m/m`, `L = uA + (1-2n) log f`, `exp L ↦ Σ_{r=0}^K L^r/r!`,
+  and `E_{n,k}` is the `u^k` coefficient with `K = k`. Since `L` has no constant term in `u`, the
+  truncation does not change any coefficient of `u^k`, `k ≤ K`. `e^{(k)}_{j,i,m}(n)` is the
+  coefficient of `y^j a^i b^m` (`eF k n j i m`).
+* `D^♯_{i,m}(p,q)` is constructed the same way: `Δ_⋆` truncated at degree `K = i+m` in
+  `x = X 0`, `x' = X 1` of `MvPolynomial (Fin 2) (MvPolynomial ℕ ℚ)`, with `h^{(r)}` specialised
+  to the rational harmonic numbers, `exp ↦ Σ_{r=0}^K Δ^r/r!` (exact in degrees `≤ K`, as `Δ_⋆`
+  has no constant term), and `D^♯_{i,m} = i! m! [x^i x'^m]`.
+* `P_{k,n}` (`Pf k n`) is Definition `g6:def:formal` verbatim from these pieces. For `k ≤ 3` it
+  agrees with `V05.P` (not stated; a consistency fact, not a claim of the paper).
+* `D_{i,m}(p,q) = ∂_p^i∂_q^m B(p,q)/B(p,q)` is used, as in the supplement (line 115), through
+  `∂_p^i∂_q^m B(p,q) = ∫_0^1 y^{p-1}(1-y)^{q-1} log^i y log^m(1-y) dy`; the statement of
+  `g6:lem:gamma` is given in this integral form (with integrability stated, so the interval
+  integral is not a junk value).
+* The polygamma function `ψ^{(j)} = d^{j+1}/dx^{j+1} log Γ` is written with `iteratedDeriv` of
+  `x ↦ Real.log (Real.Gamma x)`, which is smooth on `(0,∞)` (`Γ > 0` there), so `iteratedDeriv`
+  at an integer `m ≥ 1` is the true derivative. Euler's constant is
+  `Real.eulerMascheroniConstant`.
+* Sums over `n ≥ 1` are over `n : ℕ` with index `n + 1`. `HasSum` is used throughout (never
+  `tsum`). Natural subtraction only appears as `k - i` with `i ≤ k`, `p - 1`, `q - 1`, `m - 1`
+  with `p, q, m ≥ 1`.
+* The fallback statements for `k = 4, 5` (stmt_7, stmt_8) use real numbers and existential
+  rational coefficients chosen before the angle; they do not depend on the formal
+  construction. For `k = 4` the monomials of weight `≤ 4` are `1, 𝔷2, 𝔷3, 𝔷4, 𝔷2²`; for `k = 5`
+  also `𝔷5, 𝔷2𝔷3`. (They are the cases `k = 4, 5` of stmt_10; since `ζ(4) = (2/5)ζ(2)²`, the
+  real-number form is weaker than the formal one.)
+* The final statement (stmt_10) is `thm:flat` with an existential family of formal polynomials
+  `μ_{k,n}` independent of `α` (the paper's "where each `μ_{k,n}` is a polynomial ..."), the
+  formal shapes of `μ_{2,n}`, `μ_{3,n}` (this is the meaning the supplement gives to "the
+  coefficient of `ζ(2)`, `ζ(3)`", line 23), and the two power-series consequences with
+  `r_n = [1]μ_{2,n}`, `r'_n = [1]μ_{3,n}`, `q'_n = [𝔷2]μ_{3,n}`, `Ψ = Σ q'_n c^{2n}`.
+
+## Statements
+
+* stmt_1: `log Γ(1+x) = -γx + Σ_{w≥2} (-1)^w ζ(w) x^w / w` for `|x| < 1` (DLMF 5.7, used in the
+  proof of `g6:lem:gamma`).
+* stmt_2: polygamma at integers: `ψ(m) = -γ + H_{m-1}` and, for `j ≥ 1`,
+  `ψ^{(j)}(m) = (-1)^{j+1} j! (ζ(j+1) - H^{(j+1)}_{m-1})`, `m ≥ 1`.
+* stmt_3: `g6:lem:En` for every `k`: each `e^{(k)}_{j,i,m}(n)` is a rational polynomial in `n`,
+  vanishes unless `j ≤ k` and `i + m = k`, and `∂_u^k E_n(0,y)/k! = E_{n,k}(y, log y, log(1-y))`.
+* stmt_4: `g6:lem:gamma` for every `(i,m)`: for integers `p, q ≥ 1`,
+  `∫_0^1 y^{p-1}(1-y)^{q-1} log^i y log^m(1-y) dy = B(p,q) D^♯_{i,m}(p,q)|_{𝔷=ζ}`, and
+  `D^♯_{i,m}(p,q)` has weight `≤ i + m` (only `𝔷_2, …, 𝔷_{i+m}` occur).
+* stmt_5: `g6:prop:formula` for every `k`: `Σ_{n≥1} P_{k,n}(ζ) c^{2n}` converges absolutely to
+  `M_k(α)`, and every `P_{k,n}` has weight `≤ k`.
+* stmt_6: the coefficient bound: every coefficient of `P_{k,n}` is at most
+  `C_k n^k (1 + log(2n+k))^k` in absolute value.
+* stmt_7: `thm:flat` for `k = 4` (real form): rationals independent of `α` with
+  `M_4(α) = Σ (a_n + b_n ζ(2) + c_n ζ(3) + d_n ζ(4) + e_n ζ(2)²) c^{2n}`.
+* stmt_8: `thm:flat` for `k = 5` (real form), monomials `1, ζ2, ζ3, ζ4, ζ5, ζ2², ζ2ζ3`.
+* stmt_9: first rung of `thm:zladder`, formal sense: `[𝔷3]P_{k+1,n} = -[𝔷2]P_{k,n}` for every
+  `k ≥ 0`, `n ≥ 1`; and the series `[ζ(2)]M_k(α) = Σ [𝔷2]P_{k,n} c^{2n}` and
+  `[ζ(3)]M_{k+1}(α) = Σ [𝔷3]P_{k+1,n} c^{2n}` converge, to opposite values.
+* stmt_10: `thm:flat` in full (see the last bullet of the formalization choices).
+
+## Numerical check before freezing
+
+A Python/SymPy script mirroring these definitions exactly (the same truncations, exact
+rationals) gave: the weight predicate holds for `P_{k,n}`, `k ≤ 6`, `n ≤ 4`; every monomial of
+`E_{n,k}` has `j ≤ k`, `i + m = k`; `P_{3,1} = 35/72 - 𝔷2/36 - 𝔷3/3` (as in the supplement and
+V05); `[𝔷3]P_{k+1,n} = -[𝔷2]P_{k,n}` exactly for `k ≤ 5`, `n ≤ 4`; `∂_u^k E_n(0,y)/k!`
+(mpmath numerical differentiation, `y = 0.3`, `n = 1, 3`, `k = 4, 5`) agrees with
+`E_{n,k}(y, log y, log(1-y))`; and `-(a_n/2)∫_0^1 [y(1-y)]^{n-1}E_{n,k} dy` agrees with
+`P_{k,n}(ζ)` for `k = 4, 5`, `n = 1, 2` (differences `< 1e-30`). Examples:
+`P_{2,2} = -103/864 + 𝔷2/15`, `P_{4,1} = -571/1080 + 103/432 𝔷2 + 𝔷3/36 + 4/15 𝔷4 - 𝔷2²/15`,
+`([𝔷3]P_{4,2}, [𝔷2]P_{3,2}) = (-43/900, 43/900)` (as in the ladder supplement). `M_4(π/2)` and
+`M_5(π/2)` from the defining integral (Cauchy integral in `u`, radius 0.2) agree with
+`Σ_{n<45} P_{k,n}(ζ) c^{2n}` to 15 digits (`M_4(π/2) = 0.00602799311260912`,
+`M_5(π/2) = 0.00316164871041226`).
+
+## NOT COVERED
+
+* The general rungs of `thm:zladder` (every product `z` of zeta values; the `ζ(5)` example;
+  the precise form `g6:thm:ladderprecise` with `γ_e(z)`), and Lemmas `g6:lem:op`, `g6:lem:DE`.
+* `g6:eq:iso` in its own form (weight exactly `i + m` with formal harmonic variables `h^{(r)}`
+  given weight `r`): only its consequence, weight `≤ i + m` in the zeta variables, is stated.
+* `D_{i,m} = ∂_p^i∂_q^m B/B` as derivatives of the Gamma quotient in real `(p,q)`: only the
+  integral form (which is what the proof of `g6:prop:formula` uses) is stated.
+* The remark that the split into zeta parts of the real number `μ_{3,n}` would need the linear
+  independence of `1, π², ζ(3)` (open); everything is stated for the formal coefficient.
+* `Ψ ∈ ℚ[[c²]]` is recorded through its rational coefficients `q'_n` and the convergence of
+  `Σ q'_n c^{2n}`.
+-/
+-- BEGIN STATEMENTS
+namespace Q04
+
+open Real MeasureTheory Set Filter
+
+/-- Truncated exponential `Σ_{r=0}^K L^r / r!` in a `ℚ`-algebra. -/
+noncomputable def expT {A : Type*} [CommRing A] [Algebra ℚ A] (K : ℕ) (L : A) : A :=
+  ∑ r ∈ Finset.range (K + 1), ((r.factorial : ℚ)⁻¹) • L ^ r
+
+/-- Truncated logarithm `log(1+w) ↦ Σ_{m=1}^K (-1)^{m-1} w^m / m` in a `ℚ`-algebra. -/
+noncomputable def logT {A : Type*} [CommRing A] [Algebra ℚ A] (K : ℕ) (w : A) : A :=
+  ∑ m ∈ Finset.Icc 1 K, ((-1 : ℚ) ^ (m - 1) / (m : ℚ)) • w ^ m
+
+/-- The kernel `E_n = exp(uA + (1-2n) log(1 + y(e^{uℓ}-1)))`, `ℓ = b - a`,
+`A = -(n-1)a + nb`, as a polynomial in `u` over `ℚ[y,a,b]` (`y = X 0`, `a = X 1`, `b = X 2`),
+computed modulo terms that do not affect the coefficients of `u^0, …, u^K`. -/
+noncomputable def Eser (n K : ℕ) : Polynomial (MvPolynomial (Fin 3) ℚ) :=
+  let yv : MvPolynomial (Fin 3) ℚ := MvPolynomial.X 0
+  let av : MvPolynomial (Fin 3) ℚ := MvPolynomial.X 1
+  let bv : MvPolynomial (Fin 3) ℚ := MvPolynomial.X 2
+  let ℓ := bv - av
+  let A := (-((n : ℚ) - 1)) • av + (n : ℚ) • bv
+  let w := Polynomial.C yv *
+    ∑ r ∈ Finset.Icc 1 K, ((r.factorial : ℚ)⁻¹) • (Polynomial.C ℓ * Polynomial.X) ^ r
+  expT K (Polynomial.C A * Polynomial.X + (1 - 2 * (n : ℚ)) • logT K w)
+
+/-- `E_{n,k} ∈ ℚ[y,a,b]`, the coefficient of `u^k` in `E_n` (Lemma `g6:lem:En`). -/
+noncomputable def Ecoef (k n : ℕ) : MvPolynomial (Fin 3) ℚ := (Eser n k).coeff k
+
+/-- `e^{(k)}_{j,i,m}(n)`, the coefficient of `y^j a^i b^m` in `E_{n,k}`. -/
+noncomputable def eF (k n j i m : ℕ) : ℚ :=
+  (Ecoef k n).coeff (Finsupp.single 0 j + Finsupp.single 1 i + Finsupp.single 2 m)
+
+/-- `Δ_⋆` truncated at degree `K`, with `h^{(r)}_1, h^{(r)}_2, h^{(r)}_3` replaced by
+`H^{(r)}_{p-1}, H^{(r)}_{q-1}, H^{(r)}_{p+q-1}`; `x = X 0`, `x' = X 1`, coefficients in the
+formal zeta values `ℚ[𝔷_2, 𝔷_3, …]` (`𝔷_w = X w`). -/
+noncomputable def DeltaT (K p q : ℕ) : MvPolynomial (Fin 2) (MvPolynomial ℕ ℚ) :=
+  let x : MvPolynomial (Fin 2) (MvPolynomial ℕ ℚ) := MvPolynomial.X 0
+  let x' : MvPolynomial (Fin 2) (MvPolynomial ℕ ℚ) := MvPolynomial.X 1
+  (∑ r ∈ Finset.Icc 1 K, ((-1 : ℚ) ^ (r - 1) / (r : ℚ)) •
+      (V05.HrQ r (p - 1) • x ^ r + V05.HrQ r (q - 1) • x' ^ r
+        - V05.HrQ r (p + q - 1) • (x + x') ^ r)) +
+  ∑ w ∈ Finset.Icc 2 K, ((-1 : ℚ) ^ (w + 1) / (w : ℚ)) •
+      (MvPolynomial.C (MvPolynomial.X w) * ((x + x') ^ w - x ^ w - x' ^ w))
+
+/-- `D^♯_{i,m}(p,q) = i! m! [x^i x'^m] exp(Δ_⋆) ∈ ℚ[𝔷_2, 𝔷_3, …]`. -/
+noncomputable def DsharpF (i m p q : ℕ) : MvPolynomial ℕ ℚ :=
+  ((i.factorial * m.factorial : ℕ) : ℚ) •
+    (expT (i + m) (DeltaT (i + m) p q)).coeff (Finsupp.single 0 i + Finsupp.single 1 m)
+
+/-- The formal coefficient `P_{k,n} ∈ ℚ[𝔷_2, …, 𝔷_k]` (Definition `g6:def:formal`). -/
+noncomputable def Pf (k n : ℕ) : MvPolynomial ℕ ℚ :=
+  (-(1 / ((n : ℚ) * (2 * (n : ℚ) - 1)))) •
+    ∑ j ∈ Finset.range (k + 1), ∑ i ∈ Finset.range (k + 1),
+      (eF k n j i (k - i) * V05.rhoQ j n) • DsharpF i (k - i) (n + j) n
+
+/-- "A polynomial with rational coefficients in `𝔷_2, …, 𝔷_k` of weight at most `k`": every
+monomial `∏ 𝔷_w^{e_w}` has all `w ≥ 2` and weight `Σ e_w w ≤ k`. -/
+def WeightLE (k : ℕ) (P : MvPolynomial ℕ ℚ) : Prop :=
+  ∀ s ∈ P.support, (∀ w ∈ s.support, 2 ≤ w) ∧ (s.sum fun w e => e * w) ≤ k
+
+/-- DLMF 5.7 (proof of `g6:lem:gamma`): for `|x| < 1`,
+`log Γ(1+x) = -γ x + Σ_{w≥2} (-1)^w ζ(w) x^w / w`. -/
+def stmt_1 : Prop :=
+  ∀ x : ℝ, |x| < 1 →
+    HasSum (fun w : ℕ => (-1 : ℝ) ^ (w + 2) * X05.z (w + 2) * x ^ (w + 2) / ((w : ℝ) + 2))
+      (Real.log (Real.Gamma (1 + x)) + Real.eulerMascheroniConstant * x)
+
+/-- Polygamma values at integers `m ≥ 1`: `ψ(m) = -γ + H_{m-1}` and, for `j ≥ 1`,
+`ψ^{(j)}(m) = (-1)^{j+1} j! (ζ(j+1) - H^{(j+1)}_{m-1})`, with `ψ^{(j)} = (log Γ)^{(j+1)}`. -/
+def stmt_2 : Prop :=
+  ∀ m : ℕ, 1 ≤ m →
+    deriv (fun x => Real.log (Real.Gamma x)) m = -Real.eulerMascheroniConstant + V05.Hr 1 (m - 1) ∧
+    ∀ j : ℕ, 1 ≤ j →
+      iteratedDeriv (j + 1) (fun x => Real.log (Real.Gamma x)) m =
+        (-1 : ℝ) ^ (j + 1) * (j.factorial : ℝ) * (X05.z (j + 1) - V05.Hr (j + 1) (m - 1))
+
+/-- `g6:lem:En` for every `k`: `e^{(k)}_{j,i,m}(n) ∈ ℚ[n]`, it vanishes unless `j ≤ k` and
+`i + m = k`, and `∂_u^k E_n(0,y)/k! = E_{n,k}(y, log y, log(1-y))` for `n ≥ 1`, `0 < y < 1`. -/
+def stmt_3 : Prop :=
+  ∀ k : ℕ,
+    (∀ j i m : ℕ, ∃ Q : Polynomial ℚ, ∀ n : ℕ, eF k n j i m = Q.eval (n : ℚ)) ∧
+    (∀ n j i m : ℕ, eF k n j i m ≠ 0 → j ≤ k ∧ i + m = k) ∧
+    ∀ n : ℕ, 1 ≤ n → ∀ y : ℝ, 0 < y → y < 1 →
+      iteratedDeriv k (fun u => V05.E n u y) 0 / (k.factorial : ℝ) =
+        ∑ j ∈ Finset.range (k + 1), ∑ i ∈ Finset.range (k + 1),
+          (eF k n j i (k - i) : ℝ) * y ^ j * Real.log y ^ i * Real.log (1 - y) ^ (k - i)
+
+/-- `g6:lem:gamma` for every `(i,m)`: for integers `p, q ≥ 1`,
+`∂_p^i∂_q^m B(p,q) = ∫_0^1 y^{p-1}(1-y)^{q-1} log^i y log^m(1-y) dy = B(p,q) D^♯_{i,m}(p,q)` at
+`𝔷_w = ζ(w)`, and `D^♯_{i,m}(p,q)` is a rational polynomial in `𝔷_2, …, 𝔷_{i+m}` of weight
+`≤ i + m`. -/
+def stmt_4 : Prop :=
+  ∀ p q : ℕ, 1 ≤ p → 1 ≤ q → ∀ i m : ℕ,
+    IntervalIntegrable (fun y : ℝ =>
+      y ^ (p - 1) * (1 - y) ^ (q - 1) * Real.log y ^ i * Real.log (1 - y) ^ m) volume 0 1 ∧
+    (∫ y in (0 : ℝ)..1, y ^ (p - 1) * (1 - y) ^ (q - 1) * Real.log y ^ i * Real.log (1 - y) ^ m)
+      = V05.Bet p q * MvPolynomial.aeval X05.z (DsharpF i m p q) ∧
+    WeightLE (i + m) (DsharpF i m p q)
+
+/-- `g6:prop:formula` for every `k`: for `0 < α < π`, `M_k(α) = Σ_{n≥1} P_{k,n}(ζ(2),…,ζ(k)) c^{2n}`,
+absolutely convergent; every monomial of `P_{k,n}` has weight `≤ k`. -/
+def stmt_5 : Prop :=
+  (∀ k n : ℕ, WeightLE k (Pf k n)) ∧
+  ∀ α : ℝ, 0 < α → α < π → ∀ k : ℕ,
+    Summable (fun n : ℕ => |MvPolynomial.aeval X05.z (Pf k (n + 1)) * D04.c α ^ (2 * (n + 1))|) ∧
+    HasSum (fun n : ℕ => MvPolynomial.aeval X05.z (Pf k (n + 1)) * D04.c α ^ (2 * (n + 1)))
+      (V05.Mk k α)
+
+/-- Proof of `g6:thm:flat` (line 185): every coefficient of `P_{k,n}` is at most
+`C_k n^k (1 + log(2n+k))^k` in absolute value. -/
+def stmt_6 : Prop :=
+  ∀ k : ℕ, ∃ C : ℝ, ∀ n : ℕ, 1 ≤ n → ∀ s : ℕ →₀ ℕ,
+    |(((Pf k n).coeff s : ℚ) : ℝ)| ≤
+      C * (n : ℝ) ^ k * (1 + Real.log (2 * (n : ℝ) + k)) ^ k
+
+/-- `thm:flat` for `k = 4` (real form): there are rationals, independent of the angle, with
+`M_4(α) = Σ_{n≥1} (a_n + b_n ζ(2) + c_n ζ(3) + d_n ζ(4) + e_n ζ(2)²) c^{2n}` for `0 < α < π`
+(the monomials of weight `≤ 4`). -/
+def stmt_7 : Prop :=
+  ∃ a b c d e : ℕ → ℚ, ∀ α : ℝ, 0 < α → α < π →
+    HasSum (fun n : ℕ => ((a (n + 1) : ℝ) + (b (n + 1) : ℝ) * X05.z 2 + (c (n + 1) : ℝ) * X05.z 3
+        + (d (n + 1) : ℝ) * X05.z 4 + (e (n + 1) : ℝ) * X05.z 2 ^ 2) * D04.c α ^ (2 * (n + 1)))
+      (V05.Mk 4 α)
+
+/-- `thm:flat` for `k = 5` (real form): rationals, independent of the angle, with
+`M_5(α) = Σ_{n≥1} (a_n + b_n ζ(2) + c_n ζ(3) + d_n ζ(4) + e_n ζ(5) + f_n ζ(2)² + g_n ζ(2)ζ(3))
+c^{2n}` for `0 < α < π` (the monomials of weight `≤ 5`). -/
+def stmt_8 : Prop :=
+  ∃ a b c d e f g : ℕ → ℚ, ∀ α : ℝ, 0 < α → α < π →
+    HasSum (fun n : ℕ => ((a (n + 1) : ℝ) + (b (n + 1) : ℝ) * X05.z 2 + (c (n + 1) : ℝ) * X05.z 3
+        + (d (n + 1) : ℝ) * X05.z 4 + (e (n + 1) : ℝ) * X05.z 5 + (f (n + 1) : ℝ) * X05.z 2 ^ 2
+        + (g (n + 1) : ℝ) * (X05.z 2 * X05.z 3)) * D04.c α ^ (2 * (n + 1)))
+      (V05.Mk 5 α)
+
+/-- First rung of `thm:zladder`, in the supplement's formal sense: `[𝔷3]P_{k+1,n} = -[𝔷2]P_{k,n}`
+for every `k ≥ 0` and `n ≥ 1`; and for `0 < α < π` the series
+`[ζ(2)]M_k(α) = Σ_n [𝔷2]P_{k,n} c^{2n}` converges and `[ζ(3)]M_{k+1}(α) = Σ_n [𝔷3]P_{k+1,n} c^{2n}`
+converges to its negative. -/
+def stmt_9 : Prop :=
+  (∀ k n : ℕ, 1 ≤ n →
+    (Pf (k + 1) n).coeff (Finsupp.single 3 1) =
+      -(Pf k n).coeff (Finsupp.single 2 1)) ∧
+  ∀ k : ℕ, ∀ α : ℝ, 0 < α → α < π → ∃ S : ℝ,
+    HasSum (fun n : ℕ => (((Pf k (n + 1)).coeff (Finsupp.single 2 1) : ℚ) : ℝ)
+      * D04.c α ^ (2 * (n + 1))) S ∧
+    HasSum (fun n : ℕ => (((Pf (k + 1) (n + 1)).coeff (Finsupp.single 3 1) : ℚ) : ℝ)
+      * D04.c α ^ (2 * (n + 1))) (-S)
+
+/-- `thm:flat` in full: there are formal polynomials `μ_{k,n} ∈ ℚ[𝔷_2, …, 𝔷_k]` of weight `≤ k`,
+independent of the angle, with `M_k(α) = Σ_{n≥1} μ_{k,n}(ζ) c^{2n}` for every `k ≥ 0` and
+`0 < α < π`; `μ_{2,n} = r_n + 𝔷2/(4n²-1)` and `μ_{3,n} = r'_n + q'_n 𝔷2 - 𝔷3/(4n²-1)` with
+`r_n, r'_n, q'_n ∈ ℚ`; and with `Ψ = Σ q'_n c^{2n}`, `M_2 - ζ(2)Φ = Σ r_n c^{2n}` and
+`M_3 + ζ(3)Φ - ζ(2)Ψ = Σ r'_n c^{2n}`. -/
+def stmt_10 : Prop :=
+  ∃ μ : ℕ → ℕ → MvPolynomial ℕ ℚ,
+    (∀ k n : ℕ, WeightLE k (μ k n)) ∧
+    (∀ n : ℕ, 1 ≤ n → ∃ r r' q' : ℚ,
+      μ 2 n = MvPolynomial.C r + MvPolynomial.C (1 / (4 * (n : ℚ) ^ 2 - 1)) * MvPolynomial.X 2 ∧
+      μ 3 n = MvPolynomial.C r' + MvPolynomial.C q' * MvPolynomial.X 2
+        - MvPolynomial.C (1 / (4 * (n : ℚ) ^ 2 - 1)) * MvPolynomial.X 3) ∧
+    ∀ α : ℝ, 0 < α → α < π →
+      (∀ k : ℕ, HasSum (fun n : ℕ => MvPolynomial.aeval X05.z (μ k (n + 1)) * D04.c α ^ (2 * (n + 1)))
+        (V05.Mk k α)) ∧
+      HasSum (fun n : ℕ => (((μ 2 (n + 1)).coeff 0 : ℚ) : ℝ) * D04.c α ^ (2 * (n + 1)))
+        (V05.Mk 2 α - X05.z 2 * V05.Phi (D04.c α)) ∧
+      ∃ Ψ : ℝ,
+        HasSum (fun n : ℕ => (((μ 3 (n + 1)).coeff (Finsupp.single 2 1) : ℚ) : ℝ)
+          * D04.c α ^ (2 * (n + 1))) Ψ ∧
+        HasSum (fun n : ℕ => (((μ 3 (n + 1)).coeff 0 : ℚ) : ℝ) * D04.c α ^ (2 * (n + 1)))
+          (V05.Mk 3 α + X05.z 3 * V05.Phi (D04.c α) - X05.z 2 * Ψ)
+
+end Q04

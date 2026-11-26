@@ -176,19 +176,38 @@ counted.
 
 Waves 1 to 7: 50 files, 401 statements (plus 3 repeats), 64302 lines of Lean.
 
+## Wave 8: every order
+
+Files are in `lean/Zeta3/Wave8/`. Status from `tools/gate.py check`, run by the planner on 2026-11-26.
+
+| # | File | Paper result | What Lean proved | What it does not cover | Status |
+|---|---|---|---|---|---|
+| Q01 | `Q01_PureWeight` | Thm `thm:pw` | To every order, for the squircle and for every rhombus: one sequence `w_k`, each a rational polynomial in `ζ(2),…,ζ(k)` homogeneous of weight `k` (in `ℚ[q²]` for the rhombus), with `|log(P/4r)-Σ_{k=2}^K w_kτᵏ|≤Cτ^{K+1}` for every `K`; the "Hence" for `P/√2` with pure-weight coefficients; `w₂…w₅` explicit; the supplement's lemmas (`lem:pw:pure`, the remainder bound, `lem:pw:asymp`) | The `N`-dimensional surface-area part; the formal-series level (weight is "has a representation of that weight" for the real number); `w_k` for `k≥6` | PROVED (10) |
+| Q02 | `Q02_PiPAllOrders` | Thm `thm:pip` | The expansion of `π_p` to every order: `|π_p/4-1-Σ_{k≤K}N_kp^{-k-1}|≤Cp^{-K-2}` for every `K`, with `N_k` by the supplement's formula; `N₀…N₃` agree with X02; the printed closed forms of `N₄` and `N₅`; the Laplace form (`lem:pip:laplace`); `J_{1,j}=j!(1-2^{-j-1})ζ(j+2)`; `lem:pip:C45`; the `h=0` Hankel bound | The growth law of `N_k` and the divergence: stated in Q06, not proved yet | PROVED (13) |
+| Q03 | `Q03_Theta7` | Prop `prop:theta` (`Θ₇`), Prop `prop:degree` (`n=7`) | `thm:fourier` through `τ⁷` with error `C_kτ⁸`, `Θ₇` as in the supplement (with `ζ(7)`, `ζ(2)ζ(5)`, `ζ(2)²ζ(3)`); Watson at `N=7`; `g_{k,5}`; the three weight-seven rows; degree exactly 2 | `Θ₈`, `Θ₉`; `prop:degree` for `n≥8` and the alternating-MZV clause | PROVED (9) |
+| Q04 | `Q04_FlatAllK` | Thm `thm:flat`, Thm `thm:zladder` (first rung) | `thm:flat` in full: for every `k` and `0<α<π`, `M_k(α)=Σμ_{k,n}c²ⁿ` with `μ_{k,n}` a formal polynomial with rational coefficients in `ζ(2),ζ(3),…` of weight at most `k`, independent of `α`. For every `k`, `n`: the coefficient of `ζ(3)` in `μ_{k+1,n}` is minus the coefficient of `ζ(2)` in `μ_{k,n}`. With it: `log Γ(1+x)+γx=Σ(-1)^wζ(w)x^w/w`, the polygamma values at integers, Lemmas `g6:lem:En`, `g6:lem:gamma`, `g6:prop:formula` for every `k`, and `k=4,5` explicitly | The general rungs of `thm:zladder` (every zeta product, the `ζ(5)` example); `Ψ` as a formal series; the uniqueness remark | PROVED (10) |
+| Q05 | `Q05_Decay` | Thm `thm:decay` (lemmas) | Lemma `g5:lem:kernels` (`H`, `K`, their bounds, the residues of `K`); the logit form of `M(ε)` (`g5:lem:logit`); `g5:lem:main`; `g5:lem:F`; `sup u³e^{-(2-√π)u}<114.1`; the arithmetic `<1.21·10⁹`; `√π|ϖ₁|≤1.494`; `C_⋆<10,600,000` | The kernel identity, the representation of `M_k`, `g5:lem:W`, the rest bound, the main-term bound and the theorem itself: stated in Q07, not proved yet. The `254.23` bound of the paper's proof idea (an interval sweep, code only) is not stated | PROVED (10) |
+
+Totals: 5 files, 52 statements, all 52 proved, 11344 lines of Lean. `lake build` of the whole library passes
+(18362 jobs). No statement of the paper was found false. Q02 and Q05 came back with some statements unproved; the
+planner had the proved statements kept (text unchanged) and the unproved ones moved to Q06 and Q07, which are not
+in the library until they are proved.
+
+Waves 1 to 8: 55 files, 453 statements (plus 3 repeats), 75646 lines of Lean.
+
 ## OUT: not checkable in Lean with today's Mathlib
 
 These need polylogarithms of weight ≥3, harmonic polylogarithms, multiple zeta values, symbols, Goncharov's
 theorem, or certified 300-digit arithmetic. They stay on the written proofs and independent re-checks listed in
 the verification map at the top of this repository.
 
-`thm:W4`, `thm:W4R` (`W₄=𝓡`), `thm:wt2`, `thm:pw` (all orders), `prop:degree` (`n≥7`),
-`prop:theta` (`Θ₇…Θ₉`), `thm:decay`, `thm:varpi`, `thm:pip` (all orders and growth of `N_k`),
-`thm:Malpha` (`M_k(α)` for `k≥2`; the `M₁(α)` formula is D04), `conj:field`, `thm:flat` (`k≥4`),
-`prop:M3angle`, `thm:M4alpha`, `thm:zladder`, `thm:hexagon`, `thm:hexagon5`, `prop:octagon5depth`,
+`thm:W4`, `thm:W4R` (`W₄=𝓡`), `thm:wt2`, `thm:pw` (the `N`-dimensional part), `prop:degree` (`n≥8`),
+`prop:theta` (`Θ₈`, `Θ₉`), `thm:decay` (in progress, Q07), `thm:varpi`, `thm:pip` (growth of `N_k` and divergence: in progress, Q06),
+`thm:Malpha` (`M_k(α)` for `k≥2`; the `M₁(α)` formula is D04), `conj:field`,
+`prop:M3angle`, `thm:M4alpha`, `thm:zladder` (the general rungs), `thm:hexagon`, `thm:hexagon5`, `prop:octagon5depth`,
 `thm:S` (general `K`, no `log p` terms), `thm:oct` (the weight claims for every order, other dimensions).
 
-This list is what has not been tried or is known to need missing library. Waves 2 to 7 showed that results first
+This list is what has not been tried or is known to need missing library. Waves 2 to 8 showed that results first
 put here can be reached, so an entry here is not a proof that Lean cannot do it.
 
 ## Log
@@ -247,3 +266,16 @@ put here can be reached, so an entry here is not a proof that Lean cannot do it.
 - 2026-11-26: waves 6 and 7 reviewed by non-Claude models (Codex GPT-6 with numerical checks, Kimi K3, GLM-5,
   DeepSeek, Kilo's free model, Gemini through `agy`, which works again). No statement had to change. Two comments in
   the header of Z05 were corrected (a draft-58 decimal, a statement number) and the file re-frozen.
+- 2026-11-26: waves 6 and 7 pushed to the public repo in commit `70cd9905` (50 files, 404 gated statements, 401
+  distinct).
+- 2026-11-26: wave 8 back. Q01 (`thm:pw` to every order), Q03 (`Θ₇`), Q04 (`thm:flat` in full, first rung of
+  `thm:zladder`) PROVED. Q02 (`thm:pip`) proved 13 of 20 statements and Q05 (`thm:decay`) 10 of 18; each was split
+  into a finished file and a continuation (Q06, Q07). Planner gated all five; `lake build` passes (18362 jobs): 55
+  files, 453 statements. Continuation run launched for Q06 and Q07 (parts in
+  parallel, then merge). Non-Claude review of wave 8 started.
+- 2026-11-26: non-Claude review of wave 8 back (Codex with numerics, Kimi, GLM, DeepSeek, Kilo's free model; `agy`
+  is out of quota again). No statement had to change. Codex and Kimi each derived `e_{0,5} = 721/3840`, which the
+  supplement does not print. One process point: `V05.HrQ` and `V05.rhoQ`, used in the frozen statements of Q04,
+  are defined below the END STATEMENTS line of V05; the planner read them, and Lean proves their casts equal the
+  audited `V05.Hr` and `V05.rho`. From now on a definition used in a frozen statement must sit in a frozen
+  block.

@@ -1,0 +1,282 @@
+import Mathlib
+import Zeta3.Wave1.T10_PiP
+import Zeta3.Wave4.X02_PiP
+/-!
+# Q02 — the expansion of `π_p` to every order, its divergence and the growth law of `N_k`
+(paper label `thm:pip`)
+
+Source: `paper/ieee/main.tex`, Theorem `thm:pip` ("Expansion of $\pi_p$"), lines 1336–1350,
+and the complement printed after it, lines 1373–1379; detailed proof in
+`paper/ieee/proofs/sec_pip.tex`: notation (lines 43–48), eq. `eq:pip:Ehat` (lines 70–73),
+`W` (line 79), Lemma `lem:pip:W` (lines 83–103), Lemma `lem:pip:expansion` (lines 105–133),
+Lemma `lem:pip:J` (lines 139–160), Section `sec:pip:N45` (lines 191–343) with
+Lemma `lem:pip:C45` (lines 227–329, also `proofs/sec_pip_C45.tex`), and Section
+`sec:pip:div` (lines 369–588): Lemmas `lem:pip:laplace`, `lem:pip:Tk`, `lem:pip:hankel`,
+`lem:pip:TkT1`, `lem:pip:twoterm`, `prop:pip:growth`, `prop:pip:div`.
+
+The parts of `thm:pip` already proved in `Zeta3.Wave4.X02_PiP` (`π_p = 4·2^{-1/p} + E(p)` and the
+expansion through `N_3` with `O(p^{-5})`) are not restated; `X02.piP`, `X02.E`, `X02.W`, `X02.Q`,
+`X02.calL`, `X02.z3`, `X02.N0`–`X02.N3` are reused. This file covers the rest of the theorem
+(main.tex lines 1344–1349):
+
+> The expansion continues to every order, $\pi_p/4\sim1+\sum_{k\ge0}N_kp^{-k-1}$, and this series
+> diverges for every $p$. As $k\to\infty$, for odd $k$
+> \[N_k=(-1)^{\frac{k-1}2}\,\frac{2\,(k-2)!}{\pi^{k-1}}\Bigl(1+\frac{\pi^2}{2(k-2)}+O\Bigl(\frac{\log^2k}{k^2}\Bigr)\Bigr),\]
+> and for even $k$
+> \[N_k=(-1)^{\frac{k-2}2}\,\frac{2\,(k-3)!}{\pi^{k-2}}\Bigl(\psi(k-2)+\gamma-\log\pi+O\Bigl(\frac{\log^2k}{k}\Bigr)\Bigr),\]
+> where $\psi=\Gamma'/\Gamma$ and $\gamma$ is Euler's constant.
+
+and the complement (main.tex lines 1373–1379):
+
+> N_4&=-\frac{\log^52}{120}+\frac{\pi^2}{24}\Bigl(1-\log2+\frac{\log^22}{2}\Bigr)\\
+> &\quad+\frac{\zeta(3)}{4}(1-\log2)+\frac{\pi^4}{2880},\\
+> N_5&=\frac{\log^62}{720}+\frac{\pi^2}{24}\Bigl(1-\log2+\frac{\log^22}{2}-\frac{\log^32}{6}\Bigr)\\
+> &\quad+\frac{\zeta(3)}{4}\Bigl(1-\log2+\frac{\log^22}{2}\Bigr)+\frac{\pi^4}{2880}(1-\log2)\\
+> &\quad-\frac{7\pi^4}{1920}-\frac{\zeta(3)\pi^2}{48}+\frac{\zeta(5)}{8}.
+
+Intermediate steps (sec_pip.tex, quoted):
+
+> (line 46) J_{r,j}=\int_0^\infty s^j\mathcal L(s)^r\,ds\qquad(r\ge1,\ j\ge0).
+>   These converge because $0<\mathcal L(s)\le\eu^{-s}$.
+> (line 72) \hat E(h)=h\kappa\int_0^\infty \eu^{-h\kappa s}(1+\eu^{-\kappa s})^{-1-h}\bigl[(1+\eu^{-s})^h-1\bigr]ds,
+>   \qquad \frac{\pi_p}4=2^{-h}+\hat E(h).
+> (line 118) Write $\hat E=\frac{h^2}{1-h}Q(h)$ with $Q(h)=\int_0^\infty W(h,sh)\bigl[(1+\eu^{-s})^h-1\bigr]ds$.
+> (lines 84–92, Lemma lem:pip:W) Write $W(x,y)=\sum_{i,j\ge0}w_{ij}x^iy^j$ and $W_m(s)=\sum_{i+j=m}w_{ij}s^j$.
+>   ... for every $K\ge0$ there are $C_K,h_K>0$ with
+>   \Bigl|W(h,sh)-\sum_{m\le K}h^mW_m(s)\Bigr|\le C_K\bigl(h(1+s)\bigr)^{K+1}\qquad(0<h\le h_K,\ 0\le s\le h^{-1/2}).
+>   Moreover $0<W(h,sh)\le1$ for $0<h<1$ and $s\ge0$.
+> (lines 106–113, Lemma lem:pip:expansion) Let $q_n=\sum_{m+r=n,\ r\ge1}\frac1{r!}\int_0^\infty W_m(s)\mathcal L(s)^r\,ds$
+>   for $n\ge1$. For every $K\ge1$, as $h\to0^+$,
+>   \hat E(h)=\frac{h^2}{1-h}\Bigl(\sum_{n=1}^Kq_nh^n+O(h^{K+1})\Bigr).
+>   Consequently $\pi_p/4\sim1+\sum_{k\ge0}N_kh^{k+1}$ with
+>   N_k=\frac{(-\log2)^{k+1}}{(k+1)!}+\sum_{n=1}^{k-1}q_n\qquad(k\ge0),
+> (lines 140–143, Lemma lem:pip:J(i)) $J_{1,j}=j!\,\eta(j+2)=j!\,(1-2^{-j-1})\zeta(j+2)$. In particular
+>   J_{1,0}=\frac{\pi^2}{12},\quad J_{1,1}=\frac{3\zeta(3)}4,\quad J_{1,2}=\frac{7\pi^4}{360},\quad J_{1,3}=\frac{45\zeta(5)}8 .
+> (lines 203–204) W_2(s)=\frac{\log^22}4-\frac{\log2}4\,s,\qquad
+>   W_3(s)=-\frac{\log^32}{12}+\frac{\log^22}8\,s-\frac3{16}s^2-\frac1{48}s^3 .
+> (lines 230–231, Lemma lem:pip:C45) \frac1{12}J_{3,0}+\frac18J_{2,1}=\frac{\pi^4}{2880},\qquad
+>   \frac1{48}\bigl(J_{4,0}+2J_{3,1}\bigr)=-\frac{\zeta(3)\pi^2}{48}+\frac{31\,\zeta(5)}{128}.
+> (lines 378–381, Lemma lem:pip:laplace) For $0<h<1$,
+>   \hat E(h)=h\sum_{n\ge1}\binom hn\int_0^\infty \eu^{-ny/h}H_n(y,h)\,dy,\qquad H_n(y,h)=\eu^{(n+1)y}(1+\eu^{y})^{-1-h}.
+> (lines 433–436, Lemma lem:pip:Tk) Let $\mathcal A(y,h)=\eu^{2y}(1+\eu^y)^{-1-h}=H_1(y,h)$. Then
+>   $N_k=\frac{(-\log2)^{k+1}}{(k+1)!}+T_k+U_k$, where
+>   T_k=\sum_{m=0}^{k-2}m!\,[y^mh^{k-2-m}]\mathcal A(y,h),\qquad |U_k|\le C\bigl(2^k+k\,(k-2)!\,6^{-k}\bigr).
+> (line 475 and lines 484, 489, Lemma lem:pip:hankel, case h = 0) $S_0^\pm(y,h)=(y_0-y)^{-1-h}$ for
+>   $y_0=\pm i\pi$, and $R_1=\mathcal A-S_0^+-S_0^-$ ... |[y^m]R_1(\cdot,0)|\le C(2\pi)^{-m}.
+> (lines 514–520, Lemma lem:pip:TkT1)
+>   T_k^{(1)}=2\operatorname{Re}\sum_{m=0}^{k-2}[h^{k-2-m}]\Bigl(y_0^{-1-m}\eu^{-h\Log y_0}(1+h)_m\Bigr).
+>   $T_k=T_k^{(1)}+O\bigl((k-2)!\,\pi^{-(k-1)}\,k^{-2}\log k\bigr)$ as $k\to\infty$.
+> (lines 541–544, Lemma lem:pip:twoterm) Let $y_0=i\pi$, $X=\psi(k-2)+\gamma-\log\pi$. As $k\to\infty$,
+>   N_k=2\operatorname{Re}\Bigl[(k-2)!\,y_0^{1-k}+(k-3)!\,y_0^{2-k}\bigl(X-\tfrac{i\pi}2\bigr)\Bigr]
+>   +O\Bigl((k-2)!\,\pi^{-(k-1)}\frac{\log^2k}{k^2}\Bigr).
+> (lines 582–584, Lemma prop:pip:div) For every real $p>0$ the series $\sum_{k\ge0}N_kp^{-k-1}$
+>   diverges. The series $\sum N_kh^{k+1}$ has radius of convergence $0$.
+
+Conventions.
+* `ζ(3)` is `X02.z3 = (riemannZeta 3).re` and `ζ(5)` is `z5 = (riemannZeta 5).re`; more generally
+  `ζ(j+2)` is `(riemannZeta (j+2)).re`. These are the real numbers `∑_{n≥1} n^{-s}`
+  (`zeta_nat_eq_tsum_of_gt_one`).
+* `h = 1/p`, and `\hat E(h) = E(p)/4` is `Ehat h = X02.E (1/h) / 4`.
+* The Taylor coefficients `w_{ij}` of `W` at `(0,0)` are defined as mixed iterated derivatives
+  `∂_x^i ∂_y^j W(0,0)/(i! j!)` (`iteratedDeriv`, which is local; `W` is smooth near `(0,0)`, since
+  there `1 - x ≠ 0` and all `rpow` bases are positive). Likewise `[y^m h^i]𝓐` for `𝓐(y,h)`, which is
+  smooth on all of `ℝ²`. `W_m`, `q_n` and `N_k` are then defined literally by the supplement's
+  formulas (`N_k` by `eq:pip:Nk`, with the sum over `1 ≤ n ≤ k-1`, empty for `k = 0, 1`). So
+  `stmt_8` (expansion) and `stmt_9`–`stmt_11` (values) have content: they concern this `N`.
+* `ψ = Γ'/Γ` is `psi = logDeriv Real.Gamma` (real log-derivative, `deriv Γ x / Γ x`); at the
+  points `k - 2 ≥ 1` used here `Γ` is differentiable and positive. `γ` is
+  `Real.eulerMascheroniConstant`.
+* The generalised binomial coefficient `\binom hn` is `(descPochhammer ℝ n).eval h / n!`, and
+  `(a)_m` is `(ascPochhammer ℂ m).eval a`; `[h^i]` of an entire function `f : ℂ → ℂ` is
+  `iteratedDeriv i f 0 / i!`. `Log` is `Complex.log` (principal branch, `Log(iπ) = log π + iπ/2`).
+  Negative powers `y_0^{1-k}` are written `((I π)^(k-1))⁻¹`.
+* Every `O(·)` is an explicit bound `∃ C, ∃ k₀ (or h₀ > 0, p₀ > 1), ∀ …, |error| ≤ C · (scale)`.
+  The paper prints no constants. In the growth laws the paper's relative error
+  `N_k = σ A (main + O(e_k))` with `A > 0` is written `|N_k - σ A·main| ≤ C·A·e_k`.
+* All integrals over `(0,∞)` that appear have their integrability asserted (`stmt_1`, `stmt_6`,
+  `stmt_12`), so no statement is true only because a non-integrable integral is `0`.
+* Natural-number subtractions `k - 1`, `k - 2`, `k - 3`, `(k-1)/2`, `(k-2)/2` occur only for
+  `k ≥ k₀` with `k₀` chosen by the prover; `(k:ℝ) - 2` is a real subtraction.
+* Divergence (`Q06.stmt_6`) is stated for every real `p ≠ 0` (the supplement's lemma says `p > 0`,
+  the theorem "every `p`"; for `p < 0` the terms have the same absolute value). "Diverges" is
+  stated in the strong form "the terms do not tend to `0`", and radius `0` as "for every `x ≠ 0`
+  the terms `N_k x^{k+1}` are unbounded".
+
+NOT COVERED:
+* Holomorphy of `W` on the bidisc `|x| < 1/2, |y| < π/2` (only its consequence, the bound of
+  `stmt_4`); the bound on the degrees of `W_m` is implicit in the definition.
+* The Euler sum of Lemma `lem:pip:J`(ii) and the values `J_{1,0}, J_{1,1}, J_{2,0}` (proved in
+  `X02`), and the Beta-function identities inside the proof of Lemma `lem:pip:C45` (only its
+  conclusion is stated), Remark `rem:pip:C45x`, and the machine reductions of `J_{3,0}, …, J_{3,1}`
+  in `Li_4(1/2)`, `Li_5(1/2)`.
+* Watson's lemma uniformly in `n` (Lemma `lem:pip:watson`, the functions `D_m` and formula
+  `eq:pip:Nk2`); the local form of `𝓐` at `±iπ` with complex `h` (Lemma `lem:pip:local`) and the
+  Hankel bound for complex `h` (Lemma `lem:pip:hankel`, only its `h = 0` case is `stmt_14`).
+* Lemmas lem:pip:Tk, lem:pip:TkT1, lem:pip:twoterm, the growth law and the divergence were audited as stmt_13, stmt_15 to stmt_20 and moved, unproved, to Q06_PiPGrowth.lean (planner split, 2026-11-26).
+* Remark `rem:pip:duality` (`p → 1` via `π_p = π_q`) and all numerical remarks (signs of period
+  four for `k ≥ 9`, optimal truncation, sharpness of the error terms).
+-/
+-- BEGIN STATEMENTS
+namespace Q02
+
+/-- `ζ(5)` as a real number: the real part of Mathlib's `riemannZeta 5` (which is real). -/
+noncomputable def z5 : ℝ := (riemannZeta 5).re
+
+/-- `J_{r,j} = ∫_0^∞ s^j 𝓛(s)^r ds`, `𝓛(s) = log(1+e^{-s})` (sec_pip.tex line 46). -/
+noncomputable def J (r j : ℕ) : ℝ :=
+  ∫ s in Set.Ioi (0 : ℝ), s ^ j * X02.calL s ^ r
+
+/-- The Taylor coefficient `w_{ij}` of `W(x,y)` at `(0,0)`:
+`∂_x^i ∂_y^j W(0,0) / (i! j!)` (sec_pip.tex line 85). -/
+noncomputable def wcoef (i j : ℕ) : ℝ :=
+  iteratedDeriv i (fun x => iteratedDeriv j (fun y => X02.W x y) 0) 0 /
+    ((i.factorial : ℝ) * (j.factorial : ℝ))
+
+/-- `W_m(s) = Σ_{i+j=m} w_{ij} s^j` (sec_pip.tex line 86). -/
+noncomputable def Wpoly (m : ℕ) (s : ℝ) : ℝ :=
+  ∑ j ∈ Finset.range (m + 1), wcoef (m - j) j * s ^ j
+
+/-- `q_n = Σ_{m+r=n, r≥1} (1/r!) ∫_0^∞ W_m(s) 𝓛(s)^r ds` (sec_pip.tex line 106). -/
+noncomputable def q (n : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Icc 1 n,
+    (1 / (r.factorial : ℝ)) * ∫ s in Set.Ioi (0 : ℝ), Wpoly (n - r) s * X02.calL s ^ r
+
+/-- `N_k = (-log 2)^{k+1}/(k+1)! + Σ_{n=1}^{k-1} q_n` (sec_pip.tex eq. `eq:pip:Nk`, line 112). -/
+noncomputable def N (k : ℕ) : ℝ :=
+  (-Real.log 2) ^ (k + 1) / ((k + 1).factorial : ℝ) + ∑ n ∈ Finset.Ico 1 k, q n
+
+/-- `\hat E(h) = E(p)/4` with `p = 1/h` (sec_pip.tex line 70). -/
+noncomputable def Ehat (h : ℝ) : ℝ := X02.E (1 / h) / 4
+
+/-- The generalised binomial coefficient `\binom hn = h(h-1)⋯(h-n+1)/n!`. -/
+noncomputable def binom (h : ℝ) (n : ℕ) : ℝ :=
+  (descPochhammer ℝ n).eval h / (n.factorial : ℝ)
+
+/-- `H_n(y,h) = e^{(n+1)y} (1+e^y)^{-1-h}` (sec_pip.tex line 380). -/
+noncomputable def Hn (n : ℕ) (y h : ℝ) : ℝ :=
+  Real.exp (((n : ℝ) + 1) * y) * (1 + Real.exp y) ^ (-1 - h)
+
+/-- `𝓐(y,h) = e^{2y} (1+e^y)^{-1-h} = H_1(y,h)` (sec_pip.tex line 433). -/
+noncomputable def Acal (y h : ℝ) : ℝ :=
+  Real.exp (2 * y) * (1 + Real.exp y) ^ (-1 - h)
+
+/-- The Taylor coefficient `[y^m h^i] 𝓐(y,h)` at `(0,0)`: `∂_h^i ∂_y^m 𝓐(0,0)/(m! i!)`. -/
+noncomputable def Acoef (m i : ℕ) : ℝ :=
+  iteratedDeriv i (fun h => iteratedDeriv m (fun y => Acal y h) 0) 0 /
+    ((m.factorial : ℝ) * (i.factorial : ℝ))
+
+/-- `T_k = Σ_{m=0}^{k-2} m! [y^m h^{k-2-m}] 𝓐(y,h)` (sec_pip.tex line 435). -/
+noncomputable def T (k : ℕ) : ℝ :=
+  ∑ m ∈ Finset.range (k - 1), (m.factorial : ℝ) * Acoef m (k - 2 - m)
+
+/-- `T_k^{(1)} = 2 Re Σ_{m=0}^{k-2} [h^{k-2-m}] (y_0^{-1-m} e^{-h Log y_0} (1+h)_m)`, `y_0 = iπ`
+(sec_pip.tex line 514). -/
+noncomputable def T1 (k : ℕ) : ℝ :=
+  2 * (∑ m ∈ Finset.range (k - 1),
+    iteratedDeriv (k - 2 - m)
+        (fun h : ℂ => ((Complex.I * Real.pi) ^ (m + 1))⁻¹ *
+          Complex.exp (-(h * Complex.log (Complex.I * Real.pi))) *
+          (ascPochhammer ℂ m).eval (1 + h)) 0 /
+      ((k - 2 - m).factorial : ℂ)).re
+
+/-- The digamma function `ψ = Γ'/Γ`, as the real log-derivative of `Real.Gamma`. -/
+noncomputable def psi : ℝ → ℝ := logDeriv Real.Gamma
+
+/-- sec_pip.tex line 48 (and line 106): the integrals `J_{r,j}` (`r ≥ 1`) converge, and so do the
+integrals `∫_0^∞ W_m 𝓛^r` defining `q_n`. -/
+def stmt_1 : Prop :=
+  ∀ r j m : ℕ, 1 ≤ r →
+    MeasureTheory.IntegrableOn (fun s => s ^ j * X02.calL s ^ r) (Set.Ioi 0) ∧
+    MeasureTheory.IntegrableOn (fun s => Wpoly m s * X02.calL s ^ r) (Set.Ioi 0)
+
+/-- Lemma `lem:pip:J`(i): `J_{1,j} = j! (1 - 2^{-j-1}) ζ(j+2)` for every `j`, and in particular
+`J_{1,2} = 7π⁴/360`, `J_{1,3} = 45ζ(5)/8`. -/
+def stmt_2 : Prop :=
+  (∀ j : ℕ, J 1 j = (j.factorial : ℝ) * (1 - 1 / 2 ^ (j + 1)) *
+      (riemannZeta ((j : ℂ) + 2)).re) ∧
+  J 1 2 = 7 * Real.pi ^ 4 / 360 ∧ J 1 3 = 45 * z5 / 8
+
+/-- Lemma `lem:pip:C45`: `C_4 = J_{3,0}/12 + J_{2,1}/8 = π⁴/2880` and
+`C_5 = (J_{4,0} + 2 J_{3,1})/48 = -ζ(3)π²/48 + 31ζ(5)/128`. -/
+def stmt_3 : Prop :=
+  J 3 0 / 12 + J 2 1 / 8 = Real.pi ^ 4 / 2880 ∧
+  (J 4 0 + 2 * J 3 1) / 48 = -(X02.z3 * Real.pi ^ 2 / 48) + 31 * z5 / 128
+
+/-- Lemma `lem:pip:W` for every `K`: `|W(h,sh) - Σ_{m≤K} h^m W_m(s)| ≤ C_K (h(1+s))^{K+1}` for
+`0 < h ≤ h_K`, `0 ≤ s ≤ h^{-1/2}`; and `0 < W(h,sh) ≤ 1` for `0 < h < 1`, `s ≥ 0`. -/
+def stmt_4 : Prop :=
+  (∀ K : ℕ, ∃ C h₀ : ℝ, 0 < h₀ ∧ ∀ h s : ℝ, 0 < h → h ≤ h₀ → 0 ≤ s → s ≤ 1 / Real.sqrt h →
+    |X02.W h (s * h) - ∑ m ∈ Finset.range (K + 1), h ^ m * Wpoly m s|
+      ≤ C * (h * (1 + s)) ^ (K + 1)) ∧
+  (∀ h s : ℝ, 0 < h → h < 1 → 0 ≤ s → 0 < X02.W h (s * h) ∧ X02.W h (s * h) ≤ 1)
+
+/-- sec_pip.tex lines 178 and 203–204: `W_0 = 1/2`, `W_1(s) = s/4 - log2/2`,
+`W_2(s) = log²2/4 - (log2/4) s`, `W_3(s) = -log³2/12 + (log²2/8) s - (3/16) s² - (1/48) s³`. -/
+def stmt_5 : Prop :=
+  ∀ s : ℝ,
+    Wpoly 0 s = 1 / 2 ∧
+    Wpoly 1 s = s / 4 - Real.log 2 / 2 ∧
+    Wpoly 2 s = Real.log 2 ^ 2 / 4 - Real.log 2 / 4 * s ∧
+    Wpoly 3 s = -(Real.log 2 ^ 3 / 12) + Real.log 2 ^ 2 / 8 * s - 3 / 16 * s ^ 2 - 1 / 48 * s ^ 3
+
+/-- sec_pip.tex line 118 (from eq. `eq:pip:Ehat`): for `0 < h < 1` the integrand of `Q(h)` is
+integrable and `\hat E(h) = h²/(1-h) · Q(h)`. -/
+def stmt_6 : Prop :=
+  ∀ h : ℝ, 0 < h → h < 1 →
+    MeasureTheory.IntegrableOn (fun s => X02.W h (s * h) * ((1 + Real.exp (-s)) ^ h - 1))
+      (Set.Ioi 0) ∧
+    Ehat h = h ^ 2 / (1 - h) * X02.Q h
+
+/-- Lemma `lem:pip:expansion`, the core: for every `K ≥ 1`,
+`Q(h) = Σ_{n=1}^K q_n h^n + O(h^{K+1})` as `h → 0⁺`. -/
+def stmt_7 : Prop :=
+  ∀ K : ℕ, 1 ≤ K → ∃ C h₀ : ℝ, 0 < h₀ ∧ ∀ h : ℝ, 0 < h → h ≤ h₀ →
+    |X02.Q h - ∑ n ∈ Finset.Icc 1 K, q n * h ^ n| ≤ C * h ^ (K + 1)
+
+/-- thm:pip, "the expansion continues to every order, `π_p/4 ∼ 1 + Σ_{k≥0} N_k p^{-k-1}`":
+for every `K` there are `C`, `p₀` with
+`|π_p/4 - 1 - Σ_{k=0}^K N_k p^{-k-1}| ≤ C p^{-K-2}` for `p ≥ p₀`. -/
+def stmt_8 : Prop :=
+  ∀ K : ℕ, ∃ C p₀ : ℝ, 1 < p₀ ∧ ∀ p : ℝ, p₀ ≤ p →
+    |X02.piP p / 4 - 1 - ∑ k ∈ Finset.range (K + 1), N k * (1 / p) ^ (k + 1)|
+      ≤ C * (1 / p) ^ (K + 2)
+
+/-- Lemma `prop:pip:first`: the `N_k` of `eq:pip:Nk` agree with the printed `N_0, …, N_3`. -/
+def stmt_9 : Prop :=
+  N 0 = X02.N0 ∧ N 1 = X02.N1 ∧ N 2 = X02.N2 ∧ N 3 = X02.N3
+
+/-- The complement after thm:pip (main.tex lines 1374–1375): the printed value of `N_4`. -/
+def stmt_10 : Prop :=
+  N 4 = -(Real.log 2 ^ 5 / 120)
+    + Real.pi ^ 2 / 24 * (1 - Real.log 2 + Real.log 2 ^ 2 / 2)
+    + X02.z3 / 4 * (1 - Real.log 2) + Real.pi ^ 4 / 2880
+
+/-- The complement after thm:pip (main.tex lines 1376–1378): the printed value of `N_5`. -/
+def stmt_11 : Prop :=
+  N 5 = Real.log 2 ^ 6 / 720
+    + Real.pi ^ 2 / 24 * (1 - Real.log 2 + Real.log 2 ^ 2 / 2 - Real.log 2 ^ 3 / 6)
+    + X02.z3 / 4 * (1 - Real.log 2 + Real.log 2 ^ 2 / 2)
+    + Real.pi ^ 4 / 2880 * (1 - Real.log 2)
+    - 7 * Real.pi ^ 4 / 1920 - X02.z3 * Real.pi ^ 2 / 48 + z5 / 8
+
+/-- Lemma `lem:pip:laplace` (also main.tex line 1381): for `0 < h < 1` the integrals
+`∫_0^∞ e^{-ny/h} H_n(y,h) dy` converge and
+`\hat E(h) = h Σ_{n≥1} \binom hn ∫_0^∞ e^{-ny/h} H_n(y,h) dy`. -/
+def stmt_12 : Prop :=
+  ∀ h : ℝ, 0 < h → h < 1 →
+    (∀ n : ℕ, 1 ≤ n →
+      MeasureTheory.IntegrableOn (fun y => Real.exp (-((n : ℝ) * y / h)) * Hn n y h)
+        (Set.Ioi 0)) ∧
+    HasSum (fun n : ℕ => h * binom h (n + 1) *
+        ∫ y in Set.Ioi (0 : ℝ), Real.exp (-(((n + 1 : ℕ) : ℝ) * y / h)) * Hn (n + 1) y h)
+      (Ehat h)
+
+/-- Lemma `lem:pip:hankel`, case `h = 0` (the simple poles at `±iπ`): with
+`S_0^+ + S_0^- = 1/(iπ - y) + 1/(-iπ - y) = -2y/(y² + π²)`, the Taylor coefficients of
+`R_1(y,0) = e^{2y}/(1+e^y) + 2y/(y²+π²)` at `0` satisfy `|[y^m]R_1(·,0)| ≤ C (2π)^{-m}`. -/
+def stmt_14 : Prop :=
+  ∃ C : ℝ, ∀ m : ℕ,
+    |iteratedDeriv m (fun y : ℝ => Acal y 0 + 2 * y / (y ^ 2 + Real.pi ^ 2)) 0 /
+        (m.factorial : ℝ)| ≤ C / (2 * Real.pi) ^ m
+
+end Q02

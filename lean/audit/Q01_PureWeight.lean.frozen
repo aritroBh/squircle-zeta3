@@ -1,0 +1,294 @@
+import Mathlib
+import Zeta3.Wave4.X01_RhombusDerivs
+import Zeta3.Wave4.X05_DiamondA4A5
+/-!
+# Q01 — pure weight (`thm:pw`) to every order in `τ`
+
+Target id: Q01.
+Paper labels: `thm:pw` (paper/ieee/main.tex lines 1183–1191, proof sketch lines 1193–1195,
+`τ = 1 - 1/p` from line 1181); detailed proof paper/ieee/proofs/sec_pureweight.tex
+(Lemmas `lem:pw:pure` (lines 43–49), `lem:pw:logA` (70–80), the expansion of `g` (82–83),
+`lem:pw:remainder` (85–94), `lem:pw:asymp` (98–111), `prop:pw:rhombus` (113–131), the table of
+Section `sec:pw:series` (133–153), the rhombus check (155)).
+
+Quoted verbatim.
+
+main.tex 1184–1190 (`thm:pw`):
+
+  To every finite order in $\tau$ (the full series diverges, by Theorem~\ref{thm:zero}),
+  $\log\frac{P(p)}{4\sqrt2}=\sum_{k\ge2}w_k\,\tau^k$, where each $w_k$ is a polynomial with
+  rational coefficients in $\zeta(2),\dots,\zeta(k)$, homogeneous of weight $k$. Hence the
+  coefficient of $\tau^n$ in $P$ has pure weight $n$:
+  \frac{P}{\sqrt2}=4+\zeta(2)\tau^2+\zeta(3)\tau^3-\frac{33}{16}\zeta(4)\tau^4\\
+  -\Bigl(\frac34\zeta(5)+\frac74\zeta(2)\zeta(3)\Bigr)\tau^5+O(\tau^6).
+  The same holds for every rhombus (with polynomials in $q^2$ as coefficients) and, after
+  division by the rational factor $Y_N(\tau)=...$, ... for the surface area of
+  $|x_1|^p+\dots+|x_N|^p=1$ in every dimension $N$.
+
+main.tex 1194 (proof sketch):
+
+  Put $s=\eta\sigma$ in Step~2; by Step~3, $\log A(\eta,\eta\sigma)=\sum_{n\ge2}
+  \frac{(-1)^n\zeta(n)}{n}\bigl[(\frac12+\sigma)^n+(\frac12-\sigma)^n-1\bigr]\eta^n$:
+  $\zeta(n)$ always arrives together with $\eta^n$, ...
+
+sec_pureweight.tex 39 (meaning of weight):
+
+  A real number is ``a polynomial with rational coefficients in $\zeta(2),\dots,\zeta(k)$,
+  homogeneous of weight $k$'' if it is the value of such a $c$ at $Z_j=\zeta(j)$.
+
+sec_pureweight.tex 44 (`lem:pw:pure`):
+
+  Pure series form a subring of $\mathcal R$. If $f$ is pure with $c_0=1$, then $1/f$ and
+  $\log f$ are pure. If $f$ is pure with $c_0=0$, then $\exp f$ is pure.
+
+sec_pureweight.tex 75 (`lem:pw:logA`, consequence):
+
+  Consequently $\Psi(\eta,s)=\sum_{a,b\ge0}\Psi_{ab}(\zeta)\,\eta^as^b$, where
+  $\Psi_{ab}\in\QQ[Z_2,\dots,Z_{a+b}]$ is homogeneous of weight $a+b$, $\Psi_{00}=1$, and
+  $\Psi_{ab}=0$ if $a+b=1$.
+
+sec_pureweight.tex 83 (expansion of `g`):
+
+  $g(z)=\sum_mg_m(q)z^m$ with $g_m\in\QQ[q]$ ... $g_m(-q)=(-1)^mg_m(q)$ ... The first ones
+  are $g_0=1$, $g_1=\frac q2$, $g_2=\frac14-\frac{q^2}8$ and
+  $g_4=-\frac1{96}+\frac{5q^2}{96}-\frac{5q^4}{128}$.
+
+sec_pureweight.tex 87–89 (`lem:pw:remainder`):
+
+  For $z\in\RR$ and every $M\ge1$ there is $C_M$ (depending on $q$ only through $|q|\le1$) with
+  \Bigl|g(z)-\sum_{m<M}g_mz^m\Bigr|\le C_M|z|^M\eu^{|z|/2}.
+
+sec_pureweight.tex 99–102 (`lem:pw:asymp`):
+
+  For every $M\ge1$ and $|\eta|\le\frac14$,
+  \frac{P_{A,B}(p)}{4r}=\sum_{m<M,\ m\ \mathrm{even}}g_m(q)\,\eta^m\,\partial_s^m\Psi(\eta,0)+O(|\eta|^M).
+
+sec_pureweight.tex 114–120 (`prop:pw:rhombus`):
+
+  There are $\hat c_N\in\QQ[q^2][Z_2,\dots,Z_N]$, homogeneous of weight $N$, with $\hat c_0=1$,
+  $\hat c_1=0$, such that for every $K\ge0$, as $\tau\to0^+$,
+  \frac{P_{A,B}(p)}{4r}=\sum_{N\le K}(-1)^N\hat c_N(\zeta)\,\tau^N+O(\tau^{K+1}),
+  \log\frac{P_{A,B}(p)}{4r}=\sum_{k=2}^Kw_k(q)\tau^k+O(\tau^{K+1}),
+
+sec_pureweight.tex 153 (the logarithmic coefficients):
+
+  we get $w_2=\tilde c_2=\frac14Z_2$, $w_3=\tilde c_3=\frac14Z_3$,
+  $w_4=\tilde c_4-\frac12\tilde c_2^{\,2}=-\frac14Z_2^2+\frac1{32}Z_4$ and
+  $w_5=\tilde c_5-\tilde c_2\tilde c_3=...=-\frac12Z_2Z_3-\frac3{16}Z_5$.
+
+sec_pureweight.tex 155 (rhombus check), 249 (checks):
+
+  For general $q$ the same table gives $c_2=...=\frac{(1-q^2)}4Z_2$ and
+  $c_3=...=-\frac{1-q^2}4Z_3$ ... For the rhombus: $w_2=(1-q^2)\zeta(2)/4$,
+  $w_3=(1-q^2)\zeta(3)/4$.
+
+Formalization choices.
+* `ζ(n)` is `X05.z n = (riemannZeta n).re` (imported, not redefined). For `n ≥ 2` it is real
+  and equals the series `∑_{k≥1} 1/k^n` (Mathlib `zeta_nat_eq_tsum_of_gt_one`).
+* Weight (supplement line 39): `IsZetaPoly k x` says that `x` is the value at `Z_j = ζ(j)` of a
+  rational polynomial in `Z_2, Z_3, …` all of whose monomials have weight `k` (`Z_j` has weight
+  `j`). It is written as a finite list of monomials `(c, [n_1,…,n_r])` with `c ∈ ℚ`, every
+  `n_i ≥ 2` and `n_1+…+n_r = k`, standing for `c·ζ(n_1)⋯ζ(n_r)` (so automatically `n_i ≤ k`;
+  the empty list of indices is a rational constant, of weight `0`). `IsZetaPolyQ2 k f` is the
+  same with coefficients in `ℚ[q²]`: `f(q) = Σ c · q^{2j} · ζ(n_1)⋯ζ(n_r)`, for every real `q`.
+  Since `ζ(2j) ∈ ℚ π^{2j}`, weight is a property of the representation, not of the number; the
+  statements only assert that some representation of the stated weight exists, as the paper does.
+* `P` is the library perimeter `X01.P A B` (the paper's `eq:Pint` with semi-axes `A, B`), and for
+  the squircle `X01.P 1 1`. It is the true Euclidean length of the curve by `X01.proof_3`
+  (`X01.perimeter A B p = ENNReal.ofReal (X01.P A B p)`), so all statements are about the true
+  perimeter. `r = X01.r A B = √(A²+B²)`, `q = X01.q A B = (A²-B²)/(A²+B²)`; for `A = B = 1`,
+  `4r = 4√2` and `q = 0`. `X01.I A B η = P(1/(1+η))/(4r)`.
+* `A(η,s)` (supplement: `Ψ(η,s)`) is `X05.A η s`, defined by the Beta integral.
+* `τ = tau p = 1 - 1/p`. The expansions of `thm:pw` are stated for `p > 1` and `τ ≤ τ₀`
+  (the paper's `τ → 0⁺`), with an explicit `C`: `|error| ≤ C τ^{K+1}`. The coefficients are one
+  sequence `w : ℕ → …`, chosen before `K` ("the `w_k` are the same for every `K`").
+* `P > 0` for `p > 0`, so `Real.log (P/(4r))` is a genuine logarithm.
+* `g_m(q)` is defined as the Taylor coefficient
+  `iteratedDeriv m (z ↦ √(cosh z + q sinh z)) 0 / m!`; stmt_2 records that this function is
+  `C^n` at `0` for every `n` (so the coefficients are genuine). Likewise stmt_4 records the
+  analyticity that makes the `s`- and `η`-derivatives of `A` genuine.
+* `lem:pw:pure` is about formal series; stmt_1 states its content at the level of the numbers
+  `IsZetaPoly`: closure under `+`, rational multiples, products (weights add), and the
+  coefficient form of `log` and `exp` of a series `Σ c_n τ^n`, `c_0 = 1`, `Σ w_n τ^n`, `w_0 = 0`:
+  `f = exp(w)` is equivalent (for formal series) to `f' = w' f`, i.e.
+  `n c_n = Σ_{k=1}^{n} k w_k c_{n-k}` for `n ≥ 1`.
+
+Already proved elsewhere and imported, not restated:
+* `eq:pw:P` (Step 1, the exact formula) is `X05.proof_1`; its rhombus form `eq:pw:rhombus` is
+  `X01.proof_4`.
+* Step 2 (the Beta moments) is `X05.proof_2` / `X01.proof_5`.
+* Step 3, the generating identity `log A(η,s) = Σ_{n≥2} (-1)^n ζ(n)/n [(η/2+s)^n + (η/2-s)^n
+  - η^n]` for `|η|, |s| < 1/2`, is `X05.proof_3`; the paper's form with `s = ησ` is this identity
+  at `s = ησ` (for `|η| < 1/2`, `|ησ| < 1/2`), since `(η/2 ± ησ)^n = (1/2 ± σ)^n η^n`.
+* The displayed series of `P/√2` through `τ⁵` with `O(τ⁶)` is `X05.proof_7` (eq:Pint, two-sided)
+  and `V01.proof_9` (true perimeter).
+* The case `M = 6`, `q = 0` of `lem:pw:remainder`/`lem:pw:asymp` is `X05.proof_4`/`X05.proof_5`.
+
+Statements.
+* stmt_1: `lem:pw:pure` at the level of numbers (ring closure; `log` and `exp` in coefficient form).
+* stmt_2: the coefficients `g_m(q)`: genuine Taylor coefficients, rational polynomials in `q` of
+  parity `m`, and `g_0, g_1, g_2, g_4`.
+* stmt_3: `lem:pw:remainder` for every `M ≥ 1`, uniformly in `|q| ≤ 1`.
+* stmt_4: `lem:pw:logA`, consequence: the pairing of `ζ(n)` with total degree: the `η^a` Taylor
+  coefficient of `∂_s^m A(η,0)` is of weight `a+m`; odd `s`-moments vanish.
+* stmt_5: `lem:pw:asymp` for every `M ≥ 1` and every rhombus.
+* stmt_6: `prop:pw:rhombus`, first expansion: `P_{A,B}/(4r)` to every order in `τ`, coefficients
+  in `ℚ[q²][ζ]` of pure weight.
+* stmt_7: `prop:pw:rhombus`, second expansion = third sentence of `thm:pw` for the rhombus:
+  `log(P_{A,B}/(4r))` to every order, `w_k ∈ ℚ[q²][ζ]` of weight `k`, `w_2, w_3` explicit.
+* stmt_8: the "Hence" of `thm:pw`: the coefficient of `τ^n` in `P/√2` is of pure weight `n`,
+  to every order, with constant term `4`.
+* stmt_9: `w_2, …, w_5` (supplement line 153) for the squircle, as an explicit `O(τ⁶)` bound.
+* stmt_10: `thm:pw`, first sentence, to every order, for the squircle (the final claim).
+
+NOT COVERED: the parenthetical "the full series diverges" (that is `thm:zero`, proved in Y06);
+the `N`-dimensional surface-area part with the factor `Y_N` (excluded from this target); the
+formal-series (indeterminate `Z_j`) level of `lem:pw:pure` and `lem:pw:logA` (only their
+consequences for the numbers are stated); the statement `w_k ∈ ℚ[q²][ζ]` is stated, but not
+the stronger formal identity `Σ w_k τ^k = log(Σ (-1)^N ĉ_N τ^N)` in `ℚ[q²][Z][[τ]]`; the
+numerical checks of the supplement (quadrature, `τ^{12}`); the explicit values of `w_k` for
+`k ≥ 6`.
+-/
+-- BEGIN STATEMENTS
+namespace Q01
+
+open Real
+
+/-- `τ = 1 - 1/p` (main.tex 1181). -/
+noncomputable def tau (p : ℝ) : ℝ := 1 - 1 / p
+
+/-- Supplement line 39: `x` is the value at `Z_j = ζ(j)` of a rational polynomial in
+`Z_2, Z_3, …` homogeneous of weight `k`; a monomial `(c, [n_1,…,n_r])` stands for
+`c · ζ(n_1) ⋯ ζ(n_r)` with all `n_i ≥ 2` and `n_1 + … + n_r = k`. -/
+def IsZetaPoly (k : ℕ) (x : ℝ) : Prop :=
+  ∃ L : List (ℚ × List ℕ),
+    (∀ e ∈ L, (∀ n ∈ e.2, 2 ≤ n) ∧ e.2.sum = k) ∧
+    x = (L.map fun e => (e.1 : ℝ) * (e.2.map X05.z).prod).sum
+
+/-- Supplement line 25 (`w_k ∈ ℚ[q²][ζ(2),…,ζ(k)]` of weight `k`): for every real `q`,
+`f(q) = Σ c · q^{2j} · ζ(n_1) ⋯ ζ(n_r)` (finite sum, `c ∈ ℚ`, all `n_i ≥ 2`, `Σ n_i = k`). -/
+def IsZetaPolyQ2 (k : ℕ) (f : ℝ → ℝ) : Prop :=
+  ∃ L : List (ℚ × ℕ × List ℕ),
+    (∀ e ∈ L, (∀ n ∈ e.2.2, 2 ≤ n) ∧ e.2.2.sum = k) ∧
+    ∀ x : ℝ, f x = (L.map fun e => (e.1 : ℝ) * x ^ (2 * e.2.1) * (e.2.2.map X05.z).prod).sum
+
+/-- `g_m(q)`, the Taylor coefficients at `z = 0` of `g(z) = √(cosh z + q sinh z)`
+(supplement line 83). -/
+noncomputable def gcoef (m : ℕ) (q : ℝ) : ℝ :=
+  iteratedDeriv m (fun z : ℝ => Real.sqrt (Real.cosh z + q * Real.sinh z)) 0 / (m.factorial : ℝ)
+
+/-- `lem:pw:pure` (supplement line 44) for the numbers: values of weight-homogeneous rational
+zeta polynomials are closed under sums, rational multiples and products (weights add); and if
+`Σ c_n τ^n = exp(Σ w_n τ^n)` coefficientwise (`c_0 = 1`, `w_0 = 0`,
+`n c_n = Σ_{k=1}^n k w_k c_{n-k}` for `n ≥ 1`), then the `c_n` are pure iff the `w_n` are
+(`log` and `exp` of pure series are pure). -/
+def stmt_1 : Prop :=
+  (∀ k : ℕ, ∀ x y : ℝ, IsZetaPoly k x → IsZetaPoly k y → IsZetaPoly k (x + y)) ∧
+  (∀ k : ℕ, ∀ x : ℝ, ∀ c : ℚ, IsZetaPoly k x → IsZetaPoly k ((c : ℝ) * x)) ∧
+  (∀ a b : ℕ, ∀ x y : ℝ, IsZetaPoly a x → IsZetaPoly b y → IsZetaPoly (a + b) (x * y)) ∧
+  (∀ c w : ℕ → ℝ, c 0 = 1 → w 0 = 0 →
+    (∀ n : ℕ, 1 ≤ n →
+      (n : ℝ) * c n = ∑ k ∈ Finset.Icc 1 n, (k : ℝ) * w k * c (n - k)) →
+    ((∀ n, IsZetaPoly n (c n)) → ∀ n, IsZetaPoly n (w n)) ∧
+    ((∀ n, IsZetaPoly n (w n)) → ∀ n, IsZetaPoly n (c n)))
+
+/-- Supplement line 83: `g(z) = √(cosh z + q sinh z)` is smooth at `z = 0`; its Taylor
+coefficients `g_m` are polynomials in `q` with rational coefficients, with
+`g_m(-q) = (-1)^m g_m(q)` (so `g_m ∈ ℚ[q²]` for even `m`); `g_0 = 1`, `g_1 = q/2`,
+`g_2 = 1/4 - q²/8`, `g_4 = -1/96 + 5q²/96 - 5q⁴/128`. -/
+def stmt_2 : Prop :=
+  (∀ q : ℝ, ∀ n : ℕ,
+    ContDiffAt ℝ n (fun z : ℝ => Real.sqrt (Real.cosh z + q * Real.sinh z)) 0) ∧
+  (∀ m : ℕ, ∃ Q : Polynomial ℚ, ∀ q : ℝ, gcoef m q = Polynomial.aeval q Q) ∧
+  (∀ m : ℕ, ∀ q : ℝ, gcoef m (-q) = (-1) ^ m * gcoef m q) ∧
+  (∀ q : ℝ, gcoef 0 q = 1 ∧ gcoef 1 q = q / 2 ∧ gcoef 2 q = 1 / 4 - q ^ 2 / 8 ∧
+    gcoef 4 q = -1 / 96 + 5 * q ^ 2 / 96 - 5 * q ^ 4 / 128)
+
+/-- `lem:pw:remainder` (supplement lines 87–89): for every `M ≥ 1` there is `C_M`, depending on
+`q` only through `|q| ≤ 1`, with `|g(z) - Σ_{m<M} g_m z^m| ≤ C_M |z|^M e^{|z|/2}` for real `z`. -/
+def stmt_3 : Prop :=
+  ∀ M : ℕ, 1 ≤ M → ∃ C : ℝ, ∀ q : ℝ, |q| ≤ 1 → ∀ z : ℝ,
+    |Real.sqrt (Real.cosh z + q * Real.sinh z) - ∑ m ∈ Finset.range M, gcoef m q * z ^ m|
+      ≤ C * |z| ^ M * Real.exp (|z| / 2)
+
+/-- `lem:pw:logA`, "Consequently" (supplement line 75) and the paper's "$\zeta(n)$ always arrives
+together with $\eta^n$" (main.tex 1194): for `|η| < 1/2`, `s ↦ A(η,s)` is analytic at `0`; for
+every `m`, `η ↦ ∂_s^m A(η,0)` is analytic at `0` and its `η^a` Taylor coefficient
+`m! Ψ_{a,m}` is a rational zeta polynomial homogeneous of weight `a + m`; and
+`∂_s^m A(η,0) = 0` for odd `m` (supplement line 68). -/
+def stmt_4 : Prop :=
+  (∀ η : ℝ, |η| < 1 / 2 → AnalyticAt ℝ (fun s => X05.A η s) 0) ∧
+  ∀ m : ℕ,
+    AnalyticAt ℝ (fun η => iteratedDeriv m (fun s => X05.A η s) 0) 0 ∧
+    (∀ a : ℕ, IsZetaPoly (a + m)
+      (iteratedDeriv a (fun η => iteratedDeriv m (fun s => X05.A η s) 0) 0 /
+        (a.factorial : ℝ))) ∧
+    (Odd m → ∀ η : ℝ, |η| < 1 / 2 → iteratedDeriv m (fun s => X05.A η s) 0 = 0)
+
+/-- `lem:pw:asymp` (supplement lines 99–102): for every rhombus and every `M ≥ 1`, for
+`|η| ≤ 1/4` (`p = 1/(1+η)`),
+`P_{A,B}(p)/(4r) = Σ_{m<M, m even} g_m(q) η^m ∂_s^m A(η,0) + O(|η|^M)`. -/
+def stmt_5 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ M : ℕ, 1 ≤ M → ∃ C : ℝ, ∀ η : ℝ, |η| ≤ 1 / 4 →
+    |X01.I A B η - ∑ m ∈ (Finset.range M).filter Even,
+        gcoef m (X01.q A B) * η ^ m * iteratedDeriv m (fun s => X05.A η s) 0|
+      ≤ C * |η| ^ M
+
+/-- `prop:pw:rhombus`, first expansion (supplement lines 114–117): there are coefficients
+`ĉ_N ∈ ℚ[q²][ζ(2),…,ζ(N)]`, homogeneous of weight `N` (`ĉ_0 = 1`, `ĉ_1 = 0`), the same for every
+rhombus and every order, with `P_{A,B}(p)/(4r) = Σ_{N≤K} ĉ_N(q) τ^N + O(τ^{K+1})` as `τ → 0⁺`
+(the sign `(-1)^N` of the supplement is absorbed into `ĉ_N`). -/
+def stmt_6 : Prop :=
+  ∃ c : ℕ → ℝ → ℝ, (∀ x, c 0 x = 1) ∧ (∀ x, c 1 x = 0) ∧ (∀ N, IsZetaPolyQ2 N (c N)) ∧
+    ∀ A B : ℝ, 0 < A → 0 < B → ∀ K : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧
+      ∀ p : ℝ, 1 < p → tau p ≤ τ₀ →
+        |X01.P A B p / (4 * X01.r A B) -
+            ∑ N ∈ Finset.range (K + 1), c N (X01.q A B) * tau p ^ N|
+          ≤ C * tau p ^ (K + 1)
+
+/-- `thm:pw`, "The same holds for every rhombus (with polynomials in $q^2$ as coefficients)"
+(supplement `prop:pw:rhombus`, line 118): there are `w_k ∈ ℚ[q²][ζ(2),…,ζ(k)]` homogeneous of
+weight `k`, one sequence for all rhombi and all orders, with
+`log(P_{A,B}(p)/(4r)) = Σ_{k=2}^K w_k(q) τ^k + O(τ^{K+1})` as `τ → 0⁺`; and
+`w_2 = (1-q²)ζ(2)/4`, `w_3 = (1-q²)ζ(3)/4` (supplement lines 155, 249). -/
+def stmt_7 : Prop :=
+  ∃ w : ℕ → ℝ → ℝ, (∀ k, IsZetaPolyQ2 k (w k)) ∧
+    (∀ x, w 2 x = (1 - x ^ 2) * X05.z 2 / 4 ∧ w 3 x = (1 - x ^ 2) * X05.z 3 / 4) ∧
+    ∀ A B : ℝ, 0 < A → 0 < B → ∀ K : ℕ, 2 ≤ K → ∃ C τ₀ : ℝ, 0 < τ₀ ∧
+      ∀ p : ℝ, 1 < p → tau p ≤ τ₀ →
+        |Real.log (X01.P A B p / (4 * X01.r A B)) -
+            ∑ k ∈ Finset.Icc 2 K, w k (X01.q A B) * tau p ^ k|
+          ≤ C * tau p ^ (K + 1)
+
+/-- `thm:pw`, "Hence the coefficient of $\tau^n$ in $P$ has pure weight $n$", to every order:
+there is one sequence `c_n`, `c_0 = 4`, each `c_n` a rational zeta polynomial homogeneous of
+weight `n`, with `P(p)/√2 = Σ_{n≤K} c_n τ^n + O(τ^{K+1})` as `τ → 0⁺`, for every `K`. -/
+def stmt_8 : Prop :=
+  ∃ c : ℕ → ℝ, c 0 = 4 ∧ (∀ n, IsZetaPoly n (c n)) ∧
+    ∀ K : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → tau p ≤ τ₀ →
+      |X01.P 1 1 p / Real.sqrt 2 - ∑ n ∈ Finset.range (K + 1), c n * tau p ^ n|
+        ≤ C * tau p ^ (K + 1)
+
+/-- Supplement line 153, the logarithmic coefficients of the squircle through `τ⁵`:
+`w_2 = ζ(2)/4`, `w_3 = ζ(3)/4`, `w_4 = -ζ(2)²/4 + ζ(4)/32`, `w_5 = -ζ(2)ζ(3)/2 - 3ζ(5)/16`,
+i.e. `|log(P/(4√2)) - (w_2τ² + w_3τ³ + w_4τ⁴ + w_5τ⁵)| ≤ C τ⁶` for `p > 1`, `τ ≤ τ₀`. -/
+def stmt_9 : Prop :=
+  ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → tau p ≤ τ₀ →
+    |Real.log (X01.P 1 1 p / (4 * Real.sqrt 2)) -
+        (X05.z 2 / 4 * tau p ^ 2 + X05.z 3 / 4 * tau p ^ 3
+          + (-(X05.z 2) ^ 2 / 4 + X05.z 4 / 32) * tau p ^ 4
+          + (-(X05.z 2 * X05.z 3) / 2 - 3 * X05.z 5 / 16) * tau p ^ 5)|
+      ≤ C * tau p ^ 6
+
+/-- `thm:pw`, first sentence (main.tex 1184–1185), to every finite order, for the squircle:
+there is one sequence `w_k`, each a rational polynomial in `ζ(2),…,ζ(k)` homogeneous of weight
+`k`, such that for every `K ≥ 2` there are `C`, `τ₀ > 0` with
+`|log(P(p)/(4√2)) - Σ_{k=2}^K w_k τ^k| ≤ C τ^{K+1}` for all `p > 1` with `τ = 1 - 1/p ≤ τ₀`. -/
+def stmt_10 : Prop :=
+  ∃ w : ℕ → ℝ, (∀ k, IsZetaPoly k (w k)) ∧
+    ∀ K : ℕ, 2 ≤ K → ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → tau p ≤ τ₀ →
+      |Real.log (X01.P 1 1 p / (4 * Real.sqrt 2)) -
+          ∑ k ∈ Finset.Icc 2 K, w k * tau p ^ k|
+        ≤ C * tau p ^ (K + 1)
+
+end Q01

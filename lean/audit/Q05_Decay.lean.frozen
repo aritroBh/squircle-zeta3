@@ -1,0 +1,314 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+/-!
+# Q05 -- the decay law of `M_k` (Theorem `thm:decay`, equation `eq:Mk`)
+
+Target id: Q05.
+Paper labels: `thm:decay` (paper/ieee/main.tex, lines 1287-1297), `eq:Mk` (main.tex, lines
+1276-1278), the bound on `M_k^main` (main.tex, lines 1281-1284), the definition of `M_k^main`
+(main.tex, line 1313). Detailed proof: paper/ieee/proofs/sec_g5_decay.tex (lemmas
+`g5:lem:kernels`, `g5:lem:logit`, `g5:lem:kernel`, `g5:lem:Mk`, `g5:lem:main`, `g5:lem:W`,
+`g5:lem:F`, `g5:prop:rest`, the proof of `g5:thm:decay`) and, for the main term,
+`g5:prop:main` of paper/ieee/proofs/sec_g5_varpi1.tex (line 249).
+
+Quoted verbatim (main.tex, thm:decay):
+
+  For every $k$ with $N=k+1\ge100$,
+  \Bigl|M_k+\frac{\sqrt\pi}{N}\,e^{-\sqrt{\pi N}}\cos\sqrt{\pi N}\Bigr|\le1.21\cdot10^{9}\,N^{-3/2}e^{-\sqrt{\pi N}}.
+  In particular \eqref{eq:Mk} holds.
+
+Quoted verbatim (main.tex, eq:Mk):
+
+  M_k=-\frac{\sqrt\pi}{k}\,e^{-\sqrt{\pi k}}\Bigl[\cos\sqrt{\pi k}+O\bigl(k^{-1/2}\bigr)\Bigr].
+
+Quoted verbatim (main.tex, lines 1281-1284, the bound on the main term):
+
+  A computer-assisted proof gives, for all $N\ge100$,
+  \Bigl|M_k^{\mathrm{main}}+\frac{\sqrt\pi}{N}\,e^{-\sqrt{\pi N}}\cos\sqrt{\pi N}\Bigr|\le254.23\,N^{-3/2}e^{-\sqrt{\pi N}}.
+
+Quoted verbatim (main.tex, proof idea of thm:decay):
+
+  Add the bound on $M_k^{\mathrm{main}}$ and an earlier, weaker rest bound,
+  $|M_k-M_k^{\mathrm{main}}|\le10{,}600{,}000\,e^{-2\sqrt N}$ for $N\ge100$, [...] Since
+  $2>\sqrt\pi$, the factor $e^{-(2-\sqrt\pi)\sqrt N}$ and
+  $\sup_{u>0}u^3e^{-(2-\sqrt\pi)u}=\bigl(3/(e(2-\sqrt\pi))\bigr)^3<114.1$ give
+  $1.06\cdot10^7\cdot114.1+254.23<1.21\cdot10^9$.
+
+Quoted verbatim (main.tex, line 1313):
+
+  Here $M_k^{\mathrm{main}}=\frac2\pi\operatorname{Im}\int_0^\infty H(s)e^{i\pi s/2}s^{-1}\bigl(\frac s{1+s}\bigr)^N ds$
+  with $H(s)=\frac12B(\frac s2,\frac32)$, exactly.
+
+Quoted verbatim (supplement, the lemmas; `\Lline` is the half line `{1/2 + r ω : r ≥ 0}`,
+`ω = e^{iπ/4}`, `E(s)=e^{iπs/2}`, `K(s)=1/(2cos(πs/2))`, `Q_k(s)=s^k/(1+s)^{k+1}`):
+
+  g5:lem:kernels. (a) $H(s)=\int_0^\infty\sqrt{1-\eu^{-2u}}\,\eu^{-su}\dd u$ for
+  $\operatorname{Re}s>0$, $H$ is holomorphic there, and with $x=\operatorname{Re}s$
+  |H(s)|\le\frac1x,\qquad|H(s)|\le\sqrt{\tfrac\pi2}\,x^{-3/2}.
+  Moreover $H(2n+1)=\frac{\sqrt\pi}4\,\Gamma(n+\frac12)/(n+1)!$ for $n\ge0$.
+  (b) $K$ is meromorphic with simple poles at the odd integers $2n+1$, with residue
+  $(-1)^{n+1}/\pi$ there.
+  (c) On $\Lline$: $|H|\le2$, $|E|=\eu^{-ar}$, $|K|\le2\,\eu^{-ar}$ and $|K-E|\le2\,\eu^{-3ar}$,
+  with $a=\pi/(2\sqrt2)$.
+
+  g5:lem:logit. For real $\varepsilon<1$ put $C(z)=1-\eu^{-z}/\bigl(1+\sqrt{1+\eu^{-2z}}\bigr)$ for
+  $\operatorname{Re}z\ge0$. Then
+  M(\varepsilon)=-\int_0^\infty\eu^{-x}(1+\eu^{-x})^{-1-\varepsilon}\,C\bigl((1-\varepsilon)x\bigr)\dd x ,
+  and the integral converges absolutely.
+
+  g5:lem:kernel. For every real $z\ge0$,
+  $\;C(z)=1-\frac2\pi\operatorname{Im}\int_{\Lline}H(s)K(s)\,\eu^{-sz}\,ds$, and the integral
+  converges absolutely.
+
+  (definitions) P_k(s)=\frac1{k!}\partial_\varepsilon^k\Phi(0,s)=\frac{(-1)^k}{k!}\int_0^1\frac{t^s}{1+t}\bigl(s\log t+\log(1+t)\bigr)^kdt,
+  $D(\varepsilon)=\int_0^1(1+t)^{-1-\varepsilon}dt=(1-2^{-\varepsilon})/\varepsilon$ and
+  $D_k=[\varepsilon^k]D=(-1)^k(\log2)^{k+1}/(k+1)!$.
+
+  g5:lem:Mk. For every $k\ge0$,
+  M_k=-D_k+\frac2\pi\operatorname{Im}\int_{\Lline}H(s)K(s)P_k(s)\,ds ,
+  and the integral converges absolutely.
+
+  g5:lem:main. For $k\ge1$,
+  $\displaystyle\int_0^\infty H(s)E(s)Q_k(s)\,ds=\int_0^{1/2}HEQ_k\,ds+\int_{\Lline}HEQ_k\,ds$.
+
+  g5:lem:W. Let $k\ge1$ and let $s$ satisfy $\operatorname{Re}s>0$ and $0\le\arg s\le\pi/4$.
+  Put $\rho=|s|$. Then
+  |W_k(s)|\le\frac{2\rho^k}{|s+2|^{k+1}}+2\sum_{i=1}^k\frac{2^i}{i!}\,\frac{\rho^{k-i}}{|s+i+1|^{k-i+1}} .
+  (with $W_k=P_k-Q_k$)
+
+  g5:lem:F. For an integer $j\ge0$, a real $q\ge1$ and $\lambda>0$ put
+  $\mathcal F_{j,q}(\lambda)=\int_0^\infty\eu^{-\lambda r}\rho^j|s+q|^{-j-1}dr$ with
+  $s=\frac12+r\omega\in\Lline$, $\rho=|s|$. Then
+  \mathcal F_{j,q}(\lambda)\le\frac4\lambda\exp\Bigl(\frac\lambda2+\frac{\lambda q}{\sqrt2}\Bigr)\exp\Bigl(-\sqrt{3\lambda jq/\sqrt2}\Bigr).
+
+  Constants. Put $\xi=2\eu^{\pi/4}$ and
+  B_1=\frac{64}{\pi a}\,\eu^{a/2+\pi/4},\qquad B_2=\frac{32}{3\pi a}\,\eu^{3a/2+3\pi/4},\qquad C_\star=2+B_2+B_1\bigl(\eu^{\pi/4}+\eu^{\xi}+\eu^{\mathrm e\xi}\bigr).
+
+  g5:prop:rest. For every $k$ with $N=k+1\ge100$,
+  |M_k-M_k^{\mathrm{main}}|\le{}&B_1\Bigl[\eu^{\pi/4}\eu^{-\sqrt{3\pi k/2}}+\xi\,\eu^{-\sqrt{3\pi(k-1)/2}}
+  &+(\eu^{\xi}-1-\xi)\,\eu^{-\sqrt{9\pi(k-2)/4}}+\eu^{\mathrm e\xi}\eu^{-k/2}\Bigr]+B_2\,\eu^{-\sqrt{9\pi k/4}}+2\eu^{-(N-1)/2}.
+  Consequently: (a) $|M_k-M_k^{\mathrm{main}}|\le C_\star\,\eu^{-2\sqrt N}$, and $C_\star<10{,}600{,}000$.
+
+  g5:prop:main (sec_g5_varpi1.tex). For every integer $N\ge100$,
+  $|M_k^{\mathrm{main}}+X|\le71{,}000\,N^{-2}\eu^{-\theta}$,
+  with $\theta=\sqrt{\pi N}$, $X=\frac{\sqrt\pi}N\eu^{-\theta}\operatorname{Re}\bigl[\eu^{\ii\theta}(1+\varpi_1/\sqrt N)\bigr]$,
+  $\varpi_1=\bigl[(24+12\pi+\pi^2)+\ii(24-12\pi+\pi^2)\bigr]/(48\sqrt\pi)$.
+
+  Proof of g5:thm:decay (steps used): "The function $u^3\eu^{-\delta u}$ on $u>0$ has its maximum
+  $(3/(\mathrm e\delta))^3$ at $u=3/\delta$", "$(3/(\mathrm e\delta))^3=114.0963\ldots<114.1$";
+  "$\frac{\sqrt\pi}{N^{3/2}}\eu^{-\theta}|\operatorname{Re}[\eu^{\ii\theta}\varpi_1]|\le\sqrt\pi\,|\varpi_1|\,N^{-3/2}\eu^{-\theta}\le1.494\,N^{-3/2}\eu^{-\theta}$";
+  "$\bigl(1{,}209{,}421{,}579.87+7100+1.5\bigr)N^{-3/2}\eu^{-\theta}[...]\le1.21\cdot10^9\,N^{-3/2}\eu^{-\theta}$";
+  and for eq:Mk: "\Bigl|M_k+\frac{\sqrt\pi}k\eu^{-\sqrt{\pi k}}\cos\sqrt{\pi k}\Bigr|\le\bigl(1.21\cdot10^9+\sqrt\pi\cdot1.9\bigr)k^{-3/2}\eu^{-\sqrt{\pi k}}"
+  for $k\ge99$.
+
+## Conventions
+
+* `M_k` is the real number `M k := (W02.Mk k).re`, with `W02.Mk k = -F^{(k)}(0)/(2 k!)` the
+  Taylor coefficient of `M = -F/2` (W02). Realness is not assumed: Q07.stmt_2 (old stmt_10, g5:lem:Mk) states
+  `W02.Mk k` itself, as a complex number, equal to a real number, so it contains `Im M_k = 0`.
+* For real `ε < 1`, the paper's `M(ε) = -F(ε)/2` is `-(W02.FR ε)/2`, the real integral of the
+  paper's eq:F (W02.stmt_4 shows it agrees with the holomorphic extension `W02.FC`).
+* `H s = (1/2) B(s/2, 3/2)` with Mathlib's `Complex.betaIntegral` (the Euler integral, which is
+  the Beta function for positive real parts). `E`, `K`, `Q k` as in the supplement; `K` is
+  `1/(2 cos(πs/2))` and takes Lean's junk value `0` at the poles, which no statement uses.
+* The half line `\Lline` is parametrised as `Lpt r = 1/2 + r ω`, `r > 0`, and
+  `∫_\Lline f(s) ds = ∫_{r>0} f(Lpt r) ω dr` (`lineInt`). Every line, half-line or interval
+  integral whose value is asserted is accompanied by an `Integrable`/`IntegrableOn` claim
+  ("converges absolutely"), so nothing holds through the junk value `0`.
+* `P k s` is the explicit integral of the supplement (the second expression of its definition);
+  `(t:ℂ)^s` is the principal power of a positive real `t ∈ (0,1)`.
+* `M_k^main` is `Mmain k = (2/π) Im ∫_{s>0} H(s) e^{iπs/2} s^{-1} (s/(1+s))^N ds` exactly as
+  main.tex line 1313 (real `s` cast to `ℂ`). For `k ≥ 1` its integrability follows from stmt_11
+  (g5:lem:main: integrability of `H E Q_k` on `(0,∞)` and `s^{-1}(s/(1+s))^N = Q_k(s)`).
+* `N^{-3/2}` is the real power `(N:ℝ) ^ (-(3/2) : ℝ)` of a positive base; `N^{-2}` is
+  `1 / (N:ℝ)^2`.
+* `D k = (-1)^k (log 2)^{k+1}/(k+1)!` is the closed form the supplement gives for `[ε^k]D`.
+
+## Statements (in the order: elementary first, then the supplement's order)
+
+* stmt_1: the supremum: `u^3 e^{-(2-√π)u} ≤ (3/(e(2-√π)))^3` for `u > 0`, attained at
+  `u = 3/(2-√π)`, and `(3/(e(2-√π)))^3 < 114.1`.
+* stmt_2: the arithmetic: `1.06·10^7·114.1 + 254.23 < 1.21·10^9` (paper) and
+  `10,600,000·114.1 + 7100 + 1.5 < 1.21·10^9` (supplement).
+* stmt_3: `√π |ϖ₁| ≤ 1.494`.
+* stmt_4: `C_⋆ < 10,600,000`.
+* stmt_5: g5:lem:kernels (a).
+* stmt_6: g5:lem:kernels (b).
+* stmt_7: g5:lem:kernels (c).
+* stmt_8: g5:lem:logit.
+* stmt_11: g5:lem:main (the contour shift, with the integrability of the three integrals).
+* stmt_13: g5:lem:F.
+
+## NOT COVERED
+
+* The statement "$K$ is meromorphic" is stated as: `K` is complex differentiable off the odd
+  integers, and `(s-(2n+1))K(s) → (-1)^{n+1}/π` at each odd integer (stmt_6); this gives the
+  simple poles with these residues.
+* The intermediate formula `M(ε)=-D(ε)+\frac2\pi Im∫_\Lline HKΦ(ε,s)ds` for real ε, the
+  identity `P_k = \frac1{k!}∂_ε^kΦ(0,s)`, `D(ε)=(1-2^{-ε})/ε`, and the second display of
+  g5:lem:main (the decomposition of `M_k - M_k^main` into `D_k, U_1, U_2, U_3`, which is algebra
+  from old stmt_10 (now Q07.stmt_2) and stmt_11) are not stated separately.
+* g5:prop:rest (b) (`c_rest < 120,000`, used only for thm:varpi) is not stated.
+* Lemmas g5:lem:kernel, g5:lem:Mk, g5:lem:W, Propositions g5:prop:rest and g5:prop:main and Theorem thm:decay itself were audited as stmt_9, 10, 12, 14, 15, 16, 18 and moved, unproved, to Q07_DecayRest.lean; the interval-arithmetic bound with constant 254.23 (audited as stmt_17) has no written proof in the supplement and is not stated any more (planner split, 2026-11-26).
+-/
+-- BEGIN STATEMENTS
+namespace Q05
+
+open Real MeasureTheory Set Filter
+
+/-- `M_k`, the coefficient of `1/p^{k+1}` (W02), as a real number. -/
+noncomputable def M (k : ℕ) : ℝ := (W02.Mk k).re
+
+/-- `H(s) = (1/2) B(s/2, 3/2)`. -/
+noncomputable def H (s : ℂ) : ℂ := (1 / 2) * Complex.betaIntegral (s / 2) (3 / 2)
+
+/-- `E(s) = e^{iπs/2}`. -/
+noncomputable def E (s : ℂ) : ℂ := Complex.exp (Complex.I * π * s / 2)
+
+/-- `K(s) = 1/(2 cos(πs/2))`. -/
+noncomputable def K (s : ℂ) : ℂ := 1 / (2 * Complex.cos (π * s / 2))
+
+/-- `Q_k(s) = s^k/(1+s)^{k+1}`. -/
+noncomputable def Q (k : ℕ) (s : ℂ) : ℂ := s ^ k / (1 + s) ^ (k + 1)
+
+/-- `ω = e^{iπ/4}`. -/
+noncomputable def ω : ℂ := Complex.exp (π / 4 * Complex.I)
+
+/-- The point `s = 1/2 + r ω` of the half line `\Lline`. -/
+noncomputable def Lpt (r : ℝ) : ℂ := 1 / 2 + r * ω
+
+/-- `∫_\Lline f(s) ds = ∫_0^∞ f(1/2 + rω) ω dr`. -/
+noncomputable def lineInt (f : ℂ → ℂ) : ℂ := ∫ r in Ioi (0 : ℝ), f (Lpt r) * ω
+
+/-- `a = π/(2√2)`. -/
+noncomputable def a : ℝ := π / (2 * √2)
+
+/-- `C(z) = 1 - e^{-z}/(1+√(1+e^{-2z}))`, for real `z`. -/
+noncomputable def Cf (z : ℝ) : ℝ := 1 - Real.exp (-z) / (1 + √(1 + Real.exp (-2 * z)))
+
+/-- `P_k(s) = ((-1)^k/k!) ∫_0^1 t^s/(1+t) (s log t + log(1+t))^k dt`. -/
+noncomputable def P (k : ℕ) (s : ℂ) : ℂ :=
+  (-1) ^ k / (Nat.factorial k : ℂ) *
+    ∫ t in (0 : ℝ)..1, (t : ℂ) ^ s / (1 + (t : ℂ)) *
+      (s * (Real.log t : ℂ) + (Real.log (1 + t) : ℂ)) ^ k
+
+/-- `D_k = (-1)^k (log 2)^{k+1}/(k+1)!`. -/
+noncomputable def D (k : ℕ) : ℝ := (-1) ^ k * Real.log 2 ^ (k + 1) / (Nat.factorial (k + 1) : ℝ)
+
+/-- `W_k = P_k - Q_k`. -/
+noncomputable def W (k : ℕ) (s : ℂ) : ℂ := P k s - Q k s
+
+/-- `M_k^main = (2/π) Im ∫_0^∞ H(s) e^{iπs/2} s^{-1} (s/(1+s))^N ds`, `N = k+1`. -/
+noncomputable def Mmain (k : ℕ) : ℝ :=
+  2 / π * (∫ s in Ioi (0 : ℝ), H s * E s * (s : ℂ)⁻¹ * ((s : ℂ) / (1 + s)) ^ (k + 1)).im
+
+/-- The integrand `e^{-λr} ρ^j |s+q|^{-j-1}` of `𝓕_{j,q}(λ)`, `s = 1/2 + rω`, `ρ = |s|`. -/
+noncomputable def FjqIntegrand (j : ℕ) (q l : ℝ) (r : ℝ) : ℝ :=
+  Real.exp (-l * r) * ‖Lpt r‖ ^ j / ‖Lpt r + q‖ ^ (j + 1)
+
+/-- `𝓕_{j,q}(λ) = ∫_0^∞ e^{-λr} ρ^j |s+q|^{-j-1} dr`. -/
+noncomputable def Fjq (j : ℕ) (q l : ℝ) : ℝ :=
+  ∫ r in Ioi (0 : ℝ), FjqIntegrand j q l r
+
+/-- `ξ = 2 e^{π/4}`. -/
+noncomputable def ξ : ℝ := 2 * Real.exp (π / 4)
+
+/-- `B_1 = (64/(πa)) e^{a/2+π/4}`. -/
+noncomputable def B1 : ℝ := 64 / (π * a) * Real.exp (a / 2 + π / 4)
+
+/-- `B_2 = (32/(3πa)) e^{3a/2+3π/4}`. -/
+noncomputable def B2 : ℝ := 32 / (3 * π * a) * Real.exp (3 * a / 2 + 3 * π / 4)
+
+/-- `C_⋆ = 2 + B_2 + B_1 (e^{π/4} + e^ξ + e^{eξ})`. -/
+noncomputable def Cstar : ℝ :=
+  2 + B2 + B1 * (Real.exp (π / 4) + Real.exp ξ + Real.exp (Real.exp 1 * ξ))
+
+/-- `ϖ₁ = [(24+12π+π²) + i(24-12π+π²)]/(48√π)`. -/
+noncomputable def varpi1 : ℂ :=
+  ⟨(24 + 12 * π + π ^ 2) / (48 * √π), (24 - 12 * π + π ^ 2) / (48 * √π)⟩
+
+/-- `X = (√π/N) e^{-θ} Re[e^{iθ}(1+ϖ₁/√N)]`, `θ = √(πN)`, with `N` real. -/
+noncomputable def X (N : ℝ) : ℝ :=
+  √π / N * Real.exp (-√(π * N)) *
+    (Complex.exp (Complex.I * (√(π * N) : ℝ)) * (1 + varpi1 / (√N : ℝ))).re
+
+/-- Proof of g5:thm:decay (and main.tex, proof idea): "$\sup_{u>0}u^3e^{-(2-\sqrt\pi)u}=
+\bigl(3/(e(2-\sqrt\pi))\bigr)^3<114.1$": the bound for every `u > 0`, the value at
+`u = 3/(2-√π)`, and the numerical inequality. -/
+def stmt_1 : Prop :=
+  (∀ u : ℝ, 0 < u →
+      u ^ 3 * Real.exp (-(2 - √π) * u) ≤ (3 / (Real.exp 1 * (2 - √π))) ^ 3) ∧
+    (3 / (2 - √π)) ^ 3 * Real.exp (-(2 - √π) * (3 / (2 - √π))) =
+      (3 / (Real.exp 1 * (2 - √π))) ^ 3 ∧
+    (3 / (Real.exp 1 * (2 - √π))) ^ 3 < 114.1
+
+/-- main.tex proof idea: "$1.06\cdot10^7\cdot114.1+254.23<1.21\cdot10^9$", and the sum of the
+supplement's proof with `7100` (= 71,000/10) and `1.5` in place of `254.23`. -/
+def stmt_2 : Prop :=
+  (1.06e7 : ℝ) * 114.1 + 254.23 < 1.21e9 ∧ (10600000 : ℝ) * 114.1 + 7100 + 1.5 < 1.21e9
+
+/-- Proof of g5:thm:decay, the last term: "$\sqrt\pi\,|\varpi_1|\le1.494$". -/
+def stmt_3 : Prop := √π * ‖varpi1‖ ≤ 1.494
+
+/-- g5:prop:rest (a), the constant: "$C_\star<10{,}600{,}000$". -/
+def stmt_4 : Prop := Cstar < 10600000
+
+/-- g5:lem:kernels (a): for `Re s > 0`, `H(s) = ∫_0^∞ √(1-e^{-2u}) e^{-su} du` (absolutely
+convergent), `H` is holomorphic on `Re s > 0`, `|H(s)| ≤ 1/x`, `|H(s)| ≤ √(π/2) x^{-3/2}`
+(`x = Re s`), and `H(2n+1) = (√π/4) Γ(n+1/2)/(n+1)!` for `n ≥ 0`. -/
+def stmt_5 : Prop :=
+  (∀ s : ℂ, 0 < s.re →
+      IntegrableOn (fun u : ℝ => ((√(1 - Real.exp (-2 * u)) : ℝ) : ℂ) * Complex.exp (-s * u))
+        (Ioi 0) ∧
+      H s = ∫ u in Ioi (0 : ℝ), ((√(1 - Real.exp (-2 * u)) : ℝ) : ℂ) * Complex.exp (-s * u)) ∧
+    DifferentiableOn ℂ H {s : ℂ | 0 < s.re} ∧
+    (∀ s : ℂ, 0 < s.re → ‖H s‖ ≤ 1 / s.re ∧ ‖H s‖ ≤ √(π / 2) * s.re ^ (-(3 / 2) : ℝ)) ∧
+    (∀ n : ℕ, H (2 * n + 1) =
+      ((√π / 4 * Real.Gamma (n + 1 / 2) / (Nat.factorial (n + 1) : ℝ) : ℝ) : ℂ))
+
+/-- g5:lem:kernels (b): "$K$ is meromorphic with simple poles at the odd integers $2n+1$, with
+residue $(-1)^{n+1}/\pi$ there": `K` is complex differentiable at every point that is not an
+odd integer, and `(s - (2n+1)) K(s) → (-1)^{n+1}/π` as `s → 2n+1`, `s ≠ 2n+1`, for every
+integer `n`. -/
+def stmt_6 : Prop :=
+  (∀ s : ℂ, (∀ n : ℤ, s ≠ 2 * n + 1) → DifferentiableAt ℂ K s) ∧
+    ∀ n : ℤ, Tendsto (fun s : ℂ => (s - (2 * n + 1)) * K s)
+      (nhdsWithin ((2 * n + 1 : ℂ)) {(2 * n + 1 : ℂ)}ᶜ) (nhds ((-1 : ℂ) ^ (n + 1) / π))
+
+/-- g5:lem:kernels (c): "On $\Lline$: $|H|\le2$, $|E|=\eu^{-ar}$, $|K|\le2\,\eu^{-ar}$ and
+$|K-E|\le2\,\eu^{-3ar}$, with $a=\pi/(2\sqrt2)$." -/
+def stmt_7 : Prop :=
+  ∀ r : ℝ, 0 ≤ r →
+    ‖H (Lpt r)‖ ≤ 2 ∧ ‖E (Lpt r)‖ = Real.exp (-a * r) ∧ ‖K (Lpt r)‖ ≤ 2 * Real.exp (-a * r) ∧
+      ‖K (Lpt r) - E (Lpt r)‖ ≤ 2 * Real.exp (-3 * a * r)
+
+/-- g5:lem:logit: for real `ε < 1`,
+`M(ε) = -∫_0^∞ e^{-x}(1+e^{-x})^{-1-ε} C((1-ε)x) dx`, absolutely convergent; here
+`M(ε) = -F(ε)/2` with the paper's real `F` (`W02.FR`). -/
+def stmt_8 : Prop :=
+  ∀ ε : ℝ, ε < 1 →
+    IntegrableOn
+        (fun x : ℝ => Real.exp (-x) * (1 + Real.exp (-x)) ^ (-1 - ε) * Cf ((1 - ε) * x))
+        (Ioi 0) ∧
+      -(W02.FR ε) / 2 =
+        -∫ x in Ioi (0 : ℝ), Real.exp (-x) * (1 + Real.exp (-x)) ^ (-1 - ε) * Cf ((1 - ε) * x)
+
+/-- g5:lem:main: "For $k\ge1$, $\int_0^\infty H(s)E(s)Q_k(s)\,ds=\int_0^{1/2}HEQ_k\,ds+
+\int_{\Lline}HEQ_k\,ds$", with the absolute convergence of the integrals over `(0,∞)` and over
+`\Lline`, and the identity `s^{-1}(s/(1+s))^N = Q_k(s)` linking it to `M_k^main`. -/
+def stmt_11 : Prop :=
+  ∀ k : ℕ, 1 ≤ k →
+    IntegrableOn (fun s : ℝ => H s * E s * Q k s) (Ioi 0) ∧
+      IntegrableOn (fun r : ℝ => H (Lpt r) * E (Lpt r) * Q k (Lpt r)) (Ioi 0) ∧
+      (∀ s : ℝ, 0 < s → (s : ℂ)⁻¹ * ((s : ℂ) / (1 + s)) ^ (k + 1) = Q k s) ∧
+      ∫ s in Ioi (0 : ℝ), H s * E s * Q k s =
+        (∫ s in (0 : ℝ)..(1 / 2), H s * E s * Q k s) + lineInt fun s => H s * E s * Q k s
+
+/-- g5:lem:F: for `j ≥ 0`, real `q ≥ 1`, `λ > 0`, the integral `𝓕_{j,q}(λ)` converges and
+`𝓕_{j,q}(λ) ≤ (4/λ) exp(λ/2 + λq/√2) exp(-√(3λjq/√2))`. -/
+def stmt_13 : Prop :=
+  ∀ (j : ℕ) (q l : ℝ), 1 ≤ q → 0 < l →
+    IntegrableOn (FjqIntegrand j q l) (Ioi 0) ∧
+      Fjq j q l ≤ 4 / l * Real.exp (l / 2 + l * q / √2) * Real.exp (-√(3 * l * j * q / √2))
+
+end Q05
