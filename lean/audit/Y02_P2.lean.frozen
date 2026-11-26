@@ -1,0 +1,294 @@
+import Mathlib
+import Zeta3.Wave1.T13_Lambda
+import Zeta3.Wave2.D00_Dilog
+/-!
+# Y02 -- exact length and asymptotics of Ahmed's power-law corners at every angle
+
+Target id: Y02.
+Paper labels: `thm:P2` and `thm:P2asym` (paper/ieee/main.tex, lines 1423-1460; setting and the
+definition of `Λ_ν` at lines 1408-1421; the uniformity paragraph after the theorem at line 1462).
+Detailed proofs: paper/ieee/proofs/sec_g3_P2.tex (Lemmas `g3:lem:Lam`, `g3:lem:Mellin`,
+`g3:lem:defect`, `g3:lem:gegen`, Steps 1-5 of the proof of the length formula) and
+paper/ieee/proofs/sec_g3_P2asym.tex (Lemmas `g3:lem:sums`, `g3:lem:ranges`, `g3:lem:taylor`,
+`g3:prop:unif`, `g3:prop:n3`).
+
+Quoted verbatim (main.tex, setting):
+
+  His curve is $\gamma_n(x)=x\,u+x^n\,v$, $0\le x\le1$, where $u,v$ are unit vectors with
+  $u\cdot v=c=\cos\theta$, $0\le\theta<\pi$.
+  With $\varepsilon=1/(n-1)$, his starting point is
+  \begin{gather*}
+  2-L_\theta(n)=\varepsilon n^{-\varepsilon}\int_0^nh_c(s)\,s^{\varepsilon-1}ds,\\
+  h_c(s)=1+s-\sqrt{1+2cs+s^2}.
+  \end{gather*}
+  \[
+  \Lambda_\nu(\theta)=\int_{\cos\theta}^1P_\nu(t)\dd t=2\sin^2\tfrac\theta2\;{}_2F_1\bigl(-\nu,1+\nu;2;\sin^2\tfrac\theta2\bigr).
+  \]
+
+Quoted verbatim (main.tex, thm:P2):
+
+  For $0<\varepsilon<1$,
+  \[
+  \int_0^\infty\Bigl(\sqrt{1+2cs+s^2}-s-c\Bigr)s^{\varepsilon-1}ds=\frac{\pi}{\sin\pi\varepsilon}\,\Lambda_\varepsilon(\theta),
+  \]
+  and for every $n>1$ (with removable singularities at $n=1+\frac1j$),
+  \begin{multline*}
+  L_\theta(n)=1+\cos\theta+\frac{\pi\varepsilon}{\sin\pi\varepsilon}\,\Lambda_\varepsilon(\theta)\,n^{-\varepsilon}\\
+  +\sum_{m=1}^{\infty}(-1)^m\frac{\varepsilon}{m-\varepsilon}\,\Lambda_m(\theta)\,n^{-m},
+  \end{multline*}
+  where $\Lambda_m(\theta)=\frac{P_{m-1}(\cos\theta)-P_{m+1}(\cos\theta)}{2m+1}$ is a polynomial in
+  $\cos\theta$. At $\theta=\pi/2$ this is Ahmed's exact formula.
+
+Quoted verbatim (main.tex, before and in thm:P2asym):
+
+  Expanding $\log\bigl(\frac{\pi\varepsilon}{\sin\pi\varepsilon}\Lambda_\varepsilon\bigr)=\log(2z)+\sum_ja_j\varepsilon^j$
+  with $z=\sin^2\frac\theta2$, $w=\cot^2\frac\theta2$, $\ell=\log\cos^2\frac\theta2$ and $U_\theta=w\ell$
+  gives the asymptotics.
+
+  For $0<\theta<\pi$, with $\mu_\theta=e^{a_1}$,
+  \begin{multline*}
+  L_\theta(n)=1+\cos\theta+2\sin^2\tfrac\theta2\Bigl(\frac{\mu_\theta}{n}\Bigr)^{\frac1{n-1}}\\
+  +\frac{c_2(\theta)}{n^2}+O\Bigl(\frac{\log n}{n^3}\Bigr),\qquad c_2(\theta)=2z(a_2-1+z),
+  \end{multline*}
+  where $a_1=-1-U_\theta$, $a_2=\zeta(2)+\frac12-\Li_2(z)-\frac12U_\theta^2$ and
+  $a_3=2w\,S_{1,2}(z)-\frac13(1+U_\theta^3)$, with the Nielsen polylogarithm
+  \[
+  S_{1,2}(z)=\zeta(3)-\Li_3(1-z)+\ell\,\Li_2(1-z)+\tfrac12\ell^2\log z .
+  \]
+
+Quoted verbatim (main.tex line 1462, after the theorem):
+
+  The remainder is uniform in the angle: for $n\ge9$ and every $0<\theta<\pi$ it is at most
+  $C\sin^2\frac\theta2\,\log n/n^3$ with an absolute constant $C$, and its leading part is
+  $-2z\,a_2\log n/n^3$.
+
+## Conventions
+
+* `L θ n` is the arc length the paper (and `g3:lem:defect`) gives:
+  `L_θ(n) = ∫_0^1 √(1 + 2c y + y²) dx`, `y = n x^{n-1}`, which is `∫_0^1 |γ_n'(x)| dx` because
+  `|u + y v|² = 1 + 2cy + y²` for unit `u, v` with `u·v = c`. For `n > 1` the integrand is
+  continuous on `[0,1]` (`x^{n-1}` is `rpow` with positive exponent), so the interval integral is
+  a genuine integral. Only `n > 1` is used.
+* `Λ_ν(θ)` for real `ν` is the paper's hypergeometric expression `2z ₂F₁(-ν,1+ν;2;z)`,
+  `z = sin²(θ/2)`, written as the `tsum` of `T13.lamTerm` (Mathlib has no Legendre function
+  `P_ν` for non-integer `ν`). stmt_1 asserts the series is summable for `0 ≤ θ < π`, so the
+  `tsum` is never a junk value where it is used.
+* `Λ_m(θ)` for integer `m ≥ 1` is `T13.LamInt m θ = ∫_{cos θ}^1 P_m(t) dt` (Legendre polynomial);
+  T13 proves it equals `(P_{m-1}(c) - P_{m+1}(c))/(2m+1)` and the hypergeometric series.
+* Range of θ in thm:P2: the main text states `0 ≤ θ < π` in the setting (line 1408); we use it.
+  thm:P2asym uses the paper's `0 < θ < π`.
+* `ζ(2)` is written `π^2/6` (Mathlib `riemannZeta_two`). `ζ(3)` is written `z3 := (riemannZeta 3).re`,
+  the real part of Mathlib's `riemannZeta 3`, which is real and equals `∑_{n≥1} n^{-3}`
+  (`zeta_nat_eq_tsum_of_gt_one`).
+* `Li_2 = D00.Li2` (`-∫_0^x log(1-t)/t dt`, the real dilogarithm). `Li_3` is defined here by
+  `Li_3(x) = ∫_0^x Li_2(t)/t dt` (the standard integral definition; the integrand is continuous on
+  `(0,1]` and bounded near `0`; the value `0/0 = 0` at the single point `t = 0` is irrelevant).
+* Improper integrals over `(0,∞)` and `(0,n]` are Lebesgue set integrals, and each statement
+  asserts integrability, so none holds by the "non-integrable ⇒ 0" convention.
+* `ε = 1/(n-1)`. At `ε ∈ ℕ` (i.e. `n = 1 + 1/j`) the right side of the length formula has
+  `sin(πε) = 0` and a zero denominator `m - ε`; stmt_6 excludes these points (where Lean's `x/0 = 0`
+  would make the formula meaningless), and stmt_8 states the removability as a limit.
+* The `O(log n/n³)` of thm:P2asym is stated as an explicit bound `∃ C N, ∀ n ≥ N` for real `n`
+  (stmt_14), and the uniform version of line 1462 as `∃ C, ∀ θ, ∀ n ≥ 9` (stmt_13).
+* The `a_j` are defined in the paper as Taylor coefficients of `log(R_θ(ε)/2z)`,
+  `R_θ(ε) = (πε/sin πε) Λ_ε(θ)`. We state the paper's closed forms `a_1, a_2, a_3` and assert
+  (stmt_11, stmt_12, from `g3:lem:taylor` and the proof of `g3:prop:n3`) that with these values
+  `R_θ(ε) e^{-a_1 ε} = 2z(1 + a_2 ε² + a_3 ε³ + O(ε⁴))` with the supplement's explicit constants;
+  this pins them down as the Taylor coefficients of `log(R_θ/2z)` up to order 3.
+
+## Statements
+
+* stmt_1: the series `Λ_ν(θ) = Σ_k lamTerm ν z k` converges (0 ≤ θ < π, every real ν).
+* stmt_2: `|Λ_m(θ)| ≤ min(1 - cos θ, 2/(2m+1))` for `m ≥ 1` (g3:lem:Lam(c)).
+* stmt_3: the defect formula `2 - L_θ(n) = ε n^{-ε} ∫_0^n h_c(s) s^{ε-1} ds` (g3:lem:defect).
+* stmt_4: expansion at infinity `k_c(s) = Σ_{m≥2} (-1)^m Λ_{m-1} s^{1-m}`, `s > 1` (g3:lem:gegen).
+* stmt_5: the Mellin identity of thm:P2, with integrability.
+* stmt_6: the length formula of thm:P2 as a `HasSum`, for `n > 1`, `ε ∉ ℕ`.
+* stmt_7: `n ↦ L_θ(n)` is continuous on `(1,∞)` (Step 5).
+* stmt_8: removable singularities: the right side tends to `L_θ(n₀)` at `n₀ = 1 + 1/j`.
+* stmt_9: ranges `-1 < U_θ < 0`, `-1 < a_1 < 0`, `0 < a_2 < ζ(2) + 1/2` (g3:lem:ranges).
+* stmt_10: `S_{1,2}(z) = ½ ∫_0^z log²(1-t)/t dt` (g3:lem:sums(iv)), the ζ(3) identity.
+* stmt_11: Taylor with uniform remainder: `|R e^{-a_1ε} - 2z(1 + a_2ε²)| ≤ 2z·3100 ε³`,
+  `0 < ε ≤ 1/8` (g3:lem:taylor).
+* stmt_12: one order further with `a_3`: `|R e^{-a_1ε} - 2z(1 + a_2ε² + a_3ε³)| ≤ 2z·31000 ε⁴`
+  (proof of g3:prop:n3).
+* stmt_13: uniform remainder: `∃ C, ∀ 0<θ<π, ∀ n ≥ 9, |E_n| ≤ C sin²(θ/2) log n / n³`
+  (main.tex line 1462, g3:prop:unif first claim).
+* stmt_14: thm:P2asym: for each `0 < θ < π`, `|E_n| ≤ C log n / n³` for `n ≥ N`.
+
+## NOT COVERED
+
+* The Legendre function `P_ν` for non-integer `ν` and the equality
+  `∫_{cos θ}^1 P_ν = 2z ₂F₁(-ν,1+ν;2;z)` (no `P_ν` in Mathlib; the hypergeometric form is used as
+  the definition). The ODE/uniqueness argument (g3:lem:Mellin Steps 2-5) is only a proof method.
+* "At θ = π/2 this is Ahmed's exact formula": covered in T13 (Wave1), not repeated.
+* `Λ_m` is a polynomial in `cos θ`: covered in T13 (stmt_2, stmt_3), not repeated.
+* The second half of line 1462 (`E_n = -2z a_2 log n/n³ + Δ_n`, `|Δ_n| ≤ 9000 z/n³`) and the
+  terms of order `n^{-3}`, `n^{-4}` and `a_4` ("explicit too (in our notes)"); `a_3` enters only
+  through stmt_12, not through an expansion of `L_θ(n)`.
+* Meromorphic continuation in complex `n` (only the real-variable statement of removability).
+-/
+-- BEGIN STATEMENTS
+namespace Y02
+
+open Real MeasureTheory Filter Topology
+
+/-- `ζ(3)` as a real number: the real part of Mathlib's `riemannZeta 3` (which is real). -/
+noncomputable def z3 : ℝ := (riemannZeta 3).re
+
+/-- The arc length `L_θ(n) = ∫_0^1 √(1 + 2 cos θ · n x^{n-1} + (n x^{n-1})²) dx` of
+`γ_n(x) = x u + x^n v`, `u·v = cos θ` (g3:lem:defect, first line of its proof). -/
+noncomputable def L (θ n : ℝ) : ℝ :=
+  ∫ x in (0 : ℝ)..1,
+    Real.sqrt (1 + 2 * Real.cos θ * (n * x ^ (n - 1)) + (n * x ^ (n - 1)) ^ 2)
+
+/-- `h_c(s) = 1 + s - √(1 + 2cs + s²)`. -/
+noncomputable def h (c s : ℝ) : ℝ := 1 + s - Real.sqrt (1 + 2 * c * s + s ^ 2)
+
+/-- `k_c(s) = √(1 + 2cs + s²) - s - c` (the integrand of the first identity). -/
+noncomputable def k (c s : ℝ) : ℝ := Real.sqrt (1 + 2 * c * s + s ^ 2) - s - c
+
+/-- `Λ_ν(θ) = 2z ₂F₁(-ν,1+ν;2;z)`, `z = sin²(θ/2)`, as the sum of the series `T13.lamTerm`
+(summable by stmt_1). -/
+noncomputable def Lam (ν θ : ℝ) : ℝ := ∑' j : ℕ, T13.lamTerm ν (Real.sin (θ / 2) ^ 2) j
+
+/-- `ε = 1/(n-1)`. -/
+noncomputable def eps (n : ℝ) : ℝ := 1 / (n - 1)
+
+/-- The `m`-th term (`m = i+1`) of the series in thm:P2:
+`(-1)^m ε/(m-ε) Λ_m(θ) n^{-m}`. -/
+noncomputable def serTerm (θ n : ℝ) (i : ℕ) : ℝ :=
+  (-1 : ℝ) ^ (i + 1) * (eps n / ((i + 1 : ℝ) - eps n)) * T13.LamInt (i + 1) θ / n ^ (i + 1)
+
+/-- The right side of the length formula of thm:P2. -/
+noncomputable def RHS (θ n : ℝ) : ℝ :=
+  1 + Real.cos θ + π * eps n / Real.sin (π * eps n) * Lam (eps n) θ * n ^ (-eps n)
+    + ∑' i : ℕ, serTerm θ n i
+
+/-- `Li_3(x) = ∫_0^x Li_2(t)/t dt`. -/
+noncomputable def Li3 (x : ℝ) : ℝ := ∫ t in (0 : ℝ)..x, D00.Li2 t / t
+
+/-- `z = sin²(θ/2)`. -/
+noncomputable def zz (θ : ℝ) : ℝ := Real.sin (θ / 2) ^ 2
+
+/-- `w = cot²(θ/2) = (1-z)/z`. -/
+noncomputable def ww (θ : ℝ) : ℝ := (1 - zz θ) / zz θ
+
+/-- `ℓ = log cos²(θ/2) = log(1-z)`. -/
+noncomputable def ell (θ : ℝ) : ℝ := Real.log (1 - zz θ)
+
+/-- `U_θ = w ℓ`. -/
+noncomputable def U (θ : ℝ) : ℝ := ww θ * ell θ
+
+/-- `a_1 = -1 - U_θ`. -/
+noncomputable def a1 (θ : ℝ) : ℝ := -1 - U θ
+
+/-- `a_2 = ζ(2) + 1/2 - Li_2(z) - U_θ²/2`, with `ζ(2) = π²/6`. -/
+noncomputable def a2 (θ : ℝ) : ℝ := π ^ 2 / 6 + 1 / 2 - D00.Li2 (zz θ) - U θ ^ 2 / 2
+
+/-- Nielsen `S_{1,2}(z) = ζ(3) - Li_3(1-z) + ℓ Li_2(1-z) + ½ ℓ² log z`. -/
+noncomputable def S12 (θ : ℝ) : ℝ :=
+  z3 - Li3 (1 - zz θ) + ell θ * D00.Li2 (1 - zz θ) + ell θ ^ 2 * Real.log (zz θ) / 2
+
+/-- `a_3 = 2w S_{1,2}(z) - (1 + U_θ³)/3`. -/
+noncomputable def a3 (θ : ℝ) : ℝ := 2 * ww θ * S12 θ - (1 + U θ ^ 3) / 3
+
+/-- `μ_θ = e^{a_1}`. -/
+noncomputable def mu (θ : ℝ) : ℝ := Real.exp (a1 θ)
+
+/-- `c_2(θ) = 2z(a_2 - 1 + z)`. -/
+noncomputable def c2 (θ : ℝ) : ℝ := 2 * zz θ * (a2 θ - 1 + zz θ)
+
+/-- `R_θ(ε) = (πε/sin πε) Λ_ε(θ)`. -/
+noncomputable def R (θ ε : ℝ) : ℝ := π * ε / Real.sin (π * ε) * Lam ε θ
+
+/-- The remainder `E_n = L_θ(n) - [1 + cos θ + 2z(μ_θ/n)^{1/(n-1)} + c_2(θ)/n²]`. -/
+noncomputable def E (θ n : ℝ) : ℝ :=
+  L θ n - (1 + Real.cos θ + 2 * zz θ * (mu θ / n) ^ (1 / (n - 1)) + c2 θ / n ^ 2)
+
+/-- g3:lem:Lam(a): the hypergeometric series defining `Λ_ν(θ)` converges, `0 ≤ θ < π`. -/
+def stmt_1 : Prop :=
+  ∀ ν θ : ℝ, 0 ≤ θ → θ < π → Summable (fun j : ℕ => T13.lamTerm ν (Real.sin (θ / 2) ^ 2) j)
+
+/-- g3:lem:Lam(c): `|Λ_m(θ)| ≤ min(1-c, 2/(2m+1))` for integers `m ≥ 1`. -/
+def stmt_2 : Prop :=
+  ∀ m : ℕ, 1 ≤ m → ∀ θ : ℝ, 0 ≤ θ → θ < π →
+    |T13.LamInt m θ| ≤ min (1 - Real.cos θ) (2 / (2 * (m : ℝ) + 1))
+
+/-- main.tex 1414 / g3:lem:defect: `2 - L_θ(n) = ε n^{-ε} ∫_0^n h_c(s) s^{ε-1} ds`, `n > 1`
+(with integrability of the integrand on `(0,n]`). -/
+def stmt_3 : Prop :=
+  ∀ θ n : ℝ, 0 ≤ θ → θ < π → 1 < n →
+    IntegrableOn (fun s => h (Real.cos θ) s * s ^ (eps n - 1)) (Set.Ioc 0 n) ∧
+    2 - L θ n = eps n * n ^ (-eps n) *
+      ∫ s in Set.Ioc 0 n, h (Real.cos θ) s * s ^ (eps n - 1)
+
+/-- g3:lem:gegen: for `s > 1`, `k_c(s) = Σ_{m≥2} (-1)^m Λ_{m-1}(θ) s^{1-m}`
+(index `i = m - 2`; `(-1)^m = (-1)^i`). -/
+def stmt_4 : Prop :=
+  ∀ θ s : ℝ, 0 ≤ θ → θ < π → 1 < s →
+    HasSum (fun i : ℕ => (-1 : ℝ) ^ i * T13.LamInt (i + 1) θ / s ^ (i + 1)) (k (Real.cos θ) s)
+
+/-- thm:P2, first identity: for `0 < ε < 1`,
+`∫_0^∞ (√(1+2cs+s²) - s - c) s^{ε-1} ds = (π/sin πε) Λ_ε(θ)`, the integral converging. -/
+def stmt_5 : Prop :=
+  ∀ θ ε : ℝ, 0 ≤ θ → θ < π → 0 < ε → ε < 1 →
+    IntegrableOn (fun s => k (Real.cos θ) s * s ^ (ε - 1)) (Set.Ioi 0) ∧
+    ∫ s in Set.Ioi 0, k (Real.cos θ) s * s ^ (ε - 1) = π / Real.sin (π * ε) * Lam ε θ
+
+/-- thm:P2, length formula, for `n > 1` with `ε = 1/(n-1) ∉ ℕ`:
+`L_θ(n) = 1 + cos θ + (πε/sin πε) Λ_ε(θ) n^{-ε} + Σ_{m≥1} (-1)^m ε/(m-ε) Λ_m(θ) n^{-m}`. -/
+def stmt_6 : Prop :=
+  ∀ θ n : ℝ, 0 ≤ θ → θ < π → 1 < n → (∀ j : ℕ, eps n ≠ j) →
+    HasSum (serTerm θ n)
+      (L θ n - (1 + Real.cos θ + π * eps n / Real.sin (π * eps n) * Lam (eps n) θ * n ^ (-eps n)))
+
+/-- Step 5 of the proof of thm:P2: `L_θ(n)` is continuous in `n > 1`. -/
+def stmt_7 : Prop :=
+  ∀ θ : ℝ, 0 ≤ θ → θ < π → ContinuousOn (L θ) (Set.Ioi 1)
+
+/-- thm:P2, "with removable singularities at $n=1+\frac1j$": at `n₀ = 1 + 1/j` the right side of
+the length formula tends to `L_θ(n₀)`. -/
+def stmt_8 : Prop :=
+  ∀ θ : ℝ, 0 ≤ θ → θ < π → ∀ j : ℕ, 1 ≤ j →
+    Tendsto (RHS θ) (𝓝[≠] (1 + 1 / (j : ℝ))) (𝓝 (L θ (1 + 1 / (j : ℝ))))
+
+/-- g3:lem:ranges: `-1 < U_θ < 0`, `-1 < a_1 < 0` (so `μ_θ ∈ (e^{-1},1)`), and
+`0 < a_2 < ζ(2) + 1/2`, for `0 < θ < π`. -/
+def stmt_9 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < π →
+    -1 < U θ ∧ U θ < 0 ∧ -1 < a1 θ ∧ a1 θ < 0 ∧ 0 < a2 θ ∧ a2 θ < π ^ 2 / 6 + 1 / 2
+
+/-- g3:lem:sums(iv), last claim: the closed form
+`S_{1,2}(z) = ζ(3) - Li_3(1-z) + ℓ Li_2(1-z) + ½ℓ² log z` equals `½ ∫_0^z log²(1-t)/t dt`. -/
+def stmt_10 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < π →
+    S12 θ = (1 / 2) * ∫ t in (0 : ℝ)..zz θ, Real.log (1 - t) ^ 2 / t
+
+/-- g3:lem:taylor (the `a_1, a_2` of the theorem are the Taylor coefficients of
+`log(R_θ/2z)`): `R_θ(ε) e^{-a_1 ε} = 2z(1 + a_2 ε² + ρ)`, `|ρ| ≤ 3100 ε³` for `0 < ε ≤ 1/8`. -/
+def stmt_11 : Prop :=
+  ∀ θ ε : ℝ, 0 < θ → θ < π → 0 < ε → ε ≤ 1 / 8 →
+    |R θ ε * Real.exp (-(a1 θ * ε)) - 2 * zz θ * (1 + a2 θ * ε ^ 2)| ≤ 2 * zz θ * (3100 * ε ^ 3)
+
+/-- Proof of g3:prop:n3 (the `a_3` of the theorem is the next Taylor coefficient):
+`R_θ(ε) e^{-a_1 ε} = 2z(1 + a_2 ε² + a_3 ε³ + ρ₄)`, `|ρ₄| ≤ 31000 ε⁴` for `0 < ε ≤ 1/8`. -/
+def stmt_12 : Prop :=
+  ∀ θ ε : ℝ, 0 < θ → θ < π → 0 < ε → ε ≤ 1 / 8 →
+    |R θ ε * Real.exp (-(a1 θ * ε)) - 2 * zz θ * (1 + a2 θ * ε ^ 2 + a3 θ * ε ^ 3)|
+      ≤ 2 * zz θ * (31000 * ε ^ 4)
+
+/-- main.tex line 1462 / g3:prop:unif: the remainder is uniform in the angle,
+`|E_n| ≤ C sin²(θ/2) log n / n³` for `n ≥ 9`, `0 < θ < π`, with an absolute constant `C`. -/
+def stmt_13 : Prop :=
+  ∃ C : ℝ, ∀ θ n : ℝ, 0 < θ → θ < π → 9 ≤ n →
+    |E θ n| ≤ C * Real.sin (θ / 2) ^ 2 * Real.log n / n ^ 3
+
+/-- thm:P2asym: for `0 < θ < π`,
+`L_θ(n) = 1 + cos θ + 2 sin²(θ/2) (μ_θ/n)^{1/(n-1)} + c_2(θ)/n² + O(log n / n³)`. -/
+def stmt_14 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < π → ∃ C N : ℝ, ∀ n : ℝ, N ≤ n →
+    |L θ n - (1 + Real.cos θ + 2 * Real.sin (θ / 2) ^ 2 * (mu θ / n) ^ (1 / (n - 1))
+        + c2 θ / n ^ 2)| ≤ C * Real.log n / n ^ 3
+
+end Y02

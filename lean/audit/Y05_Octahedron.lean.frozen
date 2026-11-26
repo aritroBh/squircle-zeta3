@@ -1,0 +1,296 @@
+import Mathlib
+import Zeta3.Wave1.T09_OctSeries
+import Zeta3.Wave4.X05_DiamondA4A5
+/-!
+# Y05 — the octahedron end of the superellipsoid (paper label `thm:oct`)
+
+Target id: Y05.
+Paper labels: `thm:oct` (main.tex lines 1975–1990, setup line 1973, remarks lines 1992–1993),
+the superellipsoid `|x|^p+|y|^p+|z|^p=1` of Section `sec:surfaces` (main.tex line 1909),
+`thm:pw` for `N = 3` (main.tex lines 1183–1195, the factor `Y_3 = 1/(2-p)`), and the detailed
+proofs: paper/ieee/proofs/sec_g7_octa.tex (Lemmas `g7:lem:both`, `g7:lem:X2`, `g7:lem:w23`,
+`g7:lem:dcoef`, the machine step `g7:sec:machine`) and paper/ieee/proofs/sec_pureweight.tex,
+Section `sec:pw:n` (equation `eq:pw:Sn`, Lemma `lem:pw:dirichlet`, the centring and
+equation `eq:pw:factor`, the flat-face factor, Lemmas `lem:pw:X`, `lem:pw:moments`).
+
+Quoted verbatim.
+
+main.tex 1909:
+
+  The three-dimensional squircle is the superellipsoid $|x|^p+|y|^p+|z|^p=1$
+  (Fig.~\ref{fig:superellipsoid}). Its surface area $S(p)$ goes from $4\sqrt3$ (the octahedron,
+  $p=1$) through $4\pi$ (the sphere) to $24$ (the cube).
+
+main.tex 1973 (setup):
+
+  Let's write $d=p-1$, as at the diamond, and $\tau=1-\frac1p=\frac d{1+d}$, and $[d^k]S$ for
+  the coefficient of $d^k$ in $S(1+d)$.
+
+main.tex 1975–1990 (`thm:oct`):
+
+  As $d\to0$ from either side,
+  \frac{S(1+d)}{4\sqrt3}=1+d+\Bigl(1-\frac{\pi^2}{9}\Bigr)d^2+\Bigl(1+\frac{\pi^2}{9}
+  -\frac{16\zeta(3)}{9}\Bigr)d^3
+  +\Bigl(1-\frac{2\pi^2}{9}+\frac{32\zeta(3)}{9}-\frac{16\pi^4}{405}\Bigr)d^4+O(d^5),
+  and for every $k$, $[d^k]S$ is $4\sqrt3$ times a polynomial with rational coefficients in
+  $\zeta(2),\dots,\zeta(k)$ of weight at most $k$. Moreover
+  \log\frac{(2-p)\,S(p)}{4\sqrt3}=-\frac{\pi^2}{9}\tau^2-\frac{16\zeta(3)}{9}\tau^3
+  -\frac{37\pi^4}{810}\tau^4-\frac{160\zeta(5)}{27}\tau^5
+  +\Bigl(\frac{16}{81}\zeta(3)^2-\frac{572}{76545}\pi^6\Bigr)\tau^6+O(\tau^7),
+  where the coefficient of $\tau^k$ is a polynomial in $\zeta(2),\dots,\zeta(k)$, homogeneous of
+  weight $k$.
+
+main.tex 1990 (text after the theorem, the face integral):
+
+  The area of the first-octant face is, exactly, $(1-\tau)^2=p^{-2}$ times the integral over the
+  triangle $t_1,t_2\ge0$, $t_1+t_2\le1$ of
+  $(t_1t_2t_3)^{-\tau}(t_1^{2\tau}+t_2^{2\tau}+t_3^{2\tau})^{1/2}$, with $t_i=x_i^p$,
+  $t_3=1-t_1-t_2$ and $\tau=1-\frac1p$.
+
+sec_pureweight.tex, `eq:pw:Sn` (with `n = 3`):
+
+  S_n(p)=2^n\varepsilon^{n-1}\int_\Delta\Bigl(\prod_{i=1}^nt_i\Bigr)^{-\tau}
+  \Bigl(\sum_{i=1}^nt_i^{2\tau}\Bigr)^{1/2}dt_1\cdots dt_{n-1},
+  $\Delta=\{t_i\ge0,\ \sum_{i<n}t_i\le1\}$. The integral converges since $\tau<1$.
+
+sec_pureweight.tex, graph-area derivation of `eq:pw:Sn`:
+
+  That part is the graph $x_n=(1-\sum_{i<n}x_i^p)^{1/p}$ over
+  $\{x_i\ge0,\ \sum_{i<n}x_i^p\le1\}$. ... the area element is
+  $\sqrt{1+\sum_{i<n}\bigl(\partial_ix_n\bigr)^2}\,dx$ ...
+
+sec_pureweight.tex, centring and Lemma `lem:pw:dirichlet` (`n = 3`, `a = -2τ/3`):
+
+  S_n(p)=2^n\sqrt n\,\varepsilon^{n-1}\frac{\Gamma(1+a)^n}{\Gamma(n-(n-1)\tau)}\,B_n(\tau),
+  \qquad B_n(\tau)=\E\bigl[f(\tau,m(G))\bigr],
+  where $G_1,\dots,G_n$ are independent with density $g^a\eu^{-g}/\Gamma(1+a)$ on $(0,\infty)$
+  and $m_i(G)=\log G_i-\frac1n\sum_j\log G_j$;
+  $f(\tau,m)=\bigl(\frac1n\sum_i\eu^{2\tau m_i}\bigr)^{1/2}$.
+
+sec_pureweight.tex, flat-face factor:
+
+  $\Gamma(1+a)^n/\Gamma(1-(n-1)\tau)=\exp\bigl(\sum_{k\ge2}\lambda_k\zeta(k)\tau^k\bigr)$ with
+  $\lambda_k=-\frac{(n-1)^k(1-n^{1-k})}k\in\QQ$.
+
+sec_g7_octa.tex, proof of Lemma `g7:lem:w23`:
+
+  \E[Y]=\frac{\Gamma\bigl(1+a+2\tau(1-\frac1n)\bigr)\,\Gamma\bigl(1+a-\frac{2\tau}n\bigr)^{n-1}}
+  {\Gamma(1+a)^n}.
+
+sec_g7_octa.tex, Lemma `lem:pw:moments` / machine step (`|ν| = s`, `c_v = ν_v - s/3`):
+
+  \E\bigl[\eu^{2\tau\sum_{l\in S}m_{i_l}}\bigr]=\prod_{v=1}^n
+  \frac{\Gamma\bigl(1+a+2\tau c_v\bigr)}{\Gamma(1+a)}
+
+sec_g7_octa.tex, Lemma `g7:lem:X2`:
+
+  \Bigl|B_n(\tau)-\sum_{j\le J}\binom{1/2}j\E[X^j]\Bigr|\le C_J'\,|\tau|^{2J+2}
+  \qquad(|\tau|\le\tau_{J+1}).
+
+sec_g7_octa.tex, Lemma `g7:lem:w23` (`n = 3`): $w_2(3)=-\frac23Z_2$ and
+$w_3(3)=-\frac{16}9Z_3$, that is $-\frac{\pi^2}9$ and $-\frac{16\zeta(3)}9$ at $\tau^2$ and
+$\tau^3$.
+
+Formalization choices.
+* `ζ(n)` is `X05.z n = (riemannZeta n).re` (imported from `Zeta3.Wave4.X05_DiamondA4A5`), the
+  real part of Mathlib's complex `riemannZeta`; for `n ≥ 2` it is real and equals
+  `∑ 1/k^n` (`zeta_nat_eq_tsum_of_gt_one`). `ζ(2)`, `ζ(4)`, `ζ(6)` are written as powers of `π`,
+  as the paper does.
+* The truncated series of `thm:oct` through order 4 are `T09.dSeries (X05.z 3) d` and
+  `T09.logSeries (X05.z 3) τ` (imported from `Zeta3.Wave1.T09_OctSeries`, which also proved
+  that the `d`-series follows from the `τ`-series); they are exactly the displays quoted above,
+  truncated after `d^4` resp. `τ^4`.
+* DEFINITION OF `S`. `S p` is DEFINED as the paper's exact face integral `eq:pw:Sn` for `n = 3`:
+  `S(p) = 8 (1/p)^2 ∫_Δ (t₁t₂t₃)^{-τ} (t₁^{2τ}+t₂^{2τ}+t₃^{2τ})^{1/2} dt₁dt₂`, `t₃ = 1-t₁-t₂`,
+  `τ = 1 - 1/p`, `Δ = {t₁,t₂ ≥ 0, t₁+t₂ ≤ 1}` (Lebesgue measure on `ℝ × ℝ`, Bochner integral).
+  stmt_1 says the integrand is integrable for every `p > 0`, so the integral is not a junk
+  value. stmt_2 says `S` equals `8` times the classical graph-area integral
+  `∬ √(1 + (∂₁x₃)² + (∂₂x₃)²)` of the first-octant piece `x₃ = (1-x₁^p-x₂^p)^{1/p}`
+  (the paper's derivation of `eq:pw:Sn`). Boundary points of `Δ` (where `0^x`-conventions of
+  `rpow` and `deriv`-junk could matter) form a null set.
+* `τ = 1 - 1/p`, `a = -2τ/3` (`n = 3`). The Gamma-variable expectation
+  `E_τ[F] = Γ(1+a)^{-3} ∫_{(0,∞)^3} (g₁g₂g₃)^a e^{-(g₁+g₂+g₃)} F(g) dg` is `gammaE τ F`.
+  `Ymean τ g = (g₁^{2τ}+g₂^{2τ}+g₃^{2τ}) / (3 (g₁g₂g₃)^{2τ/3})` is the paper's
+  `Y = (1/3) Σ e^{2τ m_i}` (since `e^{2τ m_i} = g_i^{2τ}/(g₁g₂g₃)^{2τ/3}`), and the bending
+  factor is `B τ = E_τ[√Y]`. `X = Y - 1`.
+* `O(·)` claims are explicit: `∃ C δ, 0 < δ ∧ ∀ … , |var| ≤ δ → |error| ≤ C |var|^k`, for both
+  signs of the variable ("as `d → 0` from either side"). In the `τ`-statements `p > 0` ranges
+  over a two-sided neighbourhood of `1` via `|1 - 1/p| ≤ δ`. The `log` is `Real.log`; near
+  `p = 1` its argument is positive (it is `≈ 1`), so the statements are not true by the
+  `log 0 = 0` convention (the `τ²` term is nonzero).
+* `Y_3 = 1/(2-p)`: `(2-p) S(p)/(4√3) = Γ(1+a)^3/Γ(1-2τ) · B(τ)` follows from stmt_3 by
+  `Γ(3-2τ) = (2-2τ)(1-2τ)Γ(1-2τ)` and `1-2τ = (2-p)/p`.
+
+Statements.
+* stmt_1: integrability of the face integrand on `Δ` for every `p > 0` ("The integral converges
+  since τ<1"; both signs of `τ`, sec_g7_octa.tex proof of `g7:lem:both`).
+* stmt_2: `S(p)` equals `8 ×` the graph-area integral of the first-octant piece, `p > 0`.
+* stmt_3: Dirichlet–Gamma factorization with centring:
+  `S(p) = 8√3 (1/p)² Γ(1+a)³/Γ(3-2τ) · B(τ)`, `p > 0`.
+* stmt_4: flat-face factor: `log(Γ(1+a)³/Γ(1-2τ)) = Σ_{k≥2} λ_k ζ(k) τ^k`,
+  `λ_k = -2^k(1-3^{1-k})/k`, for `|τ| < 1/2` (HasSum).
+* stmt_5: `E[Y] = Γ(1+2τ/3) Γ(1-4τ/3)² / Γ(1-2τ/3)³` for `|τ| < 3/4` (proof of `g7:lem:w23`).
+* stmt_6: `E[Y²] = (3 Γ(1+2τ) Γ(1-2τ)² + 6 Γ(1-2τ)) / (9 Γ(1-2τ/3)³)` for `|τ| < 1/2`
+  (Lemma `lem:pw:moments` with `j = 2`: multiplicity vectors `2e_i` and `e_i+e_j`).
+* stmt_7: Lemma `g7:lem:X2` with `J = 2`: `|B - (1 + E[X]/2 - E[X²]/8)| ≤ C τ⁶`.
+* stmt_8: Lemma `g7:lem:w23` (`n = 3`), the hand-proved part:
+  `log((2-p)S/(4√3)) = -π²/9 τ² - 16ζ(3)/9 τ³ + O(τ⁴)`.
+* stmt_9: the hand-proved `d`-coefficients `d⁰,…,d³` (sec_g7_octa.tex "What is proved here"):
+  `S(1+d)/(4√3) = 1 + d + (1-π²/9)d² + (1+π²/9-16ζ(3)/9)d³ + O(d⁴)`.
+* stmt_10: the target claim: the `d`-series through `d⁴` with `O(d⁵)` AND the `log` series
+  through `τ⁴` with `O(τ⁵)`.
+* stmt_11: `thm:oct` at full strength for its analytic part: the `d`-series through `d⁴` with
+  `O(d⁵)` AND the `log` series through `τ⁶` with `O(τ⁷)` (`ζ(5)`, `ζ(3)²`, `π⁶` terms).
+
+NOT COVERED:
+* That `S(p)` as defined is the surface area (2-dimensional Hausdorff measure) of
+  `{|x|^p+|y|^p+|z|^p = 1}`: the 8-fold symmetry reduction, the null coordinate planes, and the
+  identification of the graph-area integral with Hausdorff measure. Only the graph-area formula
+  for the first-octant piece is stated (stmt_2).
+* The weight claims: "for every `k`, `[d^k]S` is `4√3` times a polynomial with rational
+  coefficients in `ζ(2),…,ζ(k)` of weight at most `k`", and "the coefficient of `τ^k` is a
+  polynomial in `ζ(2),…,ζ(k)`, homogeneous of weight `k`" (formal-polynomial statements for all
+  `k`; also the all-orders existence of the expansion, Lemma `g7:lem:both` for general `K`).
+* The general-`J` form of Lemma `g7:lem:X2`, the general Lemma `lem:pw:moments`, and the
+  formal Lemma `g7:lem:Eformal`; only `J = 2`, `j ≤ 2` are stated.
+* Other dimensions `N ≠ 3` (cross-polytope, `w_2(n)`, `w_3(n)`, the `ζ(3)`-coefficient
+  `-(N²-1)((N-1)³-2)/(3N²)`), the values `S(2) = 4π`, `S(∞) = 24`, the remark
+  `[d^1]S = S(1)`, the `τ⁷` and higher coefficients, and the divergence / Borel statements of
+  the text after the theorem.
+-/
+-- BEGIN STATEMENTS
+namespace Y05
+
+/-- The triangle `Δ = {t₁, t₂ ≥ 0, t₁ + t₂ ≤ 1}` in `ℝ × ℝ`. -/
+def Δ : Set (ℝ × ℝ) := {t | 0 ≤ t.1 ∧ 0 ≤ t.2 ∧ t.1 + t.2 ≤ 1}
+
+/-- The integrand of `eq:pw:Sn` (`n = 3`):
+`(t₁t₂t₃)^{-τ} (t₁^{2τ}+t₂^{2τ}+t₃^{2τ})^{1/2}`, with `t₃ = 1 - t₁ - t₂`. -/
+noncomputable def faceIntegrand (τ : ℝ) (t : ℝ × ℝ) : ℝ :=
+  (t.1 * t.2 * (1 - t.1 - t.2)) ^ (-τ) *
+    Real.sqrt (t.1 ^ (2 * τ) + t.2 ^ (2 * τ) + (1 - t.1 - t.2) ^ (2 * τ))
+
+/-- The surface area `S(p)` of `|x|^p+|y|^p+|z|^p = 1`, DEFINED by the paper's exact formula
+`eq:pw:Sn` (`n = 3`): `S(p) = 8 (1/p)² ∫_Δ faceIntegrand (1 - 1/p)`. -/
+noncomputable def S (p : ℝ) : ℝ :=
+  8 * (1 / p) ^ 2 * ∫ t in Δ, faceIntegrand (1 - 1 / p) t
+
+/-- The first-octant piece of the surface as a graph: `x₃ = (1 - x₁^p - x₂^p)^{1/p}`. -/
+noncomputable def zgraph (p x₁ x₂ : ℝ) : ℝ := (1 - x₁ ^ p - x₂ ^ p) ^ (1 / p)
+
+/-- Its domain `{x₁, x₂ ≥ 0, x₁^p + x₂^p ≤ 1}`. -/
+def D (p : ℝ) : Set (ℝ × ℝ) := {x | 0 ≤ x.1 ∧ 0 ≤ x.2 ∧ x.1 ^ p + x.2 ^ p ≤ 1}
+
+/-- The graph-area element `√(1 + (∂₁x₃)² + (∂₂x₃)²)`. -/
+noncomputable def areaElt (p : ℝ) (x : ℝ × ℝ) : ℝ :=
+  Real.sqrt (1 + (deriv (fun u => zgraph p u x.2) x.1) ^ 2
+    + (deriv (fun v => zgraph p x.1 v) x.2) ^ 2)
+
+/-- `Y = (1/3) Σ_i e^{2τ m_i}` written in the Gamma variables `g = (g₁, g₂, g₃)`:
+`(g₁^{2τ}+g₂^{2τ}+g₃^{2τ}) / (3 (g₁g₂g₃)^{2τ/3})`. -/
+noncomputable def Ymean (τ : ℝ) (g : ℝ × ℝ × ℝ) : ℝ :=
+  (g.1 ^ (2 * τ) + g.2.1 ^ (2 * τ) + g.2.2 ^ (2 * τ)) /
+    (3 * (g.1 * g.2.1 * g.2.2) ^ (2 * τ / 3))
+
+/-- The expectation over independent `G₁, G₂, G₃` with density `g^a e^{-g}/Γ(1+a)` on
+`(0,∞)`, `a = -2τ/3`. -/
+noncomputable def gammaE (τ : ℝ) (F : ℝ × ℝ × ℝ → ℝ) : ℝ :=
+  (Real.Gamma (1 - 2 * τ / 3) ^ 3)⁻¹ *
+    ∫ g in Set.Ioi (0 : ℝ) ×ˢ Set.Ioi (0 : ℝ) ×ˢ Set.Ioi (0 : ℝ),
+      (g.1 * g.2.1 * g.2.2) ^ (-2 * τ / 3) * Real.exp (-(g.1 + g.2.1 + g.2.2)) * F g
+
+/-- The bending factor `B₃(τ) = E[√Y]`. -/
+noncomputable def B (τ : ℝ) : ℝ := gammaE τ (fun g => Real.sqrt (Ymean τ g))
+
+/-- sec_pureweight.tex after `eq:pw:Sn` ("The integral converges since τ<1"; both signs of `τ`
+in the proof of `g7:lem:both`): for every `p > 0` the face integrand is integrable on `Δ`. -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, 0 < p → MeasureTheory.IntegrableOn (faceIntegrand (1 - 1 / p)) Δ
+
+/-- sec_pureweight.tex, derivation of `eq:pw:Sn`: for `p > 0`, `S(p)` is `8` times the
+graph-area integral `∬_{D} √(1 + (∂₁x₃)² + (∂₂x₃)²)` of `x₃ = (1-x₁^p-x₂^p)^{1/p}`
+(and that integrand is integrable). -/
+def stmt_2 : Prop :=
+  ∀ p : ℝ, 0 < p →
+    MeasureTheory.IntegrableOn (areaElt p) (D p) ∧ S p = 8 * ∫ x in D p, areaElt p x
+
+/-- sec_pureweight.tex, Lemma `lem:pw:dirichlet` and the centring (`n = 3`): for `p > 0`,
+`τ = 1 - 1/p`, `a = -2τ/3`: `S(p) = 8√3 (1/p)² Γ(1+a)³ / Γ(3-2τ) · B₃(τ)`. -/
+def stmt_3 : Prop :=
+  ∀ p : ℝ, 0 < p →
+    S p = 8 * Real.sqrt 3 * (1 / p) ^ 2 * Real.Gamma (1 - 2 * (1 - 1 / p) / 3) ^ 3
+      / Real.Gamma (3 - 2 * (1 - 1 / p)) * B (1 - 1 / p)
+
+/-- sec_pureweight.tex, the flat-face factor (`n = 3`): for `|τ| < 1/2`,
+`log(Γ(1-2τ/3)³/Γ(1-2τ)) = Σ_{k≥2} λ_k ζ(k) τ^k` with `λ_k = -2^k (1 - 3^{1-k})/k`
+(Euler's `γ` cancels). -/
+def stmt_4 : Prop :=
+  ∀ τ : ℝ, |τ| < 1 / 2 →
+    HasSum (fun k : ℕ => -(2 ^ (k + 2) * (1 - 1 / (3 : ℝ) ^ (k + 1))) / ((k + 2 : ℕ) : ℝ)
+        * X05.z (k + 2) * τ ^ (k + 2))
+      (Real.log (Real.Gamma (1 - 2 * τ / 3) ^ 3 / Real.Gamma (1 - 2 * τ)))
+
+/-- sec_g7_octa.tex, proof of Lemma `g7:lem:w23` (`n = 3`):
+`E[Y] = Γ(1+a+4τ/3) Γ(1+a-2τ/3)² / Γ(1+a)³ = Γ(1+2τ/3) Γ(1-4τ/3)² / Γ(1-2τ/3)³`,
+for `|τ| < 3/4`. -/
+def stmt_5 : Prop :=
+  ∀ τ : ℝ, |τ| < 3 / 4 →
+    gammaE τ (Ymean τ) =
+      Real.Gamma (1 + 2 * τ / 3) * Real.Gamma (1 - 4 * τ / 3) ^ 2 / Real.Gamma (1 - 2 * τ / 3) ^ 3
+
+/-- sec_pureweight.tex, Lemma `lem:pw:moments` for `j = 2` (`n = 3`; multiplicity vectors
+`2eᵢ`, `c = (4/3,-2/3,-2/3)`, and `eᵢ+eⱼ`, `c = (1/3,1/3,-2/3)`): for `|τ| < 1/2`,
+`E[Y²] = (3 Γ(1+2τ) Γ(1-2τ)² + 6 Γ(1)² Γ(1-2τ)) / (9 Γ(1-2τ/3)³)`. -/
+def stmt_6 : Prop :=
+  ∀ τ : ℝ, |τ| < 1 / 2 →
+    gammaE τ (fun g => Ymean τ g ^ 2) =
+      (3 * Real.Gamma (1 + 2 * τ) * Real.Gamma (1 - 2 * τ) ^ 2 + 6 * Real.Gamma (1 - 2 * τ))
+        / (9 * Real.Gamma (1 - 2 * τ / 3) ^ 3)
+
+/-- sec_g7_octa.tex, Lemma `g7:lem:X2` with `J = 2` (`n = 3`), both signs of `τ`:
+`|B₃(τ) - (1 + E[X]/2 - E[X²]/8)| ≤ C |τ|⁶` for `|τ| ≤ δ`, `X = Y - 1`. -/
+def stmt_7 : Prop :=
+  ∃ C δ : ℝ, 0 < δ ∧ ∀ τ : ℝ, |τ| ≤ δ →
+    |B τ - (1 + gammaE τ (fun g => Ymean τ g - 1) / 2
+        - gammaE τ (fun g => (Ymean τ g - 1) ^ 2) / 8)| ≤ C * |τ| ^ 6
+
+/-- sec_g7_octa.tex, Lemma `g7:lem:w23` for `n = 3` with Lemma `g7:lem:both` (`K = 3`), the
+hand-proved part: `log((2-p)S(p)/(4√3)) = -π²/9 τ² - 16ζ(3)/9 τ³ + O(τ⁴)`, both signs. -/
+def stmt_8 : Prop :=
+  ∃ C δ : ℝ, 0 < δ ∧ ∀ p : ℝ, 0 < p → |1 - 1 / p| ≤ δ →
+    |Real.log ((2 - p) * S p / (4 * Real.sqrt 3))
+        - (-(Real.pi ^ 2 / 9) * (1 - 1 / p) ^ 2 - 16 * X05.z 3 / 9 * (1 - 1 / p) ^ 3)|
+      ≤ C * |1 - 1 / p| ^ 4
+
+/-- sec_g7_octa.tex ("the coefficients of `d⁰,d¹,d²,d³` in dimension 3" by hand):
+`S(1+d)/(4√3) = 1 + d + (1-π²/9)d² + (1+π²/9-16ζ(3)/9)d³ + O(d⁴)` as `d → 0`, both sides. -/
+def stmt_9 : Prop :=
+  ∃ C δ : ℝ, 0 < δ ∧ ∀ d : ℝ, |d| ≤ δ →
+    |S (1 + d) / (4 * Real.sqrt 3)
+        - (1 + d + (1 - Real.pi ^ 2 / 9) * d ^ 2
+            + (1 + Real.pi ^ 2 / 9 - 16 * X05.z 3 / 9) * d ^ 3)| ≤ C * |d| ^ 4
+
+/-- `thm:oct` through order 4 (the target claim): as `d → 0` from either side,
+`S(1+d)/(4√3) = 1 + d + (1-π²/9)d² + (1+π²/9-16ζ(3)/9)d³
+  + (1-2π²/9+32ζ(3)/9-16π⁴/405)d⁴ + O(d⁵)` (`= T09.dSeries`), and
+`log((2-p)S(p)/(4√3)) = -π²/9 τ² - 16ζ(3)/9 τ³ - 37π⁴/810 τ⁴ + O(τ⁵)` (`= T09.logSeries`). -/
+def stmt_10 : Prop :=
+  (∃ C δ : ℝ, 0 < δ ∧ ∀ d : ℝ, |d| ≤ δ →
+    |S (1 + d) / (4 * Real.sqrt 3) - T09.dSeries (X05.z 3) d| ≤ C * |d| ^ 5) ∧
+  (∃ C δ : ℝ, 0 < δ ∧ ∀ p : ℝ, 0 < p → |1 - 1 / p| ≤ δ →
+    |Real.log ((2 - p) * S p / (4 * Real.sqrt 3)) - T09.logSeries (X05.z 3) (1 - 1 / p)|
+      ≤ C * |1 - 1 / p| ^ 5)
+
+/-- `thm:oct` at full strength (its analytic part): the `d`-series through `d⁴` with `O(d⁵)`,
+and `log((2-p)S(p)/(4√3)) = -π²/9 τ² - 16ζ(3)/9 τ³ - 37π⁴/810 τ⁴ - 160ζ(5)/27 τ⁵
+  + (16/81 ζ(3)² - 572/76545 π⁶) τ⁶ + O(τ⁷)`, both signs of `τ`. -/
+def stmt_11 : Prop :=
+  (∃ C δ : ℝ, 0 < δ ∧ ∀ d : ℝ, |d| ≤ δ →
+    |S (1 + d) / (4 * Real.sqrt 3) - T09.dSeries (X05.z 3) d| ≤ C * |d| ^ 5) ∧
+  (∃ C δ : ℝ, 0 < δ ∧ ∀ p : ℝ, 0 < p → |1 - 1 / p| ≤ δ →
+    |Real.log ((2 - p) * S p / (4 * Real.sqrt 3))
+        - (T09.logSeries (X05.z 3) (1 - 1 / p) - 160 * X05.z 5 / 27 * (1 - 1 / p) ^ 5
+          + (16 / 81 * X05.z 3 ^ 2 - 572 / 76545 * Real.pi ^ 6) * (1 - 1 / p) ^ 6)|
+      ≤ C * |1 - 1 / p| ^ 7)
+
+end Y05

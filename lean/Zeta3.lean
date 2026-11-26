@@ -29,3 +29,10 @@ import Zeta3.Wave4.X02_PiP
 import Zeta3.Wave4.X03_RulerConvergence
 import Zeta3.Wave4.X04_PolyFirstDeriv
 import Zeta3.Wave4.X05_DiamondA4A5
+import Zeta3.Wave4.X06_Xnyn
+import Zeta3.Wave5.Y01_M2
+import Zeta3.Wave5.Y02_P2
+import Zeta3.Wave5.Y03_GraphAngle
+import Zeta3.Wave5.Y04_Fourier
+import Zeta3.Wave5.Y05_Octahedron
+import Zeta3.Wave5.Y06_RadiusZero

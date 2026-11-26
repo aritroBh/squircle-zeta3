@@ -1,0 +1,213 @@
+import Mathlib
+import Zeta3.Wave3.W01_GraphLength
+/-!
+# Y03 -- the graph of `x u + f(x)^n v` at every angle
+
+Target id: Y03.
+Paper label: `thm:fnangle` (paper/ieee/main.tex, lines 1849-1855), with the setting and the
+definitions of `u, v, θ, h_c, S_θ, k_1(θ)` in main.tex lines 1833-1847.
+Detailed proof: paper/ieee/proofs/sec_g7_fnangle.tex (setting lines 5-10, theorem lines 13-19,
+Lemma `g7:lem:phi` lines 58-72, Lemma `g7:lem:law` lines 74-92, Lemma `g7:lem:layer`
+lines 96-107, proof of the theorem lines 109-131).
+The orthogonal case (`θ = π/2`, `thm:fn`) is `Zeta3.Wave3.W01_GraphLength`; its definitions
+`W01.Hyp`, `W01.D`, `W01.yd`, `W01.levelMeasure`, `W01.L`, `W01.φ` are reused here, not redefined.
+
+Quoted verbatim (main.tex 1833):
+
+  Take the curve $x\,u+f(x)^n\,v$ of Section~\ref{sec:corners}-A, where $u,v$ are unit vectors
+  with $u\cdot v=c=\cos\theta$, $0<\theta<\pi$, and $f$ is as in Theorem~\ref{thm:fn}. With
+  $y=f^n$ and $h_c$ as in Section~\ref{sec:corners}-A, the length lost is
+  $2-L_n=\int_0^1h_c(y')\,dx$.
+
+Quoted verbatim (main.tex 1834-1837):
+
+  \[
+  2-L_n=\int_0^\infty h_c'(s)\,m_y(s)\,ds=(1-\cos\theta)\,\mathbb E\bigl[m_y(S_\theta)\bigr].
+  \]
+  Here $h_c'(s)=1-(s+c)/\sqrt{1+2cs+s^2}$ is a density of total mass $1-\cos\theta$, and
+  $S_\theta$ has this density divided by its mass:
+  $\mathbb P(S_\theta>s)=\bigl(\sqrt{1+2cs+s^2}-s-c\bigr)/(1-c)$.
+
+Quoted verbatim (main.tex 1841-1843, the value of `k_1`):
+
+  ... the cumulants of $\log(1/S_\theta)$ are $k_j(\theta)=(-1)^jj!\,a_j$. ...
+  k_1&=1+\cot^2\tfrac\theta2\,\log\cos^2\tfrac\theta2,
+
+Quoted verbatim (main.tex 1849-1857):
+
+  \begin{theorem}[The graph of $x\,u+f(x)^n\,v$ at every angle$^\dagger$]\label{thm:fnangle}
+  With $u,v,\theta$ and $f$ as above and $y=f^n$, $2-L_n=(1-\cos\theta)\,\mathbb E[m_y(S_\theta)]$,
+  and
+  \begin{multline*}
+  2-L_n=\frac{(1-\cos\theta)\bigl(\log n+\log f'(1)+k_1(\theta)\bigr)}{f'(1)\,(n-1)}\\
+  +O\bigl(n^{-2}\log^2n\bigr).
+  \end{multline*}
+  \end{theorem}
+  ... At $\theta=\frac\pi2$ this is Theorem~\ref{thm:fn} ...
+
+Quoted verbatim (sec_g7_fnangle.tex 6, 8, 10, the setting):
+
+  Put $y=y_n=f^n$, let $L_n$ be the length of the curve $x\mapsto x\,u+y(x)\,v$, $0\le x\le1$,
+  and let $m_y(s)=|\{x\in[0,1]:y'(x)>s\}|$. Put
+  $h_c(s)=1+s-\sqrt{1+2cs+s^2},\qquad \varphi_\theta(s)=h_c'(s)=1-\frac{s+c}{\sqrt{1+2cs+s^2}}$
+  ... The number $k_1(\theta)$ of the statement is the mean of $\log(1/S_\theta)$ ...
+  $O(\cdot)$ refers to $n\to\infty$ with constants that depend on $f$ and $\theta$.
+
+Quoted verbatim (sec_g7_fnangle.tex 59-61, Lemma `g7:lem:phi` (a),(b)):
+
+  (a) $\varphi_\theta(s)=\dfrac{1-c^2}{r(s)\,(r(s)+s+c)}>0$, ... $\varphi_\theta(0)=1-c$. So
+  $0<\varphi_\theta\le1-c$, and $\int_0^\infty\varphi_\theta\dd s=1-c$.
+  (b) For $s\ge1$, $\varphi_\theta(s)\le C_\theta s^{-2}$ with $C_\theta=\frac{1+|c|}{2(1-|c|)}$.
+
+Quoted verbatim (sec_g7_fnangle.tex 75, 79, Lemma `g7:lem:law` (a),(c), the part used):
+
+  $\E[|\log S_\theta|^q]<\infty$ for every $q\ge0$. ...
+  In particular $k_1=-a_1=1+\cot^2\frac\theta2\log\cos^2\frac\theta2$
+
+Quoted verbatim (sec_g7_fnangle.tex 99, Lemma `g7:lem:layer`):
+
+  $2-L=\int_0^1h_c(y'(x))\dd x=\int_0^\infty\varphi_\theta(s)\,m_y(s)\dd s
+  =(1-\cos\theta)\,\E[m_y(S_\theta)]$.
+
+## Formalization choices
+
+* `u, v` live in the Euclidean plane `EuclideanSpace ℝ (Fin 2)`, with `‖u‖ = ‖v‖ = 1` and
+  `inner ℝ u v = cos θ`, `0 < θ < π`. (Nothing depends on the dimension.)
+* `f`, `n`, `y_n' = W01.yd f n` (the derivative within `[0,1]`), `m_y = W01.levelMeasure` and the
+  hypotheses `W01.Hyp f` (`f ∈ C^1[0,1]` nondecreasing, `f(0)=0`, `f(1)=1`, `f'(1)>0`, `f ∈ C^2`
+  near `1`) are exactly those of W01 (`thm:fn`), as the paper says ("$f$ is as in
+  Theorem~\ref{thm:fn}"). `n : ℕ`, `f x ^ n` is the natural power.
+* Length. `L u v f n = ∫_0^1 ‖u + y_n'(x) v‖ dx`, the integral of the speed of the `C^1` curve
+  `x ↦ x u + y_n(x) v` (the supplement, line 104: "the length of a $C^1$ arc is the integral of
+  the speed"). The integrand is continuous on `[0,1]`, so this is never the "non-integrable ⇒ 0"
+  convention. At `θ = π/2` (`inner u v = 0`) this is `W01.L f n` (stmt_4).
+* `φθ c s = 1 - (s+c)/√(1+2cs+s²)` is the paper's `h_c'(s)`; for `|c| < 1` the radicand is
+  `(s+c)² + 1 - c² > 0`, so `Real.sqrt` is the honest square root.
+* `E[m_y(S_θ)]` is written out as `∫_0^∞ (φθ(s)/(1-c)) m_y(s) ds`, the expectation for the density
+  `φθ/(1-c)` of `S_θ` (`1 - c > 0`); the integrability is stated with it.
+* `k_1(θ) = 1 + cot²(θ/2) log cos²(θ/2)` (`Real.cot`; `cos(θ/2) > 0` for `0 < θ < π`). Its meaning
+  as the mean of `log(1/S_θ)` is stmt_2: `∫_0^∞ φθ(s) log s ds = -(1-c) k_1(θ)`.
+* The `O(n^{-2} log² n)` is explicit: `∃ C N, ∀ n ≥ N, |error| ≤ C (log n)² / n²`, with `C, N`
+  allowed to depend on `θ, u, v, f` (the supplement: "constants that depend on $f$ and $\theta$").
+* The layer-cake lemma (stmt_3) is stated for `y ∈ C^1[0,1]` nondecreasing with `y(1)-y(0)=1`
+  (the hypotheses of W01.stmt_3), which covers `y = f^n`; the supplement's Lemma `g7:lem:layer`
+  allows `y ∈ C^1[0,1)` only, a generality the theorem does not use.
+
+## Check at `θ = π/2`
+
+`cos(π/2) = 0`, so `1 - cos θ = 1`, `φθ 0 = W01.φ`, `L u v f n = W01.L f n` for orthonormal `u,v`,
+and `k_1(π/2) = 1 + cot²(π/4) log cos²(π/4) = 1 + log(1/2) = 1 - log 2` (stmt_4). Hence stmt_6 at
+`θ = π/2` is literally `W01.stmt_6`, and stmt_5 at `θ = π/2` is W01's layer-cake identity for
+`f^n` (density `W01.φ`, mass 1).
+
+## Statements
+
+* stmt_1: Lemma `g7:lem:phi` (a),(b) and the tail of `S_θ`: `φθ = (1-c²)/(r(r+s+c))`, `0 < φθ ≤ 1-c`,
+  `φθ(s) ≤ C_θ/s²` for `s ≥ 1`, `∫_s^∞ φθ = √(1+2cs+s²) - s - c` for `s ≥ 0`, so total mass `1-c`.
+* stmt_2: Lemma `g7:lem:law`, the part used: `φθ log`, `φθ log²` integrable on `(0,∞)` and
+  `E[log(1/S_θ)] = k_1(θ)`, i.e. `∫ φθ log = -(1-c) k_1(θ)`.
+* stmt_3: Lemma `g7:lem:layer`: `2 - L = ∫_0^1 h_c(y') = ∫_0^∞ φθ m_y` (integrable).
+* stmt_4: the reduction at `θ = π/2`: `φθ 0 = W01.φ`, `k_1(π/2) = 1 - log 2`, and the length at
+  orthogonal unit vectors is `W01.L`.
+* stmt_5: the first claim of `thm:fnangle`: `2 - L_n = (1 - cos θ) E[m_{y_n}(S_θ)]`, for `n ≥ 1`.
+* stmt_6: the second claim of `thm:fnangle`, with explicit `C, N`.
+
+## NOT COVERED
+
+* The Mellin transform `E[S_θ^w] = (πw/sin πw) Λ_w(θ)/(1-cos θ)`, the representation
+  `S_θ = cos²(θ/2)/U - cos θ - sin²(θ/2) U`, the cumulants `k_2, k_3`, the geometric mean
+  `e^{a_1}`, the expansion `ε J_1 + ε² J_2 + ε³ J_3 + O(ε⁴ log⁴ n)` and the contact law in the
+  text after the theorem (not part of `thm:fnangle`).
+* The identification "integral of the speed = length (supremum of polygonal lengths)" is
+  explained above, not stated.
+* Uniformity of the constants in `θ` (the paper and the supplement do not claim it).
+-/
+-- BEGIN STATEMENTS
+namespace Y03
+
+open MeasureTheory Set Filter
+
+/-- `h_c(s) = 1 + s - √(1+2cs+s²)` (sec_g7_fnangle.tex line 8). -/
+noncomputable def hc (c s : ℝ) : ℝ := 1 + s - Real.sqrt (1 + 2 * c * s + s ^ 2)
+
+/-- `φ_θ(s) = h_c'(s) = 1 - (s+c)/√(1+2cs+s²)`, with `c = cos θ` (sec_g7_fnangle.tex line 8). -/
+noncomputable def φθ (c s : ℝ) : ℝ := 1 - (s + c) / Real.sqrt (1 + 2 * c * s + s ^ 2)
+
+/-- `k_1(θ) = 1 + cot²(θ/2) log cos²(θ/2)` (main.tex line 1843). -/
+noncomputable def k1 (θ : ℝ) : ℝ :=
+  1 + Real.cot (θ / 2) ^ 2 * Real.log (Real.cos (θ / 2) ^ 2)
+
+/-- `L_n`: the length `∫_0^1 ‖u + y_n'(x) v‖ dx` of the curve `x ↦ x u + f(x)^n v`. -/
+noncomputable def L (u v : EuclideanSpace ℝ (Fin 2)) (f : ℝ → ℝ) (n : ℕ) : ℝ :=
+  ∫ x in (0 : ℝ)..1, ‖u + W01.yd f n x • v‖
+
+/-- Lemma `g7:lem:phi` (a),(b) and `P(S_θ > s) = (√(1+2cs+s²) - s - c)/(1-c)`:
+for `0 < θ < π`, `c = cos θ`, `s ≥ 0`: `φ_θ(s) = (1-c²)/(r(r+s+c))`, `0 < φ_θ(s) ≤ 1-c`,
+`∫_s^∞ φ_θ = r(s) - s - c` (an honest integral; at `s = 0` it is the mass `1-c`), and
+`φ_θ(s) ≤ C_θ s^{-2}` for `s ≥ 1`, `C_θ = (1+|c|)/(2(1-|c|))`. -/
+def stmt_1 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < Real.pi →
+    let c := Real.cos θ
+    (∀ s : ℝ, 0 ≤ s →
+      φθ c s = (1 - c ^ 2) / (Real.sqrt (1 + 2 * c * s + s ^ 2) *
+        (Real.sqrt (1 + 2 * c * s + s ^ 2) + s + c)) ∧
+      0 < φθ c s ∧ φθ c s ≤ 1 - c ∧
+      IntegrableOn (φθ c) (Ioi s) ∧
+      ∫ t in Ioi s, φθ c t = Real.sqrt (1 + 2 * c * s + s ^ 2) - s - c) ∧
+    (∀ s : ℝ, 1 ≤ s → φθ c s ≤ (1 + |c|) / (2 * (1 - |c|)) / s ^ 2)
+
+/-- Lemma `g7:lem:law` (a),(c), the part the theorem uses: `E[log² S_θ] < ∞` and
+`E[log(1/S_θ)] = k_1(θ)`, written for the unnormalised density `φ_θ` of mass `1 - cos θ`. -/
+def stmt_2 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < Real.pi →
+    let c := Real.cos θ
+    IntegrableOn (fun s => φθ c s * Real.log s) (Ioi 0) ∧
+    IntegrableOn (fun s => φθ c s * Real.log s ^ 2) (Ioi 0) ∧
+    ∫ s in Ioi (0 : ℝ), φθ c s * Real.log s = -((1 - c) * k1 θ)
+
+/-- Lemma `g7:lem:layer` (layer cake at angle `θ`): for unit `u, v` with `u·v = cos θ`, and
+`y ∈ C^1[0,1]` nondecreasing with `y(1) - y(0) = 1`, the length `∫_0^1 ‖u + y' v‖` satisfies
+`2 - L = ∫_0^1 h_c(y') = ∫_0^∞ φ_θ(s) m_y(s) ds` (the last an honest integral). -/
+def stmt_3 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < Real.pi →
+    ∀ u v : EuclideanSpace ℝ (Fin 2), ‖u‖ = 1 → ‖v‖ = 1 → inner ℝ u v = Real.cos θ →
+    ∀ y : ℝ → ℝ, ContDiffOn ℝ 1 y (Icc 0 1) → MonotoneOn y (Icc 0 1) → y 1 - y 0 = 1 →
+      IntegrableOn (fun s => φθ (Real.cos θ) s * W01.levelMeasure (W01.D y) s) (Ioi 0) ∧
+      2 - ∫ x in (0 : ℝ)..1, ‖u + W01.D y x • v‖ =
+        ∫ x in (0 : ℝ)..1, hc (Real.cos θ) (W01.D y x) ∧
+      2 - ∫ x in (0 : ℝ)..1, ‖u + W01.D y x • v‖ =
+        ∫ s in Ioi (0 : ℝ), φθ (Real.cos θ) s * W01.levelMeasure (W01.D y) s
+
+/-- The case `θ = π/2` ("At $\theta=\frac\pi2$ this is Theorem~\ref{thm:fn}"): the density is
+W01's `φ`, `k_1(π/2) = 1 - log 2`, and for orthonormal `u, v` the length is W01's `L_n`. -/
+def stmt_4 : Prop :=
+  φθ (Real.cos (Real.pi / 2)) = W01.φ ∧ k1 (Real.pi / 2) = 1 - Real.log 2 ∧
+  ∀ u v : EuclideanSpace ℝ (Fin 2), ‖u‖ = 1 → ‖v‖ = 1 → inner ℝ u v = 0 →
+    ∀ f : ℝ → ℝ, ∀ n : ℕ, L u v f n = W01.L f n
+
+/-- `thm:fnangle`, first claim: `2 - L_n = (1 - cos θ) E[m_y(S_θ)]` for `y = f^n`, with
+`E[m_y(S_θ)] = ∫_0^∞ (φ_θ(s)/(1 - cos θ)) m_y(s) ds` an honest integral (`n ≥ 1`). -/
+def stmt_5 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < Real.pi →
+    ∀ u v : EuclideanSpace ℝ (Fin 2), ‖u‖ = 1 → ‖v‖ = 1 → inner ℝ u v = Real.cos θ →
+    ∀ f : ℝ → ℝ, W01.Hyp f → ∀ n : ℕ, 1 ≤ n →
+      IntegrableOn
+        (fun s => φθ (Real.cos θ) s / (1 - Real.cos θ) * W01.levelMeasure (W01.yd f n) s)
+        (Ioi 0) ∧
+      2 - L u v f n = (1 - Real.cos θ) *
+        ∫ s in Ioi (0 : ℝ),
+          φθ (Real.cos θ) s / (1 - Real.cos θ) * W01.levelMeasure (W01.yd f n) s
+
+/-- `thm:fnangle`, second claim:
+`2 - L_n = (1 - cos θ)(log n + log f'(1) + k_1(θ))/(f'(1)(n-1)) + O(n^{-2} log² n)`,
+with the `O` explicit (`C, N` depend on `θ, u, v, f`). -/
+def stmt_6 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < Real.pi →
+    ∀ u v : EuclideanSpace ℝ (Fin 2), ‖u‖ = 1 → ‖v‖ = 1 → inner ℝ u v = Real.cos θ →
+    ∀ f : ℝ → ℝ, W01.Hyp f →
+      ∃ C : ℝ, ∃ N : ℕ, ∀ n : ℕ, N ≤ n →
+        |(2 - L u v f n) - (1 - Real.cos θ) * (Real.log n + Real.log (W01.D f 1) + k1 θ) /
+            (W01.D f 1 * ((n : ℝ) - 1))|
+          ≤ C * Real.log n ^ 2 / (n : ℝ) ^ 2
+
+end Y03

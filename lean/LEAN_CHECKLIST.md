@@ -111,12 +111,30 @@ Files are in `lean/Zeta3/Wave4/`. Status from `tools/gate.py check`, run by the 
 | X03 | `X03_RulerConvergence` | Prop `prop:ruler`, last sentence | For every real `q≥1`: `F_q` extends holomorphically to `{Re ε<1}`; the `1/p` series of `L_q(p)/8-1` converges to it for every `p>1` | That the integral `L_q` is the `ℓ^q` length of the curve for `1<q<∞` | PROVED 7 |
 | X04 | `X04_PolyFirstDeriv` | Thm `thm:poly` | For every `m≥2`: the boundary of `K_p` is a simple closed curve of finite length `P(p)` for `p` near 1 (both sides); `K₁` is the regular `2m`-gon; the derivative of `P` at `1` is `P(1)R₁`; it is `0` only for `m=2`; it is `2√3 log 2` for the hexagon | Higher derivatives; other polygons | PROVED 15 |
 | X05 | `X05_DiamondA4A5` | Prop `prop:an`, Thm `thm:pw` (series through `τ⁵`) | `P` is smooth at `p=1`; `a₀…a₅` as true derivatives, with `a₄=-3ζ(3)-11π⁴/480+π²/2` and `a₅=-7π²ζ(3)/24+6ζ(3)-3ζ(5)/4-2π²/3+11π⁴/120` | `a₆`, `a₇`; the all-order weight claims | PROVED 11 |
-| X06 | `X06_Xnyn` | Thm `thm:xnyn` | in progress | | not finished |
+| X06 | `X06_Xnyn` | Thm `thm:xnyn` | The theorem in full, for real `n≥2`, with `A(n)` the area integral over the unit square: `|A(n)-(1+√2/n+R(n)/n²+R₃(n)/n³)| ≤ 45(1+log n)⁴/n⁴` with the six printed constants (`d₃` contains `-ζ(3)/2`); the supplement's lemmas (decomposition, Taylor coefficients of `E_g`, Mellin transform, moment identity) | The printed numerical illustrations | PROVED 16 |
 
-Totals so far: 5 files, 58 statements proved, 9093 lines of Lean. `lake build` of the whole library passes
-(18314 jobs). No statement of the paper was found false.
+Totals: 6 files, 74 statements, all 74 proved, 12668 lines of Lean. `lake build` of the whole library passes
+(18315 jobs). No statement of the paper was found false.
 
-All waves: 31 files, 211 statements, 22529 lines of Lean (X06 not counted).
+Waves 1 to 4: 32 files, 227 statements, 26104 lines of Lean.
+
+## Wave 5: results first listed as OUT
+
+Files are in `lean/Zeta3/Wave5/`. Status from `tools/gate.py check`, run by the planner on 2026-11-25.
+
+| # | File | Paper result | What Lean proved | What it does not cover | Status |
+|---|---|---|---|---|---|
+| Y01 | `Y01_M2` | Thm `thm:M2` | The theorem in full: `M₂` (the coefficient of `1/p³`, as defined in W02) equals the closed form (T1) of Table `tab:closed`, and `|M₂+0.02216191108726939942|<10⁻²⁰`. The chain: `M₂=-½∫φ₂`; the Euler substitution; `M₂=W₃+T`; `T=(π²+6λ²)/24=(ζ(2)-Li₂(½))/2`; `W₃` equals the raw table value (43 elementary integrals); its reduction with the dilogarithm relations, (I3), (Tr), (D3) and Spence–Kummer. `Li₃` is an integral with its series and `Li₃(1)=ζ(3)` | The sentence that the weight-three part "is a combination of weight three" (it is visible only in the formula); the remarks after the theorem (`Li₃(½)` basis, the 290-digit search, `eq:chi3`) | PROVED (13) |
+| Y02 | `Y02_P2` | Thm `thm:P2`, Thm `thm:P2asym` | For `0≤θ<π`: the defect formula, the expansion at infinity, the Mellin identity `∫(√(1+2cs+s²)-s-c)s^{ε-1}ds=(π/sin πε)Λ_ε(θ)`, the exact length formula as a convergent series for `ε=1/(n-1)∉ℕ`, and the removable singularities as limits. For `0<θ<π`: the ranges of `a₁,a₂`, the `ζ(3)` identity for `S_{1,2}`, Taylor bounds that fix `a₁,a₂,a₃`, the uniform bound `|E_n|≤C sin²(θ/2) log n/n³` for `n≥9`, and `thm:P2asym` with error `C log n/n³` | `P_ν` for non-integer `ν` (Mathlib has none; `Λ_ν` is the paper's hypergeometric form); the `n⁻³`, `n⁻⁴` terms; the explicit `9000z/n³` bound; continuation in complex `n` | PROVED (14) |
+| Y03 | `Y03_GraphAngle` | Thm `thm:fnangle` | The theorem in full for `0<θ<π`: the density `φ_θ`, its log moment `k₁(θ)=1+cot²(θ/2)log cos²(θ/2)`, the layer-cake identity at angle `θ`, `2-L_n=(1-cos θ)E[m_y(S_θ)]`, and the expansion with error `C log²n/n²`. At `θ=π/2` it is W01 | The Mellin transform of `S_θ`; `k₂`, `k₃`; the higher expansion after the theorem; uniformity in `θ`. Length is the speed integral, as in W01 | PROVED (6) |
+| Y04 | `Y04_Fourier` | Thm `thm:fourier` | The theorem in full: for every `k` there are `C_k`, `τ₀` with `|a_k(h_p)-(-1)^k(√2/π)[-4/(16k²-1)+ζ(2)τ²+ζ(3)τ³-(33/16+7k²)ζ(4)τ⁴]| ≤ C_k τ⁵`; with it the diamond coefficients, the layer-integral reduction, the atom integrals, Watson's expansion at `N=4`, and `J₁,J₂,J₃` | `prop:degree`, `prop:theta`; Cauchy's formula `P=∫h_p`; holomorphy in complex `τ` | PROVED (8) |
+| Y05 | `Y05_Octahedron` | Thm `thm:oct` | For `S(p)` defined as the paper's face integral `eq:pw:Sn` (`n=3`): integrability for every `p>0`; the graph-area identity for the first-octant piece; the Dirichlet–Gamma factorisation; `E[Y]`, `E[Y²]`; the `d`-series through `d⁴` with error `O(d⁵)`; the log series through `τ⁶` with error `O(τ⁷)`, with `-160ζ(5)/27` at `τ⁵` and `16ζ(3)²/81-572π⁶/76545` at `τ⁶`; both signs | That the face integral is the Hausdorff area (8-fold symmetry, null planes); the weight claims for every `k`; dimensions `N≠3`; `S(2)=4π` and the cube limit | PROVED (11) |
+| Y06 | `Y06_RadiusZero` | Thm `thm:zero` | The theorem in full for every `A,B>0`: `limsup|I_n/n!|^{1/n}=1/ρ` with `ρ=√(log²(B/A)+π²/4)`; the Taylor series of `I` and of `P` (in `η` and in `d=p-1`) diverge at every non-zero point; `P` is `C^∞` at `p=1` and not analytic there. With it the Laplace form, the coefficient formula, the zeros of `R₁,R₂`, the Cauchy bound and the exact radius of `H`, the rest bound | The continuation of `H` to the slit disk and the list of zeros in `D(0,ρ₂)` (only their consequences); explicit `C_σ`, `C'_σ`; the text after the theorem (law of `f_n`, Borel, `thm:one`) | PROVED (11) |
+
+Totals: 6 files, 63 statements, all 63 proved, 19294 lines of Lean. `lake build` of the whole library passes
+(18328 jobs). No statement of the paper was found false.
+
+Waves 1 to 5: 38 files, 290 statements, 45398 lines of Lean.
 
 ## OUT: not checkable in Lean with today's Mathlib
 
@@ -124,13 +142,13 @@ These need polylogarithms of weight ≥3, harmonic polylogarithms, multiple zeta
 theorem, or certified 300-digit arithmetic. They stay on the written proofs and independent re-checks listed in
 the verification map at the top of this repository.
 
-`thm:M2`, `thm:M3`, `thm:W4`, `thm:W4R`, `thm:wt2`, `thm:pw` (all orders), `thm:fourier`, `prop:degree`,
-`prop:theta`, `thm:zero` (main claim), `thm:one`, `thm:decay`, `thm:varpi`, `thm:pip` (all orders and growth of `N_k`),
-`thm:P2` (main claim), `thm:P2asym`, `thm:Malpha` (`M_k(α)` for `k≥2`; the `M₁(α)` formula is D04), `conj:field`, `thm:flat` (main claim), `thm:M2alpha`,
+`thm:M3`, `thm:W4`, `thm:W4R`, `thm:wt2`, `thm:pw` (all orders), `prop:degree`,
+`prop:theta`, `thm:one`, `thm:decay`, `thm:varpi`, `thm:pip` (all orders and growth of `N_k`),
+`thm:P2asym` (the `n⁻³`, `n⁻⁴` terms), `thm:Malpha` (`M_k(α)` for `k≥2`; the `M₁(α)` formula is D04), `conj:field`, `thm:flat` (main claim), `thm:M2alpha`,
 `prop:M3angle`, `thm:M4alpha`, `thm:zladder`, `thm:hexagon`, `thm:hexagon5`, `prop:octagon5depth`,
-`thm:fnangle`, `thm:S`, `thm:oct` (main claim).
+`thm:S`, `thm:oct` (the weight claims for every order, other dimensions).
 
-This list is what has not been tried or is known to need missing library. Waves 2 to 4 showed that results first
+This list is what has not been tried or is known to need missing library. Waves 2 to 5 showed that results first
 put here can be reached, so an entry here is not a proof that Lean cannot do it.
 
 ## Log
@@ -153,3 +171,15 @@ put here can be reached, so an entry here is not a proof that Lean cannot do it.
   statements open; a second run is working on them.
 - 2026-11-25: waves 2, 3 and 4 (X01 to X05) reviewed by non-Claude models (Codex GPT-6, Kimi K3, GLM-5, DeepSeek,
   Kilo's free model; Codex ran numerical spot checks). No statement had to change.
+- 2026-11-25: X06 (`thm:xnyn`) closed by a second Opus run (3575 lines). All 32 files of waves 1 to 4 pass the
+  gate; `lake build` passes. Waves 2 to 4 (without X06) pushed to the public repo in commit `48089b01`. Wave 5
+  launched (Y01 to Y06).
+- 2026-11-25: wave 5 back. Y02 (`thm:P2`, `thm:P2asym`), Y03 (`thm:fnangle`), Y04 (`thm:fourier`), Y05 (`thm:oct`)
+  and Y06 (`thm:zero`) pass the gate; `lake build` passes (18326 jobs). Y01 (`thm:M2`) has 7 of 13 statements open;
+  a second run splits them into parts proved in parallel. Statements of X06 and wave 5 sent to
+  the non-Claude reviewers.
+- 2026-11-25: Y01 (`thm:M2`) closed. Seven Opus agents proved seven parts at the same time in separate files and
+  one merged them (6231 lines). The planner's gate passes on all 38 files; `lake build` passes (18328 jobs).
+- 2026-11-25: X06 and wave 5 reviewed by non-Claude models (Codex GPT-6 with numerical checks, Kimi K3, GLM-5,
+  DeepSeek, Kilo's free model). No statement had to change. Wave 6 launched (Z01 `thm:one`, Z02 `prop:theta` Θ₅, Z03 values of
+  `prop:nonlocal`, Z04 `thm:S`).

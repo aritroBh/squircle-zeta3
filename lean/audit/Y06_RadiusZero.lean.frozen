@@ -1,0 +1,259 @@
+import Mathlib
+import Zeta3.Wave4.X01_RhombusDerivs
+/-!
+# Y06 -- radius zero at the diamond end (`thm:zero`)
+
+Target id: Y06.
+Paper label: `thm:zero` (paper/ieee/main.tex, lines 1237-1240, proof sketch 1242-1247).
+Supplement: paper/ieee/proofs/sec_g2_zero.tex (Theorem 10, Lemmas `g2:lem:z:laplace`,
+`g2:lem:z:coef`, `g2:lem:z:H`, `g2:lem:z:rest`, and "Proof of Theorem~10").
+
+Quoted verbatim (main.tex 1237-1240):
+
+  \begin{theorem}[Radius zero$^\dagger$]\label{thm:zero}
+  For every rhombus $|x/A|^p+|y/B|^p=1$, let $I(\eta)=P/(4r(1+\eta))$, with $r=\sqrt{A^2+B^2}$
+  and $\eta=\frac1p-1$, and let $I_n=[\eta^n]I(\eta)=I^{(n)}(0)/n!$ be its Taylor coefficients.
+  Then $\limsup_{n\to\infty}|I_n/n!|^{1/n}=1/\rho$ with $\rho=\sqrt{\log^2(B/A)+\pi^2/4}$.
+  In particular the Taylor series of $P$ at $p=1$, in $\eta$ or in $d$, has radius of
+  convergence $0$: $P$ is infinitely differentiable but not analytic at $p=1$.
+  \end{theorem}
+
+Quoted verbatim (sec_g2_zero.tex, the supplement's lemmas):
+
+  R_1(z)=A^2+B^2\eu^{-2z},\quad R_2(z)=B^2+A^2\eu^{-2z},
+  h_i=\frac{\sqrt{R_i}}{r},\quad H=h_1+h_2,\quad K(\eta,u)=(1+\eu^{-u})^{-2-\eta}
+  ... the Taylor coefficients of $K$ in $\eta$ are $k_j(u)=(1+\eu^{-u})^{-2}(-\ell_u)^j/j!$.
+
+  \begin{lemma}\label{g2:lem:z:laplace}
+  For $-1<\eta<1$, $I(\eta)=\int_0^\infty\eu^{-u}H(\eta u)K(\eta,u)\,du$. Also
+  $|\partial_\eta^jK(\eta,u)|=K\ell_u^j\le1$ for $\eta\ge-2$, $u\ge0$; $|k_j(u)|\le\eu^{-ju}/j!$
+  for $j\ge1$; and $0\le1-k_0(u)\le2\eu^{-u}$.
+  \end{lemma}
+
+  Write $H(z)=\sum_mH_mz^m$ ... and $\eta_D(n)=\sum_{m\ge0}(-1)^m(m+1)^{-n}$. Put
+  $M_{n,j}=\int_0^\infty\eu^{-u}u^{n-j}k_j(u)\,du$.
+  \begin{lemma}\label{g2:lem:z:coef}
+  $I\in C^\infty(-1,1)$ and $I_n=\sum_{j=0}^nH_{n-j}M_{n,j}$ for every $n\ge0$. Moreover
+  $M_{n,0}=n!\,\eta_D(n)$ for $n\ge2$, and $|M_{n,j}|\le\dfrac{(n-j)!}{j!\,(j+1)^{n-j+1}}$ for
+  $j\ge1$.
+  \end{lemma}
+
+  \begin{lemma}\label{g2:lem:z:H}
+  (a) The zeros of $R_1$ are the points $L+i\pi(k+\frac12)$, $k\in\ZZ$; those of $R_2$ are
+  $-L+i\pi(k+\frac12)$. All are simple. ...
+  (b) ... In particular $H$ is holomorphic on $D(0,\rho)$, and for every $\sigma\in(0,\rho)$,
+  $|H_m|\le C_\sigma\sigma^{-m}$ with $C_\sigma=\max_{|z|=\sigma}|H|$.
+  (c) The Taylor series of $H$ at $0$ has radius of convergence exactly $\rho$.
+  \end{lemma}
+
+  For $n\ge1$ put $E_n=\dfrac{I_n}{n!}-H_n$.
+  \begin{lemma}\label{g2:lem:z:rest}
+  For every $\sigma\in(0,\rho)$ there is $C'_\sigma$ such that $|E_n|\le C'_\sigma(2\sigma)^{-n}$
+  for all $n\ge2$. ...
+  \end{lemma}
+
+## Formalization choices
+
+* The perimeter is `X01.P A B p = (4/p) ∫_0^1 √(A^2 t^(2/p-2) + B^2 (1-t)^(2/p-2)) dt`
+  (imported from `Zeta3.Wave4.X01_RhombusDerivs`; `X01.stmt_3` there identifies it with the true
+  length of the curve), and `r = X01.r A B = √(A^2+B^2)`.
+* The paper's `I(η) = P/(4r(1+η))` is `Ieta A B η = X01.P A B (1/(1+η)) / (4 r (1+η))`. This is
+  NOT `X01.I` (which is `P/(4r)` without the factor `1+η`); it is a new object, so it gets its
+  own name. It is only used on `(-1,1)`.
+* `I_n = I^{(n)}(0)/n!` is `In A B n = iteratedDeriv n (Ieta A B) 0 / n!`; it is genuine because
+  stmt_3 asserts that `Ieta A B` is `C^∞` on `(-1,1)`. Smoothness is `ContDiffOn ℝ (⊤ : ℕ∞)`,
+  i.e. `C^∞` (NOT the `ω`/analytic level `⊤ : WithTop ℕ∞`, which would be false at `η = 0`).
+* `H` is used on the real line only, as the real function
+  `H(x) = (√(A^2+B^2e^{-2x}) + √(B^2+A^2e^{-2x}))/r` (the arguments are positive, so these are the
+  principal roots of the paper for real argument). Its Taylor coefficients are
+  `Hc A B m = H^{(m)}(0)/m!`; `H` is smooth (indeed real analytic), so they are genuine. The
+  holomorphic continuation of `H` to `D(0,ρ)` is not stated as such; its two consequences used in
+  the proof are stated instead: the Cauchy bound `|H_m| ≤ C_σ σ^{-m}` (stmt_6) and radius
+  exactly `ρ` in Cauchy--Hadamard form `limsup |H_m|^{1/m} = 1/ρ` (stmt_7).
+* The zeros of `R_1`, `R_2` (part (a)) are stated over `ℂ` with `Complex.exp`.
+* `M_{n,j}` is a Bochner integral over `(0,∞)`; its integrability is asserted (stmt_4), so
+  the junk value `0` cannot be used.
+* `η_D(n) = ∑ (-1)^m (m+1)^{-n}` is stated through `HasSum`.
+* `limsup` is `Filter.limsup` along `atTop` of the real sequence `|I_n/n!|^{1/n}` (`Real.rpow`
+  with exponent `1/n`; the base is `≥ 0`). Real `limsup` of a sequence that is not bounded above
+  is a junk value; to rule this out the final statements also assert that the sequence is
+  bounded above eventually (`IsBoundedUnder (· ≤ ·) atTop`). (The sequence is `≥ 0`, so it is
+  automatically bounded below.)
+* `ζ(3)` does not occur in this target.
+* "Radius of convergence 0" is stated as: for every `η ≠ 0` (resp. `d ≠ 0`) the Taylor series
+  `∑ c_n x^n` is not `Summable` (stmt_10, stmt_11). "Not analytic" is `¬ AnalyticAt ℝ`.
+
+Statements:
+* stmt_1: Laplace form `I(η) = ∫_0^∞ e^{-u} H(ηu) K(η,u) du` (integrable), `-1 < η < 1`.
+* stmt_2: the bounds on `K`: `|∂_η^j K| = K ℓ_u^j ≤ 1` (as the closed form of the `j`-th
+  derivative, for `η ≥ -2`, `u ≥ 0`), `|k_j(u)| ≤ e^{-ju}/j!` (`j ≥ 1`), `0 ≤ 1 - k_0 ≤ 2e^{-u}`.
+* stmt_3: `I` is `C^∞` on `(-1,1)`.
+* stmt_4: `I_n = ∑_{j=0}^n H_{n-j} M_{n,j}`, the `M_{n,j}` integrals exist,
+  `M_{n,0} = n! η_D(n)` for `n ≥ 2`, and `|M_{n,j}| ≤ (n-j)!/(j!(j+1)^{n-j+1})` for `1 ≤ j ≤ n`.
+* stmt_5: the zeros of `R_1` are `L + iπ(k+1/2)`, those of `R_2` are `-L + iπ(k+1/2)`, all simple.
+* stmt_6: Cauchy bound: for every `σ ∈ (0,ρ)` there is `C` with `|H_m| ≤ C σ^{-m}` for all `m`.
+* stmt_7: the Taylor series of `H` at `0` has radius exactly `ρ`: `limsup |H_m|^{1/m} = 1/ρ`.
+* stmt_8: the rest: for every `σ ∈ (0,ρ)` there is `C'` with `|I_n/n! - H_n| ≤ C' (2σ)^{-n}`,
+  `n ≥ 2`.
+* stmt_9: `thm:zero`, main assertion: `limsup |I_n/n!|^{1/n} = 1/ρ` (with boundedness).
+* stmt_10: corollary: `∑ I_n η^n` diverges (is not summable) for every `η ≠ 0`.
+* stmt_11: `thm:zero` in full: the limsup identity, `I` and `P` are `C^∞` at `η = 0` resp.
+  `p = 1`, the Taylor series of `P` at `p = 1` in `η` (of `η ↦ P(1/(1+η))` at `0`) and in `d`
+  (of `P` at `1`) diverge at every nonzero point, and `P` is not analytic at `p = 1`.
+
+## NOT COVERED
+
+* The holomorphic continuation of `h_1`, `h_2`, `H` to the slit disk `Ω` and the description of
+  the zeros inside `D(0,ρ_2)` (only the zero sets, simplicity, and the two consequences
+  stmt_6/stmt_7 are stated).
+* The explicit constants `C_σ = max_{|z|=σ}|H|` and
+  `C'_σ = C_σ[1 + ½∑_{j≥1}(2σ)^j/(j!)^2]` (only existence of constants is stated).
+* The bound `|H(z)| ≤ (A+B)(1+e^{-Re z})/r` on the strip and the Cauchy estimates on discs of
+  radius `π/4` (used inside the proofs only).
+* Everything after the theorem in the paper (the asymptotic law for `f_n` at `A = B`, Borel
+  summability, Padé--Borel numerics) and Theorem `thm:one`.
+-/
+-- BEGIN STATEMENTS
+namespace Y06
+
+open MeasureTheory Set Filter
+
+/-- `L = log(B/A)`. -/
+noncomputable def L (A B : ℝ) : ℝ := Real.log (B / A)
+
+/-- `ρ = √(log^2(B/A) + π^2/4)`. -/
+noncomputable def ρ (A B : ℝ) : ℝ := Real.sqrt (L A B ^ 2 + Real.pi ^ 2 / 4)
+
+/-- The paper's `I(η) = P/(4r(1+η))` with `p = 1/(1+η)` (not `X01.I`, which lacks `1+η`). -/
+noncomputable def Ieta (A B η : ℝ) : ℝ :=
+  X01.P A B (1 / (1 + η)) / (4 * X01.r A B * (1 + η))
+
+/-- The Taylor coefficients `I_n = I^{(n)}(0)/n!`. -/
+noncomputable def In (A B : ℝ) (n : ℕ) : ℝ :=
+  iteratedDeriv n (Ieta A B) 0 / (n.factorial : ℝ)
+
+/-- `H(x) = (√(A^2 + B^2 e^{-2x}) + √(B^2 + A^2 e^{-2x}))/r` on the real line. -/
+noncomputable def H (A B x : ℝ) : ℝ :=
+  (Real.sqrt (A ^ 2 + B ^ 2 * Real.exp (-2 * x)) +
+    Real.sqrt (B ^ 2 + A ^ 2 * Real.exp (-2 * x))) / X01.r A B
+
+/-- The Taylor coefficients `H_m = H^{(m)}(0)/m!` of `H` at `0`. -/
+noncomputable def Hc (A B : ℝ) (m : ℕ) : ℝ :=
+  iteratedDeriv m (H A B) 0 / (m.factorial : ℝ)
+
+/-- `K(η,u) = (1+e^{-u})^{-2-η}`. -/
+noncomputable def K (η u : ℝ) : ℝ := (1 + Real.exp (-u)) ^ (-2 - η)
+
+/-- `ℓ_u = log(1+e^{-u})`. -/
+noncomputable def ell (u : ℝ) : ℝ := Real.log (1 + Real.exp (-u))
+
+/-- `k_j(u) = (1+e^{-u})^{-2} (-ℓ_u)^j / j!`, the Taylor coefficients of `K` in `η`. -/
+noncomputable def kj (j : ℕ) (u : ℝ) : ℝ :=
+  ((1 + Real.exp (-u)) ^ 2)⁻¹ * (-ell u) ^ j / (j.factorial : ℝ)
+
+/-- `M_{n,j} = ∫_0^∞ e^{-u} u^{n-j} k_j(u) du` (used for `j ≤ n`). -/
+noncomputable def Mnj (n j : ℕ) : ℝ :=
+  ∫ u in Ioi (0 : ℝ), Real.exp (-u) * u ^ (n - j) * kj j u
+
+/-- `R_1(z) = A^2 + B^2 e^{-2z}` over `ℂ`. -/
+noncomputable def R1 (A B : ℝ) (z : ℂ) : ℂ := (A : ℂ) ^ 2 + (B : ℂ) ^ 2 * Complex.exp (-2 * z)
+
+/-- `R_2(z) = B^2 + A^2 e^{-2z}` over `ℂ`. -/
+noncomputable def R2 (A B : ℝ) (z : ℂ) : ℂ := (B : ℂ) ^ 2 + (A : ℂ) ^ 2 * Complex.exp (-2 * z)
+
+/-- `g2:lem:z:laplace`: "For $-1<\eta<1$, $I(\eta)=\int_0^\infty\eu^{-u}H(\eta u)K(\eta,u)\,du$"
+(the integrand is integrable on `(0,∞)`). -/
+def stmt_1 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ η : ℝ, -1 < η → η < 1 →
+    IntegrableOn (fun u : ℝ => Real.exp (-u) * H A B (η * u) * K η u) (Ioi 0) ∧
+    Ieta A B η = ∫ u in Ioi (0 : ℝ), Real.exp (-u) * H A B (η * u) * K η u
+
+/-- `g2:lem:z:laplace`, the bounds: "$|\partial_\eta^jK(\eta,u)|=K\ell_u^j\le1$ for $\eta\ge-2$,
+$u\ge0$; $|k_j(u)|\le\eu^{-ju}/j!$ for $j\ge1$; and $0\le1-k_0(u)\le2\eu^{-u}$". -/
+def stmt_2 : Prop :=
+  (∀ u : ℝ, 0 ≤ u → ∀ j : ℕ,
+    iteratedDeriv j (fun η => K η u) = (fun η => (-ell u) ^ j * K η u) ∧
+    ∀ η : ℝ, -2 ≤ η → |(-ell u) ^ j * K η u| = K η u * ell u ^ j ∧ K η u * ell u ^ j ≤ 1) ∧
+  (∀ u : ℝ, 0 ≤ u → ∀ j : ℕ, 1 ≤ j → |kj j u| ≤ Real.exp (-(j * u)) / (j.factorial : ℝ)) ∧
+  (∀ u : ℝ, 0 ≤ u → 0 ≤ 1 - kj 0 u ∧ 1 - kj 0 u ≤ 2 * Real.exp (-u))
+
+/-- `g2:lem:z:coef`: "$I\in C^\infty(-1,1)$". -/
+def stmt_3 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ContDiffOn ℝ (⊤ : ℕ∞) (Ieta A B) (Ioo (-1) 1)
+
+/-- `g2:lem:z:coef`: "$I_n=\sum_{j=0}^nH_{n-j}M_{n,j}$ for every $n\ge0$. Moreover
+$M_{n,0}=n!\,\eta_D(n)$ for $n\ge2$, and $|M_{n,j}|\le\dfrac{(n-j)!}{j!\,(j+1)^{n-j+1}}$ for
+$j\ge1$" (with the integrals `M_{n,j}` existing; `η_D(n)` as a `HasSum`). -/
+def stmt_4 : Prop :=
+  (∀ n j : ℕ, j ≤ n →
+    IntegrableOn (fun u : ℝ => Real.exp (-u) * u ^ (n - j) * kj j u) (Ioi 0)) ∧
+  (∀ A B : ℝ, 0 < A → 0 < B → ∀ n : ℕ,
+    In A B n = ∑ j ∈ Finset.range (n + 1), Hc A B (n - j) * Mnj n j) ∧
+  (∀ n : ℕ, 2 ≤ n →
+    HasSum (fun m : ℕ => (-1 : ℝ) ^ m / ((m : ℝ) + 1) ^ n) (Mnj n 0 / (n.factorial : ℝ))) ∧
+  (∀ n j : ℕ, 1 ≤ j → j ≤ n →
+    |Mnj n j| ≤ ((n - j).factorial : ℝ) / ((j.factorial : ℝ) * ((j : ℝ) + 1) ^ (n - j + 1)))
+
+/-- `g2:lem:z:H`(a): "The zeros of $R_1$ are the points $L+i\pi(k+\frac12)$, $k\in\ZZ$; those of
+$R_2$ are $-L+i\pi(k+\frac12)$. All are simple." -/
+def stmt_5 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    (∀ z : ℂ, R1 A B z = 0 ↔
+      ∃ k : ℤ, z = (L A B : ℂ) + Complex.I * Real.pi * ((k : ℂ) + 1 / 2)) ∧
+    (∀ z : ℂ, R2 A B z = 0 ↔
+      ∃ k : ℤ, z = -(L A B : ℂ) + Complex.I * Real.pi * ((k : ℂ) + 1 / 2)) ∧
+    (∀ z : ℂ, R1 A B z = 0 → deriv (R1 A B) z ≠ 0) ∧
+    (∀ z : ℂ, R2 A B z = 0 → deriv (R2 A B) z ≠ 0)
+
+/-- `g2:lem:z:H`(b): "for every $\sigma\in(0,\rho)$, $|H_m|\le C_\sigma\sigma^{-m}$"
+(existence of the constant). -/
+def stmt_6 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ σ : ℝ, 0 < σ → σ < ρ A B →
+    ∃ C : ℝ, ∀ m : ℕ, |Hc A B m| ≤ C * σ⁻¹ ^ m
+
+/-- `g2:lem:z:H`(c): "The Taylor series of $H$ at $0$ has radius of convergence exactly $\rho$",
+in Cauchy--Hadamard form `limsup |H_m|^{1/m} = 1/ρ` (with the sequence eventually bounded). -/
+def stmt_7 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    IsBoundedUnder (· ≤ ·) atTop (fun m : ℕ => |Hc A B m| ^ (1 / (m : ℝ))) ∧
+    limsup (fun m : ℕ => |Hc A B m| ^ (1 / (m : ℝ))) atTop = 1 / ρ A B
+
+/-- `g2:lem:z:rest`: "For every $\sigma\in(0,\rho)$ there is $C'_\sigma$ such that
+$|E_n|\le C'_\sigma(2\sigma)^{-n}$ for all $n\ge2$", `E_n = I_n/n! - H_n`. -/
+def stmt_8 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ σ : ℝ, 0 < σ → σ < ρ A B →
+    ∃ C : ℝ, ∀ n : ℕ, 2 ≤ n →
+      |In A B n / (n.factorial : ℝ) - Hc A B n| ≤ C * (2 * σ)⁻¹ ^ n
+
+/-- `thm:zero`, main assertion: "$\limsup_{n\to\infty}|I_n/n!|^{1/n}=1/\rho$ with
+$\rho=\sqrt{\log^2(B/A)+\pi^2/4}$" (with the sequence eventually bounded above). -/
+def stmt_9 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    IsBoundedUnder (· ≤ ·) atTop (fun n : ℕ => |In A B n / (n.factorial : ℝ)| ^ (1 / (n : ℝ))) ∧
+    limsup (fun n : ℕ => |In A B n / (n.factorial : ℝ)| ^ (1 / (n : ℝ))) atTop = 1 / ρ A B
+
+/-- "the Taylor series ... in $\eta$ ... has radius of convergence $0$", for `I`: the series
+`∑ I_n η^n` diverges (is not summable) at every `η ≠ 0`. -/
+def stmt_10 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ η : ℝ, η ≠ 0 →
+    ¬ Summable (fun n : ℕ => In A B n * η ^ n)
+
+/-- `thm:zero` in full: the limsup identity; "the Taylor series of $P$ at $p=1$, in $\eta$ or in
+$d$, has radius of convergence $0$"; "$P$ is infinitely differentiable but not analytic at
+$p=1$". -/
+def stmt_11 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    (IsBoundedUnder (· ≤ ·) atTop
+        (fun n : ℕ => |In A B n / (n.factorial : ℝ)| ^ (1 / (n : ℝ))) ∧
+      limsup (fun n : ℕ => |In A B n / (n.factorial : ℝ)| ^ (1 / (n : ℝ))) atTop = 1 / ρ A B) ∧
+    ContDiffAt ℝ (⊤ : ℕ∞) (Ieta A B) 0 ∧
+    (∀ η : ℝ, η ≠ 0 → ¬ Summable (fun n : ℕ => In A B n * η ^ n)) ∧
+    ContDiffAt ℝ (⊤ : ℕ∞) (fun η : ℝ => X01.P A B (1 / (1 + η))) 0 ∧
+    (∀ η : ℝ, η ≠ 0 → ¬ Summable (fun n : ℕ =>
+      iteratedDeriv n (fun η : ℝ => X01.P A B (1 / (1 + η))) 0 / (n.factorial : ℝ) * η ^ n)) ∧
+    ContDiffAt ℝ (⊤ : ℕ∞) (X01.P A B) 1 ∧
+    (∀ d : ℝ, d ≠ 0 → ¬ Summable (fun n : ℕ =>
+      iteratedDeriv n (X01.P A B) 1 / (n.factorial : ℝ) * d ^ n)) ∧
+    ¬ AnalyticAt ℝ (X01.P A B) 1
+
+end Y06

@@ -1,0 +1,422 @@
+import Mathlib
+/-!
+# X06 -- the area of the graph of `z = x^n y^n` (Ahmed's Open Problem 4)
+
+Target id: X06.
+Paper label: `thm:xnyn` (paper/ieee/main.tex, lines 1876-1891; definition of `A(n)` at
+line 1876).
+Detailed proof: paper/ieee/proofs/sec_g3_xnyn.tex (setting lines 5-10, theorem lines 13-24,
+"Functions used" lines 28-36, Lemma `g3:lem:decomp` lines 43-48, Lemma `g3:lem:Phi` lines
+64-66, Lemma `g3:lem:Eg` lines 84-86, Lemma `g3:lem:Tk` lines 97-99 with the Mellin
+transform at line 102-106, Lemma `g3:lem:major` lines 117-119, the three pieces of `C(n)`
+lines 131-139, Lemma `g3:lem:D1` lines 141-143, Lemma `g3:lem:D2` lines 153-155, assembly
+lines 161-214) and the fragment paper/ieee/proofs/frag_xnyn_R3.tex (the hand identification
+of `R_3`, now merged into the section at lines 174-212).
+The printed decimals of `beta_1`, `beta_0` are target T11 (Wave1/T11_Decimals.lean); this
+file does not import it and defines its own copies of the constants in namespace `X06`.
+
+Quoted verbatim (main.tex 1876, the definition):
+
+  The area $A(n)=\iint_{[0,1]^2}\sqrt{1+z_x^2+z_y^2}\,dx\,dy$ tends to $1$ ...
+
+Quoted verbatim (main.tex 1880-1891):
+
+  \begin{theorem}[Ahmed's Open Problem~4$^\dagger$]\label{thm:xnyn}
+  Let $\ell=\log n$ and $\lambda=\log2$. For real $n\ge2$,
+  \[
+  A(n)=1+\frac{\sqrt2}{n}+\frac{R(n)}{n^2}+\frac{R_3(n)}{n^3}+O\Bigl(\frac{(1+\log n)^4}{n^4}\Bigr),
+  \]
+  where $R(n)=-\frac12\ell^2+\beta_1\ell+\beta_0$ and $R_3(n)=\frac13\ell^3+b_3\ell^2+c_3\ell+d_3$, with
+  \begin{gather*}
+  \beta_1=\frac{\lambda}{2}-1,\qquad \beta_0=-(1+\sqrt2)+\frac{\lambda}{2}-\frac{\pi^2}{12}-\frac{\lambda^2}{8},\\
+  b_3=\frac{1-\lambda}{2},\qquad c_3=1-\frac{\lambda}{2}+\frac{\lambda^2}{4}+\frac{\pi^2}{6},\\
+  d_3=1+\frac{3\sqrt2}{2}-\frac{\lambda}{2}+\frac{\lambda^2}{8}-\frac{\lambda^3}{24}+\frac{\pi^2}{12}-\frac{\pi^2\lambda}{12}-\frac{\zeta(3)}{2}.
+  \end{gather*}
+  \end{theorem}
+
+Quoted verbatim (sec_g3_xnyn.tex 6-10, setting):
+
+  $A(n)=\iint_{[0,1]^2}\sqrt{1+z_x^2+z_y^2}\dd x\dd y$ is the area of the graph of $z=x^ny^n$
+  over $[0,1]^2$, where $z_x=nx^{n-1}y^n$ and $z_y=nx^ny^{n-1}$. ...
+  Throughout, $e=1/n$ (not Euler's constant), $N=\sqrt2\,n$, $\Lg=\log N$, $\lambda=\log2$ as
+  in the statement, and $\ell=\log n$, so $\Lg=\ell+\frac\lambda2$.
+
+Quoted verbatim (sec_g3_xnyn.tex 26): "The $O$-constant is absolute (its value, $45$, is given
+at the end of the proof)."
+
+Quoted verbatim (sec_g3_xnyn.tex 29-36, functions used):
+
+  $f(w)=1+w-\sqrt{1+w^2}$ and $g(w)=f(w)/w$ for $w>0$; $\psi(w)=wf'(w)=...$ and
+  $\chi(w)=w\psi'(w)$. For a function $\phi$ on $(0,\infty)$ and $k\ge0$,
+  $T_k(\phi)(N)=\int_0^N\log^k\frac Nw\,\phi(w)\dd w$. ...
+  $E_g(s)=\frac{\Gamma(\frac{1+s}2)\,\Gamma(1-\frac s2)}{\sqrt\pi}=\sum_{j\ge0}\eta_js^j\quad(|s|<1)$
+  and $\tilde m_k=\sum_{j\le k}\eta_j$ enter the polynomials
+  $\mathrm{poly}_k=\frac{\Lg^{k+1}}{k+1}+\sum_{i=0}^k\frac{k!}{(k-i)!}\,\tilde m_{i+1}\Lg^{k-i}\quad(k\ge0).$
+
+Quoted verbatim (Lemma `g3:lem:decomp`, lines 44-47):
+
+  For $n>1$: $A(n)-1=\dfrac{\Phi(n)}{1+\frac e2}-e^2\,C(n)$, where
+  $\Phi(n)=\int_0^1u^{n-1}\sqrt{1+u^2}\dd u$ and
+  $C(n)=\int_0^\infty e^{-e\sigma}\int_0^\sigma f(W)\dd\delta\dd\sigma,\qquad W=N e^{-\sigma}K,\quad K=e^{e\sigma/2}\sqrt{\cosh(e\delta)}.$
+
+Quoted verbatim (Lemma `g3:lem:Phi`, line 65):
+
+  For real $n\ge2$ there is an absolute constant $c_\Phi<2.63$ (see the proof) with
+  $\Bigl|\dfrac{\Phi(n)}{1+e/2}-\Bigl(\sqrt2\,e-\sqrt2\,e^2+\frac{5\sqrt2}4e^3\Bigr)\Bigr|\le c_\Phi e^4$.
+  (The proof ends: "the lemma holds with $c_\Phi=\frac{3\sqrt2}2+\frac12<2.63$".)
+
+Quoted verbatim (Lemma `g3:lem:Eg`, line 85):
+
+  $E_g(0)=1$, $\eta_1=-\lambda$, $\eta_2=\frac{\lambda^2}2+\frac{\zeta(2)}2$,
+  $\eta_3=-\frac{\lambda^3}6-\frac{\lambda\zeta(2)}2-\frac{\zeta(3)}4$.
+
+Quoted verbatim (proof of `g3:lem:Tk`, line 102-106, Mellin transform):
+
+  For $0<\operatorname{Re}z<1$ let $M_g(z)=\int_0^\infty w^{z-1}g(w)\dd w$ ... So
+  $M_g(z)=\frac{E_g(z)}{z(1-z)}$.
+
+Quoted verbatim (Lemma `g3:lem:Tk`, line 98):
+
+  For $N\ge1$ and $k\ge0$: $T_k(g)(N)=\mathrm{poly}_k+(-1)^k\frac{k!}{2N}+(-1)^{k+1}\vartheta_k\frac{k!}{8\cdot3^{k+1}N^3}$
+  with $\vartheta_k\in[0,1]$.
+
+Quoted verbatim (Lemma `g3:lem:major`, line 118):
+
+  (a) $0\le\psi(w)\le m_0(w):=\min\bigl(w,\frac1{2w}\bigr)$. (b) $|\chi(w)|\le\psi(w)$.
+  (c) For $\sigma\ge0$ put $m(\sigma)=m_0(Ne^{-\sigma})=\min(Ne^{-\sigma},\frac{e^\sigma}{2N})$
+  and $I_k=\int_0^\infty\sigma^km(\sigma)\dd\sigma$. Then $I_k\le(k!+\frac12)(\Lg+1)^k$ for
+  $N\ge1$, and $T_k(g)(N)\le(k!+1)(\Lg+1)^{k+1}$.
+
+Quoted verbatim (lines 131-139, the three pieces):
+
+  Put $W_0=Ne^{-\sigma}$ and $\kappa(\sigma,\delta)=\log K=\frac{e\sigma}2+\frac12\log\cosh(e\delta)$.
+  ... $C=C_0+\Delta_1+\Delta_2,\qquad C_0=\int_0^\infty\sigma f(W_0)\dd\sigma,$
+  $\Delta_1=\int_0^\infty e^{-e\sigma}\!\!\int_0^\sigma\bigl[f(W_0e^\kappa)-f(W_0)\bigr]\dd\delta\dd\sigma,\qquad
+  \Delta_2=\int_0^\infty(e^{-e\sigma}-1)\sigma f(W_0)\dd\sigma .$
+  All three converge absolutely ... in particular $C_0=T_1(g)(N)$ ...
+
+Quoted verbatim (Lemma `g3:lem:D1`, line 142):
+  $\Delta_1=e\,T_1(g)(N)+r_1$, $|r_1|\le\frac{13}{12}e^2I_3\le7.1\,e^2(\Lg+1)^3$.
+
+Quoted verbatim (Lemma `g3:lem:D2`, line 154):
+  $\Delta_2=-e\,T_2(g)(N)+r_3$ with $0\le r_3\le\frac{e^2}2T_3(g)(N)\le3.5\,e^2(\Lg+1)^4$.
+
+Quoted verbatim (assembly, lines 164-170, 172, 174, 214):
+
+  C(n)=\mathrm{poly}_1-\frac{e}{2\sqrt2}+e\,(\mathrm{poly}_1-\mathrm{poly}_2)+\rho_C,\qquad|\rho_C|\le12\,e^2(\Lg+1)^4 .
+  A(n)-1=\sqrt2e+\bigl(-\sqrt2-\mathrm{poly}_1\bigr)e^2+\Bigl(\frac{5\sqrt2}4+\frac1{2\sqrt2}-\mathrm{poly}_1+\mathrm{poly}_2\Bigr)e^3+\rho,\\
+  |\rho|\le\bigl(c_\Phi+12(\Lg+1)^4\bigr)e^4 .
+  ... the last bracket is $\frac{3\sqrt2}2+\mathrm{poly}_2-\mathrm{poly}_1$ ...
+  It remains to identify $R(n)=-\sqrt2-\mathrm{poly}_1$ and
+  $R_3(n)=\frac{3\sqrt2}2+\mathrm{poly}_2-\mathrm{poly}_1$ with the closed forms, substituting
+  $\Lg=\ell+\frac\lambda2$.
+  This proves Theorem~\ref{g3:thm:xnyn}: for real $n\ge2$ the error is at most
+  $45(1+\log n)^4/n^4$.
+
+## Formalization choices
+
+* `zeta(3)` is `z3 := (riemannZeta 3).re` (a real number; `riemannZeta 3` is real, and the
+  link to the series is Mathlib's `zeta_nat_eq_tsum_of_gt_one`). `zeta(2)` is written as
+  `pi^2/6` (as the paper does in the final constants).
+* `A n` is the Bochner integral over `Icc 0 1 ×ˢ Icc 0 1` of
+  `sqrt (1 + (n x^(n-1) y^n)^2 + (n x^n y^(n-1))^2)` (real powers `rpow`, bases in `[0,1]`).
+  For `n > 1` this integrand is continuous on the compact square, so the integral is genuine;
+  `stmt_1` also asserts integrability explicitly.
+* All other integrals are stated together with their integrability (or are interval integrals
+  of functions that are integrable, which `stmt_4`, `stmt_5`, `stmt_7`, `stmt_8` assert) so that
+  no claim is true by the `0`-for-non-integrable convention.
+* `e = 1/n` is written `1/n` (or `n⁻¹`); `N = sqrt 2 * n` is `NN n`; `Lg = log N`.
+* `psi w := w * deriv f w`, `chi w := w * deriv psi w` (`f` and `psi` are smooth on `ℝ`, so
+  `deriv` is the true derivative).
+* The Taylor coefficients `eta j` of `E_g` at `0` are defined as `iteratedDeriv j Eg 0 / j!`
+  with `Eg` the real function `Gamma((1+s)/2) Gamma(1-s/2)/sqrt pi` (smooth near `0`; the
+  `Gamma` arguments are near `1/2` and `1`). `mt k = sum_{j<=k} eta j`, and `poly k L` is the
+  paper's `poly_k` with `Lg` replaced by the variable `L`; `k!/(k-i)!` is `Nat.descFactorial k i`.
+* `T k N` is the interval integral `∫ w in 0..N, log(N/w)^k * g w` (the value of the integrand
+  at the single point `w = 0` is irrelevant).
+* Hypotheses: the paper's ranges are used (`n > 1` for the decomposition, as printed; the
+  lemmas on `Delta_1`, `Delta_2` print no range, and we use `n > 1`, the range in which `C(n)`
+  is defined; `n ≥ 2` wherever the paper says so). No hypothesis is strengthened.
+* The `O`-claim is stated twice: with the supplement's explicit constant `45` (`stmt_15`) and,
+  as the paper's theorem, with an existential constant (`stmt_16`, the last statement).
+* `stmt_14` is the order-`n^-2` truncation with error `O((1+log n)^3/n^3)`, a consequence of the
+  theorem (as allowed by the job), placed before the full statement.
+
+## Statements
+* `stmt_1`  Lemma decomp: `A(n) - 1 = Phi(n)/(1+e/2) - e^2 C(n)` for `n > 1` (with integrability).
+* `stmt_2`  Lemma Phi: explicit expansion of `Phi(n)/(1+e/2)` with `c_Phi = 3 sqrt2/2 + 1/2`.
+* `stmt_3`  Lemma Eg: the Taylor coefficients `eta_0..eta_3` of `E_g` (brings in `zeta(3)`).
+* `stmt_4`  Mellin transform of `g`: `M_g(z) = E_g(z)/(z(1-z))` for `0<z<1`.
+* `stmt_5`  Lemma Tk: the moment identity `T_k(g)(N) = poly_k + ...` for `N ≥ 1`, all `k`.
+* `stmt_6`  Lemma major (a),(b): `0 ≤ psi ≤ min(w, 1/(2w))` and `|chi| ≤ psi`.
+* `stmt_7`  Lemma major (c): bounds on `I_k` and `T_k(g)`.
+* `stmt_8`  The split `C = C_0 + Delta_1 + Delta_2`, with `C_0 = T_1(g)(N)`.
+* `stmt_9`  Lemma D1.
+* `stmt_10` Lemma D2.
+* `stmt_11` Expansion `(g3:eq:C)` of `C(n)` for `n ≥ 2`.
+* `stmt_12` The expansion of `A(n) - 1` in `e` with coefficients in `poly_1`, `poly_2` (`n ≥ 2`).
+* `stmt_13` Identification of `-sqrt2 - poly_1` and `3 sqrt2/2 + poly_2 - poly_1` with the closed
+  forms `R`, `R_3` at `Lg = l + lambda/2`.
+* `stmt_14` `A(n) = 1 + sqrt2/n + R(n)/n^2 + O((1+log n)^3/n^3)` for real `n ≥ 2`.
+* `stmt_15` The theorem with the explicit constant `45` (supplement, line 214).
+* `stmt_16` The theorem `thm:xnyn`: an absolute constant `C` with error `≤ C (1+log n)^4/n^4`
+  for all real `n ≥ 2`.
+
+NOT COVERED:
+* The sentence (main.tex 1876) on the "short elementary proof" of the two-term expansion with
+  `O(log n log log n)` (covered in a stronger form by `stmt_14`).
+* The numerical sentences: `d_3 = 2.4722752293...`, `D(10^5) = -76.74`, "at $n=10^5$ the theorem
+  gives $R(n)+R_3(n)/n=-76.7411$", and the high-precision fit (main.tex 1893-1902); the
+  decimals of `beta_1`, `beta_0` are target T11.
+* The intermediate facts inside proofs that the paper does not state as lemmas (the closed
+  form of `rho(n)` in Lemma Phi, the constants `varpi_i = H^(i)(0)`, the tail bounds in Lemma Tk).
+  (The Mellin-transform remark of main.tex 1900 is `stmt_4`.)
+-/
+-- BEGIN STATEMENTS
+namespace X06
+
+open MeasureTheory Set
+
+/-- `λ = log 2` (`thm:xnyn`, line 1881). -/
+noncomputable def lam : ℝ := Real.log 2
+
+/-- `ζ(3)`, as the real part of Mathlib's `riemannZeta 3` (which is real). -/
+noncomputable def z3 : ℝ := (riemannZeta 3).re
+
+/-- The area integrand `sqrt(1 + z_x^2 + z_y^2)` with `z_x = n x^(n-1) y^n`,
+`z_y = n x^n y^(n-1)` (sec_g3_xnyn.tex line 6). -/
+noncomputable def areaIntegrand (n : ℝ) (p : ℝ × ℝ) : ℝ :=
+  Real.sqrt (1 + (n * p.1 ^ (n - 1) * p.2 ^ n) ^ 2 + (n * p.1 ^ n * p.2 ^ (n - 1)) ^ 2)
+
+/-- `A(n) = ∬_{[0,1]^2} sqrt(1+z_x^2+z_y^2) dx dy` (main.tex line 1876). -/
+noncomputable def A (n : ℝ) : ℝ :=
+  ∫ p in Icc (0 : ℝ) 1 ×ˢ Icc (0 : ℝ) 1, areaIntegrand n p
+
+/-- `f(w) = 1 + w - sqrt(1+w^2)` (line 29). -/
+noncomputable def f (w : ℝ) : ℝ := 1 + w - Real.sqrt (1 + w ^ 2)
+
+/-- `g(w) = f(w)/w` (line 29). -/
+noncomputable def g (w : ℝ) : ℝ := f w / w
+
+/-- `psi(w) = w f'(w)` (line 29). -/
+noncomputable def psi (w : ℝ) : ℝ := w * deriv f w
+
+/-- `chi(w) = w psi'(w)` (line 29). -/
+noncomputable def chi (w : ℝ) : ℝ := w * deriv psi w
+
+/-- `Phi(n) = ∫_0^1 u^(n-1) sqrt(1+u^2) du` (Lemma decomp). -/
+noncomputable def Phi (n : ℝ) : ℝ := ∫ u in (0 : ℝ)..1, u ^ (n - 1) * Real.sqrt (1 + u ^ 2)
+
+/-- `N = sqrt 2 * n` (line 10). -/
+noncomputable def NN (n : ℝ) : ℝ := Real.sqrt 2 * n
+
+/-- `W = N e^{-σ} K`, `K = e^{eσ/2} sqrt(cosh(eδ))`, `e = 1/n` (Lemma decomp). -/
+noncomputable def W (n σ δ : ℝ) : ℝ :=
+  NN n * Real.exp (-σ) * (Real.exp (σ / n / 2) * Real.sqrt (Real.cosh (δ / n)))
+
+/-- The inner integrand of `C(n)`: `σ ↦ e^{-eσ} ∫_0^σ f(W) dδ`. -/
+noncomputable def Cinner (n σ : ℝ) : ℝ :=
+  Real.exp (-σ / n) * ∫ δ in (0 : ℝ)..σ, f (W n σ δ)
+
+/-- `C(n) = ∫_0^∞ e^{-eσ} ∫_0^σ f(W) dδ dσ` (Lemma decomp). -/
+noncomputable def Cint (n : ℝ) : ℝ := ∫ σ in Ioi (0 : ℝ), Cinner n σ
+
+/-- `E_g(s) = Γ((1+s)/2) Γ(1-s/2)/sqrt π` (line 31), as a real function. -/
+noncomputable def Eg (s : ℝ) : ℝ :=
+  Real.Gamma ((1 + s) / 2) * Real.Gamma (1 - s / 2) / Real.sqrt Real.pi
+
+/-- `η_j`, the `j`-th Taylor coefficient of `E_g` at `0` (line 31). -/
+noncomputable def eta (j : ℕ) : ℝ := iteratedDeriv j Eg 0 / (j.factorial : ℝ)
+
+/-- `m̃_k = Σ_{j≤k} η_j` (line 33). -/
+noncomputable def mt (k : ℕ) : ℝ := ∑ j ∈ Finset.range (k + 1), eta j
+
+/-- `poly_k = L^{k+1}/(k+1) + Σ_{i=0}^k k!/(k-i)! m̃_{i+1} L^{k-i}` with `L` in place of
+`Lg = log N` (line 35). -/
+noncomputable def poly (k : ℕ) (L : ℝ) : ℝ :=
+  L ^ (k + 1) / ((k : ℝ) + 1) +
+    ∑ i ∈ Finset.range (k + 1), (k.descFactorial i : ℝ) * mt (i + 1) * L ^ (k - i)
+
+/-- `T_k(g)(N) = ∫_0^N log^k(N/w) g(w) dw` (line 29). -/
+noncomputable def T (k : ℕ) (N : ℝ) : ℝ := ∫ w in (0 : ℝ)..N, Real.log (N / w) ^ k * g w
+
+/-- `M_g(z) = ∫_0^∞ w^{z-1} g(w) dw` (line 102). -/
+noncomputable def Mg (z : ℝ) : ℝ := ∫ w in Ioi (0 : ℝ), w ^ (z - 1) * g w
+
+/-- `W_0 = N e^{-σ}` (line 131). -/
+noncomputable def W0 (n σ : ℝ) : ℝ := NN n * Real.exp (-σ)
+
+/-- `κ(σ,δ) = eσ/2 + (1/2) log cosh(eδ)` (line 131). -/
+noncomputable def kappa (n σ δ : ℝ) : ℝ := σ / n / 2 + Real.log (Real.cosh (δ / n)) / 2
+
+/-- `C_0 = ∫_0^∞ σ f(W_0) dσ` (line 133). -/
+noncomputable def C0 (n : ℝ) : ℝ := ∫ σ in Ioi (0 : ℝ), σ * f (W0 n σ)
+
+/-- The integrand of `Δ_1` (line 136). -/
+noncomputable def D1inner (n σ : ℝ) : ℝ :=
+  Real.exp (-σ / n) * ∫ δ in (0 : ℝ)..σ, (f (W0 n σ * Real.exp (kappa n σ δ)) - f (W0 n σ))
+
+/-- `Δ_1` (line 136). -/
+noncomputable def Delta1 (n : ℝ) : ℝ := ∫ σ in Ioi (0 : ℝ), D1inner n σ
+
+/-- `Δ_2 = ∫_0^∞ (e^{-eσ} - 1) σ f(W_0) dσ` (line 137). -/
+noncomputable def Delta2 (n : ℝ) : ℝ :=
+  ∫ σ in Ioi (0 : ℝ), (Real.exp (-σ / n) - 1) * σ * f (W0 n σ)
+
+/-- The majorant `m(σ) = min(N e^{-σ}, e^σ/(2N))` (Lemma major (c)). -/
+noncomputable def mmaj (N σ : ℝ) : ℝ := min (N * Real.exp (-σ)) (Real.exp σ / (2 * N))
+
+/-- `I_k = ∫_0^∞ σ^k m(σ) dσ` (Lemma major (c)). -/
+noncomputable def Ik (k : ℕ) (N : ℝ) : ℝ := ∫ σ in Ioi (0 : ℝ), σ ^ k * mmaj N σ
+
+/-- `β_1 = λ/2 - 1` (line 1887). -/
+noncomputable def beta1 : ℝ := lam / 2 - 1
+
+/-- `β_0 = -(1+√2) + λ/2 - π²/12 - λ²/8` (line 1887). -/
+noncomputable def beta0 : ℝ :=
+  -(1 + Real.sqrt 2) + lam / 2 - Real.pi ^ 2 / 12 - lam ^ 2 / 8
+
+/-- `b_3 = (1-λ)/2` (line 1888). -/
+noncomputable def b3 : ℝ := (1 - lam) / 2
+
+/-- `c_3 = 1 - λ/2 + λ²/4 + π²/6` (line 1888). -/
+noncomputable def c3 : ℝ := 1 - lam / 2 + lam ^ 2 / 4 + Real.pi ^ 2 / 6
+
+/-- `d_3 = 1 + 3√2/2 - λ/2 + λ²/8 - λ³/24 + π²/12 - π²λ/12 - ζ(3)/2` (line 1889). -/
+noncomputable def d3 : ℝ :=
+  1 + 3 * Real.sqrt 2 / 2 - lam / 2 + lam ^ 2 / 8 - lam ^ 3 / 24 + Real.pi ^ 2 / 12
+    - Real.pi ^ 2 * lam / 12 - z3 / 2
+
+/-- `R(n) = -ℓ²/2 + β_1 ℓ + β_0`, `ℓ = log n` (line 1885). -/
+noncomputable def R (n : ℝ) : ℝ :=
+  -(Real.log n) ^ 2 / 2 + beta1 * Real.log n + beta0
+
+/-- `R_3(n) = ℓ³/3 + b_3 ℓ² + c_3 ℓ + d_3`, `ℓ = log n` (line 1885). -/
+noncomputable def R3 (n : ℝ) : ℝ :=
+  (Real.log n) ^ 3 / 3 + b3 * (Real.log n) ^ 2 + c3 * Real.log n + d3
+
+/-- Lemma `g3:lem:decomp`: for `n > 1`, `A(n) - 1 = Φ(n)/(1+e/2) - e² C(n)`, with the area
+integrand integrable on the square and the outer integrand of `C(n)` integrable on `(0,∞)`
+("the integrals converge absolutely"). -/
+def stmt_1 : Prop :=
+  ∀ n : ℝ, 1 < n →
+    IntegrableOn (areaIntegrand n) (Icc (0 : ℝ) 1 ×ˢ Icc (0 : ℝ) 1) ∧
+    IntegrableOn (Cinner n) (Ioi 0) ∧
+    A n - 1 = Phi n / (1 + 1 / n / 2) - (1 / n) ^ 2 * Cint n
+
+/-- Lemma `g3:lem:Phi` with the proof's constant `c_Φ = 3√2/2 + 1/2`: for real `n ≥ 2`,
+`|Φ(n)/(1+e/2) - (√2 e - √2 e² + 5√2/4 e³)| ≤ c_Φ e⁴`. -/
+def stmt_2 : Prop :=
+  ∀ n : ℝ, 2 ≤ n →
+    |Phi n / (1 + 1 / n / 2) -
+        (Real.sqrt 2 / n - Real.sqrt 2 / n ^ 2 + 5 * Real.sqrt 2 / 4 / n ^ 3)|
+      ≤ (3 * Real.sqrt 2 / 2 + 1 / 2) / n ^ 4
+
+/-- Lemma `g3:lem:Eg`: `E_g(0) = 1`, `η_1 = -λ`, `η_2 = λ²/2 + ζ(2)/2`,
+`η_3 = -λ³/6 - λζ(2)/2 - ζ(3)/4` (with `ζ(2) = π²/6`). -/
+def stmt_3 : Prop :=
+  eta 0 = 1 ∧ eta 1 = -lam ∧ eta 2 = lam ^ 2 / 2 + Real.pi ^ 2 / 12 ∧
+    eta 3 = -lam ^ 3 / 6 - lam * Real.pi ^ 2 / 12 - z3 / 4
+
+/-- Proof of Lemma `g3:lem:Tk`, Mellin transform of `g`: for `0 < z < 1`,
+`∫_0^∞ w^{z-1} g(w) dw` converges and equals `E_g(z)/(z(1-z))`. -/
+def stmt_4 : Prop :=
+  ∀ z : ℝ, 0 < z → z < 1 →
+    IntegrableOn (fun w : ℝ => w ^ (z - 1) * g w) (Ioi 0) ∧ Mg z = Eg z / (z * (1 - z))
+
+/-- Lemma `g3:lem:Tk`: for `N ≥ 1` and `k ≥ 0`, the integrand of `T_k(g)(N)` is integrable on
+`(0,N]` and `T_k(g)(N) = poly_k + (-1)^k k!/(2N) + (-1)^{k+1} ϑ_k k!/(8·3^{k+1} N³)` for some
+`ϑ_k ∈ [0,1]`, with `poly_k` evaluated at `Lg = log N`. -/
+def stmt_5 : Prop :=
+  ∀ (k : ℕ) (N : ℝ), 1 ≤ N →
+    IntegrableOn (fun w : ℝ => Real.log (N / w) ^ k * g w) (Ioc 0 N) ∧
+    ∃ θ : ℝ, θ ∈ Icc (0 : ℝ) 1 ∧
+      T k N = poly k (Real.log N) + (-1 : ℝ) ^ k * (k.factorial : ℝ) / (2 * N)
+        + (-1 : ℝ) ^ (k + 1) * θ * (k.factorial : ℝ) / (8 * 3 ^ (k + 1) * N ^ 3)
+
+/-- Lemma `g3:lem:major` (a), (b): for `w > 0`, `0 ≤ ψ(w) ≤ min(w, 1/(2w))` and
+`|χ(w)| ≤ ψ(w)`. -/
+def stmt_6 : Prop :=
+  ∀ w : ℝ, 0 < w → 0 ≤ psi w ∧ psi w ≤ min w (1 / (2 * w)) ∧ |chi w| ≤ psi w
+
+/-- Lemma `g3:lem:major` (c): for `N ≥ 1` and `k ≥ 0`, `σ^k m(σ)` is integrable on `(0,∞)`,
+`I_k ≤ (k! + 1/2)(Lg+1)^k` and `T_k(g)(N) ≤ (k!+1)(Lg+1)^{k+1}`, `Lg = log N`. -/
+def stmt_7 : Prop :=
+  ∀ (k : ℕ) (N : ℝ), 1 ≤ N →
+    IntegrableOn (fun σ : ℝ => σ ^ k * mmaj N σ) (Ioi 0) ∧
+    Ik k N ≤ ((k.factorial : ℝ) + 1 / 2) * (Real.log N + 1) ^ k ∧
+    T k N ≤ ((k.factorial : ℝ) + 1) * (Real.log N + 1) ^ (k + 1)
+
+/-- The three pieces of `C(n)` (lines 131-139): for `n > 1` the integrands of `C_0`, `Δ_1`,
+`Δ_2` are integrable on `(0,∞)`, `C = C_0 + Δ_1 + Δ_2`, and `C_0 = T_1(g)(N)`. -/
+def stmt_8 : Prop :=
+  ∀ n : ℝ, 1 < n →
+    IntegrableOn (fun σ : ℝ => σ * f (W0 n σ)) (Ioi 0) ∧
+    IntegrableOn (D1inner n) (Ioi 0) ∧
+    IntegrableOn (fun σ : ℝ => (Real.exp (-σ / n) - 1) * σ * f (W0 n σ)) (Ioi 0) ∧
+    Cint n = C0 n + Delta1 n + Delta2 n ∧
+    C0 n = T 1 (NN n)
+
+/-- Lemma `g3:lem:D1`: `Δ_1 = e T_1(g)(N) + r_1` with
+`|r_1| ≤ (13/12) e² I_3 ≤ 7.1 e² (Lg+1)³`. -/
+def stmt_9 : Prop :=
+  ∀ n : ℝ, 1 < n →
+    |Delta1 n - (1 / n) * T 1 (NN n)| ≤ 13 / 12 * (1 / n) ^ 2 * Ik 3 (NN n) ∧
+    13 / 12 * (1 / n) ^ 2 * Ik 3 (NN n) ≤ 7.1 * (1 / n) ^ 2 * (Real.log (NN n) + 1) ^ 3
+
+/-- Lemma `g3:lem:D2`: `Δ_2 = -e T_2(g)(N) + r_3` with
+`0 ≤ r_3 ≤ (e²/2) T_3(g)(N) ≤ 3.5 e² (Lg+1)⁴`. -/
+def stmt_10 : Prop :=
+  ∀ n : ℝ, 1 < n →
+    0 ≤ Delta2 n + (1 / n) * T 2 (NN n) ∧
+    Delta2 n + (1 / n) * T 2 (NN n) ≤ (1 / n) ^ 2 / 2 * T 3 (NN n) ∧
+    (1 / n) ^ 2 / 2 * T 3 (NN n) ≤ 3.5 * (1 / n) ^ 2 * (Real.log (NN n) + 1) ^ 4
+
+/-- Equation `(g3:eq:C)`: for `n ≥ 2`,
+`C(n) = poly_1 - e/(2√2) + e(poly_1 - poly_2) + ρ_C`, `|ρ_C| ≤ 12 e² (Lg+1)⁴`. -/
+def stmt_11 : Prop :=
+  ∀ n : ℝ, 2 ≤ n →
+    |Cint n - (poly 1 (Real.log (NN n)) - (1 / n) / (2 * Real.sqrt 2)
+        + (1 / n) * (poly 1 (Real.log (NN n)) - poly 2 (Real.log (NN n))))|
+      ≤ 12 * (1 / n) ^ 2 * (Real.log (NN n) + 1) ^ 4
+
+/-- The assembled expansion (lines 168-172): for `n ≥ 2`,
+`A(n) - 1 = √2 e + (-√2 - poly_1) e² + (3√2/2 + poly_2 - poly_1) e³ + ρ`,
+`|ρ| ≤ (c_Φ + 12 (Lg+1)⁴) e⁴` with `c_Φ = 3√2/2 + 1/2`. -/
+def stmt_12 : Prop :=
+  ∀ n : ℝ, 2 ≤ n →
+    |A n - 1 - (Real.sqrt 2 * (1 / n) + (-Real.sqrt 2 - poly 1 (Real.log (NN n))) * (1 / n) ^ 2
+        + (3 * Real.sqrt 2 / 2 + poly 2 (Real.log (NN n)) - poly 1 (Real.log (NN n)))
+          * (1 / n) ^ 3)|
+      ≤ (3 * Real.sqrt 2 / 2 + 1 / 2 + 12 * (Real.log (NN n) + 1) ^ 4) * (1 / n) ^ 4
+
+/-- Identification of the coefficients (lines 174-212): with `Lg = ℓ + λ/2`,
+`-√2 - poly_1 = -ℓ²/2 + β_1 ℓ + β_0` and `3√2/2 + poly_2 - poly_1 = ℓ³/3 + b_3 ℓ² + c_3 ℓ + d_3`,
+for every real `ℓ`. -/
+def stmt_13 : Prop :=
+  ∀ l : ℝ,
+    -Real.sqrt 2 - poly 1 (l + lam / 2) = -l ^ 2 / 2 + beta1 * l + beta0 ∧
+    3 * Real.sqrt 2 / 2 + poly 2 (l + lam / 2) - poly 1 (l + lam / 2)
+      = l ^ 3 / 3 + b3 * l ^ 2 + c3 * l + d3
+
+/-- Order-`n⁻²` truncation of `thm:xnyn`: there is `C` with
+`|A(n) - 1 - √2/n - R(n)/n²| ≤ C (1+log n)³/n³` for all real `n ≥ 2`. -/
+def stmt_14 : Prop :=
+  ∃ C : ℝ, ∀ n : ℝ, 2 ≤ n →
+    |A n - (1 + Real.sqrt 2 / n + R n / n ^ 2)| ≤ C * (1 + Real.log n) ^ 3 / n ^ 3
+
+/-- `thm:xnyn` with the supplement's explicit constant (sec_g3_xnyn.tex line 214): for real
+`n ≥ 2`, `|A(n) - (1 + √2/n + R(n)/n² + R_3(n)/n³)| ≤ 45 (1+log n)⁴/n⁴`. -/
+def stmt_15 : Prop :=
+  ∀ n : ℝ, 2 ≤ n →
+    |A n - (1 + Real.sqrt 2 / n + R n / n ^ 2 + R3 n / n ^ 3)|
+      ≤ 45 * (1 + Real.log n) ^ 4 / n ^ 4
+
+/-- `thm:xnyn` (main.tex 1880-1891): for real `n ≥ 2`,
+`A(n) = 1 + √2/n + R(n)/n² + R_3(n)/n³ + O((1+log n)⁴/n⁴)`, the `O` with an absolute constant. -/
+def stmt_16 : Prop :=
+  ∃ C : ℝ, ∀ n : ℝ, 2 ≤ n →
+    |A n - (1 + Real.sqrt 2 / n + R n / n ^ 2 + R3 n / n ^ 3)|
+      ≤ C * (1 + Real.log n) ^ 4 / n ^ 4
+
+end X06
