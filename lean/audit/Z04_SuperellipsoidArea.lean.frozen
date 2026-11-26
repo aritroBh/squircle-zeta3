@@ -1,0 +1,209 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+import Zeta3.Wave5.Y05_Octahedron
+/-!
+# Z04 — the area of the superellipsoid (paper label `thm:S`)
+
+Target id: Z04.
+Paper labels: `thm:S` (paper/ieee/main.tex lines 1921–1945; setting line 1909–1912), with the
+detailed proof paper/ieee/proofs/sec_g3_S.tex (Lemmas `g3:lem:area`, `g3:lem:LD`,
+`g3:lem:exact`, `g3:lem:smooth`, `g3:lem:coeffs`).
+
+Quoted verbatim.
+
+main.tex 1909:
+
+  The three-dimensional squircle is the superellipsoid $|x|^p+|y|^p+|z|^p=1$
+  (Fig.~\ref{fig:superellipsoid}). Its surface area $S(p)$ goes from $4\sqrt3$ (the octahedron,
+  $p=1$) through $4\pi$ (the sphere) to $24$ (the cube).
+
+main.tex 1921–1945 (`thm:S`, the parts formalized here):
+
+  Let $\varepsilon=1/p$ and $G(\varepsilon)=\Gamma(1+\varepsilon)^2/\Gamma(1+2\varepsilon)$.
+  For $p\ge1$,
+  \[ S(p)=6\,G(\varepsilon)\bigl(P(p)-4\bigr)-8\varepsilon^2Q(\varepsilon), \]
+  where $P(p)$ is the squircle perimeter and
+  \begin{gather*}
+  Q(\varepsilon)=-\frac{1}{\sqrt\pi\,\Gamma(1+2\varepsilon)}\int_0^\infty h_\varepsilon(y)^3\dd y,\\
+  h_\varepsilon(y)=\int_0^\infty\bigl(1-e^{-x^{2-2\varepsilon}/y^2}\bigr)x^{\varepsilon-1}e^{-x}\dd x .
+  \end{gather*}
+  Moreover $S(p)=\sum_{k\le K}s_kp^{-k}+O(p^{-K-1})$ for every $K$, with no $\log p$ terms,
+  $s_0=24$ and
+  \begin{gather*}
+  s_1=48M_0,\qquad s_2=48M_1-4\pi^2-8Q_0,\\
+  s_3=48M_2-8\pi^2M_0+48\zeta(3)-8Q_1,
+  \end{gather*}
+
+sec_g3_S.tex, Lemma `g3:lem:area`:
+
+  $S(p)=8\varepsilon^2\int_{\Delta}(\sigma_1\sigma_2\sigma_3)^{\varepsilon-1}\|X\|\dd\sigma$ for
+  $d=3$, and $P(p)=4\varepsilon\int_0^1(\sigma_1\sigma_2)^{\varepsilon-1}\|X\|\dd\sigma_1$ for
+  $d=2$ ($\sigma_2=1-\sigma_1$).
+
+sec_g3_S.tex, before Lemma `g3:lem:LD`:
+
+  \mathrm h(t)=\int_0^\infty\bigl(1-e^{-tx^{2-2\varepsilon}}\bigr)x^{\varepsilon-1}e^{-x}\dd x,
+  \qquad H_m(\varepsilon)=\frac1{2\sqrt\pi}\int_0^\infty t^{-3/2}\mathrm h(t)^m\dd t .
+  ... so $H_m=\frac1{\sqrt\pi}\int_0^\infty h_\varepsilon(y)^m\dd y$. By Tonelli and
+  $\frac1{2\sqrt\pi}\int_0^\infty(1-e^{-tr})t^{-3/2}\dd t=\sqrt r$ ... we get
+  $H_1=\int_0^\infty x^{1-\varepsilon}x^{\varepsilon-1}e^{-x}\dd x=1$.
+
+sec_g3_S.tex, Lemma `g3:lem:exact`:
+
+  For $0<\varepsilon\le1$: $P(p)=8-4\varepsilon\frac{H_2(\varepsilon)}{\Gamma(1+\varepsilon)}$ and
+  $S(p)=8\,\frac{3\Gamma(1+\varepsilon)^2-3\varepsilon\Gamma(1+\varepsilon)H_2+\varepsilon^2H_3}
+  {\Gamma(1+2\varepsilon)}$. Consequently $S(p)=6G(\varepsilon)(P(p)-4)-8\varepsilon^2Q(\varepsilon)$
+  with $Q=-H_3/\Gamma(1+2\varepsilon)$ as in the theorem.
+
+sec_g3_S.tex, proof of Lemma `g3:lem:smooth` (case `j = 0`):
+
+  |\partial_\varepsilon^j\mathrm h|\le C_j\,(1+|\log y|)^{j+1}\ (y\le1),\qquad
+  |\partial_\varepsilon^j\mathrm h|\le C_jy^{-2}\ (y\ge1),
+  uniformly in $\varepsilon\in[0,\frac14]$.
+
+Formalization choices.
+* `S = Y05.S` (imported). `Y05.S p` is DEFINED as `8 (1/p)² ∫_Δ (t₁t₂t₃)^{-τ}
+  (t₁^{2τ}+t₂^{2τ}+t₃^{2τ})^{1/2}`, `τ = 1 - 1/p`, which is literally the simplex integral of
+  Lemma `g3:lem:area` (`(σ₁σ₂σ₃)^{ε-1} = (σ₁σ₂σ₃)^{-τ}`, `‖X‖² = Σ σᵢ^{2-2ε} = Σ σᵢ^{2τ}`).
+  Y05 proves (Y05.stmt_1, Y05.stmt_2) that its integrand is integrable and that `S` is `8` times
+  the graph-area integral of the first-octant piece `z = (1-x^p-y^p)^{1/p}`.
+* `P = W02.Pint` (imported): `P(p) = (4/p) ∫_0^1 √(t^{2/p-2} + (1-t)^{2/p-2}) dt` (eq:Pint);
+  W04 proves it is the true length (`eVariationOn`) of the squircle for `p ≥ 1`.
+* `h ε y = ∫_{(0,∞)} (1 - e^{-x^{2-2ε}/y²}) x^{ε-1} e^{-x} dx` (Bochner integral over `Ioi 0`,
+  so `x > 0` and real `rpow` is unambiguous; only `y > 0` is ever used). Every integral whose
+  value is asserted comes with an explicit `IntegrableOn` claim, so no statement holds through
+  the "non-integrable ↦ 0" convention.
+* `H m ε = (1/√π) ∫_{(0,∞)} h_ε(y)^m dy` (the supplement's `y`-form of `H_m`).
+  `Q ε` is defined literally as in the theorem, NOT via `H`.
+* `G ε = Γ(1+ε)²/Γ(1+2ε)` with `Real.Gamma`.
+* `M_0` is `(W02.Mk 0).re`, the real part of `M_0 = -F(0)/2` of eq:expansion (`W02.Mk` is
+  complex; `W02.stmt_4` shows `F` is real on real `ε < 1`, so `M_0` is real).
+* `s_0 = 24` is stated as `S(p) → 24` (`p → ∞`); `s_1 = 48 M_0` as the case `K = 1` of the
+  expansion: `|S(p) - 24 - 48 M_0/p| ≤ C/p²` for `p ≥ N`.
+* Numerical check before freezing (mpmath, 12–15 digits; face integral of `Y05.S` computed by
+  2D quadrature, independently of the identity): `p = 1`: both sides `6.92820323028 = 4√3`;
+  `p = 1.5`: both `10.1175144429`; `p = 2`: `12.56637048` vs `12.56637044` (`4π = 12.5663706`);
+  `p = 3`: `15.72798812` vs `15.72798696` (agreement limited by the 2D quadrature).
+
+Statements.
+* stmt_1: the Gaussian linearization `r = (1/(2√π)) ∫_0^∞ (1-e^{-tr²}) t^{-3/2} dt`, `r ≥ 0`,
+  with integrability.
+* stmt_2: Lemma `g3:lem:smooth`, case `j = 0`, for `h` itself: uniformly in `ε ∈ [0,1/4]`,
+  the `x`-integrand is integrable, `|h_ε(y)| ≤ C(1+|log y|)` for `y > 0` and
+  `|h_ε(y)| ≤ C y^{-2}` for `y ≥ 1`.
+* stmt_3: `H_1 = 1` for `0 < ε ≤ 1` (with integrability of `h_ε` in `y`).
+* stmt_4: Lemma `g3:lem:exact`, perimeter part: `P(p) = 8 - 4ε H_2/Γ(1+ε)`, `p ≥ 1`.
+* stmt_5: Lemma `g3:lem:exact`, area part:
+  `S(p) = 8 (3Γ(1+ε)² - 3εΓ(1+ε)H_2 + ε²H_3)/Γ(1+2ε)`, `p ≥ 1`.
+* stmt_6: `thm:S`, first claim (THE TARGET): for `p ≥ 1`, all integrals involved are integrable
+  (the face integrand of `S`, the perimeter integrand, the `x`-integrand of `h_ε(y)` for every
+  `y > 0`, and `h_ε³` on `(0,∞)`) and `S(p) = 6G(ε)(P(p)-4) - 8ε²Q(ε)`.
+* stmt_7: `thm:S`, "Moreover", `s_0 = 24`: `S(p) → 24` as `p → ∞`.
+* stmt_8: `thm:S`, "Moreover", `K = 1`, `s_0 = 24`, `s_1 = 48 M_0`:
+  `|S(p) - 24 - 48M_0/p| ≤ C/p²` for `p ≥ N`.
+
+The order follows the theorem: the identity first, then the expansion of its "Moreover"
+sentence; stmt_7, stmt_8 are further claims of `thm:S`, not steps towards stmt_6.
+
+NOT COVERED:
+* That `Y05.S p` is the surface area (2-dimensional Hausdorff measure) of
+  `{|x|^p+|y|^p+|z|^p=1}`: the 8-fold symmetry and the identification of the graph-area integral
+  with Hausdorff measure (Y05 covers only the graph-area formula of the first-octant piece).
+* Lemma `g3:lem:LD` (Laplace–Dirichlet convolution) as a separate general statement; it is used
+  inside stmt_4, stmt_5. Lemma `g3:lem:area` for `P` (a rewriting of eq:Pint) is not stated.
+* The expansion for general `K`, "no `log p` terms", the smoothness of `Q` on `[0,1/4]`
+  (derivatives `j ≥ 1`), `s_2`, `s_3`, `Q_1`, and the closed form of `Q_0`
+  (Section `g3:sec:S:Q0`); the numerical values of `s_1, s_2, s_3, Q_1`; the values
+  `S(1) = 4√3`, `S(2) = 4π`; the `n`-dimensional `S_n(p)` and Proposition `prop:cuberadius`.
+-/
+-- BEGIN STATEMENTS
+namespace Z04
+
+open MeasureTheory Real Filter Topology
+
+/-- `G(ε) = Γ(1+ε)²/Γ(1+2ε)`. -/
+noncomputable def G (ε : ℝ) : ℝ := Real.Gamma (1 + ε) ^ 2 / Real.Gamma (1 + 2 * ε)
+
+/-- The integrand of `h_ε(y)`: `(1 - e^{-x^{2-2ε}/y²}) x^{ε-1} e^{-x}`. -/
+noncomputable def hIntegrand (ε y x : ℝ) : ℝ :=
+  (1 - Real.exp (-(x ^ (2 - 2 * ε) / y ^ 2))) * x ^ (ε - 1) * Real.exp (-x)
+
+/-- `h_ε(y) = ∫_0^∞ (1 - e^{-x^{2-2ε}/y²}) x^{ε-1} e^{-x} dx`. -/
+noncomputable def h (ε y : ℝ) : ℝ := ∫ x in Set.Ioi (0 : ℝ), hIntegrand ε y x
+
+/-- `H_m(ε) = (1/√π) ∫_0^∞ h_ε(y)^m dy`. -/
+noncomputable def H (m : ℕ) (ε : ℝ) : ℝ :=
+  1 / Real.sqrt π * ∫ y in Set.Ioi (0 : ℝ), h ε y ^ m
+
+/-- `Q(ε) = -(1/(√π Γ(1+2ε))) ∫_0^∞ h_ε(y)³ dy`, literally as in `thm:S`. -/
+noncomputable def Q (ε : ℝ) : ℝ :=
+  -(1 / (Real.sqrt π * Real.Gamma (1 + 2 * ε))) * ∫ y in Set.Ioi (0 : ℝ), h ε y ^ 3
+
+/-- sec_g3_S.tex, before Lemma `g3:lem:LD` and in the proof of Lemma `g3:lem:exact`:
+"For $r\ge0$, $r=\frac1{2\sqrt\pi}\int_0^\infty(1-e^{-tr^2})t^{-3/2}\dd t$", with integrability. -/
+def stmt_1 : Prop :=
+  ∀ r : ℝ, 0 ≤ r →
+    IntegrableOn (fun t : ℝ => (1 - Real.exp (-(t * r ^ 2))) * t ^ (-(3 / 2 : ℝ)))
+        (Set.Ioi 0) ∧
+      1 / (2 * Real.sqrt π) *
+          ∫ t in Set.Ioi (0 : ℝ), (1 - Real.exp (-(t * r ^ 2))) * t ^ (-(3 / 2 : ℝ)) = r
+
+/-- sec_g3_S.tex, proof of Lemma `g3:lem:smooth`, case `j = 0`: uniformly in `ε ∈ [0,1/4]`,
+the integral defining `h_ε(y)` converges, `|h_ε(y)| ≤ C (1+|log y|)` and, for `y ≥ 1`,
+`|h_ε(y)| ≤ C y^{-2}`. -/
+def stmt_2 : Prop :=
+  ∃ C : ℝ, ∀ ε : ℝ, 0 ≤ ε → ε ≤ 1 / 4 → ∀ y : ℝ, 0 < y →
+    IntegrableOn (hIntegrand ε y) (Set.Ioi 0) ∧
+      |h ε y| ≤ C * (1 + |Real.log y|) ∧ (1 ≤ y → |h ε y| ≤ C / y ^ 2)
+
+/-- sec_g3_S.tex, before Lemma `g3:lem:LD`: "we get $H_1=\int_0^\infty
+x^{1-\varepsilon}x^{\varepsilon-1}e^{-x}\dd x=1$", for `0 < ε ≤ 1`, with the integrability of
+`h_ε(y)` in `x` and in `y`. -/
+def stmt_3 : Prop :=
+  ∀ ε : ℝ, 0 < ε → ε ≤ 1 →
+    (∀ y : ℝ, 0 < y → IntegrableOn (hIntegrand ε y) (Set.Ioi 0)) ∧
+      IntegrableOn (h ε) (Set.Ioi 0) ∧ H 1 ε = 1
+
+/-- sec_g3_S.tex, Lemma `g3:lem:exact`, perimeter part: for `p ≥ 1`, `ε = 1/p`,
+"$P(p)=8-4\varepsilon\frac{H_2(\varepsilon)}{\Gamma(1+\varepsilon)}$", with the integrability of
+`h_ε²` on `(0,∞)`. -/
+def stmt_4 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    IntegrableOn (fun y => h (1 / p) y ^ 2) (Set.Ioi 0) ∧
+      W02.Pint p = 8 - 4 * (1 / p) * H 2 (1 / p) / Real.Gamma (1 + 1 / p)
+
+/-- sec_g3_S.tex, Lemma `g3:lem:exact`, area part: for `p ≥ 1`, `ε = 1/p`,
+"$S(p)=8\,\frac{3\Gamma(1+\varepsilon)^2-3\varepsilon\Gamma(1+\varepsilon)H_2+\varepsilon^2H_3}
+{\Gamma(1+2\varepsilon)}$", with the integrability of `h_ε²` and `h_ε³` on `(0,∞)`. -/
+def stmt_5 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    IntegrableOn (fun y => h (1 / p) y ^ 2) (Set.Ioi 0) ∧
+      IntegrableOn (fun y => h (1 / p) y ^ 3) (Set.Ioi 0) ∧
+      Y05.S p = 8 * (3 * Real.Gamma (1 + 1 / p) ^ 2
+          - 3 * (1 / p) * Real.Gamma (1 + 1 / p) * H 2 (1 / p)
+          + (1 / p) ^ 2 * H 3 (1 / p)) / Real.Gamma (1 + 2 * (1 / p))
+
+/-- `thm:S`, first claim (the target): for `p ≥ 1`, `ε = 1/p`,
+"$S(p)=6\,G(\varepsilon)\bigl(P(p)-4\bigr)-8\varepsilon^2Q(\varepsilon)$", together with the
+integrability of every integral involved: the face integrand of `S` on `Δ`, the perimeter
+integrand on `[0,1]`, the integrand of `h_ε(y)` on `(0,∞)` for each `y > 0`, and `h_ε³` on
+`(0,∞)`. -/
+def stmt_6 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    IntegrableOn (Y05.faceIntegrand (1 - 1 / p)) Y05.Δ ∧
+      IntervalIntegrable (W02.pIntegrand p) volume 0 1 ∧
+      (∀ y : ℝ, 0 < y → IntegrableOn (hIntegrand (1 / p) y) (Set.Ioi 0)) ∧
+      IntegrableOn (fun y => h (1 / p) y ^ 3) (Set.Ioi 0) ∧
+      Y05.S p = 6 * G (1 / p) * (W02.Pint p - 4) - 8 * (1 / p) ^ 2 * Q (1 / p)
+
+/-- `thm:S`, "Moreover", `s_0 = 24`: `S(p) → 24` as `p → ∞` (the cube). -/
+def stmt_7 : Prop :=
+  Tendsto Y05.S atTop (𝓝 24)
+
+/-- `thm:S`, "Moreover", case `K = 1` with `s_0 = 24`, `s_1 = 48 M_0`
+(`M_0 = (W02.Mk 0).re`): there are `C`, `N` with `|S(p) - 24 - 48 M_0/p| ≤ C/p²` for `p ≥ N`. -/
+def stmt_8 : Prop :=
+  ∃ C N : ℝ, ∀ p : ℝ, N ≤ p →
+    |Y05.S p - 24 - 48 * (W02.Mk 0).re / p| ≤ C / p ^ 2
+
+end Z04

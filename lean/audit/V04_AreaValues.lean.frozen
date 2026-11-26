@@ -1,0 +1,127 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+import Zeta3.Wave5.Y05_Octahedron
+/-!
+# V04 — exact values of the area and perimeter functions (sanity anchors)
+
+Target id: V04.
+Paper labels: the text around `thm:S` (paper/ieee/main.tex line 1909, theorem lines 1921–1945),
+the landmarks of the perimeter (main.tex lines 802–806) and the checks after `eq:Pint`
+(main.tex line 829), `eq:pw:Sn` (paper/ieee/proofs/sec_pureweight.tex lines 163–166), the
+normalisation checks of the proof of `thm:S` (paper/ieee/proofs/sec_g3_S.tex line 87) and the
+octahedron value in paper/ieee/proofs/sec_g7_octa.tex line 6.
+
+Quoted verbatim.
+
+main.tex 1909:
+
+  The three-dimensional squircle is the superellipsoid $|x|^p+|y|^p+|z|^p=1$
+  (Fig.~\ref{fig:superellipsoid}). Its surface area $S(p)$ goes from $4\sqrt3$ (the octahedron,
+  $p=1$) through $4\pi$ (the sphere) to $24$ (the cube).
+
+main.tex 802–806:
+
+  The perimeter $P(p)$ has no such closed form. We only know the landmarks
+  \[
+  P(1)=4\sqrt2,\qquad P(2)=2\pi,\qquad \lim_{p\to\infty}P(p)=8 ,
+  \]
+
+main.tex 829 (after `eq:Pint`):
+
+  \textbf{Case 2:} $p=2$. Here $t^{-1}+(1-t)^{-1}=1/(t(1-t))$, so
+  $P(2)=2\int_0^1dt/\sqrt{t(1-t)}=2B(\frac12,\frac12)=2\pi$. \textbf{Case 3:} $p\to\infty$ gives
+  $P\to8$; exact hypergeometric series are in~\cite{MRL,RM}.
+
+sec_pureweight.tex 163–166 (`eq:pw:Sn`):
+
+  S_n(p)=2^n\varepsilon^{n-1}\int_\Delta\Bigl(\prod_{i=1}^nt_i\Bigr)^{-\tau}
+  \Bigl(\sum_{i=1}^nt_i^{2\tau}\Bigr)^{1/2}dt_1\cdots dt_{n-1},
+  $\Delta=\{t_i\ge0,\ \sum_{i<n}t_i\le1\}$. The integral converges since $\tau<1$.
+
+sec_g3_S.tex 87:
+
+  As checks of the normalisation, at $p=1$ and $p=2$ the formula gives $4\sqrt3$ and $4\pi$, and
+  $P(1)=4\sqrt2$, $P(2)=2\pi$ (Checks).
+
+sec_g7_octa.tex 6:
+
+  ... $S_3(1)=2^3\sqrt3/2!=4\sqrt3$, the area of the octahedron.
+
+Imported objects (nothing is redefined).
+* `S = Y05.S`: `Y05.S p = 8 (1/p)² ∫_Δ Y05.faceIntegrand (1 - 1/p)`, the paper's `eq:pw:Sn`
+  for `n = 3` (`ε = 1/p`, `τ = 1 - 1/p`), with `Y05.faceIntegrand τ t =
+  (t₁t₂t₃)^{-τ} (t₁^{2τ}+t₂^{2τ}+t₃^{2τ})^{1/2}`, `t₃ = 1 - t₁ - t₂`, and
+  `Y05.Δ = {t₁, t₂ ≥ 0, t₁ + t₂ ≤ 1}` (Lebesgue measure on `ℝ × ℝ`).
+* `P = W02.Pint`: `W02.Pint p = (4/p) ∫_0^1 W02.pIntegrand p`,
+  `W02.pIntegrand p t = √(t^{2/p-2} + (1-t)^{2/p-2})` (`eq:Pint`).
+
+Conventions. Every integral whose value is asserted comes with an explicit integrability claim,
+so no statement holds through the "non-integrable ↦ 0" convention. At `p = 1` the exponents are
+`τ = 0`, and `x ^ (0 : ℝ) = 1` for every real `x` (also `x = 0`), which is the paper's reading
+(the integrand is `√3`, the octahedron's faces are flat). At `p = 2` the integrands are unbounded
+near the boundary of `Δ` resp. near `t = 0, 1`; the boundary values (where `0 ^ (-1/2) = 0` and
+`1/√0 = 0` in Lean) form a null set and do not matter. No `ζ` value appears in this target.
+
+Statements.
+* stmt_1: at `p = 1` (`τ = 0`) the face integrand is integrable on `Δ` and its integral is
+  `√3 · area(Δ) = √3/2`.
+* stmt_2: `S(1) = 4√3` (the octahedron), with the integrability of the face integrand.
+* stmt_3: the Dirichlet integral used at `p = 2` (`τ = 1/2`):
+  `∫_Δ (t₁t₂t₃)^{-1/2} = Γ(1/2)³/Γ(3/2) = 2π`, with integrability.
+* stmt_4: `S(2) = 4π` (the sphere), with the integrability of the face integrand.
+* stmt_5: `∫_0^1 dt/√(t(1-t)) = B(1/2,1/2) = π`, with integrability (main.tex 829).
+* stmt_6: `P(2) = 2π` (the circle), with the integrability of the perimeter integrand.
+* stmt_7: `lim_{p→∞} P(p) = 8` (main.tex 804 and 829, "Case 3").
+
+NOT COVERED:
+* `P(1) = 4√2`: it belongs to target Z01 (as the task assigns), not restated here.
+* `S(p) → 24` (the cube) is Z04.stmt_7, not restated here.
+* That `Y05.S` / `W02.Pint` are the true surface area / length (Hausdorff measure, resp.
+  `eVariationOn`; the latter is W04) is not part of these value checks.
+* The closed form `A(p) = 4Γ(1+1/p)²/Γ(1+2/p)` of the enclosed area and its values
+  `A(1) = 2`, `A(2) = π`, `A(p) → 4` (main.tex 799–801): the enclosed area is not an object of
+  the imported library.
+* The general octahedron value `S_n(1) = 2^n √n/(n-1)!` for `n ≠ 3`.
+-/
+-- BEGIN STATEMENTS
+namespace V04
+
+open MeasureTheory Real Filter Topology
+
+/-- Proof of `S(1) = 4√3`: at `p = 1`, `τ = 1 - 1/1 = 0`, the face integrand of `eq:pw:Sn` is the
+constant `√3` on `Δ`; it is integrable and `∫_Δ = √3 · (1/2)`. -/
+def stmt_1 : Prop :=
+  IntegrableOn (Y05.faceIntegrand (1 - 1 / 1)) Y05.Δ ∧
+    ∫ t in Y05.Δ, Y05.faceIntegrand (1 - 1 / 1) t = Real.sqrt 3 / 2
+
+/-- main.tex 1909 "from $4\sqrt3$ (the octahedron, $p=1$)", sec_g7_octa.tex 6
+"$S_3(1)=2^3\sqrt3/2!=4\sqrt3$": `S(1) = 4√3`, with the integrability of the face integrand. -/
+def stmt_2 : Prop :=
+  IntegrableOn (Y05.faceIntegrand (1 - 1 / 1)) Y05.Δ ∧ Y05.S 1 = 4 * Real.sqrt 3
+
+/-- Proof of `S(2) = 4π` (`τ = 1/2`, where `Σ tᵢ^{2τ} = t₁+t₂+t₃ = 1`): the Dirichlet integral
+`∫_Δ (t₁t₂t₃)^{-1/2} dt = Γ(1/2)³/Γ(3/2) = 2π`, with integrability. -/
+def stmt_3 : Prop :=
+  IntegrableOn (fun t : ℝ × ℝ => (t.1 * t.2 * (1 - t.1 - t.2)) ^ (-(1 / 2 : ℝ))) Y05.Δ ∧
+    ∫ t in Y05.Δ, (t.1 * t.2 * (1 - t.1 - t.2)) ^ (-(1 / 2 : ℝ)) = 2 * π
+
+/-- main.tex 1909 "through $4\pi$ (the sphere)", sec_g3_S.tex 87 "at $p=1$ and $p=2$ the formula
+gives $4\sqrt3$ and $4\pi$": `S(2) = 4π`, with the integrability of the face integrand. -/
+def stmt_4 : Prop :=
+  IntegrableOn (Y05.faceIntegrand (1 - 1 / 2)) Y05.Δ ∧ Y05.S 2 = 4 * π
+
+/-- main.tex 829: "$\int_0^1dt/\sqrt{t(1-t)}=B(\frac12,\frac12)$" `= π`, with integrability. -/
+def stmt_5 : Prop :=
+  IntervalIntegrable (fun t : ℝ => 1 / Real.sqrt (t * (1 - t))) volume 0 1 ∧
+    ∫ t in (0 : ℝ)..1, 1 / Real.sqrt (t * (1 - t)) = π
+
+/-- main.tex 804 and 829 "Case 2": `P(2) = 2π` (the circle), with the integrability of the
+integrand of `eq:Pint` at `p = 2`. -/
+def stmt_6 : Prop :=
+  IntervalIntegrable (W02.pIntegrand 2) volume 0 1 ∧ W02.Pint 2 = 2 * π
+
+/-- main.tex 804 "$\lim_{p\to\infty}P(p)=8$" and 829 "Case 3: $p\to\infty$ gives $P\to8$". -/
+def stmt_7 : Prop :=
+  Tendsto W02.Pint atTop (𝓝 8)
+
+end V04

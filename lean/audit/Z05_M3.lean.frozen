@@ -1,0 +1,361 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+import Zeta3.Wave2.D00_Dilog
+import Zeta3.Wave5.Y01_M2
+/-!
+# Z05 -- the coefficient `M_3 = W_4 + W_3' + T` of the squircle expansion (Theorem `thm:M3`)
+
+Target id: Z05.
+Paper labels: `thm:M3` (main.tex 957-966), `eq:W3p` = (T2) of Table `tab:closed`
+(main.tex 931-934), `eq:T` (main.tex 903-905), `thm:W4R` (main.tex 980-982) with
+`eq:R` = (T3) of Table `tab:closed` (main.tex 935-946).
+Detailed proof: paper/ieee/proofs/sec_g1_M3.tex (Lemmas `g1:lem:red3`, `g1:lem:pole`,
+`g1:lem:W3p`, proof in `g1:sub:M3:proof`), with Lemma `g1:lem:Mk` of sec_g1_M2.tex and
+Lemma `g1:lem:init` of sec_g1_wt2.tex.
+
+Quoted verbatim (main.tex 957-966, Theorem thm:M3):
+
+  \begin{theorem}[$M_3$$^\dagger$]\label{thm:M3}
+  $M_3=W_4+W_3'+T$, with $T$ as in \eqref{eq:T}, $W_3'$ of weight three given by \eqref{eq:W3p}
+  in Table~\ref{tab:closed}, and
+  \begin{multline*}
+  W_4=\int_b^a\Bigl[\ell_1^3\Bigl(\frac{8-7\sqrt2}{48v}-\frac{1}{3(v+a)}\Bigr)
+  +\frac{\sqrt2}{16}\frac{\ell_1^2\ell_2}{v}\Bigr]dv,
+  \end{multline*}
+  where $\ell_1=\log\frac{(v-b)(v+a)}{4v}$ and $\ell_2=\log\frac{(a-v)(v+b)}{4v}$. Numerically
+  $M_3=0.02277052149178657745\ldots$ and $W_4=0.79578505983224081132\ldots$
+  \end{theorem}
+
+Quoted verbatim (main.tex 903-905, eq:T):
+
+  T=\frac{\pi^2+6\lambda^2}{24}=\frac{\zeta(2)-\Li_2(\frac12)}{2}
+
+Quoted verbatim (main.tex 931-934, eq:W3p = (T2)):
+
+  W_3'&=\Bigl(\frac{7\sqrt2}{32}-\frac3{16}\Bigr)\zeta(3)+(1+\sqrt2)\Li_3(b)+(1-\sqrt2)\Li_3(-b)-2\sqrt2\,\Li_3\bigl(\tfrac1{\sqrt2}\bigr)
+  +(2L-\sqrt2\lambda)\Li_2(b)\notag\\
+  &\quad+\Bigl(\frac{\sqrt2}{12}-\frac18\Bigr)\pi^2L-\frac{1+\sqrt2}{24}\pi^2\lambda+\frac{1+\sqrt2}{24}\lambda^3+\frac{\sqrt2}{4}\lambda^2L
+  -\frac{1+\sqrt2}{2}\lambda L^2+\frac{5-\sqrt2}{6}L^3\tag{T2}\label{eq:W3p}
+
+Quoted verbatim (main.tex 935-946, eq:R = (T3)):
+
+  \mathcal R&=(1-573\sqrt2)\Li_4(b)-(1+573\sqrt2)\Li_4(-b)+56\sqrt2\,\Li_4(-b^2)
+  +17\sqrt2\,\Li_4\bigl(\tfrac1{\sqrt2}\bigr)-\Bigl(\frac{37}{4}+\frac{17\sqrt2}{16}\Bigr)\Li_4\bigl(\tfrac12\bigr)\notag\\
+  &\quad+(10+86\sqrt2)\Li_4\bigl(1-\tfrac1{\sqrt2}\bigr)-(10-86\sqrt2)\Li_4(2-\sqrt2)\notag\\
+  &\quad+L\Bigl[(40+7\sqrt2)\Li_3(b)-(40-7\sqrt2)\Li_3(-b)-72\Li_3\bigl(\tfrac1{\sqrt2}\bigr)+\Bigl(\frac{63}{8}-\frac{3\sqrt2}{16}\Bigr)\zeta(3)\Bigr]\notag\\
+  &\quad+\lambda\Bigl[(6+13\sqrt2)\Li_3(b)+(6-13\sqrt2)\Li_3(-b)-\frac{47\sqrt2}{2}\Li_3\bigl(\tfrac1{\sqrt2}\bigr)+\Bigl(\frac{329\sqrt2}{128}-\frac38\Bigr)\zeta(3)\Bigr]
+  +30\Li_2(b)^2\notag\\
+  &\quad+\Li_2(b)\Bigl[\Bigl(30+\frac{7\sqrt2}{2}\Bigr)L^2-24\lambda L-\frac{19\sqrt2}{8}\lambda^2+\Bigl(\frac{\sqrt2}{24}-\frac{19}{4}\Bigr)\pi^2\Bigr]
+  +\Bigl(\frac{103}{384}-\frac{4963\sqrt2}{5760}\Bigr)\pi^4\notag\\
+  &\quad+\pi^2\Bigl[\Bigl(\frac{67}{24}+\frac{185\sqrt2}{96}\Bigr)L^2+\Bigl(\frac{41\sqrt2}{12}-\frac{35}{12}\Bigr)\lambda L+\Bigl(\frac5{12}-\frac{1105\sqrt2}{384}\Bigr)\lambda^2\Bigr]
+  +\Bigl(\frac{13}{24}-\frac{25\sqrt2}{24}\Bigr)L^4-\Bigl(\frac{73}{6}+\frac{29\sqrt2}{3}\Bigr)L^3\lambda\notag\\
+  &\quad+\Bigl(\frac{63}{8}+\frac{67\sqrt2}{16}\Bigr)L^2\lambda^2+\Bigl(\frac{41}{24}+\frac{17\sqrt2}{6}\Bigr)L\lambda^3+\Bigl(\frac{137\sqrt2}{192}-\frac{61}{192}\Bigr)\lambda^4\tag{T3}\label{eq:R}
+
+Quoted verbatim (main.tex 980-982, Theorem thm:W4R):
+
+  \begin{theorem}[$M_3$ in closed form]\label{thm:W4R}
+  $W_4=\mathcal R$; in particular $c_0=c_1=0$ in Theorem~\ref{thm:W4}. Hence
+  $M_3=\mathcal R+W_3'+T$ is a closed form in classical polylogarithms, with $\mathcal R$,
+  $W_3'$ and $T$ as in \eqref{eq:R}, \eqref{eq:W3p} and \eqref{eq:T}.
+  \end{theorem}
+
+Quoted verbatim (supplement sec_g1_M3.tex, integral form of `W_3'`, eq. g1:W3p):
+
+  W_3'=\int_b^a\bigl[\ell_1^2\,\Omega_{20}+\ell_1\ell_2\,\Omega_{11}\bigr]dv,\\
+  \Omega_{20}=\frac{1-\sqrt2}{4v}+\frac1{4(v-a)}-\frac1{4(v+a)}-\frac1{2(v+b)},\qquad
+  \Omega_{11}=\frac{1+\sqrt2}{4v}-\frac1{2(v+a)} .
+
+Quoted verbatim (supplement, Section g1:sub:M3:red):
+
+  g_{11}(v)&=-\frac{\sqrt2\,(v^2+2v-1)}{4(v^2+1)}=-\frac{\sqrt2\,(v-b)(v+a)}{4(v^2+1)},\\
+  G_{30}&=-\frac{2\sqrt2\,v^3}{3(v^2+1)^3}+\frac{\sqrt2\,(v-1)}{4(v^2+1)}+\frac{1+3\sqrt2}{24},\\
+  G_{21}&=\frac{2\sqrt2\,v^3}{(v^2+1)^3}-\frac{\sqrt2\,(3v-1)}{4(v^2+1)}+\frac{1-\sqrt2}8 .
+  ... and $G_{30}(b)=G_{21}(b)=g_{11}(b)=g_{20}(b)=0$
+
+  R_{30}=G_{30}'-\frac1{3(v+a)}+\frac{8-7\sqrt2}{48v},\qquad R_{21}=G_{21}'+\frac{\sqrt2}{16v}.
+
+  -3G_{30}D_1-G_{21}D_2=\Omega_{20}+g_{20}',\qquad -2G_{21}D_1=\Omega_{11}+g_{11}'
+
+  So $M_3=W_4+\int_b^a[\ell_1^2(\Omega_{20}+g_{20}')+\ell_1\ell_2(\Omega_{11}+g_{11}')]dv$
+
+  ... the degree-two parts contribute ... $\int\ell_1\Rwt=T$.
+
+(`g_{20} = a/4 - √2/(2(v²+1))`, sec_g1_wt2.tex; `g_{20}' = √2 v/(v²+1)²`, Lemma g1:lem:k2.)
+
+Lemma g1:lem:Mk (sec_g1_M2.tex): `M_k=-\frac12\int_0^1\varphi_k(t)\,dt`,
+`\varphi_k(t)=[\varepsilon^k]\Phi_\varepsilon(t)`, with
+`Φ_ε = A e^x + B e^y - S√(1+u)`, `x = εℓ₁`, `y = εℓ₂`, `A = cS = 1/t`, `B = c'S = 1/(1-t)`,
+`u = c²(e^{2x}-1) + c'²(e^{2y}-1)`, `c = (1-t)/q`, `c' = t/q`, `S = q/(t(1-t))`.
+The supplement does not print `φ₃`; it is the `ε³` coefficient of this expression, computed
+here by hand (`√(1+u) = 1 + u/2 - u²/8 + u³/16 - ...`):
+`φ₃ = (1/t)(1/6 - 2c/3 + c³ - c⁵/2) ℓ₁³ + (1/(1-t))(1/6 - 2c'/3 + c'³ - c'⁵/2) ℓ₂³
+      + t(1-t)/q³ ((1 - 3c²/2) ℓ₁²ℓ₂ + (1 - 3c'²/2) ℓ₁ℓ₂²)`
+(same shape as Y01's `φ₂`; checked numerically below).
+
+## Conventions
+
+* `M_3` is `W02.Mk 3 = -F'''(0)/(2·3!)` (complex, imported, not redefined); real numbers are
+  cast to `ℂ`.
+* Reused from Zeta3.Wave5.Y01_M2 (not redefined): `a = 1+√2`, `b = √2-1`, `L = log a`,
+  `λ = log 2` (`Y01.lam`), `ζ(3) = Y01.z3 = (riemannZeta 3).re` (Y01.stmt_4, proved, says
+  `riemannZeta 3 = ↑z3` and `HasSum (fun n => 1/(n+1)^3) z3`), the trilogarithm
+  `Y01.Li3 x = ∫_0^x Li₂(t)/t dt` (Y01.stmt_1-3: integrable, the series `Σ x^k/k³` for `|x|≤1`,
+  derivative `Li₂(x)/x`), `Y01.tv`, `Y01.l1`, `Y01.l2`, `Y01.c`, `Y01.c'`, `Y01.g20'`,
+  `Y01.Rwt`, `Y01.Tint` (`T = ∫_b^a ℓ₁ R_wt dv`). `Li₂ = D00.Li2`.
+* `Y01.l1 v = log t(v)` with `t(v) = (v²+2v-1)/(4v)`, and `(v-b)(v+a) = v²+2v-1`, so
+  `Y01.l1` is literally the paper's `ℓ₁ = log((v-b)(v+a)/(4v))`. `Y01.l2 v = log(1 - t(v))` and
+  `4v - (v²+2v-1) = 1+2v-v² = (a-v)(v+b)`, so `Y01.l2` is the paper's
+  `ℓ₂ = log((a-v)(v+b)/(4v))`. On `(b,a)` both arguments lie in `(0,1)` (genuine logarithms).
+* `T = (π²+6λ²)/24` is Y01.stmt_8 (proved there: `Y01.Tint = (π²+6λ²)/24`), not restated.
+* `1/(v-a)` in `Ω₂₀` and `R_wt` is Lean's `0` at `v = a` only, a null set.
+* Every integral whose value is asserted comes with an explicit `IntervalIntegrable` claim.
+* The tetralogarithm (needed only for thm:W4R) is defined as `Li4 x = ∫_0^x Li₃(t)/t dt`;
+  stmt_10 records integrability and the paper's series `Σ x^k/k⁴` for `|x| ≤ 1`. All seven
+  arguments of (T3) lie in `(-1,1)`.
+
+## Statements
+
+* stmt_1: the `W_4` integrand is integrable on `[b,a]` ("All integrals converge").
+* stmt_2: Lemma g1:lem:Mk at `k = 3`: `φ₃` integrable on `[0,1]`, `M_3 = -½∫_0^1 φ₃`.
+* stmt_3: Step 1 of g1:lem:red3 (Euler substitution and folding):
+  `M_3 = ∫_b^a [ℓ₁³ R₃₀ + ℓ₁²ℓ₂ R₂₁] dv`, with `R₃₀ = G₃₀' - 1/(3(v+a)) + (8-7√2)/(48v)`,
+  `R₂₁ = G₂₁' + √2/(16v)`.
+* stmt_4: the kernel facts of g1:sub:M3:red: derivatives of `G₃₀, G₂₁, g₂₀, g₁₁, ℓ₁, ℓ₂`,
+  vanishing at `b`, and the two identities `-3G₃₀D₁-G₂₁D₂ = Ω₂₀+g₂₀'`, `-2G₂₁D₁ = Ω₁₁+g₁₁'`
+  on `(b,a)`.
+* stmt_5: Step 2 of g1:lem:red3 (degree-three integration by parts):
+  `M_3 = W_4 + ∫_b^a [ℓ₁²(Ω₂₀+g₂₀') + ℓ₁ℓ₂(Ω₁₁+g₁₁')] dv`.
+* stmt_6: Step 3 of g1:lem:red3 (degree-two integration by parts and folding):
+  `∫_b^a [ℓ₁² g₂₀' + ℓ₁ℓ₂ g₁₁'] dv = T` (`= Y01.Tint`).
+* stmt_7: Lemma g1:lem:red3: `M_3 = W_4 + W_3'(integral) + T`, all integrals convergent.
+* stmt_8: Lemma g1:lem:W3p: the integral g1:W3p equals (T2).
+* stmt_9: Theorem thm:M3: `M_3 = W_4 + (T2) + (π²+6λ²)/24`.
+* stmt_10: properties of `Li4` relied on for (T3): integrability of `Li₃(t)/t` on `[0,x]`,
+  `x ≤ 1`, and `Li4 x = Σ_{k≥1} x^k/k⁴` for `|x| ≤ 1`.
+* stmt_11: Theorem thm:W4R, the "Hence" step only, as an implication: if `W_4 = 𝓡` (T3), then
+  `M_3 = 𝓡 + W_3' + T`. The identity `W_4 = 𝓡` itself is NOT COVERED: the paper proves it by a
+  computer certificate over 5184 level-8 words, which this file does not reproduce.
+
+Numerical check before freezing (mpmath, 45 digits): `W_4` (quadrature) =
+0.795785059832240811320359819629726762546...; (T2) = -1.304361308532061199148508733130571...;
+`W_4 + (T2) + T` = 0.022770521491786577456730509742327800250...; `-½∫φ₃` (stmt_2) and the
+integral of stmt_3 agree with this to `10⁻⁴⁰`; the right side of stmt_5 to `2·10⁻⁴¹`; the
+integral of stmt_8 agrees with (T2) to `10⁻⁴²`; `Tint - T` is `4·10⁻⁴⁵`; independently,
+`-F'''(0)/(2·3!)` by Cauchy's formula on `|ε| = 1/2` (64 nodes, 30 digits, from W02's `Φ`)
+gives 0.0227705214917865774567305100647, agreeing to `3·10⁻²⁸` (truncation of the Cauchy sum).
+The identities of stmt_4 were checked exactly with sympy. (T3) agrees with `W_4` to
+`2·10⁻⁴¹`, and the integral definition of `Li4` agrees with mpmath's `polylog(4,·)` at `±b`.
+
+## NOT COVERED
+
+* The printed decimals of `M_3` and `W_4` (not required for this target).
+* "of weight three": a property of the displayed expression (T2), not of the number.
+* Lemma g1:lem:pole and the raw table of `W_3'` (18 trilogarithms, 18 dilogarithms, Table
+  g1:tab:rawW3p) and its reduction by the tables g1:tab:dilog / g1:tab:trilog: computer
+  generated tables, not reproduced; stmt_8 states their combined conclusion. The trilogarithm
+  functional equations and Spence--Kummer that this reduction uses are Y01.stmt_9 and
+  Y01.stmt_10 (proved there) and are not restated.
+* thm:W4R's identity `W_4 = 𝓡` itself (a computer certificate in the paper; `stmt_11` only
+  assumes it). The statement block was changed by the planner on 2026-11-26 after the audit: the
+  audited `stmt_11` (`W4 = Rclosed`) was removed as unproved and the audited `stmt_12` became the
+  implication `stmt_11`; `stmt_1` to `stmt_10` and all definitions are unchanged.
+* thm:W4R's "in particular `c_0 = c_1 = 0` in Theorem thm:W4" (thm:W4 is a separate target)
+  and the description of the certificate (level-8 words and relations).
+-/
+-- BEGIN STATEMENTS
+namespace Z05
+
+open MeasureTheory Real
+
+/-- `φ₃ = [ε³]Φ_ε` (Lemma g1:lem:Mk at `k = 3`, expanded as in the docstring). -/
+noncomputable def phi3 (t : ℝ) : ℝ :=
+  1 / t * (1 / 6 - 2 * Y01.c t / 3 + Y01.c t ^ 3 - Y01.c t ^ 5 / 2) * Real.log t ^ 3
+    + 1 / (1 - t) * (1 / 6 - 2 * Y01.c' t / 3 + Y01.c' t ^ 3 - Y01.c' t ^ 5 / 2)
+      * Real.log (1 - t) ^ 3
+    + t * (1 - t) / W02.q t ^ 3
+      * ((1 - 3 * Y01.c t ^ 2 / 2) * Real.log t ^ 2 * Real.log (1 - t)
+        + (1 - 3 * Y01.c' t ^ 2 / 2) * Real.log t * Real.log (1 - t) ^ 2)
+
+/-- The integrand of `W_4` (Theorem thm:M3). -/
+noncomputable def W4integrand (v : ℝ) : ℝ :=
+  Y01.l1 v ^ 3 * ((8 - 7 * Real.sqrt 2) / (48 * v) - 1 / (3 * (v + Y01.a)))
+    + Real.sqrt 2 / 16 * (Y01.l1 v ^ 2 * Y01.l2 v / v)
+
+/-- `W_4 = ∫_b^a [ℓ₁³((8-7√2)/(48v) - 1/(3(v+a))) + (√2/16) ℓ₁²ℓ₂/v] dv`. -/
+noncomputable def W4 : ℝ := ∫ v in Y01.b..Y01.a, W4integrand v
+
+/-- The right-hand side of eq:W3p = (T2) of Table tab:closed. -/
+noncomputable def W3pclosed : ℝ :=
+  (7 * Real.sqrt 2 / 32 - 3 / 16) * Y01.z3
+    + (1 + Real.sqrt 2) * Y01.Li3 Y01.b + (1 - Real.sqrt 2) * Y01.Li3 (-Y01.b)
+    - 2 * Real.sqrt 2 * Y01.Li3 (1 / Real.sqrt 2)
+    + (2 * Y01.L - Real.sqrt 2 * Y01.lam) * D00.Li2 Y01.b
+    + (Real.sqrt 2 / 12 - 1 / 8) * π ^ 2 * Y01.L
+    - (1 + Real.sqrt 2) / 24 * π ^ 2 * Y01.lam
+    + (1 + Real.sqrt 2) / 24 * Y01.lam ^ 3
+    + Real.sqrt 2 / 4 * Y01.lam ^ 2 * Y01.L
+    - (1 + Real.sqrt 2) / 2 * Y01.lam * Y01.L ^ 2
+    + (5 - Real.sqrt 2) / 6 * Y01.L ^ 3
+
+/-- `Ω₂₀ = (1-√2)/(4v) + 1/(4(v-a)) - 1/(4(v+a)) - 1/(2(v+b))`. -/
+noncomputable def Om20 (v : ℝ) : ℝ :=
+  (1 - Real.sqrt 2) / (4 * v) + 1 / (4 * (v - Y01.a)) - 1 / (4 * (v + Y01.a))
+    - 1 / (2 * (v + Y01.b))
+
+/-- `Ω₁₁ = (1+√2)/(4v) - 1/(2(v+a))`. -/
+noncomputable def Om11 (v : ℝ) : ℝ := (1 + Real.sqrt 2) / (4 * v) - 1 / (2 * (v + Y01.a))
+
+/-- The integrand of the integral form g1:W3p of `W_3'`. -/
+noncomputable def W3pintegrand (v : ℝ) : ℝ :=
+  Y01.l1 v ^ 2 * Om20 v + Y01.l1 v * Y01.l2 v * Om11 v
+
+/-- `W_3'` as the integral g1:W3p. -/
+noncomputable def W3pint : ℝ := ∫ v in Y01.b..Y01.a, W3pintegrand v
+
+/-- `G₃₀ = -2√2v³/(3(v²+1)³) + √2(v-1)/(4(v²+1)) + (1+3√2)/24`. -/
+noncomputable def G30 (v : ℝ) : ℝ :=
+  -(2 * Real.sqrt 2 * v ^ 3) / (3 * (v ^ 2 + 1) ^ 3) + Real.sqrt 2 * (v - 1) / (4 * (v ^ 2 + 1))
+    + (1 + 3 * Real.sqrt 2) / 24
+
+/-- `G₂₁ = 2√2v³/(v²+1)³ - √2(3v-1)/(4(v²+1)) + (1-√2)/8`. -/
+noncomputable def G21 (v : ℝ) : ℝ :=
+  2 * Real.sqrt 2 * v ^ 3 / (v ^ 2 + 1) ^ 3 - Real.sqrt 2 * (3 * v - 1) / (4 * (v ^ 2 + 1))
+    + (1 - Real.sqrt 2) / 8
+
+/-- `g₂₀ = a/4 - √2/(2(v²+1))` (sec_g1_wt2.tex; `g₂₀' = Y01.g20'`). -/
+noncomputable def g20 (v : ℝ) : ℝ := Y01.a / 4 - Real.sqrt 2 / (2 * (v ^ 2 + 1))
+
+/-- `g₁₁ = -√2(v²+2v-1)/(4(v²+1))`. -/
+noncomputable def g11 (v : ℝ) : ℝ := -(Real.sqrt 2 * (v ^ 2 + 2 * v - 1)) / (4 * (v ^ 2 + 1))
+
+/-- `G₃₀'`, written out: `-√2(v⁶-2v⁵-7v⁴-4v³+7v²-2v-1)/(4(v²+1)⁴)`. -/
+noncomputable def G30d (v : ℝ) : ℝ :=
+  -(Real.sqrt 2 * (v ^ 6 - 2 * v ^ 5 - 7 * v ^ 4 - 4 * v ^ 3 + 7 * v ^ 2 - 2 * v - 1))
+    / (4 * (v ^ 2 + 1) ^ 4)
+
+/-- `G₂₁'`, written out: `√2(3v⁶-2v⁵-21v⁴-4v³+21v²-2v-3)/(4(v²+1)⁴)`. -/
+noncomputable def G21d (v : ℝ) : ℝ :=
+  Real.sqrt 2 * (3 * v ^ 6 - 2 * v ^ 5 - 21 * v ^ 4 - 4 * v ^ 3 + 21 * v ^ 2 - 2 * v - 3)
+    / (4 * (v ^ 2 + 1) ^ 4)
+
+/-- `g₁₁'`, written out: `√2(v²-2v-1)/(2(v²+1)²)`. -/
+noncomputable def g11d (v : ℝ) : ℝ := Real.sqrt 2 * (v ^ 2 - 2 * v - 1) / (2 * (v ^ 2 + 1) ^ 2)
+
+/-- `D₁ = ℓ₁' = (2v+2)/(v²+2v-1) - 1/v`. -/
+noncomputable def D1 (v : ℝ) : ℝ := (2 * v + 2) / (v ^ 2 + 2 * v - 1) - 1 / v
+
+/-- `D₂ = ℓ₂' = (2-2v)/(1+2v-v²) - 1/v`. -/
+noncomputable def D2 (v : ℝ) : ℝ := (2 - 2 * v) / (1 + 2 * v - v ^ 2) - 1 / v
+
+/-- `R₃₀ = G₃₀' - 1/(3(v+a)) + (8-7√2)/(48v)`. -/
+noncomputable def R30 (v : ℝ) : ℝ := G30d v - 1 / (3 * (v + Y01.a)) + (8 - 7 * Real.sqrt 2) / (48 * v)
+
+/-- `R₂₁ = G₂₁' + √2/(16v)`. -/
+noncomputable def R21 (v : ℝ) : ℝ := G21d v + Real.sqrt 2 / (16 * v)
+
+/-- The real tetralogarithm `Li₄(x) = ∫_0^x Li₃(t)/t dt` (only for thm:W4R). -/
+noncomputable def Li4 (x : ℝ) : ℝ := ∫ t in (0 : ℝ)..x, Y01.Li3 t / t
+
+/-- The right-hand side of eq:R = (T3) of Table tab:closed. -/
+noncomputable def Rclosed : ℝ :=
+  (1 - 573 * Real.sqrt 2) * Li4 Y01.b - (1 + 573 * Real.sqrt 2) * Li4 (-Y01.b)
+    + 56 * Real.sqrt 2 * Li4 (-Y01.b ^ 2)
+    + 17 * Real.sqrt 2 * Li4 (1 / Real.sqrt 2)
+    - (37 / 4 + 17 * Real.sqrt 2 / 16) * Li4 (1 / 2)
+    + (10 + 86 * Real.sqrt 2) * Li4 (1 - 1 / Real.sqrt 2)
+    - (10 - 86 * Real.sqrt 2) * Li4 (2 - Real.sqrt 2)
+    + Y01.L * ((40 + 7 * Real.sqrt 2) * Y01.Li3 Y01.b - (40 - 7 * Real.sqrt 2) * Y01.Li3 (-Y01.b)
+        - 72 * Y01.Li3 (1 / Real.sqrt 2) + (63 / 8 - 3 * Real.sqrt 2 / 16) * Y01.z3)
+    + Y01.lam * ((6 + 13 * Real.sqrt 2) * Y01.Li3 Y01.b + (6 - 13 * Real.sqrt 2) * Y01.Li3 (-Y01.b)
+        - 47 * Real.sqrt 2 / 2 * Y01.Li3 (1 / Real.sqrt 2)
+        + (329 * Real.sqrt 2 / 128 - 3 / 8) * Y01.z3)
+    + 30 * D00.Li2 Y01.b ^ 2
+    + D00.Li2 Y01.b * ((30 + 7 * Real.sqrt 2 / 2) * Y01.L ^ 2 - 24 * Y01.lam * Y01.L
+        - 19 * Real.sqrt 2 / 8 * Y01.lam ^ 2 + (Real.sqrt 2 / 24 - 19 / 4) * π ^ 2)
+    + (103 / 384 - 4963 * Real.sqrt 2 / 5760) * π ^ 4
+    + π ^ 2 * ((67 / 24 + 185 * Real.sqrt 2 / 96) * Y01.L ^ 2
+        + (41 * Real.sqrt 2 / 12 - 35 / 12) * Y01.lam * Y01.L
+        + (5 / 12 - 1105 * Real.sqrt 2 / 384) * Y01.lam ^ 2)
+    + (13 / 24 - 25 * Real.sqrt 2 / 24) * Y01.L ^ 4
+    - (73 / 6 + 29 * Real.sqrt 2 / 3) * Y01.L ^ 3 * Y01.lam
+    + (63 / 8 + 67 * Real.sqrt 2 / 16) * Y01.L ^ 2 * Y01.lam ^ 2
+    + (41 / 24 + 17 * Real.sqrt 2 / 6) * Y01.L * Y01.lam ^ 3
+    + (137 * Real.sqrt 2 / 192 - 61 / 192) * Y01.lam ^ 4
+
+/-- Supplement, Lemma g1:lem:red3, "All integrals converge": the integrand of `W_4` is
+integrable on `[b,a]`. -/
+def stmt_1 : Prop := IntervalIntegrable W4integrand volume Y01.b Y01.a
+
+/-- Supplement, Lemma g1:lem:Mk at `k = 3` ("$M_k=-\frac12\int_0^1\varphi_k(t)\,dt$"), with
+`φ₃` written out: `φ₃` is integrable on `[0,1]` and `M_3 = -½ ∫_0^1 φ₃(t) dt`. -/
+def stmt_2 : Prop :=
+  IntervalIntegrable phi3 volume 0 1 ∧
+    W02.Mk 3 = (((-(1 / 2) * ∫ t in (0 : ℝ)..1, phi3 t) : ℝ) : ℂ)
+
+/-- Supplement, Lemma g1:lem:red3, Step 1: "$M_3=\int_b^a[\ell_1^3R_{30}+\ell_1^2\ell_2R_{21}]dv$"
+with the folded kernels `R₃₀ = G₃₀' - 1/(3(v+a)) + (8-7√2)/(48v)`, `R₂₁ = G₂₁' + √2/(16v)`. -/
+def stmt_3 : Prop :=
+  IntervalIntegrable (fun v => Y01.l1 v ^ 3 * R30 v + Y01.l1 v ^ 2 * Y01.l2 v * R21 v)
+      volume Y01.b Y01.a ∧
+    W02.Mk 3 =
+      (((∫ v in Y01.b..Y01.a, (Y01.l1 v ^ 3 * R30 v + Y01.l1 v ^ 2 * Y01.l2 v * R21 v)) : ℝ) : ℂ)
+
+/-- Supplement, Section g1:sub:M3:red: `G₃₀' , G₂₁', g₂₀', g₁₁'` are the displayed rational
+functions; "$G_{30}(b)=G_{21}(b)=g_{11}(b)=g_{20}(b)=0$"; `ℓ₁' = D₁`, `ℓ₂' = D₂` on `(b,a)`; and
+"$-3G_{30}D_1-G_{21}D_2=\Omega_{20}+g_{20}',\ -2G_{21}D_1=\Omega_{11}+g_{11}'$" on `(b,a)`. -/
+def stmt_4 : Prop :=
+  (∀ v : ℝ, HasDerivAt G30 (G30d v) v ∧ HasDerivAt G21 (G21d v) v ∧
+      HasDerivAt g20 (Y01.g20' v) v ∧ HasDerivAt g11 (g11d v) v) ∧
+    G30 Y01.b = 0 ∧ G21 Y01.b = 0 ∧ g11 Y01.b = 0 ∧ g20 Y01.b = 0 ∧
+    ∀ v : ℝ, Y01.b < v → v < Y01.a →
+      HasDerivAt Y01.l1 (D1 v) v ∧ HasDerivAt Y01.l2 (D2 v) v ∧
+      -3 * G30 v * D1 v - G21 v * D2 v = Om20 v + Y01.g20' v ∧
+      -2 * G21 v * D1 v = Om11 v + g11d v
+
+/-- Supplement, Lemma g1:lem:red3, Step 2 (integration by parts at degree three):
+"$M_3=W_4+\int_b^a[\ell_1^2(\Omega_{20}+g_{20}')+\ell_1\ell_2(\Omega_{11}+g_{11}')]dv$". -/
+def stmt_5 : Prop :=
+  IntervalIntegrable
+      (fun v => Y01.l1 v ^ 2 * (Om20 v + Y01.g20' v) + Y01.l1 v * Y01.l2 v * (Om11 v + g11d v))
+      volume Y01.b Y01.a ∧
+    W02.Mk 3 = (((W4 + ∫ v in Y01.b..Y01.a,
+      (Y01.l1 v ^ 2 * (Om20 v + Y01.g20' v) + Y01.l1 v * Y01.l2 v * (Om11 v + g11d v))) : ℝ) : ℂ)
+
+/-- Supplement, Lemma g1:lem:red3, Step 3 (integration by parts at degree two and folding):
+"the degree-two parts contribute ... $\int\ell_1\Rwt=T$", that is
+`∫_b^a [ℓ₁² g₂₀' + ℓ₁ℓ₂ g₁₁'] dv = ∫_b^a ℓ₁ R_wt dv`. -/
+def stmt_6 : Prop :=
+  IntervalIntegrable (fun v => Y01.l1 v ^ 2 * Y01.g20' v + Y01.l1 v * Y01.l2 v * g11d v)
+      volume Y01.b Y01.a ∧
+    ∫ v in Y01.b..Y01.a, (Y01.l1 v ^ 2 * Y01.g20' v + Y01.l1 v * Y01.l2 v * g11d v) = Y01.Tint
+
+/-- Supplement, Lemma g1:lem:red3: "$M_3=W_4+W_3'+T$ with $W_4$, $T$ as in the theorem and
+Lemma~\ref{g1:lem:red2}, and $W_3'$ the integral \eqref{g1:W3p}. All integrals converge." -/
+def stmt_7 : Prop :=
+  IntervalIntegrable W4integrand volume Y01.b Y01.a ∧
+    IntervalIntegrable W3pintegrand volume Y01.b Y01.a ∧
+    IntervalIntegrable (fun v => Y01.l1 v * Y01.Rwt v) volume Y01.b Y01.a ∧
+    W02.Mk 3 = (((W4 + W3pint + Y01.Tint) : ℝ) : ℂ)
+
+/-- Supplement, Lemma g1:lem:W3p: the integral \eqref{g1:W3p} "equals the right-hand side of
+\eqref{g1:T2}". -/
+def stmt_8 : Prop := W3pint = W3pclosed
+
+/-- Theorem thm:M3: "$M_3=W_4+W_3'+T$", with `W_3'` = (T2) and `T = (π²+6λ²)/24` (eq:T), for
+`M_3 = W02.Mk 3`. -/
+def stmt_9 : Prop :=
+  W02.Mk 3 = (((W4 + W3pclosed + (π ^ 2 + 6 * Y01.lam ^ 2) / 24) : ℝ) : ℂ)
+
+/-- Properties of `Li4` relied on (main.tex: "$\Li_n(z)=\sum_{k\ge1}z^k/k^n$" at `n = 4`):
+`Li₃(t)/t` is integrable on `[0,x]` for `x ≤ 1`, and `Li4 x = Σ_{k≥1} x^k/k⁴` for `|x| ≤ 1`. -/
+def stmt_10 : Prop :=
+  (∀ x : ℝ, x ≤ 1 → IntervalIntegrable (fun t : ℝ => Y01.Li3 t / t) volume 0 x) ∧
+    ∀ x : ℝ, |x| ≤ 1 → HasSum (fun n : ℕ => x ^ (n + 1) / ((n : ℝ) + 1) ^ 4) (Li4 x)
+
+/-- Theorem thm:W4R, the step "Hence $M_3=\mathcal R+W_3'+T$", with (T3), (T2), eq:T, stated as
+an implication from the certificate identity "$W_4=\mathcal R$", which is not proved here. -/
+def stmt_11 : Prop :=
+  W4 = Rclosed →
+    W02.Mk 3 = (((Rclosed + W3pclosed + (π ^ 2 + 6 * Y01.lam ^ 2) / 24) : ℝ) : ℂ)
+
+end Z05

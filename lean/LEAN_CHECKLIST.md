@@ -136,19 +136,59 @@ Totals: 6 files, 63 statements, all 63 proved, 19294 lines of Lean. `lake build`
 
 Waves 1 to 5: 38 files, 290 statements, 45398 lines of Lean.
 
+## Wave 6: the radius, one more Fourier order, the nonlocal values, the superellipsoid
+
+Files are in `lean/Zeta3/Wave6/`. Status from `tools/gate.py check`, run by the planner on 2026-11-26.
+
+| # | File | Paper result | What Lean proved | What it does not cover | Status |
+|---|---|---|---|---|---|
+| Z01 | `Z01_RadiusOne` | Thm `thm:one` | The theorem in full: `limsup|M_k|^{1/k}=1`, the radius of `ΣM_kεᵏ` is exactly 1, the sum continues holomorphically across every point of the unit circle except `ε=1`, and not across `ε=1`. With it `P(p)=8(1+M(1/p)/p)` for `p≥1`, and the step from `thm:zero` (no function analytic at `p=1` agrees with `P` on `p≥1`) | Nothing of the theorem. `thm:zero` is imported from Y06 | PROVED (8) |
+| Z02 | `Z02_Theta5` | Prop `prop:theta` (`Θ₅`), Prop `prop:degree` (`n≤5`) | `thm:fourier` one order further: `|a_k(h_p)-(-1)^k(√2/π)[…+Θ₅(k²)τ⁵]|≤C_kτ⁶` with `Θ₅(u)=-(¾+4u)ζ(5)-(7/4+4u)ζ(2)ζ(3)`; Watson's expansion at `N=5`; `g_{k,3}`; the weight-five constants `D_{5,0}`, `D_{5,1}` proved analytically; polynomials `Θ₂…Θ₅` of degree `⌊n/2⌋-1` with the stated leading coefficients | `prop:degree` for `n≥6` and the alternating-MZV clause; `Θ₆…Θ₉`; the iterated-integral form of the atoms and the certificates | PROVED (8) |
+| Z03 | `Z03_NonlocalValues` | Prop `prop:nonlocal` (last sentence), Lemma `g4:lem:NK` | `ΣH_n(-1)ⁿ/n²=-⅝ζ(3)`, `Σ(-1)ⁿ/n³=-¾ζ(3)`, `ΣH_n2⁻ⁿ/n²=ζ(3)-π²log2/12`, `Σ2⁻ⁿ/n³=⅞ζ(3)-π²log2/12+log³2/6`; Landen's identity for `Li₃`; the Nielsen–Kölbig identity for every `x<1`; `ΣH_nxⁿ/n²=Li₃+S_{1,2}` for `|x|≤1`; the regrouping step of the proof | The formula for `N_e` (a statement about the computer-generated expression of `thm:hexagon`); `Φ_A`, `Φ_L`, the edge data, the hexagon example | PROVED (17) |
+| Z04 | `Z04_SuperellipsoidArea` | Thm `thm:S` | For `p≥1`: `S(p)=6G(ε)(P(p)-4)-8ε²Q(ε)` with `Q` as in the theorem and every integral convergent; `S(p)→24`; `|S(p)-24-48M₀/p|≤C/p²`. With it the Gaussian linearisation, Lemma `g3:lem:smooth` at `j=0`, and both parts of Lemma `g3:lem:exact` | That the face integral is the Hausdorff area (as in Y05); the expansion for general `K` and "no `log p` terms"; smoothness of `Q` beyond `j=0`; `s₂`, `s₃`, `Q₀`, `Q₁`; `S_n(p)`; `prop:cuberadius` | PROVED (8) |
+| Z08 | `Z08_PrintedDigits` | printed decimals of `M₀`, `κ`, `M₂` | Each printed 20-digit decimal is the truncation of the true coefficient (`W02.Mk`), which is real: `printed ≤ x < printed+10⁻²⁰` for `κ`, `printed-10⁻²⁰ < x ≤ printed` for `M₀`, `M₂` | The other printed decimals of the paper | PROVED (4) |
+| Z05 | `Z05_M3` | Thm `thm:M3` | The theorem: `M₃` (the coefficient of `1/p⁴`, as defined in W02) equals `W₄+W₃'+T`, with `W₄` the printed integral, `W₃'` the closed form (T2) and `T=(π²+6λ²)/24`. The chain: `M₃=-½∫φ₃`; the Euler substitution; two integrations by parts; `W₃'` as an integral equals (T2). `Li₄` as an integral with its series. Also: if `W₄=𝓡` then `M₃=𝓡+W₃'+T` | `thm:W4R` itself, `W₄=𝓡`: the paper's proof is a computer certificate over 5184 words, not reproduced; `thm:W4`; the printed decimals of `M₃`, `W₄` | PROVED (11) |
+| Z06 | `Z06_P2asymNext` | Thm `thm:P2asym` (next orders) | For `0<θ<π`, real `n≥9`: `|E_n+2z a₂ log n/n³|≤9000z/n³`; the `n⁻³` term with `ζ(3)` in `d(θ)` and error `3.1·10⁴ z log²n/n⁴`; the `n⁻⁴` term with error `1.2·10⁵ z log³n/n⁵`; the supplement's Prop. `g3:prop:n4(a)`. At `θ=π/2`: `a₁`, `a₂`, `a₃=ζ(3)/4-⅓` | The comparisons with Ahmed's paper; the sentence "the logarithm is really there" as a separate statement | PROVED (12) |
+| Z07 | `Z07_M2alpha` | Thm `thm:M2alpha`, Thm `thm:flat` (`k=2`) | For `0<α<π` the `u²` coefficient of `M(u;α)` (D04's integral) is `ζ(2)Φ(c)-½Li₂(c²)+Y(c)+Y(-c)`, with `Y` built from harmonic polylogarithms defined as iterated integrals; `Φ(c)=Σc²ⁿ/(4n²-1)` in closed form; `M₂(α)=Σ(r_n+ζ(2)/(4n²-1))c²ⁿ` with the supplement's rational `r_n`; at the square `W₂=T` | The sentence that `W₃` is a combination of weight-three iterated integrals (the 105-integral form); analyticity of `M(u;α)` in `u` (`M₂` is a Peano coefficient); `thm:flat` for `k≠2` | PROVED (10) |
+
+Totals: 8 files, 78 statements, all 78 proved, 13322 lines of Lean. `lake build` of the whole library passes
+(18344 jobs). No statement of the paper was found false. In Z05 the planner changed the audited statement block once
+after the audit: the unproved `W₄=𝓡` was removed and "Hence `M₃=𝓡+W₃'+T`" became an implication from it; the first ten
+statements and all definitions are as audited. The audited original is kept outside the library.
+
+Waves 1 to 6: 46 files, 368 statements, 58720 lines of Lean.
+
+## Wave 7: Cauchy's formula, one more Fourier order, area values, the flat angle
+
+Files are in `lean/Zeta3/Wave7/`. Status from `tools/gate.py check`, run by the planner on 2026-11-26.
+
+| # | File | Paper result | What Lean proved | What it does not cover | Status |
+|---|---|---|---|---|---|
+| V01 | `V01_CauchyFormula` | Cauchy's formula (Section on Fourier coefficients), Thm `thm:pw` (displayed series) | For `p>1`: `h_p` is the support function of the curve (a maximum over the curve); `P(p)=∫₀^{2π}h_p=π a₀(h_p)` for the true perimeter; the same at the diamond `p=1`. With Z02 at `k=0`: `|P/√2-(4+ζ(2)τ²+ζ(3)τ³-(33/16)ζ(4)τ⁴-(¾ζ(5)+7/4ζ(2)ζ(3))τ⁵)|≤Cτ⁶` for the true perimeter | The all-order and weight claims of `thm:pw`; the rhombus and `N`-dimensional parts; the general convex-curve formula | PROVED (9) |
+| V02 | `V02_Theta6` | Prop `prop:theta` (`Θ₆`), Prop `prop:degree` (`n=6`) | `thm:fourier` through `τ⁶` with error `C_kτ⁷`, `Θ₆(u)=(4039/256+733u/8+31u²)ζ(6)-(7/8+2u)ζ(3)²` (the supplement's formula); Watson at `N=6`; `g_{k,4}`; the three weight-six table rows; degree exactly 2 with leading coefficient `31ζ(6)` | `Θ₇…Θ₉`; `prop:degree` for `n≥7` and the alternating-MZV clause; the certificates | PROVED (8) |
+| V04 | `V04_AreaValues` | values at `p=1,2` (text before Thm `thm:S`) | `S(1)=4√3` (octahedron) and `S(2)=4π` (sphere) for the face integral of Y05, with the Dirichlet integral `Γ(½)³/Γ(3/2)=2π`. Three more statements (`∫dt/√(t(1-t))=π`, `P(2)=2π`, `P(p)→8`) repeat W04 and are not counted | The enclosed area `A(p)`; `S_n(1)` for `n≠3` | PROVED (4 new of 7) |
+| V05 | `V05_FlatAngle` | Thm `thm:flat` (`k≤3`) | For `0<α<π`: `M(u;α)` is smooth at `u=0`; `M_k(α)=Σμ_{k,n}c²ⁿ` for `k=0,1,2,3` with `μ_{0,n}`, `μ_{1,n}` explicit rationals, `μ_{2,n}=r_n+ζ(2)/(4n²-1)`, `μ_{3,n}=r'_n+q'_nζ(2)-ζ(3)/(4n²-1)`, all `r_n,r'_n,q'_n` rational and independent of the angle; `Φ(c)` in closed form; Lemmas `g6:lem:series`, `g6:lem:En`, `g6:lem:gamma`, `g6:prop:formula`, `g6:lem:first` for `k≤3` | `k≥4` and the general weight claim; `Ψ` as a formal series; the uniqueness remark | PROVED (12) |
+
+Totals: 4 files, 33 new statements (36 gated), all proved, 5582 lines of Lean. `lake build` of the whole library
+passes (18352 jobs). No statement of the paper was found false. A fifth target, the residue of `prop:cuberadius`,
+was proved too but repeats U01 of wave 2 (the planner had not checked); it is kept outside the library and not
+counted.
+
+Waves 1 to 7: 50 files, 401 statements (plus 3 repeats), 64302 lines of Lean.
+
 ## OUT: not checkable in Lean with today's Mathlib
 
 These need polylogarithms of weight ≥3, harmonic polylogarithms, multiple zeta values, symbols, Goncharov's
 theorem, or certified 300-digit arithmetic. They stay on the written proofs and independent re-checks listed in
 the verification map at the top of this repository.
 
-`thm:M3`, `thm:W4`, `thm:W4R`, `thm:wt2`, `thm:pw` (all orders), `prop:degree`,
-`prop:theta`, `thm:one`, `thm:decay`, `thm:varpi`, `thm:pip` (all orders and growth of `N_k`),
-`thm:P2asym` (the `n⁻³`, `n⁻⁴` terms), `thm:Malpha` (`M_k(α)` for `k≥2`; the `M₁(α)` formula is D04), `conj:field`, `thm:flat` (main claim), `thm:M2alpha`,
+`thm:W4`, `thm:W4R` (`W₄=𝓡`), `thm:wt2`, `thm:pw` (all orders), `prop:degree` (`n≥7`),
+`prop:theta` (`Θ₇…Θ₉`), `thm:decay`, `thm:varpi`, `thm:pip` (all orders and growth of `N_k`),
+`thm:Malpha` (`M_k(α)` for `k≥2`; the `M₁(α)` formula is D04), `conj:field`, `thm:flat` (`k≥4`),
 `prop:M3angle`, `thm:M4alpha`, `thm:zladder`, `thm:hexagon`, `thm:hexagon5`, `prop:octagon5depth`,
-`thm:S`, `thm:oct` (the weight claims for every order, other dimensions).
+`thm:S` (general `K`, no `log p` terms), `thm:oct` (the weight claims for every order, other dimensions).
 
-This list is what has not been tried or is known to need missing library. Waves 2 to 5 showed that results first
+This list is what has not been tried or is known to need missing library. Waves 2 to 7 showed that results first
 put here can be reached, so an entry here is not a proof that Lean cannot do it.
 
 ## Log
@@ -183,3 +223,27 @@ put here can be reached, so an entry here is not a proof that Lean cannot do it.
 - 2026-11-25: X06 and wave 5 reviewed by non-Claude models (Codex GPT-6 with numerical checks, Kimi K3, GLM-5,
   DeepSeek, Kilo's free model). No statement had to change. Wave 6 launched (Z01 `thm:one`, Z02 `prop:theta` Θ₅, Z03 values of
   `prop:nonlocal`, Z04 `thm:S`).
+- 2026-11-25: X06 and wave 5 pushed to the public repo in commit `bc6abbd1` (38 files, 290 statements).
+- 2026-11-25: wave 6b launched (Z05 `thm:M3` as `W₄+W₃'+T`, Z06 the next order of `thm:P2asym`, Z07 `thm:M2alpha`).
+- 2026-11-25: paper draft 59 (four truncated decimals). No Lean statement changes; line numbers of `main.tex` are
+  unchanged.
+- 2026-11-25: wave 6c (Z08, one file): the printed decimals of `M₀`, `κ` (draft 59 digits) and `M₂` are
+  truncations of the true coefficients. PROVED (4), gate run by the planner, `lake build` passes (18330 jobs).
+- 2026-11-26: wave 6 back: Z01 (`thm:one`), Z02 (`Θ₅`, `prop:degree` to `n=5`), Z03 (values of `prop:nonlocal`),
+  Z04 (`thm:S`) all PROVED; planner re-ran the gate on each; `lake build` passes (18338 jobs, 43 files, 335
+  statements). Non-Claude review of the five finished files started.
+- 2026-11-26: wave 7 launched (files in `lean/Zeta3/Wave7/`): V01 Cauchy's formula `P=π a₀(h_p)` and the displayed
+  series of `thm:pw` through `τ⁵` for the true perimeter; V02 `Θ₆`; V03 the residue of `prop:cuberadius`; V04
+  `S(1)=4√3`, `S(2)=4π`, `P(2)=2π`; V05 `thm:flat` for `k≤2` (stretch).
+- 2026-11-26: wave 6b back: Z06 (next orders of `thm:P2asym`) and Z07 (`thm:M2alpha`, `thm:flat` at `k=2`) PROVED.
+  Z05 proved `thm:M3` (ten statements) and left `W₄=𝓡` (`thm:W4R`) open: its proof in the paper is a computer
+  certificate. The planner removed that statement, kept "Hence" as an implication, re-froze, and gated all three.
+  `lake build` passes (18344 jobs): 46 files, 368 statements.
+- 2026-11-26: wave 7 back, all five targets proved in about 70 minutes; planner re-ran the gate. V01, V02, V04, V05
+  are in the build (18352 jobs): 50 files, 401 statements. V03 repeated U01 and was set aside.
+- 2026-11-26: wave 8 launched (files in `lean/Zeta3/Wave8/`, all stretch): Q01 `thm:pw` to every order with the
+  weight claim; Q02 `thm:pip` to every order, its divergence and the growth of `N_k`; Q03 `Θ₇`; Q04 `thm:flat` for
+  every `k` and the first rung of `thm:zladder`; Q05 `thm:decay`. Wave 7 files sent to the non-Claude reviewers.
+- 2026-11-26: waves 6 and 7 reviewed by non-Claude models (Codex GPT-6 with numerical checks, Kimi K3, GLM-5,
+  DeepSeek, Kilo's free model, Gemini through `agy`, which works again). No statement had to change. Two comments in
+  the header of Z05 were corrected (a draft-58 decimal, a statement number) and the file re-frozen.

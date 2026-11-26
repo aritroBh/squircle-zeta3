@@ -36,3 +36,15 @@ import Zeta3.Wave5.Y03_GraphAngle
 import Zeta3.Wave5.Y04_Fourier
 import Zeta3.Wave5.Y05_Octahedron
 import Zeta3.Wave5.Y06_RadiusZero
+import Zeta3.Wave6.Z01_RadiusOne
+import Zeta3.Wave6.Z02_Theta5
+import Zeta3.Wave6.Z03_NonlocalValues
+import Zeta3.Wave6.Z04_SuperellipsoidArea
+import Zeta3.Wave6.Z05_M3
+import Zeta3.Wave6.Z06_P2asymNext
+import Zeta3.Wave6.Z07_M2alpha
+import Zeta3.Wave6.Z08_PrintedDigits
+import Zeta3.Wave7.V01_CauchyFormula
+import Zeta3.Wave7.V02_Theta6
+import Zeta3.Wave7.V04_AreaValues
+import Zeta3.Wave7.V05_FlatAngle

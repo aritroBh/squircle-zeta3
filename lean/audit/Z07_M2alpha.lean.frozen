@@ -1,0 +1,246 @@
+import Mathlib
+import Zeta3.Wave2.D00_Dilog
+import Zeta3.Wave2.D04_MalphaForms
+/-!
+# Z07 -- `M_2` at every angle (paper labels `thm:M2alpha`, `thm:flat`)
+
+Source: `paper/ieee/main.tex`, Subsection "Smoothed Corners of Any Angle" (line 1465);
+detailed proofs in `paper/ieee/proofs/sec_g8_M2alpha.tex`, `sec_g8_W3int.tex`, `sec_g6_flat.tex`.
+
+**Setup, lines 1466-1471** (the corner integral; `D04.Mint` is this integral):
+
+> its length is $2+2u\,M(u;\alpha)$, where
+> \begin{multline*}
+> M(u;\alpha)=\int_0^1\Bigl[(1+g)^{-1-u}\sqrt{1+g^{2-2u}-2\cos\alpha\,g^{1-u}}\\
+> -1\Bigr]g^{u-1}\dd g=\sum_{k\ge0}M_k(\alpha)u^k,
+> \end{multline*}
+
+**`thm:flat`, lines 1501-1508** (the parts used here):
+
+> For every $k\ge0$ and $0<\alpha<\pi$, $M_k(\alpha)=\sum_{n\ge1}\mu_{k,n}c^{2n}$, where each
+> $\mu_{k,n}$ is a polynomial with rational coefficients in $\zeta(2),\dots,\zeta(k)$ of weight at
+> most $k$. In particular, with $r_n,r_n',q_n'\in\mathbb Q$,
+> \[ \mu_{2,n}=r_n+\frac{\zeta(2)}{4n^2-1},\qquad ... \]
+> So, with $\Phi(c)=\sum_{n\ge1}\frac{c^{2n}}{4n^2-1}=\frac12-\frac{1-c^2}{2c}\operatorname{artanh}c$, ...
+
+**Harmonic polylogarithms, lines 1516-1517**:
+
+> for words $w$ in the letters $0,\pm1$ not ending in $0$, let $H_1(x)=-\log(1-x)$,
+> $H_{-1}(x)=\log(1+x)$ and $H_{a,w}(x)=\int_0^xf_a(t)H_w(t)\dd t$, with $f_0=\frac1t$,
+> $f_1=\frac1{1-t}$, $f_{-1}=\frac1{1+t}$; for example $H_{0,0,1}=\Li_3$.
+
+**`thm:M2alpha`, lines 1518-1530** (verbatim):
+
+> For $0<\alpha<\pi$, $M_2(\alpha)=W_2+W_3$, where $W_2=\frac12\zeta(2)-\frac12\Li_2(c^2)$ and
+> $W_3$ is a combination, with coefficients rational in $c$, of iterated integrals of weight three
+> whose letters are all real. Explicitly,
+> \[ M_2(\alpha)=\zeta(2)\,\Phi(c)-\tfrac12\Li_2(c^2)+Y(c)+Y(-c), \]
+> where
+> \begin{multline*}
+> Y(x)=(1-x)\bigl[H_{0,0,1}+H_{0,1,-1}-H_{1,-1,1}\bigr](x)\\
+> +\frac{1-x^2}{2x}\,H_{1,0,1}(x)-\frac{(1-x)^2}{2x}\,H_{1,0,-1}(x).
+> \end{multline*}
+
+**After the theorem, lines 1536-1537**: "at the square corner $W_2$ is the term $T$ of
+\eqref{eq:T}", where (line 903) $T=\frac{\pi^2+6\lambda^2}{24}=\frac{\zeta(2)-\Li_2(\frac12)}{2}$.
+
+**Supplement, `sec_g8_W3int.tex`, Lemma `g8c:lem:M2int` (lines 99-112)**: with
+$R(h)=\sqrt{1+h^2-2kh}$, $k=\cos\alpha$, $L=\log g$, $m=\log(1+g)$,
+> f_A=\frac1g\Bigl[\frac{R-gR'+g^2R''}{2(1+g)}-\frac12\Bigr],\qquad
+> f_B=\frac{gR'-R}{g(1+g)},\qquad f_C=\frac{R}{2g(1+g)},
+> ... Then $f_AL^2+f_BLm+f_Cm^2$ is integrable on $(0,1]$ and
+> M_2(\alpha)=\int_0^1\bigl[f_A(g)L^2+f_B(g)Lm+f_C(g)m^2\bigr]\dd g .
+
+**Supplement, `sec_g8_M2alpha.tex`, eq. `g8:eq:M2rat` (line 100) and the output of M1
+(lines 116-119)**:
+> \sum_{n\ge1}r_nc^{2n}=-\tfrac12\Li_2(c^2)+Y(c)+Y(-c)\qquad(0<c<1),
+> r_n=-\frac{(n-1)^2}{n^3(2n-1)}-\frac{n-1}{n^2(2n-1)}Z_{-1}(2n)-\frac{2}{(2n-1)(2n+1)}Z_{2}(2n)
+> +\frac{Z_{-2}(2n)}{n(2n-1)(2n+1)}-\frac{Z_{-1,-1}(2n)}{n(2n-1)}
+with the nested sums $Z_{a,v}(M)=\sum_{i=1}^M\operatorname{sgn}(a)^i\,i^{-|a|}Z_v(i-1)$,
+$Z_\emptyset=1$ (proof of Lemma `g8:lem:shift`, line 59). For example $r_1=-\frac7{12}$.
+
+## Formalization
+
+* `c = cos(α/2)` is `D04.c`; `Li_2` is `D00.Li2`; the corner integral is `D04.Mint`.
+* `ζ(2)` is written `π^2/6` (Mathlib `riemannZeta_two : riemannZeta 2 = π^2/6`), as in D04.
+  No `ζ(3)` occurs in the statements (the theorem is `ζ(3)`-free, as the paper remarks).
+* **`M_2(α)`.** The paper defines `M_k(α)` as the coefficient of `u^k` in the expansion of
+  `M(u;α)`. We do not assume the power series; we use the Peano form of "coefficient of `u^2`":
+  `IsCoeff2 α m` says `M(u;α) = a + b u + m u^2 + o(u^2)` as `u → 0` for some `a, b`. Such an `m`
+  is unique (`stmt_6`), and when `M(·;α)` is analytic at `0` it is the Taylor coefficient. This
+  matches D04, where `M_1(α)` is `∂_u M(0;α)` (the coefficient `b`), and the supplement, where
+  `M_2 = ½ M''(0;α)`. `D04.Mint u α` is a genuine (integrable) integral for `|u| < 1` (D04
+  docstring), so no junk value enters near `u = 0`.
+* **Harmonic polylogarithms.** Letters are the inductive type `Letter` (`zero`, `one`, `negOne`
+  for `0, 1, -1`); `H [] = 1` and `H (a :: w) x = ∫_0^x f_a(t) H_w(t) dt`. With this recursion
+  `H [one] = ∫_0^x dt/(1-t)` and `H [negOne] = ∫_0^x dt/(1+t)`; `stmt_1` says these are the
+  paper's `-log(1-x)` and `log(1+x)` on `(-1,1)`. `stmt_2` says every integrand that occurs in
+  the eleven words used is interval integrable on `[0,x]` for `-1 < x < 1`, so no
+  `intervalIntegral` junk value is used. (For `a = 0` the integrand `H_w(t)/t` takes the value
+  `0` at the single point `t = 0` by Lean's `1/0 = 0`; this does not affect the integral.)
+* `Y(x)` is evaluated at `x = ±c` with `0 < c < 1`, so `x ≠ 0` and no `x/0` convention is used.
+* `Φ` is written in its closed form `½ - (1-c²)/(2c) artanh c` (`Real.artanh`, the genuine
+  inverse of `tanh` on `(-1,1)`); `stmt_4` is the paper's identity with the series. In the final
+  statement `Φ(c)` is this closed form.
+* The integrand of the supplement's integral formula uses `R = √(1+g²-2kg) > 0` for `0 < α < π`,
+  `R' = (g-k)/R`, `R'' = (1-k²)/R³`; `stmt_7` states its integrability on `(0,1]`.
+* `n ≥ 1` is written as `n + 1` with `n : ℕ`.
+
+Numerical check (mpmath, 40 digits; definition = `½ ∂_u² ` of the integrand under the integral,
+HPLs by their Taylor series to order 900): the right side of `stmt_10` equals `M_2(α)` from the
+definition, and from the integral of `stmt_7`, to `< 2·10^{-40}` at `α = π/3`
+(`-0.04287175497685288253`), `π/2` (`-0.02216191108726939942`, the squircle's `M_2` of
+`thm:M2`), `2π/3` (`-0.00956789565295638477`) and `1.8`; `stmt_9` (with the `r_n` above,
+summed to `n = 400`) and `stmt_4` agree to `< 2·10^{-40}`; `r_1 = -7/12`; `stmt_5` holds exactly.
+
+NOT COVERED:
+* The first sentence of `thm:M2alpha`: "$W_3$ is a combination, with coefficients rational in
+  $c$, of iterated integrals of weight three whose letters are all real". With `W_3 := M_2 - W_2`
+  the decomposition `M_2 = W_2 + W_3` is a tautology; the content is the explicit formula
+  (`stmt_10`) and the iterated-integral representation of `sec_g8_W3int.tex` (105 regularised
+  iterated integrals), which is not formalized.
+* The full expansion `M(u;α) = Σ_k M_k(α) u^k` (analyticity in `u`), and `thm:flat` for `k ≠ 2`
+  (the statements for `M_3`, `Ψ`, and the weight claims for general `k`); only `k = 2` is used.
+* The rationality `r_n ∈ ℚ` (evident from the explicit formula for `r_n`).
+* The classical form with eight trilogarithms and the coefficient `7/4 + 2c` of `ζ(3)`
+  (Corollary `g8:thm:classical` of the supplement; mentioned after the theorem in the paper).
+* The decimal value of `M_2(π/2)` (checked numerically only, see above).
+-/
+-- BEGIN STATEMENTS
+namespace Z07
+
+open Real Filter Topology MeasureTheory
+
+/-- The letters `0, 1, -1` of the harmonic polylogarithms. -/
+inductive Letter
+  | zero
+  | one
+  | negOne
+
+/-- The kernels `f_0 = 1/t`, `f_1 = 1/(1-t)`, `f_{-1} = 1/(1+t)` (line 1517). -/
+noncomputable def f : Letter → ℝ → ℝ
+  | .zero, t => 1 / t
+  | .one, t => 1 / (1 - t)
+  | .negOne, t => 1 / (1 + t)
+
+/-- Harmonic polylogarithm `H_w(x)`: `H_∅ = 1`, `H_{a,w}(x) = ∫_0^x f_a(t) H_w(t) dt` (line 1517;
+the base cases `H_{±1}` agree with the paper's logarithms by `stmt_1`). -/
+noncomputable def H : List Letter → ℝ → ℝ
+  | [], _ => 1
+  | a :: w, x => ∫ t in (0 : ℝ)..x, f a t * H w t
+
+/-- The eleven words occurring in `Y` (weight three) and their tails. -/
+def usedWords : List (List Letter) :=
+  [ [.one], [.negOne],
+    [.zero, .one], [.one, .negOne], [.negOne, .one], [.zero, .negOne],
+    [.zero, .zero, .one], [.zero, .one, .negOne], [.one, .negOne, .one],
+    [.one, .zero, .one], [.one, .zero, .negOne] ]
+
+/-- `Y(x)` of `thm:M2alpha` (lines 1525-1528). -/
+noncomputable def Y (x : ℝ) : ℝ :=
+  (1 - x) * (H [.zero, .zero, .one] x + H [.zero, .one, .negOne] x - H [.one, .negOne, .one] x)
+    + (1 - x ^ 2) / (2 * x) * H [.one, .zero, .one] x
+    - (1 - x) ^ 2 / (2 * x) * H [.one, .zero, .negOne] x
+
+/-- The closed form `Φ(c) = ½ - (1-c²)/(2c) artanh c` (line 1506). -/
+noncomputable def PhiClosed (c : ℝ) : ℝ := 1 / 2 - (1 - c ^ 2) / (2 * c) * Real.artanh c
+
+/-- "`m` is the coefficient of `u^2` of `M(u;α)`": `M(u;α) = a + b u + m u² + o(u²)` as `u → 0`. -/
+def IsCoeff2 (α m : ℝ) : Prop :=
+  ∃ a b : ℝ, (fun u : ℝ => D04.Mint u α - (a + b * u + m * u ^ 2)) =o[𝓝 0] (fun u => u ^ 2)
+
+/-- The integrand `f_A L² + f_B L m + f_C m²` of Lemma `g8c:lem:M2int` (supplement). -/
+noncomputable def M2integrand (α g : ℝ) : ℝ :=
+  let k := Real.cos α
+  let R := Real.sqrt (1 + g ^ 2 - 2 * k * g)
+  let R1 := (g - k) / R
+  let R2 := (1 - k ^ 2) / R ^ 3
+  let L := Real.log g
+  let m := Real.log (1 + g)
+  let fA := ((R - g * R1 + g ^ 2 * R2) / (2 * (1 + g)) - 1 / 2) / g
+  let fB := (g * R1 - R) / (g * (1 + g))
+  let fC := R / (2 * g * (1 + g))
+  fA * L ^ 2 + fB * L * m + fC * m ^ 2
+
+/-- `Z_{-1}(M) = Σ_{i=1}^M (-1)^i / i`. -/
+noncomputable def Zm1 (M : ℕ) : ℝ := ∑ i ∈ Finset.Icc 1 M, (-1 : ℝ) ^ i / (i : ℝ)
+
+/-- `Z_{2}(M) = Σ_{i=1}^M 1 / i²`. -/
+noncomputable def Z2 (M : ℕ) : ℝ := ∑ i ∈ Finset.Icc 1 M, 1 / (i : ℝ) ^ 2
+
+/-- `Z_{-2}(M) = Σ_{i=1}^M (-1)^i / i²`. -/
+noncomputable def Zm2 (M : ℕ) : ℝ := ∑ i ∈ Finset.Icc 1 M, (-1 : ℝ) ^ i / (i : ℝ) ^ 2
+
+/-- `Z_{-1,-1}(M) = Σ_{i=1}^M (-1)^i / i · Z_{-1}(i-1)`. -/
+noncomputable def Zm1m1 (M : ℕ) : ℝ :=
+  ∑ i ∈ Finset.Icc 1 M, (-1 : ℝ) ^ i / (i : ℝ) * Zm1 (i - 1)
+
+/-- The rational part `r_n` of `μ_{2,n}` (supplement, output of M1, lines 116-119); used for
+`n ≥ 1`. -/
+noncomputable def r (n : ℕ) : ℝ :=
+  let N : ℝ := n;
+  -(N - 1) ^ 2 / (N ^ 3 * (2 * N - 1)) - (N - 1) / (N ^ 2 * (2 * N - 1)) * Zm1 (2 * n)
+    - 2 / ((2 * N - 1) * (2 * N + 1)) * Z2 (2 * n)
+    + Zm2 (2 * n) / (N * (2 * N - 1) * (2 * N + 1)) - Zm1m1 (2 * n) / (N * (2 * N - 1))
+
+/-- Line 1516: the base cases are the paper's `H_1(x) = -log(1-x)`, `H_{-1}(x) = log(1+x)`. -/
+def stmt_1 : Prop :=
+  ∀ x : ℝ, -1 < x → x < 1 →
+    H [.one] x = -Real.log (1 - x) ∧ H [.negOne] x = Real.log (1 + x)
+
+/-- Line 1517: the iterated integrals defining the harmonic polylogarithms used are genuine:
+each integrand `f_a · H_w` is interval integrable on `[0, x]` for `-1 < x < 1`. -/
+def stmt_2 : Prop :=
+  ∀ (a : Letter) (w : List Letter), (a :: w) ∈ usedWords → ∀ x : ℝ, -1 < x → x < 1 →
+    IntervalIntegrable (fun t => f a t * H w t) volume 0 x
+
+/-- Line 1517: "for example `H_{0,0,1} = Li_3`", as the series `Σ_{n≥1} x^n/n³`, `|x| < 1`. -/
+def stmt_3 : Prop :=
+  ∀ x : ℝ, |x| < 1 →
+    HasSum (fun n : ℕ => x ^ (n + 1) / ((n : ℝ) + 1) ^ 3) (H [.zero, .zero, .one] x)
+
+/-- `thm:flat`, line 1506: `Φ(c) = Σ_{n≥1} c^{2n}/(4n²-1) = ½ - (1-c²)/(2c) artanh c`. -/
+def stmt_4 : Prop :=
+  ∀ c : ℝ, |c| < 1 → c ≠ 0 →
+    HasSum (fun n : ℕ => c ^ (2 * (n + 1)) / (4 * ((n : ℝ) + 1) ^ 2 - 1)) (PhiClosed c)
+
+/-- Lines 1536-1537 with eq. `eq:T`: at the square corner (`α = π/2`),
+`W_2 = ½ζ(2) - ½Li_2(c²) = T = (π² + 6 log² 2)/24`. -/
+def stmt_5 : Prop :=
+  (π ^ 2 / 6) / 2 - D00.Li2 (D04.c (π / 2) ^ 2) / 2 = (π ^ 2 + 6 * Real.log 2 ^ 2) / 24
+
+/-- The coefficient of `u²` is well defined: `IsCoeff2 α` has at most one solution. -/
+def stmt_6 : Prop :=
+  ∀ α m m' : ℝ, IsCoeff2 α m → IsCoeff2 α m' → m = m'
+
+/-- Supplement, Lemma `g8c:lem:M2int`: the integrand is integrable on `(0,1]` and `M_2(α)`
+(the coefficient of `u²` of `M(u;α)`) is `∫_0^1 [f_A L² + f_B L m + f_C m²] dg`. -/
+def stmt_7 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    IntegrableOn (M2integrand α) (Set.Ioc 0 1) ∧
+      IsCoeff2 α (∫ g in (0 : ℝ)..1, M2integrand α g)
+
+/-- `thm:flat` for `k = 2` (with `r_n` explicit, supplement line 117):
+`M_2(α) = Σ_{n≥1} (r_n + ζ(2)/(4n²-1)) c^{2n}`, the series converging. -/
+def stmt_8 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    ∃ S : ℝ,
+      HasSum (fun n : ℕ => (r (n + 1) + (π ^ 2 / 6) / (4 * ((n : ℝ) + 1) ^ 2 - 1))
+        * D04.c α ^ (2 * (n + 1))) S ∧ IsCoeff2 α S
+
+/-- Supplement, eq. `g8:eq:M2rat`: `Σ_{n≥1} r_n c^{2n} = -½ Li_2(c²) + Y(c) + Y(-c)` for
+`0 < c < 1`. -/
+def stmt_9 : Prop :=
+  ∀ c : ℝ, 0 < c → c < 1 →
+    HasSum (fun n : ℕ => r (n + 1) * c ^ (2 * (n + 1)))
+      (-(1 / 2) * D00.Li2 (c ^ 2) + Y c + Y (-c))
+
+/-- `thm:M2alpha`: for `0 < α < π`, `c = cos(α/2)`,
+`M_2(α) = ζ(2) Φ(c) - ½ Li_2(c²) + Y(c) + Y(-c)`, with `M_2(α)` the coefficient of `u²` of
+`M(u;α)`. -/
+def stmt_10 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    IsCoeff2 α ((π ^ 2 / 6) * PhiClosed (D04.c α) - (1 / 2) * D00.Li2 (D04.c α ^ 2)
+      + Y (D04.c α) + Y (-(D04.c α)))
+
+end Z07

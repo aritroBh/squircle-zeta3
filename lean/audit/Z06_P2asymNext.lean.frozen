@@ -1,0 +1,258 @@
+import Mathlib
+import Zeta3.Wave5.Y02_P2
+/-!
+# Z06 -- the next order of the corner asymptotics at every angle
+
+Target id: Z06.
+Paper labels: the paragraph after `thm:P2asym` (paper/ieee/main.tex line 1462) and the paragraph
+after it (line 1464, the values at `θ = π/2` and the first-order constant `C(θ)`); detailed
+proofs in paper/ieee/proofs/sec_g3_P2asym.tex: Lemma `g3:prop:unif` (lines 32-34, proof lines
+140-164), Lemma `g3:prop:n3` (lines 170-186), Corollary `g3:cor:C3` (lines 285-305),
+Lemma `g3:prop:n4` (lines 190-283, Step 0(iv),(v) at lines 222-226) and Lemma `g3:lem:a4`
+(lines 309-353).
+
+Everything about the corner is reused from `Zeta3.Wave5.Y02_P2` (not redefined):
+`Y02.L θ n` (the length `L_θ(n)`), `Y02.zz θ = z = sin²(θ/2)`, `Y02.ww = w`, `Y02.ell = ℓ`,
+`Y02.U = U_θ`, `Y02.a1`, `Y02.a2`, `Y02.a3`, `Y02.S12` (the closed form of `S_{1,2}(z)`),
+`Y02.mu = μ_θ`, `Y02.c2 = c_2(θ)`, `Y02.R θ ε = (πε/sin πε) Λ_ε(θ)`, and
+`Y02.E θ n = L_θ(n) - [1 + cos θ + 2z(μ_θ/n)^{1/(n-1)} + c_2(θ)/n²]`.
+`ζ(3)` is `Y02.z3 = (riemannZeta 3).re`, the real part of Mathlib's `riemannZeta 3`
+(which is real and equals `∑_{n≥1} n^{-3}` by `zeta_nat_eq_tsum_of_gt_one`; Y02 proves
+`HasSum (fun n => 1/(n+1)^3) z3`). `ζ(2) = π²/6`, `ζ(4) = π⁴/90`, `Li_2 = D00.Li2`,
+`Li_3 = Y02.Li3`.
+
+Quoted verbatim (main.tex line 1462):
+
+  The remainder is uniform in the angle: for $n\ge9$ and every $0<\theta<\pi$ it is at most
+  $C\sin^2\frac\theta2\,\log n/n^3$ with an absolute constant $C$, and its leading part is
+  $-2z\,a_2\log n/n^3$. Since $a_2>0$ at every angle, the logarithm is really there (proved;
+  refereed once).
+
+Quoted verbatim (main.tex line 1464):
+
+  At $\theta=\pi/2$ we get $\mu_{\pi/2}=2/e$ and $c_2(\frac\pi2)=\pi^2/12$, which recovers
+  Ahmed's Corollary~1(b)~\cite{ahmed}, $L(n)=1+(2/(en))^{1/(n-1)}+\pi^2/(12n^2)+O(\log n/n^3)$.
+  The constant in the first-order defect is
+  $C(\theta)=-2z\,a_1=2\sin^2\frac\theta2+4\cos^2\frac\theta2\log\cos\frac\theta2$, which
+  recovers Ahmed's constant~\cite[Thm.\ on corners of arbitrary angle]{ahmed}. ...
+  Notice where $\zeta(3)$ enters: in $a_3$, through $S_{1,2}$, at every angle. At
+  $\theta=\pi/2$, $a_1$, $a_2$ and $a_3=\frac{\zeta(3)}4-\frac13$ are Ahmed's coefficients
+
+Quoted verbatim (sec_g3_P2asym.tex, Lemma g3:prop:unif):
+
+  For $n\ge9$ and every $0<\theta<\pi$ the remainder
+  $E_n=L_\theta(n)-\bigl[1+\cos\theta+2z(\mu_\theta/n)^{\varepsilon}+c_2(\theta)/n^2\bigr]$
+  satisfies $|E_n|\le C\,\sin^2\frac\theta2\,\frac{\log n}{n^3}$ with the absolute constant
+  $C=4100$, and $E_n=-2z\,a_2\,\frac{\log n}{n^3}+\Delta_n$ with $|\Delta_n|\le9000\,z/n^3$.
+  Moreover $a_2(\theta)>0$ for every $0<\theta<\pi$, so the logarithm is really there.
+
+  (proof, line 163:) ... $T_2,T_3,T_4$ satisfy
+  $|T_2|+|T_3|+|T_4|\le(8870+5.2+1.4)z\,n^{-3}\le8880\,z\,n^{-3}$, without a logarithm. ...
+  $T_1=-2za_2\frac{\log n}{n^3}+2za_2\bigl[(\varepsilon^2-n^{-2})-e'\bigr]$ with
+  $\bigl|2za_2[\ldots]\bigr|\le2z\cdot2.15\cdot6.4\,n^{-3}\le28\,z\,n^{-3}$.
+  (Here $T_1=2za_2(q\varepsilon^2-n^{-2})$, $q=(\mu_\theta/n)^\varepsilon$, line 146.)
+
+Quoted verbatim (sec_g3_P2asym.tex, Lemma g3:prop:n3 and Corollary g3:cor:C3):
+
+  Put $d(\theta)=2z\bigl[a_2(2+a_1)+a_3\bigr]-z(3-z-2z^2)$. There is an absolute constant $C_3$
+  such that for $n\ge9$ and $0<\theta<\pi$,
+  \[ \Bigl|E_n-\frac{d(\theta)-2z\,a_2\log n}{n^3}\Bigr|\le C_3\,z\,\frac{\log^2n}{n^4}. \]
+  Lemma~\ref{g3:prop:n3} holds with $C_3=3.1\cdot10^4$.
+
+Quoted verbatim (sec_g3_P2asym.tex, Lemma g3:prop:n4 and Step 0(iv),(v)):
+
+  Put $\lambda_n=\log n-a_1$, $p_4(z)=-\frac16z(1-z)(20z^2-2z+43)$ and
+  \[ Q_4(\theta,n)=z\Bigl[a_2\bigl((\lambda_n-3)^2-3\bigr)-2a_3(\lambda_n-3)+a_2^2+2a_4\Bigr]+p_4(z). \]
+  For $n\ge9$ and $0<\theta<\pi$ let $L_n=\log n$ and
+  $E^{(4)}_n=E_n-\frac{d(\theta)-2za_2\log n}{n^3}-\frac{Q_4(\theta,n)}{n^4}$, with $d$ as in
+  Lemma~\ref{g3:prop:n3}. Then
+  \[ \text{(a)}\quad E^{(4)}_n=-\frac{z\,a_2}{3}\,\frac{\log^3n}{n^5}+\Delta'_n,\quad
+     |\Delta'_n|\le2.5\cdot10^5\,z\,\frac{\log^2n}{n^5};\qquad
+     \text{(b)}\quad |E^{(4)}_n|\le1.2\cdot10^5\,z\,\frac{\log^3n}{n^5}. \]
+  (iv) ... $H=1+a_2\varepsilon^2+a_3\varepsilon^3+b_4\varepsilon^4+\cdots$ with
+  $b_4=a_4+\frac12a_2^2$. Cauchy's estimate ... gives $|a_3|\le3.1\cdot5^3=387.5$ and
+  $|b_4|\le3.1\cdot5^4=1937.5$, for every $z\in(0,1)$.
+  (v) ... for $0\le\varepsilon\le\frac18$,
+  $H(\varepsilon)=1+a_2\varepsilon^2+a_3\varepsilon^3+b_4\varepsilon^4+\rho_5(\varepsilon)$,
+  $|\rho_5(\varepsilon)|\le3.1\cdot10^5\,\varepsilon^5$.
+  (Here $H(\varepsilon)=g(\varepsilon,z)e^{-a_1\varepsilon}$ and $R_\theta(\varepsilon)=2z\,g$.)
+
+Quoted verbatim (sec_g3_P2asym.tex, Lemma g3:lem:a4):
+
+  For $0<z<1$, with $S_{2,2}(z)=\int_0^z\frac{S_{1,2}(t)}t\dd t$:
+  $a_4=\frac12\zeta(4)-2S_{2,2}(z)+2w^2\ell\,S_{1,2}(z)+\frac14(1-U_\theta^4)$.
+
+## Conventions
+
+* `E θ n` is Y02's `E_n` with `ε = 1/(n-1)` as a real `rpow` of the positive base `μ_θ/n`.
+  All statements are for real `n ≥ 9` (the supplement's `n` is real, Step 0 of g3:prop:n4).
+* `S_{1,2}(t)` inside `S_{2,2}` is needed at every `t ∈ (0,z)`, so here it is the integral
+  `S12int t = ½ ∫_0^t log²(1-s)/s ds` (the supplement's own characterization, g3:lem:sums(iv);
+  Y02 stmt_10 proves it equals the closed form `Y02.S12`). The integrand is continuous on
+  `(0,t]` and tends to `0` at `0` (Lean's value `0/0 = 0` at the single point `s = 0` is
+  irrelevant), so both interval integrals are genuine for `0 ≤ t < 1`, and `S12int s / s` is
+  bounded near `0` (`S12int s ~ s²/4`).
+* `a_4` is the supplement's closed form; stmt_6 asserts it is the coefficient that makes the
+  order-5 Taylor estimate of `R_θ(ε) e^{-a_1ε}` true (with `b_4 = a_4 + a_2²/2`), which pins it
+  down as the `ε⁴` Taylor coefficient of `log(R_θ/2z)`.
+* The Taylor statements use `0 < ε` (not `0 ≤ ε`), because Lean's `Y02.R θ 0 = 0` (the factor
+  `πε/sin πε` is `0/0` there), while the paper's value is the limit `2z`.
+* O-claims are stated as explicit bounds with the supplement's constants.
+
+## Statements
+
+* stmt_1: at `θ = π/2`: `a_1 = log 2 - 1`, `μ = 2/e`, `a_2 = π²/12 + 1/2`, `c_2 = π²/12`.
+* stmt_2: at `θ = π/2`: `S_{1,2}(1/2) = ζ(3)/8 - (log 2)³/6`.
+* stmt_3: at `θ = π/2`: `a_3 = ζ(3)/4 - 1/3`.
+* stmt_4: `C(θ) = -2z a_1 = 2 sin²(θ/2) + 4 cos²(θ/2) log cos(θ/2)` for `0 < θ < π`.
+* stmt_5: Cauchy bounds (Step 0(iv)): `|a_3| ≤ 387.5`, `|a_4 + a_2²/2| ≤ 1937.5`.
+* stmt_6: order-5 Taylor (Step 0(v)): `|R e^{-a_1ε} - 2z(1+a_2ε²+a_3ε³+b_4ε⁴)| ≤ 2z·3.1·10⁵ ε⁵`.
+* stmt_7: the `T_1` expansion: for `-1 < a < 0`, `n ≥ 9`,
+  `|(e^a/n)^ε ε² - n^{-2} + log n/n³| ≤ 6.4/n³` (proof of g3:prop:unif, second claim).
+* stmt_8: the logarithm-free part: `|E_n - 2z a_2((μ/n)^ε ε² - n^{-2})| ≤ 8880 z/n³`.
+* stmt_9: main.tex 1462 / g3:prop:unif second claim:
+  `|E_n + 2z a_2 log n/n³| ≤ 9000 z/n³`, `n ≥ 9`, `0 < θ < π`.
+* stmt_10: g3:prop:n3 with g3:cor:C3: `|E_n - (d - 2z a_2 log n)/n³| ≤ 3.1·10⁴ z log²n/n⁴`.
+* stmt_11: g3:prop:n4(b): `|E⁽⁴⁾_n| ≤ 1.2·10⁵ z log³n/n⁵`.
+* stmt_12: g3:prop:n4(a): `|E⁽⁴⁾_n + (z a_2/3) log³n/n⁵| ≤ 2.5·10⁵ z log²n/n⁵`.
+
+Numerical check (mpmath, 45 digits, scratch script): stmt_1-4 hold to `1e-45`; for
+`θ ∈ {0.05, 0.5, π/3, π/2, 2π/3, 2.7, π-0.01}` and `n ∈ {9, 10, 30, 100, 10³, 10⁵}` the
+scaled quantities of stmt_8, 9, 10, 12, 11 are at most `3.6, 3.6, 1.9, 4.7, 1.4` (bounds
+`8880, 9000, 31000, 2.5e5, 1.2e5`); stmt_7's scaled quantity is at most `2.01` (bound `6.4`);
+in stmt_5/6 the observed `|a_3| ≤ 0.34`, `|b_4| ≤ 1.9`, `|ρ_5|/ε⁵ ≤ 0.37`. `E_n` was computed
+from the exact series of thm:P2 (checked against direct quadrature of `L_θ(n)` to `1e-16`).
+
+## NOT COVERED
+
+* The first claim of line 1462 (`|E_n| ≤ C sin²(θ/2) log n/n³`) and `a_2 > 0`: proved in Y02
+  (stmt_13, stmt_9), not repeated.
+* "which recovers Ahmed's Corollary 1(b)", "agrees with every constant in Table 4 of [ahmed]",
+  "are Ahmed's coefficients": comparisons with an external paper.
+* "the logarithm is really there" (that no `O(1/n³)` bound holds) and the analogous last
+  sentence of g3:prop:n4 (`log³ n` cannot be lowered): consequences of stmt_9/stmt_12 with
+  `a_2 > 0`, not stated separately.
+* The last sentences of the paragraph at line 1464 (the density `h_c` and the squircle corners
+  `-2M_0(π-θ) = ∫_0^∞ h_c(s) ds/(s(1+s))`): a different subsection's object.
+* The decomposition `E_n = T_1 + T_2 + T_3 + T_4` and `P_1 + ... + P_6` as identities (only their
+  consequences stmt_8 and the final bounds are stated).
+-/
+-- BEGIN STATEMENTS
+namespace Z06
+
+open Real
+
+/-- `S_{1,2}(t) = ½ ∫_0^t log²(1-s)/s ds` (g3:lem:sums(iv)), as a function of `t`. -/
+noncomputable def S12int (t : ℝ) : ℝ :=
+  (1 / 2) * ∫ s in (0 : ℝ)..t, Real.log (1 - s) ^ 2 / s
+
+/-- `S_{2,2}(z) = ∫_0^z S_{1,2}(t)/t dt` (g3:lem:a4). -/
+noncomputable def S22 (z : ℝ) : ℝ := ∫ t in (0 : ℝ)..z, S12int t / t
+
+/-- `a_4 = ½ζ(4) - 2S_{2,2}(z) + 2w²ℓ S_{1,2}(z) + ¼(1 - U_θ⁴)`, with `ζ(4) = π⁴/90`. -/
+noncomputable def a4 (θ : ℝ) : ℝ :=
+  π ^ 4 / 180 - 2 * S22 (Y02.zz θ) + 2 * Y02.ww θ ^ 2 * Y02.ell θ * Y02.S12 θ
+    + (1 - Y02.U θ ^ 4) / 4
+
+/-- `d(θ) = 2z[a_2(2 + a_1) + a_3] - z(3 - z - 2z²)` (g3:prop:n3). -/
+noncomputable def d (θ : ℝ) : ℝ :=
+  2 * Y02.zz θ * (Y02.a2 θ * (2 + Y02.a1 θ) + Y02.a3 θ)
+    - Y02.zz θ * (3 - Y02.zz θ - 2 * Y02.zz θ ^ 2)
+
+/-- `λ_n = log n - a_1` (g3:prop:n4). -/
+noncomputable def lam (θ n : ℝ) : ℝ := Real.log n - Y02.a1 θ
+
+/-- `p_4(z) = -⅙ z(1-z)(20z² - 2z + 43)`. -/
+noncomputable def p4 (z : ℝ) : ℝ := -(1 / 6) * z * (1 - z) * (20 * z ^ 2 - 2 * z + 43)
+
+/-- `Q_4(θ,n) = z[a_2((λ_n-3)² - 3) - 2a_3(λ_n-3) + a_2² + 2a_4] + p_4(z)` (g3:prop:n4). -/
+noncomputable def Q4 (θ n : ℝ) : ℝ :=
+  Y02.zz θ * (Y02.a2 θ * ((lam θ n - 3) ^ 2 - 3) - 2 * Y02.a3 θ * (lam θ n - 3)
+      + Y02.a2 θ ^ 2 + 2 * a4 θ) + p4 (Y02.zz θ)
+
+/-- `E⁽⁴⁾_n = E_n - (d(θ) - 2z a_2 log n)/n³ - Q_4(θ,n)/n⁴` (g3:prop:n4). -/
+noncomputable def E4 (θ n : ℝ) : ℝ :=
+  Y02.E θ n - (d θ - 2 * Y02.zz θ * Y02.a2 θ * Real.log n) / n ^ 3 - Q4 θ n / n ^ 4
+
+/-- main.tex 1464: at `θ = π/2`, `a_1 = log 2 - 1`, `μ_{π/2} = 2/e`, `a_2 = π²/12 + 1/2`
+(Ahmed's coefficients) and `c_2(π/2) = π²/12`. -/
+def stmt_1 : Prop :=
+  Y02.a1 (π / 2) = Real.log 2 - 1 ∧ Y02.mu (π / 2) = 2 / Real.exp 1 ∧
+    Y02.a2 (π / 2) = π ^ 2 / 12 + 1 / 2 ∧ Y02.c2 (π / 2) = π ^ 2 / 12
+
+/-- The value of the Nielsen polylogarithm behind `a_3(π/2)`:
+`S_{1,2}(1/2) = ζ(3)/8 - (log 2)³/6`. -/
+def stmt_2 : Prop :=
+  Y02.S12 (π / 2) = Y02.z3 / 8 - Real.log 2 ^ 3 / 6
+
+/-- main.tex 1464: "At $\theta=\pi/2$, ... $a_3=\frac{\zeta(3)}4-\frac13$". -/
+def stmt_3 : Prop :=
+  Y02.a3 (π / 2) = Y02.z3 / 4 - 1 / 3
+
+/-- main.tex 1464: the first-order constant
+`C(θ) = -2z a_1 = 2 sin²(θ/2) + 4 cos²(θ/2) log cos(θ/2)`, `0 < θ < π`. -/
+def stmt_4 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < π →
+    -2 * Y02.zz θ * Y02.a1 θ
+      = 2 * Real.sin (θ / 2) ^ 2 + 4 * Real.cos (θ / 2) ^ 2 * Real.log (Real.cos (θ / 2))
+
+/-- g3:prop:n4 Step 0(iv): Cauchy bounds `|a_3| ≤ 387.5` and `|b_4| = |a_4 + a_2²/2| ≤ 1937.5`,
+uniformly in `0 < θ < π`. -/
+def stmt_5 : Prop :=
+  ∀ θ : ℝ, 0 < θ → θ < π →
+    |Y02.a3 θ| ≤ 387.5 ∧ |a4 θ + Y02.a2 θ ^ 2 / 2| ≤ 1937.5
+
+/-- g3:prop:n4 Step 0(v) with g3:lem:a4 (the `a_4` above is the next Taylor coefficient):
+`R_θ(ε) e^{-a_1ε} = 2z(1 + a_2ε² + a_3ε³ + b_4ε⁴ + ρ_5)`, `b_4 = a_4 + a_2²/2`,
+`|ρ_5| ≤ 3.1·10⁵ ε⁵`, for `0 < ε ≤ 1/8`. -/
+def stmt_6 : Prop :=
+  ∀ θ ε : ℝ, 0 < θ → θ < π → 0 < ε → ε ≤ 1 / 8 →
+    |Y02.R θ ε * Real.exp (-(Y02.a1 θ * ε))
+        - 2 * Y02.zz θ * (1 + Y02.a2 θ * ε ^ 2 + Y02.a3 θ * ε ^ 3
+            + (a4 θ + Y02.a2 θ ^ 2 / 2) * ε ^ 4)|
+      ≤ 2 * Y02.zz θ * (3.1e5 * ε ^ 5)
+
+/-- Proof of g3:prop:unif (second claim), the `T_1` step: for `-1 < a < 0` (the range of `a_1`)
+and `n ≥ 9`, with `q = (e^a/n)^ε`, `ε = 1/(n-1)`: `q ε² - n^{-2} = -log n/n³ + O(1/n³)`,
+precisely `|q ε² - n^{-2} + log n/n³| ≤ 6.4/n³` (`(ε² - n^{-2}) - e'` with `2.4 + 4`). -/
+def stmt_7 : Prop :=
+  ∀ a n : ℝ, -1 < a → a < 0 → 9 ≤ n →
+    |(Real.exp a / n) ^ (1 / (n - 1)) * (1 / (n - 1)) ^ 2 - 1 / n ^ 2 + Real.log n / n ^ 3|
+      ≤ 6.4 / n ^ 3
+
+/-- Proof of g3:prop:unif (second claim): `|T_2| + |T_3| + |T_4| ≤ 8880 z/n³`, i.e.
+`|E_n - 2z a_2 (q ε² - n^{-2})| ≤ 8880 z/n³`, `q = (μ_θ/n)^ε`, for `n ≥ 9`, `0 < θ < π`. -/
+def stmt_8 : Prop :=
+  ∀ θ n : ℝ, 0 < θ → θ < π → 9 ≤ n →
+    |Y02.E θ n - 2 * Y02.zz θ * Y02.a2 θ *
+        ((Y02.mu θ / n) ^ (1 / (n - 1)) * (1 / (n - 1)) ^ 2 - 1 / n ^ 2)|
+      ≤ 8880 * Y02.zz θ / n ^ 3
+
+/-- main.tex line 1462 ("its leading part is $-2z\,a_2\log n/n^3$") / g3:prop:unif second claim:
+`E_n = -2z a_2 log n/n³ + Δ_n`, `|Δ_n| ≤ 9000 z/n³`, for `n ≥ 9`, `0 < θ < π`. -/
+def stmt_9 : Prop :=
+  ∀ θ n : ℝ, 0 < θ → θ < π → 9 ≤ n →
+    |Y02.E θ n - (-(2 * Y02.zz θ * Y02.a2 θ * Real.log n / n ^ 3))|
+      ≤ 9000 * Y02.zz θ / n ^ 3
+
+/-- g3:prop:n3 with the constant of g3:cor:C3 (the `n^{-3}` term, containing `a_3`, so `ζ(3)`):
+`|E_n - (d(θ) - 2z a_2 log n)/n³| ≤ 3.1·10⁴ z log²n/n⁴`, `n ≥ 9`, `0 < θ < π`. -/
+def stmt_10 : Prop :=
+  ∀ θ n : ℝ, 0 < θ → θ < π → 9 ≤ n →
+    |Y02.E θ n - (d θ - 2 * Y02.zz θ * Y02.a2 θ * Real.log n) / n ^ 3|
+      ≤ 3.1e4 * Y02.zz θ * Real.log n ^ 2 / n ^ 4
+
+/-- g3:prop:n4(b) (the `n^{-4}` term, containing `a_4`):
+`|E⁽⁴⁾_n| ≤ 1.2·10⁵ z log³n/n⁵`, `n ≥ 9`, `0 < θ < π`. -/
+def stmt_11 : Prop :=
+  ∀ θ n : ℝ, 0 < θ → θ < π → 9 ≤ n →
+    |E4 θ n| ≤ 1.2e5 * Y02.zz θ * Real.log n ^ 3 / n ^ 5
+
+/-- g3:prop:n4(a): `E⁽⁴⁾_n = -(z a_2/3) log³n/n⁵ + Δ'_n`, `|Δ'_n| ≤ 2.5·10⁵ z log²n/n⁵`,
+`n ≥ 9`, `0 < θ < π`. -/
+def stmt_12 : Prop :=
+  ∀ θ n : ℝ, 0 < θ → θ < π → 9 ≤ n →
+    |E4 θ n - (-(Y02.zz θ * Y02.a2 θ / 3 * Real.log n ^ 3 / n ^ 5))|
+      ≤ 2.5e5 * Y02.zz θ * Real.log n ^ 2 / n ^ 5
+
+end Z06

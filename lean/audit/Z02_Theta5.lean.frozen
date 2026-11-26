@@ -1,0 +1,182 @@
+import Mathlib
+import Zeta3.Wave5.Y04_Fourier
+/-!
+# Z02 — the `τ⁵` coefficient of the Fourier coefficients `a_k(h_p)`: `Θ₅`, and `prop:degree` for `n ≤ 5`
+
+Target id: Z02.
+Paper labels: `prop:degree` and `prop:theta` (main.tex lines 1214–1225), extending
+`thm:fourier` (main.tex 1204–1211, formalised in `Zeta3.Wave5.Y04_Fourier`) by one order.
+Detailed proofs: paper/ieee/proofs/sec_g2_degree.tex (Lemmas `g2:lem:d:coef`, `g2:lem:d:e`,
+`g2:lem:d:theta`, `g2:lem:d:atoms`, proof of Proposition 2) and
+paper/ieee/proofs/sec_g2_theta.tex (Lemma `g2:lem:t:red`, Table `g2:tab:D`, the remark on
+the case `n = 5`); the Watson expansion is Lemma `g2:lem:f:watson` of sec_g2_fourier.tex.
+
+Quoted verbatim.
+
+main.tex 1214–1216 (`prop:degree`):
+
+  For $n\ge2$, the coefficient of $\tau^n$ in $(-1)^k\frac{\pi}{\sqrt2}a_k(h_p)$ is a polynomial
+  $\Theta_n(k^2)$ of degree exactly $\lfloor n/2\rfloor-1$, whose coefficients are alternating
+  multiple zeta values of weight $n$. For even $n=2m$ its leading coefficient is
+  $(-1)^{m-1}(2^{2m-1}-1)\zeta(2m)$.
+
+main.tex 1220–1225 (`prop:theta`):
+
+  For $5\le n\le9$, every coefficient of $\Theta_n$ is a rational combination of products of
+  single zeta values of total weight $n$. With $u=k^2$,
+  \Theta_5=-\bigl(\tfrac34+4u\bigr)\zeta(5)-\bigl(\tfrac74+4u\bigr)\zeta(2)\zeta(3).
+
+Supplement, Lemma `g2:lem:f:watson`:
+
+  For every integer $N\ge2$ there is $C$ (depending on $G$ and $N$) such that for $0<\tau<1$
+  \Bigl|\,\tau\int_0^\infty\bigl[(1+\eu^{-s})^\tau-1\bigr]G(\tau s)\,ds-\sum_{n=2}^{N}\tau^n
+  \sum_{j=1}^{n-1}\frac{g_{n-1-j}}{j!}\,I_{n-1-j,\,j}\Bigr|\le C\tau^{N+1}.
+
+Supplement, Lemma `g2:lem:d:coef`:
+
+  a_k(h_p)=A_k+\sum_{n=2}^Nc_n(k)\tau^n+O_{k,N}(\tau^{N+1}),\qquad
+  c_n(k)=\frac8\pi\sum_{j=1}^{n-1}\frac{g_{k,n-1-j}}{j!}\,I_{n-1-j,\,j},
+
+Supplement, Lemma `g2:lem:d:e`(b) and Lemma `g2:lem:d:theta`:
+
+  $g_{k,m}=(-1)^k\frac{\sqrt2}4\,\rho_m(k^2)$ for all $k,m\ge0$.
+  \Theta_n(u)=2\sum_{j=1}^{n-1}\frac{\rho_{n-1-j}(u)}{j!}\,I_{n-1-j,\,j}.
+
+  with $\rho_m(u)=\sum_{r=0}^{\lfloor m/2\rfloor}\frac{(-4u)^r}{(2r)!}\,e_{r,m}$ and the values
+  "$m=0$: $1,\frac12,-\frac58,-\frac{17}{48},\frac{121}{384}$; $m=1$ ($r\ge2$):
+  $1,\frac12,-\frac{23}{24},-\frac{25}{48},\frac{731}{1152}$"
+  (so `ρ₃(u) = -17/48 - u`, i.e. `g_{k,3} = -(-1)^k (√2/4)(17/48 + k²)`).
+
+Supplement, Lemma `g2:lem:t:red`, Table `g2:tab:D` and the remark on `n = 5`:
+
+  $\wD_{n,m}=2\sum_{j=1}^{n-1-2m}\dfrac{e_{m,\,n-1-j}}{j!}\,I_{n-1-j,\,j}$
+  $\wD_{5,0}$ & $-\tfrac34,\ -\tfrac74$ \\   $\wD_{5,1}$ & $2,\ 2$ \\
+  (on the products $\zeta(5),\ \zeta(2)\zeta(3)$)
+  $\wD_{5,1}=I_{3,1}+I_{2,2}$ ... and $I_{3,1}=3!\,\eta(5)=\frac{45}8\zeta(5)$
+
+Supplement, proof of Proposition 2, case `n = 2M`:
+
+  the coefficient of $u^{M-1}$ is ... $(-1)^{M-1}(2^{2M-1}-1)\zeta(2M)$, which is not $0$.
+
+Reused from `Zeta3.Wave5.Y04_Fourier` (not redefined): `Y04.tau` (`τ = 1 - 1/p`), `Y04.h`
+(the support function `h_p`), `Y04.a` (the Fourier coefficient `a_k(f) = (4/π)∫_0^{π/2} f cos 4kθ`),
+`Y04.G` (the layer function `G_k(x) = cos(4kθ_x) cos²θ_x sin θ_x`, `θ_x = arctan e^{-x}`),
+`Y04.I` (`I_{m,j} = ∫_0^∞ s^m log^j(1+e^{-s}) ds`), `Y04.z3` (`ζ(3) = (riemannZeta 3).re`).
+Y04 proves the reduction `a_k(h_p) - A_k = (8/π) τ ∫_0^∞ [(1+e^{-s})^τ - 1] G_k(τ s) ds`, the
+values `g_{k,0}, g_{k,1}, g_{k,2}`, the atoms of weight `≤ 4`, Watson at `N = 4` and `thm:fourier`.
+
+Conventions.
+* `ζ(3) = Y04.z3 = (riemannZeta 3).re` and `ζ(5) = Z02.z5 = (riemannZeta 5).re`, the real parts
+  of Mathlib's complex zeta values; by `zeta_nat_eq_tsum_of_gt_one` these are the real numbers
+  `∑ 1/n^3`, `∑ 1/n^5`. `ζ(2) = π²/6` and `ζ(4) = π⁴/90` are written out.
+* `g_{k,m} = G_k^{(m)}(0)/m!` is written `iteratedDeriv m (Y04.G k) 0 / m!`; `G_k` is `C^∞`
+  on `ℝ` (Y04 `stmt_3`), so these are genuine derivatives.
+* All half-line integrals have integrable integrands (`Y04.stmt_4` proves integrability of every
+  `s^m ℓ(s)^j`, `j ≥ 1`; `stmt_2` asserts the Watson integrand integrable), so no statement holds
+  by the "non-integrable ↦ 0" convention.
+* As in Y04, the Watson lemma (`stmt_2`) asks `G` to be `C^∞` on all of `ℝ` and bounded on
+  `[0,∞)` (the supplement: `C^∞` on `[0,∞)`); this covers `G = G_k`.
+* "The coefficient of `τ^n`" in `prop:degree` is the coefficient of an asymptotic expansion
+  (the supplement's "Setting"). `stmt_7` states it that way: polynomials `Θ₂, …, Θ₅ ∈ ℝ[X]`
+  such that `(-1)^k (√2/π)[-4/(16k²-1) + Σ_{n=2}^5 Θ_n(k²) τ^n]` approximates `a_k(h_p)` to
+  `O_k(τ⁶)` for every `k`. Since such coefficients are unique and a polynomial is determined by
+  its values at `k²`, `k ∈ ℕ`, this pins down the paper's `Θ_n` for `n ≤ 5`. "Degree exactly
+  `d`" is `Polynomial.degree Θ_n = d` (so `Θ_n ≠ 0`).
+* The `O(τ⁶)` claims are explicit: `∃ C τ₀, 0 < τ₀ ∧ ∀ p > 1, τ ≤ τ₀ → |error| ≤ C τ⁶`, the
+  same form as `Y04.stmt_8`.
+
+NOT COVERED: `prop:degree` for `n ≥ 6` and in general, and its clause "coefficients are
+alternating multiple zeta values of weight `n`" (no AMZV/iterated-integral library is set up;
+for `n ≤ 5` the explicit closed forms are stated instead, which are products of single zeta
+values); `Θ₆, …, Θ₉` and the first sentence of `prop:theta` for `6 ≤ n ≤ 9`; the iterated-
+integral form of `I_{m,j}` (Lemma `g2:lem:d:atoms`), shuffle/stuffle/duality and the exact
+certificates (we state the two `n = 5` identities `D̃_{5,0}`, `D̃_{5,1}` directly);
+the general formula for `e_{r,m}`, `ρ_m` (only `g_{k,3}` is stated); Cauchy's formula
+`P = ∫ h_p` and the `k = 0` comparison with `thm:pw`.
+-/
+
+-- BEGIN STATEMENTS
+namespace Z02
+
+open Real MeasureTheory Set Polynomial
+
+/-- `ζ(5)` as a real number: the real part of Mathlib's `riemannZeta 5`. -/
+noncomputable def z5 : ℝ := (riemannZeta 5).re
+
+/-- Lemma `g2:lem:d:e`(b) at `m = 3` (with `ρ₃(u) = e_{0,3} - 2u e_{1,3} = -17/48 - u`):
+the next Taylor coefficient of `G_k`, `g_{k,3} = G_k'''(0)/3! = -(-1)^k (√2/4)(17/48 + k²)`. -/
+def stmt_1 : Prop :=
+  ∀ k : ℕ, iteratedDeriv 3 (Y04.G k) 0 / 6 =
+    -((-1 : ℝ) ^ k * Real.sqrt 2 / 4 * (17 / 48 + (k : ℝ) ^ 2))
+
+/-- Lemma `g2:lem:f:watson` with `N = 5`: for `G` smooth and bounded on `[0,∞)`, with
+`g_m = G^{(m)}(0)/m!`, there is `C` with, for `0 < τ < 1`, the integrand integrable and
+`|τ ∫_0^∞ [(1+e^{-s})^τ - 1] G(τ s) ds - Σ_{n=2}^{5} τ^n Σ_{j=1}^{n-1} g_{n-1-j}/j! I_{n-1-j,j}|
+  ≤ C τ⁶`. -/
+def stmt_2 : Prop :=
+  ∀ Gf : ℝ → ℝ, ContDiff ℝ (⊤ : ℕ∞) Gf → (∃ M : ℝ, ∀ x : ℝ, 0 ≤ x → |Gf x| ≤ M) →
+    ∃ C : ℝ, ∀ τ : ℝ, 0 < τ → τ < 1 →
+      IntegrableOn (fun s : ℝ => ((1 + Real.exp (-s)) ^ τ - 1) * Gf (τ * s)) (Ioi 0) ∧
+      |τ * (∫ s in Ioi (0 : ℝ), ((1 + Real.exp (-s)) ^ τ - 1) * Gf (τ * s)) -
+          ∑ n ∈ Finset.Icc 2 5, τ ^ n * ∑ j ∈ Finset.Icc 1 (n - 1),
+            iteratedDeriv (n - 1 - j) Gf 0 / ((n - 1 - j).factorial : ℝ) /
+              (j.factorial : ℝ) * Y04.I (n - 1 - j) j| ≤ C * τ ^ 6
+
+/-- Remark on the case `n = 5` (sec_g2_theta): `I_{3,1} = 3! η(5) = 45 ζ(5)/8`. -/
+def stmt_3 : Prop := Y04.I 3 1 = 45 / 8 * z5
+
+/-- Table `g2:tab:D`, row `D̃_{5,1}`: `D̃_{5,1} = I_{3,1} + I_{2,2} = 2 ζ(5) + 2 ζ(2) ζ(3)`. -/
+def stmt_4 : Prop := Y04.I 3 1 + Y04.I 2 2 = 2 * z5 + 2 * (π ^ 2 / 6) * Y04.z3
+
+/-- Table `g2:tab:D`, row `D̃_{5,0}`: with `e_{0,0..3} = 1, 1/2, -5/8, -17/48`,
+`D̃_{5,0} = 2(e_{0,3} I_{3,1} + e_{0,2} I_{2,2}/2! + e_{0,1} I_{1,3}/3! + e_{0,0} I_{0,4}/4!)
+  = -(3/4) ζ(5) - (7/4) ζ(2) ζ(3)`. -/
+def stmt_5 : Prop :=
+  2 * (-(17 / 48) * Y04.I 3 1 + (-(5 / 8)) * Y04.I 2 2 / 2 + (1 / 2) * Y04.I 1 3 / 6
+      + Y04.I 0 4 / 24) =
+    -(3 / 4) * z5 - 7 / 4 * ((π ^ 2 / 6) * Y04.z3)
+
+/-- Lemmas `g2:lem:d:coef`, `g2:lem:d:theta` and `g2:lem:t:red` at `n = 5`, together with
+`prop:theta`'s closed form: the `τ⁵` coefficient `c_5(k) = (8/π) Σ_{j=1}^{4} g_{k,4-j}/j! I_{4-j,j}`
+satisfies `(-1)^k (π/√2) c_5(k) = Θ₅(k²) = -(3/4 + 4k²) ζ(5) - (7/4 + 4k²) ζ(2) ζ(3)`. -/
+def stmt_6 : Prop :=
+  ∀ k : ℕ,
+    (-1 : ℝ) ^ k * (π / Real.sqrt 2) *
+        (8 / π * ∑ j ∈ Finset.Icc 1 4,
+          iteratedDeriv (4 - j) (Y04.G k) 0 / ((4 - j).factorial : ℝ) / (j.factorial : ℝ) *
+            Y04.I (4 - j) j) =
+      -(3 / 4 + 4 * (k : ℝ) ^ 2) * z5 - (7 / 4 + 4 * (k : ℝ) ^ 2) * ((π ^ 2 / 6) * Y04.z3)
+
+/-- `prop:degree` for `n = 2, 3, 4, 5`: there are polynomials `Θ₂, Θ₃, Θ₄, Θ₅` with
+`deg Θ_n = ⌊n/2⌋ - 1` exactly (`0, 0, 1, 1`), whose values at `u = k²` are the `τ^n`
+coefficients of `(-1)^k (π/√2) a_k(h_p)` in the asymptotic sense: for every `k` there are
+`C_k`, `τ₀ > 0` with
+`|a_k(h_p) - (-1)^k (√2/π)[-4/(16k²-1) + Σ_{n=2}^{5} Θ_n(k²) τ^n]| ≤ C_k τ⁶` for `τ ≤ τ₀`;
+and for `n = 2m` (`m = 1, 2`) the leading coefficient is `(-1)^{m-1}(2^{2m-1}-1) ζ(2m)`. -/
+def stmt_7 : Prop :=
+  ∃ Θ₂ Θ₃ Θ₄ Θ₅ : ℝ[X],
+    Θ₂.degree = ((2 / 2 - 1 : ℕ) : WithBot ℕ) ∧ Θ₃.degree = ((3 / 2 - 1 : ℕ) : WithBot ℕ) ∧
+    Θ₄.degree = ((4 / 2 - 1 : ℕ) : WithBot ℕ) ∧ Θ₅.degree = ((5 / 2 - 1 : ℕ) : WithBot ℕ) ∧
+    Θ₂.leadingCoeff = (-1 : ℝ) ^ (1 - 1) * (2 ^ (2 * 1 - 1) - 1) * (π ^ 2 / 6) ∧
+    Θ₄.leadingCoeff = (-1 : ℝ) ^ (2 - 1) * (2 ^ (2 * 2 - 1) - 1) * (π ^ 4 / 90) ∧
+    ∀ k : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+      |Y04.a k (Y04.h p) - (-1 : ℝ) ^ k * (Real.sqrt 2 / π) *
+          (-(4 / (16 * (k : ℝ) ^ 2 - 1))
+            + Θ₂.eval ((k : ℝ) ^ 2) * Y04.tau p ^ 2 + Θ₃.eval ((k : ℝ) ^ 2) * Y04.tau p ^ 3
+            + Θ₄.eval ((k : ℝ) ^ 2) * Y04.tau p ^ 4 + Θ₅.eval ((k : ℝ) ^ 2) * Y04.tau p ^ 5)|
+        ≤ C * Y04.tau p ^ 6
+
+/-- `thm:fourier` extended by one order with `prop:theta`'s `Θ₅`: for every `k ≥ 0` there are
+`C_k` and `τ₀ > 0` such that for every `p > 1` with `τ = 1 - 1/p ≤ τ₀`, with `u = k²`,
+`|a_k(h_p) - (-1)^k (√2/π)[-4/(16k²-1) + ζ(2)τ² + ζ(3)τ³ - (33/16 + 7k²)ζ(4)τ⁴
+   + (-(3/4 + 4u) ζ(5) - (7/4 + 4u) ζ(2) ζ(3)) τ⁵]| ≤ C_k τ⁶`. -/
+def stmt_8 : Prop :=
+  ∀ k : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+    |Y04.a k (Y04.h p) - (-1 : ℝ) ^ k * (Real.sqrt 2 / π) *
+        (-(4 / (16 * (k : ℝ) ^ 2 - 1)) + (π ^ 2 / 6) * Y04.tau p ^ 2 + Y04.z3 * Y04.tau p ^ 3
+          - (33 / 16 + 7 * (k : ℝ) ^ 2) * (π ^ 4 / 90) * Y04.tau p ^ 4
+          + (-(3 / 4 + 4 * (k : ℝ) ^ 2) * z5
+              - (7 / 4 + 4 * (k : ℝ) ^ 2) * ((π ^ 2 / 6) * Y04.z3)) * Y04.tau p ^ 5)|
+      ≤ C * Y04.tau p ^ 6
+
+end Z02

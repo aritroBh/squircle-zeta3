@@ -1,0 +1,218 @@
+import Mathlib
+import Zeta3.Wave2.D00_Dilog
+/-!
+# Z03 -- the special values used by Proposition `prop:nonlocal`
+
+Target id: Z03.
+Paper label: `prop:nonlocal` (main.tex 1697-1708), its last sentence (the four special values).
+Detailed proof: paper/ieee/proofs/sec_g4_nonlocal.tex (Lemma `g4:lem:values`, and the proof of
+Proposition 8), which uses Lemma `g4:lem:NK` of paper/ieee/proofs/sec_g4_hexagon.tex (116-124)
+and the Nielsen function of the proof sketch of `thm:hexagon` (main.tex 1720-1730).
+
+Quoted verbatim (main.tex 1697-1708, Proposition prop:nonlocal):
+
+  Let $A(x)=\sum_{n\ge1}H_nx^n/n^2$ and let $\zeta_3[\,\cdot\,]$ be the coefficient of
+  $\zeta(3)$ in the values listed below. For $r\in\{2,\frac12\}$ the $\zeta(3)$ of $P'''(1)$
+  beyond $Z_e$ is $N_e=\Phi_A\,\zeta_3[A(1-r)]+\Phi_L\,\zeta_3[\Li_3(1-r)]$, and $N_e=0$ for
+  $r=1$, where, with $\gamma_e=Bh^2/L^3$, ...
+  Here $A(-1)=-\frac58\zeta(3)$, $\Li_3(-1)=-\frac34\zeta(3)$,
+  $A(\frac12)=\zeta(3)-\frac{\pi^2\log2}{12}$,
+  $\Li_3(\frac12)=\frac78\zeta(3)-\frac{\pi^2\log2}{12}+\frac{\log^32}6$.
+
+Quoted verbatim (main.tex, proof sketch of thm:hexagon):
+
+  $A(x)$ means the analytic continuation $\Li_3(x)+S_{1,2}(x)$, with
+  $S_{1,2}(x)=\frac12\int_0^x\log^2(1-t)\,\frac{dt}t$, which equals the series for $|x|\le1$
+  ... the classical Nielsen--K\"olbig identity~\cite{Kolbig86}, valid for $x<1$
+  (every term is real for $x<1$),
+  6A(x)=12\Li_3(x)+6\Li_3\bigl(\tfrac x{x-1}\bigr)-6\Li_2(x)\log(1-x)-\log^3(1-x),
+
+Quoted verbatim (supplement, Lemma g4:lem:values):
+
+  (a) $\Li_3(-1)=-\frac34\zeta(3)$, $\Li_2(-1)=-\frac12\zeta(2)$,
+  $\Li_2(\frac12)=\frac12\zeta(2)-\frac12\log^22$, and
+  $\Li_3(\frac12)=\frac78\zeta(3)-\frac{\pi^2\log2}{12}+\frac{\log^32}6$.
+  (b) $A(-1)=-\frac58\zeta(3)$ and $A(\frac12)=\zeta(3)-\frac{\pi^2\log2}{12}$.
+
+  and from its proof: "The fourth is Landen's trilogarithm identity, for $0<x<1$,
+  $\Li_3(x)+\Li_3(1-x)+\Li_3(1-\frac1x)=\zeta(3)+\frac16\log^3x+\zeta(2)\log x
+  -\frac12\log^2x\log(1-x)$"; "The series for $A$ converges absolutely on $|x|\le1$".
+
+Quoted verbatim (supplement, proof of Lemma g4:lem:NK): the derivative of
+  $2\mathcal L_3+\Li_3(u)+\mathcal L_1\mathcal L_2+\frac16\mathcal L_1^3$ is
+  $\frac{\mathcal L_2}x+\frac{\mathcal L_1^2}{2x}$, which is $\mathcal A'$
+  (with $\mathcal L_1=-\log(1-x)$, $\mathcal L_2=\Li_2(x)$, $\mathcal L_3=\Li_3(x)$).
+
+Quoted verbatim (supplement, proof of Proposition 8): "The coefficients are
+  $c_1/L^5=2\Phi_A+\Phi_L$ for $\Li_3(x)$ and $c_2/L^5=\Phi_A$ for $\Li_3(\frac x{x-1})$".
+
+## Conventions
+
+* `ζ(3)` is `z3 := (riemannZeta 3).re`; stmt_1 also says `riemannZeta 3 = ↑z3` and
+  `HasSum (fun n => 1/(n+1)^3) z3` (proof via `zeta_nat_eq_tsum_of_gt_one` /
+  `hasSum_zeta_nat`-style lemmas). `ζ(2)` is written `π²/6`.
+* `H_n` is Mathlib's `harmonic n : ℚ` cast to `ℝ`; the series are indexed from `n = 0`
+  with `n+1` in place of the paper's `n ≥ 1`.
+* `Li₂ = D00.Li2` (imported, `-∫_0^x log(1-t)/t dt`). Its values `Li₂(-1)`, `Li₂(½)` of
+  Lemma g4:lem:values (a) and Landen's dilogarithm identity (the first identity of g4:lem:NK)
+  are already stmt_8, stmt_14, stmt_10 of D00 and are not restated.
+* `Li3 x := ∫_0^x Li₂(t)/t dt` (the same definition as the unfinished Y01, re-made here since
+  Y01 cannot be imported); stmt_2, stmt_3 record that it is integrable for `x ≤ 1` and equals
+  the series `Σ x^k/k³` for `|x| ≤ 1`. All arguments `x/(x-1)`, `1-1/x` used below are `< 1`.
+* `S12 x := ½ ∫_0^x log²(1-t)/t dt` (the Nielsen function `S_{1,2}`); stmt_9 asserts the
+  integrability of its integrand on `[0,x]` for every `x ≤ 1`.
+* `Aterm x n = H_{n+1} x^{n+1}/(n+1)²` and `A x := ∑' n, Aterm x n`; `A` is only used for
+  `|x| ≤ 1`, where stmt_7 gives absolute summability, so the `tsum` is never the junk `0`.
+  The four final values are stated as `HasSum` of the series themselves, not through `A`.
+
+## Statements
+
+* stmt_1: `riemannZeta 3 = ↑z3` and `Σ_{n≥1} 1/n³ = z3`.
+* stmt_2: `t ↦ Li₂(t)/t` is integrable on `[0,x]` for every `x ≤ 1`.
+* stmt_3: `Σ_{n≥1} x^n/n³ = Li3 x` for `|x| ≤ 1`.
+* stmt_4: `Li3 1 = ζ(3)` and `Li3 (-1) = -¾ ζ(3)` (Lemma g4:lem:values (a), first value).
+* stmt_5: Landen's trilogarithm identity on `0 < x < 1`.
+* stmt_6: `Li3 (½) = ⅞ζ(3) - π² log 2/12 + log³2/6` (function value).
+* stmt_7: the series of `A` converges absolutely for `|x| ≤ 1`.
+* stmt_8: `A'(x) = (Li₂(x) + ½ log²(1-x))/x` for `|x| < 1`, `x ≠ 0` (proof of g4:lem:NK).
+* stmt_9: the Nielsen function: integrability of `log²(1-t)/t` on `[0,x]` for `x ≤ 1`, and
+  `Σ H_n x^n/n² = Li₃(x) + S_{1,2}(x)` for `|x| ≤ 1`.
+* stmt_10: Nielsen--Kölbig on all of `x < 1`, in the form
+  `S_{1,2}(x) = Li₃(x) + Li₃(x/(x-1)) - Li₂(x)log(1-x) - log³(1-x)/6`
+  (equivalent to the displayed `6A = ...` with `A = Li₃ + S_{1,2}`).
+* stmt_11: Lemma g4:lem:NK for the series on `-1 ≤ x < 1`:
+  `Σ H_n x^n/n² = (12Li₃(x) + 6Li₃(x/(x-1)) - 6Li₂(x)log(1-x) - log³(1-x))/6`.
+* stmt_12: the regrouping used in the proof of Proposition 8: for all reals `Φ_A, Φ_L` and
+  `-1 ≤ x < 1`, `(2Φ_A+Φ_L)Li₃(x) + Φ_A Li₃(x/(x-1))
+  = Φ_A A(x) + Φ_L Li₃(x) + Φ_A (Li₂(x)log(1-x) + log³(1-x)/6)`.
+* stmt_13: `A(-1) = -⅝ ζ(3)` (HasSum).
+* stmt_14: `Li₃(-1) = -¾ ζ(3)` (HasSum).
+* stmt_15: `A(½) = ζ(3) - π² log 2/12` (HasSum).
+* stmt_16: `Li₃(½) = ⅞ζ(3) - π² log 2/12 + log³2/6` (HasSum).
+* stmt_17: the last sentence of prop:nonlocal: the conjunction of stmt_13 to stmt_16.
+
+## NOT COVERED
+
+* The formula `N_e = Φ_A ζ₃[A(1-r)] + Φ_L ζ₃[Li₃(1-r)]` for `r ∈ {2, ½}` and `N_e = 0` for
+  `r = 1`: `N_e` is the coefficient of `ζ(3)` in the computer-generated expression `E_e` of
+  Theorem thm:hexagon (machine steps M4-M6), with `ζ(3), ζ(2), log 2` treated as formal
+  symbols; it is not a concrete identity between real numbers and is not formalized. The
+  concrete analytic input of that proof (the regrouping of the `Li₃` coefficients
+  `c₁ = 2Φ_A+Φ_L`, `c₂ = Φ_A` into `A` and `Li₃`) is stmt_12; the `r = 1` case only uses
+  `Li₃(0) = Li₂(0) = log 1 = 0`, which is not worth a separate statement.
+* The coefficients `Φ_A`, `Φ_L`, `γ_e` and the edge data, the claim about `P'''(1)`, and the
+  numerical example (`N_e = 159√5/500`): not part of this target.
+* The values `Li₂(-1) = -ζ(2)/2`, `Li₂(½) = ζ(2)/2 - ½log²2` (in D00).
+-/
+-- BEGIN STATEMENTS
+namespace Z03
+
+open MeasureTheory Real
+
+/-- `ζ(3)` as a real number: the real part of Mathlib's `riemannZeta 3`. -/
+noncomputable def z3 : ℝ := (riemannZeta 3).re
+
+/-- The real trilogarithm `Li₃(x) = ∫_0^x Li₂(t)/t dt` (genuine on `(-∞,1]`). -/
+noncomputable def Li3 (x : ℝ) : ℝ := ∫ t in (0 : ℝ)..x, D00.Li2 t / t
+
+/-- The Nielsen function `S_{1,2}(x) = ½ ∫_0^x log²(1-t)/t dt`. -/
+noncomputable def S12 (x : ℝ) : ℝ := (1 / 2) * ∫ t in (0 : ℝ)..x, Real.log (1 - t) ^ 2 / t
+
+/-- The `n`-th term (from `n = 0`) of `A(x) = Σ_{n≥1} H_n x^n/n²`. -/
+noncomputable def Aterm (x : ℝ) (n : ℕ) : ℝ :=
+  (harmonic (n + 1) : ℝ) * x ^ (n + 1) / ((n : ℝ) + 1) ^ 2
+
+/-- `A(x) = Σ_{n≥1} H_n x^n/n²` (used only for `|x| ≤ 1`, where the series converges). -/
+noncomputable def A (x : ℝ) : ℝ := ∑' n : ℕ, Aterm x n
+
+/-- The `n`-th term (from `n = 0`) of `Li₃(x) = Σ_{n≥1} x^n/n³`. -/
+noncomputable def Li3term (x : ℝ) (n : ℕ) : ℝ := x ^ (n + 1) / ((n : ℝ) + 1) ^ 3
+
+/-- `ζ(3)`: `riemannZeta 3` is the real number `z3`, and `z3 = Σ_{n≥1} 1/n³`. -/
+def stmt_1 : Prop :=
+  riemannZeta 3 = ((z3 : ℝ) : ℂ) ∧ HasSum (fun n : ℕ => 1 / ((n : ℝ) + 1) ^ 3) z3
+
+/-- The integrand `Li₂(t)/t` of `Li3` is integrable on `[0,x]` for every `x ≤ 1`. -/
+def stmt_2 : Prop :=
+  ∀ x : ℝ, x ≤ 1 → IntervalIntegrable (fun t : ℝ => D00.Li2 t / t) volume 0 x
+
+/-- "$\Li_3(x)=\sum_{n\ge1}x^n/n^3$": the integral `Li3` is the series for `|x| ≤ 1`. -/
+def stmt_3 : Prop :=
+  ∀ x : ℝ, |x| ≤ 1 → HasSum (Li3term x) (Li3 x)
+
+/-- Lemma g4:lem:values (a), first value, with `ζ(3) = Li₃(1)`:
+`Li₃(1) = ζ(3)` and `Li₃(-1) = -¾ζ(3)`. -/
+def stmt_4 : Prop := Li3 1 = z3 ∧ Li3 (-1) = -(3 / 4) * z3
+
+/-- Landen's trilogarithm identity (proof of g4:lem:values), for `0 < x < 1`. -/
+def stmt_5 : Prop :=
+  ∀ x : ℝ, 0 < x → x < 1 →
+    Li3 x + Li3 (1 - x) + Li3 (1 - 1 / x)
+      = z3 + (1 / 6) * Real.log x ^ 3 + π ^ 2 / 6 * Real.log x
+        - (1 / 2) * Real.log x ^ 2 * Real.log (1 - x)
+
+/-- Lemma g4:lem:values (a), fourth value: `Li₃(½) = ⅞ζ(3) - π² log 2/12 + log³2/6`. -/
+def stmt_6 : Prop :=
+  Li3 (1 / 2) = (7 / 8) * z3 - π ^ 2 * Real.log 2 / 12 + Real.log 2 ^ 3 / 6
+
+/-- "The series for $A$ converges absolutely on $|x|\le1$". -/
+def stmt_7 : Prop :=
+  ∀ x : ℝ, |x| ≤ 1 → Summable (fun n : ℕ => |Aterm x n|)
+
+/-- Proof of g4:lem:NK: `A'(x) = (Li₂(x) + ½ log²(1-x))/x` for `|x| < 1`, `x ≠ 0`. -/
+def stmt_8 : Prop :=
+  ∀ x : ℝ, |x| < 1 → x ≠ 0 →
+    HasDerivAt A ((D00.Li2 x + (1 / 2) * Real.log (1 - x) ^ 2) / x) x
+
+/-- Proof sketch of thm:hexagon: the Nielsen integrand is integrable on `[0,x]` for `x ≤ 1`,
+and `S_{1,2}` "equals the series for $|x|\le1$", i.e. `Σ H_n x^n/n² = Li₃(x) + S_{1,2}(x)`. -/
+def stmt_9 : Prop :=
+  (∀ x : ℝ, x ≤ 1 →
+      IntervalIntegrable (fun t : ℝ => Real.log (1 - t) ^ 2 / t) volume 0 x) ∧
+    ∀ x : ℝ, |x| ≤ 1 → HasSum (Aterm x) (Li3 x + S12 x)
+
+/-- The Nielsen--Kölbig identity "valid for $x<1$" for the continuation
+`A = Li₃ + S_{1,2}`: `S_{1,2}(x) = Li₃(x) + Li₃(x/(x-1)) - Li₂(x)log(1-x) - log³(1-x)/6`. -/
+def stmt_10 : Prop :=
+  ∀ x : ℝ, x < 1 →
+    S12 x = Li3 x + Li3 (x / (x - 1)) - D00.Li2 x * Real.log (1 - x)
+      - Real.log (1 - x) ^ 3 / 6
+
+/-- Lemma g4:lem:NK for the series, on `-1 ≤ x < 1`:
+`6A(x) = 12Li₃(x) + 6Li₃(x/(x-1)) - 6Li₂(x)log(1-x) - log³(1-x)`. -/
+def stmt_11 : Prop :=
+  ∀ x : ℝ, -1 ≤ x → x < 1 →
+    HasSum (Aterm x)
+      ((12 * Li3 x + 6 * Li3 (x / (x - 1)) - 6 * D00.Li2 x * Real.log (1 - x)
+        - Real.log (1 - x) ^ 3) / 6)
+
+/-- Proof of Proposition 8: with the coefficients `c₁ = 2Φ_A+Φ_L` of `Li₃(x)` and
+`c₂ = Φ_A` of `Li₃(x/(x-1))`, the trilogarithm part regroups as `Φ_A A(x) + Φ_L Li₃(x)` plus
+terms in `Li₂(x)`, `log(1-x)` only, for `-1 ≤ x < 1`. -/
+def stmt_12 : Prop :=
+  ∀ PhiA PhiL x : ℝ, -1 ≤ x → x < 1 →
+    (2 * PhiA + PhiL) * Li3 x + PhiA * Li3 (x / (x - 1))
+      = PhiA * A x + PhiL * Li3 x
+        + PhiA * (D00.Li2 x * Real.log (1 - x) + Real.log (1 - x) ^ 3 / 6)
+
+/-- prop:nonlocal: "$A(-1)=-\frac58\zeta(3)$". -/
+def stmt_13 : Prop := HasSum (Aterm (-1)) (-(5 / 8) * z3)
+
+/-- prop:nonlocal: "$\Li_3(-1)=-\frac34\zeta(3)$". -/
+def stmt_14 : Prop := HasSum (Li3term (-1)) (-(3 / 4) * z3)
+
+/-- prop:nonlocal: "$A(\frac12)=\zeta(3)-\frac{\pi^2\log2}{12}$". -/
+def stmt_15 : Prop := HasSum (Aterm (1 / 2)) (z3 - π ^ 2 * Real.log 2 / 12)
+
+/-- prop:nonlocal: "$\Li_3(\frac12)=\frac78\zeta(3)-\frac{\pi^2\log2}{12}+\frac{\log^32}6$". -/
+def stmt_16 : Prop :=
+  HasSum (Li3term (1 / 2)) ((7 / 8) * z3 - π ^ 2 * Real.log 2 / 12 + Real.log 2 ^ 3 / 6)
+
+/-- The last sentence of prop:nonlocal: all four special values. -/
+def stmt_17 : Prop :=
+  HasSum (Aterm (-1)) (-(5 / 8) * z3) ∧
+    HasSum (Li3term (-1)) (-(3 / 4) * z3) ∧
+    HasSum (Aterm (1 / 2)) (z3 - π ^ 2 * Real.log 2 / 12) ∧
+    HasSum (Li3term (1 / 2)) ((7 / 8) * z3 - π ^ 2 * Real.log 2 / 12 + Real.log 2 ^ 3 / 6)
+
+end Z03

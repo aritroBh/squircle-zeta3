@@ -1,0 +1,135 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+import Zeta3.Wave4.X01_RhombusDerivs
+import Zeta3.Wave5.Y06_RadiusZero
+/-!
+# Z01 -- radius exactly one at the square end (`thm:one`)
+
+Target id: Z01.
+Paper labels: `thm:one` with its proof (paper/ieee/main.tex, lines 1255-1263), which uses
+`lem:holo` (main.tex lines 845-855) and `thm:zero` (main.tex lines 1237-1240). `thm:one` carries
+no dagger; the proofs supplement has no separate proof of it, so the intermediate statements
+follow the five-line proof printed in main.tex.
+
+Quoted verbatim (main.tex, Theorem thm:one):
+
+  \begin{theorem}[Radius one; uses Theorem~\ref{thm:zero}]\label{thm:one}
+  $\limsup_{k\to\infty}|M_k|^{1/k}=1$, and $\varepsilon=1$ (the diamond) is the only singularity of
+  $M(\varepsilon)$ on $|\varepsilon|=1$.
+  \end{theorem}
+
+Quoted verbatim (main.tex, proof of thm:one):
+
+  Lemma~\ref{lem:holo} gives radius at least $1$, and $\varepsilon=1$ is the only point of
+  $|\varepsilon|=1$ outside $\{\operatorname{Re}\varepsilon<1\}$. If the radius were larger than
+  $1$, the sum of the series would continue $M$ holomorphically across $\varepsilon=1$, and
+  $P(p)=8(1+M(1/p)/p)$ would agree for $p\ge1$ with a function analytic at $p=1$. The Taylor
+  series of $P$ at $p=1$ would then converge, which contradicts Theorem~\ref{thm:zero}.
+
+Quoted verbatim (main.tex, Lemma lem:holo):
+
+  $F$ extends to a holomorphic function on $\{\operatorname{Re}\varepsilon<1\}$. Hence
+  $P(p)/8=1+\varepsilon M(\varepsilon)$ with $M=-F/2$ holomorphic in $|\varepsilon|<1$, the expansion
+  P(p)=8\Bigl(1+\frac{M_0}{p}+\frac{M_1}{p^2}+\frac{M_2}{p^3}+\frac{M_3}{p^4}+\cdots\Bigr)
+  converges for every $p>1$, and $M_k=-F^{(k)}(0)/(2\,k!)$.
+
+Quoted verbatim (main.tex, Theorem thm:zero, last sentence):
+
+  In particular the Taylor series of $P$ at $p=1$, in $\eta$ or in $d$, has radius of
+  convergence $0$: $P$ is infinitely differentiable but not analytic at $p=1$.
+
+## Conventions and imported objects (nothing is redefined)
+
+* `F` is `W02.FC` (the extension `F(ε) = 2∫_0^{1/2} gC ε t dt` of the proof of `lem:holo`;
+  `W02.stmt_5` is its holomorphy on `{Re ε < 1}`), and `M_k` is `W02.Mk k = -F^{(k)}(0)/(2 k!)`
+  (a complex number). The only new definition is the function `M = -F/2` of `lem:holo`,
+  `Z01.M ε = -W02.FC ε / 2`.
+* The square perimeter appears in two imported forms: `W02.Pint p` (eq:Pint verbatim) and
+  `X01.P 1 1 p` (the rhombus perimeter with `A = B = 1`, the object of `thm:zero` / `Y06`).
+  `stmt_1` proves they agree for every `p`.
+* "the series" is `∑_k M_k ε^k`, i.e. `FormalMultilinearSeries.ofScalars ℂ W02.Mk`; its radius is
+  stated with Mathlib's `FormalMultilinearSeries.radius`.
+* `|M_k|^{1/k}` is the real sequence `‖W02.Mk k‖ ^ (1 / (k : ℝ))` (real `rpow` of a nonnegative
+  base; at `k = 0` it is `‖M_0‖^0 = 1`, which does not affect a limsup). As in `Y06.stmt_9`, the
+  limsup claim comes with eventual boundedness above, so that `Filter.limsup` is the genuine
+  limsup and not a junk value.
+* "the only singularity of `M` on `|ε| = 1`" is stated as: (a) at every `e₀` with `‖e₀‖ = 1`,
+  `e₀ ≠ 1`, there are `r > 0` and a function `g` holomorphic on the ball `B(e₀, r)` with
+  `∑ M_k ε^k = g ε` (as a `HasSum`) for every `ε` in `B(e₀, r) ∩ B(0,1)`; and (b) no such pair
+  `(r, g)` exists at `e₀ = 1`.
+* `p ≥ 1` link: the paper's "$P(p)=8(1+M(1/p)/p)$ ... for $p\ge1$" is stated over `ℂ` for the
+  real perimeter `W02.Pint p` cast to `ℂ` (at `p = 1` it reads `4√2 = 8(1 - (2-√2)/2)`, using the
+  integral value `W02.FC 1 = 2 - √2`; `ε = 1` is outside `{Re ε < 1}` but `FC 1` is still the
+  honest integral there).
+
+## NOT COVERED
+
+Nothing of `thm:one` is left out. `thm:zero` itself is not restated; its consequence for the square
+used by the proof is `stmt_6` (no real-analytic function agrees with `P` on `p ≥ 1` near `p = 1`),
+which is to be derived from the imported `Y06.stmt_11` (`A = B = 1`).
+-/
+-- BEGIN STATEMENTS
+namespace Z01
+
+open Filter Metric
+
+/-- The function `M = -F/2` of `lem:holo` (`F` = the extension `W02.FC`). -/
+noncomputable def M (ε : ℂ) : ℂ := -W02.FC ε / 2
+
+/-- Link of the imported perimeters: eq:Pint (`W02.Pint`) is the rhombus perimeter `X01.P` with
+`A = B = 1`, for every `p`. -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, W02.Pint p = X01.P 1 1 p
+
+/-- Proof of `thm:one`: "$P(p)=8(1+M(1/p)/p)$ ... for $p\ge1$", with `M = -F/2`. -/
+def stmt_2 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → ((W02.Pint p : ℝ) : ℂ) = 8 * (1 + M (1 / (p : ℂ)) / (p : ℂ))
+
+/-- `lem:holo`: "$M=-F/2$ holomorphic in $|\varepsilon|<1$", with Taylor coefficients `M_k`:
+`M` is holomorphic on the open unit disk and `∑ M_k ε^k = M(ε)` there. -/
+def stmt_3 : Prop :=
+  DifferentiableOn ℂ M (ball 0 1) ∧
+    ∀ ε : ℂ, ‖ε‖ < 1 → HasSum (fun k : ℕ => W02.Mk k * ε ^ k) (M ε)
+
+/-- Proof of `thm:one`: "Lemma~\ref{lem:holo} gives radius at least $1$", as the radius of
+`∑ M_k ε^k` and as `limsup |M_k|^{1/k} ≤ 1` (with eventual boundedness). -/
+def stmt_4 : Prop :=
+  1 ≤ (FormalMultilinearSeries.ofScalars ℂ W02.Mk).radius ∧
+    IsBoundedUnder (· ≤ ·) atTop (fun k : ℕ => ‖W02.Mk k‖ ^ (1 / (k : ℝ))) ∧
+    limsup (fun k : ℕ => ‖W02.Mk k‖ ^ (1 / (k : ℝ))) atTop ≤ 1
+
+/-- Proof of `thm:one`: "$\varepsilon=1$ is the only point of $|\varepsilon|=1$ outside
+$\{\operatorname{Re}\varepsilon<1\}$", so the sum of the series extends holomorphically to a
+neighbourhood of every other point of the unit circle. -/
+def stmt_5 : Prop :=
+  ∀ e₀ : ℂ, ‖e₀‖ = 1 → e₀ ≠ 1 →
+    ∃ r : ℝ, 0 < r ∧ ∃ g : ℂ → ℂ, DifferentiableOn ℂ g (ball e₀ r) ∧
+      ∀ ε ∈ ball e₀ r ∩ ball (0 : ℂ) 1, HasSum (fun k : ℕ => W02.Mk k * ε ^ k) (g ε)
+
+/-- Proof of `thm:one`, the step from `thm:zero`: no function analytic at `p = 1` agrees with the
+square perimeter `P` for `p ≥ 1` near `1` (otherwise "the Taylor series of $P$ at $p=1$ would then
+converge"). -/
+def stmt_6 : Prop :=
+  ¬ ∃ G : ℝ → ℝ, AnalyticAt ℝ G 1 ∧ ∀ᶠ p in nhdsWithin (1 : ℝ) (Set.Ici 1), G p = X01.P 1 1 p
+
+/-- Proof of `thm:one`: the sum of the series cannot be continued holomorphically across
+`ε = 1` ("$\varepsilon=1$ ... is a singularity of $M$"). -/
+def stmt_7 : Prop :=
+  ¬ ∃ r : ℝ, 0 < r ∧ ∃ g : ℂ → ℂ, DifferentiableOn ℂ g (ball 1 r) ∧
+      ∀ ε ∈ ball (1 : ℂ) r ∩ ball (0 : ℂ) 1, HasSum (fun k : ℕ => W02.Mk k * ε ^ k) (g ε)
+
+/-- `thm:one` in full: "$\limsup_{k\to\infty}|M_k|^{1/k}=1$" (with eventual boundedness), i.e.
+the series `∑ M_k ε^k` has radius of convergence exactly `1`, "and $\varepsilon=1$ (the diamond)
+is the only singularity of $M(\varepsilon)$ on $|\varepsilon|=1$": the sum extends holomorphically
+across every other point of the unit circle, and not across `1`. -/
+def stmt_8 : Prop :=
+  IsBoundedUnder (· ≤ ·) atTop (fun k : ℕ => ‖W02.Mk k‖ ^ (1 / (k : ℝ))) ∧
+    limsup (fun k : ℕ => ‖W02.Mk k‖ ^ (1 / (k : ℝ))) atTop = 1 ∧
+    (FormalMultilinearSeries.ofScalars ℂ W02.Mk).radius = 1 ∧
+    (∀ e₀ : ℂ, ‖e₀‖ = 1 → e₀ ≠ 1 →
+      ∃ r : ℝ, 0 < r ∧ ∃ g : ℂ → ℂ, DifferentiableOn ℂ g (ball e₀ r) ∧
+        ∀ ε ∈ ball e₀ r ∩ ball (0 : ℂ) 1, HasSum (fun k : ℕ => W02.Mk k * ε ^ k) (g ε)) ∧
+    (¬ ∃ r : ℝ, 0 < r ∧ ∃ g : ℂ → ℂ, DifferentiableOn ℂ g (ball 1 r) ∧
+      ∀ ε ∈ ball (1 : ℂ) r ∩ ball (0 : ℂ) 1, HasSum (fun k : ℕ => W02.Mk k * ε ^ k) (g ε))
+
+end Z01

@@ -1,0 +1,193 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+import Zeta3.Wave3.W04_PerimeterIntegral
+import Zeta3.Wave5.Y04_Fourier
+import Zeta3.Wave6.Z02_Theta5
+/-!
+# V01 — Cauchy's formula for the squircle, `P = ∫_0^{2π} h_p = π a_0(h_p)`, and the
+`τ⁵` expansion of `thm:pw` for the true perimeter
+
+Target id: V01.
+Paper labels: the paragraph before `thm:fourier` (main.tex line 1202: support function,
+Cauchy's formula, `P(p) = π a_0(h_p)`); the displayed expansion of `thm:pw` (main.tex
+lines 1183–1190); `thm:fourier` (main.tex 1204–1211) and `prop:theta` (main.tex 1220–1225)
+at `k = 0`. The supplement does not prove Cauchy's formula: sec_g2_fourier.tex, remark (iii)
+after the proof, says "$P=\pi a_0(h_p)$ (Cauchy's formula, used in the paper before the
+theorem, not proved here)". The intermediate statements below follow the classical
+argument (support function, normal-angle parametrisation, change of variables, symmetry).
+
+Quoted verbatim.
+
+main.tex 1202:
+
+  What should we expand? Not the curve, but its \emph{support function}, the distance from the
+  origin to the tangent line with normal $(\cos\theta,\sin\theta)$:
+  $h_p(\theta)=\bigl(|\cos\theta|^{1/\tau}+|\sin\theta|^{1/\tau}\bigr)^{\tau}$, $\tau=1-\frac1p$.
+  It is $\max(|\cos\theta|,|\sin\theta|)$ at the diamond and $|\cos\theta|+|\sin\theta|$ at the
+  square, and Cauchy's classical formula gives $P=\int_0^{2\pi}h_p\dd\theta$. Since $h_p$ has
+  period $\pi/2$, let's expand it as in Section~\ref{sec:zeta2}, with $T=\pi/2$:
+  $h_p=\frac{a_0(h_p)}{2}+\sum_{k\ge1}a_k(h_p)\cos4k\theta$,
+  $a_k(h_p)=\frac4\pi\int_0^{\pi/2}h_p\cos4k\theta\dd\theta$. Then $P(p)=\pi a_0(h_p)$: the
+  perimeter is a single Fourier coefficient.
+
+main.tex 1183–1190 (`thm:pw`, the displayed expansion):
+
+  \frac{P}{\sqrt2}=4+\zeta(2)\tau^2+\zeta(3)\tau^3-\frac{33}{16}\zeta(4)\tau^4\\
+  -\Bigl(\frac34\zeta(5)+\frac74\zeta(2)\zeta(3)\Bigr)\tau^5+O(\tau^6).
+
+main.tex 1211 (after `thm:fourier`): "For $k=0$ this is Theorem~\ref{thm:pw}."
+main.tex 1225 (after `prop:theta`): "At $k=0$, $\Theta_5$ is the $\tau^5$ coefficient of
+Theorem~\ref{thm:pw}".
+
+Reused, not redefined:
+* `Y04.tau p = 1 - 1/p`, `Y04.h p θ = (|cos θ|^{1/τ} + |sin θ|^{1/τ})^τ` (the paper's `h_p`,
+  meant for `p > 1`), `Y04.hDiamond θ = max |cos θ| |sin θ|` (the diamond `h_1`),
+  `Y04.a k f = (4/π) ∫_0^{π/2} f θ cos(4kθ) dθ`, `Y04.z3 = (riemannZeta 3).re`
+  (Zeta3.Wave5.Y04_Fourier); `Z02.z5 = (riemannZeta 5).re` (Zeta3.Wave6.Z02_Theta5).
+* `W02.pIntegrand`, `W02.Pint p = (4/p) ∫_0^1 √(t^{2/p-2} + (1-t)^{2/p-2}) dt` (eq:Pint,
+  Zeta3.Wave3.W02_Holo).
+* `W04.Plane` (Euclidean plane), `W04.squircle p = {v | |v 0|^p + |v 1|^p = 1}`, and
+  `W04.perimeter p = eVariationOn (W04.loop p) [0,4]`, the true Euclidean length of the curve
+  (Zeta3.Wave3.W04_PerimeterIntegral; there `W04.stmt_7` proves `perimeter p = ofReal (Pint p)`,
+  `W04.Pint` being literally `W02.Pint`).
+
+Conventions.
+* `ζ(3) = Y04.z3 = (riemannZeta 3).re`, `ζ(5) = Z02.z5 = (riemannZeta 5).re` (real parts of
+  Mathlib's complex values; by `zeta_nat_eq_tsum_of_gt_one` these are `∑ 1/n^3`, `∑ 1/n^5`);
+  `ζ(2) = π²/6`, `ζ(4) = π⁴/90` are written out.
+* `Y04.h p` is used only for `p > 1` (`τ ∈ (0,1)`); for `p = 1` the formula has `τ = 0` and
+  Lean's `1/0 = 0` would give the junk value `1`, so the diamond uses `Y04.hDiamond`, as the
+  paper's sentence "It is max(...) at the diamond" does.
+* `h_p` is continuous, so its interval integrals are genuine; `stmt_6`, `stmt_8` still assert
+  the integrability explicitly. The quarter-length integral in `stmt_4` comes with the
+  integrability of the (endpoint-singular) integrand.
+* The support function is stated as the maximum of `⟨v, (cos θ, sin θ)⟩` over the curve
+  (`IsGreatest`), the standard definition, which is what "the distance from the origin to the
+  tangent line with normal (cos θ, sin θ)" means for a convex curve around the origin.
+* Normal-angle parametrisation of the open first-quadrant arc `(t^{1/p}, (1-t)^{1/p})`,
+  `0 < t < 1`: `θ(t) = arctan(((1-t)/t)^τ)` (`normalAngle`); its normal `(cos θ, sin θ)` is
+  proportional to the gradient `(x^{p-1}, y^{p-1}) = (t^τ, (1-t)^τ)`.
+* `O(τ⁶)` is explicit: `∃ C τ₀, 0 < τ₀ ∧ ∀ p > 1, τ ≤ τ₀ → |error| ≤ C τ⁶`, the form of
+  `Y04.stmt_8` and `Z02.stmt_8`. The last statement is for the true perimeter
+  `(W04.perimeter p).toReal` (finite by W04, so `toReal` is not a junk value).
+
+Statements.
+* stmt_1: for `p > 1`, `h_p(θ)` is the maximum of `x cos θ + y sin θ` over the squircle.
+* stmt_2: for `p = 1`, the same with `max(|cos θ|, |sin θ|)`.
+* stmt_3: normal-angle parametrisation of the quarter arc (`p > 1`): `θ(t)` is a strictly
+  decreasing bijection of `(0,1)` onto `(0, π/2)`, the normal `(cos θ(t), sin θ(t))` is
+  orthogonal to the velocity of `(t^{1/p}, (1-t)^{1/p})`, and the point attains the support
+  value: `h_p(θ(t)) = t^{1/p} cos θ(t) + (1-t)^{1/p} sin θ(t)`.
+* stmt_4: change of variables (`p > 1`): the quarter-arc length integral equals `∫_0^{π/2} h_p`:
+  `(1/p) ∫_0^1 √(t^{2/p-2} + (1-t)^{2/p-2}) dt = ∫_0^{π/2} h_p(θ) dθ`.
+* stmt_5: `h_p` has period `π/2` and `∫_0^{2π} h_p = 4 ∫_0^{π/2} h_p` (`p > 1`).
+* stmt_6: Cauchy's formula for eq:Pint (`p > 1`): `P(p) = ∫_0^{2π} h_p = π a_0(h_p)`.
+* stmt_7: Cauchy's formula for the true perimeter (`p > 1`).
+* stmt_8: the case `p = 1` (diamond): `P(1) = ∫_0^{2π} h_1 = π a_0(h_1) = 4√2`, also for the
+  true perimeter.
+* stmt_9: `thm:pw`'s displayed expansion for the true perimeter, through `τ⁵` with `O(τ⁶)`.
+
+NOT COVERED: the all-order claim and the weight/homogeneity claims of `thm:pw` (`log(P/4√2) =
+Σ w_k τ^k` with `w_k` homogeneous of weight `k`), the rhombus and higher-dimensional
+statements of `thm:pw`, and its proof sketch; the square end `h_∞ = |cos θ| + |sin θ|`
+(a limit `p → ∞` statement, not needed for Cauchy's formula); the general convex-curve form
+`length = ∫ (h + h'') dθ` (we state the direct substitution instead); the Fourier series
+`h_p = a_0/2 + Σ a_k cos 4kθ` itself (its convergence is not used; only `a_0` enters);
+`thm:fourier` and `prop:theta` for `k ≥ 1` (these are Y04, Z02).
+-/
+
+-- BEGIN STATEMENTS
+namespace V01
+
+open Real MeasureTheory Set
+
+/-- The normal angle at the point `(t^{1/p}, (1-t)^{1/p})` of the first-quadrant arc,
+`0 < t < 1`: `θ(t) = arctan(((1-t)/t)^τ)`, `τ = 1 - 1/p`. -/
+noncomputable def normalAngle (p t : ℝ) : ℝ := Real.arctan (((1 - t) / t) ^ Y04.tau p)
+
+/-- main.tex 1202, "its support function, the distance from the origin to the tangent line
+with normal $(\cos\theta,\sin\theta)$: $h_p(\theta)=\bigl(|\cos\theta|^{1/\tau}+
+|\sin\theta|^{1/\tau}\bigr)^{\tau}$": for `p > 1`, `h_p(θ)` is the maximum of
+`x cos θ + y sin θ` over the squircle `|x|^p + |y|^p = 1`. -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, 1 < p → ∀ θ : ℝ,
+    IsGreatest ((fun v : W04.Plane => v 0 * Real.cos θ + v 1 * Real.sin θ) '' W04.squircle p)
+      (Y04.h p θ)
+
+/-- main.tex 1202, "It is $\max(|\cos\theta|,|\sin\theta|)$ at the diamond": the support
+function of `|x| + |y| = 1` is `max(|cos θ|, |sin θ|)`. -/
+def stmt_2 : Prop :=
+  ∀ θ : ℝ,
+    IsGreatest ((fun v : W04.Plane => v 0 * Real.cos θ + v 1 * Real.sin θ) '' W04.squircle 1)
+      (Y04.hDiamond θ)
+
+/-- The normal-angle parametrisation used to prove Cauchy's formula: for `p > 1`,
+`θ(t) = arctan(((1-t)/t)^τ)` maps `(0,1)` strictly decreasingly onto `(0, π/2)`; at
+`t ∈ (0,1)` the normal `(cos θ(t), sin θ(t))` is orthogonal to the velocity
+`((1/p) t^{1/p-1}, -(1/p)(1-t)^{1/p-1})` of the arc `(t^{1/p}, (1-t)^{1/p})`, and the point of
+the arc attains the support value: `h_p(θ(t)) = t^{1/p} cos θ(t) + (1-t)^{1/p} sin θ(t)`. -/
+def stmt_3 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    StrictAntiOn (normalAngle p) (Ioo 0 1) ∧
+    normalAngle p '' Ioo 0 1 = Ioo 0 (π / 2) ∧
+    ∀ t ∈ Ioo (0 : ℝ) 1,
+      1 / p * t ^ (1 / p - 1) * Real.cos (normalAngle p t)
+          - 1 / p * (1 - t) ^ (1 / p - 1) * Real.sin (normalAngle p t) = 0 ∧
+      Y04.h p (normalAngle p t) =
+        t ^ (1 / p) * Real.cos (normalAngle p t) + (1 - t) ^ (1 / p) * Real.sin (normalAngle p t)
+
+/-- The change of variables from the arc parameter `t` to the normal angle `θ` (the heart of
+Cauchy's formula on one quarter): for `p > 1` the integrand of eq:Pint is integrable on `[0,1]`
+and the quarter-arc length `(1/p) ∫_0^1 √(t^{2/p-2} + (1-t)^{2/p-2}) dt` equals
+`∫_0^{π/2} h_p(θ) dθ`. -/
+def stmt_4 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    IntervalIntegrable (W02.pIntegrand p) volume 0 1 ∧
+    1 / p * ∫ t in (0 : ℝ)..1, W02.pIntegrand p t = ∫ θ in (0 : ℝ)..(π / 2), Y04.h p θ
+
+/-- main.tex 1202, "Since $h_p$ has period $\pi/2$": `h_p(θ + π/2) = h_p(θ)`, hence
+`∫_0^{2π} h_p = 4 ∫_0^{π/2} h_p` (`p > 1`). -/
+def stmt_5 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    (∀ θ : ℝ, Y04.h p (θ + π / 2) = Y04.h p θ) ∧
+    ∫ θ in (0 : ℝ)..(2 * π), Y04.h p θ = 4 * ∫ θ in (0 : ℝ)..(π / 2), Y04.h p θ
+
+/-- main.tex 1202, "Cauchy's classical formula gives $P=\int_0^{2\pi}h_p\dd\theta$ ... Then
+$P(p)=\pi a_0(h_p)$", for `P` given by eq:Pint and `p > 1`: `h_p` is integrable on
+`[0, 2π]`, `P(p) = ∫_0^{2π} h_p(θ) dθ` and `P(p) = π a_0(h_p)`. -/
+def stmt_6 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    IntervalIntegrable (Y04.h p) volume 0 (2 * π) ∧
+    W02.Pint p = ∫ θ in (0 : ℝ)..(2 * π), Y04.h p θ ∧
+    W02.Pint p = π * Y04.a 0 (Y04.h p)
+
+/-- Cauchy's formula for the true perimeter (Euclidean length of the closed curve
+`|x|^p + |y|^p = 1`), `p > 1`: `perimeter = ∫_0^{2π} h_p` and `P(p) = π a_0(h_p)`. -/
+def stmt_7 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    W04.perimeter p = ENNReal.ofReal (∫ θ in (0 : ℝ)..(2 * π), Y04.h p θ) ∧
+    (W04.perimeter p).toReal = π * Y04.a 0 (Y04.h p)
+
+/-- Cauchy's formula at the diamond `p = 1` (support function `h_1 = max(|cos θ|, |sin θ|)`):
+`P(1) = ∫_0^{2π} h_1 = π a_0(h_1) = 4√2`, for eq:Pint and for the true perimeter. -/
+def stmt_8 : Prop :=
+  IntervalIntegrable Y04.hDiamond volume 0 (2 * π) ∧
+  W02.Pint 1 = ∫ θ in (0 : ℝ)..(2 * π), Y04.hDiamond θ ∧
+  W02.Pint 1 = π * Y04.a 0 Y04.hDiamond ∧
+  π * Y04.a 0 Y04.hDiamond = 4 * Real.sqrt 2 ∧
+  W04.perimeter 1 = ENNReal.ofReal (∫ θ in (0 : ℝ)..(2 * π), Y04.hDiamond θ)
+
+/-- `thm:pw`, the displayed expansion, for the true perimeter `P(p)`:
+"$\frac{P}{\sqrt2}=4+\zeta(2)\tau^2+\zeta(3)\tau^3-\frac{33}{16}\zeta(4)\tau^4
+-\Bigl(\frac34\zeta(5)+\frac74\zeta(2)\zeta(3)\Bigr)\tau^5+O(\tau^6)$":
+there are `C` and `τ₀ > 0` such that for every `p > 1` with `τ = 1 - 1/p ≤ τ₀`,
+`|P(p)/√2 - (4 + ζ(2)τ² + ζ(3)τ³ - (33/16)ζ(4)τ⁴ - ((3/4)ζ(5) + (7/4)ζ(2)ζ(3))τ⁵)| ≤ C τ⁶`. -/
+def stmt_9 : Prop :=
+  ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+    |(W04.perimeter p).toReal / Real.sqrt 2 -
+        (4 + (π ^ 2 / 6) * Y04.tau p ^ 2 + Y04.z3 * Y04.tau p ^ 3
+          - 33 / 16 * (π ^ 4 / 90) * Y04.tau p ^ 4
+          - (3 / 4 * Z02.z5 + 7 / 4 * ((π ^ 2 / 6) * Y04.z3)) * Y04.tau p ^ 5)|
+      ≤ C * Y04.tau p ^ 6
+
+end V01
