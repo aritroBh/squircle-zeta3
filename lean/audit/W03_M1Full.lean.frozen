@@ -1,0 +1,133 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+import Zeta3.Wave2.D03_M1RightAngle
+/-!
+# W03 -- capstone: `M_0` and `M_1` of the squircle expansion in closed form (Theorem `thm:M1`)
+
+Target id: W03.
+Paper labels: `thm:M1` (main.tex 889-895), `lem:holo` with `eq:expansion` (main.tex 846-852),
+`eq:M1t` (main.tex 858-861), and the unlabelled display `M_0 = λ - √2 L` (main.tex 880-883).
+Constants (main.tex 870-875): `a = 1+√2`, `L = log a`, `λ = log 2`.
+
+Quoted verbatim (main.tex, Lemma lem:holo with eq:expansion):
+
+  $F$ extends to a holomorphic function on $\{\operatorname{Re}\varepsilon<1\}$. Hence
+  $P(p)/8=1+\varepsilon M(\varepsilon)$ with $M=-F/2$ holomorphic in $|\varepsilon|<1$, the expansion
+  P(p)=8\Bigl(1+\frac{M_0}{p}+\frac{M_1}{p^2}+\frac{M_2}{p^3}+\frac{M_3}{p^4}+\cdots\Bigr)
+  converges for every $p>1$, and $M_k=-F^{(k)}(0)/(2\,k!)$.
+
+Quoted verbatim (main.tex, eq:M1t):
+
+  M_1=\int_0^1\frac{\log t}{t}\Bigl(\frac{1-t}{q}-1\Bigr)dt,\qquad q=\sqrt{t^2+(1-t)^2},
+
+Quoted verbatim (main.tex 880-883, subsection "M_0: Logarithms Only"):
+
+  Ahmed~\cite{ahmed} proved $P(p)=8-4K/p+O(p^{-2})$ with $K=2\sqrt2\log(1+\sqrt2)-2\log2$.
+  In our notation
+  \[
+  M_0=\lambda-\sqrt2\,L=-0.55330329972051571737\ldots,
+  \]
+
+Quoted verbatim (main.tex 889-895, Theorem thm:M1):
+
+  \begin{theorem}[$M_1$; answers Problem~1 of Ahmed~\cite{ahmed}]\label{thm:M1}
+  \begin{multline*}
+  M_1=\Bigl(\frac{19\sqrt2}{48}-\frac1{24}\Bigr)\pi^2+\frac{\lambda^2}{2}+2\sqrt2\,\lambda L\\
+  -\Bigl(1+\frac{5\sqrt2}{2}\Bigr)L^2-5\sqrt2\,\Li_2(\sqrt2-1).
+  \end{multline*}
+  Numerically $\kappa=8M_1=2.02095276965635835695\ldots$
+  \end{theorem}
+
+## Objects used (imported, not redefined)
+
+* `W02.Pint p = (4/p) ∫_0^1 √(t^(2/p-2) + (1-t)^(2/p-2)) dt` (eq:Pint), `W02.gR`, `W02.FR`
+  (the real `F` of eq:F), `W02.FC` (its holomorphic extension of lem:holo) and
+  `W02.Mk k = -F^{(k)}(0)/(2 k!)` (complex derivatives of `W02.FC`). W02 proves
+  (`W02.proof_6`) that `Σ_{k≥0} M_k / p^(k+1) = P(p)/8 - 1` for every real `p > 1` (`HasSum`),
+  and (`W02.proof_7`) that `M_1` equals the integral eq:M1t.
+* `D03.lam = log 2`, `D03.L = log(1+√2)`, `D03.M1closed` = the right side of thm:M1 with the
+  dilogarithm `D00.Li2` (`Li_2(x) = -∫_0^x log(1-t)/t dt`; its argument `√2-1` is in `(0,1)`,
+  where this is the series `Σ x^m/m²`). D03 proves that the integral eq:M1t equals `M1closed`
+  (`D03.proof_4`, `D03.proof_2`) and that `|8·M1closed - 2.02095276965635835695| < 10⁻²⁰`
+  (via `D03.proof_3`).
+
+## How the statements fit together
+
+`M_0 = -F(0)/2`, and `F(0) = ∫_0^1 (1/t + 1/(1-t) - √(1/t² + 1/(1-t)²)) dt` (eq:F at `ε = 0`;
+in Lean `W02.FR 0`, with `t^(0-1) = t⁻¹` for `t > 0`). The paper states `M_0 = λ - √2 L`
+without proof (it credits Ahmed and [MRL]); the evaluation `F(0) = 2√2 L - 2λ` is stmt_1, and
+`W02.proof_4` (`FC ε = FR ε` for real `ε < 1`) turns it into stmt_2.
+`M_1` goes through `W02.proof_7` (eq:M1t) and `D03` (eq:M1t = closed form), giving stmt_4.
+
+Numerical check of stmt_1 (40 digits, from D03's notes and supplement sec_g5_decay):
+`λ - √2 L = -0.55330329972051571737…`, so `F(0) = 1.10660659944103143474…`.
+
+## Statements
+
+* stmt_1: `F(0)` in closed form: the integrand of `F` at `ε = 0` is integrable on `[0,1]` and
+  `F(0) = 2√2 L - 2λ`.
+* stmt_2: the display `M_0 = λ - √2 L`, for `M_0 = W02.Mk 0` (as a complex number).
+* stmt_3: the printed decimals: `‖M_0 - (-0.55330329972051571737)‖ < 10⁻²⁰` (the printed
+  digits are all correct; the ellipsis means truncation, and the true value lies within
+  `10⁻²⁰` of the printed decimal either way).
+* stmt_4: Theorem thm:M1: `M_1 = W02.Mk 1` equals the closed form `D03.M1closed`.
+* stmt_5: thm:M1, "Numerically `κ = 8M_1 = 2.02095276965635835695…`":
+  `‖8 M_1 - 2.02095276965635835695‖ < 10⁻²⁰`, for `M_1 = W02.Mk 1`.
+* stmt_6 (final, the combined statement): for every real `p > 1`,
+  `P(p)/8 = 1 + M_0/p + M_1/p² + Σ_{k≥2} M_k/p^(k+1)` with `M_0 = λ - √2 L` and `M_1` the closed
+  form of thm:M1, in `HasSum` form (the tail series converges, to the stated value).
+
+## NOT COVERED
+
+* That `W02.Pint p` (the integral eq:Pint) is the perimeter of the squircle `|x|^p + |y|^p = 1`
+  (the arc-length computation "the arc-length formula gives") is target W04, not this file.
+  Here `P(p)` always means the integral eq:Pint.
+* The coefficients `M_k` for `k ≥ 2` are not evaluated (they appear only through `W02.Mk` in the
+  tail of stmt_6); `M_2`, `M_3` are other targets.
+* Ahmed's form `P(p) = 8 - 4K/p + O(p⁻²)` with `K = 2√2 log(1+√2) - 2 log 2` (a citation) is not
+  stated separately; it is the case `M_0 = -K/2` of stmt_6 plus a tail bound.
+* The identification `κ = 8 M_1` with Ahmed's numerically found constant and "It matches Ahmed's
+  ten digits" (citations) are not formalized; stmt_5 states the decimal for `8 M_1` itself.
+* The `O`-rate claims of Fig. `fig:error` (each coefficient buys one power of `p`) are not stated.
+-/
+-- BEGIN STATEMENTS
+namespace W03
+
+open Real
+
+/-- `M_0 = λ - √2 L` (main.tex 882), the claimed closed form of `M_0`. -/
+noncomputable def M0closed : ℝ := D03.lam - Real.sqrt 2 * D03.L
+
+/-- `M_0 = -F(0)/2` with `F(0) = ∫_0^1 (1/t + 1/(1-t) - √(1/t² + 1/(1-t)²)) dt` (eq:F at
+`ε = 0`): the integrand is integrable on `[0,1]` and `F(0) = 2√2 L - 2λ`. This evaluation is
+used, not printed, by the display `M_0 = λ - √2 L` (main.tex 882). -/
+def stmt_1 : Prop :=
+  IntervalIntegrable (W02.gR 0) MeasureTheory.volume 0 1 ∧
+    W02.FR 0 = 2 * Real.sqrt 2 * D03.L - 2 * D03.lam
+
+/-- main.tex 882: "$M_0=\lambda-\sqrt2\,L$", for `M_0 = -F(0)/2 = W02.Mk 0`. -/
+def stmt_2 : Prop := W02.Mk 0 = ((M0closed : ℝ) : ℂ)
+
+/-- main.tex 882: "$M_0=\dots=-0.55330329972051571737\ldots$", to all printed digits. -/
+def stmt_3 : Prop :=
+  ‖W02.Mk 0 - ((-0.55330329972051571737 : ℝ) : ℂ)‖ < (1 : ℝ) / 10 ^ 20
+
+/-- Theorem thm:M1: the coefficient `M_1` of `1/p²` in eq:expansion,
+`M_1 = -F'(0)/2 = W02.Mk 1`, equals
+`(19√2/48 - 1/24)π² + λ²/2 + 2√2 λL - (1 + 5√2/2)L² - 5√2 Li₂(√2-1)`. -/
+def stmt_4 : Prop := W02.Mk 1 = ((D03.M1closed : ℝ) : ℂ)
+
+/-- Theorem thm:M1: "Numerically $\kappa=8M_1=2.02095276965635835695\ldots$". -/
+def stmt_5 : Prop :=
+  ‖8 * W02.Mk 1 - ((2.02095276965635835695 : ℝ) : ℂ)‖ < (1 : ℝ) / 10 ^ 20
+
+/-- eq:expansion with the two closed forms: for every real `p > 1`,
+`P(p)/8 = 1 + M_0/p + M_1/p² + Σ_{k≥2} M_k/p^(k+1)`, `M_0 = λ - √2 L`, `M_1` as in thm:M1;
+the tail `Σ_{j≥0} M_{j+2}/p^(j+3)` converges to `P(p)/8 - 1 - M_0/p - M_1/p²`. -/
+def stmt_6 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    HasSum (fun j : ℕ => W02.Mk (j + 2) / (p : ℂ) ^ (j + 3))
+      (((W02.Pint p / 8 : ℝ) : ℂ) - 1 - ((M0closed : ℝ) : ℂ) / (p : ℂ)
+        - ((D03.M1closed : ℝ) : ℂ) / (p : ℂ) ^ 2)
+
+end W03

@@ -1,10 +1,11 @@
 # Lean checks for "Investigating ζ(3)"
 
 Lean 4 (v4.36.0) with Mathlib (v4.36.0). This folder machine-checks the exact, finite claims of the paper that
-Mathlib can express. It does not check the main theorems; `LEAN_CHECKLIST.md` says what is in and what is out.
+Mathlib can express, and, through a small dilogarithm library, the closed forms of `M₁` and `M₁(α)`. It does not
+check the other main theorems; `LEAN_CHECKLIST.md` says what is in and what is out.
 
 - `LEAN_CHECKLIST.md`: every target, its status, and what Lean cannot do here.
-- `Zeta3/Wave1/`: one file per target. Each file quotes the paper, states the claims as `def stmt_k : Prop`
+- `Zeta3/Wave1/`, `Zeta3/Wave2/`: one file per target (`Wave2/D00_Dilog.lean` is the dilogarithm library). Each file quotes the paper, states the claims as `def stmt_k : Prop`
   between the `BEGIN STATEMENTS` and `END STATEMENTS` markers, and proves them below.
 - `audit/`: the statement blocks as accepted by an independent audit against the paper. Proofs may not change them.
 - `tools/gate.py`: the mechanical gate. `python3 tools/gate.py check Zeta3/Wave1/<file>` passes only if the

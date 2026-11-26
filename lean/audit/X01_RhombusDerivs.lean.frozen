@@ -1,0 +1,280 @@
+import Mathlib
+/-!
+# X01 -- derivatives of the rhombus perimeter at `p = 1`
+
+Target id: X01.
+Paper labels: `thm:rhombus` and its proof (paper/ieee/main.tex, lines 1136-1149), the derivation
+"Steps 1-4" it reuses (main.tex lines 1101-1134), and `prop:an` for `a_0,...,a_3` only
+(main.tex lines 1163-1164). Supplement: paper/ieee/proofs/sec_pureweight.tex, Section
+"Rhombi (two dimensions)" (`eq:pw:rhombus`, "The Beta moments"), lines 54-80.
+
+Quoted verbatim (main.tex 1102-1106, Step 1):
+
+  \emph{Step 1: an exact formula.} Put $\eta=\frac1p-1$, so the diamond is $\eta=0$, and use the
+  parametrization of Section~\ref{sec:squircle}. The speed is $(1+\eta)\sqrt{t^{2\eta}+(1-t)^{2\eta}}$.
+  Let's factor out $[t(1-t)]^{\eta/2}$ and use the logit coordinate $l=\log\frac{t}{1-t}$. ...
+  P(p)=4\sqrt2\,(1+\eta)\int_0^1\bigl(t(1-t)\bigr)^{\eta/2}\sqrt{\cosh(\eta l)}\;dt
+  exactly, for every $p>0$. At $\eta=0$ the integrand is $1$ and $P(1)=4\sqrt2$.
+
+Quoted verbatim (main.tex 1108-1112, Step 2):
+
+  \emph{Step 2: Beta moments.} Every moment of $l$ comes from one Beta integral, because
+  $e^{sl}=(t/(1-t))^s$:
+  A(\eta,s)&=(1+\eta)\int_0^1\bigl(t(1-t)\bigr)^{\eta/2}e^{sl}\dd t\\
+  &=\frac{\Gamma\bigl(1+\frac\eta2+s\bigr)\,\Gamma\bigl(1+\frac\eta2-s\bigr)}{\Gamma(1+\eta)} .
+
+Quoted verbatim (main.tex 1130-1132, Step 4):
+
+  \emph{Step 4: collecting terms.} From $A(\eta,0)=1-\frac{\pi^2}{24}\eta^2+\frac{\zeta(3)}{4}\eta^3+O(\eta^4)$
+  and $\partial_s^2A(\eta,0)=\frac{\pi^2}{3}-2\zeta(3)\eta+O(\eta^2)$,
+  \frac{P(p)}{4\sqrt2}=1+\frac{\pi^2}{24}\eta^2-\frac{\zeta(3)}{4}\eta^3+O(\eta^4).
+
+Quoted verbatim (main.tex 1137-1148):
+
+  The same four steps work for $|x/A|^p+|y/B|^p=1$ with semi-axes $A,B>0$. Put $r=\sqrt{A^2+B^2}$
+  and $q=(A^2-B^2)/(A^2+B^2)$. Then $\sqrt{\cosh z}$ becomes
+  $g(z)=\sqrt{\cosh z+q\sinh z}=1+\frac q2z+\frac{2-q^2}{8}z^2+\cdots$; its odd terms meet odd
+  moments of $l$, which vanish by the symmetry $t\leftrightarrow1-t$.
+
+  \begin{theorem}[Derivatives at the rhombus]\label{thm:rhombus}
+  For $|x/A|^p+|y/B|^p=1$ with $r=\sqrt{A^2+B^2}$,
+  \begin{gather*}
+  P(1)=4r,\qquad P'(1)=0,\qquad P''(1)=\frac{4\pi^2A^2B^2}{3r^3},\\
+  P'''(1)=\frac{24A^2B^2}{r^3}\Bigl(\zeta(3)-\frac{\pi^2}{3}\Bigr).
+  \end{gather*}
+  \end{theorem}
+
+  \begin{proof}
+  As above, $P/(4r)=1+\alpha\eta^2+\beta\eta^3+O(\eta^4)$ with $\alpha=\frac{(1-q^2)\pi^2}{24}$,
+  $\beta=-\frac{(1-q^2)\zeta(3)}{4}$ and $1-q^2=4A^2B^2/r^4$. ... Differentiating under the
+  integral is justified by an integrable bound (powers of $t$, $1-t$ with exponents $>-1$ times
+  powers of logarithms).
+  \end{proof}
+
+Quoted verbatim (main.tex 1163-1164):
+
+  \begin{proposition}\label{prop:an}
+  Let $a_n=P^{(n)}(1)/(\sqrt2\,n!)$, the Taylor coefficients of $P(1+d)/\sqrt2$ at $d=0$ (the
+  series diverges, by Theorem~\ref{thm:zero}). Then $a_0=4$, $a_1=0$, $a_2=\pi^2/6$,
+  $a_3=\zeta(3)-\pi^2/3$,
+
+## Formalization choices
+
+* `ζ(3)` is `z3 := (riemannZeta 3).re`, the real part of Mathlib's complex `riemannZeta 3`
+  (it is real; `zeta_nat_eq_tsum_of_gt_one` identifies `riemannZeta 3` with `∑ 1/n^3`).
+* The perimeter function. The paper writes the perimeter integral (`eq:Pint`, main.tex 827)
+  only for `A = B = 1` and says "the same four steps work" for semi-axes `A, B`. We use the
+  natural integral from the parametrization `x = A t^{1/p}`, `y = B (1-t)^{1/p}` (as the
+  supplement does, `eq:pw:rhombus`):
+    `P A B p = (4/p) ∫_0^1 √(A^2 t^(2/p-2) + B^2 (1-t)^(2/p-2)) dt`.
+  This makes sense for EVERY `p > 0` (the integrand is `O(t^{1/p-1})` at `0` and
+  `O((1-t)^{1/p-1})` at `1`, integrable since `1/p - 1 > -1`); for `p < 1` the integrand is even
+  continuous on `[0,1]`. So `P A B` is defined on the neighbourhood `(0,∞)` of `1`, as needed
+  for derivatives at `1` (stmt_1). `Real.rpow` has `0^0 = 1` and `0^x = 0` for `x ≠ 0`; this
+  only affects the null set `{0,1}`.
+* True length (stmt_2, stmt_3): `loop A B p` on `[0,4]` is the quarter arc followed by its
+  reflections (as `W04.loop`, scaled by `A`, `B`), valued in the Euclidean plane; the perimeter
+  is its total variation `eVariationOn`. Stated for all `p > 0`.
+* Derivatives are genuine: `ContDiffAt ℝ 3 (P A B) 1` is asserted (it gives an open
+  neighbourhood of `1` on which `P A B` is `C^3`), and the values are `deriv` / `iteratedDeriv`
+  at `1`.
+* Log integrals (the intermediate steps that produce `π^2` and `ζ(3)`): with
+  `L t = log(t(1-t))` and the paper's logit `l t = log(t/(1-t))`, differentiating
+  `P/(4r) = (1+η) ∫ (t(1-t))^{η/2} g(η l) dt` three times at `η = 0` needs exactly
+  `∫L = -2`, `∫L^2 = 8 - π^2/3`, `∫L^3 = 12ζ(3) - 48 + 2π^2`, `∫l^2 = π^2/3`,
+  `∫L l^2 = -4ζ(3) - 2π^2/3`, and the vanishing of the odd moments of `l`. These are the
+  derivatives at `η = 0` of the paper's `A(η,0)` and `∂_s^2 A(η,0)` (Step 4):
+  `A(η,0) = (1+η)∫(t(1-t))^{η/2}`, `∂_s^2A(η,0) = (1+η)∫(t(1-t))^{η/2} l^2`.
+* The paper's `O(η^4)` in the proof is recorded only through derivatives up to order 3 of
+  `η ↦ P(1/(1+η))/(4r)` at `η = 0` (stmt_10), which is what the theorem uses.
+
+Statements:
+* stmt_1: the integrand is interval integrable on `[0,1]` for every `p > 0` (so `P` is a genuine
+  integral near `p = 1`, including `p < 1`).
+* stmt_2: `loop A B p` is a simple closed parametrization of `|x/A|^p+|y/B|^p=1`, `p > 0`.
+* stmt_3: the perimeter (length of `loop A B p`) equals `P A B p`, `p > 0`.
+* stmt_4: Step 1, exact formula `P = 4r(1+η)∫(t(1-t))^{η/2} √(cosh(ηl)+q sinh(ηl)) dt`, `p > 0`.
+* stmt_5: Step 2, the Beta moments `A(η,s) = Γ(1+η/2+s)Γ(1+η/2-s)/Γ(1+η)` (with integrability),
+  for `η > -1`, `|s| < 1 + η/2`.
+* stmt_6: all mixed log moments `∫ L^j l^k` exist, and vanish for odd `k` (symmetry `t ↔ 1-t`).
+* stmt_7: `∫L = -2`, `∫L^2 = 8 - π^2/3`, `∫L^3 = 12ζ(3) - 48 + 2π^2`.
+* stmt_8: `∫ l^2 = π^2/3` (the source of `π^2`).
+* stmt_9: `∫ L l^2 = -4ζ(3) - 2π^2/3` (the source of `ζ(3)`).
+* stmt_10: in the variable `η`, `I(η) = P(1/(1+η))/(4r)` is `C^3` at `0` with `I(0)=1`, `I'(0)=0`,
+  `I''(0) = 2α`, `I'''(0) = 6β`, `α = (1-q^2)π^2/24`, `β = -(1-q^2)ζ(3)/4`.
+* stmt_11: `P A B` is `C^3` near `p = 1`.
+* stmt_12: `P(1) = 4r`.
+* stmt_13: `P'(1) = 0`.
+* stmt_14: `P''(1) = 4π^2A^2B^2/(3r^3)`.
+* stmt_15: `P'''(1) = (24A^2B^2/r^3)(ζ(3) - π^2/3)`.
+* stmt_16: `prop:an` for the diamond `A = B = 1`: `a_0 = 4`, `a_1 = 0`, `a_2 = π^2/6`,
+  `a_3 = ζ(3) - π^2/3`, with `a_n = P^{(n)}(1)/(√2 n!)`.
+* stmt_17: `thm:rhombus` in full: for all `A, B > 0`, `P` is `C^3` at `1` and the four values hold.
+
+## NOT COVERED
+
+* The boxed expansion `eq:diamond` with its `O(d^4)` remainder and the `O(η^4)` remainders of
+  Step 4 / the proof (only derivatives up to order 3 are stated; the fourth-order remainder
+  needs `C^4`, which is beyond `thm:rhombus`).
+* Step 3 (the Taylor series of `log Γ(1+x)` and of `log A(η,s)`); the log-integral route of
+  stmt_7-stmt_9 replaces it.
+* `prop:an` beyond `a_3` (`a_4,...,a_7`, `ω_n`, weights) and the divergence remark.
+* The literature remarks (what was known, Rodríguez-Montilla, Abel summation).
+* "Perimeter" is the total variation of the explicit loop; no parametrization-free notion
+  (Hausdorff measure of the curve) is used.
+-/
+-- BEGIN STATEMENTS
+namespace X01
+
+open MeasureTheory Set Filter
+
+/-- The Euclidean plane. -/
+abbrev Plane := EuclideanSpace ℝ (Fin 2)
+
+/-- `ζ(3)`, the real part of Mathlib's `riemannZeta 3`. -/
+noncomputable def z3 : ℝ := (riemannZeta 3).re
+
+/-- `r = √(A^2 + B^2)`. -/
+noncomputable def r (A B : ℝ) : ℝ := Real.sqrt (A ^ 2 + B ^ 2)
+
+/-- `q = (A^2 - B^2)/(A^2 + B^2)`. -/
+noncomputable def q (A B : ℝ) : ℝ := (A ^ 2 - B ^ 2) / (A ^ 2 + B ^ 2)
+
+/-- The integrand `√(A^2 t^(2/p-2) + B^2 (1-t)^(2/p-2))` of the perimeter integral. -/
+noncomputable def integrand (A B p t : ℝ) : ℝ :=
+  Real.sqrt (A ^ 2 * t ^ (2 / p - 2) + B ^ 2 * (1 - t) ^ (2 / p - 2))
+
+/-- The perimeter integral `P(p) = (4/p) ∫_0^1 √(A^2 t^(2/p-2) + B^2 (1-t)^(2/p-2)) dt`
+(the paper's `eq:Pint` with semi-axes `A, B`; see the module docstring). -/
+noncomputable def P (A B p : ℝ) : ℝ := 4 / p * ∫ t in (0 : ℝ)..1, integrand A B p t
+
+/-- The curve `|x/A|^p + |y/B|^p = 1`. -/
+def curve (A B p : ℝ) : Set Plane := {v | |v 0 / A| ^ p + |v 1 / B| ^ p = 1}
+
+/-- The whole curve traversed once on `[0,4]`: the quarter arc `x = A t^{1/p}`,
+`y = B (1-t)^{1/p}` on `[0,1]`, then its reflections into the other three quadrants. -/
+noncomputable def loop (A B p t : ℝ) : Plane :=
+  if t ≤ 1 then !₂[A * t ^ (1 / p), B * (1 - t) ^ (1 / p)]
+  else if t ≤ 2 then !₂[A * (2 - t) ^ (1 / p), -(B * (t - 1) ^ (1 / p))]
+  else if t ≤ 3 then !₂[-(A * (t - 2) ^ (1 / p)), -(B * (3 - t) ^ (1 / p))]
+  else !₂[-(A * (4 - t) ^ (1 / p)), B * (t - 3) ^ (1 / p)]
+
+/-- The perimeter: the Euclidean length (total variation) of `loop A B p` over `[0,4]`. -/
+noncomputable def perimeter (A B p : ℝ) : ENNReal := eVariationOn (loop A B p) (Icc (0 : ℝ) 4)
+
+/-- `L(t) = log(t(1-t))`. -/
+noncomputable def Lg (t : ℝ) : ℝ := Real.log (t * (1 - t))
+
+/-- The paper's logit coordinate `l = log(t/(1-t))`. -/
+noncomputable def lg (t : ℝ) : ℝ := Real.log (t / (1 - t))
+
+/-- The paper's `P/(4r)` in the variable `η = 1/p - 1`, i.e. `p = 1/(1+η)`. -/
+noncomputable def I (A B η : ℝ) : ℝ := P A B (1 / (1 + η)) / (4 * r A B)
+
+/-- "exactly, for every $p>0$": the perimeter integral makes sense for every `p > 0`, in
+particular on a neighbourhood of `p = 1` (its integrand is integrable). -/
+def stmt_1 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ p : ℝ, 0 < p →
+    IntervalIntegrable (integrand A B p) volume 0 1
+
+/-- "For $|x/A|^p+|y/B|^p=1$": the quarter arc `x = A t^{1/p}`, `y = B(1-t)^{1/p}` and its three
+reflections form a simple closed parametrization of the curve. -/
+def stmt_2 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ p : ℝ, 0 < p →
+    ContinuousOn (loop A B p) (Icc 0 4) ∧ loop A B p 4 = loop A B p 0 ∧
+    InjOn (loop A B p) (Ico 0 4) ∧ loop A B p '' Icc 0 4 = curve A B p
+
+/-- The perimeter integral is the true length of the curve `|x/A|^p+|y/B|^p=1`. -/
+def stmt_3 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ p : ℝ, 0 < p →
+    perimeter A B p = ENNReal.ofReal (P A B p)
+
+/-- Step 1 for the rhombus (`eq:pw:rhombus`): with `η = 1/p - 1`,
+`P = 4r(1+η) ∫_0^1 (t(1-t))^{η/2} √(cosh(ηl) + q sinh(ηl)) dt`, "exactly, for every $p>0$". -/
+def stmt_4 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ∀ p : ℝ, 0 < p →
+    P A B p = 4 * r A B * (1 + (1 / p - 1)) *
+      ∫ t in (0 : ℝ)..1, (t * (1 - t)) ^ ((1 / p - 1) / 2) *
+        Real.sqrt (Real.cosh ((1 / p - 1) * lg t) + q A B * Real.sinh ((1 / p - 1) * lg t))
+
+/-- Step 2, the Beta moments:
+`A(η,s) = (1+η)∫_0^1 (t(1-t))^{η/2} e^{sl} dt = Γ(1+η/2+s)Γ(1+η/2-s)/Γ(1+η)`,
+for `η > -1` (i.e. `p > 0`) and `|s| < 1 + η/2`, with the integrand integrable. -/
+def stmt_5 : Prop :=
+  ∀ η s : ℝ, -1 < η → |s| < 1 + η / 2 →
+    IntervalIntegrable (fun t : ℝ => (t * (1 - t)) ^ (η / 2) * Real.exp (s * lg t)) volume 0 1 ∧
+    (1 + η) * ∫ t in (0 : ℝ)..1, (t * (1 - t)) ^ (η / 2) * Real.exp (s * lg t) =
+      Real.Gamma (1 + η / 2 + s) * Real.Gamma (1 + η / 2 - s) / Real.Gamma (1 + η)
+
+/-- "odd moments of $l$, which vanish by the symmetry $t\leftrightarrow1-t$": every mixed log
+moment `∫ L^j l^k` exists, and it vanishes for odd `k`. -/
+def stmt_6 : Prop :=
+  ∀ j k : ℕ, IntervalIntegrable (fun t : ℝ => Lg t ^ j * lg t ^ k) volume 0 1 ∧
+    (Odd k → ∫ t in (0 : ℝ)..1, Lg t ^ j * lg t ^ k = 0)
+
+/-- Step 4, the `η`-derivatives of `A(η,0) = 1 - π^2/24 η^2 + ζ(3)/4 η^3 + O(η^4)` written as
+log integrals: `∫L = -2`, `∫L^2 = 8 - π^2/3`, `∫L^3 = 12ζ(3) - 48 + 2π^2`. -/
+def stmt_7 : Prop :=
+  ∫ t in (0 : ℝ)..1, Lg t = -2 ∧
+  ∫ t in (0 : ℝ)..1, Lg t ^ 2 = 8 - Real.pi ^ 2 / 3 ∧
+  ∫ t in (0 : ℝ)..1, Lg t ^ 3 = 12 * z3 - 48 + 2 * Real.pi ^ 2
+
+/-- Step 4, `∂_s^2 A(0,0) = π^2/3`: `∫_0^1 log^2(t/(1-t)) dt = π^2/3` (where `π^2` enters). -/
+def stmt_8 : Prop :=
+  ∫ t in (0 : ℝ)..1, lg t ^ 2 = Real.pi ^ 2 / 3
+
+/-- Step 4, `∂_s^2 A(η,0) = π^2/3 - 2ζ(3)η + O(η^2)` at first order in `η`:
+`∫_0^1 log(t(1-t)) log^2(t/(1-t)) dt = -4ζ(3) - 2π^2/3` (where `ζ(3)` enters). -/
+def stmt_9 : Prop :=
+  ∫ t in (0 : ℝ)..1, Lg t * lg t ^ 2 = -4 * z3 - 2 * Real.pi ^ 2 / 3
+
+/-- Proof of `thm:rhombus`: "$P/(4r)=1+\alpha\eta^2+\beta\eta^3+O(\eta^4)$ with
+$\alpha=\frac{(1-q^2)\pi^2}{24}$, $\beta=-\frac{(1-q^2)\zeta(3)}{4}$", recorded through the
+derivatives of order `≤ 3` of `η ↦ P(1/(1+η))/(4r)` at `η = 0`. -/
+def stmt_10 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    ContDiffAt ℝ 3 (I A B) 0 ∧ I A B 0 = 1 ∧ deriv (I A B) 0 = 0 ∧
+    iteratedDeriv 2 (I A B) 0 = 2 * ((1 - q A B ^ 2) * Real.pi ^ 2 / 24) ∧
+    iteratedDeriv 3 (I A B) 0 = 6 * (-((1 - q A B ^ 2) * z3 / 4))
+
+/-- "Differentiating under the integral is justified": `p ↦ P(p)` is `C^3` near `p = 1`. -/
+def stmt_11 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → ContDiffAt ℝ 3 (P A B) 1
+
+/-- `thm:rhombus`: `P(1) = 4r`. -/
+def stmt_12 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → P A B 1 = 4 * r A B
+
+/-- `thm:rhombus`: `P'(1) = 0`. -/
+def stmt_13 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B → HasDerivAt (P A B) 0 1
+
+/-- `thm:rhombus`: `P''(1) = 4π^2A^2B^2/(3r^3)`. -/
+def stmt_14 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    iteratedDeriv 2 (P A B) 1 = 4 * Real.pi ^ 2 * A ^ 2 * B ^ 2 / (3 * r A B ^ 3)
+
+/-- `thm:rhombus`: `P'''(1) = (24A^2B^2/r^3)(ζ(3) - π^2/3)`. -/
+def stmt_15 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    iteratedDeriv 3 (P A B) 1 = 24 * A ^ 2 * B ^ 2 / r A B ^ 3 * (z3 - Real.pi ^ 2 / 3)
+
+/-- `prop:an` (first four coefficients), the diamond `A = B = 1`: with
+`a_n = P^{(n)}(1)/(√2 n!)`, `a_0 = 4`, `a_1 = 0`, `a_2 = π^2/6`, `a_3 = ζ(3) - π^2/3`. -/
+def stmt_16 : Prop :=
+  ContDiffAt ℝ 3 (P 1 1) 1 ∧
+  (let a : ℕ → ℝ := fun n => iteratedDeriv n (P 1 1) 1 / (Real.sqrt 2 * (n.factorial : ℝ))
+   a 0 = 4 ∧ a 1 = 0 ∧ a 2 = Real.pi ^ 2 / 6 ∧ a 3 = z3 - Real.pi ^ 2 / 3)
+
+/-- `thm:rhombus` in full: for every rhombus `|x/A|^p+|y/B|^p=1`, `P` is three times
+continuously differentiable at `p = 1` and `P(1)=4r`, `P'(1)=0`,
+`P''(1)=\frac{4\pi^2A^2B^2}{3r^3}`, `P'''(1)=\frac{24A^2B^2}{r^3}(\zeta(3)-\frac{\pi^2}{3})`. -/
+def stmt_17 : Prop :=
+  ∀ A B : ℝ, 0 < A → 0 < B →
+    ContDiffAt ℝ 3 (P A B) 1 ∧
+    P A B 1 = 4 * r A B ∧
+    deriv (P A B) 1 = 0 ∧
+    iteratedDeriv 2 (P A B) 1 = 4 * Real.pi ^ 2 * A ^ 2 * B ^ 2 / (3 * r A B ^ 3) ∧
+    iteratedDeriv 3 (P A B) 1 = 24 * A ^ 2 * B ^ 2 / r A B ^ 3 * (z3 - Real.pi ^ 2 / 3)
+
+end X01

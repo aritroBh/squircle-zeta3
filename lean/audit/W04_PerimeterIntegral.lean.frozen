@@ -1,0 +1,174 @@
+import Mathlib
+/-!
+# W04 -- the perimeter integral `eq:Pint` and its three checks
+
+Target id: W04.
+Paper labels: `eq:Pint` and the paragraph around it, "An Integral for the Perimeter"
+(paper/ieee/main.tex, lines 823-829), with the squircle defined at main.tex lines 785-788 and the
+landmarks listed at main.tex lines 802-805.
+
+Quoted verbatim (main.tex 785-788):
+
+  Let's deform a shape. The shape is the squircle
+  \[
+  |x|^p+|y|^p=1,\qquad p\ge1 .
+  \]
+
+Quoted verbatim (main.tex 802-805):
+
+  The perimeter $P(p)$ has no such closed form. We only know the landmarks
+  \[
+  P(1)=4\sqrt2,\qquad P(2)=2\pi,\qquad \lim_{p\to\infty}P(p)=8 ,
+  \]
+
+Quoted verbatim (main.tex 824-829):
+
+  Following Ahmed~\cite{ahmed}, parametrize the quarter arc in the first quadrant by
+  $x=t^{1/p}$, $y=(1-t)^{1/p}$, $0\le t\le1$. Then $x^p+y^p=1$, and the arc-length formula gives
+  \begin{equation}\label{eq:Pint}
+  P(p)=\frac4p\int_0^1\sqrt{t^{2/p-2}+(1-t)^{2/p-2}}\;dt .
+  \end{equation}
+  Let's check the shapes we know. \textbf{Case 1:} $p=1$. The integrand is $\sqrt2$, so
+  $P(1)=4\sqrt2$: four sides of length $\sqrt2$. \textbf{Case 2:} $p=2$. Here
+  $t^{-1}+(1-t)^{-1}=1/(t(1-t))$, so $P(2)=2\int_0^1dt/\sqrt{t(1-t)}=2B(\frac12,\frac12)=2\pi$.
+  \textbf{Case 3:} $p\to\infty$ gives $P\to8$; exact hypergeometric series are in~\cite{MRL,RM}.
+
+## Formalization
+
+Points of the plane are `EuclideanSpace ℝ (Fin 2)` (`Plane`), so `dist`/`edist`/`‖·‖` are the
+Euclidean ones (NOT the sup metric of `ℝ × ℝ`); `v 0`, `v 1` are the coordinates. Lengths are
+total variations `eVariationOn` (supremum over partitions of sums of Euclidean distances), so
+"length" is the true arc length, with no smoothness assumed. Every statement is for real `p ≥ 1`,
+the paper's range; `p = 1` is included throughout (there the quarter arc is the segment
+`(t, 1-t)` and the integrand is the constant `√2`, not singular).
+
+* `pIntegrand`, `Pint` are literally `W02.pIntegrand`, `W02.Pint` (Zeta3/Wave3/W02_Holo.lean):
+  `Pint p = 4 / p * ∫ t in 0..1, √(t^(2/p-2) + (1-t)^(2/p-2))`, i.e. the right side of eq:Pint.
+  For `p > 1` the integrand blows up like `t^(1/p-1)` at the endpoints; its integrability is a
+  separate statement (stmt_3) so that no claim rests on Lean's "non-integrable ↦ 0" convention.
+  `Real.rpow` gives `0^x = 0` for `x ≠ 0` and `0^0 = 1`; this only affects the null set `{0,1}`.
+* `quarterArc p t = (t^(1/p), (1-t)^(1/p))`, the paper's parametrization (used on `[0,1]`, where
+  the bases are nonnegative).
+* `squircle p = {v | |v 0|^p + |v 1|^p = 1}`, `quarterSet p` = its points with `v 0, v 1 ≥ 0`.
+* `loop p` on `[0,4]`: the quarter arc on `[0,1]` followed by its reflections in the other three
+  quadrants (same layout as `T14.loop`, but valued in the Euclidean plane).
+
+Statements:
+* stmt_1: `quarterArc p` is a bijection of `[0,1]` onto the closed first-quadrant part of the
+  curve ("Then $x^p+y^p=1$").
+* stmt_2: on `(0,1)` the map is differentiable with speed `‖γ'(t)‖ = (1/p)·√(t^(2/p-2)+(1-t)^(2/p-2))`
+  (the integrand of the arc-length formula).
+* stmt_3: the integrand of eq:Pint is interval integrable on `[0,1]`.
+* stmt_4: the length of the quarter arc is `(1/p) ∫_0^1 √(t^(2/p-2)+(1-t)^(2/p-2)) dt`
+  (in particular finite).
+* stmt_5: `loop p` is a simple closed parametrization of the whole curve `|x|^p+|y|^p=1`
+  (continuous on `[0,4]`, closed, injective on `[0,4)`, image = the curve); so the four
+  reflected quarter arcs cover the curve and meet only at their shared endpoints, the four axis
+  points `(±1,0), (0,±1)`.
+* stmt_6: symmetry: the perimeter (length of `loop p` on `[0,4]`) is four times the length of
+  the quarter arc.
+* stmt_7: eq:Pint: the perimeter equals `Pint p`.
+* stmt_8: Case 1: `Pint 1 = 4√2`.
+* stmt_9: Case 2 intermediate: `∫_0^1 dt/√(t(1-t)) = π` (= `B(1/2,1/2)`), with integrability.
+* stmt_10: Case 2: `Pint 2 = 2π`.
+* stmt_11: Case 3: `Pint p → 8` as `p → ∞`.
+
+## NOT COVERED
+
+* The citation remark "exact hypergeometric series are in~\cite{MRL,RM}" (a reference, not a
+  claim of this paper).
+* The identification `B(1/2,1/2)` as Euler's Beta function is not stated through Mathlib's
+  `Complex.betaIntegral`; stmt_9 states its value `π` directly as the real integral.
+* "Perimeter" is formalized as the total variation of the explicit loop `loop p`; no
+  parametrization-free notion (e.g. the 1-dimensional Hausdorff measure of the curve) is used.
+-/
+-- BEGIN STATEMENTS
+namespace W04
+
+open MeasureTheory Set Filter
+
+/-- The Euclidean plane. -/
+abbrev Plane := EuclideanSpace ℝ (Fin 2)
+
+/-- The integrand of eq:Pint: `√(t^(2/p-2) + (1-t)^(2/p-2))` (literally `W02.pIntegrand`). -/
+noncomputable def pIntegrand (p t : ℝ) : ℝ :=
+  Real.sqrt (t ^ (2 / p - 2) + (1 - t) ^ (2 / p - 2))
+
+/-- eq:Pint: `P(p) = (4/p) ∫_0^1 √(t^(2/p-2) + (1-t)^(2/p-2)) dt` (literally `W02.Pint`). -/
+noncomputable def Pint (p : ℝ) : ℝ := 4 / p * ∫ t in (0 : ℝ)..1, pIntegrand p t
+
+/-- The squircle `|x|^p + |y|^p = 1`. -/
+def squircle (p : ℝ) : Set Plane := {v | |v 0| ^ p + |v 1| ^ p = 1}
+
+/-- The part of the squircle in the closed first quadrant. -/
+def quarterSet (p : ℝ) : Set Plane := {v | v ∈ squircle p ∧ 0 ≤ v 0 ∧ 0 ≤ v 1}
+
+/-- The paper's quarter arc `x = t^{1/p}`, `y = (1-t)^{1/p}`, `0 ≤ t ≤ 1`. -/
+noncomputable def quarterArc (p t : ℝ) : Plane := !₂[t ^ (1 / p), (1 - t) ^ (1 / p)]
+
+/-- The whole curve traversed once on `[0,4]`: the quarter arc on `[0,1]` (from `(0,1)` to
+`(1,0)`), then its reflections into the fourth, third and second quadrants. -/
+noncomputable def loop (p t : ℝ) : Plane :=
+  if t ≤ 1 then !₂[t ^ (1 / p), (1 - t) ^ (1 / p)]
+  else if t ≤ 2 then !₂[(2 - t) ^ (1 / p), -((t - 1) ^ (1 / p))]
+  else if t ≤ 3 then !₂[-((t - 2) ^ (1 / p)), -((3 - t) ^ (1 / p))]
+  else !₂[-((4 - t) ^ (1 / p)), (t - 3) ^ (1 / p)]
+
+/-- The perimeter of the squircle: the Euclidean length of `loop p` over `[0,4]`. -/
+noncomputable def perimeter (p : ℝ) : ENNReal := eVariationOn (loop p) (Icc (0 : ℝ) 4)
+
+/-- "parametrize the quarter arc in the first quadrant by $x=t^{1/p}$, $y=(1-t)^{1/p}$,
+$0\le t\le1$. Then $x^p+y^p=1$": a bijection of `[0,1]` onto the first-quadrant arc. -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → BijOn (quarterArc p) (Icc 0 1) (quarterSet p)
+
+/-- "the arc-length formula": on `(0,1)` the speed of the quarter arc is
+`(1/p) √(t^(2/p-2)+(1-t)^(2/p-2))`. -/
+def stmt_2 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → ∀ t ∈ Ioo (0 : ℝ) 1,
+    ∃ v : Plane, HasDerivAt (quarterArc p) v t ∧ ‖v‖ = 1 / p * pIntegrand p t
+
+/-- The integrand of eq:Pint (singular at the endpoints for `p > 1`) is integrable on `[0,1]`. -/
+def stmt_3 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → IntervalIntegrable (pIntegrand p) volume 0 1
+
+/-- The arc-length formula: the (finite) length of the quarter arc is
+`(1/p) ∫_0^1 √(t^(2/p-2)+(1-t)^(2/p-2)) dt`. -/
+def stmt_4 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    eVariationOn (quarterArc p) (Icc 0 1) =
+      ENNReal.ofReal (1 / p * ∫ t in (0 : ℝ)..1, pIntegrand p t)
+
+/-- The whole curve is the union of the quarter arc and its three reflections, traversed once:
+`loop p` is a simple closed parametrization of `|x|^p+|y|^p=1`. -/
+def stmt_5 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    ContinuousOn (loop p) (Icc 0 4) ∧ loop p 4 = loop p 0 ∧ InjOn (loop p) (Ico 0 4) ∧
+    loop p '' Icc 0 4 = squircle p
+
+/-- Symmetry: the perimeter is four times the length of the quarter arc. -/
+def stmt_6 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → perimeter p = 4 * eVariationOn (quarterArc p) (Icc 0 1)
+
+/-- eq:Pint: `P(p)=\frac4p\int_0^1\sqrt{t^{2/p-2}+(1-t)^{2/p-2}}\;dt` for the true perimeter. -/
+def stmt_7 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → perimeter p = ENNReal.ofReal (Pint p)
+
+/-- Case 1: "The integrand is $\sqrt2$, so $P(1)=4\sqrt2$". -/
+def stmt_8 : Prop :=
+  Pint 1 = 4 * Real.sqrt 2
+
+/-- Case 2 (intermediate): `\int_0^1dt/\sqrt{t(1-t)}=B(\frac12,\frac12)=\pi`. -/
+def stmt_9 : Prop :=
+  IntervalIntegrable (fun t : ℝ => 1 / Real.sqrt (t * (1 - t))) volume 0 1 ∧
+    ∫ t in (0 : ℝ)..1, 1 / Real.sqrt (t * (1 - t)) = Real.pi
+
+/-- Case 2: "$P(2)=2\int_0^1dt/\sqrt{t(1-t)}=2B(\frac12,\frac12)=2\pi$". -/
+def stmt_10 : Prop :=
+  Pint 2 = 2 * Real.pi
+
+/-- Case 3: "$p\to\infty$ gives $P\to8$". -/
+def stmt_11 : Prop :=
+  Tendsto Pint atTop (nhds 8)
+
+end W04

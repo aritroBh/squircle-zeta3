@@ -1,0 +1,201 @@
+import Mathlib
+import Zeta3.Wave2.D00_Dilog
+/-!
+# D04 -- the two closed forms of `M_1(α)` (paper labels `thm:Malpha`, `tab:corner`,
+`app:corner`, `prop:M1short`)
+
+Source: `paper/ieee/main.tex`.
+
+**Setup, lines 1466-1474** (Subsection "Smoothed Corners of Any Angle"):
+
+> its length is $2+2u\,M(u;\alpha)$, where
+> \begin{multline*}
+> M(u;\alpha)=\int_0^1\Bigl[(1+g)^{-1-u}\sqrt{1+g^{2-2u}-2\cos\alpha\,g^{1-u}}\\
+> -1\Bigr]g^{u-1}\dd g=\sum_{k\ge0}M_k(\alpha)u^k,
+> \end{multline*}
+> ... with $c=\cos\frac\alpha2$,
+> \[ M_0(\alpha)=-(1+c)\log(1+c)-(1-c)\log(1-c). \]
+
+**`thm:Malpha`, lines 1476-1478**:
+
+> For $0<\alpha<\pi$, with $c=\cos\frac\alpha2$ and $s=\sin\frac\alpha2$,
+> $M_1(\alpha)=\zeta(2)+U+V+\mathcal L$, where $U$ (19 dilogarithms), $V$ (8 dilogarithms that
+> depend on $c$ only) and $\mathcal L$ (five products of logarithms) are given in
+> Table~\ref{tab:corner} (Appendix~\ref{app:corner}). Every $\Li_2$ there is the real
+> dilogarithm at a point of $(-\infty,1)$, every logarithm is of a positive number, and every
+> coefficient lies in $\mathbb Z[\frac12]+\mathbb Z[\frac12]\,c$.
+
+**Table `tab:corner`, lines 2307-2318** (verbatim):
+
+> With $X_-=\frac{1+s-c}{1-c}$ and $X_+=\frac{1+s+c}{1+c}$:
+> U&=-\Li_2\bigl(-\tfrac1s\bigr)+\Li_2\bigl(-\tfrac{s}{1-c}\bigr)+\Li_2\bigl(-\tfrac{s}{1+c}\bigr)
+> -\Li_2\bigl(-\tfrac{1+s}{c}\bigr)-\Li_2\bigl(-\tfrac{s(1+s)}{c^2}\bigr)+\Li_2\bigl(-\tfrac{s(1+s)}{c(1+c)}\bigr)
+> +c\Li_2\bigl(-\tfrac{1+s-c}{c}\bigr)\\
+> &\quad+c\Li_2\bigl(-\tfrac{1+s-c}{c(1-c)}\bigr)-2c\Li_2\bigl(-\tfrac{1+s-c}{2c}\bigr)
+> -2\Li_2\bigl(\tfrac1{1+s}\bigr)+\Li_2\bigl(\tfrac{c^2}{1+s}\bigr)+\Li_2\bigl(\tfrac{c}{1+s}\bigr)+\Li_2\bigl(\tfrac{s}{1+s}\bigr)-\Li_2\bigl(\tfrac{c(1-c)}{s(1+s)}\bigr)\\
+> &\quad-c\Li_2\bigl(\tfrac{1-c}{1+s-c}\bigr)+c\Li_2\bigl(\tfrac{1+c}{1+s+c}\bigr)+c\Li_2\bigl(\tfrac{c}{1+s+c}\bigr)+c\Li_2\bigl(\tfrac{c(1+c)}{1+s+c}\bigr)-2c\Li_2\bigl(\tfrac{2c}{1+s+c}\bigr),\\
+> V&=(1-c)\Li_2\bigl(-\tfrac1c\bigr)+\Li_2\bigl(1-\tfrac1{c^2}\bigr)-(1+c)\Li_2\bigl(-\tfrac{1-c}{c}\bigr)+2c\Li_2\bigl(-\tfrac{1-c}{2c}\bigr)-\Li_2(c^2)-(1+c)\Li_2(c)\\
+> &\quad+(1-c)\Li_2\bigl(\tfrac{c}{1+c}\bigr)+2c\Li_2\bigl(\tfrac{2c}{1+c}\bigr),\\
+> \mathcal L&=\log(1+s)\log\tfrac{c}{1+s}+\log\tfrac{c}{1+c}\log\tfrac{1+s}{s}+c\log4\,\log X_-+\tfrac c2\log^2X_--\tfrac c2\log X_+\,\log\bigl((1+c)(1+s+c)\bigr).
+
+**`prop:M1short`, lines 1623-1629**:
+
+> For $0<\alpha<\pi$, with $\lambda=\log2$ and $M_0(\alpha)$ as above,
+> \begin{multline*}
+> M_1(\alpha)=\zeta(2)-\lambda^2-\lambda M_0(\alpha)-(1-c)\bigl[\Li_2(c)+\Li_2(\tfrac{1-c}2)\bigr]\\
+> -(1+c)\bigl[\Li_2(-c)+\Li_2(\tfrac{1+c}2)\bigr].
+> \end{multline*}
+
+## Formalization
+
+* `Li_2` is `D00.Li2` throughout; `ζ(2)` is written `π²/6` (Mathlib: `riemannZeta_two`).
+* `U` and `V` are written as lists of (coefficient, argument) pairs, one entry per table term,
+  in the table's order (19 and 8 entries), and summed as `Σ coef * Li2 arg`. This makes the side
+  claim "every `Li_2` argument is `< 1`" refer to exactly the arguments used in the formula.
+* `log² X` is `(log X)^2`; `log 4` is `Real.log 4`.
+* For `0 < α < π` we have `0 < c, s < 1`, so no denominator in the table vanishes and no
+  `x/0 = 0` convention is used; all statements carry the hypothesis `0 < α < π`.
+* `stmt_1`: table form `=` four-dilogarithm form (the content shared by `thm:Malpha` and
+  `prop:M1short`).
+* `stmt_2`: every `Li_2` argument of the table is `< 1`.
+* `stmt_3`: every logarithm argument of the table (`1+s`, `c/(1+s)`, `c/(1+c)`, `(1+s)/s`, `4`,
+  `X_-`, `X_+`, `(1+c)(1+s+c)`) is `> 0`.
+* `stmt_4`: `thm:Malpha` itself, with `M_1(α)` read as the `u`-derivative at `u = 0` of the
+  paper's integral `M(u;α)` (the coefficient of `u` in `Σ M_k(α) u^k`). The integrand
+  `[(1+g)^{-1-u}√(1+g^{2-2u}-2cos α g^{1-u}) - 1] g^{u-1}` is integrable on `[0,1]` for `|u| < 1`
+  (bounded by a multiple of `g^{-|u|}`), so `HasDerivAt` is not satisfied via the junk value of a
+  non-integrable integral. The radicand is `≥ 0` (it is `|1 - g^{1-u}e^{iα}|²`).
+* `stmt_5`: `prop:M1short` itself, in the same reading of `M_1(α)`.
+
+Numerical sanity check of the transcription (mpmath, 30 digits): table form, four-dilogarithm form
+and the appendix integral for `M_1` agree at `α = 0.7` (`0.44055722308436422152939730707`),
+`α = 1.9` (`0.170563655834963449429426571892`), `α = 2π/3` (`0.125795678937973233753868197684`)
+and `α = 3.0` (`0.00250222317317432384821017382`, to ~27 digits).
+
+NOT COVERED:
+* The coefficient rule "every coefficient lies in `ℤ[½] + ℤ[½] c`" and "`V` depends on `c`
+  only": both are true by inspection of the definitions below (the coefficients are written as
+  `±1, ±2, ±c, ±2c, 1±c, c/2, -c/2` and `vTerms` takes only `c`), so a Lean statement would be
+  vacuous bookkeeping; `log 4` and the `c/2` factors of `𝓛` are not `Li_2` coefficients.
+* The full expansion `M(u;α) = Σ_k M_k(α) u^k` (analyticity in `u`) and `M_0`; only the
+  derivative at `u = 0` is used.
+* The special value at `α = 2π/3` stated after `thm:Malpha` (a separate claim).
+-/
+-- BEGIN STATEMENTS
+namespace D04
+
+open Real
+
+/-- `c = cos(α/2)`. -/
+noncomputable def c (α : ℝ) : ℝ := Real.cos (α / 2)
+
+/-- `s = sin(α/2)`. -/
+noncomputable def s (α : ℝ) : ℝ := Real.sin (α / 2)
+
+/-- `X_- = (1+s-c)/(1-c)` (table `tab:corner`). -/
+noncomputable def Xm (α : ℝ) : ℝ := (1 + s α - c α) / (1 - c α)
+
+/-- `X_+ = (1+s+c)/(1+c)` (table `tab:corner`). -/
+noncomputable def Xp (α : ℝ) : ℝ := (1 + s α + c α) / (1 + c α)
+
+/-- The 19 terms of `U` in table `tab:corner`, as (coefficient, `Li_2` argument), in order. -/
+noncomputable def uTerms (α : ℝ) : List (ℝ × ℝ) :=
+  let c := c α
+  let s := s α
+  [ (-1,     -(1 / s)),
+    (1,      -(s / (1 - c))),
+    (1,      -(s / (1 + c))),
+    (-1,     -((1 + s) / c)),
+    (-1,     -(s * (1 + s) / c ^ 2)),
+    (1,      -(s * (1 + s) / (c * (1 + c)))),
+    (c,      -((1 + s - c) / c)),
+    (c,      -((1 + s - c) / (c * (1 - c)))),
+    (-2 * c, -((1 + s - c) / (2 * c))),
+    (-2,     1 / (1 + s)),
+    (1,      c ^ 2 / (1 + s)),
+    (1,      c / (1 + s)),
+    (1,      s / (1 + s)),
+    (-1,     c * (1 - c) / (s * (1 + s))),
+    (-c,     (1 - c) / (1 + s - c)),
+    (c,      (1 + c) / (1 + s + c)),
+    (c,      c / (1 + s + c)),
+    (c,      c * (1 + c) / (1 + s + c)),
+    (-2 * c, 2 * c / (1 + s + c)) ]
+
+/-- The 8 terms of `V` in table `tab:corner` (they depend on `c` only), in order. -/
+noncomputable def vTerms (c : ℝ) : List (ℝ × ℝ) :=
+  [ (1 - c,    -(1 / c)),
+    (1,        1 - 1 / c ^ 2),
+    (-(1 + c), -((1 - c) / c)),
+    (2 * c,    -((1 - c) / (2 * c))),
+    (-1,       c ^ 2),
+    (-(1 + c), c),
+    (1 - c,    c / (1 + c)),
+    (2 * c,    2 * c / (1 + c)) ]
+
+/-- `Σ coef · Li₂(arg)` over a list of terms. -/
+noncomputable def liSum (l : List (ℝ × ℝ)) : ℝ :=
+  (l.map (fun p => p.1 * D00.Li2 p.2)).sum
+
+/-- `U` of table `tab:corner` (19 dilogarithms). -/
+noncomputable def U (α : ℝ) : ℝ := liSum (uTerms α)
+
+/-- `V` of table `tab:corner` (8 dilogarithms in `c`). -/
+noncomputable def V (α : ℝ) : ℝ := liSum (vTerms (c α))
+
+/-- `𝓛` of table `tab:corner` (five products of logarithms). -/
+noncomputable def Lcal (α : ℝ) : ℝ :=
+  let c := c α
+  let s := s α
+  Real.log (1 + s) * Real.log (c / (1 + s))
+    + Real.log (c / (1 + c)) * Real.log ((1 + s) / s)
+    + c * Real.log 4 * Real.log (Xm α)
+    + c / 2 * Real.log (Xm α) ^ 2
+    - c / 2 * Real.log (Xp α) * Real.log ((1 + c) * (1 + s + c))
+
+/-- The right-hand side of `thm:Malpha`: `ζ(2) + U + V + 𝓛`. -/
+noncomputable def Mtable (α : ℝ) : ℝ := π ^ 2 / 6 + U α + V α + Lcal α
+
+/-- `M_0(α) = -(1+c)log(1+c) - (1-c)log(1-c)` (line 1474). -/
+noncomputable def M0 (α : ℝ) : ℝ :=
+  -(1 + c α) * Real.log (1 + c α) - (1 - c α) * Real.log (1 - c α)
+
+/-- The right-hand side of `prop:M1short` (`λ = log 2`). -/
+noncomputable def Mshort (α : ℝ) : ℝ :=
+  π ^ 2 / 6 - Real.log 2 ^ 2 - Real.log 2 * M0 α
+    - (1 - c α) * (D00.Li2 (c α) + D00.Li2 ((1 - c α) / 2))
+    - (1 + c α) * (D00.Li2 (-(c α)) + D00.Li2 ((1 + c α) / 2))
+
+/-- The corner integral `M(u;α) = ∫_0^1 [(1+g)^{-1-u} √(1+g^{2-2u}-2cos α g^{1-u}) - 1] g^{u-1} dg`
+(lines 1468-1471). -/
+noncomputable def Mint (u α : ℝ) : ℝ :=
+  ∫ g in (0 : ℝ)..1,
+    ((1 + g) ^ (-1 - u) * Real.sqrt (1 + g ^ (2 - 2 * u) - 2 * Real.cos α * g ^ (1 - u)) - 1)
+      * g ^ (u - 1)
+
+/-- `thm:Malpha` = `prop:M1short` on their common part: for `0 < α < π` the 19+8-dilogarithm
+table form and the four-dilogarithm form of `M_1(α)` are equal. -/
+def stmt_1 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π → Mtable α = Mshort α
+
+/-- `thm:Malpha`: "Every `Li_2` there is the real dilogarithm at a point of `(-∞,1)`". -/
+def stmt_2 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π → ∀ p ∈ uTerms α ++ vTerms (c α), p.2 < 1
+
+/-- `thm:Malpha`: "every logarithm is of a positive number" (the eight logarithm arguments of
+`𝓛`). -/
+def stmt_3 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    0 < 1 + s α ∧ 0 < c α / (1 + s α) ∧ 0 < c α / (1 + c α) ∧ 0 < (1 + s α) / s α ∧
+    (0 : ℝ) < 4 ∧ 0 < Xm α ∧ 0 < Xp α ∧ 0 < (1 + c α) * (1 + s α + c α)
+
+/-- `thm:Malpha`: `M_1(α) = ζ(2) + U + V + 𝓛`, with `M_1(α) = ∂_u M(u;α)` at `u = 0`. -/
+def stmt_4 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π → HasDerivAt (fun u => Mint u α) (Mtable α) 0
+
+/-- `prop:M1short`: `M_1(α)` equals the four-dilogarithm form, with `M_1(α) = ∂_u M(u;α)` at
+`u = 0`. -/
+def stmt_5 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π → HasDerivAt (fun u => Mint u α) (Mshort α) 0
+
+end D04

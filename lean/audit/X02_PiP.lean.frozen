@@ -1,0 +1,161 @@
+import Mathlib
+/-!
+# X02 — the expansion of `π_p` to order `p^{-4}` (paper label `thm:pip`)
+
+Source: `paper/ieee/main.tex`, definition of `π_p` (lines 1330–1334) and Theorem `thm:pip`
+("Expansion of $\pi_p$"), lines 1336–1350; detailed proof in `paper/ieee/proofs/sec_pip.tex`:
+Lemma `lem:pip:split` (lines 52–66), eq. `eq:pip:Ehat` (line 71), the function `W` (line 79),
+Lemma `lem:pip:W` (lines 83–102), Lemma `lem:pip:expansion` (lines 105–135),
+Lemma `lem:pip:J` (lines 139–159), Lemma `prop:pip:first` (lines 162–189).
+
+Definition (main.tex line 1332):
+
+> \pi_p=\frac2p\int_0^1\bigl(t^{1-p}+(1-t)^{1-p}\bigr)^{1/p}dt
+
+The claims formalized (main.tex lines 1337–1344):
+
+> $\pi_p=4\cdot2^{-1/p}+E(p)$ with an explicit integral $E(p)$ (given in the proof), and
+> \[ \pi_p=4\Bigl(1+\frac{N_0}{p}+\frac{N_1}{p^2}+\frac{N_2}{p^3}+\frac{N_3}{p^4}+O(p^{-5})\Bigr), \]
+> where $N_0=-\log2$, $N_1=\frac12\log^22$, $N_2=\frac{\pi^2}{24}-\frac{\log^32}{6}$ and
+> \[ N_3=\frac{\log^42}{24}+\frac{\pi^2}{24}(1-\log2)+\frac{\zeta(3)}{4} . \]
+
+The explicit integral (sec_pip.tex, Lemma `lem:pip:split`, lines 52–57):
+
+> For every $p>1$,
+> \[ \pi_p=4\cdot2^{-1/p}+E(p),\qquad
+> E(p)=\frac{4}{p(p-1)}\int_0^\infty \eu^{-\frac{s}{p(p-1)}}\bigl(1+\eu^{-\frac{s}{p-1}}\bigr)^{-1-\frac1p}
+> \Bigl[\bigl(1+\eu^{-s}\bigr)^{1/p}-1\Bigr]ds . \]
+
+Intermediate steps used (sec_pip.tex):
+
+> (line 79) W(x,y)=\exp\Bigl(-\frac{xy}{1-x}\Bigr)\Bigl(1+\exp\Bigl(-\frac y{1-x}\Bigr)\Bigr)^{-1-x}.
+> (line 118) Write $\hat E=\frac{h^2}{1-h}Q(h)$ with
+>   $Q(h)=\int_0^\infty W(h,sh)\bigl[(1+\eu^{-s})^h-1\bigr]ds$.
+> (lines 89–91, Lemma lem:pip:W with K = 1, and line 178)
+>   \Bigl|W(h,sh)-\sum_{m\le K}h^mW_m(s)\Bigr|\le C_K\bigl(h(1+s)\bigr)^{K+1}\qquad(0<h\le h_K,\ 0\le s\le h^{-1/2}),
+>   W_0(s)=\tfrac12,\qquad W_1(s)=\tfrac s4-\tfrac{\log2}2 .
+> (line 46) J_{r,j}=\int_0^\infty s^j\mathcal L(s)^r\,ds,  $\mathcal L(s)=\log(1+\eu^{-s})$
+> (lines 141–143) J_{1,0}=\frac{\pi^2}{12},\quad J_{1,1}=\frac{3\zeta(3)}4, ...  (ii) $J_{2,0}=\frac{\zeta(3)}4$.
+> (lines 180–186) $q_1=\int W_0\mathcal L=\frac12J_{1,0}$ ... $q_1=\frac{\pi^2}{24}$ and
+>   q_2=\frac{3\zeta(3)}{16}-\frac{\pi^2\log2}{24}+\frac{\zeta(3)}{16}=\frac{\zeta(3)}4-\frac{\pi^2\log2}{24}.
+> (lines 165–167) E(p)=\frac{\pi^2}6p^{-3}+\Bigl(\frac{\pi^2}6+\zeta(3)-\frac{\pi^2\log2}6\Bigr)p^{-4}+O(p^{-5}).
+
+Conventions.
+* `ζ(3)` is written `(riemannZeta 3).re`, the real part of Mathlib's `riemannZeta 3`. Since
+  `riemannZeta 3 = ∑' n, 1/(n:ℂ)^3` (`zeta_nat_eq_tsum_of_gt_one`) is real, this is the real
+  number `∑_{n≥1} n^{-3}`.
+* `π_p` is the interval integral `∫ t in 0..1`. Its integrand is `t^{-1+1/p}`-singular at `0`
+  and `1` but integrable for `p > 1`; `stmt_1` asserts this integrability, so no statement
+  holds only by the convention "non-integrable ⇒ integral = 0". The value of the integrand at
+  the two endpoints (Lean's `0^{1-p} = 0`) is irrelevant (measure zero).
+* `E(p)`, `Q(h)` and the `J_{r,j}` are integrals over `Ioi 0`; `stmt_1` and `stmt_2`–`stmt_4`
+  assert integrability of the respective integrands. All bases of `rpow` are positive.
+* The `O(·)` claims are stated as explicit bounds `∃ C, ∃ p₀ (or h₀ > 0), ∀ … , |error| ≤ C·…`;
+  the paper prints no constants.
+* `h = 1/p`. The bound for `W` (stmt_5) is Lemma `lem:pip:W` with `K = 1` and the paper's
+  `W_0, W_1`, on the paper's range `0 ≤ s ≤ h^{-1/2}`.
+
+NOT COVERED:
+* Holomorphy of `W` on the bidisc and the all-orders bound of Lemma `lem:pip:W` (only `K = 1`).
+* The all-orders expansion (Lemma `lem:pip:expansion` for general `K`, formula `eq:pip:Nk`),
+  `N_4`, `N_5`, the divergence of the series, and the large-`k` asymptotics of `N_k`.
+* `J_{1,2}`, `J_{1,3}` and the general formula `J_{1,j} = j! η(j+2)`.
+* The main term `4·2^{-1/p}` expansion is done separately in `Zeta3.Wave1.T10_PiP`; here it is
+  only used implicitly inside the final statement.
+-/
+-- BEGIN STATEMENTS
+namespace X02
+
+/-- `ζ(3)` as a real number: the real part of Mathlib's `riemannZeta 3` (which is real). -/
+noncomputable def z3 : ℝ := (riemannZeta 3).re
+
+/-- The integrand of `π_p`: `(t^{1-p} + (1-t)^{1-p})^{1/p}` (main.tex line 1332). -/
+noncomputable def piIntegrand (p t : ℝ) : ℝ :=
+  (t ^ (1 - p) + (1 - t) ^ (1 - p)) ^ (1 / p)
+
+/-- `π_p = (2/p) ∫_0^1 (t^{1-p} + (1-t)^{1-p})^{1/p} dt` (main.tex line 1332). -/
+noncomputable def piP (p : ℝ) : ℝ :=
+  (2 / p) * ∫ t in (0 : ℝ)..1, piIntegrand p t
+
+/-- The integrand of `E(p)` (sec_pip.tex Lemma `lem:pip:split`):
+`e^{-s/(p(p-1))} (1 + e^{-s/(p-1)})^{-1-1/p} [(1+e^{-s})^{1/p} - 1]`. -/
+noncomputable def EIntegrand (p s : ℝ) : ℝ :=
+  Real.exp (-(s / (p * (p - 1)))) * (1 + Real.exp (-(s / (p - 1)))) ^ (-1 - 1 / p) *
+    ((1 + Real.exp (-s)) ^ (1 / p) - 1)
+
+/-- `E(p) = 4/(p(p-1)) ∫_0^∞ EIntegrand p s ds` (sec_pip.tex Lemma `lem:pip:split`). -/
+noncomputable def E (p : ℝ) : ℝ :=
+  4 / (p * (p - 1)) * ∫ s in Set.Ioi (0 : ℝ), EIntegrand p s
+
+/-- `W(x,y) = exp(-xy/(1-x)) (1 + exp(-y/(1-x)))^{-1-x}` (sec_pip.tex line 79). -/
+noncomputable def W (x y : ℝ) : ℝ :=
+  Real.exp (-(x * y / (1 - x))) * (1 + Real.exp (-(y / (1 - x)))) ^ (-1 - x)
+
+/-- `Q(h) = ∫_0^∞ W(h,sh) [(1+e^{-s})^h - 1] ds` (sec_pip.tex line 118). -/
+noncomputable def Q (h : ℝ) : ℝ :=
+  ∫ s in Set.Ioi (0 : ℝ), W h (s * h) * ((1 + Real.exp (-s)) ^ h - 1)
+
+/-- `𝓛(s) = log(1 + e^{-s})` (sec_pip.tex line 46). -/
+noncomputable def calL (s : ℝ) : ℝ := Real.log (1 + Real.exp (-s))
+
+/-- `N_0 = -log 2` (main.tex line 1341). -/
+noncomputable def N0 : ℝ := -Real.log 2
+/-- `N_1 = ½ log² 2` (main.tex line 1341). -/
+noncomputable def N1 : ℝ := (1 / 2) * Real.log 2 ^ 2
+/-- `N_2 = π²/24 - log³2/6` (main.tex line 1341). -/
+noncomputable def N2 : ℝ := Real.pi ^ 2 / 24 - Real.log 2 ^ 3 / 6
+/-- `N_3 = log⁴2/24 + (π²/24)(1 - log 2) + ζ(3)/4` (main.tex line 1343). -/
+noncomputable def N3 : ℝ :=
+  Real.log 2 ^ 4 / 24 + Real.pi ^ 2 / 24 * (1 - Real.log 2) + z3 / 4
+
+/-- Lemma `lem:pip:split` (first sentence of thm:pip): for every `p > 1` the integrands of
+`π_p` (on `[0,1]`) and of `E(p)` (on `(0,∞)`) are integrable, and `π_p = 4·2^{-1/p} + E(p)`. -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    IntervalIntegrable (piIntegrand p) MeasureTheory.volume 0 1 ∧
+    MeasureTheory.IntegrableOn (EIntegrand p) (Set.Ioi 0) ∧
+    piP p = 4 * (2 : ℝ) ^ (-(1 / p)) + E p
+
+/-- Lemma `lem:pip:J`(i), `j = 0`: `J_{1,0} = ∫_0^∞ log(1+e^{-s}) ds = π²/12`. -/
+def stmt_2 : Prop :=
+  MeasureTheory.IntegrableOn calL (Set.Ioi 0) ∧
+    ∫ s in Set.Ioi (0 : ℝ), calL s = Real.pi ^ 2 / 12
+
+/-- Lemma `lem:pip:J`(i), `j = 1`: `J_{1,1} = ∫_0^∞ s log(1+e^{-s}) ds = 3ζ(3)/4`. -/
+def stmt_3 : Prop :=
+  MeasureTheory.IntegrableOn (fun s => s * calL s) (Set.Ioi 0) ∧
+    ∫ s in Set.Ioi (0 : ℝ), s * calL s = 3 * z3 / 4
+
+/-- Lemma `lem:pip:J`(ii): `J_{2,0} = ∫_0^∞ log²(1+e^{-s}) ds = ζ(3)/4`. -/
+def stmt_4 : Prop :=
+  MeasureTheory.IntegrableOn (fun s => calL s ^ 2) (Set.Ioi 0) ∧
+    ∫ s in Set.Ioi (0 : ℝ), calL s ^ 2 = z3 / 4
+
+/-- Lemma `lem:pip:W` with `K = 1` and `W_0 = 1/2`, `W_1(s) = s/4 - log2/2`
+(sec_pip.tex lines 89–91, 178): `|W(h,sh) - 1/2 - h(s/4 - log 2/2)| ≤ C (h(1+s))²`
+for `0 < h ≤ h₀` and `0 ≤ s ≤ h^{-1/2}`. -/
+def stmt_5 : Prop :=
+  ∃ C h₀ : ℝ, 0 < h₀ ∧ ∀ h s : ℝ, 0 < h → h ≤ h₀ → 0 ≤ s → s ≤ 1 / Real.sqrt h →
+    |W h (s * h) - (1 / 2 + h * (s / 4 - Real.log 2 / 2))| ≤ C * (h * (1 + s)) ^ 2
+
+/-- Lemma `lem:pip:expansion` with `K = 2` and the values of `q_1, q_2` from Lemma
+`prop:pip:first`: `Q(h) = (π²/24) h + (ζ(3)/4 - π² log 2/24) h² + O(h³)` as `h → 0⁺`. -/
+def stmt_6 : Prop :=
+  ∃ C h₀ : ℝ, 0 < h₀ ∧ ∀ h : ℝ, 0 < h → h ≤ h₀ →
+    |Q h - (Real.pi ^ 2 / 24 * h + (z3 / 4 - Real.pi ^ 2 * Real.log 2 / 24) * h ^ 2)|
+      ≤ C * h ^ 3
+
+/-- Lemma `prop:pip:first`, expansion of `E`:
+`E(p) = (π²/6) p^{-3} + (π²/6 + ζ(3) - π² log 2/6) p^{-4} + O(p^{-5})`. -/
+def stmt_7 : Prop :=
+  ∃ C p₀ : ℝ, 1 < p₀ ∧ ∀ p : ℝ, p₀ ≤ p →
+    |E p - (Real.pi ^ 2 / 6 / p ^ 3
+        + (Real.pi ^ 2 / 6 + z3 - Real.pi ^ 2 * Real.log 2 / 6) / p ^ 4)| ≤ C / p ^ 5
+
+/-- Theorem `thm:pip` (main.tex lines 1338–1344):
+`π_p = 4(1 + N_0/p + N_1/p² + N_2/p³ + N_3/p⁴ + O(p^{-5}))` as `p → ∞`. -/
+def stmt_8 : Prop :=
+  ∃ C p₀ : ℝ, 1 < p₀ ∧ ∀ p : ℝ, p₀ ≤ p →
+    |piP p - 4 * (1 + N0 / p + N1 / p ^ 2 + N2 / p ^ 3 + N3 / p ^ 4)| ≤ C / p ^ 5
+
+end X02

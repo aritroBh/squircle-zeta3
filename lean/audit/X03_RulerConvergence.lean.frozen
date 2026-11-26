@@ -1,0 +1,208 @@
+import Mathlib
+/-!
+# X03 -- every fixed ruler `q ≥ 1` gives a convergent expansion of `L_q(p)` in powers of `1/p`
+
+Target id: X03.
+Paper label: `prop:ruler`, last sentence (paper/ieee/main.tex, lines 1384-1390).
+Detailed proof: paper/ieee/proofs/sec_ruler.tex, Lemma `lem:ruler:formF` (lines 48-54),
+Lemma `lem:ruler:holo` (lines 56-76), "Proof of Proposition~4" (lines 78-84).
+The two exact rulers `L_1 = 8`, `L_∞ = 8·2^{-1/p}` (first sentence of `prop:ruler`) were done in
+Wave1/T14_Rulers.lean and are not repeated here. This file does not import T14; `Lq` below is
+the same literal formula, restated.
+
+Quoted verbatim (main.tex 1384):
+
+  let $L_q(p)=\frac4p\int_0^1\bigl(t^{q/p-q}+(1-t)^{q/p-q}\bigr)^{1/q}\dd t$ be the length of the
+  $\ell^p$ circle measured with the $\ell^q$ norm, so that $L_2=P$ and $L_p=2\pi_p$.
+
+Quoted verbatim (main.tex 1386-1388, the claim formalized is the last sentence):
+
+  \begin{proposition}[Two exact rulers$^\dagger$]\label{prop:ruler}
+  For every $p\ge1$, $L_1(p)=8$ and $L_\infty(p)=8\cdot2^{-1/p}$. For every fixed $q\ge1$, the
+  expansion of $L_q(p)$ in powers of $1/p$ converges for every $p>1$.
+  \end{proposition}
+
+Quoted verbatim (main.tex 1390):
+
+  and for fixed $q$ that of Lemma~\ref{lem:holo} works with $z=(b_\varepsilon/a_\varepsilon)^q$ and
+  $(1+z)^{1/q}$ in place of $\sqrt{1+z}$: the integrand is $b_\varepsilon-a_\varepsilon z\,g(z)$,
+  where $g(z)=((1+z)^{1/q}-1)/z$ is bounded on $|z|\le1$ and
+  $|a_\varepsilon z|=|b_\varepsilon|^q|a_\varepsilon|^{1-q}\le|b_\varepsilon|$ because $q\ge1$.
+
+Quoted verbatim (sec_ruler.tex 44-46, definitions):
+
+  For $\operatorname{Re}\varepsilon<1$ and $0<t<1$ put $a_\varepsilon=t^{\varepsilon-1}=\exp((\varepsilon-1)\log t)$
+  and $b_\varepsilon=(1-t)^{\varepsilon-1}$, and $a_\varepsilon^q:=t^{q(\varepsilon-1)}$,
+  $b_\varepsilon^q:=(1-t)^{q(\varepsilon-1)}$. For real $\varepsilon\in(0,1]$ define
+  F_q(\varepsilon)=\int_0^1\Bigl(a_\varepsilon+b_\varepsilon-(a_\varepsilon^q+b_\varepsilon^q)^{1/q}\Bigr)dt .
+
+Quoted verbatim (sec_ruler.tex 49, Lemma `lem:ruler:formF`):
+
+  For $0<\varepsilon\le1$: $L_q(1/\varepsilon)=8-4\varepsilon F_q(\varepsilon)$, that is,
+  $L_q(p)/8=1-\varepsilon F_q(\varepsilon)/2$. The integral $F_q(\varepsilon)$ converges absolutely.
+
+Quoted verbatim (sec_ruler.tex 57, Lemma `lem:ruler:holo`):
+
+  $F_q$ extends to a holomorphic function on $\{\operatorname{Re}\varepsilon<1\}$.
+
+Quoted verbatim (sec_ruler.tex 61-69, from the proof of `lem:ruler:holo`):
+
+  $F_q(\varepsilon)=2\int_0^{1/2}f_\varepsilon(t)\,dt$ ...
+  z=z(t,\varepsilon)=\frac{b_\varepsilon^q}{a_\varepsilon^q}=\Bigl(\frac t{1-t}\Bigr)^{q(1-\varepsilon)}
+  ...
+  f_\varepsilon(t)=a_\varepsilon+b_\varepsilon-a_\varepsilon(1+z)^{1/q}=b_\varepsilon-a_\varepsilon\bigl((1+z)^{1/q}-1\bigr)=b_\varepsilon-a_\varepsilon z\,g(z),
+  with the principal branch $(1+z)^{1/q}=\sum_{n\ge0}\binom{1/q}nz^n$ on $|z|<1$ ...
+  so $|g(z)|\le1$ on $|z|\le1$ ... Hence $|f_\varepsilon(t)|\le2|b_\varepsilon|\le2^{2-\operatorname{Re}\varepsilon}$.
+
+Quoted verbatim (sec_ruler.tex 80-84, proof of Proposition 4):
+
+  put $M_q(\varepsilon)=-F_q(\varepsilon)/2$. ... So its Taylor series
+  $\sum_{k\ge0}K_k(q)\varepsilon^k$ at $0$ converges to $M_q(\varepsilon)$ for $|\varepsilon|<1$.
+  ... Hence
+  L_q(p)=8\Bigl(1+\sum_{k\ge0}\frac{K_k(q)}{p^{k+1}}\Bigr)\qquad\text{for all }p>1,
+  the series converges, and, because $M_q$ is holomorphic at $0$, it is the asymptotic expansion
+  of $L_q(p)$ as $p\to\infty$
+
+## Conventions
+
+* `q : ℝ` with `1 ≤ q` throughout (`q = ∞` is T14). `p : ℝ`, `ε = 1/p`.
+* `Lq p q` is the paper's integral, literally, with `Real.rpow` (bases `t, 1-t ∈ [0,1]` are
+  nonnegative; `0 ^ (negative) = 0` only affects the endpoints, a null set).
+* Real side: `gR q ε t = t^(ε-1) + (1-t)^(ε-1) - (t^(q(ε-1)) + (1-t)^(q(ε-1)))^(1/q)`, using the
+  supplement's `a^q := t^{q(ε-1)}`, and `FR q ε = ∫_0^1 gR q ε t`.
+* Complex side (proof of lem:ruler:holo): for `ε : ℂ` and real `t ∈ (0,1/2]`,
+  `aC ε t = t^(ε-1)`, `bC ε t = (1-t)^(ε-1)` (complex `cpow` of a positive real base, i.e.
+  `exp((ε-1) log t)`), `zC q ε t = (t/(1-t))^(q(1-ε))`, and
+  `gC q ε t = aC + bC - aC · (1+zC)^(1/q)` with Mathlib's principal-branch `cpow`. On `|z| < 1`
+  this is the binomial series of the supplement (`1+z` lies in the right half plane), and at
+  `t = 1/2` one has `z = 1`, so the branch matters only where the supplement also uses it.
+  The extension is `FC q ε = 2 ∫_0^{1/2} gC q ε t dt`.
+* `K_k(q)` (the supplement's coefficients, Taylor coefficients of `M_q = -F_q/2` at `0`) is
+  `Kk q k = -(iteratedDeriv k (FC q) 0) / (2 k!)`, complex derivatives of the extension.
+  Indexing: `L_q(p)/8 = 1 + Σ_{k≥0} K_k(q) p^{-(k+1)}`.
+* Every interval integral whose value is asserted comes with an explicit `IntervalIntegrable`
+  claim, so nothing holds through Lean's "non-integrable ↦ 0" convention. Sums are `HasSum`.
+
+## Statements
+
+* stmt_1 (lem:ruler:formF): for `q ≥ 1`, `p ≥ 1`, `ε = 1/p`: the integrand of `L_q` and the
+  integrand of `F_q` are integrable on `[0,1]` and `L_q(p) = 8 - 4 ε F_q(ε)`.
+* stmt_2 (proof of lem:ruler:holo, "|g(z)| ≤ 1 on |z| ≤ 1"): for `q ≥ 1` and `‖z‖ ≤ 1`,
+  `‖(1+z)^(1/q) - 1‖ ≤ ‖z‖` (principal branch).
+* stmt_3 (proof of lem:ruler:holo, the bound): `‖gC q ε t‖ ≤ 2^(2 - Re ε)` for `q ≥ 1`,
+  `Re ε < 1`, `0 < t ≤ 1/2`.
+* stmt_4 (proof of lem:ruler:holo, "For real ε ∈ (0,1) this is the F_q of Lemma formF", and
+  `F_q = 2∫_0^{1/2}`): for `q ≥ 1` and real `ε < 1`, the real integrand is integrable on `[0,1]`
+  and `FC q ε = FR q ε`.
+* stmt_5 (lem:ruler:holo): for `q ≥ 1`, `gC q ε` is integrable on `[0,1/2]` when `Re ε < 1`,
+  and `FC q` is holomorphic (`DifferentiableOn ℂ`) on `{Re ε < 1}`.
+* stmt_6 (proof of Prop. 4, "it is the asymptotic expansion of L_q(p) as p → ∞"): for `q ≥ 1`
+  and every `K`, `L_q(p)/8 - 1 - Σ_{k<K} K_k(q)/p^(k+1) = O(p^{-(K+1)})` as `p → ∞`.
+* stmt_7 (prop:ruler, last sentence; the final claim): for every `q ≥ 1` and every real `p > 1`,
+  `Σ_{k≥0} K_k(q)/p^(k+1)` converges (`HasSum`) to `L_q(p)/8 - 1`.
+
+## NOT COVERED
+
+* The first sentence of `prop:ruler` (`L_1(p) = 8`, `L_∞(p) = 8·2^{-1/p}`): done in T14.
+* Lemma `lem:ruler:formula` for general `1 < q < ∞` (that `L_q(p)` is the `ℓ^q` length of the
+  curve as a supremum over partitions): this file takes `L_q(p)` as the paper's integral.
+* The sign/summability facts about `binom(1/q, n)` used to prove stmt_2 are proof method, not
+  stated separately; likewise "uniformly on compact subsets", Morera and Fubini.
+* That the coefficients `K_k(q)` are real is not stated separately.
+* The remarks after the proposition (rulers depending analytically on `1/p`, the dual ruler,
+  linear growth, radius exactly `1`) are other targets or not claimed by `prop:ruler`.
+-/
+-- BEGIN STATEMENTS
+namespace X03
+
+open MeasureTheory Real Filter Asymptotics
+
+/-- The paper's `L_q(p)=\frac4p\int_0^1(t^{q/p-q}+(1-t)^{q/p-q})^{1/q}\,dt` (main.tex 1384). -/
+noncomputable def Lq (p q : ℝ) : ℝ :=
+  (4 / p) * ∫ t in (0 : ℝ)..1, (t ^ (q / p - q) + (1 - t) ^ (q / p - q)) ^ (1 / q)
+
+/-- The integrand of `L_q(p)`. -/
+noncomputable def lqIntegrand (p q t : ℝ) : ℝ :=
+  (t ^ (q / p - q) + (1 - t) ^ (q / p - q)) ^ (1 / q)
+
+/-- The integrand of `F_q` for real `ε`:
+`a + b - (a^q + b^q)^(1/q)` with `a^q := t^{q(ε-1)}`, `b^q := (1-t)^{q(ε-1)}`. -/
+noncomputable def gR (q ε t : ℝ) : ℝ :=
+  t ^ (ε - 1) + (1 - t) ^ (ε - 1) - (t ^ (q * (ε - 1)) + (1 - t) ^ (q * (ε - 1))) ^ (1 / q)
+
+/-- `F_q(ε) = ∫_0^1 (a + b - (a^q + b^q)^(1/q)) dt` (sec_ruler.tex 46), real `ε`. -/
+noncomputable def FR (q ε : ℝ) : ℝ := ∫ t in (0 : ℝ)..1, gR q ε t
+
+/-- `a_ε(t) = t^(ε-1)` for complex `ε` (cpow of the positive real `t`). -/
+noncomputable def aC (ε : ℂ) (t : ℝ) : ℂ := (t : ℂ) ^ (ε - 1)
+
+/-- `b_ε(t) = (1-t)^(ε-1)` for complex `ε`. -/
+noncomputable def bC (ε : ℂ) (t : ℝ) : ℂ := ((1 - t : ℝ) : ℂ) ^ (ε - 1)
+
+/-- `z = (t/(1-t))^(q(1-ε))` (sec_ruler.tex 62). -/
+noncomputable def zC (q : ℝ) (ε : ℂ) (t : ℝ) : ℂ :=
+  ((t / (1 - t) : ℝ) : ℂ) ^ ((q : ℂ) * (1 - ε))
+
+/-- The complex integrand `f_ε(t) = a + b - a (1+z)^(1/q)`, principal branch. -/
+noncomputable def gC (q : ℝ) (ε : ℂ) (t : ℝ) : ℂ :=
+  aC ε t + bC ε t - aC ε t * (1 + zC q ε t) ^ (1 / (q : ℂ))
+
+/-- The extension from the proof of lem:ruler:holo: `F_q(ε) = 2 ∫_0^{1/2} f_ε(t) dt`. -/
+noncomputable def FC (q : ℝ) (ε : ℂ) : ℂ := 2 * ∫ t in (0 : ℝ)..(1 / 2), gC q ε t
+
+/-- `K_k(q)`: the `k`-th Taylor coefficient at `0` of `M_q = -F_q/2`,
+i.e. `-F_q^{(k)}(0) / (2 k!)`. -/
+noncomputable def Kk (q : ℝ) (k : ℕ) : ℂ :=
+  -(iteratedDeriv k (FC q) 0) / (2 * (Nat.factorial k : ℂ))
+
+/-- lem:ruler:formF: "For $0<\varepsilon\le1$: $L_q(1/\varepsilon)=8-4\varepsilon F_q(\varepsilon)$
+... The integral $F_q(\varepsilon)$ converges absolutely", for `q ≥ 1`, `p = 1/ε ≥ 1`, with the
+integrability of both integrands. -/
+def stmt_1 : Prop :=
+  ∀ q : ℝ, 1 ≤ q → ∀ p : ℝ, 1 ≤ p →
+    IntervalIntegrable (lqIntegrand p q) volume 0 1 ∧
+      IntervalIntegrable (gR q (1 / p)) volume 0 1 ∧
+      Lq p q = 8 - 4 * (1 / p) * FR q (1 / p)
+
+/-- Proof of lem:ruler:holo: "$|g(z)|\le1$ on $|z|\le1$", `g(z) = ((1+z)^{1/q}-1)/z`, stated
+without division as `‖(1+z)^(1/q) - 1‖ ≤ ‖z‖` (principal branch), for `q ≥ 1`. -/
+def stmt_2 : Prop :=
+  ∀ q : ℝ, 1 ≤ q → ∀ z : ℂ, ‖z‖ ≤ 1 → ‖(1 + z) ^ (1 / (q : ℂ)) - 1‖ ≤ ‖z‖
+
+/-- Proof of lem:ruler:holo: "$|f_\varepsilon(t)|\le2|b_\varepsilon|\le2^{2-\operatorname{Re}\varepsilon}$"
+for `q ≥ 1`, `Re ε < 1`, `0 < t ≤ 1/2`. -/
+def stmt_3 : Prop :=
+  ∀ q : ℝ, 1 ≤ q → ∀ ε : ℂ, ε.re < 1 → ∀ t : ℝ, 0 < t → t ≤ 1 / 2 →
+    ‖gC q ε t‖ ≤ (2 : ℝ) ^ (2 - ε.re)
+
+/-- Proof of lem:ruler:holo: "For real $\varepsilon\in(0,1)$ this is the $F_q$ of
+Lemma formF" (with `F_q = 2∫_0^{1/2}` by symmetry): for `q ≥ 1` and real `ε < 1` the real
+integrand is integrable on `[0,1]` and `FC q ε = FR q ε`. -/
+def stmt_4 : Prop :=
+  ∀ q : ℝ, 1 ≤ q → ∀ ε : ℝ, ε < 1 →
+    IntervalIntegrable (gR q ε) volume 0 1 ∧ FC q (ε : ℂ) = ((FR q ε : ℝ) : ℂ)
+
+/-- lem:ruler:holo: "$F_q$ extends to a holomorphic function on
+$\{\operatorname{Re}\varepsilon<1\}$", with the integrability of the complex integrand. -/
+def stmt_5 : Prop :=
+  ∀ q : ℝ, 1 ≤ q →
+    (∀ ε : ℂ, ε.re < 1 → IntervalIntegrable (gC q ε) volume 0 (1 / 2)) ∧
+      DifferentiableOn ℂ (FC q) {ε : ℂ | ε.re < 1}
+
+/-- Proof of Prop. 4: "because $M_q$ is holomorphic at $0$, it is the asymptotic expansion of
+$L_q(p)$ as $p\to\infty$": for every `K`,
+`L_q(p)/8 - 1 - Σ_{k<K} K_k(q)/p^(k+1) = O(p^{-(K+1)})`. -/
+def stmt_6 : Prop :=
+  ∀ q : ℝ, 1 ≤ q → ∀ K : ℕ,
+    (fun p : ℝ => ((Lq p q / 8 - 1 : ℝ) : ℂ) -
+        ∑ k ∈ Finset.range K, Kk q k / (p : ℂ) ^ (k + 1))
+      =O[atTop] (fun p : ℝ => (1 / p) ^ (K + 1))
+
+/-- prop:ruler, last sentence: "For every fixed $q\ge1$, the expansion of $L_q(p)$ in powers of
+$1/p$ converges for every $p>1$", in the supplement's form
+`L_q(p) = 8(1 + Σ_{k≥0} K_k(q)/p^{k+1})`, stated as `HasSum` to `L_q(p)/8 - 1`. -/
+def stmt_7 : Prop :=
+  ∀ q : ℝ, 1 ≤ q → ∀ p : ℝ, 1 < p →
+    HasSum (fun k : ℕ => Kk q k / (p : ℂ) ^ (k + 1)) ((Lq p q / 8 - 1 : ℝ) : ℂ)
+
+end X03

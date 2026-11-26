@@ -1,0 +1,81 @@
+import Mathlib
+/-!
+# U01 — the cube-end integral `I` behind `prop:cuberadius`
+
+Source: `paper/ieee/main.tex`, Proposition `prop:cuberadius` (lines 1960-1966) and the proof
+sketch right after it (line 1968).
+
+**Proposition, lines 1961-1964:**
+
+> In $\varepsilon$, $S$ has a simple pole at $-1$ ($p=-1$) with residue $48R$, where
+> \[
+> R=-1-\frac{2\pi^{3/2}}{\Gamma(\frac14)^2}=-1.8472130847939790866\ldots
+> \]
+> is the residue of $V$ there, and $E$ is regular there.
+
+**Proof sketch, line 1968:**
+
+> Its residue is $I-2$, where $I=\int_0^1(\sqrt{1+a^4}-1)\,da/a^2=1-2\pi^{3/2}/\Gamma(\frac14)^2$
+> by integration by parts and a Beta integral: the integral itself gives $I-1$, and a boundary
+> layer at $a=0$ adds a point mass $-1$.
+
+Handling of `a = 0`: the integrand is `f a = (√(1+a⁴) - 1) / a²`. For `a ≠ 0` this is the paper's
+integrand; as `a → 0` it behaves like `a²/2 → 0`, so its continuous extension takes the value `0`
+at `a = 0`. In Lean `f 0 = 0 / 0 = 0`, which is exactly that extension value, so `f` *is* the
+continuous extension on `[0,1]` (and `stmt_1` says so). The value at a single point does not
+affect the integral anyway. Integrability is stated explicitly in `stmt_2`, so the integral
+identity cannot hold by the `intervalIntegral`-of-non-integrable-is-`0` convention.
+
+`π^{3/2}` is `Real.pi ^ (3/2 : ℝ)` (rpow of a positive base) and `Γ(1/4)` is `Real.Gamma (1/4)`
+(positive argument, so no convention issue).
+
+* `stmt_1`: `f` is continuous on `[0,1]` (the integrand extends continuously to `a = 0`).
+* `stmt_2`: `f` is interval integrable on `[0,1]` and `I = ∫₀¹ f = 1 - 2π^{3/2}/Γ(1/4)²`.
+* `stmt_3`: `R := I - 2` equals the printed closed form `-1 - 2π^{3/2}/Γ(1/4)²`.
+* `stmt_4`: the closed form of `R` lies strictly between `-1.8472130847939790867` and
+  `-1.8472130847939790866` (all 19 printed decimals; the true value is
+  `-1.84721308479397908660649…`, checked via `2π^{3/2}/Γ(1/4)² = AGM(√2,1)/√2`). A proof needs
+  `Γ(1/4)` to about 20 significant digits, which Mathlib does not provide directly.
+
+NOT COVERED:
+* The holomorphy of `E` and `V` on `|ε| < 1`, the radius of convergence one, the simple pole of
+  `S` at `ε = -1` with residue `48R`, the claim that `I - 2` *is* the residue of `V`, the
+  boundary-layer point mass `-1`, and the regularity of `E` at `ε = -1` (the paper's `E`, `V` are
+  only described as "explicit in our notes"; the task excludes these).
+* The intermediate claim "the integral itself gives `I - 1`" (it refers to the unstated
+  residue integral of `V`).
+-/
+-- BEGIN STATEMENTS
+namespace U01
+
+/-- The integrand `(√(1+a⁴) - 1)/a²` of `I` (proof sketch of `prop:cuberadius`, line 1968).
+At `a = 0` Lean gives `0/0 = 0`, the value of the continuous extension. -/
+noncomputable def f (a : ℝ) : ℝ := (Real.sqrt (1 + a ^ 4) - 1) / a ^ 2
+
+/-- `I = ∫_0^1 (√(1+a⁴) - 1) da/a²` (line 1968). -/
+noncomputable def I : ℝ := ∫ a in (0 : ℝ)..1, f a
+
+/-- `R = I - 2`, "Its residue is $I-2$" (line 1968). -/
+noncomputable def R : ℝ := I - 2
+
+/-- The integrand extends continuously to `a = 0` (with value `0`, which is `f 0` in Lean),
+so it is continuous on the closed interval `[0,1]`. -/
+def stmt_1 : Prop := ContinuousOn f (Set.Icc 0 1)
+
+/-- "$I=\int_0^1(\sqrt{1+a^4}-1)\,da/a^2=1-2\pi^{3/2}/\Gamma(\frac14)^2$" (line 1968),
+with integrability stated. -/
+def stmt_2 : Prop :=
+  IntervalIntegrable f MeasureTheory.volume 0 1 ∧
+    I = 1 - 2 * Real.pi ^ (3 / 2 : ℝ) / Real.Gamma (1 / 4) ^ 2
+
+/-- "Its residue is $I-2$" together with "$R=-1-\frac{2\pi^{3/2}}{\Gamma(\frac14)^2}$"
+(lines 1963 and 1968): `I - 2` equals the printed closed form of `R`. -/
+def stmt_3 : Prop := R = -1 - 2 * Real.pi ^ (3 / 2 : ℝ) / Real.Gamma (1 / 4) ^ 2
+
+/-- "$R=-1-\frac{2\pi^{3/2}}{\Gamma(\frac14)^2}=-1.8472130847939790866\ldots$" (line 1963):
+all 19 printed decimals of the closed form. -/
+def stmt_4 : Prop :=
+  (-1.8472130847939790867 : ℝ) < -1 - 2 * Real.pi ^ (3 / 2 : ℝ) / Real.Gamma (1 / 4) ^ 2 ∧
+    -1 - 2 * Real.pi ^ (3 / 2 : ℝ) / Real.Gamma (1 / 4) ^ 2 < (-1.8472130847939790866 : ℝ)
+
+end U01

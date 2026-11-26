@@ -1,0 +1,291 @@
+import Mathlib
+import Zeta3.Wave2.U03_R1Positive
+/-!
+# X04 — `P'(1) = P(1) R_1` for the smoothed regular `2m`-gon (paper label `thm:poly`)
+
+Target id: X04.
+Sources: `paper/ieee/main.tex`, Subsection "Polygons at the Diamond End", lines 1645–1655;
+detailed proof `paper/ieee/proofs/sec_g4_poly.tex` (label `g4:thm:poly`, Lemmas
+`g4:lem:polygon`, `g4:lem:edge`, `g4:lem:arc`, `g4:lem:smooth`, `g4:lem:first`, and
+"Proof of Theorem 23").
+
+Setup quoted verbatim (main.tex line 1645):
+"The diamond is the case $m=2$ of a regular $2m$-gon. Smooth it the same way: with
+$n_i=(\cos\frac{i\pi}m,\sin\frac{i\pi}m)$, let $K_p=\{\sum_{i=1}^m|\langle n_i,x\rangle|^p\le1\}$.
+At $p=1$ this is a regular $2m$-gon of perimeter $P(1)=4m(\sec\frac{\pi}{2m}-\cos\frac{\pi}{2m})$,
+and $m=2$ is the squircle."
+
+Theorem quoted verbatim (main.tex lines 1647–1653):
+"\begin{theorem}[First derivative at the regular polygon$^\dagger$]\label{thm:poly}
+$P'(1)=P(1)\,R_1$, where $V=\cot\frac{\pi}{2m}$ and
+\[
+R_1=\frac1V\sum_{i=1}^{m-1}\sin\frac{i\pi}{m}\,\log\frac{V}{\sin(i\pi/m)} .
+\]
+In particular $P'(1)=0$ only for $m=2$, and for the hexagon ($m=3$) $P'(1)=2\sqrt3\log2$.
+\end{theorem}"
+
+Supplement (sec_g4_poly.tex, after Remark g4:rem:analytic's lead-in) quoted verbatim:
+"For $p<1$ we call $P(p)$ the length of the closed curve $\partial K_p$ given by the formula of
+Lemma~\ref{g4:lem:arc}. For $p\ge1$ this is the perimeter of the convex body $K_p$, so $P'(1)$ is
+the right derivative, and it equals the derivative of the extension."
+
+Lemma g4:lem:arc quoted verbatim:
+"The map $x\mapsto x/F_p(x)^{1/p}$ is a homeomorphism of $\partial K_1$ onto $\partial K_p$ that
+fixes every ray. The curve $x_p(t)=y(t)F(t,d)^{-1/p}$ runs over the arc of $\partial K_p$ between
+the rays of $V_0$ and $V_1$, and $|x_p'(t)|=G(t,d):=F^{-1-1/p}\,R(F,D;t)$. Hence
+$P(p)=\sum_{k=0}^{2m-1}\int_0^1G_k(t,d)\dd t$, and $G(t,0)=L$, so $P(1)=\sum_eL_e$."
+with $R(F,D;t)=\sqrt{(LF-\sigma(t)D)^2+h^2D^2}$, $d=p-1$, $D=\sum_ja_j'(t)e^{d\lambda_j(t)}$.
+
+Lemma g4:lem:smooth quoted verbatim:
+"For every $k\ge0$ there is a constant $K_k$, depending on the polygon and the weights, such that
+for $|d|\le\frac14$ and $0<t<1$
+$|\pa_d^kG(t,d)|\le K_k\,t^{-1/4}(1-t)^{-1/4}\bigl(1+|\log t|+|\log(1-t)|\bigr)^k$."
+
+Lemma g4:lem:first quoted verbatim:
+"$P'(1)=\sum_e\Bigl(\ip{\tau_e}{V_0^e}\Sone(V_0^e)-\ip{\tau_e}{V_1^e}\Sone(V_1^e)\Bigr).$
+If $\Sone(C_k)=s_0$ for all vertices, then $P'(1)=-s_0\,P(1)$."
+with $\Sone(x)=\sum_ja_j(x)\log\frac{a_j(x)}{w_j}$, $0\log0=0$; in its proof
+"$\pa_dG|_{d=0}=-L\Sone-\sigma\Sone'=-(\sigma\Sone)'$".
+
+Proof of Theorem 23 quoted (excerpts): "the vertices are $C_k=\varrho^kC_0$ with
+$C_0=\rho_0(0,1)$", "$V:=\sum_{i=1}^{m-1}\sin\frac{i\pi}m=\cot\frac\pi{2m}$", "$\rho_0=1/V=
+\tan\frac\pi{2m}$", "$\Sone(C_k)=\Sone(C_0)=s_0$ for all $k$", "$s_0=\sum_{i=1}^{m-1}
+\frac{\sin(i\pi/m)}V\log\frac{\sin(i\pi/m)}V=-R_1$".
+
+## Formalization
+
+* Points are `Plane := EuclideanSpace ℝ (Fin 2)` (Euclidean distance). `dot u x` is the
+  Euclidean inner product written in coordinates. `nrm m i = (cos(iπ/m), sin(iπ/m))`.
+* `Fp m p x = ∑_{i=1}^m |⟨n_i,x⟩|^p` (real `rpow` of a nonnegative base), `Kp m p = {Fp ≤ 1}`.
+  All statements are for integers `m ≥ 2` (the paper's setting).
+* `vertex m k = tan(π/2m)·(−sin(kπ/m), cos(kπ/m))` is `C_k = ϱ^k C_0`, `C_0 = ρ_0 (0,1)`,
+  `ρ_0 = tan(π/2m)` (supplement, proof of Theorem 23). That these are the vertices of `K_1` is
+  stmt_1, so nothing rests on this choice silently.
+* `edgePt m k t = C_k + t (C_{k+1} − C_k)` is `y(t)`; `arc m p k t = Fp(y(t))^{-1/p} • y(t)`
+  is the supplement's `x_p(t)`; `loop m p s = arc m p ⌊s⌋ (s − ⌊s⌋)` on `[0, 2m]` traverses the
+  `2m` arcs one after another (at `s = 2m` it is `arc (2m) 0 = C_{2m}/… = C_0/…`).
+* THE DEFINITION OF `P(p)`: `perim m p` is the true Euclidean length (total variation
+  `eVariationOn`) of the closed curve `loop m p` on `[0, 2m]`, as a real number via `toReal`.
+  This is defined for every real `p`, in particular for `p` near `1` on both sides, as the
+  supplement requires ("For $p<1$ we call $P(p)$ the length of the closed curve
+  $\partial K_p$"). stmt_3 says `loop m p` is a simple closed curve whose image is the boundary
+  of `K_p` (= `{Fp = 1}`), so `perim` is the length of `∂K_p` (for `p ≥ 1` the perimeter of
+  the convex body). Because `toReal ⊤ = 0`, finiteness is part of the statements that use
+  `perim` (stmt_5 and stmt_13 assert the length is a finite real number given by an integral).
+* `side`, `tau`, `sigma`, `apo` are `L`, `τ`, `σ(t) = ⟨y(t),τ⟩`, `h = √(|V_0|²−σ_0²)` of the
+  supplement. `Fe m p k t = Fp m p (y t) = F(t,d)`. The supplement's
+  `D = ∑ a_j' e^{dλ_j}` equals `(∂_t F)/p` (supplement: "$F'=\dots=pD$"); we write it as
+  `deriv (Fe m p k) t / p`. On `0 < t < 1` every `|⟨n_j,y(t)⟩|` is positive, so `Fe` is
+  differentiable there and `deriv` is the true derivative (no `deriv`-of-nondifferentiable
+  convention is used: stmt_4 asserts the true derivative of the arc has norm `G`).
+  `G m p k t = F^{-1-1/p}·√((L F − σ D)² + h² D²)`.
+* `S1 m x = ∑_{i=1}^m a_i log a_i`, `a_i = |⟨n_i,x⟩|`. The paper sets `0 log 0 = 0`; Lean's
+  `Real.log 0 = 0` gives the same value, and this is the paper's definition, not a repair.
+* `R_1` and `P(1)` are `U03.R1`, `U03.P1` (Zeta3/Wave2/U03_R1Positive.lean, identical to Wave1
+  `T06.R1`, `T06.P1`): the paper's formulas with `\sec = 1/cos`, sum over `Finset.Ico 1 m`.
+* Range of `p` for the integral formula: the supplement works on `|d| ≤ 1/4`, i.e.
+  `p ∈ [3/4, 5/4]`; stmt_4/5 use the open interval `(3/4, 5/4)`, stmt_7 the closed one.
+
+Statements (in the order of the supplement's proof):
+* stmt_1: `K_1` is the regular `2m`-gon: `K_1 = conv{C_0,…,C_{2m−1}}`, every `C_k` is on
+  `{Fp = 1}`, and all sides have length `L = 2 tan(π/2m) sin(π/2m)`.
+* stmt_2: the length of the actual `p = 1` curve is `P(1) = 4m(sec(π/2m) − cos(π/2m))`.
+* stmt_3: for every `p > 0`, `loop m p` is a simple closed curve with image
+  `frontier K_p = {Fp = 1}` (Lemma g4:lem:arc, first sentence).
+* stmt_4: speed: for `p ∈ (3/4,5/4)`, `0<t<1`, `|x_p'(t)| = G(t,p−1)` (Lemma g4:lem:arc).
+* stmt_5: `P(p) = ∑_{k<2m} ∫_0^1 G_k` with each `G_k` integrable, as an equality of lengths
+  (finite) (Lemma g4:lem:arc, "Hence").
+* stmt_6: `G(t,0) = L` (Lemma g4:lem:arc).
+* stmt_7: domination of `∂_p G` for `|p−1| ≤ 1/4` (Lemma g4:lem:smooth, `k = 1`).
+* stmt_8: pointwise first variation `∂_p G|_{p=1} = −L S1(y(t)) − σ(t) (S1∘y)'(t)`
+  (proof of Lemma g4:lem:first).
+* stmt_9: per-edge first variation: `d/dp ∫_0^1 G_k |_{p=1} = ⟨τ,C_k⟩S1(C_k) − ⟨τ,C_{k+1}⟩S1(C_{k+1})`
+  (Lemma g4:lem:first).
+* stmt_10: `∑_{i=1}^{m−1} sin(iπ/m) = cot(π/2m)` (proof of Theorem 23).
+* stmt_11: `S1(C_k) = −R_1` for every vertex (proof of Theorem 23).
+* stmt_12: `P(1) = ∑_k L_k` telescoping form used at the end of Lemma g4:lem:first:
+  `∑_k (⟨τ_k,C_k⟩ − ⟨τ_k,C_{k+1}⟩) = −P(1)`.
+* stmt_13: THE THEOREM: for every integer `m ≥ 2`, the arc lengths are finite for `p` near `1`
+  and `HasDerivAt perim (P(1) R_1) 1`.
+* stmt_14: "P'(1)=0 only for m=2": for every `m ≥ 2` the derivative exists and is `0` iff `m = 2`.
+* stmt_15: hexagon: `HasDerivAt (perim 3) (2√3 log 2) 1`.
+
+## NOT COVERED
+
+* "$P$ is $C^\infty$ near $p=1$" and the bounds of Lemma g4:lem:smooth for `k ≥ 2`
+  (only `k = 1` is stated, stmt_7, which is what thm:poly needs).
+* "for $m=2$ it is not analytic there" (Theorem `thm:zero`; a different target).
+* The general first-variation formula of Lemma g4:lem:first for arbitrary centrally symmetric
+  polygons and weights (only the regular `2m`-gon, power convention, is stated), and the
+  "general formula" paragraph (parallelogram, affine-regular hexagon).
+* The notes' alternative proof by integration by parts in polar coordinates (main.tex line 1655).
+* Convexity of `K_p` for `p ≥ 1` is not stated; "perimeter" is the length of `∂K_p`.
+-/
+-- BEGIN STATEMENTS
+namespace X04
+
+open MeasureTheory Set Filter Real
+open scoped Topology
+
+/-- The Euclidean plane. -/
+abbrev Plane := EuclideanSpace ℝ (Fin 2)
+
+/-- Euclidean inner product `⟨u, x⟩` in coordinates. -/
+def dot (u x : Plane) : ℝ := u 0 * x 0 + u 1 * x 1
+
+/-- The unit normal `n_i = (cos(iπ/m), sin(iπ/m))`. -/
+noncomputable def nrm (m i : ℕ) : Plane :=
+  !₂[Real.cos ((i : ℝ) * π / (m : ℝ)), Real.sin ((i : ℝ) * π / (m : ℝ))]
+
+/-- `F_p(x) = ∑_{i=1}^m |⟨n_i, x⟩|^p`. -/
+noncomputable def Fp (m : ℕ) (p : ℝ) (x : Plane) : ℝ :=
+  ∑ i ∈ Finset.Icc 1 m, |dot (nrm m i) x| ^ p
+
+/-- `K_p = {x : ∑_{i=1}^m |⟨n_i,x⟩|^p ≤ 1}`. -/
+def Kp (m : ℕ) (p : ℝ) : Set Plane := {x | Fp m p x ≤ 1}
+
+/-- The vertex `C_k = ϱ^k C_0`, `C_0 = tan(π/2m)·(0,1)`, `ϱ` the rotation by `π/m`. -/
+noncomputable def vertex (m k : ℕ) : Plane :=
+  Real.tan (π / (2 * (m : ℝ))) •
+    !₂[-Real.sin ((k : ℝ) * π / (m : ℝ)), Real.cos ((k : ℝ) * π / (m : ℝ))]
+
+/-- Side length `L_k = |C_{k+1} − C_k|`. -/
+noncomputable def side (m k : ℕ) : ℝ := dist (vertex m (k + 1)) (vertex m k)
+
+/-- Unit vector `τ` along the edge `e_k`, from `C_k` to `C_{k+1}`. -/
+noncomputable def tau (m k : ℕ) : Plane := (side m k)⁻¹ • (vertex m (k + 1) - vertex m k)
+
+/-- `y(t) = C_k + t (C_{k+1} − C_k)`, the straight edge of `K_1`. -/
+noncomputable def edgePt (m k : ℕ) (t : ℝ) : Plane :=
+  vertex m k + t • (vertex m (k + 1) - vertex m k)
+
+/-- `σ(t) = ⟨y(t), τ⟩`. -/
+noncomputable def sigma (m k : ℕ) (t : ℝ) : ℝ := dot (edgePt m k t) (tau m k)
+
+/-- `h`: the distance from `0` to the line of the edge, `h² = |V_0|² − σ_0²`. -/
+noncomputable def apo (m k : ℕ) : ℝ :=
+  Real.sqrt (‖vertex m k‖ ^ 2 - (dot (vertex m k) (tau m k)) ^ 2)
+
+/-- `F(t, d) = F_p(y(t))`, `d = p − 1`. -/
+noncomputable def Fe (m : ℕ) (p : ℝ) (k : ℕ) (t : ℝ) : ℝ := Fp m p (edgePt m k t)
+
+/-- The supplement's length element
+`G(t,d) = F^{-1-1/p} √((L F − σ D)² + h² D²)` with `D = (∂_t F)/p`. -/
+noncomputable def G (m : ℕ) (p : ℝ) (k : ℕ) (t : ℝ) : ℝ :=
+  Fe m p k t ^ (-1 - 1 / p) *
+    Real.sqrt ((side m k * Fe m p k t - sigma m k t * (deriv (Fe m p k) t / p)) ^ 2 +
+      apo m k ^ 2 * (deriv (Fe m p k) t / p) ^ 2)
+
+/-- The arc `x_p(t) = y(t) F_p(y(t))^{-1/p}` of `∂K_p` over the edge `e_k`. -/
+noncomputable def arc (m : ℕ) (p : ℝ) (k : ℕ) (t : ℝ) : Plane :=
+  (Fe m p k t ^ (-(1 / p))) • edgePt m k t
+
+/-- The closed curve `∂K_p`, traversed on `[0, 2m]`: arc `k` on `[k, k+1]`. -/
+noncomputable def loop (m : ℕ) (p s : ℝ) : Plane :=
+  arc m p ⌊s⌋₊ (s - ⌊s⌋₊)
+
+/-- `P(p)`: the Euclidean length of the closed curve `∂K_p` (total variation of `loop m p`
+on `[0, 2m]`), as a real number. -/
+noncomputable def perim (m : ℕ) (p : ℝ) : ℝ :=
+  (eVariationOn (loop m p) (Icc 0 (2 * (m : ℝ)))).toReal
+
+/-- `Σ₁(x) = ∑_{i=1}^m a_i log a_i`, `a_i = |⟨n_i,x⟩|` (`0 log 0 = 0`). -/
+noncomputable def S1 (m : ℕ) (x : Plane) : ℝ :=
+  ∑ i ∈ Finset.Icc 1 m, |dot (nrm m i) x| * Real.log |dot (nrm m i) x|
+
+/-- main.tex 1645: "At $p=1$ this is a regular $2m$-gon": `K_1` is the convex hull of the
+`2m` points `C_k`, which lie on `∂K_1`, and all sides have length `2 tan(π/2m) sin(π/2m)`. -/
+def stmt_1 : Prop :=
+  ∀ m : ℕ, 2 ≤ m →
+    Kp m 1 = convexHull ℝ (vertex m '' {k | k < 2 * m}) ∧
+    (∀ k : ℕ, Fp m 1 (vertex m k) = 1) ∧
+    (∀ k : ℕ, side m k = 2 * Real.tan (π / (2 * (m : ℝ))) * Real.sin (π / (2 * (m : ℝ))))
+
+/-- main.tex 1645: "of perimeter $P(1)=4m(\sec\frac{\pi}{2m}-\cos\frac{\pi}{2m})$", for the
+length of the actual `p = 1` curve. -/
+def stmt_2 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → perim m 1 = U03.P1 m
+
+/-- Lemma g4:lem:arc (first sentences): for `p > 0`, the `2m` arcs, traversed by `loop m p`,
+form a simple closed curve whose image is `∂K_p = {F_p = 1}`. -/
+def stmt_3 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ p : ℝ, 0 < p →
+    ContinuousOn (loop m p) (Icc 0 (2 * (m : ℝ))) ∧
+    loop m p (2 * (m : ℝ)) = loop m p 0 ∧
+    InjOn (loop m p) (Ico 0 (2 * (m : ℝ))) ∧
+    loop m p '' Icc 0 (2 * (m : ℝ)) = frontier (Kp m p) ∧
+    frontier (Kp m p) = {x | Fp m p x = 1}
+
+/-- Lemma g4:lem:arc: "$|x_p'(t)|=G(t,d)$" for `|p − 1| < 1/4`, `0 < t < 1`. -/
+def stmt_4 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ p ∈ Ioo (3 / 4 : ℝ) (5 / 4), ∀ k : ℕ, ∀ t ∈ Ioo (0 : ℝ) 1,
+    ∃ v : Plane, HasDerivAt (arc m p k) v t ∧ ‖v‖ = G m p k t
+
+/-- Lemma g4:lem:arc: "Hence $P(p)=\sum_{k=0}^{2m-1}\int_0^1G_k(t,d)\dd t$": each `G_k` is
+integrable on `[0,1]` and the (finite) length of `∂K_p` is the sum of the integrals. -/
+def stmt_5 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ p ∈ Ioo (3 / 4 : ℝ) (5 / 4),
+    (∀ k : ℕ, IntervalIntegrable (G m p k) volume 0 1) ∧
+    eVariationOn (loop m p) (Icc 0 (2 * (m : ℝ))) =
+      ENNReal.ofReal (∑ k ∈ Finset.range (2 * m), ∫ t in (0 : ℝ)..1, G m p k t)
+
+/-- Lemma g4:lem:arc: "$G(t,0)=L$". -/
+def stmt_6 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k : ℕ, ∀ t ∈ Ioo (0 : ℝ) 1, G m 1 k t = side m k
+
+/-- Lemma g4:lem:smooth, `k = 1`: for `|d| ≤ 1/4`, `0 < t < 1`, `G` is differentiable in `p`
+and `|∂_d G| ≤ K t^{-1/4}(1-t)^{-1/4}(1+|log t|+|log(1-t)|)`. -/
+def stmt_7 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∃ K : ℝ, ∀ k : ℕ, ∀ p ∈ Icc (3 / 4 : ℝ) (5 / 4), ∀ t ∈ Ioo (0 : ℝ) 1,
+    ∃ g : ℝ, HasDerivAt (fun q => G m q k t) g p ∧
+      |g| ≤ K * t ^ (-(1 / 4 : ℝ)) * (1 - t) ^ (-(1 / 4 : ℝ)) *
+        (1 + |Real.log t| + |Real.log (1 - t)|)
+
+/-- Proof of Lemma g4:lem:first: "$\pa_dG|_{d=0}=-L\Sone-\sigma\Sone'$" pointwise on `(0,1)`. -/
+def stmt_8 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k : ℕ, ∀ t ∈ Ioo (0 : ℝ) 1,
+    HasDerivAt (fun p => G m p k t)
+      (-(side m k * S1 m (edgePt m k t) +
+          sigma m k t * deriv (fun s => S1 m (edgePt m k s)) t)) 1
+
+/-- Lemma g4:lem:first, one edge: the length `∫_0^1 G_k` of the arc over `e_k` has
+`p`-derivative `⟨τ,C_k⟩ Σ₁(C_k) − ⟨τ,C_{k+1}⟩ Σ₁(C_{k+1})` at `p = 1`. -/
+def stmt_9 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k : ℕ,
+    HasDerivAt (fun p => ∫ t in (0 : ℝ)..1, G m p k t)
+      (dot (tau m k) (vertex m k) * S1 m (vertex m k) -
+        dot (tau m k) (vertex m (k + 1)) * S1 m (vertex m (k + 1))) 1
+
+/-- Proof of Theorem 23: "$V:=\sum_{i=1}^{m-1}\sin\frac{i\pi}m=\cot\frac\pi{2m}$". -/
+def stmt_10 : Prop :=
+  ∀ m : ℕ, 2 ≤ m →
+    ∑ i ∈ Finset.Ico 1 m, Real.sin ((i : ℝ) * π / (m : ℝ)) = Real.cot (π / (2 * (m : ℝ)))
+
+/-- Proof of Theorem 23: "$\Sone(C_k)=\Sone(C_0)=s_0$ for all $k$" and "$s_0=-R_1$". -/
+def stmt_11 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k : ℕ, S1 m (vertex m k) = -U03.R1 m
+
+/-- End of Lemma g4:lem:first: "$\sum_k(\ip{\tau_k}{C_k}-\ip{\tau_k}{C_{k+1}})=-\sum_kL_k=
+-P(1)$", for the regular `2m`-gon with `P(1) = 4m(sec − cos)`. -/
+def stmt_12 : Prop :=
+  ∀ m : ℕ, 2 ≤ m →
+    ∑ k ∈ Finset.range (2 * m),
+      (dot (tau m k) (vertex m k) - dot (tau m k) (vertex m (k + 1))) = -U03.P1 m
+
+/-- Theorem thm:poly: "$P'(1)=P(1)\,R_1$" for every integer `m ≥ 2`, for the true length
+`P(p)` of `∂K_p` (finite for `p` near `1`). -/
+def stmt_13 : Prop :=
+  ∀ m : ℕ, 2 ≤ m →
+    (∀ᶠ p in 𝓝 (1 : ℝ), eVariationOn (loop m p) (Icc 0 (2 * (m : ℝ))) ≠ ⊤) ∧
+    HasDerivAt (perim m) (U03.P1 m * U03.R1 m) 1
+
+/-- Theorem thm:poly: "In particular $P'(1)=0$ only for $m=2$": for every `m ≥ 2`, `P` is
+differentiable at `1` and its derivative there vanishes iff `m = 2`. -/
+def stmt_14 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∃ D : ℝ, HasDerivAt (perim m) D 1 ∧ (D = 0 ↔ m = 2)
+
+/-- Theorem thm:poly: "for the hexagon ($m=3$) $P'(1)=2\sqrt3\log2$". -/
+def stmt_15 : Prop :=
+  HasDerivAt (perim 3) (2 * Real.sqrt 3 * Real.log 2) 1
+
+end X04

@@ -1,0 +1,80 @@
+import Mathlib
+/-!
+# U03 — `R_1 > 0` for `m ≥ 3`, so `P'(1) = 0` only for `m = 2` (paper label `thm:poly`)
+
+Target id: U03.
+Source: `paper/ieee/main.tex`, Subsection "Polygons at the Diamond End", lines 1645–1653
+(detailed proof: `paper/ieee/proofs/sec_g4_poly.tex`, label `g4:thm:poly`, line 156).
+
+Setup quoted verbatim (main.tex line 1645):
+"With $n_i=(\cos\frac{i\pi}m,\sin\frac{i\pi}m)$, let $K_p=\{\sum_{i=1}^m|\langle n_i,x\rangle|^p\le1\}$.
+At $p=1$ this is a regular $2m$-gon of perimeter $P(1)=4m(\sec\frac{\pi}{2m}-\cos\frac{\pi}{2m})$,
+and $m=2$ is the squircle."
+
+Theorem quoted verbatim (main.tex lines 1647–1653):
+"\begin{theorem}[First derivative at the regular polygon$^\dagger$]\label{thm:poly}
+$P'(1)=P(1)\,R_1$, where $V=\cot\frac{\pi}{2m}$ and
+\[
+R_1=\frac1V\sum_{i=1}^{m-1}\sin\frac{i\pi}{m}\,\log\frac{V}{\sin(i\pi/m)} .
+\]
+In particular $P'(1)=0$ only for $m=2$, and for the hexagon ($m=3$) $P'(1)=2\sqrt3\log2$.
+\end{theorem}"
+
+Proof step quoted verbatim (sec_g4_poly.tex line 156):
+"For $m=2$: $V=1$, $\sin\frac\pi2=1$, so $R_1=0$. For $m\ge3$: $V=\cot\frac\pi{2m}\ge\cot\frac\pi6=\sqrt3>1\ge\sin\frac{i\pi}m$,
+so every term of $R_1$ is $\ge0$ and the term $i=1$ is $>0$, hence $R_1>0$ and $P'(1)>0$."
+
+What is formalized: `V`, `R1`, `P1` are defined exactly by the paper's formulas (same
+definitions as Wave1 `T06`; `\sec` written as `1 / cos`; the sum `∑_{i=1}^{m-1}` is
+`Finset.Ico 1 m`). The range is `m ≥ 2` (a `2m`-gon needs `m ≥ 2`; this is the paper's
+setting, and for `m = 1` the formula degenerates: `V = cot(π/2) = 0` and the sum is empty).
+For `m ≥ 2` all divisions are by strictly positive reals and every `log` argument is
+positive, so no Lean convention (`x/0 = 0`, `log` of a nonpositive) is involved.
+"P'(1)=0 only for m=2" is formalized through the identity `P'(1) = P(1) R_1` as the
+statement `P(1) R_1 = 0 ↔ m = 2` for `m ≥ 2`, together with its ingredients
+`R_1 > 0` (`m ≥ 3`), `R_1 = 0` (`m = 2`) and `P(1) > 0`.
+
+NOT COVERED:
+* The identity `P'(1) = P(1) R_1` itself and the fact that `4m(sec − cos)` is the
+  perimeter of `K_1` (Mathlib has no convenient perimeter of a planar convex body as a
+  function of `p`). Here `P'(1)` appears only as the product `P(1) R_1`.
+* The hexagon value `P'(1) = 2√3 log 2` (already in Wave1 `T06`).
+-/
+-- BEGIN STATEMENTS
+namespace U03
+
+open Real
+
+/-- `V = cot(π/(2m))`. -/
+noncomputable def V (m : ℕ) : ℝ := Real.cot (π / (2 * (m : ℝ)))
+
+/-- `R_1 = (1/V) ∑_{i=1}^{m-1} sin(iπ/m) log(V / sin(iπ/m))`. -/
+noncomputable def R1 (m : ℕ) : ℝ :=
+  (1 / V m) * ∑ i ∈ Finset.Ico 1 m,
+    Real.sin ((i : ℝ) * π / (m : ℝ)) * Real.log (V m / Real.sin ((i : ℝ) * π / (m : ℝ)))
+
+/-- The paper's perimeter formula `P(1) = 4m(sec(π/2m) − cos(π/2m))` of the regular `2m`-gon. -/
+noncomputable def P1 (m : ℕ) : ℝ :=
+  4 * (m : ℝ) * (1 / Real.cos (π / (2 * (m : ℝ))) - Real.cos (π / (2 * (m : ℝ))))
+
+/-- Proof of `thm:poly` (sec_g4_poly.tex l.156): "For $m\ge3$ ... hence $R_1>0$". -/
+def stmt_1 : Prop := ∀ m : ℕ, 3 ≤ m → 0 < R1 m
+
+/-- Proof of `thm:poly` (sec_g4_poly.tex l.156): "For $m=2$: ... so $R_1=0$". -/
+def stmt_2 : Prop := R1 2 = 0
+
+/-- Combined: for every `m ≥ 2`, `R_1 = 0` exactly when `m = 2`. -/
+def stmt_3 : Prop := ∀ m : ℕ, 2 ≤ m → (R1 m = 0 ↔ m = 2)
+
+/-- The perimeter `P(1) = 4m(sec(π/2m) − cos(π/2m))` is positive for every `m ≥ 2`. -/
+def stmt_4 : Prop := ∀ m : ℕ, 2 ≤ m → 0 < P1 m
+
+/-- `thm:poly`: "In particular $P'(1)=0$ only for $m=2$", with `P'(1) = P(1) R_1`:
+for `m ≥ 2`, `P(1) R_1 = 0 ↔ m = 2`. -/
+def stmt_5 : Prop := ∀ m : ℕ, 2 ≤ m → (P1 m * R1 m = 0 ↔ m = 2)
+
+/-- Proof of `thm:poly` (sec_g4_poly.tex l.156): "hence $R_1>0$ and $P'(1)>0$" for `m ≥ 3`,
+with `P'(1) = P(1) R_1`. -/
+def stmt_6 : Prop := ∀ m : ℕ, 3 ≤ m → 0 < P1 m * R1 m
+
+end U03

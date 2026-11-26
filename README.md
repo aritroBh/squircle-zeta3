@@ -174,8 +174,14 @@ Integer relations are found with PSLQ (`mpmath.pslq`) or LLL (`python-flint`, `f
 
 ## Lean proofs (`lean/`)
 
-`lean/` is a Lean 4 project (Mathlib) that machine-checks 66 exact statements taken from the paper, in 14 files under `lean/Zeta3/Wave1/`. Examples: the curve |x/A| + |y/B| = 1 has perimeter 4r; the two expansions at the diamond end (in τ and in d) agree through order five; C₂ = 6√2, C₃ = −9√3/8 and C_m < 0 for m ≥ 3; the edge sums over the regular 2m-gon equal C_m, C_m⁽⁵⁾ and C_m⁽²,³⁾; L₁(p) = 8 and L_∞(p) = 8·2^(−1/p).
-Lean does not check the main theorems: Mathlib has no polylogarithms, multiple zeta values or symbols. `lean/LEAN_CHECKLIST.md` lists, target by target, what is proved and what is not covered.
+`lean/` is a Lean 4 project (Mathlib) that machine-checks 211 statements taken from the paper, in 31 files under `lean/Zeta3/`. Each one is proved from the axioms of Lean with no `sorry`.
+
+- `Wave1/` (66 statements): exact finite claims. Examples: the two expansions at the diamond end agree through order five; C₂ = 6√2, C₃ = −9√3/8 and C_m < 0 for m ≥ 3; the edge sums over the regular 2m-gon equal C_m, C_m⁽⁵⁾ and C_m⁽²,³⁾; L₁(p) = 8 and L_∞(p) = 8·2^(−1/p).
+- `Wave2/` (57 statements): a dilogarithm library; Lemma `lem:dilog`; the closed form of M₁ from its integral; M₁(α) at every angle (the table form and the four-dilogarithm form); ω_n ≠ 0 for every odd n ≥ 3; R₁ > 0 for m ≥ 3.
+- `Wave3/` (30 statements): the integral for P(p) is the true length of |x|^p + |y|^p = 1; P(p)/8 has a convergent expansion in 1/p for every p > 1; its first two coefficients are M₀ = log 2 − √2 log(1+√2) and the closed form of M₁ (Theorem `thm:M1`), with the printed decimals to 10⁻²⁰; the length of the graph of fⁿ (Theorem `thm:fn`).
+- `Wave4/` (58 statements): for every rhombus, P is three times differentiable at p = 1 with P′(1) = 0, P″(1) = 4π²A²B²/(3r³) and P‴(1) = (24A²B²/r³)(ζ(3) − π²/3) (Theorem `thm:rhombus`); the diamond coefficients a₀…a₅ with ζ(3) and ζ(5); the expansion of π_p through N₃; convergence of the ℓ^q rulers; P′(1) = P(1)R₁ for the smoothed regular 2m-gon.
+
+Lean does not check everything. The closed forms of weight three and four (M₂, M₃, M₄), the radius and decay theorems and the hexagon theorems are not in Lean; they rest on the written proofs and the scripts in this repository. `lean/LEAN_CHECKLIST.md` lists, target by target, what is proved and what is not covered.
 Each file states its claims between `BEGIN STATEMENTS` and `END STATEMENTS`; `lean/audit/` holds the statement blocks as accepted by a separate audit against the paper, and `lean/tools/gate.py` checks that a file still has those statements, compiles, has no `sorry`, and uses only the standard axioms.
 To rebuild: install `elan`, then in `lean/` run `lake exe cache get` and `lake build`.
 

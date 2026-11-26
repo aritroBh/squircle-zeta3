@@ -1,0 +1,39 @@
+{
+ "file": "Zeta3/Wave2/D01_TandM1Algebra.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_1",
+  "stmt_2",
+  "stmt_3",
+  "stmt_4",
+  "stmt_5"
+ ],
+ "axioms": {
+  "D01.proof_1": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D01.proof_2": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D01.proof_3": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D01.proof_4": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D01.proof_5": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

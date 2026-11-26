@@ -1,0 +1,178 @@
+import Mathlib
+/-!
+# W02 -- the perimeter integral, the function `F`, and its holomorphy (Lemma `lem:holo`)
+
+Target id: W02.
+Paper labels: `eq:Pint`, `eq:F`, `lem:holo`, `eq:expansion`, `eq:M1t`
+(paper/ieee/main.tex, lines 820-860). The proofs supplement has no separate proof of
+`lem:holo`; the intermediate statements follow the short proof printed in main.tex.
+
+Quoted verbatim (main.tex, eq:Pint):
+
+  P(p)=\frac4p\int_0^1\sqrt{t^{2/p-2}+(1-t)^{2/p-2}}\;dt .
+
+Quoted verbatim (main.tex, before and in eq:F):
+
+  To expand near the square we put $\varepsilon=1/p$, $a_\varepsilon=t^{\varepsilon-1}$ and
+  $b_\varepsilon=(1-t)^{\varepsilon-1}$. Since $\int_0^1\varepsilon(a_\varepsilon+b_\varepsilon)\dd t=2$,
+  \eqref{eq:Pint} can be rewritten as
+  \frac{P(p)}4=2-\varepsilon F(\varepsilon),\qquad
+  F(\varepsilon)=\int_0^1\Bigl(a_\varepsilon+b_\varepsilon-\sqrt{a_\varepsilon^2+b_\varepsilon^2}\Bigr)dt .
+
+Quoted verbatim (main.tex, Lemma lem:holo with eq:expansion):
+
+  $F$ extends to a holomorphic function on $\{\operatorname{Re}\varepsilon<1\}$. Hence
+  $P(p)/8=1+\varepsilon M(\varepsilon)$ with $M=-F/2$ holomorphic in $|\varepsilon|<1$, the expansion
+  P(p)=8\Bigl(1+\frac{M_0}{p}+\frac{M_1}{p^2}+\frac{M_2}{p^3}+\frac{M_3}{p^4}+\cdots\Bigr)
+  converges for every $p>1$, and $M_k=-F^{(k)}(0)/(2\,k!)$.
+
+Quoted verbatim (main.tex, proof of lem:holo):
+
+  By the symmetry $t\leftrightarrow1-t$, $F=2\int_0^{1/2}$. For $0<t\le\frac12$ put
+  $z=(b_\varepsilon/a_\varepsilon)^2=(t/(1-t))^{2-2\varepsilon}$. For $\operatorname{Re}\varepsilon<1$
+  we have $|z|\le1$, with equality only at $t=\frac12$, so
+  $\sqrt{a_\varepsilon^2+b_\varepsilon^2}:=a_\varepsilon\sqrt{1+z}$, with the principal branch of the
+  root ($1+z\notin(-\infty,0]$), is holomorphic in $\varepsilon$ and is the positive root for real
+  $\varepsilon$. Writing the integrand as $b_\varepsilon-b_\varepsilon^2/(a_\varepsilon(1+\sqrt{1+z}))$
+  and using $|b_\varepsilon|\le2^{1-\operatorname{Re}\varepsilon}\le|a_\varepsilon|$ bounds it by
+  $2^{2-\operatorname{Re}\varepsilon}$, uniformly on compact sets, so we may differentiate under the
+  integral sign.
+
+Quoted verbatim (main.tex, eq:M1t):
+
+  M_1=\int_0^1\frac{\log t}{t}\Bigl(\frac{1-t}{q}-1\Bigr)dt,\qquad q=\sqrt{t^2+(1-t)^2},
+
+## Conventions
+
+* Real side: `aR ε t = t^(ε-1)`, `bR ε t = (1-t)^(ε-1)` (real `rpow`; only `t ∈ (0,1)` matters,
+  the endpoints are a null set), `FR ε = ∫_0^1 (aR + bR - √(aR² + bR²))`, and
+  `Pint p = (4/p) ∫_0^1 √(t^(2/p-2) + (1-t)^(2/p-2))` exactly as in eq:Pint.
+  Every interval integral whose value is asserted is accompanied by an explicit
+  `IntervalIntegrable` claim, so no statement holds through Lean's "non-integrable ↦ 0" junk value.
+* Complex side (the proof of lem:holo): for `ε : ℂ` and real `t ∈ (0, 1/2]`,
+  `aC = t^(ε-1)`, `bC = (1-t)^(ε-1)` (complex `cpow` of a positive real base, i.e.
+  `exp((ε-1) log t)`), `zC = (t/(1-t))^(2-2ε)`, and the integrand is
+  `gC = aC + bC - aC · (1+zC)^(1/2)` with the principal branch `w^(1/2) = exp(log w / 2)`.
+  The holomorphic extension is `FC ε = 2 ∫_0^{1/2} gC ε t dt` (the paper's `F = 2∫_0^{1/2}`).
+* `M_k := -F^{(k)}(0)/(2 k!)` is `-(iteratedDeriv k FC 0) / (2 k!)` (complex derivatives of the
+  extension `FC`). Indexing checked against eq:expansion: `M(ε) = Σ_{k≥0} M_k ε^k`, so
+  `P/8 = 1 + ε M(ε) = 1 + Σ_{k≥0} M_k p^{-(k+1)}`, i.e. `M_0` goes with `1/p`, `M_1` with `1/p²`.
+
+## Statements
+
+* stmt_1: for real `0 < ε < 1`, `ε(aR + bR)` is integrable on `[0,1]` and `∫_0^1 ε(aR+bR) = 2`.
+* stmt_2: for real `p > 1`, `ε = 1/p`: both integrands are integrable on `[0,1]` and
+  `P(p)/4 = 2 - ε F(ε)` (eq:F).
+* stmt_3: the pointwise bound of the proof: `‖gC ε t‖ ≤ 2^(2 - Re ε)` for `0 < t ≤ 1/2`,
+  `Re ε < 1`.
+* stmt_4: for real `ε < 1`, the real integrand of `F` is integrable on `[0,1]` and the complex
+  extension agrees with it: `FC ε = FR ε`.
+* stmt_5: lem:holo, first sentence: `gC ε` is integrable on `[0,1/2]` for `Re ε < 1`, and `FC` is
+  holomorphic (`DifferentiableOn ℂ`) on `{Re ε < 1}`.
+* stmt_6: eq:expansion: for every real `p > 1`, `Σ_{k≥0} M_k / p^(k+1)` converges (`HasSum`) to
+  `P(p)/8 - 1`, with `M_k = -F^{(k)}(0)/(2 k!)`.
+* stmt_7: eq:M1t: `(log t / t)((1-t)/q - 1)` is integrable on `[0,1]` and
+  `M_1 = ∫_0^1 (log t / t)((1-t)/q - 1) dt`, `q = √(t² + (1-t)²)`.
+
+## NOT COVERED
+
+* "with equality only at t = 1/2" (`|z| = 1` iff `t = 1/2`) and "is the positive root for real ε"
+  are not stated separately; the latter is contained in stmt_4 (agreement with the real `F`).
+* "uniformly on compact sets, so we may differentiate under the integral sign" is the proof
+  method of stmt_5, not a separate claim.
+* "$M=-F/2$ holomorphic in $|\varepsilon|<1$" is not stated separately: it follows from stmt_5
+  since the unit disk lies in `{Re ε < 1}`.
+* The identification `κ = 8 M_1` with Ahmed's constant (a citation) is not formalized.
+-/
+-- BEGIN STATEMENTS
+namespace W02
+
+open MeasureTheory Real
+
+/-- `a_ε(t) = t^(ε-1)` (real). -/
+noncomputable def aR (ε t : ℝ) : ℝ := t ^ (ε - 1)
+
+/-- `b_ε(t) = (1-t)^(ε-1)` (real). -/
+noncomputable def bR (ε t : ℝ) : ℝ := (1 - t) ^ (ε - 1)
+
+/-- The integrand of `F` for real `ε`: `a + b - √(a² + b²)`. -/
+noncomputable def gR (ε t : ℝ) : ℝ := aR ε t + bR ε t - Real.sqrt (aR ε t ^ 2 + bR ε t ^ 2)
+
+/-- eq:F, real `ε`: `F(ε) = ∫_0^1 (a + b - √(a² + b²)) dt`. -/
+noncomputable def FR (ε : ℝ) : ℝ := ∫ t in (0 : ℝ)..1, gR ε t
+
+/-- The integrand of eq:Pint: `√(t^(2/p-2) + (1-t)^(2/p-2))`. -/
+noncomputable def pIntegrand (p t : ℝ) : ℝ :=
+  Real.sqrt (t ^ (2 / p - 2) + (1 - t) ^ (2 / p - 2))
+
+/-- eq:Pint: `P(p) = (4/p) ∫_0^1 √(t^(2/p-2) + (1-t)^(2/p-2)) dt`. -/
+noncomputable def Pint (p : ℝ) : ℝ := 4 / p * ∫ t in (0 : ℝ)..1, pIntegrand p t
+
+/-- `a_ε(t) = t^(ε-1)` for complex `ε` (cpow of the positive real `t`). -/
+noncomputable def aC (ε : ℂ) (t : ℝ) : ℂ := (t : ℂ) ^ (ε - 1)
+
+/-- `b_ε(t) = (1-t)^(ε-1)` for complex `ε`. -/
+noncomputable def bC (ε : ℂ) (t : ℝ) : ℂ := ((1 - t : ℝ) : ℂ) ^ (ε - 1)
+
+/-- `z = (t/(1-t))^(2-2ε)`. -/
+noncomputable def zC (ε : ℂ) (t : ℝ) : ℂ := ((t / (1 - t) : ℝ) : ℂ) ^ (2 - 2 * ε)
+
+/-- The complex integrand on `(0, 1/2]`: `a + b - a √(1+z)`, principal branch of the root. -/
+noncomputable def gC (ε : ℂ) (t : ℝ) : ℂ :=
+  aC ε t + bC ε t - aC ε t * (1 + zC ε t) ^ (1 / 2 : ℂ)
+
+/-- The extension of `F` from the proof of lem:holo: `F(ε) = 2 ∫_0^{1/2} gC ε t dt`. -/
+noncomputable def FC (ε : ℂ) : ℂ := 2 * ∫ t in (0 : ℝ)..(1 / 2), gC ε t
+
+/-- `M_k = -F^{(k)}(0) / (2 k!)`. -/
+noncomputable def Mk (k : ℕ) : ℂ := -(iteratedDeriv k FC 0) / (2 * (Nat.factorial k : ℂ))
+
+/-- `q = √(t² + (1-t)²)` of eq:M1t. -/
+noncomputable def q (t : ℝ) : ℝ := Real.sqrt (t ^ 2 + (1 - t) ^ 2)
+
+/-- Text before eq:F: "$\int_0^1\varepsilon(a_\varepsilon+b_\varepsilon)\dd t=2$", for real
+`0 < ε < 1` (that is, `p > 1`), with the integrability. -/
+def stmt_1 : Prop :=
+  ∀ ε : ℝ, 0 < ε → ε < 1 →
+    IntervalIntegrable (fun t => ε * (aR ε t + bR ε t)) volume 0 1 ∧
+      ∫ t in (0 : ℝ)..1, ε * (aR ε t + bR ε t) = 2
+
+/-- eq:F: "$\frac{P(p)}4=2-\varepsilon F(\varepsilon)$" for real `p > 1`, `ε = 1/p`, with the
+integrability of both integrands. -/
+def stmt_2 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    IntervalIntegrable (pIntegrand p) volume 0 1 ∧
+      IntervalIntegrable (gR (1 / p)) volume 0 1 ∧
+      Pint p / 4 = 2 - (1 / p) * FR (1 / p)
+
+/-- Proof of lem:holo: for `0 < t ≤ 1/2` and `Re ε < 1` the integrand (with the branch
+`a √(1+z)`) is bounded by `2^(2 - Re ε)`. -/
+def stmt_3 : Prop :=
+  ∀ ε : ℂ, ε.re < 1 → ∀ t : ℝ, 0 < t → t ≤ 1 / 2 →
+    ‖gC ε t‖ ≤ (2 : ℝ) ^ (2 - ε.re)
+
+/-- Proof of lem:holo: the branch "is the positive root for real ε", and "$F=2\int_0^{1/2}$":
+for real `ε < 1` the real integrand is integrable on `[0,1]` and the extension `FC` agrees with
+the real `F`. -/
+def stmt_4 : Prop :=
+  ∀ ε : ℝ, ε < 1 →
+    IntervalIntegrable (gR ε) volume 0 1 ∧ FC (ε : ℂ) = ((FR ε : ℝ) : ℂ)
+
+/-- lem:holo: "$F$ extends to a holomorphic function on $\{\operatorname{Re}\varepsilon<1\}$",
+with the integrability of the complex integrand on `[0, 1/2]`. -/
+def stmt_5 : Prop :=
+  (∀ ε : ℂ, ε.re < 1 → IntervalIntegrable (gC ε) volume 0 (1 / 2)) ∧
+    DifferentiableOn ℂ FC {ε : ℂ | ε.re < 1}
+
+/-- lem:holo, eq:expansion: "$P(p)=8(1+\frac{M_0}{p}+\frac{M_1}{p^2}+\cdots)$ converges for every
+$p>1$", with `M_k = -F^{(k)}(0)/(2 k!)`. Stated as `Σ_{k≥0} M_k / p^(k+1) = P(p)/8 - 1`. -/
+def stmt_6 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    HasSum (fun k : ℕ => Mk k / (p : ℂ) ^ (k + 1)) ((Pint p / 8 - 1 : ℝ) : ℂ)
+
+/-- eq:M1t: "$M_1=\int_0^1\frac{\log t}{t}\Bigl(\frac{1-t}{q}-1\Bigr)dt$", with the integrability. -/
+def stmt_7 : Prop :=
+  IntervalIntegrable (fun t => Real.log t / t * ((1 - t) / q t - 1)) volume 0 1 ∧
+    Mk 1 = (((∫ t in (0 : ℝ)..1, Real.log t / t * ((1 - t) / q t - 1)) : ℝ) : ℂ)
+
+end W02

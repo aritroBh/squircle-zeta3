@@ -1,0 +1,210 @@
+import Mathlib
+/-!
+# X05 — `a_4` and `a_5` at the diamond, as genuine derivatives of the perimeter
+
+Target id: X05.
+Paper labels: `prop:an` (main.tex lines 1163–1174), `thm:pw` (main.tex lines 1183–1195),
+the derivation "Steps 1–4" of Section `sec:diamond` (main.tex lines 1099–1131), the
+perimeter integral `eq:Pint` (main.tex lines 825–827), and the detailed proof of `thm:pw` in
+paper/ieee/proofs/sec_pureweight.tex (Lemmas `lem:pw:logA`, `lem:pw:remainder`,
+`lem:pw:asymp`, `prop:pw:rhombus` with `q = 0`, and the table of Section `sec:pw:series`).
+
+Quoted verbatim.
+
+main.tex 825–827:
+
+  parametrize the quarter arc in the first quadrant by $x=t^{1/p}$, $y=(1-t)^{1/p}$,
+  $0\le t\le1$. Then $x^p+y^p=1$, and the arc-length formula gives
+  P(p)=\frac4p\int_0^1\sqrt{t^{2/p-2}+(1-t)^{2/p-2}}\;dt .
+
+main.tex 1102–1105 (Step 1):
+
+  Put $\eta=\frac1p-1$ ... Let's factor out $[t(1-t)]^{\eta/2}$ and use the logit coordinate
+  $l=\log\frac{t}{1-t}$. ...
+  P(p)=4\sqrt2\,(1+\eta)\int_0^1\bigl(t(1-t)\bigr)^{\eta/2}\sqrt{\cosh(\eta l)}\;dt
+  exactly, for every $p>0$. At $\eta=0$ the integrand is $1$ and $P(1)=4\sqrt2$.
+
+main.tex 1108–1112 (Step 2):
+
+  A(\eta,s)&=(1+\eta)\int_0^1\bigl(t(1-t)\bigr)^{\eta/2}e^{sl}\dd t\\
+  &=\frac{\Gamma\bigl(1+\frac\eta2+s\bigr)\,\Gamma\bigl(1+\frac\eta2-s\bigr)}{\Gamma(1+\eta)} .
+
+main.tex 1119–1124 (Step 3):
+
+  \log\Gamma(1+x)=-\gamma x+\sum_{n\ge2}\frac{(-1)^n\zeta(n)}{n}x^n\qquad(|x|<1).
+  ...
+  \log A(\eta,s)=\sum_{n\ge2}\frac{(-1)^n\zeta(n)}{n}\Bigl[\Bigl(\frac\eta2+s\Bigr)^n
+     +\Bigl(\frac\eta2-s\Bigr)^n-\eta^n\Bigr]
+
+main.tex 1164–1168 (`prop:an`):
+
+  Let $a_n=P^{(n)}(1)/(\sqrt2\,n!)$, the Taylor coefficients of $P(1+d)/\sqrt2$ at $d=0$
+  (the series diverges, by Theorem~\ref{thm:zero}). Then $a_0=4$, $a_1=0$, $a_2=\pi^2/6$,
+  $a_3=\zeta(3)-\pi^2/3$,
+  \begin{gather*}
+  a_4=-3\zeta(3)-\frac{11\pi^4}{480}+\frac{\pi^2}{2},\\
+  a_5=-\frac{7\pi^2\zeta(3)}{24}+6\zeta(3)-\frac{3\zeta(5)}{4}-\frac{2\pi^2}{3}+\frac{11\pi^4}{120},
+  \end{gather*}
+
+main.tex 1186–1189 (`thm:pw`, the displayed series; `\tau=1-\frac1p` from line 1181):
+
+  \frac{P}{\sqrt2}=4+\zeta(2)\tau^2+\zeta(3)\tau^3-\frac{33}{16}\zeta(4)\tau^4\\
+  -\Bigl(\frac34\zeta(5)+\frac74\zeta(2)\zeta(3)\Bigr)\tau^5+O(\tau^6).
+
+sec_pureweight.tex (Lemma `lem:pw:remainder`, `lem:pw:asymp`, table of `sec:pw:series`):
+
+  \Bigl|g(z)-\sum_{m<M}g_mz^m\Bigr|\le C_M|z|^M\eu^{|z|/2}.
+  \frac{P_{A,B}(p)}{4r}=\sum_{m<M,\ m\ \mathrm{even}}g_m(q)\,\eta^m\,\partial_s^m\Psi(\eta,0)+O(|\eta|^M).
+  For $q=0$: $g_0=1$, $g_2=\frac14$, $g_4=-\frac1{96}$.
+  (table) weight 2: -\tfrac14Z_2, 2Z_2; weight 3: \tfrac14Z_3, -2Z_3;
+  weight 4: \tfrac1{32}Z_2^2-\tfrac7{32}Z_4, -\tfrac12Z_2^2+\tfrac32Z_4, 12Z_2^2+12Z_4;
+  weight 5: -\tfrac1{16}Z_2Z_3+\tfrac3{16}Z_5, Z_2Z_3-Z_5, -24Z_2Z_3-24Z_5
+
+Formalization choices.
+* `ζ(n)` is `(riemannZeta n).re`, the real part of Mathlib's complex `riemannZeta` (for
+  `n ≥ 2` it is real and equals `∑ 1/k^n`, by `zeta_nat_eq_tsum_of_gt_one`). As the job allows,
+  `ζ(2)` and `ζ(4)` are written `π²/6` and `π⁴/90` (Mathlib `riemannZeta_two`,
+  `riemannZeta_four`); `ζ(3)`, `ζ(5)` are `z 3`, `z 5`; in stmt_3 the general `ζ(n)` is `z n`.
+* `P` is the paper's `eq:Pint` with `Real.rpow`. For `p > 0` the integrand is
+  `≤ t^{1/p-1} + (1-t)^{1/p-1}`, integrable, so the `intervalIntegral` is not a junk value;
+  stmt_1 records this integrability. The conventions `0^x` and `log 0 = 0` affect only the
+  endpoints `t = 0, 1` (measure zero).
+* `A η s` is the paper's `A(η,s)` (supplement: `Ψ(η,s)`), defined by the integral; stmt_2 is
+  the Beta evaluation, for `η > -1`, `|s| < 1 + η/2` (where the integral converges).
+* Derivatives: `a n = iteratedDeriv n P 1 / (√2 · n!)`. Because `iteratedDeriv` is `0` at
+  non-differentiable points, stmt_8 states that `P` is `C^n` at `1` for every `n`; this is the
+  paper's "Differentiating under the integral is justified by an integrable bound"
+  (proof of `thm:rhombus`), and it makes stmt_9–stmt_11 statements about genuine derivatives.
+* All `O(·)` claims are explicit: `∃ C (and a radius δ)`, `|error| ≤ C · |var|^k` on the
+  two-sided neighbourhood (the supplement's Lemma `lem:pw:asymp` is two-sided, `|η| ≤ 1/4`).
+  In stmt_5 the point `p = 1/(1+η)` is the inverse of `η = 1/p - 1`.
+* `∂_s^m A(η,0)` is `iteratedDeriv m (fun s => A η s) 0`.
+
+Statements.
+* stmt_1: Step 1, the exact representation, for every `p > 0` (plus integrability).
+* stmt_2: Step 2, the Beta moments `A(η,s) = Γ(1+η/2+s)Γ(1+η/2-s)/Γ(1+η)`.
+* stmt_3: Step 3 / Lemma `lem:pw:logA`, the series for `log A(η,s)`, `|η|,|s| < 1/2`.
+* stmt_4: Lemma `lem:pw:remainder` at `q = 0`, `M = 6`:
+  `|√cosh z - (1 + z²/4 - z⁴/96)| ≤ C |z|^6 e^{|z|/2}` for real `z`.
+* stmt_5: Lemma `lem:pw:asymp` at `q = 0`, `M = 6`.
+* stmt_6: the moment table (q = 0, weights ≤ 5) as explicit expansions of `A(η,0)`,
+  `∂_s²A(η,0)`, `∂_s⁴A(η,0)` in `η`.
+* stmt_7: the displayed `τ`-series of `thm:pw` through `τ^5` with an explicit `O(τ^6)`.
+* stmt_8: `P` is `C^n` at `p = 1` for every `n`.
+* stmt_9: `a_0 = 4`, `a_1 = 0`, `a_2 = π²/6`, `a_3 = ζ(3) - π²/3`.
+* stmt_10: `a_4 = -3ζ(3) - 11π⁴/480 + π²/2`.
+* stmt_11: `a_5 = -7π²ζ(3)/24 + 6ζ(3) - 3ζ(5)/4 - 2π²/3 + 11π⁴/120` (the final claim).
+
+NOT COVERED: the parenthetical divergence of the Taylor series (`thm:zero`); `a_6`, `a_7`
+(Table `tab:closed`); the general polynomial/weight claims and the `ω_n` formula of
+`prop:an`; the general-order `log(P/4√2) = Σ w_k τ^k` purity claim of `thm:pw`, its rhombus
+(`q ≠ 0`) and `N`-dimensional parts; the logarithmic form `w_2, …, w_5` (only the expansion of
+`P/√2` itself is stated).
+-/
+-- BEGIN STATEMENTS
+namespace X05
+
+open Real
+
+/-- `ζ(n)` as a real number: the real part of Mathlib's `riemannZeta n`. -/
+noncomputable def z (n : ℕ) : ℝ := (riemannZeta n).re
+
+/-- The perimeter integral `eq:Pint`:
+`P(p) = (4/p) ∫_0^1 sqrt(t^{2/p-2} + (1-t)^{2/p-2}) dt`. -/
+noncomputable def P (p : ℝ) : ℝ :=
+  4 / p * ∫ t in (0 : ℝ)..1, Real.sqrt (t ^ (2 / p - 2) + (1 - t) ^ (2 / p - 2))
+
+/-- The logit coordinate `l = log (t/(1-t))`. -/
+noncomputable def logit (t : ℝ) : ℝ := Real.log (t / (1 - t))
+
+/-- Step 2: `A(η,s) = (1+η) ∫_0^1 (t(1-t))^{η/2} e^{s l} dt`. -/
+noncomputable def A (η s : ℝ) : ℝ :=
+  (1 + η) * ∫ t in (0 : ℝ)..1, (t * (1 - t)) ^ (η / 2) * Real.exp (s * logit t)
+
+/-- `a_n = P^{(n)}(1) / (√2 n!)` (`prop:an`). -/
+noncomputable def a (n : ℕ) : ℝ := iteratedDeriv n P 1 / (Real.sqrt 2 * (n.factorial : ℝ))
+
+/-- Step 1 (main.tex 1102–1105): for every `p > 0`, with `η = 1/p - 1`,
+`P(p) = 4√2 (1+η) ∫_0^1 (t(1-t))^{η/2} sqrt(cosh(η l)) dt`; the integrand of `eq:Pint` is
+integrable on `[0,1]`. -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, 0 < p →
+    IntervalIntegrable (fun t : ℝ => Real.sqrt (t ^ (2 / p - 2) + (1 - t) ^ (2 / p - 2)))
+      MeasureTheory.volume 0 1 ∧
+    P p = 4 * Real.sqrt 2 * (1 + (1 / p - 1)) *
+      ∫ t in (0 : ℝ)..1,
+        (t * (1 - t)) ^ ((1 / p - 1) / 2) * Real.sqrt (Real.cosh ((1 / p - 1) * logit t))
+
+/-- Step 2 (main.tex 1108–1112): the Beta moments
+`A(η,s) = Γ(1+η/2+s) Γ(1+η/2-s) / Γ(1+η)` for `η > -1`, `|s| < 1 + η/2`. -/
+def stmt_2 : Prop :=
+  ∀ η s : ℝ, -1 < η → |s| < 1 + η / 2 →
+    A η s = Real.Gamma (1 + η / 2 + s) * Real.Gamma (1 + η / 2 - s) / Real.Gamma (1 + η)
+
+/-- Step 3 (main.tex 1121–1124; supplement Lemma `lem:pw:logA`): for `|η| < 1/2`, `|s| < 1/2`,
+`log A(η,s) = Σ_{n≥2} (-1)^n ζ(n)/n [(η/2+s)^n + (η/2-s)^n - η^n]` (Euler's `γ` cancels). -/
+def stmt_3 : Prop :=
+  ∀ η s : ℝ, |η| < 1 / 2 → |s| < 1 / 2 →
+    0 < A η s ∧
+    HasSum (fun k : ℕ => (-1 : ℝ) ^ (k + 2) * z (k + 2) / ((k + 2 : ℕ) : ℝ) *
+        ((η / 2 + s) ^ (k + 2) + (η / 2 - s) ^ (k + 2) - η ^ (k + 2)))
+      (Real.log (A η s))
+
+/-- Supplement Lemma `lem:pw:remainder` with `q = 0`, `M = 6` (`g_0 = 1`, `g_2 = 1/4`,
+`g_4 = -1/96`, odd `g_m = 0`): `|√cosh z - (1 + z²/4 - z⁴/96)| ≤ C |z|^6 e^{|z|/2}`. -/
+def stmt_4 : Prop :=
+  ∃ C : ℝ, ∀ x : ℝ,
+    |Real.sqrt (Real.cosh x) - (1 + x ^ 2 / 4 - x ^ 4 / 96)| ≤ C * |x| ^ 6 * Real.exp (|x| / 2)
+
+/-- Supplement Lemma `lem:pw:asymp` with `q = 0`, `M = 6`: for `|η| ≤ 1/4` and `p = 1/(1+η)`,
+`P(p)/(4√2) = A(η,0) + (1/4) η² ∂_s²A(η,0) - (1/96) η⁴ ∂_s⁴A(η,0) + O(|η|^6)`
+(main.tex 1114–1116: "as an identity at every finite order"). -/
+def stmt_5 : Prop :=
+  ∃ C : ℝ, ∀ η : ℝ, |η| ≤ 1 / 4 →
+    |P (1 / (1 + η)) / (4 * Real.sqrt 2) -
+        (A η 0 + 1 / 4 * η ^ 2 * iteratedDeriv 2 (fun s => A η s) 0
+          - 1 / 96 * η ^ 4 * iteratedDeriv 4 (fun s => A η s) 0)| ≤ C * |η| ^ 6
+
+/-- The moment table of sec_pureweight.tex (Section `sec:pw:series`, from Lemma
+`lem:pw:logA`), with `ζ(2) = π²/6`, `ζ(4) = π⁴/90`:
+`A(η,0) = 1 - ζ2/4 η² + ζ3/4 η³ + (ζ2²/32 - 7ζ4/32) η⁴ + (-ζ2ζ3/16 + 3ζ5/16) η⁵ + O(η⁶)`,
+`∂_s²A(η,0) = 2ζ2 - 2ζ3 η + (-ζ2²/2 + 3ζ4/2) η² + (ζ2ζ3 - ζ5) η³ + O(η⁴)`,
+`∂_s⁴A(η,0) = 12ζ2² + 12ζ4 + O(η)` (main.tex 1128 gives the first two to lower order). -/
+def stmt_6 : Prop :=
+  ∃ C δ : ℝ, 0 < δ ∧ ∀ η : ℝ, |η| ≤ δ →
+    |A η 0 - (1 - (π ^ 2 / 6) / 4 * η ^ 2 + z 3 / 4 * η ^ 3
+        + ((π ^ 2 / 6) ^ 2 / 32 - 7 * (π ^ 4 / 90) / 32) * η ^ 4
+        + (-(π ^ 2 / 6) * z 3 / 16 + 3 * z 5 / 16) * η ^ 5)| ≤ C * |η| ^ 6 ∧
+    |iteratedDeriv 2 (fun s => A η s) 0 - (2 * (π ^ 2 / 6) - 2 * z 3 * η
+        + (-(π ^ 2 / 6) ^ 2 / 2 + 3 * (π ^ 4 / 90) / 2) * η ^ 2
+        + ((π ^ 2 / 6) * z 3 - z 5) * η ^ 3)| ≤ C * |η| ^ 4 ∧
+    |iteratedDeriv 4 (fun s => A η s) 0 - (12 * (π ^ 2 / 6) ^ 2 + 12 * (π ^ 4 / 90))|
+      ≤ C * |η|
+
+/-- `thm:pw`, displayed series (main.tex 1186–1189), with `τ = 1 - 1/p` on both sides of
+`p = 1`: `P/√2 = 4 + ζ(2)τ² + ζ(3)τ³ - (33/16)ζ(4)τ⁴ - (3/4 ζ(5) + 7/4 ζ(2)ζ(3))τ⁵ + O(τ⁶)`. -/
+def stmt_7 : Prop :=
+  ∃ C δ : ℝ, 0 < δ ∧ ∀ p : ℝ, 0 < p → |1 - 1 / p| ≤ δ →
+    |P p / Real.sqrt 2 - (4 + (π ^ 2 / 6) * (1 - 1 / p) ^ 2 + z 3 * (1 - 1 / p) ^ 3
+        - 33 / 16 * (π ^ 4 / 90) * (1 - 1 / p) ^ 4
+        - (3 / 4 * z 5 + 7 / 4 * (π ^ 2 / 6) * z 3) * (1 - 1 / p) ^ 5)|
+      ≤ C * |1 - 1 / p| ^ 6
+
+/-- `P` is `C^n` at `p = 1` for every `n` (proof of `thm:rhombus`: "Differentiating under the
+integral is justified by an integrable bound"); so `P^{(n)}(1)` are genuine derivatives. -/
+def stmt_8 : Prop :=
+  ∀ n : ℕ, ContDiffAt ℝ n P 1
+
+/-- `prop:an`: `a_0 = 4`, `a_1 = 0`, `a_2 = π²/6`, `a_3 = ζ(3) - π²/3`. -/
+def stmt_9 : Prop :=
+  a 0 = 4 ∧ a 1 = 0 ∧ a 2 = π ^ 2 / 6 ∧ a 3 = z 3 - π ^ 2 / 3
+
+/-- `prop:an`: `a_4 = -3ζ(3) - 11π⁴/480 + π²/2`. -/
+def stmt_10 : Prop :=
+  a 4 = -3 * z 3 - 11 * π ^ 4 / 480 + π ^ 2 / 2
+
+/-- `prop:an`: `a_5 = -7π²ζ(3)/24 + 6ζ(3) - 3ζ(5)/4 - 2π²/3 + 11π⁴/120`. -/
+def stmt_11 : Prop :=
+  a 5 = -(7 * π ^ 2 * z 3) / 24 + 6 * z 3 - 3 * z 5 / 4 - 2 * π ^ 2 / 3 + 11 * π ^ 4 / 120
+
+end X05

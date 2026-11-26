@@ -1,0 +1,92 @@
+import Mathlib
+import Zeta3.Wave2.D00_Dilog
+/-!
+# D02 -- the dilogarithm values at `√2`-arguments (Lemma `lem:dilog`)
+
+Target id: D02.
+Paper label: `lem:dilog` (paper/ieee/main.tex, lines 2332-2343), Appendix "Proof of Theorem
+thm:M1". Setup: main.tex line 875 (`L = log a`, `λ = log 2`, with `a = 1+√2`, see the caption at
+main.tex 918: "$a=1+\sqrt2$, $b=\sqrt2-1$, $L=\log a$, $\lambda=\log2$"), and main.tex 2325
+("We use the dilogarithm on $(-\infty,1]$ ...").
+
+Quoted verbatim (main.tex 2332-2343):
+
+  \begin{lemma}\label{lem:dilog}
+  With $b=\sqrt2-1$,
+  \begin{align*}
+  \Li_2(b)-\Li_2(-b)&=\tfrac{\pi^2}{8}-\tfrac12L^2,\\
+  \Li_2(b^2)&=4\Li_2(b)-\tfrac{\pi^2}{4}+L^2,\\
+  \Li_2(2-\sqrt2)&=-\Li_2(b)+\tfrac{\pi^2}{6}+\tfrac12\lambda L-L^2,\\
+  \Li_2(-\sqrt2)&=\Li_2(b)-\tfrac{\pi^2}{6}-\tfrac12\lambda L+\tfrac12L^2,\\
+  \Li_2(-b^2)&=6\Li_2(b)-\tfrac{11\pi^2}{24}+2L^2,\\
+  \Li_2\bigl(\tfrac{2+\sqrt2}{4}\bigr)&=6\Li_2(b)-\tfrac{7\pi^2}{24}-\tfrac98\lambda^2\\
+  &\quad-\tfrac32\lambda L+\tfrac72L^2.
+  \end{align*}
+  \end{lemma}
+
+Quoted verbatim (main.tex 875): L=\log a,\qquad \lambda=\log2 .
+
+The align environment has seven printed lines but six identities: the last identity spans the
+last two printed lines (the `\quad` continuation). Each identity is its own statement
+(stmt_1 .. stmt_6). `Li_2` is `D00.Li2` throughout.
+
+Argument check: the arguments are `b ≈ 0.414`, `-b`, `b² ≈ 0.172`, `2-√2 ≈ 0.586`, `-√2`,
+`-b² `, `(2+√2)/4 ≈ 0.854`; all lie in `(-∞,1]` (indeed in `(-∞,1)`), where `D00.Li2` is the
+genuine real dilogarithm. stmt_7 records this as a formal claim.
+
+Numerical sanity check (Simpson quadrature of the defining integral, double precision): all six
+differences are below `4e-14`.
+
+NOT COVERED: nothing of the lemma's statement is omitted. (The proof's intermediate identities,
+e.g. the five-term instance, are not stated separately; they belong to the proof.)
+-/
+-- BEGIN STATEMENTS
+namespace D02
+
+open Real
+
+/-- `b = √2 - 1` (main.tex 2333). -/
+noncomputable def b : ℝ := Real.sqrt 2 - 1
+
+/-- `a = 1 + √2` (main.tex 918). -/
+noncomputable def a : ℝ := 1 + Real.sqrt 2
+
+/-- `L = log a` (main.tex 875). -/
+noncomputable def L : ℝ := Real.log a
+
+/-- `λ = log 2` (main.tex 875). -/
+noncomputable def lam : ℝ := Real.log 2
+
+/-- Line 1: `Li₂(b) - Li₂(-b) = π²/8 - ½L²`. -/
+def stmt_1 : Prop :=
+  D00.Li2 b - D00.Li2 (-b) = π ^ 2 / 8 - (1 / 2) * L ^ 2
+
+/-- Line 2: `Li₂(b²) = 4Li₂(b) - π²/4 + L²`. -/
+def stmt_2 : Prop :=
+  D00.Li2 (b ^ 2) = 4 * D00.Li2 b - π ^ 2 / 4 + L ^ 2
+
+/-- Line 3: `Li₂(2-√2) = -Li₂(b) + π²/6 + ½λL - L²`. -/
+def stmt_3 : Prop :=
+  D00.Li2 (2 - Real.sqrt 2) = -D00.Li2 b + π ^ 2 / 6 + (1 / 2) * lam * L - L ^ 2
+
+/-- Line 4: `Li₂(-√2) = Li₂(b) - π²/6 - ½λL + ½L²`. -/
+def stmt_4 : Prop :=
+  D00.Li2 (-Real.sqrt 2) = D00.Li2 b - π ^ 2 / 6 - (1 / 2) * lam * L + (1 / 2) * L ^ 2
+
+/-- Line 5: `Li₂(-b²) = 6Li₂(b) - 11π²/24 + 2L²`. -/
+def stmt_5 : Prop :=
+  D00.Li2 (-b ^ 2) = 6 * D00.Li2 b - 11 * π ^ 2 / 24 + 2 * L ^ 2
+
+/-- Lines 6-7 (one identity): `Li₂((2+√2)/4) = 6Li₂(b) - 7π²/24 - 9/8 λ² - 3/2 λL + 7/2 L²`. -/
+def stmt_6 : Prop :=
+  D00.Li2 ((2 + Real.sqrt 2) / 4)
+    = 6 * D00.Li2 b - 7 * π ^ 2 / 24 - (9 / 8) * lam ^ 2 - (3 / 2) * lam * L
+      + (7 / 2) * L ^ 2
+
+/-- Every argument of `Li₂` in the lemma lies in `(-∞,1]`, the paper's domain of the real
+dilogarithm (main.tex 2325). -/
+def stmt_7 : Prop :=
+  b ≤ 1 ∧ -b ≤ 1 ∧ b ^ 2 ≤ 1 ∧ 2 - Real.sqrt 2 ≤ 1 ∧ -Real.sqrt 2 ≤ 1 ∧ -b ^ 2 ≤ 1 ∧
+    (2 + Real.sqrt 2) / 4 ≤ 1
+
+end D02

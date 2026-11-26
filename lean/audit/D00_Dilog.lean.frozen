@@ -1,0 +1,158 @@
+import Mathlib
+/-!
+# D00 -- the real dilogarithm library
+
+Target id: D00.
+Paper labels served: `lem:dilog` (its proof), `thm:M1`, `prop:M1short`, `thm:M2` eq. `(T)`,
+`thm:Malpha`. This file supplies the real dilogarithm and the classical identities that the
+paper's proofs use; it does not itself state any of the paper's theorems.
+
+Quoted verbatim (main.tex 2325, Appendix "Proof of Theorem thm:M1"):
+
+  We use the dilogarithm on $(-\infty,1]$, its real part for arguments above $1$, and the
+  classical identities~\cite{Lewin81,Zagier}: reflection
+  $\Li_2(z)+\Li_2(1-z)=\frac{\pi^2}{6}-\log z\log(1-z)$ ($0<z<1$); inversion
+  $\Li_2(z)+\Li_2(1/z)=-\frac{\pi^2}{6}-\frac12\log^2(-z)$ ($z<0$) and
+  $\operatorname{Re}\Li_2(z)+\Li_2(1/z)=\frac{\pi^2}3-\frac12\log^2z$ ($z>1$); Landen
+  $\Li_2(z)+\Li_2(\frac{z}{z-1})=-\frac12\log^2(1-z)$ ($z<1$); duplication
+  $\Li_2(w^2)=2\Li_2(w)+2\Li_2(-w)$; and Abel's five-term relation
+  \begin{multline*}
+  \Li_2\Bigl(\frac{x}{1-y}\Bigr)+\Li_2\Bigl(\frac{y}{1-x}\Bigr)-\Li_2\Bigl(\frac{xy}{(1-x)(1-y)}\Bigr)\\
+  =\Li_2(x)+\Li_2(y)+\log(1-x)\log(1-y)
+  \end{multline*}
+  on $\{x<1,\ y<1,\ x+y<1\}$.
+
+Quoted verbatim (main.tex 2346, proof of `lem:dilog`):
+
+  For the first line, $\chi_2(x)=\frac12(\Li_2(x)-\Li_2(-x))$ satisfies Landen's identity
+  $\chi_2(\frac{1-x}{1+x})+\chi_2(x)=\frac{\pi^2}8+\frac12\log x\log\frac{1+x}{1-x}$, and $x=b$
+  is its fixed point, with $\frac{1+b}{1-b}=a$. The second line is duplication at $w=b$. The
+  third is reflection at $z=1-b$. The fourth is Landen at $z=-\sqrt2$. The fifth is the
+  five-term relation at $(x,y)=(-\sqrt2,1-\sqrt2)$ ...
+
+Quoted verbatim (main.tex 877): We use $\Li_n(z)=\sum_{k\ge1}z^k/k^n$, ...
+Quoted verbatim (main.tex 904, eq. (T)):
+  T=\frac{\pi^2+6\lambda^2}{24}=\frac{\zeta(2)-\Li_2(\frac12)}{2}
+
+## Definition
+
+`Li2 x = -∫_0^x log(1-t)/t dt` (interval integral, `Real.log`).
+* For `x ≤ 1` this is the genuine real dilogarithm (the integrand extends continuously to
+  `t = 0` with value `-1`; at `x = 1` it has an integrable log singularity at `t = 1`).
+  For `x < 0` the oriented interval integral gives the standard analytic continuation.
+* For `x > 1`, because `Real.log` is `log |·|`, the integrand is `log|1-t|/t`, still integrable,
+  and `Li2 x` equals `Re Li₂(x)` -- exactly the paper's convention "its real part for arguments
+  above 1". So `Li2` is meaningful on all of `ℝ`; only `stmt_12` uses it above 1.
+* `stmt_1` asserts the integrand is interval integrable on `[0,x]` for every real `x`, so the
+  definition never falls back on Lean's "non-integrable ⇒ 0" convention.
+
+`chi2 x = (Li2 x - Li2 (-x))/2` (Legendre chi, the paper's `χ_2`).
+
+## Statements
+
+* stmt_1: integrability of `t ↦ log(1-t)/t` on `[0,x]` for every real `x`.
+* stmt_2: `Li2 0 = 0`.
+* stmt_3: `Li2` is continuous on `(-∞,1]`.
+* stmt_4: `HasDerivAt Li2 (-log(1-x)/x) x` for `x < 1`, `x ≠ 0`.
+* stmt_5: `HasDerivAt Li2 1 0`.
+* stmt_6: power series `Σ_{n≥0} x^(n+1)/(n+1)^2 = Li2 x` (`HasSum`) for `|x| ≤ 1`.
+* stmt_7: `Li2 1 = π²/6`.
+* stmt_8: `Li2 (-1) = -π²/12`.
+* stmt_9: reflection, `0 < x < 1`.
+* stmt_10: Landen, `x < 1`.
+* stmt_11: inversion, `x < 0`.
+* stmt_12: inversion above 1 (real part), `x > 1`: `Li2 x + Li2 (1/x) = π²/3 - ½ log² x`.
+* stmt_13: duplication `Li2 x + Li2 (-x) = ½ Li2 (x²)` for `|x| ≤ 1` (the paper's
+  `Li2(w²) = 2Li2(w) + 2Li2(-w)`; the paper gives no domain, we use `|w| ≤ 1`, where all three
+  arguments are in `[-1,1]`).
+* stmt_14: `Li2 (1/2) = π²/12 - ½ log² 2`.
+* stmt_15: the Legendre-chi ("Landen") identity, `0 < x < 1`.
+* stmt_16: Abel's five-term relation on `{x < 1, y < 1, x + y < 1}`.
+
+NOT COVERED: the complex dilogarithm; `Li_n` for `n ≥ 3`; duplication for `|w| > 1`
+(not needed: the paper applies it at `w = b = √2-1`); the specific evaluations of `lem:dilog`
+(those belong to the files of `thm:M1`, which import this one).
+-/
+-- BEGIN STATEMENTS
+namespace D00
+
+open Real
+
+/-- The real dilogarithm `Li₂(x) = -∫_0^x log(1-t)/t dt`; genuine on `(-∞,1]`, equal to
+`Re Li₂(x)` for `x > 1` (since `Real.log` is `log |·|`). -/
+noncomputable def Li2 (x : ℝ) : ℝ := -∫ t in (0 : ℝ)..x, Real.log (1 - t) / t
+
+/-- Legendre's chi function `χ₂(x) = ½(Li₂(x) - Li₂(-x))` (main.tex 2346). -/
+noncomputable def chi2 (x : ℝ) : ℝ := (Li2 x - Li2 (-x)) / 2
+
+/-- The defining integrand is integrable on every `[0,x]`, so `Li2` never uses the
+junk value `0` of a non-integrable interval integral. -/
+def stmt_1 : Prop :=
+  ∀ x : ℝ, IntervalIntegrable (fun t : ℝ => Real.log (1 - t) / t) MeasureTheory.volume 0 x
+
+/-- `Li₂(0) = 0`. -/
+def stmt_2 : Prop := Li2 0 = 0
+
+/-- "the dilogarithm on `(-∞,1]`": continuity there. -/
+def stmt_3 : Prop := ContinuousOn Li2 (Set.Iic 1)
+
+/-- `Li₂'(x) = -log(1-x)/x` for `x < 1`, `x ≠ 0`. -/
+def stmt_4 : Prop :=
+  ∀ x : ℝ, x < 1 → x ≠ 0 → HasDerivAt Li2 (-Real.log (1 - x) / x) x
+
+/-- `Li₂'(0) = 1`. -/
+def stmt_5 : Prop := HasDerivAt Li2 1 0
+
+/-- `Li₂(x) = Σ_{k≥1} x^k/k²` for `|x| ≤ 1` (main.tex 877, `n = 2`). -/
+def stmt_6 : Prop :=
+  ∀ x : ℝ, |x| ≤ 1 →
+    HasSum (fun n : ℕ => x ^ (n + 1) / ((n : ℝ) + 1) ^ 2) (Li2 x)
+
+/-- `Li₂(1) = π²/6`. -/
+def stmt_7 : Prop := Li2 1 = π ^ 2 / 6
+
+/-- `Li₂(-1) = -π²/12`. -/
+def stmt_8 : Prop := Li2 (-1) = -(π ^ 2 / 12)
+
+/-- Reflection: `Li₂(z)+Li₂(1-z) = π²/6 - log z log(1-z)` for `0<z<1`. -/
+def stmt_9 : Prop :=
+  ∀ x : ℝ, 0 < x → x < 1 →
+    Li2 x + Li2 (1 - x) = π ^ 2 / 6 - Real.log x * Real.log (1 - x)
+
+/-- Landen: `Li₂(z)+Li₂(z/(z-1)) = -½ log²(1-z)` for `z<1`. -/
+def stmt_10 : Prop :=
+  ∀ x : ℝ, x < 1 →
+    Li2 x + Li2 (x / (x - 1)) = -(1 / 2) * Real.log (1 - x) ^ 2
+
+/-- Inversion: `Li₂(z)+Li₂(1/z) = -π²/6 - ½ log²(-z)` for `z<0`. -/
+def stmt_11 : Prop :=
+  ∀ x : ℝ, x < 0 →
+    Li2 x + Li2 (1 / x) = -(π ^ 2 / 6) - (1 / 2) * Real.log (-x) ^ 2
+
+/-- Inversion above 1: `Re Li₂(z)+Li₂(1/z) = π²/3 - ½ log² z` for `z>1`
+(here `Li2 z` is `Re Li₂(z)`). -/
+def stmt_12 : Prop :=
+  ∀ x : ℝ, 1 < x →
+    Li2 x + Li2 (1 / x) = π ^ 2 / 3 - (1 / 2) * Real.log x ^ 2
+
+/-- Duplication: `Li₂(w²) = 2Li₂(w) + 2Li₂(-w)`, stated for `|w| ≤ 1`. -/
+def stmt_13 : Prop :=
+  ∀ x : ℝ, |x| ≤ 1 → Li2 x + Li2 (-x) = (1 / 2) * Li2 (x ^ 2)
+
+/-- `Li₂(½) = π²/12 - ½ log² 2` (used in eq. (T)). -/
+def stmt_14 : Prop := Li2 (1 / 2) = π ^ 2 / 12 - (1 / 2) * Real.log 2 ^ 2
+
+/-- Landen's identity for `χ₂`:
+`χ₂((1-x)/(1+x)) + χ₂(x) = π²/8 + ½ log x log((1+x)/(1-x))` for `0<x<1`. -/
+def stmt_15 : Prop :=
+  ∀ x : ℝ, 0 < x → x < 1 →
+    chi2 ((1 - x) / (1 + x)) + chi2 x
+      = π ^ 2 / 8 + (1 / 2) * Real.log x * Real.log ((1 + x) / (1 - x))
+
+/-- Abel's five-term relation on `{x<1, y<1, x+y<1}`. -/
+def stmt_16 : Prop :=
+  ∀ x y : ℝ, x < 1 → y < 1 → x + y < 1 →
+    Li2 (x / (1 - y)) + Li2 (y / (1 - x)) - Li2 (x * y / ((1 - x) * (1 - y)))
+      = Li2 x + Li2 y + Real.log (1 - x) * Real.log (1 - y)
+
+end D00

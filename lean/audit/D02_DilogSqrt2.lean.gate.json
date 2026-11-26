@@ -1,0 +1,51 @@
+{
+ "file": "Zeta3/Wave2/D02_DilogSqrt2.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_1",
+  "stmt_2",
+  "stmt_3",
+  "stmt_4",
+  "stmt_5",
+  "stmt_6",
+  "stmt_7"
+ ],
+ "axioms": {
+  "D02.proof_1": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D02.proof_2": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D02.proof_3": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D02.proof_4": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D02.proof_5": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D02.proof_6": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "D02.proof_7": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

@@ -1,0 +1,139 @@
+import Mathlib
+import Zeta3.Wave2.D00_Dilog
+/-!
+# D03 -- the four-dilogarithm formula at the right angle reproduces `M_1` of the squircle
+
+Target id: D03.
+Paper labels: `prop:M1short` (main.tex 1623-1629), `thm:M1` (main.tex 889-895), the definition
+of `M_0(α)` and of the corner family `M(u;α)` (main.tex 1466-1474), and the integral
+`eq:M1t` for the squircle's `M_1` (main.tex 858-861).
+
+Quoted verbatim (main.tex 1466-1474):
+
+  The coefficients $M_k$ of the squircle come from an integral over one right-angled corner.
+  ... its length is $2+2u\,M(u;\alpha)$, where
+  \begin{multline*}
+  M(u;\alpha)=\int_0^1\Bigl[(1+g)^{-1-u}\sqrt{1+g^{2-2u}-2\cos\alpha\,g^{1-u}}\\
+  -1\Bigr]g^{u-1}\dd g=\sum_{k\ge0}M_k(\alpha)u^k,
+  \end{multline*}
+  which gives back the squircle's $M_k$ at $\alpha=\pi/2$. The first coefficient is elementary:
+  with $c=\cos\frac\alpha2$,
+  \[
+  M_0(\alpha)=-(1+c)\log(1+c)-(1-c)\log(1-c).
+  \]
+
+Quoted verbatim (main.tex 1623-1629, `prop:M1short`):
+
+  For $0<\alpha<\pi$, with $\lambda=\log2$ and $M_0(\alpha)$ as above,
+  \begin{multline*}
+  M_1(\alpha)=\zeta(2)-\lambda^2-\lambda M_0(\alpha)-(1-c)\bigl[\Li_2(c)+\Li_2(\tfrac{1-c}2)\bigr]\\
+  -(1+c)\bigl[\Li_2(-c)+\Li_2(\tfrac{1+c}2)\bigr].
+  \end{multline*}
+
+Quoted verbatim (main.tex 879-895, `M_0` and `thm:M1`; `a=1+\sqrt2`, `L=\log a`, `λ=\log 2`):
+
+  M_0=\lambda-\sqrt2\,L=-0.55330329972051571737\ldots,
+  \begin{theorem}[$M_1$; answers Problem~1 of Ahmed~\cite{ahmed}]\label{thm:M1}
+  \begin{multline*}
+  M_1=\Bigl(\frac{19\sqrt2}{48}-\frac1{24}\Bigr)\pi^2+\frac{\lambda^2}{2}+2\sqrt2\,\lambda L\\
+  -\Bigl(1+\frac{5\sqrt2}{2}\Bigr)L^2-5\sqrt2\,\Li_2(\sqrt2-1).
+  \end{multline*}
+  Numerically $\kappa=8M_1=2.02095276965635835695\ldots$
+  \end{theorem}
+
+Quoted verbatim (main.tex 858-861, eq. `eq:M1t`):
+
+  M_1=\int_0^1\frac{\log t}{t}\Bigl(\frac{1-t}{q}-1\Bigr)dt,\qquad q=\sqrt{t^2+(1-t)^2},
+
+## Normalisation
+
+The paper says (line 1471) that the corner family "gives back the squircle's `M_k` at
+`α = π/2`", with no factor or shift: `M_k(π/2) = M_k`. (Checked: at `α = π/2` the corner
+integrand is the squircle integrand, and both `M_0` and `M_1` agree numerically to 40 digits,
+see below.) So the right-angle claim is `M_1(π/2) = M_1`, i.e. the four-dilogarithm expression
+at `c = cos(π/4) = √2/2` equals the closed form of `thm:M1`, and likewise
+`M_0(π/2) = λ - √2 L`.
+
+## Conventions
+
+* `Li_2` is `D00.Li2`. All four arguments `c, (1-c)/2, -c, (1+c)/2` lie in `(-1,1)` at
+  `c = √2/2`, as does `√2-1`, so only the genuine dilogarithm is used.
+* `ζ(2)` is written `π²/6` (Mathlib: `riemannZeta_two`).
+* All logarithms are of positive numbers (`1 ± c > 0`, `1+√2 > 0`, `2 > 0`).
+* `c` is defined as the paper does, `c = cos(α/2)`, and the formula is evaluated at `α = π/2`.
+* stmt_4 uses `eq:M1t` as the definition of the squircle's `M_1` (an integral defined via a
+  power-series coefficient is not used). The integrand is integrable on `(0,1)` (it is
+  `O(t log t)` at `0` and bounded near `1`); stmt_4 asserts that integrability, so the value is
+  not Lean's junk `0`. At `t = 0` Lean's `log 0 / 0 = 0` is a single point, irrelevant.
+
+## Statements
+
+* stmt_1: `M_0(π/2) = λ - √2 L` (the corner `M_0` at the right angle is the squircle `M_0`).
+* stmt_2: the four-dilogarithm right side of `prop:M1short` at `α = π/2` equals the closed form
+  of `thm:M1`.
+* stmt_3: `8 ×` that value is `2.02095276965635835695…` to within `10⁻²⁰` (the paper's
+  numerical value of `κ`).
+* stmt_4: the integral `eq:M1t` is integrable on `(0,1)` and equals the four-dilogarithm value
+  at `α = π/2`.
+
+Numerical check (mpmath, 40 digits): four-dilog value = 0.25261909620704479461836352096565486053,
+`thm:M1` closed form agrees to 4·10⁻⁴⁰, `eq:M1t` integral agrees to 30 digits,
+`8M_1 = 2.0209527696563583569469…`; `M_0(π/2) = λ-√2L = -0.55330329972051571737…`.
+
+NOT COVERED:
+* `prop:M1short` for general `0 < α < π`, and the corner family `M(u;α)` itself (defining
+  `M_1(α)` as a Taylor coefficient of a parameter integral); only its value at `α = π/2` is
+  formalized, through the four-dilogarithm right side, the closed form, and `eq:M1t`.
+* The statement "`M(u;π/2)` gives back the squircle's `M_k`" for `k ≥ 2`.
+-/
+-- BEGIN STATEMENTS
+namespace D03
+
+open Real
+
+/-- `λ = log 2`. -/
+noncomputable def lam : ℝ := Real.log 2
+
+/-- `L = log(1+√2)`. -/
+noncomputable def L : ℝ := Real.log (1 + Real.sqrt 2)
+
+/-- `c = cos(α/2)` (main.tex 1472). -/
+noncomputable def c (α : ℝ) : ℝ := Real.cos (α / 2)
+
+/-- `M_0(α) = -(1+c)log(1+c) - (1-c)log(1-c)` (main.tex 1473). -/
+noncomputable def M0 (α : ℝ) : ℝ :=
+  -(1 + c α) * Real.log (1 + c α) - (1 - c α) * Real.log (1 - c α)
+
+/-- Right side of `prop:M1short`:
+`ζ(2) - λ² - λM_0(α) - (1-c)[Li₂(c)+Li₂((1-c)/2)] - (1+c)[Li₂(-c)+Li₂((1+c)/2)]`. -/
+noncomputable def M1four (α : ℝ) : ℝ :=
+  π ^ 2 / 6 - lam ^ 2 - lam * M0 α
+    - (1 - c α) * (D00.Li2 (c α) + D00.Li2 ((1 - c α) / 2))
+    - (1 + c α) * (D00.Li2 (-(c α)) + D00.Li2 ((1 + c α) / 2))
+
+/-- Closed form of `thm:M1`. -/
+noncomputable def M1closed : ℝ :=
+  (19 * Real.sqrt 2 / 48 - 1 / 24) * π ^ 2 + lam ^ 2 / 2 + 2 * Real.sqrt 2 * lam * L
+    - (1 + 5 * Real.sqrt 2 / 2) * L ^ 2 - 5 * Real.sqrt 2 * D00.Li2 (Real.sqrt 2 - 1)
+
+/-- The integrand of `eq:M1t`: `(log t / t)((1-t)/q - 1)`, `q = √(t²+(1-t)²)`. -/
+noncomputable def M1tIntegrand (t : ℝ) : ℝ :=
+  Real.log t / t * ((1 - t) / Real.sqrt (t ^ 2 + (1 - t) ^ 2) - 1)
+
+/-- main.tex 1471-1473 with 882: at the right angle the corner `M_0(π/2)` is the squircle
+`M_0 = λ - √2 L`. -/
+def stmt_1 : Prop := M0 (π / 2) = lam - Real.sqrt 2 * L
+
+/-- `prop:M1short` at `α = π/2` reproduces `thm:M1`: `M_1(π/2) = M_1`. -/
+def stmt_2 : Prop := M1four (π / 2) = M1closed
+
+/-- `thm:M1`: "Numerically `κ = 8M_1 = 2.02095276965635835695…`", for the value at `α = π/2`. -/
+def stmt_3 : Prop := |8 * M1four (π / 2) - 2.02095276965635835695| < (1 : ℝ) / 10 ^ 20
+
+/-- `eq:M1t` (the squircle's `M_1` as an integral) equals the four-dilogarithm value at the
+right angle; the integrand is integrable on `(0,1)`. -/
+def stmt_4 : Prop :=
+  MeasureTheory.IntegrableOn M1tIntegrand (Set.Ioo 0 1) ∧
+    ∫ t in (0 : ℝ)..1, M1tIntegrand t = M1four (π / 2)
+
+end D03
