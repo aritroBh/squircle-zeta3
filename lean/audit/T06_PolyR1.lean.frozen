@@ -1,0 +1,67 @@
+import Mathlib
+/-!
+# T06 — the ratio `R_1` at the regular polygon (paper label `thm:poly`)
+
+Source: `paper/ieee/main.tex`, Subsection "Polygons at the Diamond End", lines 1645–1653
+(detailed proof: `paper/ieee/proofs/sec_g4_poly.tex`, label `g4:thm:poly`).
+
+Setup quoted verbatim (line 1645):
+"With $n_i=(\cos\frac{i\pi}m,\sin\frac{i\pi}m)$, let $K_p=\{\sum_{i=1}^m|\langle n_i,x\rangle|^p\le1\}$.
+At $p=1$ this is a regular $2m$-gon of perimeter $P(1)=4m(\sec\frac{\pi}{2m}-\cos\frac{\pi}{2m})$,
+and $m=2$ is the squircle."
+
+Theorem quoted verbatim (lines 1647–1653):
+"\begin{theorem}[First derivative at the regular polygon$^\dagger$]\label{thm:poly}
+$P'(1)=P(1)\,R_1$, where $V=\cot\frac{\pi}{2m}$ and
+\[
+R_1=\frac1V\sum_{i=1}^{m-1}\sin\frac{i\pi}{m}\,\log\frac{V}{\sin(i\pi/m)} .
+\]
+In particular $P'(1)=0$ only for $m=2$, and for the hexagon ($m=3$) $P'(1)=2\sqrt3\log2$.
+\end{theorem}"
+
+Also used (line 1686): "The regular hexagon has $P(1)=2\sqrt3$ ...".
+
+What is formalized: `V`, `R1` and `P1` are defined exactly by the paper's formulas
+(`\sec` written as `1 / cos`; all divisions are by strictly positive reals for the `m` used,
+so no `x/0` or `log` of a nonpositive number is involved). The statements are the
+closed-form evaluations at `m = 2` and `m = 3`, and the hexagon value of `P(1) R_1`, i.e. the
+value `2√3 log 2` that the theorem asserts for `P'(1)` once `P'(1) = P(1) R_1` is granted.
+
+NOT COVERED:
+* The main identity `P'(1) = P(1) R_1` itself: it needs the perimeter of the convex body
+  `K_p` as a function of `p` and its derivative at `p = 1`; Mathlib has no convenient
+  perimeter (boundary length) of a planar convex body, so this is not stated.
+* That the formula `4m(sec(π/2m) − cos(π/2m))` is the perimeter of `K_1` (geometric fact).
+  Here `P1` is the paper's stated formula only.
+* "P'(1)=0 only for m=2" (excluded by instruction).
+-/
+-- BEGIN STATEMENTS
+namespace T06
+
+open Real
+
+/-- `V = cot(π/(2m))`. -/
+noncomputable def V (m : ℕ) : ℝ := Real.cot (π / (2 * (m : ℝ)))
+
+/-- `R_1 = (1/V) ∑_{i=1}^{m-1} sin(iπ/m) log(V / sin(iπ/m))`. -/
+noncomputable def R1 (m : ℕ) : ℝ :=
+  (1 / V m) * ∑ i ∈ Finset.Ico 1 m,
+    Real.sin ((i : ℝ) * π / (m : ℝ)) * Real.log (V m / Real.sin ((i : ℝ) * π / (m : ℝ)))
+
+/-- The paper's perimeter formula `P(1) = 4m(sec(π/2m) − cos(π/2m))` of the regular `2m`-gon. -/
+noncomputable def P1 (m : ℕ) : ℝ :=
+  4 * (m : ℝ) * (1 / Real.cos (π / (2 * (m : ℝ))) - Real.cos (π / (2 * (m : ℝ))))
+
+/-- Theorem `thm:poly`, squircle case: `R_1 = 0` for `m = 2` (so `P'(1) = P(1) R_1 = 0`). -/
+def stmt_1 : Prop := R1 2 = 0
+
+/-- Theorem `thm:poly`, hexagon case: `R_1 = log 2` for `m = 3`. -/
+def stmt_2 : Prop := R1 3 = Real.log 2
+
+/-- Line 1686: the regular hexagon (`m = 3`) has `P(1) = 2√3`, from the formula of line 1645. -/
+def stmt_3 : Prop := P1 3 = 2 * Real.sqrt 3
+
+/-- Theorem `thm:poly`: "for the hexagon ($m=3$) $P'(1)=2\sqrt3\log2$", i.e. `P(1) R_1 = 2√3 log 2`. -/
+def stmt_4 : Prop := P1 3 * R1 3 = 2 * Real.sqrt 3 * Real.log 2
+
+end T06

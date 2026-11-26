@@ -1,0 +1,14 @@
+import Zeta3.Wave1.T01_Rhombus
+import Zeta3.Wave1.T02_SeriesDiamond
+import Zeta3.Wave1.T03_Omega
+import Zeta3.Wave1.T04_SmallFacts
+import Zeta3.Wave1.T05_Cm
+import Zeta3.Wave1.T06_PolyR1
+import Zeta3.Wave1.T07_PhiSeries
+import Zeta3.Wave1.T08_PolygonSums
+import Zeta3.Wave1.T09_OctSeries
+import Zeta3.Wave1.T10_PiP
+import Zeta3.Wave1.T11_Decimals
+import Zeta3.Wave1.T12_EdgeLaw
+import Zeta3.Wave1.T13_Lambda
+import Zeta3.Wave1.T14_Rulers

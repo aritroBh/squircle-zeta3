@@ -1,0 +1,62 @@
+import Mathlib
+/-!
+# T03 — the coefficients `ω_n` and `V_n` of Proposition `prop:an`
+
+Target id: T03.
+Paper label: `prop:an` (only the `ω_n`, `V_n` part), paper/ieee/main.tex lines 1163–1178.
+
+Claim quoted verbatim (main.tex lines 1169–1173):
+
+  For odd $n$ its coefficient in $a_n$ is
+  \[
+  \omega_n=\frac{4(-1)^n}{n}\bigl(1-2^{1-n}V_n\bigr),\qquad
+  V_n=\frac{d^n}{dt^n}\sqrt{\tfrac{1+e^{4t}}{2}}\,\Big|_{t=0},
+  \]
+  so $\omega_3=1$, $\omega_5=-\frac34$, and $\omega_n\ne0$ for every odd $n\ge3$.
+
+and from the following paragraph (line 1178): "$V_3,V_5,V_7=7,1,967$ give
+$\omega_3,\omega_5,\omega_7=1,-\frac34,\frac{129}{16}$".
+
+Formalization choices:
+* `V n` is `iteratedDeriv n f 0` with `f t = Real.sqrt ((1 + Real.exp (4 t)) / 2)`.
+  The radicand is `> 0` for all real `t`, so `Real.sqrt`'s convention at negatives
+  plays no role and `f` is smooth; `iteratedDeriv` is the honest `n`-th derivative.
+* `ω n` uses the integer power `(2:ℝ) ^ ((1:ℤ) - n)` so that `2^{1-n}` is the real
+  number `2^{1-n}` (no truncated ℕ subtraction), and division by `(n:ℝ)`, which is
+  nonzero for the cases `n = 3, 5` stated here.
+
+NOT COVERED:
+* `ω_n ≠ 0` for every odd `n ≥ 3` (excluded by the task brief), and the parity
+  argument that `V_n` is odd for every `n`.
+* The identification of `ω_n` as the coefficient of `ζ(n)` in the Taylor coefficient
+  `a_n = P^{(n)}(1)/(√2 n!)` of the diamond-end perimeter (requires the full
+  perimeter expansion; not part of this target).
+* `V_7 = 967`, `ω_7 = 129/16` (stated in the follow-up paragraph, not in the
+  proposition itself).
+-/
+-- BEGIN STATEMENTS
+namespace T03
+
+/-- The function `t ↦ √((1 + e^{4t})/2)` whose derivatives at `0` define `V_n`. -/
+noncomputable def f (t : ℝ) : ℝ := Real.sqrt ((1 + Real.exp (4 * t)) / 2)
+
+/-- `V_n = (d^n/dt^n) √((1+e^{4t})/2) |_{t=0}`. -/
+noncomputable def V (n : ℕ) : ℝ := iteratedDeriv n f 0
+
+/-- `ω_n = (4(-1)^n / n) (1 - 2^{1-n} V_n)`. -/
+noncomputable def ω (n : ℕ) : ℝ :=
+  4 * (-1 : ℝ) ^ n / (n : ℝ) * (1 - (2 : ℝ) ^ ((1 : ℤ) - (n : ℤ)) * V n)
+
+/-- Line 1178: "$V_3,V_5,\dots=7,1,\dots$" — the third derivative at `0` is `7`. -/
+def stmt_1 : Prop := V 3 = 7
+
+/-- Line 1178: the fifth derivative at `0` is `1`. -/
+def stmt_2 : Prop := V 5 = 1
+
+/-- Line 1173: "so $\omega_3=1$". -/
+def stmt_3 : Prop := ω 3 = 1
+
+/-- Line 1173: "$\omega_5=-\frac34$". -/
+def stmt_4 : Prop := ω 5 = -3 / 4
+
+end T03

@@ -1,4 +1,4 @@
-The current map, for draft 50 of the paper, is [VERIFICATION_MAP_draft50.md](VERIFICATION_MAP_draft50.md). This file describes the state at draft 10.
+The current map, for draft 58 of the paper, is [VERIFICATION_MAP_draft58.md](VERIFICATION_MAP_draft58.md). This file describes the state at draft 10.
 
 # Verification map for "Investigating ζ(3)"
 

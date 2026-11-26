@@ -1,0 +1,6 @@
+part 1: weight <= 6, 2186 unknowns
+   p=2305843009213693951: 2288 equations, 2186 unknowns, rank 2186, consistent True
+   p=4611686018427387847: 2288 equations, 2186 unknowns, rank 2186, consistent True
+   p=9223372036854775783: 2288 equations, 2186 unknowns, rank 2186, consistent True
+   rational reconstruction stable over 2 vs 3 primes: True; nonzero 310
+   unique: True; 310 nonzero terms; 14s

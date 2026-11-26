@@ -1,0 +1,270 @@
+import Mathlib
+/-!
+# T08 — edge sums `Σ_e Z_e`, `Σ_e Z_e^{(5)}`, `Σ_e Z_e^{(2,3)}` over the regular `2m`-gon
+
+Target id: T08.
+Paper labels: `prop:edgelaw` (the coefficient `Z_e`), `thm:Cm` (the constant `C_m`),
+`prop:order5` (`Z_e^{(5)}`, `Z_e^{(2,3)}`, `C_m^{(5)}`, `C_m^{(2,3)}`).
+Paper lines: main.tex 1657–1663 (`thm:Cm`), 1671–1684 (`prop:edgelaw`), 1686 (the
+sentence `\sum_eZ_e=C_m`), 1753 (definitions of `\bar\xi`, `\xi_+`, `\xi_\times`),
+1755–1770 (`prop:order5`). The regular polygon and its corners are those of the proof
+supplement, paper/ieee/proofs/sec_g4_poly.tex (setting) and sec_g4_Cm.tex (proof of
+`thm:Cm`); the per-edge reduction for order five is in sec_g9_order5.tex lines 128–140.
+
+Claims quoted verbatim.
+
+main.tex 1657–1663:
+  \begin{theorem}[Regular $2m$-gons$^\dagger$]\label{thm:Cm}
+  For the smoothed regular $2m$-gon, the $\zeta(3)$ part of what the mixed terms
+  contribute to $P'''(1)$ is exactly $C_m\,\zeta(3)$, where
+  \[
+  C_m=48m\sin^4\frac{\pi}{2m}\,\cos\frac{\pi}{2m}\Bigl(3\sin^2\frac{\pi}{2m}-1\Bigr).
+  \]
+
+main.tex 1671–1678 (Proposition `prop:edgelaw`, the part used here):
+  Let $e$ be an edge of a centrally symmetric convex polygon, from the corner $V_0$ to
+  the corner $V_1$, of length $L$ and at distance $h$ from the center. The foot of the
+  perpendicular from the center cuts the line of $e$ into signed lengths $L_0$ and
+  $L_1=L-L_0$, measured from $V_0$ and $V_1$. If $\langle v_{j_0},x\rangle=0$ is the
+  kink line through $V_0$ and $\langle v_{j_1},x\rangle=0$ the one through $V_1$, put
+  $\xi_0=|\langle v_{j_0},V_1\rangle|$ and $\xi_1=|\langle v_{j_1},V_0\rangle|$. [...]
+  \[
+  Z_e=6\,\xi_0\xi_1\frac{h^2}{L}\Bigl(3\,\frac{\xi_0L_0+\xi_1L_1}{L}-2\Bigr).
+  \]
+
+main.tex 1686:
+  For the regular $2m$-gon $K_1$ of Theorem~\ref{thm:Cm}, $\sum_eZ_e=C_m$
+
+main.tex 1753 (one word, the noun after "Keep the", elided as [...] so that this file
+contains no command keyword):
+  Keep the [...] of Proposition~\ref{prop:edgelaw} and write
+  $\bar\xi=\frac{\xi_0L_0+\xi_1L_1}L$, $\xi_+=\xi_0+\xi_1$, $\xi_\times=\xi_0\xi_1$.
+
+main.tex 1757–1770 (Proposition `prop:order5`, the formulas):
+  \begin{align*}
+  Z_e^{(5)}&=360\,\xi_\times\frac{h^2}L\Bigl[20\bar\xi^3-32\bar\xi^2+15\bar\xi-2\\
+  &\quad-4(5\bar\xi-4)\,\xi_\times\frac{L_0L_1}{L^2}+\frac{h^2}{L^2}\Bigl(5\xi_\times\xi_++8\xi_+^2\\
+  &\quad-28\xi_\times-15(\xi_+^2-3\xi_\times)\bar\xi\Bigr)\Bigr],\\
+  Z_e^{(2,3)}&=120\,\xi_\times\frac{h^2}L\Bigl[12\bar\xi^2-12\bar\xi+2\\
+  &\quad-12(5\bar\xi-4)\,\xi_\times\frac{L_0L_1}{L^2}+\frac{h^2}{L^2}\Bigl(15\xi_\times\xi_+\\
+  &\quad-3\xi_+^2+24\xi_\times-45\xi_\times\bar\xi\Bigr)\Bigr].
+  \end{align*}
+  [...] For the regular $2m$-gon $K_1$ of Theorem~\ref{thm:Cm}, with
+  $s=\sin\frac\pi{2m}$ and $c=\cos\frac\pi{2m}$,
+  \begin{align*}
+  \sum_eZ_e^{(5)}&=C_m^{(5)}=2880\,m\,s^4c\,(65s^6-63s^4+17s^2-1),\\
+  \sum_eZ_e^{(2,3)}&=C_m^{(2,3)}=-960\,m\,c\,s^4(45s^6-27s^4+6s^2-1).
+  \end{align*}
+
+The regular `2m`-gon (sec_g4_poly.tex, Setting of the paper):
+  $n_i=(\cos\frac{i\pi}m,\sin\frac{i\pi}m)$, $i=1,\dots,m$, and
+  $K_p=\{x\in\RR^2:\sum_{i=1}^m|\ip{n_i}{x}|^p\le1\}$; so $K_1=\{\sum_i|\ip{n_i}{x}|\le1\}$
+  and the kink lines are $\ip{n_i}{x}=0$ (main.tex: "its kink lines are the lines
+  $\langle v_j,x\rangle=0$").
+Corners (sec_g4_Cm.tex): $C_k=\varrho^kC_0$ with $C_0=\rho_0(0,1)$,
+  $\rho_0=\tan\frac\pi{2m}$, i.e. `C_k = ρ₀ (-sin(kπ/m), cos(kπ/m))`; the edge `e_k`
+  runs from `C_k` to `C_{k+1}`, `k = 0, …, 2m-1` (and `C_{2m} = C_0`).
+
+Formalization choices:
+* The edge data are NOT inserted by hand into the sums. For the edge `C_k C_{k+1}`,
+  `L = |C_{k+1}-C_k|`, `h = |det(C_k,C_{k+1})|/L` (distance from the origin to the line
+  of the edge), `L_0 = ⟨-C_k, C_{k+1}-C_k⟩/L` (signed distance from `C_k` to the foot of
+  the perpendicular), `L_1 = L - L_0`, and `ξ_0 = |⟨n_{j_0},C_{k+1}⟩|`,
+  `ξ_1 = |⟨n_{j_1},C_k⟩|`, where `n_{j_0}`, `n_{j_1}` are kink normals with
+  `⟨n_{j_0},C_k⟩ = 0`, `⟨n_{j_1},C_{k+1}⟩ = 0`, `j_0, j_1 ∈ {1,…,m}`. In the sums the
+  kink index of each corner is an arbitrary function `j` satisfying these hypotheses
+  (`stmt_2` says such an index exists and is unique, so the hypotheses are not vacuous
+  and determine the data).
+* `stmt_1` and `stmt_2` tie the corners to the polygon: every segment `C_k C_{k+1}` lies
+  on `∂K_1 = {Σ_i |⟨n_i,x⟩| = 1}`, and each `C_k` lies on exactly one kink line.
+* `stmt_3` records the edge data the paper derives (sec_g4_Cm.tex):
+  `L = 2s²/c`, `h = s`, `L_0 = L_1 = L/2`, `ξ_0 = ξ_1 = 2s²`.
+* `stmt_4`–`stmt_6` are the three sums over the `2m` edges (the paper sums over all
+  `2m` edges: "$\sum_eZ_e=2m\,Z_e$", sec_g4_Cm.tex), each against the paper's closed
+  form in `s = sin(π/(2m))`, `c = cos(π/(2m))`.
+* `stmt_7`–`stmt_9` are the same three identities as polynomial identities in real
+  parameters `s, c` with `s² + c² = 1`, `s > 0`, `c > 0`, after inserting the edge data
+  of `stmt_3` into the paper's per-edge formulas (`s, c > 0` is the paper's range; it
+  only rules out the Lean junk value of division by `L = 2s²/c = 0`).
+* `m ≥ 2` throughout (the paper's range: `2m`-gon with `m ≥ 2`).
+* `ζ(3)`, `ζ(5)`, `ζ(2)ζ(3)` themselves do not appear: the claims formalized are the
+  identities between the edge coefficients and the closed forms.
+
+NOT COVERED:
+* The analytic content of `thm:Cm`, `prop:edgelaw` and `prop:order5`: that `Z_e`
+  (resp. `Z_e^{(5)}`, `Z_e^{(2,3)}`) is the `ζ(3)` (resp. `ζ(5)`, `ζ(2)ζ(3)`) part of
+  what the local terms of `e` contribute to `P'''(1)` (resp. `P^{(5)}(1)`), and that
+  `C_m ζ(3)` is the `ζ(3)` part of the mixed terms. This needs the perimeter `P(p)` of
+  `K_p`, its derivatives at `p = 1`, the decomposition of the length element into
+  local/mixed/far terms and a notion of "the `ζ(k)` part" of a number (formal
+  coefficients after Beta-function evaluation); none of this can be stated faithfully
+  in Mathlib today.
+* That the `C_k` are exactly the vertices of `K_1` (only that consecutive `C_k` span
+  boundary segments, and that each lies on a kink line, is stated).
+* The parallelogram and affine-regular hexagon laws and the special values
+  (`C_2`, `C_3`, sign of `C_m`: those are target T05).
+-/
+-- BEGIN STATEMENTS
+namespace T08
+
+/-- `s = sin(π/(2m))`. -/
+noncomputable def s (m : ℕ) : ℝ := Real.sin (Real.pi / (2 * (m : ℝ)))
+
+/-- `c = cos(π/(2m))`. -/
+noncomputable def c (m : ℕ) : ℝ := Real.cos (Real.pi / (2 * (m : ℝ)))
+
+/-- Euclidean inner product on `ℝ × ℝ`. -/
+def ip (a b : ℝ × ℝ) : ℝ := a.1 * b.1 + a.2 * b.2
+
+/-- Kink normal `n_i = (cos(iπ/m), sin(iπ/m))`. -/
+noncomputable def n (m i : ℕ) : ℝ × ℝ :=
+  (Real.cos ((i : ℝ) * Real.pi / m), Real.sin ((i : ℝ) * Real.pi / m))
+
+/-- `ρ₀ = tan(π/(2m))`. -/
+noncomputable def rho0 (m : ℕ) : ℝ := Real.tan (Real.pi / (2 * (m : ℝ)))
+
+/-- Corner `C_k = ρ₀ (-sin(kπ/m), cos(kπ/m))` of the regular `2m`-gon `K_1`. -/
+noncomputable def corner (m k : ℕ) : ℝ × ℝ :=
+  (rho0 m * (-Real.sin ((k : ℝ) * Real.pi / m)), rho0 m * Real.cos ((k : ℝ) * Real.pi / m))
+
+/-- The point `V₀ + t (V₁ - V₀)` of the segment `V₀V₁`. -/
+def seg (V0 V1 : ℝ × ℝ) (t : ℝ) : ℝ × ℝ :=
+  (V0.1 + t * (V1.1 - V0.1), V0.2 + t * (V1.2 - V0.2))
+
+/-- Edge length `L = |V₁ - V₀|`. -/
+noncomputable def edgeL (V0 V1 : ℝ × ℝ) : ℝ :=
+  Real.sqrt ((V1.1 - V0.1) ^ 2 + (V1.2 - V0.2) ^ 2)
+
+/-- Distance `h` from the center to the line through `V₀, V₁`. -/
+noncomputable def edgeH (V0 V1 : ℝ × ℝ) : ℝ :=
+  |V0.1 * V1.2 - V0.2 * V1.1| / edgeL V0 V1
+
+/-- Signed length `L₀` from `V₀` to the foot of the perpendicular from the center. -/
+noncomputable def edgeL0 (V0 V1 : ℝ × ℝ) : ℝ :=
+  ip (-V0) (V1 - V0) / edgeL V0 V1
+
+/-- `Z_e` of `prop:edgelaw` in the edge data `ξ₀, ξ₁, h, L, L₀` (`L₁ = L - L₀`):
+`6 ξ₀ ξ₁ (h²/L) (3 (ξ₀L₀ + ξ₁L₁)/L - 2)`. -/
+noncomputable def ZData (xi0 xi1 h L L0 : ℝ) : ℝ :=
+  let L1 := L - L0
+  6 * xi0 * xi1 * (h ^ 2 / L) * (3 * ((xi0 * L0 + xi1 * L1) / L) - 2)
+
+/-- `Z_e^{(5)}` of `prop:order5` in the edge data, with
+`ξ̄ = (ξ₀L₀ + ξ₁L₁)/L`, `ξ₊ = ξ₀ + ξ₁`, `ξₓ = ξ₀ξ₁`. -/
+noncomputable def Z5Data (xi0 xi1 h L L0 : ℝ) : ℝ :=
+  let L1 := L - L0
+  let xb := (xi0 * L0 + xi1 * L1) / L
+  let xp := xi0 + xi1
+  let xx := xi0 * xi1
+  360 * xx * (h ^ 2 / L) *
+    (20 * xb ^ 3 - 32 * xb ^ 2 + 15 * xb - 2
+      - 4 * (5 * xb - 4) * xx * (L0 * L1 / L ^ 2)
+      + (h ^ 2 / L ^ 2) * (5 * xx * xp + 8 * xp ^ 2 - 28 * xx - 15 * (xp ^ 2 - 3 * xx) * xb))
+
+/-- `Z_e^{(2,3)}` of `prop:order5` in the edge data. -/
+noncomputable def Z23Data (xi0 xi1 h L L0 : ℝ) : ℝ :=
+  let L1 := L - L0
+  let xb := (xi0 * L0 + xi1 * L1) / L
+  let xp := xi0 + xi1
+  let xx := xi0 * xi1
+  120 * xx * (h ^ 2 / L) *
+    (12 * xb ^ 2 - 12 * xb + 2
+      - 12 * (5 * xb - 4) * xx * (L0 * L1 / L ^ 2)
+      + (h ^ 2 / L ^ 2) * (15 * xx * xp - 3 * xp ^ 2 + 24 * xx - 45 * xx * xb))
+
+/-- `Z_e` for the edge `V₀V₁` with kink normal `v₀` through `V₀` and `v₁` through
+`V₁`, all edge data computed from the geometry
+(`ξ₀ = |⟨v₀,V₁⟩|`, `ξ₁ = |⟨v₁,V₀⟩|`). -/
+noncomputable def Ze (V0 V1 v0 v1 : ℝ × ℝ) : ℝ :=
+  ZData |ip v0 V1| |ip v1 V0| (edgeH V0 V1) (edgeL V0 V1) (edgeL0 V0 V1)
+
+/-- `Z_e^{(5)}` for the edge `V₀V₁`, from the geometry. -/
+noncomputable def Ze5 (V0 V1 v0 v1 : ℝ × ℝ) : ℝ :=
+  Z5Data |ip v0 V1| |ip v1 V0| (edgeH V0 V1) (edgeL V0 V1) (edgeL0 V0 V1)
+
+/-- `Z_e^{(2,3)}` for the edge `V₀V₁`, from the geometry. -/
+noncomputable def Ze23 (V0 V1 v0 v1 : ℝ × ℝ) : ℝ :=
+  Z23Data |ip v0 V1| |ip v1 V0| (edgeH V0 V1) (edgeL V0 V1) (edgeL0 V0 V1)
+
+/-- `48 m s⁴ c (3s² - 1)` as a polynomial in `m, s, c`. -/
+def CmPoly (m s c : ℝ) : ℝ := 48 * m * s ^ 4 * c * (3 * s ^ 2 - 1)
+
+/-- `2880 m s⁴ c (65s⁶ - 63s⁴ + 17s² - 1)`. -/
+def Cm5Poly (m s c : ℝ) : ℝ := 2880 * m * s ^ 4 * c * (65 * s ^ 6 - 63 * s ^ 4 + 17 * s ^ 2 - 1)
+
+/-- `-960 m c s⁴ (45s⁶ - 27s⁴ + 6s² - 1)`. -/
+def Cm23Poly (m s c : ℝ) : ℝ := -960 * m * c * s ^ 4 * (45 * s ^ 6 - 27 * s ^ 4 + 6 * s ^ 2 - 1)
+
+/-- `C_m` of `thm:Cm`. -/
+noncomputable def Cm (m : ℕ) : ℝ := CmPoly m (s m) (c m)
+
+/-- `C_m^{(5)}` of `prop:order5`. -/
+noncomputable def Cm5 (m : ℕ) : ℝ := Cm5Poly m (s m) (c m)
+
+/-- `C_m^{(2,3)}` of `prop:order5`. -/
+noncomputable def Cm23 (m : ℕ) : ℝ := Cm23Poly m (s m) (c m)
+
+/-- Setup ("For the regular $2m$-gon $K_1$"): every segment `C_k C_{k+1}` lies on
+`∂K_1 = {Σ_{i=1}^m |⟨n_i,x⟩| = 1}`, so the `C_k C_{k+1}` are edges of `K_1`. -/
+def stmt_1 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k : ℕ, ∀ t : ℝ, 0 ≤ t → t ≤ 1 →
+    ∑ i ∈ Finset.Icc 1 m, |ip (n m i) (seg (corner m k) (corner m (k + 1)) t)| = 1
+
+/-- Setup ("the kink line through $V_0$"): each corner `C_k` lies on exactly one kink
+line `⟨n_j,x⟩ = 0`, `j ∈ {1,…,m}`. -/
+def stmt_2 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k : ℕ, ∃! j : ℕ, j ∈ Finset.Icc 1 m ∧ ip (n m j) (corner m k) = 0
+
+/-- Edge data of the regular `2m`-gon (sec_g4_Cm.tex, proof of `thm:Cm`):
+`L = 2s²/c`, `h = s`, `L₀ = L/2`, `ξ₀ = ξ₁ = 2s²`, derived from the corners and the
+kink lines through them. -/
+def stmt_3 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k j0 j1 : ℕ,
+    j0 ∈ Finset.Icc 1 m → j1 ∈ Finset.Icc 1 m →
+    ip (n m j0) (corner m k) = 0 → ip (n m j1) (corner m (k + 1)) = 0 →
+    edgeL (corner m k) (corner m (k + 1)) = 2 * s m ^ 2 / c m ∧
+    edgeH (corner m k) (corner m (k + 1)) = s m ∧
+    edgeL0 (corner m k) (corner m (k + 1)) = edgeL (corner m k) (corner m (k + 1)) / 2 ∧
+    |ip (n m j0) (corner m (k + 1))| = 2 * s m ^ 2 ∧
+    |ip (n m j1) (corner m k)| = 2 * s m ^ 2
+
+/-- main.tex 1686: "For the regular $2m$-gon $K_1$ of Theorem~\ref{thm:Cm},
+$\sum_eZ_e=C_m$", the sum over the `2m` edges `C_k C_{k+1}`, `k = 0,…,2m-1`, with
+`j k` the kink line through `C_k`. -/
+def stmt_4 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ j : ℕ → ℕ,
+    (∀ k, j k ∈ Finset.Icc 1 m ∧ ip (n m (j k)) (corner m k) = 0) →
+    ∑ k ∈ Finset.range (2 * m),
+      Ze (corner m k) (corner m (k + 1)) (n m (j k)) (n m (j (k + 1))) = Cm m
+
+/-- `prop:order5`: "$\sum_eZ_e^{(5)}=C_m^{(5)}=2880\,m\,s^4c\,(65s^6-63s^4+17s^2-1)$". -/
+def stmt_5 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ j : ℕ → ℕ,
+    (∀ k, j k ∈ Finset.Icc 1 m ∧ ip (n m (j k)) (corner m k) = 0) →
+    ∑ k ∈ Finset.range (2 * m),
+      Ze5 (corner m k) (corner m (k + 1)) (n m (j k)) (n m (j (k + 1))) = Cm5 m
+
+/-- `prop:order5`: "$\sum_eZ_e^{(2,3)}=C_m^{(2,3)}=-960\,m\,c\,s^4(45s^6-27s^4+6s^2-1)$". -/
+def stmt_6 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ j : ℕ → ℕ,
+    (∀ k, j k ∈ Finset.Icc 1 m ∧ ip (n m (j k)) (corner m k) = 0) →
+    ∑ k ∈ Finset.range (2 * m),
+      Ze23 (corner m k) (corner m (k + 1)) (n m (j k)) (n m (j (k + 1))) = Cm23 m
+
+/-- Algebraic core of `\sum_eZ_e=C_m`: with the edge data `ξ₀ = ξ₁ = 2s²`, `h = s`,
+`L = 2s²/c`, `L₀ = L/2 = s²/c` and `s² + c² = 1`, `2m · Z_e = C_m`. -/
+def stmt_7 : Prop :=
+  ∀ m s c : ℝ, 0 < s → 0 < c → s ^ 2 + c ^ 2 = 1 →
+    2 * m * ZData (2 * s ^ 2) (2 * s ^ 2) s (2 * s ^ 2 / c) (s ^ 2 / c) = CmPoly m s c
+
+/-- Algebraic core of `\sum_eZ_e^{(5)}=C_m^{(5)}`. -/
+def stmt_8 : Prop :=
+  ∀ m s c : ℝ, 0 < s → 0 < c → s ^ 2 + c ^ 2 = 1 →
+    2 * m * Z5Data (2 * s ^ 2) (2 * s ^ 2) s (2 * s ^ 2 / c) (s ^ 2 / c) = Cm5Poly m s c
+
+/-- Algebraic core of `\sum_eZ_e^{(2,3)}=C_m^{(2,3)}`. -/
+def stmt_9 : Prop :=
+  ∀ m s c : ℝ, 0 < s → 0 < c → s ^ 2 + c ^ 2 = 1 →
+    2 * m * Z23Data (2 * s ^ 2) (2 * s ^ 2) s (2 * s ^ 2 / c) (s ^ 2 / c) = Cm23Poly m s c
+
+end T08

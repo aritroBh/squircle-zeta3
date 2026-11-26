@@ -1,0 +1,158 @@
+import Mathlib
+/-!
+# T13 -- the Legendre integrals `Λ_m(θ)` of Theorem `thm:P2`
+
+Target id: T13.
+Paper label: `thm:P2` (paper/ieee/main.tex, lines 1423-1434), the clause about `Λ_m` and the
+clause "At θ = π/2 this is Ahmed's exact formula". Setup: main.tex lines 1418-1421 (definition of
+`Λ_ν`). Supporting lemmas in the proofs supplement paper/ieee/proofs/sec_g3_P2.tex:
+`g3:lem:Lam` (lines 36-43) and `g3:lem:pi2` (lines 150-161). Also main.tex line 1458
+(`Λ_1 = ½ sin²θ`).
+
+Quoted verbatim (main.tex 1418-1421):
+
+  The key object is the Legendre integral, with $P_\nu$ the Legendre function~\cite[Ch.~14]{DLMF}:
+  \[
+  \Lambda_\nu(\theta)=\int_{\cos\theta}^1P_\nu(t)\dd t=2\sin^2\tfrac\theta2\;{}_2F_1\bigl(-\nu,1+\nu;2;\sin^2\tfrac\theta2\bigr).
+  \]
+
+Quoted verbatim (main.tex 1433, last sentences of thm:P2):
+
+  where $\Lambda_m(\theta)=\frac{P_{m-1}(\cos\theta)-P_{m+1}(\cos\theta)}{2m+1}$ is a polynomial in
+  $\cos\theta$. At $\theta=\pi/2$ this is Ahmed's exact formula.
+
+Quoted verbatim (main.tex 1458, proof of thm:P2asym):
+
+  because $\Lambda_1=\frac12\sin^2\theta=2z(1-z)$.
+
+Quoted verbatim (proofs/sec_g3_P2.tex 150-154, Lemma g3:lem:pi2):
+
+  At $\theta=\pi/2$ ($c=0$, $z=\frac12$): $\Lambda_m(\frac\pi2)=0$ for even $m$, and
+  \[
+  \frac{\pi\varepsilon}{\sin\pi\varepsilon}\Lambda_\varepsilon\bigl(\tfrac\pi2\bigr)=\frac{\Gamma(1+\frac\varepsilon2)\,\Gamma(\frac{1-\varepsilon}2)}{\sqrt\pi\,(1+\varepsilon)} .
+  \]
+
+and (line 161) "with $\Lambda_m(\frac\pi2)=\frac{P_{m-1}(0)-P_{m+1}(0)}{2m+1}$".
+
+The main paper does not print Ahmed's exact formula; the supplement reduces the θ = π/2 case to
+the Gamma closed form above plus the values `Λ_m(π/2)`. So the "Ahmed" part is formalized as
+(i) the Gamma closed form of the `ε`-term (stmt_8) and (ii) explicit values of `Λ_m(π/2)` through
+the Legendre values at `0` (stmt_5, stmt_6, stmt_7).
+
+## Conventions
+
+* Legendre polynomials: Mathlib has only `Polynomial.shiftedLegendre n : ℤ[X]`, which is
+  `Σ (-1)^k C(n,k) C(n+k,n) x^k = P_n(1-2x)`. We define `P n := shiftedLegendre n ∘ ((1-X)/2)`
+  over `ℝ`, and stmt_1 checks that this is the classical Legendre polynomial (`P_0 = 1`,
+  `P_1 = X`, Bonnet's recurrence), so the definition is not taken on trust.
+* For integer `m`, `Λ_m(θ)` is the paper's integral `∫_{cos θ}^1 P_m(t) dt` (interval integral).
+* For non-integer `ν` there is no Legendre function in Mathlib, so `Λ_ν(θ)` is taken from the
+  paper's second (hypergeometric) expression `2z ₂F₁(-ν,1+ν;2;z)`, `z = sin²(θ/2)`, written as an
+  explicit series with `HasSum` (no `tsum` junk values). stmt_4 checks that this series agrees
+  with the integral for integer `ν = m`.
+* Hypotheses: stmt_2, stmt_3, stmt_9 are stated for all real `θ` (the paper assumes
+  `0 ≤ θ < π`; the polynomial identities hold for all `θ`, so this is a weakening of the
+  hypotheses, not a strengthening). stmt_4 keeps the paper's `0 ≤ θ < π`.
+* stmt_8 is stated for real `ε > 0` not a natural number (the paper's `ε = 1/(n-1)` with the
+  removable points `ε ∈ ℕ` excluded; at those points `sin(πε) = 0` and Lean's `x/0 = 0` would
+  make the left side meaningless).
+
+## Statements
+
+* stmt_1: `P` is the Legendre family: `P_0 = 1`, `P_1 = X`,
+  `(n+2) P_{n+2} = (2n+3) X P_{n+1} - (n+1) P_n`.
+* stmt_2: for `m ≥ 1`, `∫_{cos θ}^1 P_m = (P_{m-1}(cos θ) - P_{m+1}(cos θ))/(2m+1)`.
+* stmt_3: for `m ≥ 1`, `Λ_m(θ)` is a polynomial with rational coefficients in `cos θ`.
+* stmt_4: for integer `m`, `0 ≤ θ < π`, the hypergeometric series `2z ₂F₁(-m,1+m;2;z)` sums to
+  `∫_{cos θ}^1 P_m`.
+* stmt_5: Legendre values at `0`: `P_{2k+1}(0) = 0`, `P_{2k}(0) = (-1)^k C(2k,k)/4^k`.
+* stmt_6: `Λ_m(π/2) = 0` for even `m ≥ 2`.
+* stmt_7: `Λ_{2k+1}(π/2) = (-1)^k C(2k,k) / (4^k (2k+2))` (explicit; derived from stmt_2 and
+  stmt_5, not printed in the paper).
+* stmt_8: the `ε`-term at `θ = π/2`: `(πε/sin πε) Λ_ε(π/2) = Γ(1+ε/2)Γ((1-ε)/2)/(√π (1+ε))`.
+* stmt_9: `Λ_1(θ) = ½ sin²θ`.
+
+## NOT COVERED
+
+* The Mellin identity `∫_0^∞ (√(1+2cs+s²) - s - c) s^{ε-1} ds = (π/sin πε) Λ_ε(θ)` and the exact
+  length series for `L_θ(n)` (the first two displays of thm:P2): statable, but outside the scope
+  assigned to this target (Λ_m and the θ = π/2 reduction).
+* Ahmed's exact formula itself as printed in Ahmed's preprint (not reproduced in the paper), and
+  the full length formula `L_{π/2}(n)` at `θ = π/2`; only its ingredients (stmt_5..stmt_8) are
+  stated.
+* `Λ_ν` for complex `ν`, entireness in `ν`, the Legendre function `P_ν` for non-integer `ν`
+  (not in Mathlib), the bound `|Λ_m| ≤ min(1-c, 2/(2m+1))`, and `Λ_2`.
+-/
+-- BEGIN STATEMENTS
+namespace T13
+
+open Polynomial Real
+
+/-- Legendre polynomial `P_n` over `ℝ`, built from Mathlib's shifted Legendre polynomial:
+`P_n(t) = shiftedLegendre n ((1 - t)/2)`. -/
+noncomputable def P (n : ℕ) : ℝ[X] :=
+  ((shiftedLegendre n).map (Int.castRingHom ℝ)).comp (C (1 / 2 : ℝ) * (1 - X))
+
+/-- The paper's Legendre integral at integer order: `Λ_m(θ) = ∫_{cos θ}^1 P_m(t) dt`. -/
+noncomputable def LamInt (m : ℕ) (θ : ℝ) : ℝ :=
+  ∫ t in Real.cos θ..1, (P m).eval t
+
+/-- `k`-th term of `2z ₂F₁(-ν, 1+ν; 2; z)`:
+`2z · (-ν)_k (1+ν)_k / (k! (2)_k) · z^k`. -/
+noncomputable def lamTerm (ν z : ℝ) (k : ℕ) : ℝ :=
+  2 * z * ((ascPochhammer ℝ k).eval (-ν) * (ascPochhammer ℝ k).eval (1 + ν) /
+    ((Nat.factorial k : ℝ) * (ascPochhammer ℝ k).eval 2)) * z ^ k
+
+/-- `P` is the classical Legendre family (initial values and Bonnet's recurrence).
+Sanity check of the definition, not a sentence of the paper. -/
+def stmt_1 : Prop :=
+  P 0 = 1 ∧ P 1 = X ∧
+  ∀ n : ℕ, ((n : ℝ) + 2) • P (n + 2) = (2 * (n : ℝ) + 3) • (X * P (n + 1)) - ((n : ℝ) + 1) • P n
+
+/-- thm:P2: "$\Lambda_m(\theta)=\frac{P_{m-1}(\cos\theta)-P_{m+1}(\cos\theta)}{2m+1}$",
+with `Λ_m` the Legendre integral `∫_{cos θ}^1 P_m`. -/
+def stmt_2 : Prop :=
+  ∀ m : ℕ, 1 ≤ m → ∀ θ : ℝ,
+    LamInt m θ = ((P (m - 1)).eval (Real.cos θ) - (P (m + 1)).eval (Real.cos θ)) / (2 * m + 1)
+
+/-- thm:P2: "[$\Lambda_m(\theta)$] is a polynomial in $\cos\theta$" (with rational coefficients). -/
+def stmt_3 : Prop :=
+  ∀ m : ℕ, 1 ≤ m → ∃ Q : ℚ[X], ∀ θ : ℝ,
+    LamInt m θ = (Q.map (Rat.castHom ℝ)).eval (Real.cos θ)
+
+/-- Display before thm:P2 (and g3:lem:Lam(a)) at integer order:
+`∫_{cos θ}^1 P_m = 2 sin²(θ/2) ₂F₁(-m, 1+m; 2; sin²(θ/2))`, `0 ≤ θ < π`. -/
+def stmt_4 : Prop :=
+  ∀ m : ℕ, ∀ θ : ℝ, 0 ≤ θ → θ < π →
+    HasSum (fun k : ℕ => lamTerm (m : ℝ) (Real.sin (θ / 2) ^ 2) k) (LamInt m θ)
+
+/-- Legendre values at `0` (used in g3:lem:pi2 and its last line): `P_{2k+1}(0) = 0` and
+`P_{2k}(0) = (-1)^k C(2k,k) / 4^k`. -/
+def stmt_5 : Prop :=
+  ∀ k : ℕ, (P (2 * k + 1)).eval 0 = 0 ∧
+    (P (2 * k)).eval 0 = (-1 : ℝ) ^ k * ((2 * k).choose k : ℝ) / 4 ^ k
+
+/-- g3:lem:pi2: "$\Lambda_m(\frac\pi2)=0$ for even $m$" (for `m ≥ 2`; `Λ_m` is defined for `m ≥ 1`
+in thm:P2). -/
+def stmt_6 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → Even m → LamInt m (π / 2) = 0
+
+/-- Explicit odd values at `θ = π/2`, from "$\Lambda_m(\frac\pi2)=\frac{P_{m-1}(0)-P_{m+1}(0)}{2m+1}$":
+`Λ_{2k+1}(π/2) = (-1)^k C(2k,k) / (4^k (2k+2))`. -/
+def stmt_7 : Prop :=
+  ∀ k : ℕ, LamInt (2 * k + 1) (π / 2) =
+    (-1 : ℝ) ^ k * ((2 * k).choose k : ℝ) / (4 ^ k * (2 * k + 2))
+
+/-- g3:lem:pi2 (the `ε`-term of thm:P2 at `θ = π/2`, Ahmed's Gamma factor):
+`(πε/sin πε) Λ_ε(π/2) = Γ(1+ε/2) Γ((1-ε)/2) / (√π (1+ε))`, with `Λ_ε` the hypergeometric series,
+for real `ε > 0`, `ε ∉ ℕ`. -/
+def stmt_8 : Prop :=
+  ∀ ε : ℝ, 0 < ε → (∀ j : ℕ, ε ≠ j) →
+    HasSum (fun k : ℕ => π * ε / Real.sin (π * ε) * lamTerm ε (Real.sin (π / 2 / 2) ^ 2) k)
+      (Real.Gamma (1 + ε / 2) * Real.Gamma ((1 - ε) / 2) / (Real.sqrt π * (1 + ε)))
+
+/-- main.tex 1458: "$\Lambda_1=\frac12\sin^2\theta$". -/
+def stmt_9 : Prop :=
+  ∀ θ : ℝ, LamInt 1 θ = Real.sin θ ^ 2 / 2
+
+end T13

@@ -1,0 +1,67 @@
+import Mathlib
+/-!
+# T09 — consistency of the two series in the octahedron-end theorem (paper label `thm:oct`)
+
+Source: `paper/ieee/main.tex`, Section "The Octahedron End" (`sec:octahedron`), line 1973
+(setup) and Theorem `thm:oct`, lines 1975–1990.
+
+Setup (line 1973):
+
+> Let's write $d=p-1$, as at the diamond, and $\tau=1-\frac1p=\frac d{1+d}$, and $[d^k]S$ for
+> the coefficient of $d^k$ in $S(1+d)$.
+
+Claim 1 of `thm:oct` (lines 1977–1980):
+
+> As $d\to0$ from either side,
+> \frac{S(1+d)}{4\sqrt3}=1+d+\Bigl(1-\frac{\pi^2}{9}\Bigr)d^2+\Bigl(1+\frac{\pi^2}{9}-\frac{16\zeta(3)}{9}\Bigr)d^3
+> +\Bigl(1-\frac{2\pi^2}{9}+\frac{32\zeta(3)}{9}-\frac{16\pi^4}{405}\Bigr)d^4+O(d^5),
+
+Claim 2 of `thm:oct` (lines 1982–1986):
+
+> \log\frac{(2-p)\,S(p)}{4\sqrt3}=-\frac{\pi^2}{9}\tau^2-\frac{16\zeta(3)}{9}\tau^3
+> -\frac{37\pi^4}{810}\tau^4-\frac{160\zeta(5)}{27}\tau^5
+> +\Bigl(\frac{16}{81}\zeta(3)^2-\frac{572}{76545}\pi^6\Bigr)\tau^6+O(\tau^7),
+
+What is formalized: the internal consistency of the two displays through order 4. Writing
+`F(d) = S(1+d)/(4√3)` (so `2-p = 1-d`), `stmt_1` says: for ANY real function `F` that is
+positive near `d = 0` and whose logarithm `log((1-d) F(d))` agrees with the paper's `τ`-series
+through `τ^4` (error `O(τ^5)`, `τ = d/(1+d)`) as `d → 0` (two-sided), `F` agrees with the paper's
+`d`-series through `d^4` (error `O(d^5)`). So exponentiating the `τ`-series and dividing by
+`(2-p)` yields exactly the stated `d`-coefficients.
+
+Conventions:
+* `ζ(3)` is a universally quantified real `z3` (the claim is an identity of formal
+  coefficients; it holds for every value, in particular for `ζ(3)`). `π` is `Real.pi`.
+* The `τ^5`, `τ^6` terms (with `ζ(5)`, `ζ(3)^2`) are absorbed into the `O(τ^5)` hypothesis; they
+  do not affect the `d`-series through `d^4`.
+* Positivity of `F` near `0` is assumed so that `Real.log` is the true logarithm (the paper's
+  `S` is a surface area, hence positive); no other hypothesis is added.
+* "From either side" is the two-sided filter `𝓝 0`.
+
+NOT COVERED: the actual analytic statements about the superellipsoid surface area `S(p)`
+(the definition of `S` and the truth of either expansion), the weight/rationality claim for
+every `[d^k]S`, the homogeneity of the `τ^k` coefficients, and the `τ^5`, `τ^6` coefficients.
+-/
+-- BEGIN STATEMENTS
+namespace T09
+
+/-- The paper's `τ`-series of `log((2-p)S(p)/(4√3))`, truncated after `τ^4`
+(`z3` stands for `ζ(3)`). -/
+noncomputable def logSeries (z3 τ : ℝ) : ℝ :=
+  -(Real.pi ^ 2 / 9) * τ ^ 2 - (16 * z3 / 9) * τ ^ 3 - (37 * Real.pi ^ 4 / 810) * τ ^ 4
+
+/-- The paper's `d`-series of `S(1+d)/(4√3)` through `d^4` (`z3` stands for `ζ(3)`). -/
+noncomputable def dSeries (z3 d : ℝ) : ℝ :=
+  1 + d + (1 - Real.pi ^ 2 / 9) * d ^ 2 + (1 + Real.pi ^ 2 / 9 - 16 * z3 / 9) * d ^ 3
+    + (1 - 2 * Real.pi ^ 2 / 9 + 32 * z3 / 9 - 16 * Real.pi ^ 4 / 405) * d ^ 4
+
+/-- thm:oct, lines 1973–1986: with `p = 1+d`, `τ = d/(1+d)` and `F(d) = S(1+d)/(4√3)`,
+the `τ`-series of `log((2-p) F)` through `τ^4` implies the `d`-series of `F` through `d^4`. -/
+def stmt_1 : Prop :=
+  ∀ (z3 : ℝ) (F : ℝ → ℝ),
+    (∀ᶠ d in nhds (0 : ℝ), 0 < F d) →
+    (fun d : ℝ => Real.log ((1 - d) * F d) - logSeries z3 (d / (1 + d)))
+        =O[nhds 0] (fun d : ℝ => (d / (1 + d)) ^ 5) →
+    (fun d : ℝ => F d - dSeries z3 d) =O[nhds 0] (fun d : ℝ => d ^ 5)
+
+end T09

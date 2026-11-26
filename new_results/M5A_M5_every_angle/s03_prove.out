@@ -1,0 +1,53 @@
+mu sides k=2..5 built in 27s; k=5 monomials: 1(70 words), z5(1 words), z4(2 words), z3(5 words), z2(12 words), z2*z3(1 words), z2^2(2 words)
+content: monomials of P_{5,n} = ['1', 'z2', 'z2*z3', 'z2^2', 'z3', 'z4', 'z5'] ; all of weight <= 5 and all 7 present: True
+ladder on mu sides (Q(n)-Z-forms, all n):
+   [z3]P5 == -[z2]P4 : True
+   [z4]P5 == [z2]P3 + [z2^2]P5 : True
+   [z5]P5 == -[z2]P2 - 2[z2^2]P4 : True
+   [z2z3]P5 == -2[z2^2]P4 : True
+   [z5]P5 = {(): -3/((2*n - 1)*(2*n + 1)*(2*n + 3))}
+   [z2*z3]P5 = {(): 2*n/((2*n - 1)*(2*n + 1)*(2*n + 3))}
+   [z2^2]P5 = {(-1,): -n/((2*n - 1)*(2*n + 1)*(2*n + 3)), (): -(84*n**5 + 296*n**4 + 275*n**3 - 44*n**2 - 137*n - 36)/(4*(n + 1)*(n + 2)*(2*n - 1)*(2*n + 1)**2*(2*n + 3)**2)}
+   [z4]P5 = {(-1,): (n + 3)/((2*n - 1)*(2*n + 1)*(2*n + 3)), (): -(4*n**6 - 128*n**5 - 457*n**4 - 346*n**3 + 231*n**2 + 312*n + 72)/(4*n*(n + 1)*(n + 2)*(2*n - 1)*(2*n + 1)**2*(2*n + 3)**2)}
+part z2^2: 13 terms (2 constant); terms by weight {1: 5, 2: 6}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 32
+   HPL side 2 words, mu side 2 words
+   even identity (all n>=1): True
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+part z5: 5 terms (2 constant); terms by weight {1: 3}; e in [-3, -1, 1]; lcm-relevant denominators of q: max 16
+   HPL side 1 words, mu side 1 words
+   even identity (all n>=1): True
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+part z2*z3: 5 terms (2 constant); terms by weight {1: 3}; e in [-3, -1, 1]; lcm-relevant denominators of q: max 16
+   HPL side 1 words, mu side 1 words
+   even identity (all n>=1): True
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+part z4: 13 terms (2 constant); terms by weight {1: 5, 2: 6}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 32
+   HPL side 2 words, mu side 2 words
+   even identity (all n>=1): True
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+part z3: 22 terms (1 constant); terms by weight {1: 3, 2: 6, 3: 12}; e in [-3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 8
+   HPL side 5 words, mu side 5 words
+   even identity (all n>=1): True
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+part z2: 61 terms (1 constant); terms by weight {1: 3, 2: 6, 3: 19, 4: 32}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 8
+   HPL side 12 words, mu side 12 words
+   even identity (all n>=1): True
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+part 1: 310 terms (0 constant); terms by weight {2: 1, 3: 8, 4: 27, 5: 84, 6: 190}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 4
+   HPL side 70 words, mu side 70 words
+   even identity (all n>=1): True
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+ALL-n IDENTITIES: {'z2^2': True, 'z5': True, 'z2*z3': True, 'z4': True, 'z3': True, 'z2': True, '1': True}
+ladder predictions vs independent fits (canonical term lists):
+   [z3]M5 == -Psi_2 : True
+   [z4]M5 == Psi + [z2^2]M5 : True
+   [z5]M5 == -Phi - 2 F_2 : True
+   [z2z3]M5 == -2 F_2 : True
+THEOREM M5 (all parts, all n): True

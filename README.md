@@ -12,11 +12,11 @@ Every result in the table below comes with the script that checks it. The *Check
 
 ## State of the repository
 
-The code here is as of draft 50 of the paper (2026-11-23).
+The code here is as of draft 58 of the paper (45 pages).
 
-- `new_results/` now has 236 folders, 181 more than before. They cover the later results of the paper.
+- `new_results/` now has 238 folders, 2 more than before. They cover the later results of the paper.
 - `proofs_supplement_scripts/` holds the check scripts that the written proofs supplement of the paper runs. The supplement itself is not here.
-- `VERIFICATION_MAP_draft50.md` is the current map from every theorem and every row of Table II to its folders, reports and scripts. `VERIFICATION_MAP.md` is the older map, from draft 10.
+- `VERIFICATION_MAP_draft58.md` is the current map from every theorem and every row of Table II to its folders, reports and scripts. `VERIFICATION_MAP.md` is the older map, from draft 10.
 - `OMITTED_LARGE_FILES.md` lists the files that were left out because they are too large.
 
 Most scripts were written to run inside the research tree, so some need their paths adjusted. `verify_all.py` and the certificates named in the map run from this layout.
@@ -171,6 +171,13 @@ Integer relations are found with PSLQ (`mpmath.pslq`) or LLL (`python-flint`, `f
 - its coefficients are far smaller than a random relation would need at that precision.
 
 `numpy` and `matplotlib` are needed only for the figure scripts.
+
+## Lean proofs (`lean/`)
+
+`lean/` is a Lean 4 project (Mathlib) that machine-checks 66 exact statements taken from the paper, in 14 files under `lean/Zeta3/Wave1/`. Examples: the curve |x/A| + |y/B| = 1 has perimeter 4r; the two expansions at the diamond end (in τ and in d) agree through order five; C₂ = 6√2, C₃ = −9√3/8 and C_m < 0 for m ≥ 3; the edge sums over the regular 2m-gon equal C_m, C_m⁽⁵⁾ and C_m⁽²,³⁾; L₁(p) = 8 and L_∞(p) = 8·2^(−1/p).
+Lean does not check the main theorems: Mathlib has no polylogarithms, multiple zeta values or symbols. `lean/LEAN_CHECKLIST.md` lists, target by target, what is proved and what is not covered.
+Each file states its claims between `BEGIN STATEMENTS` and `END STATEMENTS`; `lean/audit/` holds the statement blocks as accepted by a separate audit against the paper, and `lean/tools/gate.py` checks that a file still has those statements, compiles, has no `sorry`, and uses only the standard axioms.
+To rebuild: install `elan`, then in `lean/` run `lake exe cache get` and `lake build`.
 
 ## Files in each part
 

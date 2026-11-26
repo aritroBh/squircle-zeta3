@@ -1,0 +1,186 @@
+import Mathlib
+/-!
+# T12 -- edge law: parallelogram and affine-regular hexagon (prop:edgelaw)
+
+Target id: T12.  Paper label: `prop:edgelaw` (main.tex lines 1671-1684; detailed proof in
+`paper/ieee/proofs/sec_g4_edgelaw.tex`, Proposition 7 / Lemmas g4:lem:fl, g4:lem:laws).
+
+Quoted claims (main.tex 1672-1683):
+
+  "Let $e$ be an edge of a centrally symmetric convex polygon, from the corner $V_0$ to the
+  corner $V_1$, of length $L$ and at distance $h$ from the center. The foot of the perpendicular
+  from the center cuts the line of $e$ into signed lengths $L_0$ and $L_1=L-L_0$, measured from
+  $V_0$ and $V_1$. If $\langle v_{j_0},x\rangle=0$ is the kink line through $V_0$ and
+  $\langle v_{j_1},x\rangle=0$ the one through $V_1$, put $\xi_0=|\langle v_{j_0},V_1\rangle|$
+  and $\xi_1=|\langle v_{j_1},V_0\rangle|$. Then the $\zeta(3)$ part of what the local terms of
+  $e$ contribute to $P'''(1)$ is exactly $Z_e\,\zeta(3)$, where
+  \[ Z_e=6\,\xi_0\xi_1\frac{h^2}{L}\Bigl(3\,\frac{\xi_0L_0+\xi_1L_1}{L}-2\Bigr). \]
+  ... With $\mathcal E=\sum_eh_e^2/L_e$, every parallelogram has
+  \[ P(1+d)=P(1)+\frac{\pi^2\mathcal E}{6}d^2+\mathcal E\Bigl(\zeta(3)-\frac{\pi^2}{3}\Bigr)d^3+O(d^4), \]
+  and for every affine-regular hexagon $P(1+d)$ is
+  \[ 2^{\frac{d}{1+d}}\Bigl[P(1)+\frac{\pi^2\mathcal E}{24}d^2-\frac{\mathcal E}{8}
+     \Bigl(\zeta(3)+\frac{2\pi^2}{3}\Bigr)d^3\Bigr]+O(d^4). \]"
+
+What is formalized: the algebraic consistency step between the edge law and the two displays.
+The polygon is $K_1=\{\sum_j|\langle v_j,x\rangle|\le1\}$ in $\mathbb R^2$ (modelled as `ℝ × ℝ`
+with the Euclidean dot product). All edge data are computed from the corners:
+* $L=|V_1-V_0|$;
+* $L_0=-\langle V_0,V_1-V_0\rangle/L$ (signed length from $V_0$ to the foot $F$ of the
+  perpendicular from the origin, positive towards $V_1$; this matches main.tex line 1695,
+  $q_0=V_0\cdot(V_1-V_0)=-LL_0$), $L_1=L-L_0$;
+* $F=V_0+(L_0/L)(V_1-V_0)$ and $h=|F|$;
+* $\xi_0=|\langle v_{j_0},V_1\rangle|$, $\xi_1=|\langle v_{j_1},V_0\rangle|$ where $v_{j_0}$
+  ($v_{j_1}$) is the vector whose kink line passes through $V_0$ ($V_1$).
+The corners are not chosen: they are any points satisfying the paper's defining conditions
+(on the boundary $\sum_j|\langle v_j,x\rangle|=1$ and on the named kink line).
+
+* Parallelogram: $m=2$, $v_1,v_2$ non-parallel; $C$ is a boundary point on the kink line
+  $\langle v_1,x\rangle=0$ and $D$ one on $\langle v_2,x\rangle=0$; the four edges are
+  $C\to D\to -C\to -D\to C$.
+* Affine-regular hexagon: $m=3$; corners $C_0,C_1,C_2,-C_0,-C_1,-C_2$ with $C_0,C_2$ non-parallel
+  and $C_1=C_0+C_2$ (equivalently, a linear image of the regular hexagon, whose corners satisfy
+  $R_1=R_0+R_2$; this is the characterization of Lemma g4:lem:fl(c) of the supplement); $C_i$ lies
+  on the kink line $\langle v_i,x\rangle=0$ and on the boundary of $K_1$.
+
+The $\zeta(3)$-coefficient of $P'''(1)$ implied by each display is extracted by treating
+$\zeta(3)$ as a formal real parameter `z3` (the displays are affine in it): the $\zeta(3)$-part of
+$P'''(1)=3!\,[d^3]$ is `iteratedDeriv 3 (disp z3 - disp 0) 0`, which must equal
+$(\sum_eZ_e)\,z3$.  Here `z3` is a universally quantified real (formal coefficient identity),
+not `riemannZeta 3`.  The factor $2^{d/(1+d)}$ is kept in the hexagon display (`Real.rpow`; the
+value of `d/(1+d)` at `d = -1` is irrelevant since only the germ at `d = 0` is used).
+
+No hypothesis is strengthened beyond the paper: "pairwise non-parallel $v_j$" is the paper's
+setting; non-parallel $C_0,C_2$ is part of being a (non-degenerate) hexagon.
+
+NOT COVERED:
+* The analytic content of the two displays (that the perimeter $P(p)$ of
+  $K_p=\{\sum_j|\langle v_j,x\rangle|^p\le1\}$ really has these expansions with an $O(d^4)$
+  error).  Mathlib has no usable perimeter/arc-length for $\partial K_p$; one could use
+  `μH[1] (frontier K_p)`, but proving it is far beyond reach, so it is left out.
+* The general claim that the $\zeta(3)$ part of the local terms of an arbitrary edge equals
+  $Z_e\zeta(3)$ (needs the notions "local terms" and "formal $\zeta(3)$ part" of a Beta-moment
+  expansion of the length element), and "if the polygon is fully local this is all of its
+  $\zeta(3)$".
+* The remarks after the proposition ($\sum_eZ_e=C_m$, the regular-hexagon value of $P'''(1)$).
+-/
+-- BEGIN STATEMENTS
+namespace T12
+
+/-- Euclidean inner product on `ℝ × ℝ`. -/
+def dot (x y : ℝ × ℝ) : ℝ := x.1 * y.1 + x.2 * y.2
+
+/-- Determinant of two plane vectors (nonzero iff they are not parallel). -/
+def det (x y : ℝ × ℝ) : ℝ := x.1 * y.2 - x.2 * y.1
+
+/-- Edge length $L=|V_1-V_0|$. -/
+noncomputable def edgeLen (V0 V1 : ℝ × ℝ) : ℝ := Real.sqrt (dot (V1 - V0) (V1 - V0))
+
+/-- Signed length $L_0$ from $V_0$ to the foot of the perpendicular from the origin. -/
+noncomputable def edgeL0 (V0 V1 : ℝ × ℝ) : ℝ := -dot V0 (V1 - V0) / edgeLen V0 V1
+
+/-- $L_1=L-L_0$. -/
+noncomputable def edgeL1 (V0 V1 : ℝ × ℝ) : ℝ := edgeLen V0 V1 - edgeL0 V0 V1
+
+/-- Foot of the perpendicular from the origin to the line of the edge. -/
+noncomputable def foot (V0 V1 : ℝ × ℝ) : ℝ × ℝ :=
+  V0 + (edgeL0 V0 V1 / edgeLen V0 V1) • (V1 - V0)
+
+/-- Distance $h$ of the edge line from the center. -/
+noncomputable def edgeH (V0 V1 : ℝ × ℝ) : ℝ := Real.sqrt (dot (foot V0 V1) (foot V0 V1))
+
+/-- An oriented edge `V0 → V1` together with the vectors `u0 = v_{j0}`, `u1 = v_{j1}` whose kink
+lines pass through `V0` and `V1`. -/
+structure Edge where
+  u0 : ℝ × ℝ
+  u1 : ℝ × ℝ
+  V0 : ℝ × ℝ
+  V1 : ℝ × ℝ
+
+/-- The paper's $Z_e=6\xi_0\xi_1\frac{h^2}{L}\bigl(3\frac{\xi_0L_0+\xi_1L_1}{L}-2\bigr)$ with
+$\xi_0=|\langle v_{j_0},V_1\rangle|$, $\xi_1=|\langle v_{j_1},V_0\rangle|$. -/
+noncomputable def Ze (e : Edge) : ℝ :=
+  let ξ0 := |dot e.u0 e.V1|
+  let ξ1 := |dot e.u1 e.V0|
+  let L := edgeLen e.V0 e.V1
+  let h := edgeH e.V0 e.V1
+  6 * ξ0 * ξ1 * (h ^ 2 / L) *
+    (3 * (ξ0 * edgeL0 e.V0 e.V1 + ξ1 * edgeL1 e.V0 e.V1) / L - 2)
+
+/-- The summand $h_e^2/L_e$ of $\mathcal E$. -/
+noncomputable def hsqOverL (e : Edge) : ℝ := edgeH e.V0 e.V1 ^ 2 / edgeLen e.V0 e.V1
+
+/-- $\sum_e Z_e$ over a list of edges. -/
+noncomputable def sumZ (es : List Edge) : ℝ := (es.map Ze).sum
+
+/-- $\mathcal E=\sum_e h_e^2/L_e$ over a list of edges. -/
+noncomputable def sumE (es : List Edge) : ℝ := (es.map hsqOverL).sum
+
+/-- Corner data of the parallelogram $K_1=\{|\langle v_1,x\rangle|+|\langle v_2,x\rangle|\le1\}$:
+`C` is the boundary point on the kink line $\langle v_1,x\rangle=0$, `D` the one on
+$\langle v_2,x\rangle=0$. -/
+def IsParallelogram (v1 v2 C D : ℝ × ℝ) : Prop :=
+  det v1 v2 ≠ 0 ∧
+  dot v1 C = 0 ∧ |dot v1 C| + |dot v2 C| = 1 ∧
+  dot v2 D = 0 ∧ |dot v1 D| + |dot v2 D| = 1
+
+/-- The four edges $C\to D\to-C\to-D\to C$, each with the kink vectors through its endpoints. -/
+def parEdges (v1 v2 C D : ℝ × ℝ) : List Edge :=
+  [⟨v1, v2, C, D⟩, ⟨v2, v1, D, -C⟩, ⟨v1, v2, -C, -D⟩, ⟨v2, v1, -D, C⟩]
+
+/-- Corner data of an affine-regular hexagon
+$K_1=\{\sum_{i=0}^2|\langle v_i,x\rangle|\le1\}$ with corners $C_0$, $C_1=C_0+C_2$, $C_2$ and
+their negatives; $C_i$ lies on the kink line $\langle v_i,x\rangle=0$ and on $\partial K_1$. -/
+def IsAffRegHexagon (v0 v1 v2 C0 C2 : ℝ × ℝ) : Prop :=
+  det C0 C2 ≠ 0 ∧ det v0 v1 ≠ 0 ∧ det v1 v2 ≠ 0 ∧ det v0 v2 ≠ 0 ∧
+  dot v0 C0 = 0 ∧ dot v1 (C0 + C2) = 0 ∧ dot v2 C2 = 0 ∧
+  |dot v0 C0| + |dot v1 C0| + |dot v2 C0| = 1 ∧
+  |dot v0 (C0 + C2)| + |dot v1 (C0 + C2)| + |dot v2 (C0 + C2)| = 1 ∧
+  |dot v0 C2| + |dot v1 C2| + |dot v2 C2| = 1
+
+/-- The six edges $C_0\to C_1\to C_2\to-C_0\to-C_1\to-C_2\to C_0$ ($C_1=C_0+C_2$). -/
+def hexEdges (v0 v1 v2 C0 C2 : ℝ × ℝ) : List Edge :=
+  let C1 := C0 + C2
+  [⟨v0, v1, C0, C1⟩, ⟨v1, v2, C1, C2⟩, ⟨v2, v0, C2, -C0⟩,
+   ⟨v0, v1, -C0, -C1⟩, ⟨v1, v2, -C1, -C2⟩, ⟨v2, v0, -C2, C0⟩]
+
+/-- Parallelogram display with $\zeta(3)$ replaced by the formal parameter `z3`:
+$P+\frac{\pi^2\mathcal E}6d^2+\mathcal E(z_3-\frac{\pi^2}3)d^3$. -/
+noncomputable def parDisp (P E z3 d : ℝ) : ℝ :=
+  P + Real.pi ^ 2 * E / 6 * d ^ 2 + E * (z3 - Real.pi ^ 2 / 3) * d ^ 3
+
+/-- Hexagon display with $\zeta(3)$ replaced by `z3`:
+$2^{d/(1+d)}\bigl[P+\frac{\pi^2\mathcal E}{24}d^2-\frac{\mathcal E}8(z_3+\frac{2\pi^2}3)d^3\bigr]$. -/
+noncomputable def hexDisp (P E z3 d : ℝ) : ℝ :=
+  (2 : ℝ) ^ (d / (1 + d)) *
+    (P + Real.pi ^ 2 * E / 24 * d ^ 2 - E / 8 * (z3 + 2 * Real.pi ^ 2 / 3) * d ^ 3)
+
+/-- Parallelogram, edge law summed: with edge data computed from the corners,
+$\sum_eZ_e=6\,\mathcal E$ (= $3!$ times the $\zeta(3)$-coefficient $\mathcal E$ of $d^3$). -/
+def stmt_1 : Prop :=
+  ∀ v1 v2 C D : ℝ × ℝ, IsParallelogram v1 v2 C D →
+    sumZ (parEdges v1 v2 C D) = 6 * sumE (parEdges v1 v2 C D)
+
+/-- Parallelogram: the $\zeta(3)$-part of $P'''(1)=3!\,[d^3]$ read off the paper's display equals
+$(\sum_eZ_e)\,\zeta(3)$ (formal `z3`). -/
+def stmt_2 : Prop :=
+  ∀ v1 v2 C D : ℝ × ℝ, IsParallelogram v1 v2 C D → ∀ P z3 : ℝ,
+    iteratedDeriv 3
+        (fun d => parDisp P (sumE (parEdges v1 v2 C D)) z3 d
+                  - parDisp P (sumE (parEdges v1 v2 C D)) 0 d) 0
+      = sumZ (parEdges v1 v2 C D) * z3
+
+/-- Affine-regular hexagon, edge law summed: $\sum_eZ_e=6\cdot(-\mathcal E/8)$. -/
+def stmt_3 : Prop :=
+  ∀ v0 v1 v2 C0 C2 : ℝ × ℝ, IsAffRegHexagon v0 v1 v2 C0 C2 →
+    sumZ (hexEdges v0 v1 v2 C0 C2) = 6 * (-(sumE (hexEdges v0 v1 v2 C0 C2) / 8))
+
+/-- Affine-regular hexagon: the $\zeta(3)$-part of $3!\,[d^3]$ of the paper's display (with the
+factor $2^{d/(1+d)}$) equals $(\sum_eZ_e)\,\zeta(3)$ (formal `z3`). -/
+def stmt_4 : Prop :=
+  ∀ v0 v1 v2 C0 C2 : ℝ × ℝ, IsAffRegHexagon v0 v1 v2 C0 C2 → ∀ P z3 : ℝ,
+    iteratedDeriv 3
+        (fun d => hexDisp P (sumE (hexEdges v0 v1 v2 C0 C2)) z3 d
+                  - hexDisp P (sumE (hexEdges v0 v1 v2 C0 C2)) 0 d) 0
+      = sumZ (hexEdges v0 v1 v2 C0 C2) * z3
+
+end T12

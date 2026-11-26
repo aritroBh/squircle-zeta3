@@ -1,0 +1,27 @@
+{
+ "file": "Zeta3/Wave1/T02_SeriesDiamond.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_1",
+  "stmt_2",
+  "stmt_3"
+ ],
+ "axioms": {
+  "T02.proof_1": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "T02.proof_2": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "T02.proof_3": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

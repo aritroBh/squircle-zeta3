@@ -1,0 +1,15 @@
+{
+ "file": "Zeta3/Wave1/T09_OctSeries.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_1"
+ ],
+ "axioms": {
+  "T09.proof_1": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

@@ -1,0 +1,36 @@
+part z2^2: weight <= 2, 26 unknowns
+   p=2305843009213693951: 128 equations, 26 unknowns, rank 26, consistent True
+   p=4611686018427387847: 128 equations, 26 unknowns, rank 26, consistent True
+   p=9223372036854775783: 128 equations, 26 unknowns, rank 26, consistent True
+   rational reconstruction stable over 2 vs 3 primes: True; nonzero 13
+   unique: True; 13 nonzero terms; 0s
+part z5: weight <= 1, 8 unknowns
+   p=2305843009213693951: 110 equations, 8 unknowns, rank 8, consistent True
+   p=4611686018427387847: 110 equations, 8 unknowns, rank 8, consistent True
+   p=9223372036854775783: 110 equations, 8 unknowns, rank 8, consistent True
+   rational reconstruction stable over 2 vs 3 primes: True; nonzero 5
+   unique: True; 5 nonzero terms; 0s
+part z2*z3: weight <= 1, 8 unknowns
+   p=2305843009213693951: 110 equations, 8 unknowns, rank 8, consistent True
+   p=4611686018427387847: 110 equations, 8 unknowns, rank 8, consistent True
+   p=9223372036854775783: 110 equations, 8 unknowns, rank 8, consistent True
+   rational reconstruction stable over 2 vs 3 primes: True; nonzero 5
+   unique: True; 5 nonzero terms; 0s
+part z4: weight <= 2, 26 unknowns
+   p=2305843009213693951: 128 equations, 26 unknowns, rank 26, consistent True
+   p=4611686018427387847: 128 equations, 26 unknowns, rank 26, consistent True
+   p=9223372036854775783: 128 equations, 26 unknowns, rank 26, consistent True
+   rational reconstruction stable over 2 vs 3 primes: True; nonzero 13
+   unique: True; 13 nonzero terms; 0s
+part z3: weight <= 3, 80 unknowns
+   p=2305843009213693951: 182 equations, 80 unknowns, rank 80, consistent True
+   p=4611686018427387847: 182 equations, 80 unknowns, rank 80, consistent True
+   p=9223372036854775783: 182 equations, 80 unknowns, rank 80, consistent True
+   rational reconstruction stable over 2 vs 3 primes: True; nonzero 22
+   unique: True; 22 nonzero terms; 0s
+part z2: weight <= 4, 242 unknowns
+   p=2305843009213693951: 344 equations, 242 unknowns, rank 242, consistent True
+   p=4611686018427387847: 344 equations, 242 unknowns, rank 242, consistent True
+   p=9223372036854775783: 344 equations, 242 unknowns, rank 242, consistent True
+   rational reconstruction stable over 2 vs 3 primes: True; nonzero 61
+   unique: True; 61 nonzero terms; 0s

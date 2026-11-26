@@ -1,0 +1,8 @@
+   p=2305843009213693951: 129 equations, 67 unknowns, rank 67, consistent True
+   p=4611686018427387847: 129 equations, 67 unknowns, rank 67, consistent True
+   rational reconstruction stable over 1 vs 2 primes: True; nonzero 22
+z2 fit == G8 data file: True (22 terms, 0s)
+   p=2305843009213693951: 669 equations, 607 unknowns, rank 607, consistent True
+   p=4611686018427387847: 669 equations, 607 unknowns, rank 607, consistent True
+   rational reconstruction stable over 1 vs 2 primes: True; nonzero 109
+1 fit == G8 data file: True (109 terms, 1s)

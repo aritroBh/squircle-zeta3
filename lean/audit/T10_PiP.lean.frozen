@@ -1,0 +1,95 @@
+import Mathlib
+/-!
+# T10 — the term `4·2^{-1/p}` of `π_p` (paper label `thm:pip`)
+
+Source: `paper/ieee/main.tex`, Theorem `thm:pip` ("Expansion of $\pi_p$"), lines 1336–1350,
+with the splitting of `paper/ieee/proofs/sec_pip.tex`, Lemma `lem:pip:split` (lines 52–66)
+and line 132. The theorem reads (lines 1337–1344):
+
+> $\pi_p=4\cdot2^{-1/p}+E(p)$ with an explicit integral $E(p)$ (given in the proof), and
+> \[ \pi_p=4\Bigl(1+\frac{N_0}{p}+\frac{N_1}{p^2}+\frac{N_2}{p^3}+\frac{N_3}{p^4}+O(p^{-5})\Bigr), \]
+> where $N_0=-\log2$, $N_1=\frac12\log^22$, $N_2=\frac{\pi^2}{24}-\frac{\log^32}{6}$ and
+> \[ N_3=\frac{\log^42}{24}+\frac{\pi^2}{24}(1-\log2)+\frac{\zeta(3)}{4} . \]
+
+and the proof (sec_pip.tex line 65 and line 132):
+
+> The first part gives $\frac4p\int_0^{1/2}t^{-1+h}dt=\frac4p\,p\,2^{-h}=4\cdot2^{-1/p}$.
+> ... Finally $2^{-h}=\sum_k\frac{(-\log2)^{k}}{k!}h^k$ and $\pi_p/4=2^{-h}+\hat E(h)$.
+
+What is covered here is exactly the contribution of the term `4·2^{-1/p}`, with `h = ε = 1/p`:
+
+* `stmt_1`: the main part of the splitting, `(4/p)∫_0^{1/2} t^{-1+1/p} dt = 4·2^{-1/p}` for `p > 1`
+  (sec_pip.tex line 65).
+* `stmt_2`: the Taylor coefficients of `ε ↦ 2^{-ε}` at `0` are `(-log 2)^k` (so the
+  coefficient of `ε^k` is `(-log 2)^k/k!`, sec_pip.tex line 132).
+* `stmt_3`: `2^{-ε} = Σ_{k≤4} (-log 2)^k ε^k/k! + O(ε^5)` on `0 ≤ ε ≤ 1`, with the explicit
+  constant `(log 2)^5/120` (the Lagrange bound). The paper prints no constant for this
+  `O(ε^5)`; the constant is our choice (it is the sharp Lagrange constant, valid for all ε ≥ 0).
+* `stmt_4`: the printed values match the Taylor coefficients: `N_0 = -log 2 = (-log 2)^1/1!`,
+  `N_1 = ½ log²2 = (-log 2)^2/2!`, and the pure-`log 2` parts of `N_2`, `N_3`,
+  `-log³2/6 = (-log 2)^3/3!`, `log⁴2/24 = (-log 2)^4/4!`.
+* `stmt_5`: in the variable `p` (`p ≥ 1`), with the paper's printed `N_0`, `N_1` and the
+  pure-log parts of `N_2`, `N_3`:
+  `|4·2^{-1/p} - 4(1 + N_0/p + N_1/p² + N_2^{log}/p³ + N_3^{log}/p⁴)| ≤ 4 (log 2)^5/(120 p^5)`.
+
+`2^{-ε}` is `Real.rpow 2 (-ε)`; all divisions are by nonzero reals under the hypotheses.
+
+NOT COVERED:
+* The integral `E(p)` and its expansion `E(p) = (π²/6)p^{-3} + (π²/6 + ζ(3) - π² log2/6)p^{-4}
+  + O(p^{-5})`, i.e. the `π²/24` part of `N_2` and the `π²/24 (1 - log 2) + ζ(3)/4` part of
+  `N_3`; hence also the full expansion of `π_p` itself (the definition of `π_p` as an integral
+  and the identity `π_p = 4·2^{-1/p} + E(p)` are not stated here; only its main part is).
+* `N_4`, `N_5`, the expansion to every order, its divergence, and the growth law of `N_k`.
+-/
+-- BEGIN STATEMENTS
+namespace T10
+
+/-- The function `ε ↦ 2^{-ε}` (real power). -/
+noncomputable def twoPow (ε : ℝ) : ℝ := (2 : ℝ) ^ (-ε)
+
+/-- The degree-4 Taylor polynomial `Σ_{k≤4} (-log 2)^k ε^k / k!`. -/
+noncomputable def taylor4 (ε : ℝ) : ℝ :=
+  ∑ k ∈ Finset.range 5, (-Real.log 2) ^ k * ε ^ k / (Nat.factorial k : ℝ)
+
+/-- Printed `N_0 = -log 2` (main.tex line 1341). -/
+noncomputable def N0 : ℝ := -Real.log 2
+/-- Printed `N_1 = ½ log² 2` (main.tex line 1341). -/
+noncomputable def N1 : ℝ := (1 / 2) * Real.log 2 ^ 2
+/-- Pure-`log 2` part of the printed `N_2 = π²/24 - log³2/6` (main.tex line 1341). -/
+noncomputable def N2log : ℝ := -(Real.log 2 ^ 3 / 6)
+/-- Pure-`log 2` part of the printed `N_3 = log⁴2/24 + π²/24(1-log 2) + ζ(3)/4`
+(main.tex line 1343). -/
+noncomputable def N3log : ℝ := Real.log 2 ^ 4 / 24
+
+/-- sec_pip.tex line 65: for `p > 1`, `(4/p) ∫_0^{1/2} t^{-1+1/p} dt = 4·2^{-1/p}`. -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, 1 < p →
+    (4 / p) * ∫ t in (0 : ℝ)..(1 / 2), t ^ (-1 + 1 / p) = 4 * (2 : ℝ) ^ (-(1 / p))
+
+/-- sec_pip.tex line 132: the `k`-th derivative of `ε ↦ 2^{-ε}` at `0` is `(-log 2)^k`,
+so `2^{-ε} = Σ_k (-log 2)^k ε^k / k!` term by term. -/
+def stmt_2 : Prop :=
+  ∀ k : ℕ, iteratedDeriv k twoPow 0 = (-Real.log 2) ^ k
+
+/-- `2^{-ε} = Σ_{k≤4} (-log 2)^k ε^k/k! + O(ε^5)` on `0 ≤ ε ≤ 1`, with the explicit constant
+`(log 2)^5/120` (constant not printed in the paper). -/
+def stmt_3 : Prop :=
+  ∀ ε : ℝ, 0 ≤ ε → ε ≤ 1 → |twoPow ε - taylor4 ε| ≤ Real.log 2 ^ 5 / 120 * ε ^ 5
+
+/-- main.tex line 1341–1343: `N_0`, `N_1` and the pure-log parts of `N_2`, `N_3` are the
+Taylor coefficients `(-log 2)^{k+1}/(k+1)!` of `2^{-h}`. -/
+def stmt_4 : Prop :=
+  N0 = (-Real.log 2) ^ 1 / (Nat.factorial 1 : ℝ) ∧
+  N1 = (-Real.log 2) ^ 2 / (Nat.factorial 2 : ℝ) ∧
+  N2log = (-Real.log 2) ^ 3 / (Nat.factorial 3 : ℝ) ∧
+  N3log = (-Real.log 2) ^ 4 / (Nat.factorial 4 : ℝ)
+
+/-- The `4·2^{-1/p}` part of thm:pip: for `p ≥ 1`,
+`4·2^{-1/p} = 4(1 + N_0/p + N_1/p² + N_2^{log}/p³ + N_3^{log}/p⁴) + O(p^{-5})`,
+with the explicit bound `4 (log 2)^5 / (120 p^5)`. -/
+def stmt_5 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    |4 * (2 : ℝ) ^ (-(1 / p)) - 4 * (1 + N0 / p + N1 / p ^ 2 + N2log / p ^ 3 + N3log / p ^ 4)|
+      ≤ 4 * Real.log 2 ^ 5 / (120 * p ^ 5)
+
+end T10

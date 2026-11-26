@@ -1,0 +1,11 @@
+mu side k=5 built in 25.6s
+  1       :   70 words, max depth 5, indices [-5, -4, -3, -2, -1, 2, 3, 4, 5]
+  z5      :    1 words, max depth 0, indices []
+  z4      :    2 words, max depth 1, indices [-1]
+  z3      :    5 words, max depth 2, indices [-2, -1, 2]
+  z2      :   12 words, max depth 3, indices [-3, -2, -1, 2, 3]
+  z2*z3   :    1 words, max depth 0, indices []
+  z2^2    :    2 words, max depth 1, indices [-1]
+mu side == g6_common.mu_formal (independent, numeric n), n=1..8: True
+denominator factors (factor, max mult):
+   {'2*n - 1': 1, 'n': 6, '2*n + 1': 4, 'n + 1': 3, '2*n + 3': 2, 'n + 2': 1}

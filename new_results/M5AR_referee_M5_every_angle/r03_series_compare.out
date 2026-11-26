@@ -1,0 +1,32 @@
+=== (A) each fitted part of M_5 vs independent mu_(5,n), n <= 150
+  [1]M5 (310 lines): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z2]M5 (61 lines): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z2^2]M5 (13 lines): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z3]M5 (22 lines): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z4]M5 (13 lines): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z5]M5 (5 lines): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z2*z3]M5 (5 lines): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  zeta monomials occurring in mu_(5,n), n<=NMAX: [(0, 0, 0, 0), (0, 0, 0, 1), (0, 0, 1, 0), (0, 1, 0, 0), (1, 0, 0, 0), (1, 1, 0, 0), (2, 0, 0, 0)]  -> exactly the 7 parts: True
+=== (B) closed forms [z5]mu5 = -3/((2n-1)(2n+1)(2n+3)), [z2z3]mu5 = 2n/((2n-1)(2n+1)(2n+3))
+  z5: True   z2z3: True
+  [z2^2]mu_(4,n) = -n/((2n-1)(2n+1)(2n+3)) (result.md s6): True
+=== (C) the ladder parts of the THEOREM as stated, with the paper's Phi, G8's Psi, Psi_2, and F_2
+  F_2 := (-c/16-1/(8c)+3/(16c^3))artanh c+1/16-3/(16c^2)  vs [z2^2]M4 (own mu): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  Phi vs [z2]M2 (own mu): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  Psi (G8 terms) vs [z2]M3 (own mu): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  Psi_2 (G8 terms) vs [z2]M4 (own mu): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  -Psi_2 vs [z3]M5: coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  Psi + G vs [z4]M5: coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  -Phi - 2F_2 vs [z5]M5: coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  -2F_2 vs [z2z3]M5: coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  paper's example rung [z5]M5 = -[z2]M2 - 2[z2^2]M4 on own mu: True
+  [z3]M_{k+1} = -[z2]M_k, k=2,3,4, on own mu: True
+=== (D) closed forms in result.md
+  G closed form vs [z2^2]M5 (own mu): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z5] closed form -5/8+3/(8c^2)-3(1-c^2)^2/(8c^3)A: coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  [z2z3] closed form -1/8+3/(8c^2)-(1-c^2)(3+c^2)/(8c^3)A: coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  Psi closed form vs [z2]M3 (own mu): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  pi^4 bracket of result.md vs [z4]/90+[z2^2]/36 (own mu): coefficients c^N, -6 <= N <= 301: ALL EQUAL
+  paper Thm M4alpha pi^4 bracket vs own mu_4: coefficients c^N, -6 <= N <= 301: ALL EQUAL
+D coefficient of the pi^4 bracket: (1-c^2)(3c^2-7)/1920 /c^3 = (-3c^4+10c^2-7)/(1920c^3): nonzero polynomial
+ALL CHECKS: True (26 checks)

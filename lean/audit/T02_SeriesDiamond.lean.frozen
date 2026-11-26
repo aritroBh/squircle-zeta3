@@ -1,0 +1,116 @@
+import Mathlib
+/-!
+# T02 — consistency of Proposition `prop:an` with Theorem `thm:pw`
+
+Target id: T02.
+Paper labels: `prop:an` (main.tex lines 1163–1174) and `thm:pw` (main.tex lines 1183–1191),
+with the change of variable stated at main.tex line 1181 and the remark at line 1197.
+
+Claims quoted verbatim.
+
+`prop:an` (lines 1164–1168):
+
+  Let $a_n=P^{(n)}(1)/(\sqrt2\,n!)$, the Taylor coefficients of $P(1+d)/\sqrt2$ at $d=0$
+  (the series diverges, by Theorem~\ref{thm:zero}). Then $a_0=4$, $a_1=0$, $a_2=\pi^2/6$,
+  $a_3=\zeta(3)-\pi^2/3$,
+  \begin{gather*}
+  a_4=-3\zeta(3)-\frac{11\pi^4}{480}+\frac{\pi^2}{2},\\
+  a_5=-\frac{7\pi^2\zeta(3)}{24}+6\zeta(3)-\frac{3\zeta(5)}{4}-\frac{2\pi^2}{3}+\frac{11\pi^4}{120},
+  \end{gather*}
+
+Line 1181: Let's use $\tau=1-\frac1p=\frac{d}{1+d}=-\eta$
+
+`thm:pw` (lines 1186–1189):
+
+  \frac{P}{\sqrt2}=4+\zeta(2)\tau^2+\zeta(3)\tau^3-\frac{33}{16}\zeta(4)\tau^4\\
+  -\Bigl(\frac34\zeta(5)+\frac74\zeta(2)\zeta(3)\Bigr)\tau^5+O(\tau^6).
+
+Line 1197: going back to $d$ means $\tau=d-d^2+d^3-\cdots$, so
+$\zeta(2)\tau^2=\zeta(2)(d^2-2d^3+\cdots)$, and $-2\zeta(2)d^3=-\frac{\pi^2}{3}d^3$ is the
+whole difference between $a_3$ and $\zeta(3)$.
+
+Formalization choices:
+* `ζ(2)` and `ζ(4)` are the genuine Mathlib values `(riemannZeta 2).re`, `(riemannZeta 4).re`
+  (Mathlib's `riemannZeta` is complex-valued; these values are real). The `a_n` are written,
+  as in the paper, with powers of `π`; matching them against `ζ(2)`, `ζ(4)` therefore uses
+  `riemannZeta_two`, `riemannZeta_four` and is part of the content.
+* `ζ(3)` and `ζ(5)` are universally quantified real parameters `z3`, `z5`: the claim is an
+  identity of formal coefficients, valid for every value of these symbols (in particular for
+  `(riemannZeta 3).re`, `(riemannZeta 5).re`).
+* "`O(τ^6)`" and "Taylor coefficients through order 5" are expressed as `IsBigO` at the
+  two-sided neighbourhood filter `𝓝 0`. The paper uses both sides of `p = 1` (Fig. `fig:rhombus`
+  plots both sides), so the two-sided filter is the faithful reading.
+* `F` plays the role of `p ↦ P(p)/√2`; it is an arbitrary real function, so no property of the
+  actual perimeter is assumed beyond the displayed hypothesis. `p = 1/(1-τ)` is the inverse of
+  `τ = 1 - 1/p`; only values near `τ = 0` (resp. `d = 0`) matter, so the conventions
+  `x/0 = 0` play no role.
+* stmt_3 adds the hypothesis that `F` is `C^5` near `p = 1`, which is needed for
+  `P^{(n)}(1)` to be meaningful (the paper establishes smoothness elsewhere); without it
+  `iteratedDeriv` would be the junk value `0`.
+
+NOT COVERED:
+* The statements of `thm:pw` and `prop:an` themselves about the actual perimeter `P(p)` of
+  `|x|^p+|y|^p=1` (not defined here); this target only checks that the two expansions agree.
+* `a_6`, `a_7` (Table `tab:closed`), the weight/polynomiality claims, the `ω_n` part of
+  `prop:an` (that is target T03), the rhombus and higher-dimensional extensions of `thm:pw`,
+  and the `log(P/(4√2)) = Σ w_k τ^k` form.
+-/
+-- BEGIN STATEMENTS
+namespace T02
+
+open Asymptotics Filter
+
+/-- `ζ(2)`, the actual Mathlib value (real part of the complex `riemannZeta 2`). -/
+noncomputable def ζ2 : ℝ := (riemannZeta 2).re
+
+/-- `ζ(4)`, the actual Mathlib value (real part of the complex `riemannZeta 4`). -/
+noncomputable def ζ4 : ℝ := (riemannZeta 4).re
+
+/-- Line 1181: `τ = d/(1+d)`. -/
+noncomputable def tau (d : ℝ) : ℝ := d / (1 + d)
+
+/-- The degree-5 polynomial of `thm:pw`:
+`4 + ζ(2)τ² + ζ(3)τ³ - (33/16)ζ(4)τ⁴ - (3/4 ζ(5) + 7/4 ζ(2)ζ(3))τ⁵`,
+with `ζ(3) = z3`, `ζ(5) = z5` formal. -/
+noncomputable def pw (z3 z5 t : ℝ) : ℝ :=
+  4 + ζ2 * t ^ 2 + z3 * t ^ 3 - 33 / 16 * ζ4 * t ^ 4
+    - (3 / 4 * z5 + 7 / 4 * ζ2 * z3) * t ^ 5
+
+/-- The coefficients `a_0, …, a_5` of `prop:an`, with `ζ(3) = z3`, `ζ(5) = z5` formal
+(the value `0` for `n ≥ 6` is a placeholder, never used). -/
+noncomputable def a (z3 z5 : ℝ) : ℕ → ℝ
+  | 0 => 4
+  | 1 => 0
+  | 2 => Real.pi ^ 2 / 6
+  | 3 => z3 - Real.pi ^ 2 / 3
+  | 4 => -3 * z3 - 11 * Real.pi ^ 4 / 480 + Real.pi ^ 2 / 2
+  | 5 => -(7 * Real.pi ^ 2 * z3) / 24 + 6 * z3 - 3 * z5 / 4 - 2 * Real.pi ^ 2 / 3
+          + 11 * Real.pi ^ 4 / 120
+  | _ => 0
+
+/-- The degree-5 polynomial `Σ_{n=0}^{5} a_n d^n` of `prop:an`. -/
+noncomputable def anPoly (z3 z5 d : ℝ) : ℝ :=
+  ∑ n ∈ Finset.range 6, a z3 z5 n * d ^ n
+
+/-- Re-expanding the `thm:pw` polynomial in `τ = d/(1+d)` in powers of `d` gives exactly
+`a_0, …, a_5` of `prop:an`: the difference is `O(d^6)` as `d → 0`. -/
+def stmt_1 : Prop :=
+  ∀ z3 z5 : ℝ,
+    (fun d : ℝ => pw z3 z5 (tau d) - anPoly z3 z5 d) =O[nhds 0] (fun d : ℝ => d ^ 6)
+
+/-- Consistency of the two results: if `P(p)/√2 = (thm:pw polynomial in τ) + O(τ^6)` with
+`p = 1/(1-τ)`, then `P(1+d)/√2 = Σ_{n≤5} a_n d^n + O(d^6)` with the `a_n` of `prop:an`. -/
+def stmt_2 : Prop :=
+  ∀ (z3 z5 : ℝ) (F : ℝ → ℝ),
+    (fun t : ℝ => F (1 / (1 - t)) - pw z3 z5 t) =O[nhds 0] (fun t : ℝ => t ^ 6) →
+    (fun d : ℝ => F (1 + d) - anPoly z3 z5 d) =O[nhds 0] (fun d : ℝ => d ^ 6)
+
+/-- `prop:an` as literally defined (`a_n = F^{(n)}(1)/n!` with `F = P/√2`) follows from
+`thm:pw`: if `F` is `C^5` at `1` and satisfies the `thm:pw` expansion, then
+`F^{(n)}(1)/n! = a_n` for `n = 0, …, 5`. -/
+def stmt_3 : Prop :=
+  ∀ (z3 z5 : ℝ) (F : ℝ → ℝ), ContDiffAt ℝ 5 F 1 →
+    (fun t : ℝ => F (1 / (1 - t)) - pw z3 z5 t) =O[nhds 0] (fun t : ℝ => t ^ 6) →
+    ∀ n ≤ 5, iteratedDeriv n F 1 / (n.factorial : ℝ) = a z3 z5 n
+
+end T02

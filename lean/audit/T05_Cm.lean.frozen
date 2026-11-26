@@ -1,0 +1,137 @@
+import Mathlib
+/-!
+# T05 — the constant `C_m` of Theorem `thm:Cm` (regular `2m`-gons)
+
+Target id: T05.
+Paper label: `thm:Cm`, paper/ieee/main.tex lines 1657–1663
+(proof supplement: paper/ieee/proofs/sec_g4_Cm.tex, label `g4:thm:Cm`).
+
+Claim quoted verbatim (main.tex lines 1657–1663):
+
+  \begin{theorem}[Regular $2m$-gons$^\dagger$]\label{thm:Cm}
+  For the smoothed regular $2m$-gon, the $\zeta(3)$ part of what the mixed terms
+  contribute to $P'''(1)$ is exactly $C_m\,\zeta(3)$, where
+  \[
+  C_m=48m\sin^4\frac{\pi}{2m}\,\cos\frac{\pi}{2m}\Bigl(3\sin^2\frac{\pi}{2m}-1\Bigr).
+  \]
+  So $C_2=6\sqrt2$, $C_3=-\frac{9\sqrt3}{8}$, and $C_m<0$ for every $m\ge3$.
+  \end{theorem}
+
+and the linking sentence after Proposition `prop:edgelaw` (main.tex line 1686):
+"For the regular $2m$-gon $K_1$ of Theorem~\ref{thm:Cm}, $\sum_eZ_e=C_m$", where
+(main.tex, Proposition `prop:edgelaw`)
+  $Z_e=6\,\xi_0\xi_1\frac{h^2}{L}\Bigl(3\,\frac{\xi_0L_0+\xi_1L_1}{L}-2\Bigr)$,
+with $L$ the edge length, $h$ its distance from the center, $L_0$, $L_1=L-L_0$ the
+signed lengths from $V_0$, $V_1$ to the foot of the perpendicular from the center,
+$\xi_0=|\langle v_{j_0},V_1\rangle|$, $\xi_1=|\langle v_{j_1},V_0\rangle|$, and
+$\langle v_{j_0},x\rangle=0$, $\langle v_{j_1},x\rangle=0$ the kink lines through
+$V_0$, $V_1$. The kink normals are (main.tex line 1646)
+$n_i=(\cos\frac{i\pi}m,\sin\frac{i\pi}m)$, $i=1,\dots,m$, and
+$K_1=\{\sum_{i=1}^m|\langle n_i,x\rangle|\le1\}$.
+
+Formalization choices:
+* `Cm m` is the closed formula, a real number for `m : ℕ` (cast to `ℝ`).
+  `m ≥ 2` is the paper's range (`2m`-gon); for `m = 0` the formula is junk but no
+  statement uses it.
+* The corners of `K_1` are taken as in the proof supplement (sec_g4_Cm.tex):
+  `C_k = ρ₀ · (-sin(kπ/m), cos(kπ/m))`, `ρ₀ = tan(π/(2m))`
+  (so `C_0 = ρ₀(0,1)` and `C_1 = ρ₀(-sin(π/m), cos(π/m))`). `stmt_5` checks that
+  these corners lie on `∂K_1` (`Σ_i |⟨n_i, C_k⟩| = 1`).
+* `Z_e` for the edge `C_k C_{k+1}` is computed from the primitive geometry:
+  `L = |C_{k+1} - C_k|`, `h = |det(C_k, C_{k+1})| / L` (distance from the origin to
+  the line of the edge), `L_0 = ⟨-C_k, C_{k+1} - C_k⟩ / L` (signed), `L_1 = L - L_0`.
+  The kink-line indices `j_0, j_1 ∈ {1,…,m}` are quantified with the hypotheses
+  `⟨n_{j_0}, C_k⟩ = 0` and `⟨n_{j_1}, C_{k+1}⟩ = 0` (for each corner exactly one such
+  index exists, so the hypotheses are not vacuous). `stmt_4` says every edge has
+  `2m · Z_e = C_m`; since there are `2m` edges, this is `Σ_e Z_e = C_m`.
+* Divisions by `L` are harmless: `L > 0` for `m ≥ 2`.
+
+NOT COVERED:
+* The analytic content of `thm:Cm`: that `C_m ζ(3)` is the `ζ(3)` part of the
+  contribution of the mixed local terms (`ℓ_0^2 ℓ_1`, `ℓ_0 ℓ_1^2`) of the `d^3`
+  term of the length element of `∂K_p` to `P'''(1)`. This needs the perimeter
+  `P(p)` of `K_p`, its third derivative at `p = 1`, the edge-wise decomposition into
+  local / mixed / far terms, and a notion of "the `ζ(3)` part" of a number, none of
+  which can be stated faithfully in Mathlib today. Only the closed form, the special
+  values, the sign, and the identity `Σ_e Z_e = C_m` (Proposition `prop:edgelaw`'s
+  per-edge coefficient summed over the regular polygon) are formalized.
+* That the points `C_k` are exactly the vertices of `K_1` (only that they lie on
+  `∂K_1` is stated), and Proposition `prop:edgelaw` itself.
+-/
+-- BEGIN STATEMENTS
+namespace T05
+
+/-- `s = sin(π/(2m))`. -/
+noncomputable def s (m : ℕ) : ℝ := Real.sin (Real.pi / (2 * (m : ℝ)))
+
+/-- `c = cos(π/(2m))`. -/
+noncomputable def c (m : ℕ) : ℝ := Real.cos (Real.pi / (2 * (m : ℝ)))
+
+/-- The paper's constant
+`C_m = 48 m sin^4(π/(2m)) cos(π/(2m)) (3 sin^2(π/(2m)) - 1)`. -/
+noncomputable def Cm (m : ℕ) : ℝ :=
+  48 * (m : ℝ) * s m ^ 4 * c m * (3 * s m ^ 2 - 1)
+
+/-- Euclidean inner product on `ℝ × ℝ`. -/
+def ip (a b : ℝ × ℝ) : ℝ := a.1 * b.1 + a.2 * b.2
+
+/-- Kink normal `n_i = (cos(iπ/m), sin(iπ/m))`. -/
+noncomputable def n (m i : ℕ) : ℝ × ℝ :=
+  (Real.cos ((i : ℝ) * Real.pi / m), Real.sin ((i : ℝ) * Real.pi / m))
+
+/-- `ρ₀ = tan(π/(2m))`, the circumradius of `K_1`. -/
+noncomputable def rho0 (m : ℕ) : ℝ := Real.tan (Real.pi / (2 * (m : ℝ)))
+
+/-- Corner `C_k = ρ₀ (-sin(kπ/m), cos(kπ/m))` of the regular `2m`-gon `K_1`. -/
+noncomputable def corner (m k : ℕ) : ℝ × ℝ :=
+  (rho0 m * (-Real.sin ((k : ℝ) * Real.pi / m)), rho0 m * Real.cos ((k : ℝ) * Real.pi / m))
+
+/-- Edge length `L = |V₁ - V₀|`. -/
+noncomputable def edgeL (V0 V1 : ℝ × ℝ) : ℝ :=
+  Real.sqrt ((V1.1 - V0.1) ^ 2 + (V1.2 - V0.2) ^ 2)
+
+/-- Distance `h` from the center to the line through `V₀, V₁`. -/
+noncomputable def edgeH (V0 V1 : ℝ × ℝ) : ℝ :=
+  |V0.1 * V1.2 - V0.2 * V1.1| / edgeL V0 V1
+
+/-- Signed length `L₀` from `V₀` to the foot of the perpendicular from the center. -/
+noncomputable def edgeL0 (V0 V1 : ℝ × ℝ) : ℝ :=
+  ip (-V0) (V1 - V0) / edgeL V0 V1
+
+/-- Proposition `prop:edgelaw`'s coefficient
+`Z_e = 6 ξ₀ ξ₁ (h²/L) (3 (ξ₀ L₀ + ξ₁ L₁)/L - 2)` for the edge `V₀V₁` with kink
+normals `v₀` (kink line through `V₀`) and `v₁` (kink line through `V₁`). -/
+noncomputable def Ze (V0 V1 v0 v1 : ℝ × ℝ) : ℝ :=
+  let L := edgeL V0 V1
+  let h := edgeH V0 V1
+  let L0 := edgeL0 V0 V1
+  let L1 := L - L0
+  let xi0 := |ip v0 V1|
+  let xi1 := |ip v1 V0|
+  6 * xi0 * xi1 * (h ^ 2 / L) * (3 * (xi0 * L0 + xi1 * L1) / L - 2)
+
+/-- "So $C_2=6\sqrt2$". -/
+def stmt_1 : Prop := Cm 2 = 6 * Real.sqrt 2
+
+/-- "$C_3=-\frac{9\sqrt3}{8}$". -/
+def stmt_2 : Prop := Cm 3 = -(9 * Real.sqrt 3 / 8)
+
+/-- "and $C_m<0$ for every $m\ge3$". -/
+def stmt_3 : Prop := ∀ m : ℕ, 3 ≤ m → Cm m < 0
+
+/-- Line 1686: "For the regular $2m$-gon $K_1$ of Theorem~\ref{thm:Cm},
+$\sum_eZ_e=C_m$" — every one of the `2m` edges `C_k C_{k+1}` has `2m · Z_e = C_m`,
+with `Z_e` computed from the geometry and the kink lines through its corners. -/
+def stmt_4 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k j0 j1 : ℕ,
+    j0 ∈ Finset.Icc 1 m → j1 ∈ Finset.Icc 1 m →
+    ip (n m j0) (corner m k) = 0 → ip (n m j1) (corner m (k + 1)) = 0 →
+    2 * (m : ℝ) * Ze (corner m k) (corner m (k + 1)) (n m j0) (n m j1) = Cm m
+
+/-- Setup check (proof supplement, "$\mathcal N=1$ at all vertices"): the corners
+`C_k` lie on `∂K_1 = {Σ_{i=1}^m |⟨n_i,x⟩| = 1}`. -/
+def stmt_5 : Prop :=
+  ∀ m : ℕ, 2 ≤ m → ∀ k : ℕ,
+    ∑ i ∈ Finset.Icc 1 m, |ip (n m i) (corner m k)| = 1
+
+end T05

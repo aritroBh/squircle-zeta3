@@ -1,0 +1,49 @@
+selftest: 236 words, 9912 checks of h_w(2n+delta) against the definition: all equal = True
+mutant 1: coefficient of term 68 (even e=-1 w=(0, 1, 0, 1)) +1 ->
+part 1[mut coef]: 310 terms (0 constant); terms by weight {2: 1, 3: 8, 4: 27, 5: 84, 6: 190}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 4
+   HPL side 70 words, mu side 70 words
+   even identity (all n>=1): False
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+   residual: [((2,), 2/(4*n**2 + 4*n + 1))]
+mutant 1: exponent of term 4 lowered by one ->
+part 1[mut exp]: 310 terms (0 constant); terms by weight {2: 1, 3: 8, 4: 27, 5: 84, 6: 190}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 4
+   HPL side 70 words, mu side 70 words
+   even identity (all n>=1): False
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: False   [0s]
+   residual: [((2, 2), -7/(8*n**2 + 28*n + 24)), ((2,), (112*n**4 + 224*n**3 + 28*n**2 - 154*n - 77)/(256*n**7 + 2048*n**6 + 6784*n**5 + 12032*n**4 + 12304*n**3 + 7232*n**2 + 2256*n + 288)), ((), (28*n + 7)/(128*n**6 + 896*n**5 + 2496*n**4 + 3520*n**3 + 2632*n**2 + 984*n + 144))]
+   low mismatch: [(0, Fraction(7, 144), Fraction(0, 1))]
+   mutants detected: True, True
+mutant z2: coefficient of term 36 (even e=-1 w=(1, -1, 0, 1)) +1 ->
+part z2[mut coef]: 61 terms (1 constant); terms by weight {1: 3, 2: 6, 3: 19, 4: 32}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 8
+   HPL side 12 words, mu side 12 words
+   even identity (all n>=1): False
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+   residual: [((-1, -2), -2/(2*n + 1))]
+mutant z2: exponent of term 3 lowered by one ->
+part z2[mut exp]: 61 terms (1 constant); terms by weight {1: 3, 2: 6, 3: 19, 4: 32}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 8
+   HPL side 12 words, mu side 12 words
+   even identity (all n>=1): False
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: False   [0s]
+   residual: [((2,), 7/(16*n**2 + 56*n + 48)), ((), (-112*n**4 - 224*n**3 - 28*n**2 + 154*n + 77)/(512*n**7 + 4096*n**6 + 13568*n**5 + 24064*n**4 + 24608*n**3 + 14464*n**2 + 4512*n + 576))]
+   low mismatch: [(-2, Fraction(-7, 8), Fraction(0, 1)), (0, Fraction(77, 576), Fraction(0, 1))]
+   mutants detected: True, True
+mutant z2^2: coefficient of term 12 (even e=1 w=(-1, 1)) +1 ->
+part z2^2[mut coef]: 13 terms (2 constant); terms by weight {1: 5, 2: 6}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 32
+   HPL side 2 words, mu side 2 words
+   even identity (all n>=1): False
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: True   [0s]
+   residual: [((), 1/(4*n**3 - 4*n**2 + n)), ((-1,), 2/(2*n - 1))]
+mutant z2^2: exponent of term 3 lowered by one ->
+part z2^2[mut exp]: 13 terms (2 constant); terms by weight {1: 5, 2: 6}; e in [-4, -3, -2, -1, 0, 1]; lcm-relevant denominators of q: max 32
+   HPL side 2 words, mu side 2 words
+   even identity (all n>=1): False
+   odd identity  (all n>=1): True
+   low orders N=-6..1 exact: False   [0s]
+   residual: [((), -7/(64*n**2 + 224*n + 192))]
+   low mismatch: [(-2, Fraction(-7, 32), Fraction(0, 1)), (0, Fraction(-7, 192), Fraction(0, 1))]
+   mutants detected: True, True

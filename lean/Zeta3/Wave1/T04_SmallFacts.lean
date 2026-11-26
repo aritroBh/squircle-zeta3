@@ -1,0 +1,159 @@
+import Mathlib
+/-!
+# T04 — small exact facts (paper labels `thm:pw`, the sentence after `thm:oct`, `thm:zero`)
+
+Source: `paper/ieee/main.tex`.
+
+**(a) `thm:pw`, line 1190** (with `\tau=1-\frac1p`, line 1181):
+
+> after division by the rational factor
+> $Y_N(\tau)=(1-\tau)^{N-1}\big/\prod_{i=1}^{N-1}\bigl(1-\frac{(N-1)\tau}{i}\bigr)$,
+> so $Y_2=1$ and $Y_3=1/(2-p)$, ...
+
+`Y N τ` below is the paper's formula, with `i` ranging over `Finset.Icc 1 (N-1)` and all
+arithmetic in `ℝ`. Non-degeneracy hypotheses (not written in the paper, needed so that no
+`x/0 = 0` convention is used): `p ≠ 0` (so `1 - τ = 1/p ≠ 0`) for both `Y_2` and `Y_3`, and
+additionally `p ≠ 2` (so `1 - 2τ ≠ 0`) for `Y_3`. In the paper's range `p ≥ 1`, `p ≠ 2`, these hold.
+
+**(b) Sentence after `thm:oct`, line 1992**:
+
+> $\zeta(3)$ enters at $d^3$ with coefficient $-(N^2-1)\bigl((N-1)^3-2\bigr)/(3N^2)$ relative
+> to $S_N(1)$, which is $\frac14$ for $N=2$, $-\frac{16}{9}$ for $N=3$, and never $0$.
+
+compared with `thm:pw` (lines 1186-1188)
+> $\frac{P}{\sqrt2}=4+\zeta(2)\tau^2+\zeta(3)\tau^3-\dots$
+
+(leading term `4`, `ζ(3)` coefficient `1`; since `τ = d + O(d²)` and `ζ(3)` can only come with
+`τ³`, the `ζ(3)d³` coefficient is also `1`) and `thm:oct` (lines 1978-1979)
+> $\frac{S(1+d)}{4\sqrt3}=1+d+\dots+\Bigl(1+\frac{\pi^2}{9}-\frac{16\zeta(3)}{9}\Bigr)d^3+\dots$
+
+(leading term `1`, `ζ(3)d³` coefficient `-16/9`).
+The formula `coeffFormula N` is evaluated in `ℚ` with `N` cast to `ℚ` before any subtraction
+(no natural-number truncation). `stmt_3`/`stmt_4` compare it with the ratios
+(ζ(3)-coefficient)/(leading term) read off the two displayed expansions; the expansions
+themselves are not formalized (see NOT COVERED). `stmt_5` is "never 0", for every `N ≥ 2`.
+
+**(c) `thm:zero`, line 1239**:
+
+> ... $1/\rho$ with $\rho=\sqrt{\log^2(B/A)+\pi^2/4}$.
+
+`stmt_6`: for `A, B > 0`, `ρ ≥ π/2`; `stmt_7`: for `A, B > 0`, `ρ = π/2 ↔ A = B`.
+(These are elementary consequences of the definition of `ρ`; the paper uses `ρ = π/2` for the
+square `A = B = 1`, line 1249.)
+
+NOT COVERED:
+* The surface-area statements of `thm:pw` (that `Y_N` is the right factor for the `N`-dimensional
+  superellipsoid, pure weight of its coefficients), and the asymptotic expansions of `P` and `S`
+  in `thm:pw` / `thm:oct`: these need the perimeter/surface-area functions and their asymptotic
+  series, which are other targets. Hence the identification of `coeffFormula N` with the actual
+  `ζ(3)` coefficient of `S_N` for general `N` is not covered; only its values at `N = 2, 3`
+  are compared with the displayed numbers.
+* The limsup / radius-of-convergence content of `thm:zero`.
+-/
+-- BEGIN STATEMENTS
+namespace T04
+
+/-- The paper's `τ = 1 - 1/p` (line 1181). -/
+noncomputable def tau (p : ℝ) : ℝ := 1 - 1 / p
+
+/-- `Y_N(τ) = (1-τ)^(N-1) / ∏_{i=1}^{N-1} (1 - (N-1)τ/i)` (thm:pw, line 1190). -/
+noncomputable def Y (N : ℕ) (τ : ℝ) : ℝ :=
+  (1 - τ) ^ (N - 1) / ∏ i ∈ Finset.Icc 1 (N - 1), (1 - ((N : ℝ) - 1) * τ / (i : ℝ))
+
+/-- thm:pw, line 1190: `Y_2 = 1` (for `p ≠ 0`, i.e. `τ ≠ 1`). -/
+def stmt_1 : Prop := ∀ p : ℝ, p ≠ 0 → Y 2 (tau p) = 1
+
+/-- thm:pw, line 1190: `Y_3 = 1/(2-p)` (for `p ≠ 0`, `p ≠ 2`). -/
+def stmt_2 : Prop := ∀ p : ℝ, p ≠ 0 → p ≠ 2 → Y 3 (tau p) = 1 / (2 - p)
+
+/-- The rational number `-(N^2-1)((N-1)^3-2)/(3N^2)` (line 1992), computed in `ℚ`. -/
+def coeffFormula (N : ℕ) : ℚ :=
+  -(((N : ℚ) ^ 2 - 1) * (((N : ℚ) - 1) ^ 3 - 2)) / (3 * (N : ℚ) ^ 2)
+
+/-- Line 1992: the formula is `1/4` at `N = 2`, which is the `ζ(3)` coefficient `1` divided by
+the leading term `4` in thm:pw's `P/√2 = 4 + ζ(2)τ² + ζ(3)τ³ + ...`. -/
+def stmt_3 : Prop := coeffFormula 2 = (1 : ℚ) / 4
+
+/-- Line 1992: the formula is `-16/9` at `N = 3`, which is the `ζ(3)d³` coefficient `-16/9`
+divided by the leading term `1` in thm:oct's `S(1+d)/(4√3) = 1 + d + ... `. -/
+def stmt_4 : Prop := coeffFormula 3 = (-16 / 9 : ℚ) / 1
+
+/-- Line 1992: the coefficient is never `0` (for every dimension `N ≥ 2`). -/
+def stmt_5 : Prop := ∀ N : ℕ, 2 ≤ N → coeffFormula N ≠ 0
+
+/-- `ρ = √(log²(B/A) + π²/4)` (thm:zero, line 1239). -/
+noncomputable def rho (A B : ℝ) : ℝ := Real.sqrt (Real.log (B / A) ^ 2 + Real.pi ^ 2 / 4)
+
+/-- thm:zero: for `A, B > 0`, `ρ ≥ π/2`. -/
+def stmt_6 : Prop := ∀ A B : ℝ, 0 < A → 0 < B → Real.pi / 2 ≤ rho A B
+
+/-- thm:zero: for `A, B > 0`, `ρ = π/2` exactly when `A = B` (the square-type rhombus). -/
+def stmt_7 : Prop := ∀ A B : ℝ, 0 < A → 0 < B → (rho A B = Real.pi / 2 ↔ A = B)
+
+end T04
+-- END STATEMENTS
+theorem T04.proof_1 : T04.stmt_1 := by
+  intro p hp
+  have : Finset.Icc 1 (2 - 1) = {1} := by decide
+  simp only [T04.Y, T04.tau, this, Finset.prod_singleton]
+  norm_num
+  exact inv_mul_cancel₀ hp
+
+theorem T04.proof_2 : T04.stmt_2 := by
+  intro p hp hp2
+  have h2 : (2 : ℝ) - p ≠ 0 := sub_ne_zero.mpr (Ne.symm hp2)
+  have h3 : p - 2 ≠ 0 := sub_ne_zero.mpr hp2
+  have : Finset.Icc 1 (3 - 1) = {1, 2} := by decide
+  simp only [T04.Y, this, T04.tau]
+  rw [Finset.prod_pair (by norm_num)]
+  norm_num
+  have e2 : (1 - 2 * (1 - p⁻¹)) = (2 - p) / p := by field_simp; ring
+  rw [e2]
+  field_simp
+
+theorem T04.proof_3 : T04.stmt_3 := by
+  unfold T04.stmt_3 T04.coeffFormula
+  norm_num
+
+theorem T04.proof_4 : T04.stmt_4 := by
+  unfold T04.stmt_4 T04.coeffFormula
+  norm_num
+
+theorem T04.proof_5 : T04.stmt_5 := by
+  intro N hN
+  unfold T04.coeffFormula
+  have hN' : (2 : ℚ) ≤ N := by exact_mod_cast hN
+  have hA : (N : ℚ) ^ 2 - 1 ≠ 0 := by nlinarith
+  have hB : ((N : ℚ) - 1) ^ 3 - 2 ≠ 0 := by
+    rcases Nat.eq_or_lt_of_le hN with h | h
+    · subst h; norm_num
+    · have : (3 : ℚ) ≤ N := by exact_mod_cast h
+      have : (2:ℚ) ≤ (N:ℚ) - 1 := by linarith
+      nlinarith [sq_nonneg ((N:ℚ) - 1)]
+  have hC : (3 : ℚ) * (N : ℚ) ^ 2 ≠ 0 := by positivity
+  exact div_ne_zero (neg_ne_zero.mpr (mul_ne_zero hA hB)) hC
+
+theorem T04.proof_6 : T04.stmt_6 := by
+  intro A B _ _
+  unfold T04.rho
+  apply Real.le_sqrt_of_sq_le
+  nlinarith [sq_nonneg (Real.log (B / A))]
+
+theorem T04.proof_7 : T04.stmt_7 := by
+  intro A B hA hB
+  unfold T04.rho
+  constructor
+  · intro h
+    have h0 : 0 ≤ Real.log (B / A) ^ 2 + Real.pi ^ 2 / 4 := by positivity
+    have h2 := congrArg (· ^ 2) h
+    simp only [Real.sq_sqrt h0] at h2
+    have : Real.log (B / A) ^ 2 = 0 := by nlinarith
+    have hl : Real.log (B / A) = 0 := by simpa using this
+    have := Real.eq_one_of_pos_of_log_eq_zero (div_pos hB hA) hl
+    field_simp at this
+    linarith
+  · intro h
+    subst h
+    rw [div_self hA.ne', Real.log_one,
+      show (0:ℝ) ^ 2 + Real.pi ^ 2 / 4 = (Real.pi / 2) ^ 2 by ring]
+    exact Real.sqrt_sq (by positivity)

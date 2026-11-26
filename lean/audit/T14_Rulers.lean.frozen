@@ -1,0 +1,125 @@
+import Mathlib
+/-!
+# T14 -- two exact rulers: `L_1(p) = 8` and `L_∞(p) = 8 * 2^(-1/p)`
+
+Target id: T14.
+Paper label: `prop:ruler` (paper/ieee/main.tex, lines 1384-1390), only the two exact values
+`L_1(p)=8` and `L_\infty(p)=8\cdot2^{-1/p}`.
+Supporting setup: paper/ieee/proofs/sec_ruler.tex, lines 5-12 (setting and statement),
+19-25 (Lemma `lem:ruler:formula`: the length formula), 28-41 (Lemma `lem:ruler:ends`).
+
+Quoted verbatim (main.tex 1384):
+
+  Let's give ourselves a free ruler: let
+  $L_q(p)=\frac4p\int_0^1\bigl(t^{q/p-q}+(1-t)^{q/p-q}\bigr)^{1/q}\dd t$ be the length of the
+  $\ell^p$ circle measured with the $\ell^q$ norm, so that $L_2=P$ and $L_p=2\pi_p$.
+
+Quoted verbatim (main.tex 1386-1388):
+
+  \begin{proposition}[Two exact rulers$^\dagger$]\label{prop:ruler}
+  For every $p\ge1$, $L_1(p)=8$ and $L_\infty(p)=8\cdot2^{-1/p}$. For every fixed $q\ge1$, the
+  expansion of $L_q(p)$ in powers of $1/p$ converges for every $p>1$.
+  \end{proposition}
+
+Quoted verbatim (sec_ruler.tex 19-21, Lemma `lem:ruler:formula`):
+
+  Let $\gamma(t)=(t^{1/p},(1-t)^{1/p})$, $0\le t\le1$, parametrize the arc of
+  $|x|^p+|y|^p=1$ in the first quadrant. The length of the whole curve, measured with the norm
+  $\|(u,v)\|_q=(|u|^q+|v|^q)^{1/q}$ ($1\le q<\infty$) or $\|(u,v)\|_\infty=\max(|u|,|v|)$, is
+  $4\int_0^1\|\gamma'(t)\|\,dt$. ... For $q=\infty$ it equals
+  $\frac4p\int_0^1\max\bigl(t^{1/p-1},(1-t)^{1/p-1}\bigr)dt$.
+
+Quoted verbatim (sec_ruler.tex 31, Lemma `lem:ruler:ends`):
+
+  For every $p\ge1$: $L_1(p)=8$, and $L_\infty(p)=\lim_{q\to\infty}L_q(p)=8\cdot2^{-1/p}$.
+
+## Formalization
+
+`loop p : ℝ → ℝ × ℝ` is a closed parametrization of the whole curve `|x|^p+|y|^p=1` on `[0,4]`,
+made of the paper's quarter arc `γ(t) = (t^{1/p}, (1-t)^{1/p})` on `[0,1]` and its three images
+under the sign changes of the coordinates (one per quadrant, glued end to end, clockwise).
+Length is measured honestly as total variation (`eVariationOn`, the supremum over partitions of
+`∑ ‖loop t_i - loop t_{i-1}‖`):
+* in the `ℓ¹` norm, via `WithLp 1 (ℝ × ℝ)` (whose norm is `|u| + |v|`);
+* in the `ℓ^∞` norm, via `ℝ × ℝ` itself (Mathlib's product norm/distance is the max).
+
+* stmt_1: `loop p` is a continuous closed curve on `[0,4]`, injective on `[0,4)`, whose image
+  is exactly the curve `{(x,y) | |x|^p + |y|^p = 1}` (so its variation is the length of the curve).
+* stmt_2: the `ℓ¹` length (total variation in `WithLp 1 (ℝ × ℝ)`) of the curve is `8`.
+* stmt_3: the `ℓ^∞` length (total variation in `ℝ × ℝ`, sup norm) is `8 * 2^(-1/p)`.
+* stmt_4: the paper's formula `L_q(p)` (defined literally as `Lq` below) gives `L_1(p) = 8`.
+* stmt_5: the supplement's integral for the sup ruler,
+  `(4/p) ∫_0^1 max(t^{1/p-1}, (1-t)^{1/p-1}) dt = 8 * 2^(-1/p)`.
+* stmt_6: `L_q(p) → 8 * 2^(-1/p)` as `q → ∞` (the supplement's identification of `L_∞` as the
+  limit of the `L_q`, which removes any ambiguity in reading `L_∞` off the `L_q` formula).
+
+All statements are for real `p ≥ 1`, as in the paper. Real powers are `Real.rpow`; on `[0,1]` the
+bases are nonnegative, and the integrands are integrable for `p ≥ 1, q ≥ 1` (they blow up only like
+`t^{1/p-1}`), so no statement relies on the "non-integrable integral = 0" convention. The value
+`0 ^ (negative) = 0` of `Real.rpow` only affects the endpoints, a null set.
+
+## NOT COVERED
+
+* The third sentence of `prop:ruler` ("For every fixed $q\ge1$, the expansion of $L_q(p)$ in
+  powers of $1/p$ converges for every $p>1$") -- outside this target.
+* The general identity "`ℓ^q` length of the curve = `L_q(p)`" for `1 < q < ∞`
+  (Lemma `lem:ruler:formula` for general `q`); only the `q = 1` and `q = ∞` rulers are stated,
+  both as geometric lengths (stmt_2, stmt_3) and as the paper's integrals (stmt_4, stmt_5).
+-/
+-- BEGIN STATEMENTS
+namespace T14
+
+open MeasureTheory Set Filter
+
+/-- The whole curve `|x|^p + |y|^p = 1`, traversed once on `[0,4]`: the paper's quarter arc
+`(t^{1/p}, (1-t)^{1/p})` on `[0,1]`, followed by its reflections in the other three quadrants. -/
+noncomputable def loop (p : ℝ) (t : ℝ) : ℝ × ℝ :=
+  if t ≤ 1 then (t ^ (1 / p), (1 - t) ^ (1 / p))
+  else if t ≤ 2 then ((2 - t) ^ (1 / p), -((t - 1) ^ (1 / p)))
+  else if t ≤ 3 then (-((t - 2) ^ (1 / p)), -((3 - t) ^ (1 / p)))
+  else (-((4 - t) ^ (1 / p)), (t - 3) ^ (1 / p))
+
+/-- Length of the curve measured with the `ℓ¹` norm `|u| + |v|`: total variation of `loop p`
+viewed in `WithLp 1 (ℝ × ℝ)`. -/
+noncomputable def l1Length (p : ℝ) : ENNReal :=
+  eVariationOn (fun t => WithLp.toLp 1 (loop p t)) (Icc (0 : ℝ) 4)
+
+/-- Length of the curve measured with the `ℓ^∞` norm `max(|u|, |v|)`: total variation of
+`loop p` in `ℝ × ℝ`, whose Mathlib distance is the max of the coordinate distances. -/
+noncomputable def supLength (p : ℝ) : ENNReal :=
+  eVariationOn (loop p) (Icc (0 : ℝ) 4)
+
+/-- The paper's `L_q(p)=\frac4p\int_0^1(t^{q/p-q}+(1-t)^{q/p-q})^{1/q}\,dt` (main.tex 1384). -/
+noncomputable def Lq (p q : ℝ) : ℝ :=
+  (4 / p) * ∫ t in (0 : ℝ)..1, (t ^ (q / p - q) + (1 - t) ^ (q / p - q)) ^ (1 / q)
+
+/-- `loop p` is a simple closed parametrization of the curve `|x|^p+|y|^p=1`
+(sec_ruler.tex 19-23: the four quadrant arcs are images of each other under sign changes). -/
+def stmt_1 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    ContinuousOn (loop p) (Icc 0 4) ∧ loop p 4 = loop p 0 ∧ InjOn (loop p) (Ico 0 4) ∧
+    loop p '' Icc 0 4 = {z : ℝ × ℝ | |z.1| ^ p + |z.2| ^ p = 1}
+
+/-- "For every $p\ge1$, $L_1(p)=8$", with `L_1` the `ℓ¹` length of the curve. -/
+def stmt_2 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → l1Length p = ENNReal.ofReal 8
+
+/-- "For every $p\ge1$, ... $L_\infty(p)=8\cdot2^{-1/p}$", with `L_∞` the sup-norm length. -/
+def stmt_3 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → supLength p = ENNReal.ofReal (8 * (2 : ℝ) ^ (-1 / p))
+
+/-- "$L_1(p)=8$" for the paper's integral formula `L_q(p)` at `q = 1`. -/
+def stmt_4 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → Lq p 1 = 8
+
+/-- sec_ruler.tex 21 and 37-39: `\frac4p\int_0^1\max(t^{1/p-1},(1-t)^{1/p-1})\,dt = 8\cdot2^{-1/p}`. -/
+def stmt_5 : Prop :=
+  ∀ p : ℝ, 1 ≤ p →
+    (4 / p) * ∫ t in (0 : ℝ)..1, max (t ^ (1 / p - 1)) ((1 - t) ^ (1 / p - 1))
+      = 8 * (2 : ℝ) ^ (-1 / p)
+
+/-- sec_ruler.tex 31: "$L_\infty(p)=\lim_{q\to\infty}L_q(p)=8\cdot2^{-1/p}$". -/
+def stmt_6 : Prop :=
+  ∀ p : ℝ, 1 ≤ p → Tendsto (fun q => Lq p q) atTop (nhds (8 * (2 : ℝ) ^ (-1 / p)))
+
+end T14
