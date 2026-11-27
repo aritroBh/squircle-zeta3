@@ -1,0 +1,496 @@
+import Mathlib
+import Zeta3.Wave1.T12_EdgeLaw
+import Zeta3.Wave2.D00_Dilog
+import Zeta3.Wave4.X04_PolyFirstDeriv
+import Zeta3.Wave6.Z03_NonlocalValues
+/-!
+# S05 -- `P'''(1)` of every hexagon (thm:hexagon)
+
+Target id: S05.
+Paper label: `thm:hexagon` (main.tex 1709-1725, Theorem "P'''(1) of every hexagon").
+Detailed proof: paper/ieee/proofs/sec_g4_hexagon.tex (Theorem 25 = `g4:thm:hexagon`, lines 8-19;
+"What is proved" 21-22; "One edge" 26-34; Lemma `g4:lem:precise` 39-52; Lemma `g4:lem:euler`
+70-81; Lemma `g4:lem:Jseries` 83-93; "A worked entry" 99-107; Lemma `g4:lem:NK` 116-126;
+Lemma `g4:lem:assembly` 128-138; "Proof of the five sentences" 143-145).
+Related: `prop:edgelaw` (main.tex 1671-1684; Lean T12), `prop:nonlocal` (main.tex 1697-1705;
+Lean Z03), the setting of `thm:poly` (main.tex 1645, 1669; Lean X04 for the regular case).
+
+## Quoted verbatim
+
+main.tex 1709 (setting): "We use the weighted convention ... $K_p=\bigl\{\sum_{j=1}^3w_j|k_j
+\langle v_j,x\rangle|^p\le1\bigr\}$, where the weights $w_j>0$ and the factors $k_j>0$ do not
+change with $p$ and are chosen so that $K_1$ is the given hexagon ... On an edge $e$ keep the
+notation of Proposition~\ref{prop:nonlocal}, with the three terms of
+$\sum_jw_j|k_j\langle v_j,x\rangle|$ called $A_0t$, $A_1(1-t)$ and $B(1+\kappa t)$."
+main.tex 1695: "$y(t)=V_0+t(V_1-V_0)$, $L$, $h$ as in Proposition~\ref{prop:edgelaw},
+$q_0=V_0\cdot(V_1-V_0)=-LL_0$ ... so $A_1+B=1$, $A_0=A_1-B\kappa$, and $r=1+\kappa$."
+
+main.tex 1711-1718 (Theorem thm:hexagon):
+  For every non-degenerate centrally symmetric convex hexagon and all weights $w_j>0$,
+  $P'''(1)=2\sum_eE_e$, summed over three edges, one from each pair of opposite edges. With
+  $x=1-r$ and $\ell=-\log r=-\log(1-x)$, each $E_e$ is an explicit linear combination of
+  \Li_3(x),\ \Li_3\bigl(\tfrac x{x-1}\bigr),\ \Li_2(x)\,\ell,\ \ell^3,\ \Li_2(x),\ \ell^2,
+  \ell,\ \zeta(3),\ \zeta(2)\,\ell,\ \zeta(2),\ 1,
+  whose coefficients are polynomials in $A_1$, $B$, $r$, $q_0$, $|V_0|^2$, $L^2$ and the
+  logarithms of the three corner term values $A_0$, $A_1$, $B$ (each divided by its weight),
+  divided by $L^5$. Written this way, the coefficient of $\zeta(3)$ is exactly $Z_e$, for every
+  $r$ (Proposition~\ref{prop:edgelaw}). The non-local $\zeta(3)$ of
+  Proposition~\ref{prop:nonlocal} appears at $r=2,\frac12$ through $\Li_3(1-r)$ and
+  $\Li_3\bigl(\frac{r-1}r\bigr)$, with the coefficients $2\Phi_A+\Phi_L$ and $\Phi_A$. The
+  theorem reduces to Proposition~\ref{prop:nonlocal} at $r=2,\frac12$ and, when $r=1$ on every
+  edge and all $w_j=1$, to the hexagon law of Proposition~\ref{prop:edgelaw}.
+
+Supplement 22 ("What is proved"): "``Non-degenerate'' means that $K_1$ has six vertices, i.e.
+$v_1,v_2,v_3$ are pairwise non-parallel; then $0<B<1$, $A_0,A_1>0$, $r>0$.
+$E_e=3!\int_0^1E_3\dd t$ is the contribution of the edge $e$ to $P'''(1)$. ``Written this way''
+means: the eleven functions are the formal symbols, $\zeta(2),\zeta(3)$ are the numbers, and the
+coefficient of $\zeta(3)$ is read off the formula as written. We do not claim that the eleven
+functions are linearly independent ..."
+
+Supplement 28 ("One edge"): "$a_{j_0}=A_0t$, $a_{j_1}=A_1(1-t)$, $a_{j_2}=B(1+\kappa t)$ with
+$A_1=1-B$ ($\mathcal N(V_0)=1$) and $A_0+Br=1$ ($\mathcal N(V_1)=1$) ... Hence
+$P'''(1)=6\sum_{\text{6 edges}}\int_0^1E_3\dd t=2\sum_{e}E_e$ over three edges, one from each
+pair, with $E_e:=6\int_0^1E_3\dd t$."
+
+Supplement 39-51 (Lemma g4:lem:precise):
+  There are polynomials $c_1,\dots,c_{11}\in\ZZ[B,r,q_0,V_{02},L^2][\mathrm{l}_0,\mathrm{l}_1,
+  \mathrm{l}_B]$ such that for every $r>0$, with $x=1-r$, $\ell=-\log r$,
+  L^5E_e=c_1\Li_3(x)+c_2\Li_3\bigl(\tfrac x{x-1}\bigr)+c_3\Li_2(x)\ell+c_4\ell^3+c_5\Li_2(x)
+  +c_6\ell^2+c_7\ell+c_8\zeta(3)+c_9\zeta(2)\ell+c_{10}\zeta(2)+c_{11}
+  (for $r=1$ read the value $x=0$). The five blocks that matter for $\zeta(3)$, with
+  $\Delta=q_0^2-L^2V_{02}=-L^2h^2$, are
+  c_8&=-6(B-1)(Br-1)\,\Delta\,\bigl(L^2-3BL^2+3Bq_0(r-1)\bigr),
+  c_1&=-6B\,\Delta\,\bigl(-3BL^2+3Bq_0(r-1)+(4-r)L^2-3q_0(r-1)\bigr),
+  c_2&=-6B\,\Delta\,\bigl(-3BL^2r+3Bq_0r(r-1)+(r+2)L^2-3q_0(r-1)\bigr),
+  c_3&=-6B(Br-1)\,\Delta\,\bigl(-2L^2+3q_0(r-1)\bigr),\qquad c_9=18B\,q_0\,r(B-1)(Br-1)\,\Delta ,
+  and the other six blocks are listed in \path{scripts/g4_formula_table.txt}.
+  (Supplement 54: "The printed $\ell$ is $-\log r$.")
+  Supplement 30: "$\mathrm{l}_0=\log(A_0/w_{j_0})$, $\mathrm{l}_1=\log(A_1/w_{j_1})$,
+  $\mathrm{l}_B=\log(B/w_{j_2})$".
+
+Supplement 70-77 (Lemma g4:lem:euler): For $|x|<1$, with $H_n=\sum_{j\le n}\frac1j$,
+  $H_n^{(2)}=\sum_{j\le n}\frac1{j^2}$:
+  \sum_{n\ge1}H_nx^n=\frac{\mathcal L_1}{1-x},\quad \sum_{n\ge1}H^{(2)}_nx^n=
+  \frac{\mathcal L_2}{1-x},\quad \sum_{n\ge1}H_n^2x^n=\frac{\mathcal L_1^2+\mathcal L_2}{1-x},
+  \sum_{n\ge1}\frac{H_n}nx^n=\mathcal L_2+\tfrac12\mathcal L_1^2,\qquad
+  \sum_{n\ge1}\frac{H_n^2}nx^n=\mathcal L_3+\mathcal L_1\mathcal L_2+\tfrac13\mathcal L_1^3,
+  \sum_{n\ge1}\frac{H_n^{(2)}}nx^n=3\mathcal L_3-2\mathcal A+\mathcal L_1\mathcal L_2 .
+  (Supplement 68: "$\mathcal L_1=-\log(1-x)$, $\mathcal L_2=\Li_2(x)$, $\mathcal L_3=\Li_3(x)$,
+  and $\mathcal A=A(x)=\sum_{n\ge1}H_nx^n/n^2$".)
+
+Supplement 64-66, 83-89 (Lemma g4:lem:Jseries): "for $|x|<1$ ...
+  $J(n;a,b,c)=\int_0^1t^nX^aY^b\log^c(1-xt)\dd t$, $a+b+c\le3$" and
+  J(n;a,b,c)=\sum_{q\ge1}x^q\,\lambda_c(q)\,\mathcal I_{n+q}(a,b),
+  where $\log^c(1-z)=\sum_{q\ge1}\lambda_c(q)z^q$ and $\mathcal I_N(a,b)=\int_0^1s^N\log^as
+  \log^b(1-s)\dd s$. Explicitly $\lambda_c(q)=c!\,[v^c]\Bigl(-\frac vq\exp\bigl(-\sum_{i\ge1}
+  \frac{v^i}iH^{(i)}_{q-1}\bigr)\Bigr)$ ...
+
+Supplement 100-107 (worked entries):
+  J(0;1,0,1)=\mathcal L_1-\frac{\mathcal L_1-x}x-\frac{\mathcal L_2-x}x
+   =\frac{-\mathcal L_1-\mathcal L_2+x(\mathcal L_1+2)}x .
+  "Two other entries: $J(0;0,0,1)=-\mathcal L_1+\frac{\mathcal L_1}x-1$ ... and
+  $J(1;0,0,1)=-\frac{\mathcal L_1}2+\frac{\mathcal L_1}{2x^2}-\frac14-\frac1{2x}$. The entries
+  with $a+b+c=3$ contain $\mathcal A$, for instance"
+  J(0;0,2,1)=\frac{1-x}{3x}\Bigl(12\mathcal L_3-6\mathcal A+6\mathcal L_1\mathcal L_2
+   +6\mathcal L_2+\mathcal L_1^3+3\mathcal L_1^2+6\mathcal L_1\Bigr)-6 .
+
+Supplement 141 (M6, the checks that sentences 3 and 4 rest on): "the coefficient of $\zeta(3)$
+equals $Z_e=6A_0A_1\frac{h^2}L\bigl(3\frac{A_0L_0+A_1L_1}L-2\bigr)$ ... the coefficient of
+$\Li_3(\frac x{x-1})$ equals $\Phi_A$ and that of $\Li_3(x)$ equals $2\Phi_A+\Phi_L$".
+main.tex 1698-1703 (prop:nonlocal): "with $\gamma_e=Bh^2/L^3$,
+  \Phi_A&=-6\gamma_e\bigl(3A_0\kappa q_0-L^2(2A_0+rA_1)\bigr),
+  \Phi_L&=-18\gamma_e\Bigl(\kappa\bigl(-A_1^2+A_1B(2\kappa-1)+2B^2\kappa\bigr)q_0
+   +L^2(A_0B+rA_1^2)\Bigr)."
+
+Supplement 145 (fifth sentence, r = 1): "then $a_{j_2}$ is constant on every edge, so the
+hexagon is fully local, hence affine-regular ... and $2\sum_eE_e=6\sum_{\text{edges}}\int E_3$ is
+the quantity of Lemma~\ref{g4:lem:laws}(b)", i.e. the $d^3$ term of the hexagon law of
+prop:edgelaw (main.tex 1680-1683):
+  2^{\frac{d}{1+d}}\Bigl[P(1)+\frac{\pi^2\mathcal E}{24}d^2-\frac{\mathcal E}{8}
+  \Bigl(\zeta(3)+\frac{2\pi^2}{3}\Bigr)d^3\Bigr]+O(d^4).
+
+## Conventions (how the paper's objects are modelled)
+
+* The plane is `X04.Plane` (Euclidean `ℝ²`) with `X04.dot`; `det2` is the 2×2 determinant.
+* Weights and factors: only the products `u_j = k_j v_j` enter `K_p`, so a hexagon with weights
+  is the data `u : Fin 3 → Plane`, `w : Fin 3 → ℝ`, and
+  `F_p(x) = Σ_j w_j |⟨u_j,x⟩|^p`, `K_p = {F_p ≤ 1}` (this is the paper's
+  `Σ_j w_j |k_j⟨v_j,x⟩|^p`). The term value is `a_j(x) = w_j|⟨u_j,x⟩|` (supplement:
+  `a_j = w_jk_j|⟨v_j,x⟩|`), so "the corner term value divided by its weight" is `|⟨u_j,·⟩|`.
+* `IsHex`: weights positive, `u_j` pairwise non-parallel (non-degenerate), and the corners
+  `C_0, C_1, C_2` (the other three are `-C_j`) labelled so that `C_j` lies on the kink line
+  `⟨u_j,x⟩=0` and on `F_1 = 1`, in counter-clockwise order `C_0, C_1, C_2, -C_0, ...`
+  ("the weights are listed in the order of the corners, $w_j$ going with the kink line through
+  the $j$-th corner"). stmt_5 says every such hexagon with every choice of weights arises, and
+  stmt_6 that `K_1` is then the convex hull of the six corners.
+* The three edges are `C_0 → C_1`, `C_1 → C_2`, `C_2 → -C_0` (one from each opposite pair); on
+  edge `k` the kink lines are `j₀ = k` (through `V_0`), `j₁ = k+1` (through `V_1`), `j₂ = k+2`
+  (in `Fin 3`). `A_0 = a_{j₀}(V_1)`, `A_1 = a_{j₁}(V_0)`, `B = a_{j₂}(V_0)`,
+  `r = a_{j₂}(V_1)/B` (supplement line 9: "$B=a_{j_2}(V_0)$ ..., $r=a_{j_2}(V_1)/a_{j_2}(V_0)$").
+* `P(p)` (`Perim`) is the Euclidean length (total variation, as in X04/W04) of the closed polar
+  curve `θ ↦ F_p(e_θ)^{-1/p} e_θ`, `θ ∈ [0,2π]`, whose image is `{F_p = 1} = ∂K_p` (stmt_7). For
+  `p < 1` this is the length of the same closed curve (the reading of checklist note 8).
+* `E_e` (`Ee`) is the explicit edge integral `∫_0^1 ∂_p^3|x_p'(t)| |_{p=1} dt`, where
+  `x_p(t) = F_p(y(t))^{-1/p} y(t)` is the arc of `∂K_p` over the edge. Since
+  `|x_p'(t)| = G(t,d)` (Lemma g4:lem:arc) and `E_3` is the `d³` coefficient of `G`, this is the
+  paper's `E_e = 3!∫_0^1E_3 dt`. Integrability of the integrand is stated explicitly (stmt_9),
+  so Lean's convention "non-integrable ⇒ 0" plays no role.
+* `ζ(3)` is `Z03.z3 = (riemannZeta 3).re` (Z03 stmt_1 relates it to `riemannZeta 3` and to
+  `Σ 1/(n+1)³`); `ζ(2)` is written `π²/6` (Mathlib `riemannZeta_two`), as in Z03.
+  `Li₂ = D00.Li2`, `Li₃ = Z03.Li3` (both genuine on `(-∞,1]`, which contains `x = 1-r` and
+  `x/(x-1) = (r-1)/r` for every `r > 0`), `A = Z03.A` (the series, used for `|x| < 1` only).
+* `H_n` is `harmonic n` (cast to `ℝ`), `H^{(2)}_n` is `H2 n`; series over `n ≥ 1` are indexed
+  by `n+1`, `n : ℕ`.
+* The six blocks `c_4, c_5, c_6, c_7, c_10, c_11` that the supplement does not print are
+  existentially quantified integer polynomials in the eight edge variables
+  `B, r, q_0, V_{02}, L², l_0, l_1, l_B` (in this order, `Fin 8`); the five printed blocks are
+  written out.
+
+## Already proved elsewhere (imported, not restated)
+
+* Lemma g4:lem:NK (Nielsen–Kölbig with Landen) and the regrouping into `Φ_A A + Φ_L Li₃`: Z03
+  stmt_10, stmt_11, stmt_12; `A' = (Li₂ + ½log²(1-x))/x`: Z03 stmt_8.
+* The values of prop:nonlocal at `x = -1, ½`: Z03 stmt_13 to stmt_17.
+* `ΣZ_e = -6𝓔/8` for affine-regular hexagons: T12 stmt_3, stmt_4.
+
+## NOT COVERED
+
+* The six coefficient blocks `c_4, c_5, c_6, c_7, c_10, c_11` as explicit polynomials: the
+  supplement does not print them ("listed in scripts/g4_formula_table.txt", the output of
+  machine step M6); they appear only existentially in stmt_10. (A numerical check of the full
+  formula with the table's blocks was run on a random non-regular hexagon; see below.)
+* Lemma g4:lem:assembly as a formula in the 80 monomial coefficients `c_{n,a,b,c}` of machine
+  step M4 (not printed), Lemma g4:lem:struct, the 40 local Beta values (M2) and the 40 closed
+  forms of `J` (M5, not printed; only the four worked entries, stmt_4, are stated). The
+  continuation to every `r > 0` is part of stmt_10 ("for every `r > 0`").
+* The remark that no closed form `J` contains `ζ(3)`: it is a statement about the shape of
+  machine output and about which constants a reduction "introduces"; not stated.
+* The `a + b ≤ 2` description of `𝓘_N(a,b)` in g4:lem:Jseries ("a polynomial in $H_N$,
+  $H_N^{(2)}$, $\frac1{N+1}$ and $\fz_2$, divided by $N+1$"): not a precise formula; not stated.
+  The general-`c` formula for `λ_c(q)` is stated only for `c = 1, 2, 3`, the values used
+  (`c ≤ 3` since `a+b+c ≤ 3`).
+* "The theorem reduces to Proposition 8 at r = 2, ½": prop:nonlocal speaks of "the ζ(3) of
+  P'''(1) beyond Z_e", a basis-dependent coefficient; the needed facts are the Φ identities
+  (stmt_12) together with Z03 stmt_12 to stmt_17. Not restated.
+* "Written this way, the coefficient of ζ(3)" is formalised as "the printed block `c_8`" (the
+  paper says it does not claim linear independence of the eleven functions); stmt_11 says
+  `c_8 = L⁵ Z_e`.
+
+## Numerical check before freezing
+
+(mpmath, 30 digits, own code.) Random non-regular hexagon `V = (1.3,-0.2), (1.1,1.4),
+(-0.5,1.2)`, weights `1.7, 0.6, 2.9` (edge ratios `r ≈ 1.384, 0.716, 1.010`): for every edge
+`E_e` computed from the definition here (`∫∂_p³|x_p'|`, numerical differentiation) agrees with the
+closed form of stmt_10 (printed blocks plus the table's six blocks) to `2·10⁻²⁶`; `2ΣE_e =
+-21.05325812923…` agrees with 13-point finite differences of the polar perimeter to `10⁻¹¹`.
+The paper's first example (corners `(1,0),(2,2),(0,1)`, weights `1,3,1`) gives `19.90026636…`
+as printed. The printed blocks equal the table's (exactly, SymPy); `c_8 = L⁵Z_e`,
+`c_2 = L⁵Φ_A`, `c_1 = L⁵(2Φ_A+Φ_L)` exactly; an affine-regular hexagon with `w = 1` gives
+`P'''(1)` equal to the hexagon law to `10⁻²⁹`; the six Euler sums, `λ_1, λ_2, λ_3`, four
+instances of the `J` series and the four worked entries (at `x = -0.63, 0.37`) to `10⁻²⁶`;
+stmt_5 (positive `u`-scalings) on 2000 random convex hexagons with random weights.
+
+Statements 10 and 14 moved to `Zeta3.Wave10.S07_HexagonFormula` (continuation of S05); this file keeps 1-9, 11, 12, 13.
+-/
+
+-- BEGIN STATEMENTS
+namespace S05
+
+open MeasureTheory Real Set
+
+/-- The determinant of two plane vectors (nonzero iff they are not parallel). -/
+def det2 (x y : X04.Plane) : ℝ := x 0 * y 1 - x 1 * y 0
+
+/-- The weighted `F_p(x) = Σ_j w_j |⟨u_j, x⟩|^p` (the paper's `Σ_j w_j|k_j⟨v_j,x⟩|^p`,
+`u_j = k_j v_j`). -/
+noncomputable def Fw (u : Fin 3 → X04.Plane) (w : Fin 3 → ℝ) (p : ℝ) (x : X04.Plane) : ℝ :=
+  ∑ j : Fin 3, w j * |X04.dot (u j) x| ^ p
+
+/-- `K_p = {x : F_p(x) ≤ 1}`. -/
+def Kw (u : Fin 3 → X04.Plane) (w : Fin 3 → ℝ) (p : ℝ) : Set X04.Plane := {x | Fw u w p x ≤ 1}
+
+/-- The term value `a_j(x) = w_j |⟨u_j, x⟩|` (`= w_jk_j|⟨v_j,x⟩|`). -/
+noncomputable def term (u : Fin 3 → X04.Plane) (w : Fin 3 → ℝ) (j : Fin 3) (x : X04.Plane) :
+    ℝ :=
+  w j * |X04.dot (u j) x|
+
+/-- A weighted hexagon: kink normals `u`, weights `w`, corners `C` (the other three are `-C`). -/
+structure Hex where
+  u : Fin 3 → X04.Plane
+  w : Fin 3 → ℝ
+  C : Fin 3 → X04.Plane
+
+/-- Non-degenerate weighted hexagon with labelled corners: `w_j > 0`; the `u_j` pairwise
+non-parallel; `C_j` on the kink line `⟨u_j,x⟩ = 0` and on `F_1 = 1`; the corners
+`C_0, C_1, C_2, -C_0, -C_1, -C_2` in counter-clockwise order. -/
+def IsHex (H : Hex) : Prop :=
+  (∀ j, 0 < H.w j) ∧ (∀ i j, i ≠ j → det2 (H.u i) (H.u j) ≠ 0) ∧
+  (∀ j, X04.dot (H.u j) (H.C j) = 0) ∧ (∀ j, Fw H.u H.w 1 (H.C j) = 1) ∧
+  0 < det2 (H.C 0) (H.C 1) ∧ 0 < det2 (H.C 1) (H.C 2) ∧ 0 < det2 (H.C 0) (H.C 2)
+
+/-- Start corner `V_0` of edge `k`: `C_k`. -/
+def eV0 (H : Hex) (k : Fin 3) : X04.Plane := H.C k
+
+/-- End corner `V_1` of edge `k`: `C_{k+1}` for `k = 0, 1`, and `-C_0` for `k = 2`. -/
+def eV1 (H : Hex) (k : Fin 3) : X04.Plane := if k = 2 then -H.C 0 else H.C (k + 1)
+
+/-- The point `y(t) = V_0 + t(V_1 - V_0)` of edge `k`. -/
+noncomputable def ept (H : Hex) (k : Fin 3) (t : ℝ) : X04.Plane :=
+  eV0 H k + t • (eV1 H k - eV0 H k)
+
+/-- The arc `x_p(t) = F_p(y(t))^{-1/p} y(t)` of `∂K_p` over edge `k`. -/
+noncomputable def arc (H : Hex) (k : Fin 3) (p t : ℝ) : X04.Plane :=
+  (Fw H.u H.w p (ept H k t)) ^ (-(1 / p)) • ept H k t
+
+/-- The length element `|x_p'(t)|` (the supplement's `G(t,d)`, `d = p - 1`). -/
+noncomputable def Gl (H : Hex) (k : Fin 3) (p t : ℝ) : ℝ := ‖deriv (arc H k p) t‖
+
+/-- `E_e = 3!∫_0^1 E_3 dt = ∫_0^1 ∂_p^3 G(t, p-1)|_{p=1} dt` for edge `k`. -/
+noncomputable def Ee (H : Hex) (k : Fin 3) : ℝ :=
+  ∫ t in (0 : ℝ)..1, iteratedDeriv 3 (fun p => Gl H k p t) 1
+
+/-- The unit vector `e_θ = (cos θ, sin θ)`. -/
+noncomputable def ray (θ : ℝ) : X04.Plane := !₂[Real.cos θ, Real.sin θ]
+
+/-- The polar curve `θ ↦ F_p(e_θ)^{-1/p} e_θ` (the boundary `{F_p = 1}`). -/
+noncomputable def polar (H : Hex) (p θ : ℝ) : X04.Plane :=
+  (Fw H.u H.w p (ray θ)) ^ (-(1 / p)) • ray θ
+
+/-- `P(p)`: the Euclidean length of the closed curve `∂K_p` (total variation of the polar
+parametrisation on `[0, 2π]`). -/
+noncomputable def Perim (H : Hex) (p : ℝ) : ℝ :=
+  (eVariationOn (polar H p) (Icc 0 (2 * π))).toReal
+
+/-- Edge data `A_0 = a_{j₀}(V_1)`. -/
+noncomputable def A0 (H : Hex) (k : Fin 3) : ℝ := term H.u H.w k (eV1 H k)
+/-- Edge data `A_1 = a_{j₁}(V_0)`. -/
+noncomputable def A1 (H : Hex) (k : Fin 3) : ℝ := term H.u H.w (k + 1) (eV0 H k)
+/-- Edge data `B = a_{j₂}(V_0)`. -/
+noncomputable def Bv (H : Hex) (k : Fin 3) : ℝ := term H.u H.w (k + 2) (eV0 H k)
+/-- Edge data `r = a_{j₂}(V_1)/a_{j₂}(V_0)`. -/
+noncomputable def rr (H : Hex) (k : Fin 3) : ℝ := term H.u H.w (k + 2) (eV1 H k) / Bv H k
+/-- `L² = |V_1 - V_0|²`. -/
+noncomputable def Lsq (H : Hex) (k : Fin 3) : ℝ := X04.dot (eV1 H k - eV0 H k) (eV1 H k - eV0 H k)
+/-- `L = |V_1 - V_0|`. -/
+noncomputable def Len (H : Hex) (k : Fin 3) : ℝ := Real.sqrt (Lsq H k)
+/-- `q_0 = ⟨V_0, V_1 - V_0⟩`. -/
+noncomputable def q0 (H : Hex) (k : Fin 3) : ℝ := X04.dot (eV0 H k) (eV1 H k - eV0 H k)
+/-- `V_{02} = |V_0|²`. -/
+noncomputable def V02 (H : Hex) (k : Fin 3) : ℝ := X04.dot (eV0 H k) (eV0 H k)
+/-- `l_0 = log(A_0/w_{j₀})`. -/
+noncomputable def l0 (H : Hex) (k : Fin 3) : ℝ := Real.log (A0 H k / H.w k)
+/-- `l_1 = log(A_1/w_{j₁})`. -/
+noncomputable def l1 (H : Hex) (k : Fin 3) : ℝ := Real.log (A1 H k / H.w (k + 1))
+/-- `l_B = log(B/w_{j₂})`. -/
+noncomputable def lB (H : Hex) (k : Fin 3) : ℝ := Real.log (Bv H k / H.w (k + 2))
+
+/-- The eight edge variables `(B, r, q_0, V_{02}, L², l_0, l_1, l_B)`. -/
+noncomputable def evars (H : Hex) (k : Fin 3) : Fin 8 → ℝ :=
+  ![Bv H k, rr H k, q0 H k, V02 H k, Lsq H k, l0 H k, l1 H k, lB H k]
+
+/-- Evaluation of an integer polynomial in the eight edge variables. -/
+noncomputable def ev (H : Hex) (k : Fin 3) (c : MvPolynomial (Fin 8) ℤ) : ℝ :=
+  MvPolynomial.eval₂ (Int.castRingHom ℝ) (evars H k) c
+
+/-- `Δ = q_0² - L²V_{02}`. -/
+def Dl (q V L2 : ℝ) : ℝ := q ^ 2 - L2 * V
+
+/-- Printed block `c_8` (coefficient of `ζ(3)`). -/
+def c8 (B r q V L2 : ℝ) : ℝ :=
+  -6 * (B - 1) * (B * r - 1) * Dl q V L2 * (L2 - 3 * B * L2 + 3 * B * q * (r - 1))
+/-- Printed block `c_1` (coefficient of `Li₃(x)`). -/
+def c1 (B r q V L2 : ℝ) : ℝ :=
+  -6 * B * Dl q V L2 * (-3 * B * L2 + 3 * B * q * (r - 1) + (4 - r) * L2 - 3 * q * (r - 1))
+/-- Printed block `c_2` (coefficient of `Li₃(x/(x-1))`). -/
+def c2 (B r q V L2 : ℝ) : ℝ :=
+  -6 * B * Dl q V L2 *
+    (-3 * B * L2 * r + 3 * B * q * r * (r - 1) + (r + 2) * L2 - 3 * q * (r - 1))
+/-- Printed block `c_3` (coefficient of `Li₂(x)ℓ`). -/
+def c3 (B r q V L2 : ℝ) : ℝ :=
+  -6 * B * (B * r - 1) * Dl q V L2 * (-2 * L2 + 3 * q * (r - 1))
+/-- Printed block `c_9` (coefficient of `ζ(2)ℓ`). -/
+def c9 (B r q V L2 : ℝ) : ℝ :=
+  18 * B * q * r * (B - 1) * (B * r - 1) * Dl q V L2
+
+/-- The right side of Lemma g4:lem:precise for edge `k`, with the five printed blocks and the
+six unprinted ones given as integer polynomials. `x = 1 - r`, `ℓ = -log r`, `ζ(2) = π²/6`. -/
+noncomputable def closedForm (H : Hex) (k : Fin 3)
+    (c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ) : ℝ :=
+  let B := Bv H k
+  let r := rr H k
+  let q := q0 H k
+  let V := V02 H k
+  let L2 := Lsq H k
+  let x := 1 - r
+  let ℓ := -Real.log r
+  c1 B r q V L2 * Z03.Li3 x + c2 B r q V L2 * Z03.Li3 (x / (x - 1))
+    + c3 B r q V L2 * D00.Li2 x * ℓ + ev H k c4 * ℓ ^ 3 + ev H k c5 * D00.Li2 x
+    + ev H k c6 * ℓ ^ 2 + ev H k c7 * ℓ + c8 B r q V L2 * Z03.z3
+    + c9 B r q V L2 * (π ^ 2 / 6) * ℓ + ev H k c10 * (π ^ 2 / 6) + ev H k c11
+
+/-- A plane vector as a pair (for T12's edge data). -/
+def toPair (x : X04.Plane) : ℝ × ℝ := (x 0, x 1)
+
+/-- Edge `k` in T12's format: the kink vectors through `V_0`, `V_1` scaled by their weights
+(so T12's `ξ_0 = A_0`, `ξ_1 = A_1`), and the two corners. -/
+def t12Edge (H : Hex) (k : Fin 3) : T12.Edge :=
+  ⟨toPair (H.w k • H.u k), toPair (H.w (k + 1) • H.u (k + 1)), toPair (eV0 H k),
+    toPair (eV1 H k)⟩
+
+/-- `Φ_A` of prop:nonlocal for edge `k` (`γ_e = Bh²/L³`, `κ = r - 1`). -/
+noncomputable def PhiA (H : Hex) (k : Fin 3) : ℝ :=
+  let L := Len H k
+  let h := T12.edgeH (toPair (eV0 H k)) (toPair (eV1 H k))
+  let gam := Bv H k * h ^ 2 / L ^ 3
+  let kap := rr H k - 1
+  (-6) * gam * (3 * A0 H k * kap * q0 H k - L ^ 2 * (2 * A0 H k + rr H k * A1 H k))
+
+/-- `Φ_L` of prop:nonlocal for edge `k`. -/
+noncomputable def PhiL (H : Hex) (k : Fin 3) : ℝ :=
+  let L := Len H k
+  let h := T12.edgeH (toPair (eV0 H k)) (toPair (eV1 H k))
+  let gam := Bv H k * h ^ 2 / L ^ 3
+  let kap := rr H k - 1
+  let a0 := A0 H k
+  let a1 := A1 H k
+  let B := Bv H k
+  (-18) * gam * (kap * (-a1 ^ 2 + a1 * B * (2 * kap - 1) + 2 * B ^ 2 * kap) * q0 H k
+    + L ^ 2 * (a0 * B + rr H k * a1 ^ 2))
+
+/-- `𝓔 = Σ_e h_e²/L_e` over the six edges (opposite edges have the same `h`, `L`). -/
+noncomputable def calE (H : Hex) : ℝ := 2 * ∑ k : Fin 3, T12.hsqOverL (t12Edge H k)
+
+/-- `H^{(2)}_n = Σ_{j=1}^n 1/j²`. -/
+noncomputable def H2 (n : ℕ) : ℝ := ∑ j ∈ Finset.Icc 1 n, 1 / (j : ℝ) ^ 2
+
+/-- `𝓛_1 = -log(1-x)`. -/
+noncomputable def cL1 (x : ℝ) : ℝ := -Real.log (1 - x)
+
+/-- `λ_c(q)` for `c = 1, 2, 3` from `c![v^c](-(v/q)exp(-Σ_i v^iH^{(i)}_{q-1}/i))`:
+`λ_1 = -1/q`, `λ_2 = 2H_{q-1}/q`, `λ_3 = -3(H_{q-1}² - H^{(2)}_{q-1})/q` (used for `q ≥ 1`). -/
+noncomputable def lam : ℕ → ℕ → ℝ
+  | 1, q => -1 / (q : ℝ)
+  | 2, q => 2 * (harmonic (q - 1) : ℝ) / q
+  | 3, q => -3 * ((harmonic (q - 1) : ℝ) ^ 2 - H2 (q - 1)) / q
+  | _, _ => 0
+
+/-- `J(n;a,b,c)(x) = ∫_0^1 t^n log^a t log^b(1-t) log^c(1-xt) dt`. -/
+noncomputable def Jint (n a b c : ℕ) (x : ℝ) : ℝ :=
+  ∫ t in (0 : ℝ)..1,
+    t ^ n * Real.log t ^ a * Real.log (1 - t) ^ b * Real.log (1 - x * t) ^ c
+
+/-- `𝓘_N(a,b) = ∫_0^1 s^N log^a s log^b(1-s) ds`. -/
+noncomputable def Iint (N a b : ℕ) : ℝ :=
+  ∫ s in (0 : ℝ)..1, s ^ N * Real.log s ^ a * Real.log (1 - s) ^ b
+
+/-- Lemma g4:lem:euler: the six generating functions, for `|x| < 1`. -/
+def stmt_1 : Prop :=
+  ∀ x : ℝ, |x| < 1 →
+    HasSum (fun n : ℕ => (harmonic (n + 1) : ℝ) * x ^ (n + 1)) (cL1 x / (1 - x)) ∧
+    HasSum (fun n : ℕ => H2 (n + 1) * x ^ (n + 1)) (D00.Li2 x / (1 - x)) ∧
+    HasSum (fun n : ℕ => (harmonic (n + 1) : ℝ) ^ 2 * x ^ (n + 1))
+      ((cL1 x ^ 2 + D00.Li2 x) / (1 - x)) ∧
+    HasSum (fun n : ℕ => (harmonic (n + 1) : ℝ) / ((n : ℝ) + 1) * x ^ (n + 1))
+      (D00.Li2 x + (1 / 2) * cL1 x ^ 2) ∧
+    HasSum (fun n : ℕ => (harmonic (n + 1) : ℝ) ^ 2 / ((n : ℝ) + 1) * x ^ (n + 1))
+      (Z03.Li3 x + cL1 x * D00.Li2 x + (1 / 3) * cL1 x ^ 3) ∧
+    HasSum (fun n : ℕ => H2 (n + 1) / ((n : ℝ) + 1) * x ^ (n + 1))
+      (3 * Z03.Li3 x - 2 * Z03.A x + cL1 x * D00.Li2 x)
+
+/-- Lemma g4:lem:Jseries, first part: "$\log^c(1-z)=\sum_{q\ge1}\lambda_c(q)z^q$" with the
+explicit `λ_c`, for `c = 1, 2, 3` and `|z| < 1`. -/
+def stmt_2 : Prop :=
+  ∀ c : ℕ, 1 ≤ c → c ≤ 3 → ∀ z : ℝ, |z| < 1 →
+    HasSum (fun q : ℕ => lam c (q + 1) * z ^ (q + 1)) (Real.log (1 - z) ^ c)
+
+/-- Lemma g4:lem:Jseries: for `|x| < 1`, `c ≥ 1`, `a + b + c ≤ 3`, the integrand of `J` is
+integrable and `J(n;a,b,c) = Σ_{q≥1} x^q λ_c(q) 𝓘_{n+q}(a,b)`. -/
+def stmt_3 : Prop :=
+  ∀ x : ℝ, |x| < 1 → ∀ n a b c : ℕ, 1 ≤ c → a + b + c ≤ 3 →
+    IntervalIntegrable
+        (fun t : ℝ => t ^ n * Real.log t ^ a * Real.log (1 - t) ^ b * Real.log (1 - x * t) ^ c)
+        volume 0 1 ∧
+      HasSum (fun q : ℕ => x ^ (q + 1) * lam c (q + 1) * Iint (n + q + 1) a b) (Jint n a b c x)
+
+/-- The worked entries after Lemma g4:lem:Jseries, for `0 < |x| < 1` (they divide by `x`;
+checklist note 24): `J(0;1,0,1)`, `J(0;0,0,1)`, `J(1;0,0,1)`, `J(0;0,2,1)`. -/
+def stmt_4 : Prop :=
+  ∀ x : ℝ, |x| < 1 → x ≠ 0 →
+    Jint 0 1 0 1 x = (-cL1 x - D00.Li2 x + x * (cL1 x + 2)) / x ∧
+    Jint 0 0 0 1 x = -cL1 x + cL1 x / x - 1 ∧
+    Jint 1 0 0 1 x = -cL1 x / 2 + cL1 x / (2 * x ^ 2) - 1 / 4 - 1 / (2 * x) ∧
+    Jint 0 0 2 1 x =
+      (1 - x) / (3 * x) * (12 * Z03.Li3 x - 6 * Z03.A x + 6 * cL1 x * D00.Li2 x
+        + 6 * D00.Li2 x + cL1 x ^ 3 + 3 * cL1 x ^ 2 + 6 * cL1 x) - 6
+
+/-- Setting (main.tex 1709): every strictly convex centrally symmetric hexagon with corners
+`V_0, V_1, V_2, -V_0, -V_1, -V_2` (counter-clockwise), with every choice of weights `w_j > 0`,
+is `K_1` for suitable `u_j = k_jv_j` with `V_j` on the kink line `⟨u_j,x⟩ = 0`. -/
+def stmt_5 : Prop :=
+  ∀ (V : Fin 3 → X04.Plane) (w : Fin 3 → ℝ), (∀ j, 0 < w j) →
+    0 < det2 (V 0) (V 1) → 0 < det2 (V 1) (V 2) → 0 < det2 (V 0) (V 2) →
+    0 < det2 (V 1 - V 0) (V 2 - V 1) → 0 < det2 (V 2 - V 1) (-V 0 - V 2) →
+    0 < det2 (-V 0 - V 2) (-V 1 + V 0) →
+    ∃ u : Fin 3 → X04.Plane, IsHex ⟨u, w, V⟩
+
+/-- Setting: `K_1` is the hexagon with the six corners `±C_j`. -/
+def stmt_6 : Prop :=
+  ∀ H : Hex, IsHex H →
+    Kw H.u H.w 1 = convexHull ℝ (Set.range H.C ∪ Set.range (fun j => -H.C j))
+
+/-- Lemma g4:lem:arc (setting): for `p > 0` the polar curve is a simple closed curve of finite
+length whose image is `{F_p = 1} = ∂K_p`. -/
+def stmt_7 : Prop :=
+  ∀ H : Hex, IsHex H → ∀ p : ℝ, 0 < p →
+    ContinuousOn (polar H p) (Icc 0 (2 * π)) ∧ polar H p (2 * π) = polar H p 0 ∧
+    InjOn (polar H p) (Ico 0 (2 * π)) ∧
+    polar H p '' Icc 0 (2 * π) = {x | Fw H.u H.w p x = 1} ∧
+    frontier (Kw H.u H.w p) = {x | Fw H.u H.w p x = 1} ∧
+    eVariationOn (polar H p) (Icc 0 (2 * π)) ≠ ⊤
+
+/-- "One edge" and "What is proved": on each of the three edges the terms are
+`A_0t`, `A_1(1-t)`, `B(1+κt)` with `κ = r - 1`; `A_1 + B = 1`, `A_0 + Br = 1`; `0 < B < 1`,
+`A_0, A_1 > 0`, `r > 0`. -/
+def stmt_8 : Prop :=
+  ∀ H : Hex, IsHex H → ∀ k : Fin 3,
+    (∀ t ∈ Icc (0 : ℝ) 1,
+      term H.u H.w k (ept H k t) = A0 H k * t ∧
+      term H.u H.w (k + 1) (ept H k t) = A1 H k * (1 - t) ∧
+      term H.u H.w (k + 2) (ept H k t) = Bv H k * (1 + (rr H k - 1) * t)) ∧
+    A1 H k + Bv H k = 1 ∧ A0 H k + Bv H k * rr H k = 1 ∧
+    0 < Bv H k ∧ Bv H k < 1 ∧ 0 < A0 H k ∧ 0 < A1 H k ∧ 0 < rr H k
+
+/-- First sentence of thm:hexagon: `P` is three times differentiable at `1`, the edge
+integrands are integrable, and `P'''(1) = 2Σ_e E_e` over the three edges
+`C_0C_1`, `C_1C_2`, `C_2(-C_0)`. -/
+def stmt_9 : Prop :=
+  ∀ H : Hex, IsHex H →
+    ContDiffAt ℝ 3 (Perim H) 1 ∧
+    (∀ k : Fin 3,
+      IntervalIntegrable (fun t => iteratedDeriv 3 (fun p => Gl H k p t) 1) volume 0 1) ∧
+    iteratedDeriv 3 (Perim H) 1 = 2 * ∑ k : Fin 3, Ee H k
+
+/-- Third sentence: the coefficient of `ζ(3)`, `c_8/L⁵`, is exactly `Z_e` of prop:edgelaw
+(T12's `Ze`, with `ξ_0 = A_0`, `ξ_1 = A_1`), for every edge and every `r`. -/
+def stmt_11 : Prop :=
+  ∀ H : Hex, IsHex H → ∀ k : Fin 3,
+    c8 (Bv H k) (rr H k) (q0 H k) (V02 H k) (Lsq H k) = Len H k ^ 5 * T12.Ze (t12Edge H k)
+
+/-- Fourth sentence: the coefficients of `Li₃(x)` and `Li₃(x/(x-1))` are `2Φ_A + Φ_L` and
+`Φ_A`: `c_1 = L⁵(2Φ_A + Φ_L)`, `c_2 = L⁵Φ_A`. -/
+def stmt_12 : Prop :=
+  ∀ H : Hex, IsHex H → ∀ k : Fin 3,
+    c1 (Bv H k) (rr H k) (q0 H k) (V02 H k) (Lsq H k)
+        = Len H k ^ 5 * (2 * PhiA H k + PhiL H k) ∧
+      c2 (Bv H k) (rr H k) (q0 H k) (V02 H k) (Lsq H k) = Len H k ^ 5 * PhiA H k
+
+/-- Fifth sentence, `r = 1` on every edge and all `w_j = 1`: `P'''(1)` is `3!` times the `d³`
+coefficient of the hexagon law of prop:edgelaw,
+`2^{d/(1+d)}[P(1) + π²𝓔d²/24 - (𝓔/8)(ζ(3) + 2π²/3)d³]` (T12's `hexDisp` with `z3 = ζ(3)`). -/
+def stmt_13 : Prop :=
+  ∀ H : Hex, IsHex H → (∀ j, H.w j = 1) → (∀ k, rr H k = 1) →
+    ContDiffAt ℝ 3 (Perim H) 1 ∧
+    iteratedDeriv 3 (Perim H) 1
+      = iteratedDeriv 3 (fun d => T12.hexDisp (Perim H 1) (calE H) Z03.z3 d) 0
+
+end S05

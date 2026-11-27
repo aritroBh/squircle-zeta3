@@ -1,0 +1,21 @@
+{
+ "file": "Zeta3/Wave10/S02_VertexQ0.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_3",
+  "stmt_5"
+ ],
+ "axioms": {
+  "S02.proof_3": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "S02.proof_5": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

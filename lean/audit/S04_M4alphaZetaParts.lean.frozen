@@ -1,0 +1,221 @@
+import Mathlib
+import Zeta3.Wave9.R01_ZetaLadder
+/-!
+# S04 -- the zeta parts of `M_4(α)` at every angle
+
+Target id: S04.
+Paper label: `thm:M4alpha` (paper/ieee/main.tex, lines 1572-1583; proof idea 1585-1587; the three
+consequences 1589, first two sentences; `F_2` printed at line 1615).
+Supplement: paper/ieee/proofs/sec_g8_M4alpha.tex (setting 7-8; `g8:thm:M4alpha` 10-20; the
+precise form `g8:eq:M4formal` with `F_1`, `F_2` 24-31; gap box 33; "Why a finite computation
+proves the identity for every n" 35-50; the `ζ(3)` part by the ladder 54; M8, M9 56-58; the
+`π⁴` part by hand 60-66; proof of the theorem 68-70; "What rests on what" 78-89).
+
+Earlier Lean, imported and not restated (`Zeta3.Wave9.R01_ZetaLadder`, which imports
+`Zeta3.Wave8.Q04_FlatAllK` and `Zeta3.Wave7.V05_FlatAngle`), all from frozen statement blocks:
+`M_k(α) = V05.Mk k α` (the Taylor coefficient `M^{(k)}(0;α)/k!` of the corner integral),
+`c = D04.c α = cos(α/2)`, the real zeta values `ζ(w) = X05.z w = (riemannZeta w).re`
+(`zeta_nat_eq_tsum_of_gt_one` identifies `riemannZeta w` with `Σ_{n≥1} n^{-w}` for `w ≥ 2`, and
+it is real there), the formal coefficients `P_{k,n} = Q04.Pf k n ∈ ℚ[𝔷_2, 𝔷_3, …]`
+(Definition `g6:def:formal`; the variable `X w` is the formal zeta value `𝔷_w`), and the
+supplement's parts `[z]M_k(α) = R01.zM s k α = Σ_{n≥1} ([𝔷_z]P_{k,n}) c^{2n}` (a `tsum`, always
+used together with `R01.AllSummable α`, which says every such series converges absolutely).
+`Q04.stmt_5` (proved) gives `M_k(α) = Σ_n P_{k,n}(ζ) c^{2n}`; `R01.stmt_7` (proved) is the
+first rung `[ζ(3)]M_{k+1} = -[ζ(2)]M_k`, whose case `k = 3` is the `ζ(3)` part of this theorem
+(`[ζ(3)]M_4 = -[ζ(2)]M_3 = -Ψ`); it is used, not restated.
+
+Quoted verbatim (main.tex 1572-1583):
+
+  \begin{theorem}[$M_4$ at every angle$^\dagger$]\label{thm:M4alpha}
+  For $0<\alpha<\pi$, with $c=\cos\frac\alpha2$ and $\Psi$ the $\zeta(2)$ part of $M_3$
+  (Theorem~\ref{thm:flat}),
+  \[
+  \begin{split}
+  M_4(\alpha)={}&R_4(c)+\zeta(2)\Psi_2(c)-\zeta(3)\Psi(c)\\
+  &+\frac{\pi^4}{2880}\Bigl[\Bigl(9c-\frac{30}c+\frac{21}{c^3}\Bigr)\operatorname{artanh}c+23-\frac{21}{c^2}\Bigr],
+  \end{split}
+  \]
+  where $R_4$ is a rational combination of $109$ terms $c^eH_w(\pm c)$ with harmonic
+  polylogarithms of weights two to five and $-3\le e\le1$, and $\Psi_2$ is a rational combination
+  of $21$ such terms of weights one to three and the constant $\frac12$ (in our notes).
+  \end{theorem}
+
+Quoted verbatim (main.tex 1589): "The $\zeta(3)$ part of $M_4$ is $-\zeta(3)$ times the
+$\zeta(2)$ part of $M_3$, ... The $\pi^4$ part is elementary: only $\operatorname{artanh}c$ and
+rational functions of $c$."
+
+Quoted verbatim (main.tex 1615): "Here $F_2=\bigl(-\frac c{16}-\frac1{8c}+\frac3{16c^3}\bigr)
+\operatorname{artanh}c+\frac1{16}-\frac3{16c^2}$ is the $\zeta(2)^2$ part of $M_4$."
+
+Quoted verbatim (supplement, lines 24-31, the precise form that is proved):
+
+  M_4(\alpha)=R_4(c)+\zeta(2)\Psi_2(c)-\zeta(3)\Psi(c)+\zeta(4)F_1(c)+\zeta(2)^2F_2(c),
+  F_1=\Bigl(\tfrac{7c}{16}-\tfrac5{8c}+\tfrac3{16c^3}\Bigr)\operatorname{artanh}c+\tfrac9{16}-\tfrac3{16c^2},\qquad
+  F_2=\Bigl(-\tfrac c{16}-\tfrac1{8c}+\tfrac3{16c^3}\Bigr)\operatorname{artanh}c+\tfrac1{16}-\tfrac3{16c^2},
+  "where, more precisely, $R_4$, $\Psi_2$, $\Psi$, $F_1$, $F_2$ are the sums
+  $\sum_n[\gvs z]P_{4,n}c^{2n}$ for $\gvs z=1,\gvs2,-\gvs3,\gvs4,\gvs2^2$ ... Then
+  $\frac{F_1}{90}+\frac{F_2}{36}=\frac1{2880}\bigl[(9c-\frac{30}c+\frac{21}{c^3})\operatorname{artanh}c+23-\frac{21}{c^2}\bigr]$".
+
+Quoted verbatim (supplement, M9, line 58): "The same run prints
+$[\gvs4]P_{4,n}=\frac{n+3}{(2n-1)(2n+1)(2n+3)}$ and
+$[\gvs2^2]P_{4,n}=-\frac n{(2n-1)(2n+1)(2n+3)}$, each as an element of $\mathfrak D$ with only the
+empty word, i.e.\ as a rational function of $n$".
+
+Quoted verbatim (supplement, line 62, the three sums): for $0<c<1$,
+  \sum_{n\ge1}\frac{c^{2n}}{2n-1}=c\operatorname{artanh}c,\quad
+  \sum_{n\ge1}\frac{c^{2n}}{2n+1}=\frac{\operatorname{artanh}c}c-1,\quad
+  \sum_{n\ge1}\frac{c^{2n}}{2n+3}=\frac{\operatorname{artanh}c}{c^3}-\frac1{c^2}-\frac13
+
+Quoted verbatim (supplement, proof, line 69): "$P_{4,n}$ a polynomial in $\gvs2,\gvs3,\gvs4$ of
+weight $\le4$: the monomials are $1,\gvs2,\gvs3,\gvs4,\gvs2^2$ (the only monomials of weight
+$\le4$)."
+
+## Formalization choices
+
+* Everything about zeta parts is in the supplement's formal sense (gap box (iii): with real
+  numbers the split is not unique). A part is `R01.zM s 4 α` with `s` the monomial: `1` is
+  `s = 0`, `𝔷2` is `single 2 1`, `𝔷3` is `single 3 1`, `𝔷4` is `single 4 1`, `𝔷2²` is
+  `single 2 2`. The real values `ζ(2), ζ(3), ζ(4)` are `X05.z 2, X05.z 3, X05.z 4`.
+* `Ψ` ("the `ζ(2)` part of `M_3`", Theorem `thm:flat`; supplement line 7: `Ψ = Σ q'_n c^{2n}`,
+  `q'_n = [𝔷2]P_{3,n}`) is `R01.zM (single 2 1) 3 α`. V05 has no closed form for `Ψ` (it is a
+  series there too), so none is stated.
+* `R_4 := [1]M_4(α) = R01.zM 0 4 α` and `Ψ_2 := [ζ(2)]M_4(α) = R01.zM (single 2 1) 4 α` are the
+  SERIES parts, as in the supplement's "more precisely" sentence. They are not the 109-term and
+  21+1-term closed forms in harmonic polylogarithms (see NOT COVERED).
+* The `ζ(3)` part `[ζ(3)]M_4 = -Ψ` is `R01.stmt_7` at `k = 3` (proved there); it is not
+  restated as its own statement, but the final statement contains it in the form `-ζ(3)Ψ`.
+* `F_1`, `F_2` are the supplement's closed forms (`F_2` is also printed in main.tex 1615), as
+  functions of a real `c`; they are only evaluated at `0 < c < 1`, so `1/c` is not a junk value.
+  The `π⁴` bracket is written out literally in stmt_6 and stmt_7.
+* stmt_5 is stated for every `0 < c < 1` (the formal coefficients do not depend on the angle);
+  stmt_6 and stmt_7 at `c = cos(α/2)`, `0 < α < π`, as in the paper.
+* Sums over `n ≥ 1` are over `n : ℕ` with index `n + 1`; `HasSum` is used except inside
+  `R01.zM`, which is always guarded by `R01.AllSummable`.
+
+## Statements
+
+* stmt_1: `P_{4,n}` has only the monomials `1, 𝔷2, 𝔷3, 𝔷4, 𝔷2²`, for every `n ≥ 1`.
+* stmt_2: for `0 < α < π`, `M_4(α) = [1]M_4 + ζ(2)[ζ(2)]M_4 + ζ(3)[ζ(3)]M_4 + ζ(4)[ζ(4)]M_4
+  + ζ(2)²[ζ(2)²]M_4`, all parts absolutely convergent.
+* stmt_3 (M9): `[𝔷4]P_{4,n} = (n+3)/((2n-1)(2n+1)(2n+3))`,
+  `[𝔷2²]P_{4,n} = -n/((2n-1)(2n+1)(2n+3))` for every `n ≥ 1`.
+* stmt_4: the three `artanh` series for `0 < c < 1`.
+* stmt_5: `Σ_n [𝔷4]P_{4,n} c^{2n} = F_1(c)` and `Σ_n [𝔷2²]P_{4,n} c^{2n} = F_2(c)`, `0 < c < 1`.
+* stmt_6: the `π⁴` part: `ζ(4)[ζ(4)]M_4(α) + ζ(2)²[ζ(2)²]M_4(α) = (π⁴/2880)[…]`.
+* stmt_7: `thm:M4alpha` with `R_4`, `Ψ_2` the series parts:
+  `M_4(α) = R_4 + ζ(2)Ψ_2 - ζ(3)Ψ + (π⁴/2880)[(9c - 30/c + 21/c³) artanh c + 23 - 21/c²]`.
+
+## Numerical check before freezing
+
+A SymPy script mirroring `Q04.Pf` exactly (the same truncations of `E_n` and `exp Δ_⋆`, exact
+rationals) gave for `n = 1, …, 10`: the support of `P_{4,n}` lies in `{1, 𝔷2, 𝔷3, 𝔷4, 𝔷2²}`,
+and `[𝔷4]P_{4,n}`, `[𝔷2²]P_{4,n}` equal the two rational functions of stmt_3 exactly (e.g.
+`n = 1`: `4/15`, `-1/15`, as in `P_{4,1}` of Q04). The Taylor series of `F_1`, `F_2` and of the
+bracket agree exactly with `Σ f(n) c^{2n}` for the two rational functions `f` (and with
+`32 f_4 + 80 f_{22}`) through `c^{25}` (odd coefficients `0`), and `F_1/90 + F_2/36 - bracket/2880`
+simplifies to `0`. With mpmath (40 digits), `Σ_n (ζ(4) f_4(n) + ζ(2)² f_{22}(n)) c^{2n}` agrees
+with `(π⁴/2880)[…]` to `2·10⁻⁴¹` at `α = π/3` and `4·10⁻⁴¹` at `α = 2.5`.
+
+## NOT COVERED
+
+* The closed forms of `R_4` (109 terms `c^e H_w(±c)`, weights 2 to 5, `-3 ≤ e ≤ 1`) and of `Ψ_2`
+  (21 terms of weights 1 to 3 and the constant `1/2`): their coefficients are only in the
+  authors' data files (`g8_terms_k4_part1.json`, `g8_terms_k4_partz2.json`), not printed in the
+  paper or the supplement, so they cannot be stated from the text. `R_4` and `Ψ_2` appear only
+  as the series parts.
+* The harmonic polylogarithms `H_w(±c)`, the algebra `𝔇` of Z-sums and Lemma `g8:prop:crit`.
+* The depth-two remarks after the theorem (the `(3,2)` symbol pairings at the generic angle, at
+  the hexagon corner, at `c_0 = 1/3`, at the golden corners, `N_5^{hex}`), and the numerical
+  checks of the proof idea.
+* Statements about the zeta parts of the real number `M_4(α)` (not well defined without the
+  independence of `1, π², ζ(3)`, gap box (iii)).
+-/
+-- BEGIN STATEMENTS
+namespace S04
+
+open Real
+
+/-- The supplement's `F_1(c) = (7c/16 - 5/(8c) + 3/(16c³)) artanh c + 9/16 - 3/(16c²)`. -/
+noncomputable def F1 (c : ℝ) : ℝ :=
+  (7 * c / 16 - 5 / (8 * c) + 3 / (16 * c ^ 3)) * Real.artanh c + 9 / 16 - 3 / (16 * c ^ 2)
+
+/-- `F_2(c) = (-c/16 - 1/(8c) + 3/(16c³)) artanh c + 1/16 - 3/(16c²)` (main.tex 1615, supplement). -/
+noncomputable def F2 (c : ℝ) : ℝ :=
+  (-c / 16 - 1 / (8 * c) + 3 / (16 * c ^ 3)) * Real.artanh c + 1 / 16 - 3 / (16 * c ^ 2)
+
+/-- Supplement, proof (line 69): `P_{4,n}` is a polynomial in `𝔷2, 𝔷3, 𝔷4` whose monomials are
+among `1, 𝔷2, 𝔷3, 𝔷4, 𝔷2²`, for every `n ≥ 1`. -/
+def stmt_1 : Prop :=
+  ∀ n : ℕ, 1 ≤ n →
+    Q04.Pf 4 n =
+      MvPolynomial.C ((Q04.Pf 4 n).coeff 0)
+      + MvPolynomial.C ((Q04.Pf 4 n).coeff (Finsupp.single 2 1)) * MvPolynomial.X 2
+      + MvPolynomial.C ((Q04.Pf 4 n).coeff (Finsupp.single 3 1)) * MvPolynomial.X 3
+      + MvPolynomial.C ((Q04.Pf 4 n).coeff (Finsupp.single 4 1)) * MvPolynomial.X 4
+      + MvPolynomial.C ((Q04.Pf 4 n).coeff (Finsupp.single 2 2)) * MvPolynomial.X 2 ^ 2
+
+/-- The decomposition behind `g8:eq:M4formal`: for `0 < α < π` all parts converge absolutely and
+`M_4(α) = [1]M_4 + ζ(2)[ζ(2)]M_4 + ζ(3)[ζ(3)]M_4 + ζ(4)[ζ(4)]M_4 + ζ(2)²[ζ(2)²]M_4`. -/
+def stmt_2 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    R01.AllSummable α ∧
+    V05.Mk 4 α =
+      R01.zM 0 4 α + X05.z 2 * R01.zM (Finsupp.single 2 1) 4 α
+        + X05.z 3 * R01.zM (Finsupp.single 3 1) 4 α
+        + X05.z 4 * R01.zM (Finsupp.single 4 1) 4 α
+        + X05.z 2 ^ 2 * R01.zM (Finsupp.single 2 2) 4 α
+
+/-- M9 (supplement line 58), for every `n ≥ 1`:
+`[𝔷4]P_{4,n} = (n+3)/((2n-1)(2n+1)(2n+3))` and `[𝔷2²]P_{4,n} = -n/((2n-1)(2n+1)(2n+3))`. -/
+def stmt_3 : Prop :=
+  ∀ n : ℕ, 1 ≤ n →
+    (Q04.Pf 4 n).coeff (Finsupp.single 4 1) =
+      ((n : ℚ) + 3) / ((2 * (n : ℚ) - 1) * (2 * (n : ℚ) + 1) * (2 * (n : ℚ) + 3)) ∧
+    (Q04.Pf 4 n).coeff (Finsupp.single 2 2) =
+      -(n : ℚ) / ((2 * (n : ℚ) - 1) * (2 * (n : ℚ) + 1) * (2 * (n : ℚ) + 3))
+
+/-- The three sums of the supplement (line 62), for `0 < c < 1`:
+`Σ_{n≥1} c^{2n}/(2n-1) = c artanh c`, `Σ_{n≥1} c^{2n}/(2n+1) = artanh c / c - 1`,
+`Σ_{n≥1} c^{2n}/(2n+3) = artanh c / c³ - 1/c² - 1/3`. -/
+def stmt_4 : Prop :=
+  ∀ c : ℝ, 0 < c → c < 1 →
+    HasSum (fun n : ℕ => c ^ (2 * (n + 1)) / (2 * ((n : ℝ) + 1) - 1)) (c * Real.artanh c) ∧
+    HasSum (fun n : ℕ => c ^ (2 * (n + 1)) / (2 * ((n : ℝ) + 1) + 1)) (Real.artanh c / c - 1) ∧
+    HasSum (fun n : ℕ => c ^ (2 * (n + 1)) / (2 * ((n : ℝ) + 1) + 3))
+      (Real.artanh c / c ^ 3 - 1 / c ^ 2 - 1 / 3)
+
+/-- The supplement's `F_1`, `F_2` (line 66): for `0 < c < 1`,
+`Σ_{n≥1} [𝔷4]P_{4,n} c^{2n} = F_1(c)` and `Σ_{n≥1} [𝔷2²]P_{4,n} c^{2n} = F_2(c)`. -/
+def stmt_5 : Prop :=
+  ∀ c : ℝ, 0 < c → c < 1 →
+    HasSum (fun n : ℕ => (((Q04.Pf 4 (n + 1)).coeff (Finsupp.single 4 1) : ℚ) : ℝ)
+      * c ^ (2 * (n + 1))) (F1 c) ∧
+    HasSum (fun n : ℕ => (((Q04.Pf 4 (n + 1)).coeff (Finsupp.single 2 2) : ℚ) : ℝ)
+      * c ^ (2 * (n + 1))) (F2 c)
+
+/-- The `π⁴` part of `thm:M4alpha` ("The `π⁴` part is elementary"): for `0 < α < π`, `c = cos(α/2)`,
+`ζ(4)[ζ(4)]M_4(α) + ζ(2)²[ζ(2)²]M_4(α)
+  = (π⁴/2880)[(9c - 30/c + 21/c³) artanh c + 23 - 21/c²]`. -/
+def stmt_6 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    R01.AllSummable α ∧
+    X05.z 4 * R01.zM (Finsupp.single 4 1) 4 α + X05.z 2 ^ 2 * R01.zM (Finsupp.single 2 2) 4 α =
+      π ^ 4 / 2880 *
+        ((9 * D04.c α - 30 / D04.c α + 21 / D04.c α ^ 3) * Real.artanh (D04.c α)
+          + 23 - 21 / D04.c α ^ 2)
+
+/-- `thm:M4alpha`, with `R_4 = [1]M_4(α)` and `Ψ_2 = [ζ(2)]M_4(α)` the series parts (not their
+109-term and 21+1-term closed forms) and `Ψ = [ζ(2)]M_3(α)`: for `0 < α < π`, `c = cos(α/2)`, all
+parts converge absolutely and
+`M_4(α) = R_4 + ζ(2)Ψ_2 - ζ(3)Ψ + (π⁴/2880)[(9c - 30/c + 21/c³) artanh c + 23 - 21/c²]`. -/
+def stmt_7 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    R01.AllSummable α ∧
+    V05.Mk 4 α =
+      R01.zM 0 4 α + X05.z 2 * R01.zM (Finsupp.single 2 1) 4 α
+        - X05.z 3 * R01.zM (Finsupp.single 2 1) 3 α
+        + π ^ 4 / 2880 *
+          ((9 * D04.c α - 30 / D04.c α + 21 / D04.c α ^ 3) * Real.artanh (D04.c α)
+            + 23 - 21 / D04.c α ^ 2)
+
+end S04

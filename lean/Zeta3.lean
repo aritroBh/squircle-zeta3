@@ -53,3 +53,16 @@ import Zeta3.Wave8.Q02_PiPAllOrders
 import Zeta3.Wave8.Q03_Theta7
 import Zeta3.Wave8.Q04_FlatAllK
 import Zeta3.Wave8.Q05_Decay
+import Zeta3.Wave8.Q06_PiPGrowth
+import Zeta3.Wave8.Q07_DecayRest
+import Zeta3.Wave9.R01_ZetaLadder
+import Zeta3.Wave9.R02_Theta8
+import Zeta3.Wave9.R03_PureWeightN
+import Zeta3.Wave9.R04_SuperellipsoidAllK
+import Zeta3.Wave9.R05_DegreeAllN
+import Zeta3.Wave9.R06_Varpi
+import Zeta3.Wave10.S01_Theta9
+import Zeta3.Wave10.S02_VertexQ0
+import Zeta3.Wave10.S03_FieldRule
+import Zeta3.Wave10.S04_M4alphaZetaParts
+import Zeta3.Wave10.S05_Hexagon

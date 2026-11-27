@@ -1,0 +1,162 @@
+import Mathlib
+import Zeta3.Wave8.Q07_DecayRest
+/-!
+# R06 -- the first correction `ϖ₁` (Theorem `thm:varpi`)
+
+Target id: R06.
+Paper labels: `thm:varpi` (paper/ieee/main.tex, lines 1301-1308; `ϖ₁` defined at line 1275),
+in the supplement `g5:thm:varpi` (paper/ieee/proofs/sec_g5_varpi1.tex, statement lines 6-19,
+plan line 21, proof of Theorem 13 line 257-259), and `g5:prop:rest` (b)
+(paper/ieee/proofs/sec_g5_decay.tex, lines 193-203, gap note line 205, proof of (b) lines
+229-235).
+
+Quoted verbatim (main.tex, thm:varpi):
+
+  For every $k$ with $N=k+1\ge100$,
+  \Bigl|M_k+\frac{\sqrt\pi}{N}\,e^{-\theta}\operatorname{Re}\Bigl[e^{i\theta}\Bigl(1+\frac{\varpi_1}{\sqrt N}\Bigr)\Bigr]\Bigr|\le C\,N^{-2}e^{-\theta},
+  with $C=1{,}000{,}668$.
+
+Quoted verbatim (main.tex line 1275, and sec_g5_varpi1.tex lines 8-10):
+
+  \varpi_1=\bigl[(24+12\pi+\pi^2)+i\,(24-12\pi+\pi^2)\bigr]/(48\sqrt\pi)=0.84121508777-0.04501183769\,i
+
+Quoted verbatim (sec_g5_varpi1.tex, plan, line 21):
+
+  Put $X=\frac{\sqrt\pi}N\eu^{-\theta}\operatorname{Re}[\eu^{\ii\theta}(1+\varpi_1/\sqrt N)]$. Then
+  $|M_k+X|\le|M_k-M_k^{\mathrm{main}}|+|M_k^{\mathrm{main}}+X|$. The first term is bounded by
+  Proposition~\ref{g5:prop:rest}(b): at most $c_{\mathrm{rest}}N^{-2}\eu^{-\theta}$ with
+  $c_{\mathrm{rest}}<120{,}000$. The second term is bounded in Proposition~\ref{g5:prop:main}
+  below by $C_{\mathrm{main}}N^{-2}\eu^{-\theta}$ with $C_{\mathrm{main}}=71{,}000$. So the theorem
+  holds with $191{,}000$, and a fortiori with $1{,}000{,}668$.
+
+Quoted verbatim (sec_g5_decay.tex, g5:prop:rest (b)):
+
+  (b) $N^2\eu^{\sqrt{\pi N}}\,|M_k-M_k^{\mathrm{main}}|\le c_{\mathrm{rest}}$ with $c_{\mathrm{rest}}<120{,}000$.
+
+Quoted verbatim (sec_g5_decay.tex, proof of (b), the definition of `c_rest`):
+
+  Let $p_0,\dots,p_5$ be the six terms of the displayed inequality multiplied by
+  $N^2\eu^{\sqrt{\pi N}}$ [...] So these pieces decrease for $N\ge100$. [...] Therefore
+  $N^2\eu^{\sqrt{\pi N}}|M_k-\Mmain|\le\sum_ip_i(100)=c_{\mathrm{rest}}$, which the script
+  evaluates and bounds by $120{,}000$.
+
+Quoted verbatim (sec_g5_varpi1.tex, proof of Theorem 13):
+
+  Therefore $|M_k+X|\le191{,}000\,N^{-2}\eu^{-\theta}\le1{,}000{,}668\,N^{-2}\eu^{-\theta}$.
+
+## Conventions
+
+* `M_k` is `Q05.M k := (W02.Mk k).re`, the real part of the library's Taylor coefficient
+  `W02.Mk k` of `M = -F/2` (Wave 3, W02). Q07.stmt_2 (g5:lem:Mk, proved) shows that `W02.Mk k`
+  is itself a real number, so `Q05.M k` is exactly the paper's `M_k`, and nothing is lost by
+  taking the real part. `M_k^main` is `Q05.Mmain k`, the integral of main.tex line 1313.
+* `ϖ₁` is `Q05.varpi1`, defined (inside Q05's statement block) as the complex number with real
+  part `(24+12π+π²)/(48√π)` and imaginary part `(24-12π+π²)/(48√π)`; this is the paper's
+  formula, and stmt_3 records it together with the printed decimals.
+* `X` is `Q05.X N = (√π/N) e^{-√(πN)} Re[e^{i√(πN)}(1+ϖ₁/√N)]` (Q05's block), the `X` of the
+  supplement's plan, with `N = k+1` cast to `ℝ`. The final statement stmt_5 does not use `X`:
+  it writes the expression out.
+* `θ = √(πN)`; `N^{-2} e^{-θ}` is written `C / N^2 * exp(-√(πN))` (as in Q07.stmt_6).
+* `restBound k` is the right-hand side of the displayed inequality of g5:prop:rest, written
+  exactly as in Q07.stmt_4 (proved there: `|M_k - M_k^main| ≤ restBound k` for `N ≥ 100`).
+  For `k ≥ 99` the quantities `k-1`, `k-2` are real subtractions of positive numbers.
+* `crest` is the supplement's `c_rest = Σ_i p_i(100)`, i.e. `100² e^{√(100π)} restBound 99`
+  (the six pieces at `N = 100`, `k = 99`). Numerically (mpmath, 40 digits) `crest =
+  114,536.103195...`, the six pieces being `31918.94, 71215.51, 11125.48, 0.0017, 276.17,
+  3.2·10^{-10}` (in the order of the display: the supplement lists the `B_2` piece before the
+  `e^{eξ}` piece), matching the gap note's `114,536.10...`.
+
+## Statements
+
+* stmt_1: the elementary estimates of the proof of g5:prop:rest (b): for `N ≥ 100`,
+  `N² e^{√(πN)} restBound k ≤ crest` (each piece decreases in `N`), and `crest < 120,000`.
+* stmt_2: g5:prop:rest (b): for `N ≥ 100`, `N² e^{√(πN)} |M_k - M_k^main| ≤ crest`, equivalently
+  `|M_k - M_k^main| ≤ crest N^{-2} e^{-θ}`, and `crest < 120,000`.
+* stmt_3: the definition of `ϖ₁` and of `X` unfolded: `Re ϖ₁`, `Im ϖ₁` as printed, the printed
+  decimals correct to `5·10^{-12}` (rounded to 11 places), and
+  `X(N) = (√π/N)e^{-θ}[cos θ (1 + Re ϖ₁/√N) - sin θ Im ϖ₁/√N]` for `N > 0`.
+* stmt_4: the supplement's intermediate bound `|M_k + X| ≤ 191,000 N^{-2} e^{-θ}`, `N ≥ 100`.
+* stmt_5: thm:varpi with `C = 1,000,668`, the expression written out.
+
+## NOT COVERED
+
+* The proof of g5:prop:main (Regions I and II of sec_g5_varpi1.tex) is not restated: the bound
+  `|M_k^main + X| ≤ 71,000 N^{-2} e^{-θ}` is Q07.stmt_6 (proved) and is imported, not restated.
+* The paper's own route to `C = 1,000,668` (main.tex line 1310: interval arithmetic giving
+  `10^6` for the main term, the rest bound `1030 N^{-1/2} e^{-√(2πN)}` and `667.357`) is not
+  stated; the supplement replaces it by `71,000 + 120,000`, and the supplement says the rest bound
+  `1030 N^{-1/2} e^{-√(2πN)}` is not proved there. The constant `1.76` for `100 ≤ N ≤ 400` is not
+  stated either.
+* No high-precision values of `M_k` were computed for this file; only the arithmetic of `c_rest`
+  and the monotonicity of the six pieces (`k = 99..20000`) and the decimals of `ϖ₁` were checked
+  numerically.
+-/
+-- BEGIN STATEMENTS
+namespace R06
+
+open Real Q05
+
+/-- The right-hand side of the displayed inequality of g5:prop:rest (as in Q07.stmt_4):
+`B_1[e^{π/4}e^{-√(3πk/2)} + ξ e^{-√(3π(k-1)/2)} + (e^ξ-1-ξ) e^{-√(9π(k-2)/4)} + e^{eξ}e^{-k/2}]
+ + B_2 e^{-√(9πk/4)} + 2e^{-(N-1)/2}`, `N = k+1`. -/
+noncomputable def restBound (k : ℕ) : ℝ :=
+  B1 * (Real.exp (π / 4) * Real.exp (-√(3 * π * k / 2)) +
+      ξ * Real.exp (-√(3 * π * ((k : ℝ) - 1) / 2)) +
+      (Real.exp ξ - 1 - ξ) * Real.exp (-√(9 * π * ((k : ℝ) - 2) / 4)) +
+      Real.exp (Real.exp 1 * ξ) * Real.exp (-(k : ℝ) / 2)) +
+    B2 * Real.exp (-√(9 * π * k / 4)) + 2 * Real.exp (-(((k + 1 : ℕ) : ℝ) - 1) / 2)
+
+/-- `c_rest = Σ_i p_i(100)`: the six pieces of the display times `N² e^{√(πN)}`, at `N = 100`
+(`k = 99`). -/
+noncomputable def crest : ℝ :=
+  (100 : ℝ) ^ 2 * Real.exp (√(π * 100)) * restBound 99
+
+/-- Proof of g5:prop:rest (b): "So these pieces decrease for $N\ge100$ [...]
+$\sum_ip_i(100)=c_{\mathrm{rest}}$, which the script evaluates and bounds by $120{,}000$":
+`N² e^{√(πN)} restBound k ≤ c_rest` for `N = k+1 ≥ 100`, and `c_rest < 120,000`. -/
+def stmt_1 : Prop :=
+  (∀ k : ℕ, 100 ≤ k + 1 →
+      (((k + 1 : ℕ) : ℝ)) ^ 2 * Real.exp (√(π * ((k + 1 : ℕ) : ℝ))) * restBound k ≤ crest) ∧
+    crest < 120000
+
+/-- g5:prop:rest (b): "$N^2\eu^{\sqrt{\pi N}}\,|M_k-M_k^{\mathrm{main}}|\le c_{\mathrm{rest}}$
+with $c_{\mathrm{rest}}<120{,}000$", for `N = k+1 ≥ 100`, also in the form used in the plan of
+Theorem 13: `|M_k - M_k^main| ≤ c_rest N^{-2} e^{-θ}`. -/
+def stmt_2 : Prop :=
+  (∀ k : ℕ, 100 ≤ k + 1 →
+      (((k + 1 : ℕ) : ℝ)) ^ 2 * Real.exp (√(π * ((k + 1 : ℕ) : ℝ))) * |M k - Mmain k| ≤ crest ∧
+        |M k - Mmain k| ≤
+          crest / (((k + 1 : ℕ) : ℝ)) ^ 2 * Real.exp (-√(π * ((k + 1 : ℕ) : ℝ)))) ∧
+    crest < 120000
+
+/-- The definitions of `ϖ₁` and `X` (main.tex line 1275; sec_g5_varpi1.tex lines 8-10, 21):
+`ϖ₁ = [(24+12π+π²) + i(24-12π+π²)]/(48√π) = 0.84121508777 - 0.04501183769 i` (decimals rounded
+to 11 places), and `X = (√π/N) e^{-θ} Re[e^{iθ}(1+ϖ₁/√N)]` in real form. -/
+def stmt_3 : Prop :=
+  varpi1.re = (24 + 12 * π + π ^ 2) / (48 * √π) ∧
+    varpi1.im = (24 - 12 * π + π ^ 2) / (48 * √π) ∧
+    |varpi1.re - 0.84121508777| < 5e-12 ∧
+    |varpi1.im - (-0.04501183769)| < 5e-12 ∧
+    ∀ N : ℝ, 0 < N →
+      X N = √π / N * Real.exp (-√(π * N)) *
+        (Real.cos (√(π * N)) * (1 + (24 + 12 * π + π ^ 2) / (48 * √π) / √N) -
+          Real.sin (√(π * N)) * ((24 - 12 * π + π ^ 2) / (48 * √π) / √N))
+
+/-- Proof of Theorem 13 (sec_g5_varpi1.tex): "Therefore
+$|M_k+X|\le191{,}000\,N^{-2}\eu^{-\theta}$", for `N = k+1 ≥ 100`. -/
+def stmt_4 : Prop :=
+  ∀ k : ℕ, 100 ≤ k + 1 →
+    |M k + X ((k + 1 : ℕ) : ℝ)| ≤
+      191000 / (((k + 1 : ℕ) : ℝ)) ^ 2 * Real.exp (-√(π * ((k + 1 : ℕ) : ℝ)))
+
+/-- thm:varpi: "For every $k$ with $N=k+1\ge100$,
+$|M_k+\frac{\sqrt\pi}{N}e^{-\theta}\operatorname{Re}[e^{i\theta}(1+\frac{\varpi_1}{\sqrt N})]|\le
+C N^{-2}e^{-\theta}$, with $C=1{,}000{,}668$", `θ = √(πN)`. -/
+def stmt_5 : Prop :=
+  ∀ k : ℕ, 100 ≤ k + 1 →
+    |M k + √π / ((k + 1 : ℕ) : ℝ) * Real.exp (-√(π * ((k + 1 : ℕ) : ℝ))) *
+        (Complex.exp (Complex.I * ((√(π * ((k + 1 : ℕ) : ℝ)) : ℝ) : ℂ)) *
+          (1 + varpi1 / ((√((k + 1 : ℕ) : ℝ) : ℝ) : ℂ))).re| ≤
+      1000668 / (((k + 1 : ℕ) : ℝ)) ^ 2 * Real.exp (-√(π * ((k + 1 : ℕ) : ℝ)))
+
+end R06

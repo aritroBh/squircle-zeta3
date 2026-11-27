@@ -1,0 +1,403 @@
+import Mathlib
+import Zeta3.Wave8.Q04_FlatAllK
+/-!
+# S03 -- the field rule: `M_k(α)` as a finite combination of harmonic polylogarithms in `c`
+
+Target id: S03.
+Paper label: `conj:field` (paper/ieee/main.tex, Theorem "Field rule", lines 1486-1494; the
+"More precisely" sentence, line 1493).
+Supplement: paper/ieee/proofs/sec_g6_field.tex (harmonic polylogarithms, line 9; theorem
+`g6:thm:field` 19-26 and the reading of its last sentence, line 28; nested sums 35-39;
+Lemma `g6:lem:stuffle` 41-51; Lemma `g6:lem:window` 53-63; the space `𝔇` and its filtration
+67-71; Lemma `g6:lem:A` 73-102; Lemma `g6:lem:dict` 106-116 and `g6:eq:block` 118-121;
+Lemma `g6:lem:ops` 123-129; Lemma `g6:prop:R` 133-137 with the window functions 139-142;
+Lemma `g6:lem:conv` 144-151; proof of the last sentence 184-188).
+
+Imported, not restated (all from frozen statement blocks): `M_k(α)` is `V05.Mk k α`
+(`= iteratedDeriv k (D04.Mint · α) 0 / k!`), `c = D04.c α = cos(α/2)`, the real zeta value
+`ζ(n) = X05.z n = (riemannZeta n).re` (`riemannZeta n` is real for real `n > 1`, and
+`zeta_nat_eq_tsum_of_gt_one` identifies it with `Σ_{m≥1} m^{-n}`), and the formal coefficient
+`P_{k,n} ∈ ℚ[𝔷_2, 𝔷_3, …]` of Definition `g6:def:formal`, `Q04.Pf k n` (Q04 proved
+`M_k(α) = Σ_{n≥1} P_{k,n}(ζ) c^{2n}`, Lemma `g6:prop:formula`, as `Q04.stmt_5`). The iterated
+integrals of R05 (`R05.iterInt`, Goncharov integrals over `1 > t_1 > ⋯ > t_w > 0`) do not fit:
+the harmonic polylogarithms here are functions of the upper end point `x`, so they are defined
+again below.
+
+Quoted verbatim (main.tex 1486-1494, `conj:field`):
+
+  \begin{theorem}[Field rule$^\dagger$]\label{conj:field}
+  Let $0<\alpha<\pi$, $c=\cos\frac\alpha2$, $s=\sin\frac\alpha2$ and $K=\mathbb Q(c,s)$.
+  \begin{enumerate}
+  \item[(a)] If $c$ is algebraic, $K$ is a number field. Let $S$ be the set of its infinite places
+  and of the primes that divide $2$, $c$, $1-c$ or $1+c$. Then every $M_k(\alpha)$ is a
+  combination of polylogarithms at $S$-units of $K$.
+  \item[(b)] If $c$ is transcendental, $K$ is a function field, not a number field. Let $S$ be the
+  set of places of $K$ over $c=0,1,-1,\infty$. Then, as a function of $c$, every $M_k(\alpha)$ is
+  a combination of polylogarithms at $S$-units of $K$, up to nonzero rational constants.
+  \end{enumerate}
+  More precisely, for every $k$, $M_k(\alpha)=\sum_jz_j\,r_j(c)\,H_{w_j}(c)$, a finite sum, where
+  the $z_j$ are monomials in $\zeta(2),\dots,\zeta(k)$, the $r_j$ are rational functions of $c$
+  whose denominators divide products of powers of $c$, $1-c$ and $1+c$, the $H_{w_j}$ are harmonic
+  polylogarithms with letters $0,1,-1$, and $\operatorname{wt}(z_j)+|w_j|\le k+1$.
+  \end{theorem}
+
+Quoted verbatim (supplement, line 9): "Let $f_0(t)=1/t$, $f_1(t)=1/(1-t)$, $f_{-1}(t)=1/(1+t)$. A
+\emph{word} is a finite sequence of letters in $\{0,1,-1\}$; its length is $|w|$ (the weight). It
+is \emph{regular} if it is empty or its last letter is nonzero. For regular words put
+$H_\emptyset=1$ and $H_{(a,w')}(x)=\int_0^xf_a(t)H_{w'}(t)\,dt$ (the integrand is integrable at
+$0$: $H_{w'}(0)=0$ for $w'\ne\emptyset$)."
+
+Quoted verbatim (supplement, line 28): "We prove it with
+$r_j\in\QQ[c,c^{-1},(1-c)^{-1},(1+c)^{-1}]$ and regular words $w_j$."
+
+Quoted verbatim (supplement, lines 35-37, nested sums): "An \emph{index word} is a finite
+sequence $v=(a_1,\dots,a_d)$ of nonzero integers, with weight $|v|=\sum_r|a_r|$ ... Put
+$\sigma_r=\gsgn(a_r)$. For an integer $M\ge0$,
+  Z_v(M)=\sum_{M\ge i_1>\dots>i_d\ge1}\ \prod_{r=1}^d\frac{\sigma_r^{\,i_r}}{i_r^{|a_r|}}"
+
+Quoted verbatim (`g6:lem:stuffle`, line 42): "For index words $u,v$ there is a finite multiset
+$u*v$ of index words, each of weight $|u|+|v|$, such that $Z_u(M)Z_v(M)=\sum_{w\in u*v}Z_w(M)$ for
+all $M\ge0$."
+
+Quoted verbatim (`g6:lem:window`, lines 54-58): "Let $v=(a_1,\dots,a_d)$ be an index word and
+$0\le M_0\le M$ integers. Then
+  Z_v(M)=\sum_{t=0}^dW_t\,Z_{v_{>t}}(M_0),\qquad W_t=\sum_{M\ge i_1>\dots>i_t>M_0}\ \prod_{r\le t}
+  \frac{\sigma_r^{\,i_r}}{i_r^{|a_r|}},\quad W_0=1,
+with $v_{>t}=(a_{t+1},\dots,a_d)$."
+
+Quoted verbatim (line 67): "Let $\mathfrak D$ be the $\QQ$-vector space of finite formal sums
+$T=\sum_wR_w[w]$, where $w$ runs over index words and $R_w\in\QQ(N)$ has poles only at integers
+$p\le1$. ... We say that $T\in\mathfrak D^{(B)}$ if $|w|+\gord_p(R_w)\le B$ for every term
+$R_w[w]$ of $T$ and every $p\in\ZZ$." (line 71) "put $\gsub{T}{n}:=\sum_wR_w(2n)Z_w(2n)$".
+
+Quoted verbatim (`g6:lem:A`, line 74): "Let $k\ge0$ and let $\gvs z$ be a monomial in
+$\gvs2,\dots,\gvs k$ of weight $W\le k$. There is $T_z\in\mathfrak D^{(k+1-W)}$ such that
+$[\gvs z]P_{k,n}=\gsub{T_z}{n}$ for every $n\ge1$."
+(proof, line 88) "\gsub{\chi^{(r)}_1}{n}=H^{(r)}_{n+j-1},\qquad\gsub{\chi^{(r)}_2}{n}=H^{(r)}_{n-1},
+\qquad\gsub{\chi^{(r)}_3}{n}=H^{(r)}_{2n+j-1}" with (line 90) "$Z_r(2n)+Z_{-r}(2n)=\dots=
+2^{1-r}H^{(r)}_n$ ... Next $Z_r(2n)-(2n)^{-r}=H^{(r)}_{2n-1}$."
+
+Quoted verbatim (`g6:lem:dict`, lines 107-111): "Let $w$ be a nonempty regular word with nonzero
+letters $b_1,\dots,b_\nu$ (left to right), $m_0$ zeros before $b_1$ and $m_t$ zeros between $b_t$
+and $b_{t+1}$ $(1\le t<\nu)$. Put $\varepsilon=b_1$, $\kappa=1+m_0$, $\gcf_w=b_1\cdots b_\nu$, and
+let $v_w$ be the index word $\bigl(b_1b_2(1+m_1),\dots,b_{\nu-1}b_\nu(1+m_{\nu-1})\bigr)$. Then for
+every $N\ge1$ [x^N]H_w(x)=\gcf_w\,\varepsilon^N\,N^{-\kappa}\,Z_{v_w}(N-1),\qquad |w|=\kappa+|v_w| .
+The map $w\mapsto(\varepsilon,\kappa,v_w)$ is a bijection from the nonempty regular words onto
+$\{\pm1\}\times\ZZ_{\ge1}\times\{\text{index words}\}$." (line 9) "By induction each $H_w$,
+$w\ne\emptyset$, is a power series in $x$ without constant term, convergent for $|x|<1$."
+
+Quoted verbatim (`g6:lem:ops`, line 124): "(a) For a nonempty regular word $w$,
+$H_w(-x)=(-1)^{\nu}H_{\bar w}(x)$, where $\nu$ is the number of nonzero letters of $w$ and $\bar w$
+is $w$ with every nonzero letter replaced by its negative. (b) Let $\theta=x\frac d{dx}$. Then
+$\theta H_{(0,w')}=H_{w'}$ and $\theta H_{(\pm1,w')}=\frac x{1\mp x}H_{w'}$. (c) Let
+$\mathcal K=\QQ[x,x^{-1},(1-x)^{-1},(1+x)^{-1}]$ and $\mathcal G_B$ the $\QQ$-span of the products
+$r(x)H_w(x)$, $r\in\mathcal K$, $w$ regular with $|w|\le B$ (with $H_\emptyset=1$). Then
+$\mathcal G_B\supset\mathcal G_{B'}$ for $B'\le B$, $\mathcal G_B$ is stable under $x\mapsto-x$ and
+under $\theta$."
+
+Quoted verbatim (`g6:prop:R`, line 136; line 133): "Let $B\ge0$ and $T\in\mathfrak D^{(B)}$. There is
+$F\in\mathcal G_B$ such that $[x^N]F=\mathcal S_T(N)$ for every even $N\ge2$." "All series in $x$
+below are Laurent series at $x=0$. For $T=\sum_wR_w[w]\in\mathfrak D$ and $N\ge2$ put
+$\mathcal S_T(N)=\sum_wR_w(N)Z_w(N)$".
+
+Quoted verbatim (window functions, line 141, and `g6:lem:conv`, lines 145-146):
+  W^{(\tau)}_t(v;N)=\sum_{\tau-2\ge\delta_1>\dots>\delta_t\ge-1}\ \prod_{r=1}^t\sigma_r^{\delta_r}\,
+  (N+\delta_r)^{-|a_r|}\in\QQ(N),\qquad W^{(\tau)}_0=1 .
+"(a) For every even $N\ge2$, every index word $v$ and $\tau\ge0$:
+$Z_v(N-2+\tau)=\sum_{t=0}^dW^{(\tau)}_t(v;N)\,Z_{v_{>t}}(N-2)$. (b) The poles of $W^{(\tau)}_t$ are
+at integers $\le1$ (at $N=-\delta$, $-1\le\delta\le\tau-2$, if $\tau\ge1$; for $\tau=0$ only $t=0$
+occurs), and $\gord_p(W^{(\tau)}_t(v;N))\le|v|-|v_{>t}|$ for every $p\in\ZZ$."
+
+Quoted verbatim (proof of the theorem, line 185): "By Lemma~\ref{g6:prop:R} there is
+$F_0\in\mathcal G_B$ with $[x^N]F_0=E_z(N/2)$ for even $N\ge2$. ... Put $F_z=F_1-L\in\mathcal G_B$.
+Then $F_z=\sum_{n\ge1}E_z(n)x^{2n}$ as Laurent series. ... $F_z(x)=\sum_nE_z(n)x^{2n}$ for
+$0<|x|<1$." (line 187) "This is $M_k(\alpha)=\sum_jz_jr_j(c)H_{w_j}(c)$ with $z_j=\zeta^z$ and
+$\gwt(z_j)+|w_j|\le W+B=k+1$."
+
+Quoted verbatim (main.tex 1472): "M_0(\alpha)=-(1+c)\log(1+c)-(1-c)\log(1-c)."
+
+## Formalization choices
+
+* Letters and index letters are integers (`List ℤ`); a word over `{0,1,-1}` satisfies
+  `IsLetters`, an index word satisfies `IsIndex` (nonzero letters). Regularity (`Regular`) is
+  "empty or last letter nonzero". `|w|` is `w.length` for a word and `wt v = Σ |a_r|` for an
+  index word.
+* `H w x` is the iterated integral of the supplement, by recursion on the word, with the
+  interval integral `∫_0^x` (so it is defined for `|x| < 1`, negative `x` included, which
+  `g6:lem:ops`(a) needs). It is only ever used for regular words over `{0,1,-1}`; for those the
+  integrands are integrable (that is stated, in `stmt_5`), so the interval integral is never a
+  junk value. Trailing zeros (non-regular words, powers of `log x`) never occur, as in the
+  supplement (line 28: regular words suffice).
+* `Z v M` is the nested sum, by the recursion of line 39; `Zw v M₀ M` is the window sum `W_t`
+  (indices in `(M₀, M]`), so `W_t = Zw (v.take t) M₀ M`, `v_{>t} = v.drop t`.
+* An element `Σ R_w [w]` of `𝔇` is a list of triples `(Q, e, w)` standing for
+  `R_w(N) = Q(N) / Π_p (N - p)^{e_p}` with `Q ∈ ℚ[N]` and a finitely supported exponent
+  `e : ℤ →₀ ℕ` (`ratEval`). "Poles only at integers `p ≤ 1`, `|w| + ord_p R_w ≤ B`" is `InDB B`:
+  every `p` in the support of `e` has `p ≤ 1` and `|w| + e_p ≤ B`, and `|w| ≤ B`. Every rational
+  function with poles at integers `≤ 1` of orders `o_p` has such a form with `e_p = o_p`, and
+  conversely the form bounds the pole orders by `e_p`, so this is the paper's filtration.
+  `ST T N = Σ R_w(N) Z_w(N)` is `𝒮_T(N)`, and `⟨T⟩_n = ST T (2n)`.
+* `𝒦 = ℚ[x, x⁻¹, (1-x)⁻¹, (1+x)⁻¹]` is written as `p(x) / (x^a (1-x)^b (1+x)^d)`,
+  `p ∈ ℚ[x]` (`kval`), and `𝒢_B` (`InG B F`) is the set of real functions `F` that agree on
+  `0 < |x| < 1` with a finite sum `Σ r_i(x) H_{w_i}(x)`, `r_i ∈ 𝒦`, `w_i` regular over
+  `{0,1,-1}`, `|w_i| ≤ B`. The statement "`[x^N]F = …`" for `F ∈ 𝒢_B` (a Laurent series with
+  finitely many negative powers) is written as: there are a polynomial `q` and rationals `a_N`
+  with `F(x) = q(1/x) + Σ_{N≥0} a_N x^N` on `0 < |x| < 1`, and `a_N = …`. (Laurent coefficients
+  are unique except that the constant term may be shared between `q` and `a_0`; only `N ≥ 2` is
+  constrained.)
+* The window functions `W^{(τ)}_t(v;N)` are `Wc (v.take t) (τ - 1) N`, a nested sum over
+  `-1 ≤ δ_t < ⋯ < δ_1 < τ - 1` with `σ^{δ}` an integer power (`σ = ±1`, so `σ^{-1} = σ`). The
+  rational-function claim of `g6:lem:conv`(b) is stated as: `W` agrees with some `Q/Π(N-p)^{e_p}`
+  (poles at `p ≤ 1`, `e_p ≤ |v| - |v_{>t}| = wt (v.take t)`) at every rational `N ≥ 2`.
+* The dictionary data `(ε, κ, 𝔠_w, v_w)` of `g6:lem:dict` are computed by `dd` with the
+  recursion of the lemma's proof (prepending `0` raises `κ`; prepending `a = ±1` to `w'` with data
+  `(ε', κ', 𝔠', v')` gives `(a, 1, a𝔠', (aε'κ', v'))`), which is the lemma's explicit
+  description `ε = b_1`, `κ = 1 + m_0`, `𝔠_w = b_1⋯b_ν`, `v_w = (b_1b_2(1+m_1), …)`; this was
+  checked by machine on all regular words of length `≤ 8` against the explicit description.
+* Zeta monomials are `s : ℕ →₀ ℕ` (`𝔷^s = Π 𝔷_w^{s_w}`) with all `w ∈ supp s` in `[2, k]`; the
+  weight is `mwt s = Σ s_w w`; the real value is `zmon s = Π ζ(w)^{s_w}`.
+* The coefficient `[𝔷^s] P_{k,n}` is `(Q04.Pf k n).coeff s`.
+* The final statement (`stmt_11`) is the "More precisely" sentence: for every `k` one finite list
+  of `(s_j, p_j, a_j, b_j, d_j, w_j)`, chosen before `α`, with
+  `M_k(α) = Σ_j ζ^{s_j} · p_j(c)/(c^{a_j}(1-c)^{b_j}(1+c)^{d_j}) · H_{w_j}(c)` for every
+  `0 < α < π`, `ζ^{s_j}` a monomial in `ζ(2),…,ζ(k)`, `w_j` regular over `{0,1,-1}`, and
+  `wt(ζ^{s_j}) + |w_j| ≤ k + 1`.
+
+## Statements
+
+* stmt_1: Lemma `g6:lem:stuffle` (stuffle product of nested sums).
+* stmt_2: Lemma `g6:lem:window` (windows).
+* stmt_3: the harmonic-number identities in the proof of `g6:lem:A`:
+  `2^{r-1}(Z_r(2n) + Z_{-r}(2n)) - n^{-r} = H^{(r)}_{n-1}` and `Z_r(2n) - (2n)^{-r} = H^{(r)}_{2n-1}`.
+* stmt_4: Lemma `g6:lem:A`, for every `k` and every zeta monomial of weight `W ≤ k`.
+* stmt_5: the harmonic polylogarithms are well defined (integrable integrands) and Lemma
+  `g6:lem:dict`: power series on `|x| < 1` with `[x^N]H_w = 𝔠_w ε^N N^{-κ} Z_{v_w}(N-1)`,
+  `|w| = κ + |v_w|`; and the map `w ↦ (ε, κ, v_w)` is a bijection onto `{±1} × ℤ_{≥1} × {index
+  words}`.
+* stmt_6: Lemma `g6:lem:ops` (a), (b), and (c) (stability of `𝒢_B` under `x ↦ -x` and `θ`;
+  `θF = G` is stated as `F' = G/x`).
+* stmt_7: Lemma `g6:lem:conv` (a) and (b).
+* stmt_8: Lemma `g6:prop:R`.
+* stmt_9: the first paragraph of the proof of the theorem: for every `k` and zeta monomial `𝔷^s`
+  of weight `W ≤ k` there is `F_s ∈ 𝒢_{k+1-W}` with `F_s(x) = Σ_{n≥1} [𝔷^s]P_{k,n} x^{2n}` on
+  `0 < |x| < 1`.
+* stmt_10: the case `k = 0` explicitly: `M_0(α) = -(1+c) H_{-1}(c) + (1-c) H_1(c)` (main.tex 1472,
+  with `H_{-1} = log(1+x)`, `H_1 = -log(1-x)`); it is independent of the general construction.
+* stmt_11: the "More precisely" sentence of `conj:field` (final claim).
+
+## Numerical check before freezing
+
+A Python script (exact rationals; floats for quadrature) mirroring these definitions checked:
+`stmt_1` with the explicit quasi-shuffle of the proof, all pairs of index words of total weight
+`≤ 5`, `M ≤ 8`; `stmt_2` for all index words of weight `≤ 5`, `M₀ ≤ M ≤ 9`; `stmt_7`(a) for the
+same words, `τ ≤ 4`, even `N ≤ 12`; `stmt_3` for `r ≤ 5`, `n ≤ 10`; `dd` against the lemma's
+explicit data `(b_1, 1+m_0, Π b, (b_tb_{t+1}(1+m_t)))` and `|w| = κ + |v_w|` for all 2186 regular
+words of length `≤ 7`, injectivity of `w ↦ (ε, κ, v_w)` on them and that their images exhaust
+the 2186 triples with `κ + |v| ≤ 7`; the coefficient formula of `stmt_5` against the recursion of
+the coefficients of `H_w` (proof, line 115), regular words of length `≤ 6`, `N ≤ 30`;
+`stmt_6`(a) on the coefficients, length `≤ 6`; the series of `stmt_5` against the iterated
+integral (Simpson) at `x = 0.37` and `x = -0.6`, length `≤ 3`.
+Final statement: for `k = 0` and `k = 1` an exact fit of `P_{k,n}` (`P_{0,n} = -1/(n(2n-1))`,
+`P_{1,n} = -(H_{n-1} - H_{2n-1} + (2n-1)/(2n))/(n(2n-1))`, worked out from Definition
+`g6:def:formal`) by `Σ x_{e,w} c^e H_w(c)`, `e ∈ {0,1}`, regular `|w| ≤ k+1`, has full rank and is
+exact on all coefficients `N ≤ 140`. It gives `M_0 = (1-c)H_1 - (1+c)H_{-1}` (this is `stmt_10`,
+the closed form of main.tex 1472) and
+`M_1 = -H_{0,1} + H_{0,-1} - H_{1,-1} - H_{-1,1} + c(H_{0,1} + H_{0,-1} + H_{1,-1} - H_{-1,1})`;
+at `c = 1/2` this is `0.125795678937973`, equal (to `3·10⁻¹⁶`) to the closed form
+`24M_1(2π/3) = π² + 48λ² - 6log²3 - 24λlog3 - 12Li₂(1/3)` of main.tex, and the two series agree
+at `c = 0.1, 0.5, 0.9`. For `k = 2, 3` (with zeta monomials `1, 𝔷_2, 𝔷_3`) the supplement's own exact
+fit `g6_field_check.out` (read, not re-run: SymPy and python-flint are not installed here) reports
+exact fits with `e ∈ [-(k-1), 1]`, `|w| ≤ k + 1 - W`, i.e. the shape of `stmt_11` with
+`a_j = k - 1`, `b_j = d_j = 0`, and agreement with `M_k(2π/3)` from the definition to `4·10⁻²⁸`
+(`k = 2`) and `4·10⁻²⁷` (`k = 3`).
+
+## NOT COVERED
+
+* Parts (a) and (b) of `conj:field` (combinations of multiple polylogarithms at `S`-units of the
+  number field / function field `K = ℚ(c,s)`): `S`-units, places of `K` and multiple
+  polylogarithms `Li_{s_1,…,s_d}` are not formalized. (Their proof in the supplement is the
+  identity `H_w(x) = 𝔠_w Li_{κ,|a_1|,…}(εx, sgn a_1, …)`, which is `stmt_5` written out.)
+* The substitution step of the proof of `g6:lem:A` with `Λ_j` and the `χ^{(r)}_•` as elements of
+  `𝔇` (only the numerical identities behind `⟨χ⟩_n = H^{(r)}_•` are stated, in `stmt_3`); the
+  multiplicativity of `T ↦ ⟨T⟩_n` is the content of `stmt_1`.
+* The inclusion `𝒢_{B'} ⊂ 𝒢_B` of `g6:lem:ops`(c) (trivial).
+* Remark `g6:rem:k7` (denominators are powers of `c` alone for `k ≤ 7`; pole set in `n`): not
+  claimed by the theorem, not proved in the supplement.
+
+Statements 4, 8, 9, 11 moved to `Zeta3.Wave10.S08_FieldRuleMain` (continuation of S03); this file keeps 1, 2, 3, 5, 6, 7, 10.
+-/
+-- BEGIN STATEMENTS
+namespace S03
+
+open Real MeasureTheory Set Filter
+
+/-- The kernels `f_0(t) = 1/t`, `f_1(t) = 1/(1-t)`, `f_{-1}(t) = 1/(1+t)` (only used for
+letters `0, 1, -1`; any other integer gets `f_{-1}`). -/
+noncomputable def f (a : ℤ) (t : ℝ) : ℝ :=
+  if a = 0 then 1 / t else if a = 1 then 1 / (1 - t) else 1 / (1 + t)
+
+/-- A word over the letters `0, 1, -1`. -/
+def IsLetters (w : List ℤ) : Prop := ∀ a ∈ w, a = 0 ∨ a = 1 ∨ a = -1
+
+/-- A regular word: empty, or its last letter is nonzero. -/
+def Regular (w : List ℤ) : Prop := ∀ a ∈ w.getLast?, a ≠ 0
+
+/-- Harmonic polylogarithms: `H_∅ = 1`, `H_{(a,w')}(x) = ∫_0^x f_a(t) H_{w'}(t) dt`. -/
+noncomputable def H : List ℤ → ℝ → ℝ
+  | [], _ => 1
+  | a :: w, x => ∫ t in (0 : ℝ)..x, f a t * H w t
+
+/-- An index word: a finite sequence of nonzero integers. -/
+def IsIndex (v : List ℤ) : Prop := ∀ a ∈ v, a ≠ 0
+
+/-- Weight `|v| = Σ_r |a_r|` of an index word. -/
+def wt (v : List ℤ) : ℕ := (v.map Int.natAbs).sum
+
+/-- Nested sums `Z_v(M) = Σ_{M ≥ i_1 > ⋯ > i_d ≥ 1} Π σ_r^{i_r} / i_r^{|a_r|}`, by
+`Z_{(a,v')}(M) = Σ_{i=1}^M σ^i i^{-|a|} Z_{v'}(i-1)`, `Z_∅ = 1`. -/
+def Z : List ℤ → ℕ → ℚ
+  | [], _ => 1
+  | a :: v, M => ∑ i ∈ Finset.Icc 1 M,
+      (Int.sign a : ℚ) ^ i / (i : ℚ) ^ a.natAbs * Z v (i - 1)
+
+/-- Window sums `Σ_{M ≥ i_1 > ⋯ > i_t > M₀} Π σ_r^{i_r} / i_r^{|a_r|}` (the `W_t` of
+`g6:lem:window` for the word `(a_1, …, a_t)`). -/
+def Zw : List ℤ → ℕ → ℕ → ℚ
+  | [], _, _ => 1
+  | a :: v, M₀, M => ∑ i ∈ Finset.Ioc M₀ M,
+      (Int.sign a : ℚ) ^ i / (i : ℚ) ^ a.natAbs * Zw v M₀ (i - 1)
+
+/-- Generalized harmonic number `H^{(r)}_N = Σ_{l=1}^N l^{-r}` (rational). -/
+def hn (r N : ℕ) : ℚ := ∑ l ∈ Finset.Icc 1 N, 1 / (l : ℚ) ^ r
+
+/-- The rational function `Q(N) / Π_p (N - p)^{e_p}`. -/
+noncomputable def ratEval (Q : Polynomial ℚ) (e : ℤ →₀ ℕ) (N : ℚ) : ℚ :=
+  Q.eval N / e.prod (fun p k => (N - (p : ℚ)) ^ k)
+
+/-- A term `R_w [w]` of `𝔇`: `(Q, e, w)` with `R_w = Q / Π (N-p)^{e_p}`. -/
+abbrev DTerm := Polynomial ℚ × (ℤ →₀ ℕ) × List ℤ
+
+/-- `T ∈ 𝔇^{(B)}`: index words, poles only at integers `p ≤ 1`, `|w| + ord_p R_w ≤ B`. -/
+def InDB (B : ℕ) (T : List DTerm) : Prop :=
+  ∀ τ ∈ T, IsIndex τ.2.2 ∧ wt τ.2.2 ≤ B ∧
+    ∀ p ∈ τ.2.1.support, p ≤ 1 ∧ wt τ.2.2 + τ.2.1 p ≤ B
+
+/-- `𝒮_T(N) = Σ_w R_w(N) Z_w(N)` (so `⟨T⟩_n = 𝒮_T(2n)`). -/
+noncomputable def ST (T : List DTerm) (N : ℕ) : ℚ :=
+  (T.map fun τ => ratEval τ.1 τ.2.1 (N : ℚ) * Z τ.2.2 N).sum
+
+/-- The data `(ε, κ, 𝔠_w, v_w)` of `g6:lem:dict`, by the recursion of its proof. -/
+def dd : List ℤ → ℤ × ℕ × ℤ × List ℤ
+  | [] => (1, 0, 1, [])
+  | [b] => (b, 1, b, [])
+  | a :: b :: w =>
+      let d := dd (b :: w)
+      if a = 0 then (d.1, d.2.1 + 1, d.2.2.1, d.2.2.2)
+      else (a, 1, a * d.2.2.1, (a * d.1 * (d.2.1 : ℤ)) :: d.2.2.2)
+
+/-- An element `r(x) = p(x) / (x^a (1-x)^b (1+x)^d)` of `𝒦`, `p ∈ ℚ[x]`. -/
+noncomputable def kval (p : Polynomial ℚ) (a b d : ℕ) (x : ℝ) : ℝ :=
+  Polynomial.aeval x p / (x ^ a * (1 - x) ^ b * (1 + x) ^ d)
+
+/-- A term `r(x) H_w(x)` of `𝒢_B`: `(p, a, b, d, w)`. -/
+abbrev GTerm := Polynomial ℚ × ℕ × ℕ × ℕ × List ℤ
+
+/-- `F ∈ 𝒢_B`: on `0 < |x| < 1`, `F = Σ_i r_i H_{w_i}` with `r_i ∈ 𝒦` and `w_i` regular over
+`{0,1,-1}` with `|w_i| ≤ B`. -/
+def InG (B : ℕ) (F : ℝ → ℝ) : Prop :=
+  ∃ L : List GTerm,
+    (∀ g ∈ L, IsLetters g.2.2.2.2 ∧ Regular g.2.2.2.2 ∧ g.2.2.2.2.length ≤ B) ∧
+    ∀ x : ℝ, 0 < |x| → |x| < 1 →
+      F x = (L.map fun g => kval g.1 g.2.1 g.2.2.1 g.2.2.2.1 x * H g.2.2.2.2 x).sum
+
+/-- The window functions: `Wc v U N = Σ_{U > δ_1 > ⋯ > δ_t ≥ -1} Π σ_r^{δ_r} (N+δ_r)^{-|a_r|}`
+for `v = (a_1, …, a_t)`; `W^{(τ)}_t(v;N) = Wc (v.take t) (τ - 1) N`. -/
+def Wc : List ℤ → ℤ → ℚ → ℚ
+  | [], _, _ => 1
+  | a :: v, U, N => ∑ δ ∈ Finset.Ico (-1 : ℤ) U,
+      (Int.sign a : ℚ) ^ δ / (N + (δ : ℚ)) ^ a.natAbs * Wc v δ N
+
+/-- Weight of a zeta monomial `𝔷^s = Π 𝔷_w^{s_w}`: `Σ s_w w`. -/
+def mwt (s : ℕ →₀ ℕ) : ℕ := s.sum fun w e => e * w
+
+/-- The real value `ζ^s = Π ζ(w)^{s_w}`, `ζ(w) = (riemannZeta w).re`. -/
+noncomputable def zmon (s : ℕ →₀ ℕ) : ℝ := s.prod fun w e => X05.z w ^ e
+
+/-- A term `ζ^{s} r(c) H_w(c)` of the final formula: `(s, p, a, b, d, w)`. -/
+abbrev FTerm := (ℕ →₀ ℕ) × Polynomial ℚ × ℕ × ℕ × ℕ × List ℤ
+
+/-- Lemma `g6:lem:stuffle`: for index words `u, v` there is a finite multiset of index words, each
+of weight `|u| + |v|`, with `Z_u(M) Z_v(M) = Σ_{w ∈ u*v} Z_w(M)` for all `M ≥ 0`. -/
+def stmt_1 : Prop :=
+  ∀ u v : List ℤ, IsIndex u → IsIndex v →
+    ∃ S : Multiset (List ℤ), (∀ w ∈ S, IsIndex w ∧ wt w = wt u + wt v) ∧
+      ∀ M : ℕ, Z u M * Z v M = (S.map fun w => Z w M).sum
+
+/-- Lemma `g6:lem:window`: for an index word `v = (a_1,…,a_d)` and `0 ≤ M₀ ≤ M`,
+`Z_v(M) = Σ_{t=0}^d W_t Z_{v_{>t}}(M₀)`. -/
+def stmt_2 : Prop :=
+  ∀ v : List ℤ, IsIndex v → ∀ M₀ M : ℕ, M₀ ≤ M →
+    Z v M = ∑ t ∈ Finset.range (v.length + 1), Zw (v.take t) M₀ M * Z (v.drop t) M₀
+
+/-- Proof of `g6:lem:A`, the harmonic-number identities: for `r, n ≥ 1`,
+`2^{r-1}(Z_r(2n) + Z_{-r}(2n)) - n^{-r} = H^{(r)}_{n-1}` and `Z_r(2n) - (2n)^{-r} = H^{(r)}_{2n-1}`. -/
+def stmt_3 : Prop :=
+  ∀ r n : ℕ, 1 ≤ r → 1 ≤ n →
+    (2 : ℚ) ^ (r - 1) * (Z [(r : ℤ)] (2 * n) + Z [-(r : ℤ)] (2 * n)) - 1 / (n : ℚ) ^ r
+        = hn r (n - 1) ∧
+      Z [(r : ℤ)] (2 * n) - 1 / (2 * (n : ℚ)) ^ r = hn r (2 * n - 1)
+
+/-- Harmonic polylogarithms are well defined, and Lemma `g6:lem:dict`. For a word `(a, w')` over
+`{0,1,-1}` that is regular, the integrand `f_a H_{w'}` is interval integrable on `[0, x]`,
+`|x| < 1`. For a nonempty regular word `w` with data `(ε, κ, 𝔠_w, v_w) = dd w`: `ε = ±1`,
+`κ ≥ 1`, `𝔠_w = ±1`, `v_w` is an index word, `|w| = κ + |v_w|`, and for `|x| < 1`,
+`H_w(x) = Σ_{N≥1} 𝔠_w ε^N N^{-κ} Z_{v_w}(N-1) x^N`. The map `w ↦ (ε, κ, v_w)` is a bijection from
+the nonempty regular words onto `{±1} × ℤ_{≥1} × {index words}`. -/
+def stmt_5 : Prop :=
+  (∀ a : ℤ, ∀ w : List ℤ, IsLetters (a :: w) → Regular (a :: w) → ∀ x : ℝ, |x| < 1 →
+    IntervalIntegrable (fun t => f a t * H w t) volume 0 x) ∧
+  (∀ w : List ℤ, w ≠ [] → IsLetters w → Regular w →
+    ((dd w).1 = 1 ∨ (dd w).1 = -1) ∧ 1 ≤ (dd w).2.1 ∧
+    ((dd w).2.2.1 = 1 ∨ (dd w).2.2.1 = -1) ∧ IsIndex (dd w).2.2.2 ∧
+    w.length = (dd w).2.1 + wt (dd w).2.2.2 ∧
+    ∀ x : ℝ, |x| < 1 →
+      HasSum (fun N : ℕ => ((dd w).2.2.1 : ℝ) * ((dd w).1 : ℝ) ^ (N + 1) /
+          ((N : ℝ) + 1) ^ (dd w).2.1 * (Z (dd w).2.2.2 N : ℝ) * x ^ (N + 1))
+        (H w x)) ∧
+  (∀ ε : ℤ, ∀ κ : ℕ, ∀ v : List ℤ, (ε = 1 ∨ ε = -1) → 1 ≤ κ → IsIndex v →
+    ∃! w : List ℤ, w ≠ [] ∧ IsLetters w ∧ Regular w ∧
+      (dd w).1 = ε ∧ (dd w).2.1 = κ ∧ (dd w).2.2.2 = v)
+
+/-- Lemma `g6:lem:ops`. (a) For a nonempty regular word `w` over `{0,1,-1}` and `|x| < 1`,
+`H_w(-x) = (-1)^ν H_{w̄}(x)`, `ν` the number of nonzero letters, `w̄ = -w`. (b) For `0 < |x| < 1`
+and a regular word `(a, w')`: `H_{(0,w')}' = H_{w'}/x`, `H_{(1,w')}' = H_{w'}/(1-x)`,
+`H_{(-1,w')}' = H_{w'}/(1+x)` (that is `θH_{(0,w')} = H_{w'}`, `θH_{(±1,w')} = x/(1∓x) H_{w'}`).
+(c) `𝒢_B` is stable under `x ↦ -x` and under `θ = x d/dx`. -/
+def stmt_6 : Prop :=
+  (∀ w : List ℤ, w ≠ [] → IsLetters w → Regular w → ∀ x : ℝ, |x| < 1 →
+    H w (-x) = (-1 : ℝ) ^ (w.filter fun a => a ≠ 0).length * H (w.map fun a => -a) x) ∧
+  (∀ a : ℤ, ∀ w : List ℤ, IsLetters (a :: w) → Regular (a :: w) → ∀ x : ℝ, 0 < |x| → |x| < 1 →
+    HasDerivAt (H (a :: w)) (f a x * H w x) x) ∧
+  (∀ B : ℕ, ∀ F : ℝ → ℝ, InG B F →
+    InG B (fun x => F (-x)) ∧
+    ∃ G : ℝ → ℝ, InG B G ∧ ∀ x : ℝ, 0 < |x| → |x| < 1 → HasDerivAt F (G x / x) x)
+
+/-- Lemma `g6:lem:conv`. (a) For even `N ≥ 2`, an index word `v` and `τ ≥ 0`:
+`Z_v(N-2+τ) = Σ_{t=0}^d W^{(τ)}_t(v;N) Z_{v_{>t}}(N-2)`. (b) `W^{(τ)}_t(v;·)` is a rational
+function with poles only at integers `p ≤ 1`, of order `≤ |v| - |v_{>t}|`: it agrees with
+`Q/Π(N-p)^{e_p}`, `p ≤ 1`, `e_p ≤ wt(a_1,…,a_t)`, at every rational `N ≥ 2`. -/
+def stmt_7 : Prop :=
+  (∀ v : List ℤ, IsIndex v → ∀ τ N : ℕ, 2 ≤ N → Even N →
+    Z v (N - 2 + τ) = ∑ t ∈ Finset.range (v.length + 1),
+      Wc (v.take t) ((τ : ℤ) - 1) (N : ℚ) * Z (v.drop t) (N - 2)) ∧
+  (∀ v : List ℤ, IsIndex v → ∀ τ t : ℕ, ∃ Q : Polynomial ℚ, ∃ e : ℤ →₀ ℕ,
+    (∀ p ∈ e.support, p ≤ 1 ∧ e p ≤ wt (v.take t)) ∧
+    ∀ N : ℚ, 2 ≤ N → Wc (v.take t) ((τ : ℤ) - 1) N = ratEval Q e N)
+
+/-- The case `k = 0` written out: `M_0(α) = -(1+c) H_{-1}(c) + (1-c) H_1(c)` for `0 < α < π`
+(main.tex 1472, `H_{-1}(x) = log(1+x)`, `H_1(x) = -log(1-x)`). -/
+def stmt_10 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    V05.Mk 0 α = -(1 + D04.c α) * H [-1] (D04.c α) + (1 - D04.c α) * H [1] (D04.c α)
+
+end S03

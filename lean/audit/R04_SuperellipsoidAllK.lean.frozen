@@ -1,0 +1,212 @@
+import Mathlib
+import Zeta3.Wave6.Z04_SuperellipsoidArea
+/-!
+# R04 — the superellipsoid area to every order (paper label `thm:S`, "Moreover")
+
+Target id: R04.
+Paper labels: `thm:S` (paper/ieee/main.tex lines 1921–1943), the sentence "Moreover ..." and the
+parenthetical "($Q$ is smooth on $[0,\frac14]$, one-sided at $0$)"; detailed proof
+paper/ieee/proofs/sec_g3_S.tex, subsection "No logarithms, and $s_1,s_2,s_3$" (lines 89–121:
+Lemma `g3:lem:smooth`, Lemma `g3:lem:coeffs`), and line 36 ($Q_k=Q^{(k)}(0)/k!$).
+Earlier Lean: Z04 (the exact formula, `S → 24`, the case `K = 1`, `g3:lem:smooth` at `j = 0`),
+W02 (`P(p)/8 - 1 = Σ M_k/p^{k+1}`, `M_k = W02.Mk k`), W03 (`M₀`, `M₁`), Y01 (`M₂`).
+
+Quoted verbatim.
+
+main.tex 1921–1943 (`thm:S`, the parts formalized here):
+
+  Let $\varepsilon=1/p$ and $G(\varepsilon)=\Gamma(1+\varepsilon)^2/\Gamma(1+2\varepsilon)$.
+  ...
+  Moreover $S(p)=\sum_{k\le K}s_kp^{-k}+O(p^{-K-1})$ for every $K$, with no $\log p$ terms,
+  $s_0=24$ and
+  \begin{gather*}
+  s_1=48M_0,\qquad s_2=48M_1-4\pi^2-8Q_0,\\
+  s_3=48M_2-8\pi^2M_0+48\zeta(3)-8Q_1,
+  \end{gather*}
+  where $Q_0=Q(0)$ and $Q_1=Q'(0)$ ($Q$ is smooth on $[0,\frac14]$, one-sided at $0$) and
+
+main.tex 1944:
+
+  The $48\zeta(3)$ in $s_3$ comes from the face factor,
+  $G(\varepsilon)=1-\zeta(2)\varepsilon^2+2\zeta(3)\varepsilon^3+\cdots$
+
+sec_g3_S.tex 36:
+
+  The smoothness of $Q$ on $[0,\frac14]$ stated in the theorem is Lemma~\ref{g3:lem:smooth},
+  applied to $H_3$ ... $Q_k=Q^{(k)}(0)/k!$.
+
+sec_g3_S.tex, Lemma `g3:lem:smooth`:
+
+  For $m=1,2,3$, $H_m$ is finite and $C^\infty$ on $[0,\frac14]$ (one-sided derivatives at $0$,
+  where $\mathrm h$ is defined by the same formula with $\varepsilon=0$).
+
+  ... (in the proof)
+  |\partial_\varepsilon^j\mathrm h|\le C_j\,(1+|\log y|)^{j+1}\ (y\le1),\qquad
+  |\partial_\varepsilon^j\mathrm h|\le C_jy^{-2}\ (y\ge1),
+  uniformly in $\varepsilon\in[0,\frac14]$.
+
+sec_g3_S.tex, Lemma `g3:lem:coeffs`:
+
+  $S(p)=\sum_{k\le K}s_kp^{-k}+O(p^{-K-1})$ for every $K$, with $s_0=24$, $s_1=48M_0$,
+  $s_2=48M_1-4\pi^2-8Q_0$, $s_3=48M_2-8\pi^2M_0+48\zeta(3)-8Q_1$.
+
+  ... (in the proof) Taylor's formula with the Lagrange remainder gives the expansion for every
+  $K$, with no logarithms, and $s_k$ is $\frac1{k!}$ times the $k$-th derivative at $0$. To
+  compute $s_0,\dots,s_3$ use $S=24G+6G(P-8)-8\varepsilon^2Q$ ...
+  so $G=1-\zeta(2)\varepsilon^2+2\zeta(3)\varepsilon^3+O(\varepsilon^4)$.
+
+Formalization choices.
+* `S = Y05.S`, `P = W02.Pint`, `G = Z04.G`, `h_ε(y) = Z04.h ε y`, `H_m = Z04.H m`,
+  `Q = Z04.Q` (all imported, all inside audited statement blocks). `Z04.Q` is defined by the
+  theorem's formula for every real `ε`; at `ε = 0` it is "the same formula with $\varepsilon=0$"
+  (`Γ(1) = 1`, `x^{ε-1} = x^{-1}`), so no separate extension is needed: the smoothness claims are
+  `ContDiffOn ℝ _ Z04.Q [0, 1/4]`, which in Mathlib means one-sided derivatives at the endpoints
+  (the form the supplement proves: `C^∞` on `[0,1/4]`).
+* `ζ(3) = (riemannZeta 3).re`; `ζ(2)` is written `π²/6` (`riemannZeta_two`).
+* `M_k = (W02.Mk k).re`: `W02.Mk` is complex, and W02.stmt_4 shows `F` is real on real `ε < 1`,
+  so `M_k` is real; with these `M_k`, W02.stmt_6 gives `P(p)/8 - 1 = Σ_k M_k/p^{k+1}`.
+* `Q_j = Q^{(j)}(0)/j!` is the one-sided `iteratedDerivWithin j Z04.Q [0,1/4] 0 / j!`
+  (sec_g3_S.tex line 36). `g_k = G^{(k)}(0)/k!` (G is smooth near 0, two-sided).
+* The sequence `s_k` (`R04.s`) is defined by the supplement's formula: the `ε^k` coefficient
+  of `S = 24G + 6G(P-8) - 8ε²Q` with `G = Σ g_k ε^k`, `P - 8 = 8 Σ_{k≥0} M_k ε^{k+1}`,
+  `Q = Σ Q_j ε^j`, i.e.
+  `s_k = 24 g_k + 48 Σ_{i<k} g_i M_{k-1-i} - 8 Q_{k-2}` (the last term only for `k ≥ 2`).
+* "$O(p^{-K-1})$ ... with no $\log p$ terms" is stated as: for every `K` there are `C`, `p₀`
+  with `|S(p) - Σ_{k≤K} s_k p^{-k}| ≤ C p^{-K-1}` for all `p ≥ p₀`, for the one sequence `s`.
+* Numerical check before freezing (mpmath, 20 digits; `h`, `Q` by quadrature, `Q₁` by a
+  5-point difference, `M₁ = 2.02095276965635835695/8`, `M₂ = -0.02216191108726939942`,
+  `M₀ = log 2 - √2 log(1+√2)`): `Q₀ = -2.83293568349`, `Q₁ = 6.50432557372` (paper:
+  `6.5043255737`), `s₁ = -26.5585583866`, `s₂ = -4.68921551846`, `s₃ = 48.2874324862` (paper:
+  `-26.5585583865`, `-4.6892155184`, `48.2874324860`). The direct face integral of `Y05.S`
+  (2D quadrature, independent of the exact formula) gives `S(2) = 12.5663706144 = 4π` and
+  `(S(p) - Σ_{k≤3} s_k p^{-k}) p⁴ = -69.84, -73.75, -75.85` at `p = 10, 20, 40`, consistent with
+  `s₄ + s₅/p` (`s₄ ≈ -78`, `s₅ ≈ 90.7`): the `p^{-3}` truncation error is `O(p^{-4})`.
+
+Statements (ordered so that partial progress is recorded).
+* stmt_1: face factor, `G(ε) = 1 - ζ(2)ε² + 2ζ(3)ε³ + O(ε⁴)` near `0` (explicit constant).
+* stmt_2: `G` is `C^∞` on `(-1/2, 1)` and its Taylor coefficients are `g₀ = 1`, `g₁ = 0`,
+  `g₂ = -ζ(2)`, `g₃ = 2ζ(3)`.
+* stmt_3: `Q` is `C¹` on `[0, 1/4]` (one-sided at `0`).
+* stmt_4: `Q` is `C²` on `[0, 1/4]`.
+* stmt_5: proof of `g3:lem:smooth`, every `j`: for each `y > 0`, `ε ↦ h_ε(y)` is `C^∞` on
+  `[0,1/4]`, and `|∂_ε^j h_ε(y)| ≤ C_j (1+|log y|)^{j+1}` (`y ≤ 1`), `≤ C_j y^{-2}` (`y ≥ 1`),
+  uniformly in `ε ∈ [0,1/4]`.
+* stmt_6: Lemma `g3:lem:smooth`: for `m = 1, 2, 3`, `h_ε^m` is integrable on `(0,∞)` for every
+  `ε ∈ [0,1/4]` ("finite") and `H_m` is `C^∞` on `[0,1/4]`.
+* stmt_7: the parenthetical of `thm:S`: `Q` is `C^∞` on `[0, 1/4]`, one-sided at `0`.
+* stmt_8: Lemma `g3:lem:coeffs`, the expansion: for every `K`,
+  `|S(p) - Σ_{k≤K} s_k p^{-k}| ≤ C p^{-K-1}` for `p ≥ p₀`, with the explicit `s_k` above.
+* stmt_9: Lemma `g3:lem:coeffs`, the four numbers: `s₀ = 24`, `s₁ = 48M₀`,
+  `s₂ = 48M₁ - 4π² - 8Q₀`, `s₃ = 48M₂ - 8π²M₀ + 48ζ(3) - 8Q₁`, `Q₀ = Q(0)`, `Q₁` the
+  one-sided `Q'(0)`.
+* stmt_10: `thm:S`, "Moreover", in full (THE TARGET), independent of the definition of `s`:
+  `Q` is `C^∞` on `[0,1/4]`, has a right derivative `Q₁` at `0`, and there is a sequence `s`
+  with the expansion to every order `K` and `s₀ = 24`, `s₁ = 48M₀`, `s₂ = 48M₁ - 4π² - 8Q(0)`,
+  `s₃ = 48M₂ - 8π²M₀ + 48ζ(3) - 8Q₁`.
+
+NOT COVERED:
+* The closed form of the vertex constant `Q₀` (the rest of `thm:S`, Section `g3:sec:S:Q0`).
+* The numerical values of `s₁, s₂, s₃, Q₁` printed after the theorem, and the sentences about
+  where the `ζ(3)` of `s₃` comes from beyond `G` ("$M_2$ contains more, and $Q_1$ may too").
+* That `Y05.S` is the Hausdorff area of the surface (as in Z04).
+* `S_n(p)` and Proposition `prop:cuberadius`.
+-/
+-- BEGIN STATEMENTS
+namespace R04
+
+open MeasureTheory Real Set Filter Topology
+open scoped ContDiff
+
+/-- `ζ(3)` as a real number: `(riemannZeta 3).re`. -/
+noncomputable def ζ3 : ℝ := (riemannZeta 3).re
+
+/-- `M_k`, the coefficient of `p^{-(k+1)}` in `P(p)/8 - 1` (W02, eq:expansion), as a real. -/
+noncomputable def M (k : ℕ) : ℝ := (W02.Mk k).re
+
+/-- The interval `[0, 1/4]` of Lemma `g3:lem:smooth`. -/
+noncomputable def I0 : Set ℝ := Set.Icc 0 (1 / 4)
+
+/-- `g_k = G^{(k)}(0)/k!`, the Taylor coefficients of the face factor `G` at `0`. -/
+noncomputable def g (k : ℕ) : ℝ := iteratedDeriv k Z04.G 0 / (Nat.factorial k : ℝ)
+
+/-- `Q_j = Q^{(j)}(0)/j!` (sec_g3_S.tex line 36), one-sided at `0` (derivatives within
+`[0,1/4]`). -/
+noncomputable def Qc (j : ℕ) : ℝ := iteratedDerivWithin j Z04.Q I0 0 / (Nat.factorial j : ℝ)
+
+/-- The coefficient `s_k` of `ε^k` in `S = 24G + 6G(P-8) - 8ε²Q` (proof of `g3:lem:coeffs`):
+`s_k = 24 g_k + 48 Σ_{i<k} g_i M_{k-1-i} - 8 Q_{k-2}` (the last term for `k ≥ 2` only). -/
+noncomputable def s (k : ℕ) : ℝ :=
+  24 * g k + 48 * ∑ i ∈ Finset.range k, g i * M (k - 1 - i)
+    - 8 * (if 2 ≤ k then Qc (k - 2) else 0)
+
+/-- main.tex 1944 / proof of `g3:lem:coeffs`:
+"$G=1-\zeta(2)\varepsilon^2+2\zeta(3)\varepsilon^3+O(\varepsilon^4)$", with `ζ(2) = π²/6`. -/
+def stmt_1 : Prop :=
+  ∃ C δ : ℝ, 0 < δ ∧ ∀ ε : ℝ, |ε| ≤ δ →
+    |Z04.G ε - (1 - π ^ 2 / 6 * ε ^ 2 + 2 * ζ3 * ε ^ 3)| ≤ C * ε ^ 4
+
+/-- Proof of `g3:lem:coeffs`: `G` is smooth ("$\Gamma(1+\varepsilon)$, $1/\Gamma(1+2\varepsilon)$
+are analytic near $[0,\frac14]$"), and its Taylor coefficients at `0` are `1, 0, -ζ(2), 2ζ(3)`. -/
+def stmt_2 : Prop :=
+  ContDiffOn ℝ ∞ Z04.G (Set.Ioo (-1 / 2) 1) ∧
+    g 0 = 1 ∧ g 1 = 0 ∧ g 2 = -(π ^ 2 / 6) ∧ g 3 = 2 * ζ3
+
+/-- `thm:S` parenthetical / `g3:lem:smooth`, first derivative: `Q` is `C¹` on `[0,1/4]`
+(one-sided at `0`). -/
+def stmt_3 : Prop :=
+  ContDiffOn ℝ 1 Z04.Q I0
+
+/-- `thm:S` parenthetical / `g3:lem:smooth`, second derivative: `Q` is `C²` on `[0,1/4]`. -/
+def stmt_4 : Prop :=
+  ContDiffOn ℝ 2 Z04.Q I0
+
+/-- Proof of `g3:lem:smooth`: for each `y > 0`, `ε ↦ h_ε(y)` is smooth on `[0,1/4]`, and
+"$|\partial_\varepsilon^j\mathrm h|\le C_j\,(1+|\log y|)^{j+1}\ (y\le1)$,
+$|\partial_\varepsilon^j\mathrm h|\le C_jy^{-2}\ (y\ge1)$, uniformly in
+$\varepsilon\in[0,\frac14]$", for every `j` (one-sided derivatives at `0`). -/
+def stmt_5 : Prop :=
+  (∀ y : ℝ, 0 < y → ContDiffOn ℝ ∞ (fun e => Z04.h e y) I0) ∧
+    ∀ j : ℕ, ∃ C : ℝ, ∀ y : ℝ, 0 < y → ∀ ε ∈ I0,
+      (y ≤ 1 → |iteratedDerivWithin j (fun e => Z04.h e y) I0 ε| ≤ C * (1 + |Real.log y|) ^ (j + 1))
+        ∧ (1 ≤ y → |iteratedDerivWithin j (fun e => Z04.h e y) I0 ε| ≤ C / y ^ 2)
+
+/-- Lemma `g3:lem:smooth`: "For $m=1,2,3$, $H_m$ is finite and $C^\infty$ on $[0,\frac14]$
+(one-sided derivatives at $0$ ...)". "Finite" is stated as integrability of `h_ε^m` on
+`(0,∞)` for each `ε ∈ [0,1/4]`. -/
+def stmt_6 : Prop :=
+  ∀ m : ℕ, 1 ≤ m → m ≤ 3 →
+    (∀ ε ∈ I0, IntegrableOn (fun y => Z04.h ε y ^ m) (Set.Ioi 0)) ∧
+      ContDiffOn ℝ ∞ (Z04.H m) I0
+
+/-- `thm:S`: "($Q$ is smooth on $[0,\frac14]$, one-sided at $0$)". -/
+def stmt_7 : Prop :=
+  ContDiffOn ℝ ∞ Z04.Q I0
+
+/-- Lemma `g3:lem:coeffs`: "$S(p)=\sum_{k\le K}s_kp^{-k}+O(p^{-K-1})$ for every $K$" (no
+`log p` terms), with the explicit `s_k` of the supplement's formula. -/
+def stmt_8 : Prop :=
+  ∀ K : ℕ, ∃ C p₀ : ℝ, ∀ p : ℝ, p₀ ≤ p →
+    |Y05.S p - ∑ k ∈ Finset.range (K + 1), s k / p ^ k| ≤ C / p ^ (K + 1)
+
+/-- Lemma `g3:lem:coeffs`: "$s_0=24$, $s_1=48M_0$, $s_2=48M_1-4\pi^2-8Q_0$,
+$s_3=48M_2-8\pi^2M_0+48\zeta(3)-8Q_1$", with `Q₀ = Q(0)` and `Q₁` the one-sided `Q'(0)`. -/
+def stmt_9 : Prop :=
+  s 0 = 24 ∧ s 1 = 48 * M 0 ∧
+    s 2 = 48 * M 1 - 4 * π ^ 2 - 8 * Z04.Q 0 ∧
+    s 3 = 48 * M 2 - 8 * π ^ 2 * M 0 + 48 * ζ3 - 8 * derivWithin Z04.Q I0 0
+
+/-- `thm:S`, "Moreover", in full: `Q` is smooth on `[0,1/4]` with right derivative `Q₁` at
+`0`, and "$S(p)=\sum_{k\le K}s_kp^{-k}+O(p^{-K-1})$ for every $K$, with no $\log p$ terms,
+$s_0=24$ and $s_1=48M_0$, $s_2=48M_1-4\pi^2-8Q_0$, $s_3=48M_2-8\pi^2M_0+48\zeta(3)-8Q_1$,
+where $Q_0=Q(0)$ and $Q_1=Q'(0)$". -/
+def stmt_10 : Prop :=
+  ContDiffOn ℝ ∞ Z04.Q I0 ∧
+    ∃ Q₁ : ℝ, HasDerivWithinAt Z04.Q Q₁ (Set.Ici 0) 0 ∧
+      ∃ σ : ℕ → ℝ,
+        (∀ K : ℕ, ∃ C p₀ : ℝ, ∀ p : ℝ, p₀ ≤ p →
+          |Y05.S p - ∑ k ∈ Finset.range (K + 1), σ k / p ^ k| ≤ C / p ^ (K + 1)) ∧
+        σ 0 = 24 ∧ σ 1 = 48 * M 0 ∧
+        σ 2 = 48 * M 1 - 4 * π ^ 2 - 8 * Z04.Q 0 ∧
+        σ 3 = 48 * M 2 - 8 * π ^ 2 * M 0 + 48 * ζ3 - 8 * Q₁
+
+end R04

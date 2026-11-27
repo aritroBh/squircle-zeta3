@@ -1,0 +1,270 @@
+import Mathlib
+import Zeta3.Wave8.Q03_Theta7
+/-!
+# R05 — `prop:degree` for every `n ≥ 2`: the degree and leading coefficient of `Θ_n`
+
+Target id: R05.
+Paper label: `prop:degree` (main.tex lines 1214–1216).
+Detailed proofs: paper/ieee/proofs/sec_g2_degree.tex (Proposition `g2:prop:degree` line 11,
+Lemmas `g2:lem:d:coef` line 20, `g2:lem:d:e` line 37, `g2:lem:d:theta` line 51,
+Definition `g2:def:amzv` line 66, Lemma `g2:lem:d:atoms` line 74, proof of Proposition 2) and
+paper/ieee/proofs/sec_g2_fourier.tex (Lemma `g2:lem:f:red` line 34, Lemma `g2:lem:f:watson`
+line 76 for every `N`, Lemma `g2:lem:f:atoms` line 124).
+Earlier Lean: `Zeta3.Wave5.Y04_Fourier` (`h_p`, `a_k`, `ℓ`, `θ_x`, `G_k`, `I_{m,j}`, Watson at
+`N = 4`), `Zeta3.Wave6.Z02_Theta5` (`N = 5`, `Θ₂…Θ₅`), `Zeta3.Wave7.V02_Theta6` (`N = 6`, `Θ₆`),
+`Zeta3.Wave8.Q03_Theta7` (`N = 7`, `Θ₇`). Those objects are imported, not redefined. The
+numbers `e_{r,m}`, the polynomials `ρ_m`, `Θ_n`, the Gudermannian `gd` and `H` were never defined
+as Lean objects in the earlier files (they only appeared as explicit numbers), so they are
+defined here, by the supplement's formulas.
+
+Quoted verbatim.
+
+main.tex 1214–1216 (`prop:degree`):
+
+  For $n\ge2$, the coefficient of $\tau^n$ in $(-1)^k\frac{\pi}{\sqrt2}a_k(h_p)$ is a polynomial
+  $\Theta_n(k^2)$ of degree exactly $\lfloor n/2\rfloor-1$, whose coefficients are alternating
+  multiple zeta values of weight $n$. For even $n=2m$ its leading coefficient is
+  $(-1)^{m-1}(2^{2m-1}-1)\zeta(2m)$.
+
+sec_g2_fourier.tex, Lemma `g2:lem:f:watson`:
+
+  Let $G:[0,\infty)\to\RR$ be bounded and of class $C^\infty$ on $[0,\infty)$, with
+  $g_m=G^{(m)}(0)/m!$. For every integer $N\ge2$ there is $C$ (depending on $G$ and $N$) such
+  that for $0<\tau<1$
+  \Bigl|\,\tau\int_0^\infty\bigl[(1+\eu^{-s})^\tau-1\bigr]G(\tau s)\,ds-\sum_{n=2}^{N}\tau^n
+  \sum_{j=1}^{n-1}\frac{g_{n-1-j}}{j!}\,I_{n-1-j,\,j}\Bigr|\le C\tau^{N+1}.
+
+sec_g2_fourier.tex, Lemma `g2:lem:f:red`(c) (the part not already in Y04):
+
+  Moreover $\gd(0)=0$, $\gd'(x)=1/\cosh x$, and $G_k(x)=(-1)^k\cos\bigl(2k\gd(x)\bigr)\,H(x)$.
+  (with $\gd(x)=\frac\pi2-2\theta_x$, $H(x)=\eu^{-x}\bigl(1+\eu^{-2x}\bigr)^{-3/2}$)
+
+sec_g2_fourier.tex, Lemma `g2:lem:f:atoms` (general part):
+
+  More generally $I_{m,1}=m!\,\eta(m+2)$ with $\eta(s)=\sum_{l\ge1}(-1)^{l+1}l^{-s}=(1-2^{1-s})\zeta(s)$.
+
+sec_g2_degree.tex, Lemma `g2:lem:d:coef`:
+
+  For $k\ge0$, $N\ge2$, as $\tau\to0^+$,
+  a_k(h_p)=A_k+\sum_{n=2}^Nc_n(k)\tau^n+O_{k,N}(\tau^{N+1}),\qquad
+  c_n(k)=\frac8\pi\sum_{j=1}^{n-1}\frac{g_{k,n-1-j}}{j!}\,I_{n-1-j,\,j},
+  with $g_{k,m}=G_k^{(m)}(0)/m!$ as in Section~\ref{g2:sec:fourier}.
+
+sec_g2_degree.tex, before Lemma `g2:lem:d:e`:
+
+  For integers $r,m\ge0$ put $e_{r,m}=2^{3/2}\,[y^m]\bigl(\gd(y)^{2r}H(y)\bigr)$, and for $m\ge0$
+  put the polynomial
+  \rho_m(u)=\sum_{r=0}^{\lfloor m/2\rfloor}\frac{(-4u)^r}{(2r)!}\,e_{r,m}.
+
+sec_g2_degree.tex, Lemma `g2:lem:d:e`:
+
+  (a) All $e_{r,m}$ are rational. $e_{r,m}=0$ for $m<2r$, $e_{r,2r}=1$ and $e_{r,2r+1}=\frac12$.
+  (b) $g_{k,m}=(-1)^k\frac{\sqrt2}4\,\rho_m(k^2)$ for all $k,m\ge0$.
+
+sec_g2_degree.tex, Lemma `g2:lem:d:theta`:
+
+  For every $n\ge2$ the coefficient of $\tau^n$ in $(-1)^k\frac\pi{\sqrt2}a_k(h_p)$ is
+  $\Theta_n(k^2)$, where
+  \Theta_n(u)=2\sum_{j=1}^{n-1}\frac{\rho_{n-1-j}(u)}{j!}\,I_{n-1-j,\,j}.
+
+sec_g2_degree.tex, proof of Proposition 2, case $n=2M+1$:
+
+  The coefficient of $u^{M-1}$ is
+  \frac{(-4)^{M-1}}{(2M-2)!}\bigl(I_{2M-1,1}+I_{2M-2,2}\bigr).
+  Both integrals are positive (positive integrands), so the coefficient is not $0$ and has the
+  sign $(-1)^{M-1}$.
+
+sec_g2_degree.tex, Definition `g2:def:amzv` and Lemma `g2:lem:d:atoms`:
+
+  A \emph{word} of length $w$ is a sequence $(a_1,\dots,a_w)$ with $a_i\in\{0,1,-1\}$. It is
+  \emph{convergent} if $a_1\ne1$ and $a_w\ne0$. For a convergent word put
+  \Gdim(a_1,\dots,a_w)=\int_{1>t_1>\dots>t_w>0}\ \prod_{i=1}^w\frac{dt_i}{t_i-a_i}.
+  For $m\ge0$ and $j\ge1$,
+  I_{m,j}=m!\,j!\,\Gdim\bigl(\underbrace{0,\dots,0}_{m+1},\underbrace{-1,\dots,-1}_{j}\bigr).
+
+Conventions.
+* `ζ(2m)` is `(riemannZeta (2m)).re` (Mathlib's complex zeta at the natural number `2m`, real
+  part); in the consistency statement the values `ζ(2), ζ(4), ζ(6)` are written `π²/6, π⁴/90,
+  π⁶/945`, and `ζ(3), ζ(5), ζ(7)` are `Y04.z3`, `Z02.z5`, `Q03.z7` (each the real part of
+  `riemannZeta`), as in the earlier files.
+* `[y^m] f` is written `iteratedDeriv m f 0 / m!`; the functions involved are `C^∞` (this is
+  part of `stmt_4`), so this is the Taylor coefficient, not a junk value.
+* `2^{3/2}` is written `2 √2`.
+* `g_{k,m}` is `iteratedDeriv m (Y04.G k) 0 / m!`, `A_k` is `Y04.a k Y04.hDiamond`.
+* Watson's lemma (`stmt_1`) is stated, as in Y04/Z02/V02/Q03, for `G` that is `C^∞` on all of `ℝ`
+  and bounded on `[0,∞)`, so that `G^{(m)}(0)` is the ordinary derivative; the paper says
+  "`C^∞` on `[0,∞)`" (one-sided derivatives at `0`). Every such function extends to a `C^∞`
+  function on `ℝ` (Seeley/Borel), so this is the same class; it is the form the earlier files
+  use and the only one needed (for `G = G_k`).
+* Integrability of the integrals that occur is stated explicitly.
+
+NOT COVERED.
+* "whose coefficients are alternating multiple zeta values of weight `n`" is covered in two
+  halves: `stmt_6` says each coefficient of `Θ_n` is a rational combination of the `I_{r,j}`
+  with `r + j = n - 1`, and `stmt_10` (Lemma `g2:lem:d:atoms`) says each such `I_{r,j}` is
+  `r! j!` times the iterated integral of the convergent word `(0^{r+1}, (-1)^j)`. The general
+  notion "an alternating MZV of weight `w`" (any convergent word over `{0,1,-1}`) is not defined
+  as a predicate; only the specific words that occur are.
+* The remark on the odd case (identification of the top coefficient with
+  `(-4)^{M-1}[ζ(2M+1) + 2Σ η(2j)ζ(2M+1-2j)]`, not needed by the proof).
+* Uniqueness of asymptotic coefficients (used only to make "the coefficient of `τ^n`"
+  meaningful; the statements give the expansion itself).
+-/
+-- BEGIN STATEMENTS
+namespace R05
+
+open Real MeasureTheory Set Polynomial
+
+/-- The Gudermannian function in the supplement's normalisation, `gd(x) = π/2 - 2θ_x`,
+`θ_x = arctan e^{-x}`. -/
+noncomputable def gd (x : ℝ) : ℝ := π / 2 - 2 * Y04.thetaX x
+
+/-- `H(x) = e^{-x} (1 + e^{-2x})^{-3/2}` (positive base, so `rpow` is the usual power). -/
+noncomputable def H (x : ℝ) : ℝ := Real.exp (-x) * (1 + Real.exp (-2 * x)) ^ (-(3 : ℝ) / 2)
+
+/-- `g_{k,m} = G_k^{(m)}(0)/m!`. -/
+noncomputable def g (k m : ℕ) : ℝ := iteratedDeriv m (Y04.G k) 0 / (m.factorial : ℝ)
+
+/-- `e_{r,m} = 2^{3/2} [y^m](gd(y)^{2r} H(y))`. -/
+noncomputable def e (r m : ℕ) : ℝ :=
+  2 * Real.sqrt 2 *
+    (iteratedDeriv m (fun y : ℝ => gd y ^ (2 * r) * H y) 0 / (m.factorial : ℝ))
+
+/-- `ρ_m(u) = Σ_{r=0}^{⌊m/2⌋} (-4u)^r/(2r)! e_{r,m}`, a polynomial in `u`. -/
+noncomputable def rho (m : ℕ) : ℝ[X] :=
+  ∑ r ∈ Finset.range (m / 2 + 1),
+    Polynomial.C ((-4 : ℝ) ^ r / ((2 * r).factorial : ℝ) * e r m) * X ^ r
+
+/-- `Θ_n(u) = 2 Σ_{j=1}^{n-1} ρ_{n-1-j}(u)/j! I_{n-1-j,j}` (Lemma `g2:lem:d:theta`). -/
+noncomputable def Theta (n : ℕ) : ℝ[X] :=
+  2 * ∑ j ∈ Finset.Icc 1 (n - 1),
+    Polynomial.C (Y04.I (n - 1 - j) j / (j.factorial : ℝ)) * rho (n - 1 - j)
+
+/-- `c_n(k) = (8/π) Σ_{j=1}^{n-1} g_{k,n-1-j}/j! I_{n-1-j,j}` (Lemma `g2:lem:d:coef`). -/
+noncomputable def c (n k : ℕ) : ℝ :=
+  8 / π * ∑ j ∈ Finset.Icc 1 (n - 1), g k (n - 1 - j) / (j.factorial : ℝ) * Y04.I (n - 1 - j) j
+
+/-- The convergent word `(0^{m+1}, (-1)^j)` of length `m+1+j`, as a function of the position. -/
+noncomputable def word (m j : ℕ) (i : Fin (m + 1 + j)) : ℝ := if i.val < m + 1 then 0 else -1
+
+/-- The simplex `1 > t_1 > ⋯ > t_w > 0` in `ℝ^w` (positions `0, …, w-1`). -/
+def simplex (w : ℕ) : Set (Fin w → ℝ) := {t | (∀ i, 0 < t i ∧ t i < 1) ∧ StrictAnti t}
+
+/-- `Γ(a_1,…,a_w) = ∫_{1>t_1>⋯>t_w>0} Π dt_i/(t_i - a_i)` (Definition `g2:def:amzv`). -/
+noncomputable def iterInt (w : ℕ) (a : Fin w → ℝ) : ℝ :=
+  ∫ t in simplex w, ∏ i, 1 / (t i - a i)
+
+/-- Lemma `g2:lem:f:watson` for every `N ≥ 2`: for `G` smooth and bounded on `[0,∞)`, with
+`g_m = G^{(m)}(0)/m!`, there is `C` with, for `0 < τ < 1`, the integrand integrable and
+`|τ ∫_0^∞ [(1+e^{-s})^τ - 1] G(τ s) ds - Σ_{n=2}^{N} τ^n Σ_{j=1}^{n-1} g_{n-1-j}/j! I_{n-1-j,j}|
+  ≤ C τ^{N+1}`. -/
+def stmt_1 : Prop :=
+  ∀ Gf : ℝ → ℝ, ContDiff ℝ (⊤ : ℕ∞) Gf → (∃ M : ℝ, ∀ x : ℝ, 0 ≤ x → |Gf x| ≤ M) →
+    ∀ N : ℕ, 2 ≤ N → ∃ C : ℝ, ∀ τ : ℝ, 0 < τ → τ < 1 →
+      IntegrableOn (fun s : ℝ => ((1 + Real.exp (-s)) ^ τ - 1) * Gf (τ * s)) (Ioi 0) ∧
+      |τ * (∫ s in Ioi (0 : ℝ), ((1 + Real.exp (-s)) ^ τ - 1) * Gf (τ * s)) -
+          ∑ n ∈ Finset.Icc 2 N, τ ^ n * ∑ j ∈ Finset.Icc 1 (n - 1),
+            iteratedDeriv (n - 1 - j) Gf 0 / ((n - 1 - j).factorial : ℝ) /
+              (j.factorial : ℝ) * Y04.I (n - 1 - j) j| ≤ C * τ ^ (N + 1)
+
+/-- Lemma `g2:lem:f:red`(c), the Gudermannian part: `gd(0) = 0`, `gd'(x) = 1/cosh x`, and
+`G_k(x) = (-1)^k cos(2k gd(x)) H(x)` for all real `x` and all `k`. -/
+def stmt_2 : Prop :=
+  gd 0 = 0 ∧ (∀ x : ℝ, HasDerivAt gd (1 / Real.cosh x) x) ∧
+    ∀ k : ℕ, ∀ x : ℝ, Y04.G k x = (-1 : ℝ) ^ k * Real.cos (2 * k * gd x) * H x
+
+/-- Lemma `g2:lem:d:coef`: for every `k ≥ 0` and `N ≥ 2` there are `C`, `τ₀ > 0` with
+`|a_k(h_p) - A_k - Σ_{n=2}^N c_n(k) τ^n| ≤ C τ^{N+1}` for `p > 1`, `τ = 1 - 1/p ≤ τ₀`. -/
+def stmt_3 : Prop :=
+  ∀ k N : ℕ, 2 ≤ N → ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+    |Y04.a k (Y04.h p) - Y04.a k Y04.hDiamond - ∑ n ∈ Finset.Icc 2 N, c n k * Y04.tau p ^ n|
+      ≤ C * Y04.tau p ^ (N + 1)
+
+/-- Lemma `g2:lem:d:e`(a), with the smoothness that makes `e_{r,m}` a Taylor coefficient: each
+`gd^{2r} H` is `C^∞`; every `e_{r,m}` is rational; `e_{r,m} = 0` for `m < 2r`;
+`e_{r,2r} = 1`; `e_{r,2r+1} = 1/2`. -/
+def stmt_4 : Prop :=
+  (∀ r : ℕ, ContDiff ℝ (⊤ : ℕ∞) (fun y : ℝ => gd y ^ (2 * r) * H y)) ∧
+    (∀ r m : ℕ, ∃ q : ℚ, e r m = (q : ℝ)) ∧
+    (∀ r m : ℕ, m < 2 * r → e r m = 0) ∧
+    (∀ r : ℕ, e r (2 * r) = 1) ∧
+    (∀ r : ℕ, e r (2 * r + 1) = 1 / 2)
+
+/-- Lemma `g2:lem:d:e`(b): `g_{k,m} = (-1)^k (√2/4) ρ_m(k²)` for all `k, m ≥ 0`. -/
+def stmt_5 : Prop :=
+  ∀ k m : ℕ, g k m = (-1 : ℝ) ^ k * Real.sqrt 2 / 4 * (rho m).eval ((k : ℝ) ^ 2)
+
+/-- Lemma `g2:lem:d:theta`, with the coefficient description from the proof of Proposition 2:
+for `n ≥ 2` and every `k`, `(-1)^k (π/√2) c_n(k) = Θ_n(k²)`; and every coefficient of `Θ_n` is a
+rational combination of the integrals `I_{n-1-j,j}`, `1 ≤ j ≤ n-1` (so `r + j = n - 1`). -/
+def stmt_6 : Prop :=
+  ∀ n : ℕ, 2 ≤ n →
+    (∀ k : ℕ, (-1 : ℝ) ^ k * (π / Real.sqrt 2) * c n k = (Theta n).eval ((k : ℝ) ^ 2)) ∧
+    ∀ i : ℕ, ∃ q : ℕ → ℚ,
+      (Theta n).coeff i = ∑ j ∈ Finset.Icc 1 (n - 1), (q j : ℝ) * Y04.I (n - 1 - j) j
+
+/-- Lemma `g2:lem:f:atoms`, general part: `I_{m,1} = m! η(m+2)`, with
+`η(m+2) = Σ_{l≥1} (-1)^{l+1} l^{-(m+2)}` (as a `HasSum`) and `η(m+2) = (1 - 2^{-(m+1)}) ζ(m+2)`,
+`ζ(m+2) = (riemannZeta (m+2)).re`. -/
+def stmt_7 : Prop :=
+  ∀ m : ℕ,
+    HasSum (fun l : ℕ => (-1 : ℝ) ^ l / ((l : ℝ) + 1) ^ (m + 2))
+      (Y04.I m 1 / (m.factorial : ℝ)) ∧
+    Y04.I m 1 = (m.factorial : ℝ) * (1 - (2 : ℝ)⁻¹ ^ (m + 1)) *
+      (riemannZeta ((m + 2 : ℕ) : ℂ)).re
+
+/-- Consistency with Y04, Z02, V02, Q03: with `u = k²`, the polynomials `Θ_n` defined by the
+supplement's formula are `Θ₂ = ζ(2)`, `Θ₃ = ζ(3)`, `Θ₄ = -(33/16 + 7u) ζ(4)`,
+`Θ₅ = -(3/4 + 4u) ζ(5) - (7/4 + 4u) ζ(2)ζ(3)`,
+`Θ₆ = (4039/256 + (733/8)u + 31u²) ζ(6) - (7/8 + 2u) ζ(3)²`,
+`Θ₇ = (129/16 + 46u + 16u²) ζ(7) + (141/16 + 50u + 16u²) ζ(2)ζ(5)
+  + (1071/160 + (181/5)u + (56/5)u²) ζ(2)²ζ(3)`. -/
+def stmt_8 : Prop :=
+  Theta 2 = Polynomial.C (π ^ 2 / 6) ∧
+  Theta 3 = Polynomial.C Y04.z3 ∧
+  Theta 4 = Polynomial.C (-(33 / 16) * (π ^ 4 / 90)) + Polynomial.C (-7 * (π ^ 4 / 90)) * X ∧
+  Theta 5 = Polynomial.C (-(3 / 4) * Z02.z5 - 7 / 4 * ((π ^ 2 / 6) * Y04.z3))
+      + Polynomial.C (-4 * Z02.z5 - 4 * ((π ^ 2 / 6) * Y04.z3)) * X ∧
+  Theta 6 = Polynomial.C (4039 / 256 * (π ^ 6 / 945) - 7 / 8 * Y04.z3 ^ 2)
+      + Polynomial.C (733 / 8 * (π ^ 6 / 945) - 2 * Y04.z3 ^ 2) * X
+      + Polynomial.C (31 * (π ^ 6 / 945)) * X ^ 2 ∧
+  Theta 7 = Polynomial.C (129 / 16 * Q03.z7 + 141 / 16 * ((π ^ 2 / 6) * Z02.z5)
+        + 1071 / 160 * ((π ^ 2 / 6) ^ 2 * Y04.z3))
+      + Polynomial.C (46 * Q03.z7 + 50 * ((π ^ 2 / 6) * Z02.z5)
+        + 181 / 5 * ((π ^ 2 / 6) ^ 2 * Y04.z3)) * X
+      + Polynomial.C (16 * Q03.z7 + 16 * ((π ^ 2 / 6) * Z02.z5)
+        + 56 / 5 * ((π ^ 2 / 6) ^ 2 * Y04.z3)) * X ^ 2
+
+/-- `prop:degree` for every `n ≥ 2`: (i) `Θ_n(k²)` is the coefficient of `τ^n` in
+`(-1)^k (π/√2) a_k(h_p)` in the asymptotic sense: for every `k` and `N ≥ 2` there are `C`,
+`τ₀ > 0` with `|a_k(h_p) - (-1)^k (√2/π)[-4/(16k²-1) + Σ_{n=2}^N Θ_n(k²) τ^n]| ≤ C τ^{N+1}`;
+(ii) `Θ_n ≠ 0` and `natDegree Θ_n = ⌊n/2⌋ - 1` (degree exactly); (iii) for `n = 2m` the
+leading coefficient is `(-1)^{m-1}(2^{2m-1}-1) ζ(2m)`; (iv) for `n = 2M+1` the leading
+coefficient is `(-4)^{M-1}/(2M-2)! (I_{2M-1,1} + I_{2M-2,2})`, with `I_{2M-1,1}`,
+`I_{2M-2,2} > 0` (so it is non-zero, of sign `(-1)^{M-1}`). -/
+def stmt_9 : Prop :=
+  (∀ k N : ℕ, 2 ≤ N → ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+    |Y04.a k (Y04.h p) - (-1 : ℝ) ^ k * (Real.sqrt 2 / π) *
+        (-(4 / (16 * (k : ℝ) ^ 2 - 1)) +
+          ∑ n ∈ Finset.Icc 2 N, (Theta n).eval ((k : ℝ) ^ 2) * Y04.tau p ^ n)|
+      ≤ C * Y04.tau p ^ (N + 1)) ∧
+  (∀ n : ℕ, 2 ≤ n → Theta n ≠ 0 ∧ (Theta n).natDegree = n / 2 - 1) ∧
+  (∀ m : ℕ, 1 ≤ m → (Theta (2 * m)).leadingCoeff =
+      (-1 : ℝ) ^ (m - 1) * (2 ^ (2 * m - 1) - 1) * (riemannZeta ((2 * m : ℕ) : ℂ)).re) ∧
+  (∀ M : ℕ, 1 ≤ M →
+    0 < Y04.I (2 * M - 1) 1 ∧ 0 < Y04.I (2 * M - 2) 2 ∧
+    (Theta (2 * M + 1)).leadingCoeff =
+      (-4 : ℝ) ^ (M - 1) / ((2 * M - 2).factorial : ℝ) *
+        (Y04.I (2 * M - 1) 1 + Y04.I (2 * M - 2) 2))
+
+/-- Lemma `g2:lem:d:atoms`: for `m ≥ 0`, `j ≥ 1`, the integrand of the iterated integral of the
+convergent word `(0^{m+1}, (-1)^j)` is integrable on the simplex `1 > t_1 > ⋯ > t_{m+1+j} > 0`,
+and `I_{m,j} = m! j! Γ(0^{m+1}, (-1)^j)`; so `I_{m,j}` is `m! j!` times an alternating multiple
+zeta value of weight `m + j + 1`. -/
+def stmt_10 : Prop :=
+  ∀ m j : ℕ, 1 ≤ j →
+    IntegrableOn (fun t : Fin (m + 1 + j) → ℝ => ∏ i, 1 / (t i - word m j i))
+      (simplex (m + 1 + j)) ∧
+    Y04.I m j = (m.factorial : ℝ) * (j.factorial : ℝ) * iterInt (m + 1 + j) (word m j)
+
+end R05

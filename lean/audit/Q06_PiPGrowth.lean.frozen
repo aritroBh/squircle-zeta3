@@ -1,0 +1,96 @@
+import Mathlib
+import Zeta3.Wave8.Q02_PiPAllOrders
+/-!
+# Q06 — continuation of Q02: `lem:pip:Tk`, `lem:pip:TkT1`, `lem:pip:twoterm`, the growth law and the divergence
+(paper label `thm:pip`)
+
+Target Q06 is the continuation of `Zeta3.Wave8.Q02_PiPAllOrders` (planner split, 2026-11-26).
+The notation (`Q02.N`, `Q02.T`, `Q02.T1`, `Q02.psi`, …) is that of Q02; see its header for sources
+and conventions. Statements, with the old Q02 number and the original docstring text:
+
+* `stmt_1` (was `Q02.stmt_13`):
+/-- Lemma `lem:pip:Tk`: `|N_k - (-log2)^{k+1}/(k+1)! - T_k| ≤ C (2^k + k (k-2)! 6^{-k})`. -/
+
+* `stmt_2` (was `Q02.stmt_15`):
+/-- Lemma `lem:pip:TkT1`: `T_k = T_k^{(1)} + O((k-2)! π^{-(k-1)} k^{-2} log k)`. -/
+
+* `stmt_3` (was `Q02.stmt_16`):
+/-- Lemma `lem:pip:twoterm`: with `y_0 = iπ`, `X = ψ(k-2) + γ - log π`,
+`N_k = 2 Re[(k-2)! y_0^{1-k} + (k-3)! y_0^{2-k}(X - iπ/2)] + O((k-2)! π^{-(k-1)} log²k/k²)`. -/
+
+* `stmt_4` (was `Q02.stmt_17`):
+/-- thm:pip / Lemma `prop:pip:growth`, odd `k`:
+`N_k = (-1)^{(k-1)/2} (2(k-2)!/π^{k-1}) (1 + π²/(2(k-2)) + O(log²k/k²))`. -/
+
+* `stmt_5` (was `Q02.stmt_18`):
+/-- thm:pip / Lemma `prop:pip:growth`, even `k`:
+`N_k = (-1)^{(k-2)/2} (2(k-3)!/π^{k-2}) (ψ(k-2) + γ - log π + O(log²k/k))`. -/
+
+* `stmt_6` (was `Q02.stmt_19`):
+/-- thm:pip / Lemma `prop:pip:div`: for every real `p ≠ 0` the terms `N_k p^{-k-1}` do not tend
+to `0` (so `Σ N_k p^{-k-1}` diverges), and for every `x ≠ 0` the terms `N_k x^{k+1}` are unbounded
+(radius of convergence `0`). -/
+
+* `stmt_7` (was `Q02.stmt_20`):
+/-- thm:pip, the part not proved in `X02` (main.tex lines 1344–1349), in full: the expansion to
+every order, the divergence of the series for every `p`, and the growth law for odd and even `k`. -/
+-/
+-- BEGIN STATEMENTS
+namespace Q06
+
+/-- Lemma `lem:pip:Tk`: `|N_k - (-log2)^{k+1}/(k+1)! - T_k| ≤ C (2^k + k (k-2)! 6^{-k})`. (was Q02.stmt_13) -/
+def stmt_1 : Prop :=
+  ∃ C : ℝ, ∀ k : ℕ, 2 ≤ k →
+    |Q02.N k - (-Real.log 2) ^ (k + 1) / ((k + 1).factorial : ℝ) - Q02.T k|
+      ≤ C * (2 ^ k + (k : ℝ) * ((k - 2).factorial : ℝ) / 6 ^ k)
+
+/-- Lemma `lem:pip:TkT1`: `T_k = T_k^{(1)} + O((k-2)! π^{-(k-1)} k^{-2} log k)`. (was Q02.stmt_15) -/
+def stmt_2 : Prop :=
+  ∃ C : ℝ, ∃ k₀ : ℕ, ∀ k : ℕ, k₀ ≤ k →
+    |Q02.T k - Q02.T1 k| ≤ C * (((k - 2).factorial : ℝ) / Real.pi ^ (k - 1) * (Real.log k / (k : ℝ) ^ 2))
+
+/-- Lemma `lem:pip:twoterm`: with `y_0 = iπ`, `X = ψ(k-2) + γ - log π`,
+`N_k = 2 Re[(k-2)! y_0^{1-k} + (k-3)! y_0^{2-k}(X - iπ/2)] + O((k-2)! π^{-(k-1)} log²k/k²)`.
+(was Q02.stmt_16) -/
+def stmt_3 : Prop :=
+  ∃ C : ℝ, ∃ k₀ : ℕ, ∀ k : ℕ, k₀ ≤ k →
+    |Q02.N k - 2 * ((((k - 2).factorial : ℂ) * ((Complex.I * Real.pi) ^ (k - 1))⁻¹ +
+        ((k - 3).factorial : ℂ) * ((Complex.I * Real.pi) ^ (k - 2))⁻¹ *
+          (((Q02.psi ((k : ℝ) - 2) + Real.eulerMascheroniConstant - Real.log Real.pi : ℝ) : ℂ) -
+            Complex.I * Real.pi / 2)).re)|
+      ≤ C * (((k - 2).factorial : ℝ) / Real.pi ^ (k - 1) * (Real.log k ^ 2 / (k : ℝ) ^ 2))
+
+/-- thm:pip / Lemma `prop:pip:growth`, odd `k`:
+`N_k = (-1)^{(k-1)/2} (2(k-2)!/π^{k-1}) (1 + π²/(2(k-2)) + O(log²k/k²))`.
+(was Q02.stmt_17) -/
+def stmt_4 : Prop :=
+  ∃ C : ℝ, ∃ k₀ : ℕ, ∀ k : ℕ, k₀ ≤ k → Odd k →
+    |Q02.N k - (-1 : ℝ) ^ ((k - 1) / 2) * (2 * ((k - 2).factorial : ℝ) / Real.pi ^ (k - 1)) *
+        (1 + Real.pi ^ 2 / (2 * ((k : ℝ) - 2)))|
+      ≤ C * (2 * ((k - 2).factorial : ℝ) / Real.pi ^ (k - 1)) * (Real.log k ^ 2 / (k : ℝ) ^ 2)
+
+/-- thm:pip / Lemma `prop:pip:growth`, even `k`:
+`N_k = (-1)^{(k-2)/2} (2(k-3)!/π^{k-2}) (ψ(k-2) + γ - log π + O(log²k/k))`.
+(was Q02.stmt_18) -/
+def stmt_5 : Prop :=
+  ∃ C : ℝ, ∃ k₀ : ℕ, ∀ k : ℕ, k₀ ≤ k → Even k →
+    |Q02.N k - (-1 : ℝ) ^ ((k - 2) / 2) * (2 * ((k - 3).factorial : ℝ) / Real.pi ^ (k - 2)) *
+        (Q02.psi ((k : ℝ) - 2) + Real.eulerMascheroniConstant - Real.log Real.pi)|
+      ≤ C * (2 * ((k - 3).factorial : ℝ) / Real.pi ^ (k - 2)) * (Real.log k ^ 2 / (k : ℝ))
+
+/-- thm:pip / Lemma `prop:pip:div`: for every real `p ≠ 0` the terms `N_k p^{-k-1}` do not tend
+to `0` (so `Σ N_k p^{-k-1}` diverges), and for every `x ≠ 0` the terms `N_k x^{k+1}` are unbounded
+(radius of convergence `0`).
+(was Q02.stmt_19) -/
+def stmt_6 : Prop :=
+  (∀ p : ℝ, p ≠ 0 →
+    ¬ Filter.Tendsto (fun k : ℕ => Q02.N k * (1 / p) ^ (k + 1)) Filter.atTop (nhds 0)) ∧
+  (∀ x : ℝ, x ≠ 0 → ¬ BddAbove (Set.range fun k : ℕ => |Q02.N k * x ^ (k + 1)|))
+
+/-- thm:pip, the part not proved in `X02` (main.tex lines 1344–1349), in full: the expansion to
+every order, the divergence of the series for every `p`, and the growth law for odd and even `k`.
+(was Q02.stmt_20) -/
+def stmt_7 : Prop :=
+  Q02.stmt_8 ∧ stmt_6 ∧ stmt_4 ∧ stmt_5
+
+end Q06

@@ -1,0 +1,102 @@
+import Mathlib
+import Zeta3.Wave3.W02_Holo
+import Zeta3.Wave8.Q05_Decay
+/-!
+# Q07 -- the rest of the decay law of `M_k` (continuation of Q05, `thm:decay`)
+
+Target id: Q07. Continuation of `Q05` (paper/ieee/main.tex `thm:decay`, supplement
+paper/ieee/proofs/sec_g5_decay.tex and sec_g5_varpi1.tex). The definitions (`H`, `K`, `Lpt`,
+`lineInt`, `P`, `W`, `D`, `M`, `Mmain`, `B1`, `B2`, `ξ`, `Cstar`, `X`, ...) are those of `Q05`;
+the statements of Q05 that are proved stay in `Q05_Decay.lean`. The statements below were
+audited as Q05.stmt_9, 10, 12, 14, 15, 16, 18 and are stated here, unproved (planner split,
+2026-11-26); the original docstrings are kept.
+
+## Statements
+
+* stmt_1 (was Q05.stmt_9): g5:lem:kernel.
+* stmt_2 (was Q05.stmt_10): g5:lem:Mk.
+* stmt_3 (was Q05.stmt_12): g5:lem:W.
+* stmt_4 (was Q05.stmt_14): g5:prop:rest, the displayed bound.
+* stmt_5 (was Q05.stmt_15): g5:prop:rest (a) as used by the paper: `|M_k - M_k^main| ≤ 10,600,000 e^{-2√N}`.
+* stmt_6 (was Q05.stmt_16): g5:prop:main: `|M_k^main + X| ≤ 71,000 N^{-2} e^{-θ}`.
+* stmt_7 (was Q05.stmt_18): thm:decay in full: the inequality with `1.21·10^9`, and eq:Mk in the
+  explicit form of the supplement (`k ≥ 99`, constant `1.21·10^9 + 1.9√π`).
+
+## NOT COVERED
+
+* The paper's interval-arithmetic bound with the constant `254.23` (main.tex lines 1281-1284,
+  85,210 cells; audited as old Q05.stmt_17) has no written proof in the supplement and is not
+  stated.
+* g5:prop:rest (b) (`c_rest < 120,000`) and the internals of g5:prop:main (Regions I and II of
+  sec_g5_varpi1.tex) are not stated.
+-/
+-- BEGIN STATEMENTS
+namespace Q07
+
+open Real MeasureTheory Set Filter Q05
+
+/-- g5:lem:kernel: "For every real $z\ge0$,
+$C(z)=1-\frac2\pi\operatorname{Im}\int_{\Lline}H(s)K(s)\,\eu^{-sz}\,ds$, and the integral
+converges absolutely." (was Q05.stmt_9) -/
+def stmt_1 : Prop :=
+  ∀ z : ℝ, 0 ≤ z →
+    IntegrableOn (fun r : ℝ => H (Lpt r) * K (Lpt r) * Complex.exp (-(Lpt r) * z)) (Ioi 0) ∧
+      Cf z = 1 - 2 / π * (lineInt fun s => H s * K s * Complex.exp (-s * z)).im
+
+/-- g5:lem:Mk: "For every $k\ge0$, $M_k=-D_k+\frac2\pi\operatorname{Im}\int_{\Lline}H(s)K(s)P_k(s)\,ds$,
+and the integral converges absolutely." Stated for the complex coefficient `W02.Mk k`, so it
+also says that `M_k` is real. (was Q05.stmt_10) -/
+def stmt_2 : Prop :=
+  ∀ k : ℕ,
+    IntegrableOn (fun r : ℝ => H (Lpt r) * K (Lpt r) * P k (Lpt r)) (Ioi 0) ∧
+      W02.Mk k = ((-D k + 2 / π * (lineInt fun s => H s * K s * P k s).im : ℝ) : ℂ)
+
+/-- g5:lem:W: for `k ≥ 1`, `Re s > 0`, `0 ≤ arg s ≤ π/4`, `ρ = |s|`,
+`|W_k(s)| ≤ 2ρ^k/|s+2|^{k+1} + 2 Σ_{i=1}^k (2^i/i!) ρ^{k-i}/|s+i+1|^{k-i+1}`. (was Q05.stmt_12) -/
+def stmt_3 : Prop :=
+  ∀ k : ℕ, 1 ≤ k → ∀ s : ℂ, 0 < s.re → 0 ≤ s.arg → s.arg ≤ π / 4 →
+    ‖W k s‖ ≤ 2 * ‖s‖ ^ k / ‖s + 2‖ ^ (k + 1) +
+      2 * ∑ i ∈ Finset.Icc 1 k,
+        (2 : ℝ) ^ i / (Nat.factorial i : ℝ) * (‖s‖ ^ (k - i) / ‖s + (i + 1 : ℂ)‖ ^ (k - i + 1))
+
+/-- g5:prop:rest, the displayed inequality, for every `k` with `N = k+1 ≥ 100`. (was Q05.stmt_14) -/
+def stmt_4 : Prop :=
+  ∀ k : ℕ, 100 ≤ k + 1 →
+    |M k - Mmain k| ≤
+      B1 * (Real.exp (π / 4) * Real.exp (-√(3 * π * k / 2)) +
+          ξ * Real.exp (-√(3 * π * ((k : ℝ) - 1) / 2)) +
+          (Real.exp ξ - 1 - ξ) * Real.exp (-√(9 * π * ((k : ℝ) - 2) / 4)) +
+          Real.exp (Real.exp 1 * ξ) * Real.exp (-(k : ℝ) / 2)) +
+        B2 * Real.exp (-√(9 * π * k / 4)) + 2 * Real.exp (-(((k + 1 : ℕ) : ℝ) - 1) / 2)
+
+/-- g5:prop:rest (a) with the constant of the paper: "$|M_k-M_k^{\mathrm{main}}|\le10{,}600{,}000\,
+e^{-2\sqrt N}$ for $N\ge100$" (main.tex proof idea), together with the supplement's
+`|M_k - M_k^main| ≤ C_⋆ e^{-2√N}`. (was Q05.stmt_15) -/
+def stmt_5 : Prop :=
+  ∀ k : ℕ, 100 ≤ k + 1 →
+    |M k - Mmain k| ≤ Cstar * Real.exp (-2 * √((k + 1 : ℕ) : ℝ)) ∧
+      |M k - Mmain k| ≤ 10600000 * Real.exp (-2 * √((k + 1 : ℕ) : ℝ))
+
+/-- g5:prop:main (sec_g5_varpi1.tex): "For every integer $N\ge100$,
+$|M_k^{\mathrm{main}}+X|\le71{,}000\,N^{-2}\eu^{-\theta}$", `θ = √(πN)`. (was Q05.stmt_16) -/
+def stmt_6 : Prop :=
+  ∀ k : ℕ, 100 ≤ k + 1 →
+    |Mmain k + X ((k + 1 : ℕ) : ℝ)| ≤
+      71000 / (((k + 1 : ℕ) : ℝ)) ^ 2 * Real.exp (-√(π * ((k + 1 : ℕ) : ℝ)))
+
+/-- thm:decay in full: "For every $k$ with $N=k+1\ge100$,
+$|M_k+\frac{\sqrt\pi}{N}e^{-\sqrt{\pi N}}\cos\sqrt{\pi N}|\le1.21\cdot10^{9}N^{-3/2}
+e^{-\sqrt{\pi N}}$. In particular \eqref{eq:Mk} holds", with eq:Mk in the explicit form of the
+supplement: for `k ≥ 99`, `|M_k + (√π/k) e^{-√(πk)} cos √(πk)| ≤ (1.21·10^9 + 1.9√π)
+k^{-3/2} e^{-√(πk)}`, i.e. `M_k = -(√π/k)e^{-√(πk)}[cos√(πk) + O(k^{-1/2})]` with an explicit
+constant. (was Q05.stmt_18) -/
+def stmt_7 : Prop :=
+  (∀ k : ℕ, 100 ≤ k + 1 →
+      |M k + √π / ((k + 1 : ℕ) : ℝ) * Real.exp (-√(π * ((k + 1 : ℕ) : ℝ))) *
+          Real.cos (√(π * ((k + 1 : ℕ) : ℝ)))| ≤
+        1.21e9 * (((k + 1 : ℕ) : ℝ)) ^ (-(3 / 2) : ℝ) * Real.exp (-√(π * ((k + 1 : ℕ) : ℝ)))) ∧
+    ∀ k : ℕ, 99 ≤ k →
+      |M k + √π / (k : ℝ) * Real.exp (-√(π * k)) * Real.cos (√(π * k))| ≤
+        (1.21e9 + √π * 1.9) * (k : ℝ) ^ (-(3 / 2) : ℝ) * Real.exp (-√(π * k))
+
+end Q07

@@ -1,0 +1,323 @@
+import Mathlib
+import Zeta3.Wave8.Q04_FlatAllK
+/-!
+# R01 -- the zeta ladder: every zeta part of `M_k(α)` is a fixed rational combination of the
+# `ζ(2)^e` parts
+
+Target id: R01.
+Paper label: `thm:zladder` (paper/ieee/main.tex, lines 1591-1593; context 1589).
+Supplement: paper/ieee/proofs/sec_g6_ladder.tex (meaning of `[z]M` lines 8-12; `g6:thm:zladder`
+15-17; `P_w`, `Q_z`, `γ_e(z)` and `g6:eq:Qz` 19-27; Lemma `g6:thm:ladderprecise` 29-35; `Φ_n`,
+`Φ^0_n` 44-49; Lemma `g6:lem:op` 51-53; Lemma `g6:lem:DE` 70-72; proof of the precise form 80-95;
+the examples and further rungs 99-119).
+
+Earlier Lean, imported and not restated: `Zeta3.Wave8.Q04_FlatAllK` (which imports
+`Zeta3.Wave7.V05_FlatAngle`). From its frozen statement block we use the kernel coefficients
+`E_{n,k} = Q04.Ecoef k n ∈ ℚ[y,a,b]` (`y = X 0`, `a = X 1`, `b = X 2` of `MvPolynomial (Fin 3) ℚ`),
+`D^♯_{i,m}(p,q) = Q04.DsharpF i m p q ∈ ℚ[𝔷_2, 𝔷_3, …]` and the formal coefficients
+`P_{k,n} = Q04.Pf k n ∈ MvPolynomial ℕ ℚ` of Definition `g6:def:formal` (the variable `X w` is the
+formal zeta value `𝔷_w`), and `c = D04.c α = cos(α/2)`. `Q04.stmt_5` (proved) says
+`M_k(α) = Σ_{n≥1} P_{k,n}(ζ) c^{2n}`, and `Q04.stmt_9` (proved) is the first rung in the formal
+sense; stmt_7 below is the same rung in the supplement's notation `[z]M_k`.
+
+Quoted verbatim (main.tex 1589, 1591-1593):
+
+  As in Theorem~\ref{thm:flat}, we treat the zeta values as symbols, and we write $[z]M$ for the
+  coefficient of the product $z$ of zeta values in $M$.
+
+  \begin{theorem}[The zeta ladder$^\dagger$]\label{thm:zladder}
+  For every $k\ge0$ and $0<\alpha<\pi$, $[\zeta(3)]M_{k+1}(\alpha)=-[\zeta(2)]M_k(\alpha)$. More
+  generally, for every product $z$ of zeta values, $[z]M_k(\alpha)$ is a fixed combination, with
+  rational coefficients, of the parts $[\zeta(2)^e]M_{k'}(\alpha)$ with $k'\le k$. For example,
+  $[\zeta(5)]M_k=-[\zeta(2)]M_{k-3}-2[\zeta(2)^2]M_{k-1}$.
+  \end{theorem}
+
+Quoted verbatim (supplement, line 10, the meaning of `[z]M`):
+
+  [z]M_k(\alpha):=\sum_{n\ge1}\bigl([\gvs z]P_{k,n}\bigr)c^{2n}\ ,\qquad [z]M_k:=0\ \text{ for }k<0 .
+
+Quoted verbatim (supplement, line 19): "``Fixed'' means: the rational coefficients depend on $z$
+only, not on $k$, $\alpha$ or $n$."
+
+Quoted verbatim (supplement, lines 21-27):
+
+  \mathsf P_w(x,x')=\frac{(-1)^{w+1}}w\Bigl[(x+x')^w-x^w-x'^w\Bigr],\qquad
+  \mathsf Q_z=\prod_{w}\frac{\mathsf P_w^{\,e_w}}{e_w!}\quad(z\leftrightarrow\gvs z=\textstyle\prod\gvs w^{e_w}).
+  ...
+  \mathsf Q_z=\sum_{e=1}^{\lfloor\gwt(z)/2\rfloor}\gamma_e(z)\,\sigma_1^{\gwt(z)-2e}\sigma_2^{\,e},\qquad\gamma_e(z)\in\QQ .
+
+Quoted verbatim (supplement, Lemma `g6:thm:ladderprecise`, lines 30-34):
+
+  For every product $z\ne1$ of zeta values, every $k\ge0$ and $0<\alpha<\pi$,
+  [z]M_k(\alpha)=\sum_{e=1}^{\lfloor\gwt(z)/2\rfloor}(-1)^e\,e!\,\gamma_e(z)\,[\zeta(2)^e]M_{k-\gwt(z)+2e}(\alpha),
+  and in fact $[\gvs z]P_{k,n}=\sum_e(-1)^ee!\gamma_e(z)[\gvs2^e]P_{k-\gwt(z)+2e,n}$ for every $n\ge1$.
+
+Quoted verbatim (supplement, lines 44-47): "Let $\Phi_n:\QQ[y,a,b]\to\QQ[\gvs2,\gvs3,\dots]$ be the
+$\QQ$-linear map with $\Phi_n[y^ja^ib^m]=\rho_j(n)\,D^\sharp_{i,m}(n+j,n)$, and let $\Phi^0_n$ be the
+composition of $\Phi_n$ with $\gvs w\mapsto0$ (the part free of zeta values). ... By
+Definition~\ref{g6:def:formal}, $P_{k,n}=-\frac1{n(2n-1)}\Phi_n[E_{n,k}]$".
+
+Quoted verbatim (supplement, Lemma `g6:lem:op`, line 52): "For every $F\in\QQ[y,a,b]$ and every
+product $z$ of zeta values (including $z=1$, with $\mathsf Q_1=1$):
+$[\gvs z]\Phi_n[F]=\Phi^0_n\bigl[\mathsf Q_z(\partial_a,\partial_b)F\bigr]$."
+
+Quoted verbatim (supplement, Lemma `g6:lem:DE`, line 71): "In $\QQ[y,a,b][[u]]$,
+$(\partial_a+\partial_b)E_n=u\,E_n$."
+
+Quoted verbatim (supplement, lines 109, 112-118, the examples and further rungs):
+
+  For $z=\zeta(5)$: $W=5$, $\gamma_1=1$, $\gamma_2=-1$, so
+  $[\zeta(5)]M_k=(-1)\cdot1\cdot[\zeta(2)]M_{k-3}+(+1)\cdot2\cdot(-1)[\zeta(2)^2]M_{k-1}=-[\zeta(2)]M_{k-3}-2[\zeta(2)^2]M_{k-1}$.
+  ...
+  [\zeta(4)]M_k&=M^{(1)}_{k-2}+M^{(2)}_k, &\qquad [\zeta(6)]M_k&=M^{(1)}_{k-4}+3M^{(2)}_{k-2}+2M^{(3)}_k,\\
+  [\zeta(2)\zeta(3)]M_k&=-2M^{(2)}_{k-1}, &\qquad [\zeta(3)^2]M_k&=M^{(2)}_{k-2}
+  (with $M_{k}^{(e)}=[\zeta(2)^e]M_k$).
+
+## Formalization choices
+
+* Everything is in the supplement's formal sense (coefficient extraction on the explicit
+  polynomials `P_{k,n} = Q04.Pf k n`, never on real numbers). A product
+  `z = ∏ ζ(w)^{e_w}` is a finitely supported `s : ℕ →₀ ℕ` (`s w = e_w`) with all `w ≥ 2`
+  (`IsZetaMono s`); `𝔷_z` is the monomial `s`, `[𝔷_z]P = P.coeff s`, and `wt s = Σ e_w w` (the
+  same weight as in `Q04.WeightLE`). `z = 1` is `s = 0`; `ζ(2)^e` is `Finsupp.single 2 e`.
+* `[z]M_k(α)` is `zM s k α` with an integer index `k`: `Σ_{n≥1} [𝔷_z]P_{k,n} c^{2n}` (written
+  with `tsum`) for `k ≥ 0`, and `0` for `k < 0`, exactly as on supplement line 10. Because the
+  series is written with `tsum`, every statement that uses `zM` also asserts
+  `AllSummable α`: every series `Σ_n |[𝔷_z]P_{k,n} c^{2n}|` converges for `0 < α < π` (the
+  supplement's remark after line 10). So no identity below can hold by the junk value `0`.
+* `ρ_j(n) = ∏_{t<j} (n+t)/(2n+t)` (Section `g6:sec:flat`) is defined again here (`rhoR`) as an
+  audited definition, since `V05.rhoQ` (used inside `Q04.Pf`) sits below V05's END marker; the two
+  are the same formula.
+* `Φ_n` is `PhiN n`, the `ℚ`-linear map on `ℚ[y,a,b]` given on monomials by
+  `y^j a^i b^m ↦ ρ_j(n) D^♯_{i,m}(n+j,n)` (a sum over the support of `F`). `Φ^0_n[F]` (`𝔷_w ↦ 0`) is the
+  constant coefficient `(PhiN n F).coeff 0`.
+* `P_w`, `Q_z` are polynomials in `x = X 0`, `x' = X 1` of `MvPolynomial (Fin 2) ℚ`;
+  `Q_z = ∏_{w ∈ supp s} P_w^{e_w}/e_w!`. The operator `Q(∂_a,∂_b)` (`QOp`) sends `F` to
+  `Σ_t q_t ∂_a^{t_0} ∂_b^{t_1} F` with `∂_a = pderiv 1`, `∂_b = pderiv 2` on `ℚ[y,a,b]`.
+* `γ_e(z)`: the supplement defines it by `g6:eq:Qz`, the expansion of the symmetric polynomial
+  `Q_z` in `σ_1 = x+x'`, `σ_2 = xx'` (unique, since `σ_1, σ_2` are algebraically independent),
+  and computes it with the Newton recurrence `p_w = σ_1 p_{w-1} - σ_2 p_{w-2}`, `p_0 = 2`,
+  `p_1 = σ_1` (lines 100-108). Here `γ_e(z) = gam e s` is defined by that computation: `QsymN s` is
+  `∏ (P_w written in σ_1, σ_2)^{e_w}/e_w!` with `P_w = (-1)^{w+1}(σ_1^w - p_w)/w` (variables
+  `σ_1 = X 0`, `σ_2 = X 1`), and `gam e s` is its coefficient of `σ_1^{W-2e} σ_2^e`
+  (only used for `1 ≤ e ≤ W/2`, so the truncated subtraction `W - 2e` is exact). stmt_4 states
+  that with these numbers `Q_z = Σ_{e=1}^{⌊W/2⌋} γ_e(z) σ_1^{W-2e} σ_2^e` as polynomials in
+  `x, x'`, which is `g6:eq:Qz` and identifies `gam` with the supplement's `γ_e(z)`.
+* Lemma `g6:lem:DE` lives in `ℚ[y,a,b][[u]]`; it is stated coefficientwise in `u` on the
+  coefficients `E_{n,k}` (which do not depend on the truncation used to compute them):
+  `(∂_a+∂_b)E_{n,0} = 0` and `(∂_a+∂_b)E_{n,k+1} = E_{n,k}`. It is stated for every `n ∈ ℕ` (the
+  identity `(∂_a+∂_b)A = 1` holds for every `n`).
+* Terms with `k' = k - W + 2e < 0` are absent (supplement line 94, "with the convention that
+  $P_{k',n}=0$ for $k'<0$"): in the formal statements they are written
+  `if W ≤ k + 2e then [𝔷_2^e]P_{k+2e-W,n} else 0`; in the series statements `zM` is `0` at negative
+  indices.
+* The final statement (stmt_10) is the theorem as the paper states it: `AllSummable`; the first
+  rung for every `k ≥ 0`; for every product `z` (`z = 1` included) a finite family of rationals
+  `r_{e,d}` chosen before `k`, `n`, `α` with `[z]M_k = Σ_{e,d} r_{e,d} [ζ(2)^e]M_{k-d}` (so
+  `k' = k - d ≤ k`), both for the formal coefficients `[𝔷_z]P_{k,n}` and for the series; and the
+  `ζ(5)` example for every `k ≥ 0`.
+
+## Statements
+
+* stmt_1: Lemma `g6:lem:DE`: `(∂_a+∂_b)E_{n,0} = 0`, `(∂_a+∂_b)E_{n,k+1} = E_{n,k}`.
+* stmt_2: `P_{k,n} = -Φ_n[E_{n,k}]/(n(2n-1))` (supplement line 46).
+* stmt_3: Lemma `g6:lem:op`: `[𝔷_z]Φ_n[F] = Φ^0_n[Q_z(∂_a,∂_b)F]` for every `F`, every `z`, `n ≥ 1`.
+* stmt_4: `g6:eq:Qz`: `Q_z = Σ_{e=1}^{⌊W/2⌋} γ_e(z) (x+x')^{W-2e} (xx')^e` for `z ≠ 1`.
+* stmt_5: Lemma `g6:thm:ladderprecise`, formal: `[𝔷_z]P_{k,n} = Σ_e (-1)^e e! γ_e(z) [𝔷_2^e]P_{k-W+2e,n}`.
+* stmt_6: Lemma `g6:thm:ladderprecise`, series: the same for `[z]M_k(α)`, with convergence.
+* stmt_7: the first rung `[ζ(3)]M_{k+1}(α) = -[ζ(2)]M_k(α)`, `k ≥ 0` (agrees with `Q04.stmt_9`).
+* stmt_8: the `ζ(5)` example, formal and series, every `k ≥ 0`.
+* stmt_9: the further printed rungs for `ζ(4)`, `ζ(6)`, `ζ(2)ζ(3)`, `ζ(3)²`, every `k ≥ 0`.
+* stmt_10: `thm:zladder` as stated in the paper (see the last formalization bullet).
+
+## Numerical check before freezing
+
+A SymPy script mirroring these definitions exactly (the same truncations as `Q04.Eser`,
+`Q04.DeltaT`, `Q04.Pf`; exact rationals) gave: stmt_1 for `k ≤ 4`, `n ≤ 3` (`n = 0` included;
+`E_{n,0} = 1`); stmt_2 for `k ≤ 4`, `n ≤ 3`; stmt_3 for `n ≤ 2`, all `F = y^j a^i b^m` with
+`j ≤ 2`, `i + m ≤ 3`, and all monomials `z` of weight `≤ i+m+1` (204 identities); stmt_4 for all
+14 monomials `z ≠ 1` of weight `≤ 7`; stmt_5 for those 14 monomials, `k ≤ 6`, `n ≤ 3` (294
+identities, 0 mismatches). The computed constants agree with the supplement: `γ(ζ(3)) = (1)`,
+`γ(ζ(5)) = (1,-1)`, `γ(ζ(4)) = (-1,1/2)`, `γ(ζ(6)) = (-1,3/2,-1/3)`, `γ(ζ(2)ζ(3)) = (0,-1)`,
+`γ(ζ(3)²) = (0,1/2,0)`. Non-vacuity: `P_{3,2} = 737/51840 + 43𝔷2/900 - 𝔷3/15`,
+`P_{2,2} = -103/864 + 𝔷2/15`; `[𝔷5]P_{5,1} = -1/5 = -[𝔷2]P_{2,1} - 2[𝔷2²]P_{4,1}
+= -1/3 + 2/15`.
+
+## NOT COVERED
+
+* Remark `g6:rem:kernel` and the proof-idea formula of the paper
+  `M(u;α) = Σ_e T_e (-∂_s)^e [Γ(1+ξ)Γ(1+η)/Γ(1+u)]_{s=0}` (a formal series in two variables
+  with a real-analytic kernel); only its coefficientwise content (stmt_5, stmt_6) is stated.
+* The intermediate objects `T_e(u)`, `Θ_e` of the proof (they are coefficient series of
+  `Σ_k P_{k,n} u^k`; their content is in stmt_5).
+* The checks paragraph (3150 single-zeta rungs for `k ≤ 8`, `n ≤ 150`; eight weight-nine rungs) and
+  the `M_5(α)` display after the theorem (it needs `Ψ_3`, `G`, `F_2`, `R_5`).
+* Real-number zeta parts: as the supplement says (line 12), `[z]` of the real number `M_k(α)` is
+  not well defined; nothing is stated about it.
+-/
+-- BEGIN STATEMENTS
+namespace R01
+
+open Real Filter MvPolynomial
+
+/-- `ρ_j(n) = ∏_{t<j} (n+t)/(2n+t)` (Section `g6:sec:flat`; the same formula as `V05.rhoQ`). -/
+noncomputable def rhoR (j n : ℕ) : ℚ :=
+  ∏ t ∈ Finset.range j, ((n : ℚ) + t) / (2 * (n : ℚ) + t)
+
+/-- `Φ_n : ℚ[y,a,b] → ℚ[𝔷_2, 𝔷_3, …]`, linear, `y^j a^i b^m ↦ ρ_j(n) D^♯_{i,m}(n+j,n)`. -/
+noncomputable def PhiN (n : ℕ) (F : MvPolynomial (Fin 3) ℚ) : MvPolynomial ℕ ℚ :=
+  ∑ t ∈ F.support, (F.coeff t * rhoR (t 0) n) • Q04.DsharpF (t 1) (t 2) (n + t 0) n
+
+/-- The weight `Σ_w e_w w` of the monomial `∏ 𝔷_w^{e_w}`. -/
+def wt (s : ℕ →₀ ℕ) : ℕ := s.sum fun w e => e * w
+
+/-- `s` is a product of zeta values: only `𝔷_w` with `w ≥ 2` occur. -/
+def IsZetaMono (s : ℕ →₀ ℕ) : Prop := ∀ w ∈ s.support, 2 ≤ w
+
+/-- `P_w(x,x') = (-1)^{w+1}/w [(x+x')^w - x^w - x'^w]`, `x = X 0`, `x' = X 1`. -/
+noncomputable def Pw (w : ℕ) : MvPolynomial (Fin 2) ℚ :=
+  ((-1 : ℚ) ^ (w + 1) / (w : ℚ)) • ((X 0 + X 1) ^ w - X 0 ^ w - X 1 ^ w)
+
+/-- `Q_z = ∏_w P_w^{e_w}/e_w!` for `𝔷_z = ∏ 𝔷_w^{e_w}` (`Q_1 = 1`). -/
+noncomputable def Qz (s : ℕ →₀ ℕ) : MvPolynomial (Fin 2) ℚ :=
+  ∏ w ∈ s.support, (((s w).factorial : ℚ)⁻¹) • Pw w ^ s w
+
+/-- The operator `Q(∂_a,∂_b)` on `ℚ[y,a,b]` (`a = X 1`, `b = X 2`): `Σ_t q_t ∂_a^{t_0}∂_b^{t_1}`. -/
+noncomputable def QOp (Q : MvPolynomial (Fin 2) ℚ) (F : MvPolynomial (Fin 3) ℚ) :
+    MvPolynomial (Fin 3) ℚ :=
+  ∑ t ∈ Q.support, Q.coeff t • ((⇑(pderiv (1 : Fin 3)))^[t 0] ((⇑(pderiv (2 : Fin 3)))^[t 1] F))
+
+/-- Newton's power sums `p_w = x^w + x'^w` written in `σ_1 = X 0`, `σ_2 = X 1`:
+`p_0 = 2`, `p_1 = σ_1`, `p_{w+2} = σ_1 p_{w+1} - σ_2 p_w`. -/
+noncomputable def pN : ℕ → MvPolynomial (Fin 2) ℚ
+  | 0 => 2
+  | 1 => X 0
+  | (w + 2) => X 0 * pN (w + 1) - X 1 * pN w
+
+/-- `Q_z` written in `σ_1 = X 0`, `σ_2 = X 1`, via `P_w = (-1)^{w+1}(σ_1^w - p_w)/w`. -/
+noncomputable def QsymN (s : ℕ →₀ ℕ) : MvPolynomial (Fin 2) ℚ :=
+  ∏ w ∈ s.support, (((s w).factorial : ℚ)⁻¹) •
+    (((-1 : ℚ) ^ (w + 1) / (w : ℚ)) • (X 0 ^ w - pN w)) ^ s w
+
+/-- `γ_e(z)`: the coefficient of `σ_1^{W-2e} σ_2^e` in `Q_z` (`W = wt z`, used for `1 ≤ e ≤ W/2`). -/
+noncomputable def gam (e : ℕ) (s : ℕ →₀ ℕ) : ℚ :=
+  (QsymN s).coeff (Finsupp.single 0 (wt s - 2 * e) + Finsupp.single 1 e)
+
+/-- The `n`-th term (`n ≥ 0` standing for `n + 1`) of `[z]M_k(α) = Σ_{n≥1} [𝔷_z]P_{k,n} c^{2n}`. -/
+noncomputable def cser (s : ℕ →₀ ℕ) (k : ℕ) (α : ℝ) (n : ℕ) : ℝ :=
+  (((Q04.Pf k (n + 1)).coeff s : ℚ) : ℝ) * D04.c α ^ (2 * (n + 1))
+
+/-- `[z]M_k(α)` (supplement line 10): the series for `k ≥ 0`, and `0` for `k < 0`. -/
+noncomputable def zM (s : ℕ →₀ ℕ) (k : ℤ) (α : ℝ) : ℝ :=
+  if 0 ≤ k then ∑' n : ℕ, cser s k.toNat α n else 0
+
+/-- Every series `[z]M_k(α)` converges absolutely. -/
+def AllSummable (α : ℝ) : Prop :=
+  ∀ (s : ℕ →₀ ℕ) (k : ℕ), Summable (fun n : ℕ => |cser s k α n|)
+
+/-- Lemma `g6:lem:DE`, coefficientwise in `u`: `(∂_a+∂_b)E_n = uE_n` in `ℚ[y,a,b][[u]]`, i.e.
+`(∂_a+∂_b)E_{n,0} = 0` and `(∂_a+∂_b)E_{n,k+1} = E_{n,k}`. -/
+def stmt_1 : Prop :=
+  ∀ n : ℕ,
+    (pderiv (1 : Fin 3) (Q04.Ecoef 0 n) + pderiv (2 : Fin 3) (Q04.Ecoef 0 n) = 0) ∧
+    ∀ k : ℕ, pderiv (1 : Fin 3) (Q04.Ecoef (k + 1) n) + pderiv (2 : Fin 3) (Q04.Ecoef (k + 1) n)
+      = Q04.Ecoef k n
+
+/-- Supplement line 46: "By Definition g6:def:formal, `P_{k,n} = -Φ_n[E_{n,k}]/(n(2n-1))`". -/
+def stmt_2 : Prop :=
+  ∀ k n : ℕ, 1 ≤ n →
+    Q04.Pf k n = (-(1 / ((n : ℚ) * (2 * (n : ℚ) - 1)))) • PhiN n (Q04.Ecoef k n)
+
+/-- Lemma `g6:lem:op`: for every `F ∈ ℚ[y,a,b]` and every product `z` of zeta values
+(`z = 1` included), `[𝔷_z]Φ_n[F] = Φ^0_n[Q_z(∂_a,∂_b)F]`. -/
+def stmt_3 : Prop :=
+  ∀ n : ℕ, 1 ≤ n → ∀ (F : MvPolynomial (Fin 3) ℚ) (s : ℕ →₀ ℕ), IsZetaMono s →
+    (PhiN n F).coeff s = (PhiN n (QOp (Qz s) F)).coeff 0
+
+/-- `g6:eq:Qz`: for a product `z ≠ 1` of zeta values of weight `W`,
+`Q_z = Σ_{e=1}^{⌊W/2⌋} γ_e(z) (x+x')^{W-2e} (xx')^e`. -/
+def stmt_4 : Prop :=
+  ∀ s : ℕ →₀ ℕ, IsZetaMono s → s ≠ 0 →
+    Qz s = ∑ e ∈ Finset.Icc 1 (wt s / 2),
+      C (gam e s) * (X 0 + X 1) ^ (wt s - 2 * e) * (X 0 * X 1) ^ e
+
+/-- Lemma `g6:thm:ladderprecise`, formal form: for every product `z ≠ 1` of zeta values of weight
+`W`, every `k ≥ 0`, `n ≥ 1`,
+`[𝔷_z]P_{k,n} = Σ_{e=1}^{⌊W/2⌋} (-1)^e e! γ_e(z) [𝔷_2^e]P_{k-W+2e,n}` (terms with
+`k - W + 2e < 0` absent). -/
+def stmt_5 : Prop :=
+  ∀ s : ℕ →₀ ℕ, IsZetaMono s → s ≠ 0 → ∀ k n : ℕ, 1 ≤ n →
+    (Q04.Pf k n).coeff s = ∑ e ∈ Finset.Icc 1 (wt s / 2),
+      (-1 : ℚ) ^ e * (e.factorial : ℚ) * gam e s *
+        (if wt s ≤ k + 2 * e then (Q04.Pf (k + 2 * e - wt s) n).coeff (Finsupp.single 2 e) else 0)
+
+/-- Lemma `g6:thm:ladderprecise`, series form: for `0 < α < π` all the series `[z]M_k(α)` converge
+absolutely, and for every product `z ≠ 1` of zeta values of weight `W` and every `k ≥ 0`,
+`[z]M_k(α) = Σ_{e=1}^{⌊W/2⌋} (-1)^e e! γ_e(z) [ζ(2)^e]M_{k-W+2e}(α)`. -/
+def stmt_6 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    AllSummable α ∧
+    ∀ s : ℕ →₀ ℕ, IsZetaMono s → s ≠ 0 → ∀ k : ℕ,
+      zM s k α = ∑ e ∈ Finset.Icc 1 (wt s / 2),
+        ((-1 : ℝ) ^ e * (e.factorial : ℝ) * (gam e s : ℝ)) *
+          zM (Finsupp.single 2 e) ((k : ℤ) - wt s + 2 * e) α
+
+/-- The first rung (first sentence of `thm:zladder`): for every `k ≥ 0` and `0 < α < π`,
+`[ζ(3)]M_{k+1}(α) = -[ζ(2)]M_k(α)`, the series converging absolutely. -/
+def stmt_7 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    AllSummable α ∧
+    ∀ k : ℕ, zM (Finsupp.single 3 1) ((k : ℤ) + 1) α = -zM (Finsupp.single 2 1) k α
+
+/-- The example of `thm:zladder`: `[ζ(5)]M_k = -[ζ(2)]M_{k-3} - 2[ζ(2)²]M_{k-1}` for every
+`k ≥ 0` (parts with negative index are `0`), for the formal coefficients `[𝔷_5]P_{k,n}` and for the
+series at every `0 < α < π`. -/
+def stmt_8 : Prop :=
+  (∀ k n : ℕ, 1 ≤ n →
+    (Q04.Pf k n).coeff (Finsupp.single 5 1) =
+      -(if 3 ≤ k then (Q04.Pf (k - 3) n).coeff (Finsupp.single 2 1) else 0)
+      - 2 * (if 1 ≤ k then (Q04.Pf (k - 1) n).coeff (Finsupp.single 2 2) else 0)) ∧
+  ∀ α : ℝ, 0 < α → α < π →
+    AllSummable α ∧
+    ∀ k : ℕ, zM (Finsupp.single 5 1) k α =
+      -zM (Finsupp.single 2 1) ((k : ℤ) - 3) α - 2 * zM (Finsupp.single 2 2) ((k : ℤ) - 1) α
+
+/-- The further rungs printed in the supplement (lines 114-118), with `M^{(e)}_k = [ζ(2)^e]M_k`:
+`[ζ(4)]M_k = M^{(1)}_{k-2} + M^{(2)}_k`, `[ζ(6)]M_k = M^{(1)}_{k-4} + 3M^{(2)}_{k-2} + 2M^{(3)}_k`,
+`[ζ(2)ζ(3)]M_k = -2M^{(2)}_{k-1}`, `[ζ(3)²]M_k = M^{(2)}_{k-2}`, for every `k ≥ 0` and
+`0 < α < π`. -/
+def stmt_9 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    AllSummable α ∧
+    ∀ k : ℕ,
+      zM (Finsupp.single 4 1) k α =
+        zM (Finsupp.single 2 1) ((k : ℤ) - 2) α + zM (Finsupp.single 2 2) k α ∧
+      zM (Finsupp.single 6 1) k α =
+        zM (Finsupp.single 2 1) ((k : ℤ) - 4) α + 3 * zM (Finsupp.single 2 2) ((k : ℤ) - 2) α
+          + 2 * zM (Finsupp.single 2 3) k α ∧
+      zM (Finsupp.single 2 1 + Finsupp.single 3 1) k α =
+        -2 * zM (Finsupp.single 2 2) ((k : ℤ) - 1) α ∧
+      zM (Finsupp.single 3 2) k α = zM (Finsupp.single 2 2) ((k : ℤ) - 2) α
+
+/-- `thm:zladder` as stated: for `0 < α < π` all `[z]M_k(α)` converge absolutely; for every
+`k ≥ 0`, `[ζ(3)]M_{k+1}(α) = -[ζ(2)]M_k(α)`; for every product `z` of zeta values there are
+rationals `r_{e,d}` (finitely many, depending on `z` only, not on `k`, `n`, `α`) with
+`[𝔷_z]P_{k,n} = Σ_{e,d} r_{e,d} [𝔷_2^e]P_{k-d,n}` and `[z]M_k(α) = Σ_{e,d} r_{e,d} [ζ(2)^e]M_{k-d}(α)`
+(so every `k' = k - d ≤ k`; parts with `k' < 0` are `0`); and
+`[ζ(5)]M_k = -[ζ(2)]M_{k-3} - 2[ζ(2)²]M_{k-1}` for every `k ≥ 0`. -/
+def stmt_10 : Prop :=
+  (∀ α : ℝ, 0 < α → α < π → AllSummable α) ∧
+  (∀ k : ℕ, ∀ α : ℝ, 0 < α → α < π →
+    zM (Finsupp.single 3 1) ((k : ℤ) + 1) α = -zM (Finsupp.single 2 1) k α) ∧
+  (∀ s : ℕ →₀ ℕ, IsZetaMono s → ∃ (N : ℕ) (r : ℕ → ℕ → ℚ), ∀ k : ℕ,
+    (∀ n : ℕ, 1 ≤ n → (Q04.Pf k n).coeff s =
+      ∑ e ∈ Finset.range N, ∑ d ∈ Finset.range N,
+        r e d * (if d ≤ k then (Q04.Pf (k - d) n).coeff (Finsupp.single 2 e) else 0)) ∧
+    ∀ α : ℝ, 0 < α → α < π →
+      zM s k α = ∑ e ∈ Finset.range N, ∑ d ∈ Finset.range N,
+        (r e d : ℝ) * zM (Finsupp.single 2 e) ((k : ℤ) - d) α) ∧
+  (∀ k : ℕ, ∀ α : ℝ, 0 < α → α < π →
+    zM (Finsupp.single 5 1) k α =
+      -zM (Finsupp.single 2 1) ((k : ℤ) - 3) α - 2 * zM (Finsupp.single 2 2) ((k : ℤ) - 1) α)
+
+end R01

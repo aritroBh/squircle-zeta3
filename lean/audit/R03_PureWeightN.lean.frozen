@@ -1,0 +1,345 @@
+import Mathlib
+import Zeta3.Wave8.Q01_PureWeight
+import Zeta3.Wave5.Y05_Octahedron
+import Zeta3.Wave1.T04_SmallFacts
+/-!
+# R03 — pure weight in every dimension `N` (`thm:pw`, last sentence) and the weight claims
+of `thm:oct`
+
+Target id: R03.
+Paper labels: `thm:pw`, last sentence (paper/ieee/main.tex lines 1183–1191, `τ = 1 - 1/p` from
+line 1181); `thm:oct`, the two weight claims (main.tex lines 1973–1990, the sentence on `N`
+dimensions line 1992). Detailed proofs: paper/ieee/proofs/sec_pureweight.tex, subsection
+"Dimension $n$" (lines 157–244: `eq:pw:Sn`, `lem:pw:dirichlet`, the centring and
+`eq:pw:factor`, the flat-face factor, `lem:pw:X`, `lem:pw:moments`, `prop:pw:n`; the setting
+bullet lines 25–28) and paper/ieee/proofs/sec_g7_octa.tex (`g7:lem:both` lines 43–62,
+`g7:lem:X2` 64–75, `g7:lem:struct` 95–104, `g7:lem:w23` 112–132, `g7:lem:zeta3n` 134–140,
+`g7:lem:dcoef` 142–152).
+
+Earlier files used (imported, not restated): `Q01.IsZetaPoly` (the meaning of weight,
+sec_pureweight.tex line 39), `Q01` (the two-dimensional theorem), `Y05.S` (the face integral
+`eq:pw:Sn` for `n = 3`, with its integrability, the Dirichlet–Gamma factorisation for `n = 3`
+and the explicit series through `τ⁶`), `T04.Y` (`Y_N`), `T04.coeffFormula`
+(`-(N²-1)((N-1)³-2)/(3N²)`), `X01.P` (the perimeter integral of the rhombus, `A = B = 1` is
+the squircle), `X05.z n = (riemannZeta n).re` (the real number `ζ(n)`; all zeta values in this
+file are `X05.z`, i.e. real parts of Mathlib's `riemannZeta` at natural arguments).
+
+Quoted verbatim.
+
+main.tex 1190 (`thm:pw`, last sentence):
+
+  The same holds for every rhombus (with polynomials in $q^2$ as coefficients) and, after
+  division by the rational factor
+  $Y_N(\tau)=(1-\tau)^{N-1}\big/\prod_{i=1}^{N-1}\bigl(1-\frac{(N-1)\tau}{i}\bigr)$, so
+  $Y_2=1$ and $Y_3=1/(2-p)$, for the surface area of $|x_1|^p+\dots+|x_N|^p=1$ in every
+  dimension $N$.
+
+main.tex 1984 and 1989 (`thm:oct`, the two weight claims):
+
+  and for every $k$, $[d^k]S$ is $4\sqrt3$ times a polynomial with rational coefficients in
+  $\zeta(2),\dots,\zeta(k)$ of weight at most $k$.
+
+  where the coefficient of $\tau^k$ is a polynomial in $\zeta(2),\dots,\zeta(k)$, homogeneous
+  of weight $k$.
+
+(`thm:oct` concerns `\log\frac{(2-p)\,S(p)}{4\sqrt3}` and `S(1+d)`, `d = p - 1`, "as $d\to0$
+from either side".)
+
+sec_pureweight.tex 26 (setting):
+
+  \emph{Dimension $n\ge2$.} $S_n(p)$ is the $(n-1)$-dimensional area of
+  $\{x\in\RR^n:\sum|x_i|^p=1\}$, and $S_n(1)=2^n\sqrt n/(n-1)!$ is the area of the
+  cross-polytope. ... We prove $\log\frac{S_n(p)}{S_n(1)Y_n(\tau)}=\sum_{k\ge2}w_k(n)\tau^k$
+  with $w_k(n)\in\QQ[\zeta(2),\dots,\zeta(k)]$ of weight $k$. For $n=2$, $S_2=P$,
+  $S_2(1)=4\sqrt2$ and $Y_2=\frac{1-\tau}{1-\tau}=1$.
+
+sec_pureweight.tex 163–166 (`eq:pw:Sn`):
+
+  S_n(p)=2^n\varepsilon^{n-1}\int_\Delta\Bigl(\prod_{i=1}^nt_i\Bigr)^{-\tau}
+  \Bigl(\sum_{i=1}^nt_i^{2\tau}\Bigr)^{1/2}dt_1\cdots dt_{n-1},
+  $\Delta=\{t_i\ge0,\ \sum_{i<n}t_i\le1\}$. The integral converges since $\tau<1$.
+
+sec_pureweight.tex 168–172 (`lem:pw:dirichlet`):
+
+  Let $a>-1$ and let $F\ge0$ be measurable on $(0,\infty)^n$ and homogeneous of degree $0$.
+  Then \int_{(0,\infty)^n}\prod g_i^{\,a}\,\eu^{-\sum g_i}F(g)\,dg=\Gamma(n(1+a))
+  \int_\Delta\Bigl(\prod t_i\Bigr)^aF(t)\,dt_1\cdots dt_{n-1}.
+
+sec_pureweight.tex 182–183 (centring):
+
+  S_n(p)=2^n\sqrt n\,\varepsilon^{n-1}\frac{\Gamma(1+a)^n}{\Gamma(n-(n-1)\tau)}\,B_n(\tau),
+  \qquad B_n(\tau)=\E\bigl[f(\tau,m(G))\bigr],
+
+sec_pureweight.tex 197 (flat-face factor):
+
+  So $\Gamma(1+a)^n/\Gamma(1-(n-1)\tau)=\exp\bigl(\sum_{k\ge2}\lambda_k\zeta(k)\tau^k\bigr)$
+  with $\lambda_k=-\frac{(n-1)^k(1-n^{1-k})}k\in\QQ$.
+
+sec_pureweight.tex 202–203 (`lem:pw:X`):
+
+  For each $J\ge0$ there are $C_J,\tau_J>0$ with $\E|X|^{J+1}\le C_J\tau^{J+1}$ and
+  $\bigl|B_n-\sum_{j\le J}\binom{1/2}j\E[X^j]\bigr|\le C_J\,\tau^{J+1}$ for
+  $0<\tau\le\tau_J$.
+
+sec_pureweight.tex 212–213 (`lem:pw:moments`):
+
+  For each $j\ge0$ there is a pure series $\mathbf E_j\in\mathcal R$ with $\mathbf E_0=1$ whose
+  evaluation at $Z_k=\zeta(k)$ is the Taylor series of $\E[X^j]$ at $\tau=0$. Moreover,
+  $\E[X^j]$ is real analytic near $\tau=0$, and $\mathbf E_j\in\tau^j\mathcal R$.
+
+sec_pureweight.tex 234–238 (`prop:pw:n`):
+
+  Let $n\ge2$. There is a pure series $\sum_{k\ge2}w_k(n)\tau^k\in\mathcal R$ (so
+  $w_k(n)\in\QQ[Z_2,\dots,Z_k]$ is homogeneous of weight $k$) such that, for every $K$, as
+  $\tau\to0^+$, \log\frac{S_n(p)}{S_n(1)Y_n(\tau)}=\sum_{k=2}^Kw_k(n)(\zeta)\,\tau^k
+  +O(\tau^{K+1}).
+
+sec_g7_octa.tex 44–48 (`g7:lem:both`):
+
+  For every $K$ there are $C,\tau_0>0$ such that for $0<|\tau|<\tau_0$ (both signs,
+  $p=\frac1{1-\tau}$) \Bigl|\log\frac{S_n(p)}{S_n(1)Y_n(\tau)}-\sum_{k=2}^Kw_k(n)(\zeta)\,
+  \tau^k\Bigr|\le C|\tau|^{K+1}.
+
+sec_g7_octa.tex 113–116 (`g7:lem:w23`):
+
+  For every $n\ge2$, w_2(n)=-\frac{(n-1)(n^2-2n-1)}{2n}\,Z_2,\qquad
+  w_3(n)=-\frac{(n^2-1)\bigl((n-1)^3-2\bigr)}{3n^2}\,Z_3 .
+
+sec_g7_octa.tex 96–100 (`g7:lem:struct`):
+
+  Then, as $\tau\to0$ through both signs, for every $K$, \log\frac{(2-p)S(p)}{4\sqrt3}=
+  \sum_{k=2}^Kw_k(\zeta)\tau^k+O(|\tau|^{K+1}), and for every $k$ the number
+  $[d^k]\frac S{4\sqrt3}$ is the value at $Z_j=\zeta(j)$ of a polynomial
+  $P_k\in\QQ[Z_2,\dots,Z_k]$ all of whose monomials have weight at most $k$.
+
+## Conventions and reading
+
+* Dimension `N ≥ 2` (the supplement's range "$n\ge2$"). The simplex `Δ` lives in
+  `Fin (N-1) → ℝ` with Lebesgue measure, and `t_N = 1 - Σ_{i<N} t_i` is appended by `ext`
+  (`Fin.snoc`). `S N p` is the face integral `eq:pw:Sn` with `ε = 1/p`, `τ = 1 - 1/p`, exactly
+  as Y05 does for `n = 3`; that it is the Hausdorff area is not claimed (as in Y05).
+* The Gamma variables: `aPar N τ = -(N-1)τ/N`, the density `∏ g_i^a e^{-Σ g_i}` on the open
+  orthant `(0,∞)^N`, and `gammaE N τ F = Γ(1+a)^{-N} ∫ dens · F` (the expectation of the
+  supplement). `m_i = log g_i - (1/N) Σ_j log g_j`, `Y = (1/N) Σ_i e^{2τ m_i}`, `X = Y - 1`,
+  `B_N(τ) = E[√Y]`. Bochner integrals of non-integrable functions are `0`; every statement that
+  uses `gammaE` therefore also asserts the integrability it needs.
+* `lem:pw:dirichlet` is stated with lower Lebesgue integrals (`F ≥ 0`, both sides may be `∞`),
+  which is the paper's statement for nonnegative measurable `F`.
+* Weight is at the level of real numbers, as in Q01: `Q01.IsZetaPoly k x` says `x` is the value
+  of a rational polynomial in `ζ(2), ζ(3), …` homogeneous of weight `k`. "Weight at most `k`"
+  (`IsZetaPolyLE k`) is a finite sum of `IsZetaPoly j` numbers, `j ≤ k`. The formal statements
+  (`𝐄_j ∈ τ^j𝓡`) are recorded through their values (Taylor coefficients of order `< j` vanish).
+* `binom(1/2, j)` is written out as `∏_{i<j}(1/2 - i)/j!` (`binomHalf`).
+* `lem:pw:X` is stated for both signs of `τ` (`|τ| ≤ τ_J`), as `g7:lem:both` proves it.
+* The expansions of `thm:oct` are stated for `Y05.S`; stmt_3 shows `S 3 = Y05.S`.
+
+## Statements
+
+* stmt_1: `eq:pw:Sn` converges: the face integrand is integrable on `Δ` for every `N ≥ 2`,
+  `p > 0`.
+* stmt_2: `S_N(1) = 2^N √N/(N-1)!` (the cross-polytope).
+* stmt_3: `S_2 = X01.P 1 1` (the squircle perimeter) for `p > 0`, and `S_3 = Y05.S`.
+* stmt_4: `lem:pw:dirichlet` for every `n ≥ 2`.
+* stmt_5: the centring: `S_N(p) = 2^N √N ε^{N-1} Γ(1+a)^N/Γ(N-(N-1)τ) · B_N(τ)` for `p > 0`.
+* stmt_6: the flat-face factor `log(Γ(1+a)^N/Γ(1-(N-1)τ)) = Σ_{k≥2} λ_k ζ(k) τ^k`,
+  `|τ| < 1/(N-1)`.
+* stmt_7: `lem:pw:X` (both signs).
+* stmt_8: `lem:pw:moments`.
+* stmt_9: `prop:pw:n` = the last sentence of `thm:pw` (`τ → 0⁺`, every `N ≥ 2`, every order).
+* stmt_10: `g7:lem:both` with `g7:lem:w23`: both signs, and `w_2(N)`, `w_3(N)` explicit; the
+  `ζ(3)` coefficient is `T04.coeffFormula N`.
+* stmt_11: `thm:oct`, the two weight claims for every `k` (`= g7:lem:struct`), the final claim.
+
+## Numerical check (before freezing)
+
+Direct tanh–sinh quadrature of `eq:pw:Sn` (Duffy map of the simplex, double precision) at
+16 values `τ ∈ [-0.04, 0.04]`, least-squares fit of `c_2 τ² + … + c_8 τ⁸` to
+`log(S_N/(S_N(1)Y_N))`: `N=2`: `c_2 = 0.41123351627`, `c_3 = 0.300514026` (formula `ζ(2)/4 =
+0.41123351671`, `ζ(3)/4 = 0.300514226`); `N=3`: `-1.09662271123`, `-2.13698991` (formula
+`-2ζ(2)/3 = -1.09662271123`, `-16ζ(3)/9 = -2.13699005`); `N=4`: `-4.31795192`, `-9.3910715`
+(formula `-21ζ(2)/8 = -4.31795193`, `-125ζ(3)/16 = -9.3910696`). Also `(N-1)!·∫_Δ 1·√N = √N`
+at `τ = 0` for `N = 2,3,4`.
+
+## NOT COVERED
+
+* That the face integral `eq:pw:Sn` is the `(N-1)`-dimensional Hausdorff area of
+  `|x_1|^p+…+|x_N|^p = 1` (symmetry, graph parametrisation); as in Y05 the area is defined by
+  `eq:pw:Sn`.
+* The formal-series level of `lem:pw:pure`/`lem:pw:moments` (`𝐄_j` as elements of
+  `ℚ[Z][[τ]]`, uniqueness of the formal polynomial, `ζ(2)² = 5ζ(4)/2` non-uniqueness): weight is
+  "has a representation of that weight" for the real number, as in Q01.
+* `g7:lem:X2` and `g7:lem:Eformal` (the second-order size of `X`; Y05 has the case `n=3`,
+  `J=2`), `g7:lem:zeta3n` as a statement on formal coefficients of `[d^3]` (its numerical
+  content `w_3(N) = coeffFormula N · ζ(3)` is in stmt_10), the explicit coefficients through
+  `τ⁶`/`d⁴` (Y05), the divergence of the series.
+* The rhombus part of `thm:pw` (Q01).
+-/
+-- BEGIN STATEMENTS
+namespace R03
+
+open Real
+
+/-- The simplex `Δ = {t_i ≥ 0, Σ_{i<n} t_i ≤ 1}` in `ℝ^m`, `m = n - 1` (sec_pureweight.tex 166). -/
+def simplex (m : ℕ) : Set (Fin m → ℝ) := {t | (∀ i, 0 ≤ t i) ∧ ∑ i, t i ≤ 1}
+
+/-- The point `(t_1, …, t_m, t_{m+1})` with `t_{m+1} = 1 - Σ_{i≤m} t_i`. -/
+noncomputable def ext {m : ℕ} (t : Fin m → ℝ) : Fin (m + 1) → ℝ :=
+  Fin.snoc (α := fun _ => ℝ) t (1 - ∑ i, t i)
+
+/-- The integrand of `eq:pw:Sn`: `(∏_{i=1}^n t_i)^{-τ} (Σ_{i=1}^n t_i^{2τ})^{1/2}`, `n = m + 1`. -/
+noncomputable def faceIntegrand (m : ℕ) (τ : ℝ) (t : Fin m → ℝ) : ℝ :=
+  (∏ i, ext t i) ^ (-τ) * Real.sqrt (∑ i, ext t i ^ (2 * τ))
+
+/-- `S_N(p)`, the surface area of `|x_1|^p+…+|x_N|^p = 1`, DEFINED by the paper's face integral
+`eq:pw:Sn`: `S_N(p) = 2^N ε^{N-1} ∫_Δ (∏ t_i)^{-τ} (Σ t_i^{2τ})^{1/2}`, `ε = 1/p`,
+`τ = 1 - 1/p`. -/
+noncomputable def S (N : ℕ) (p : ℝ) : ℝ :=
+  2 ^ N * (1 / p) ^ (N - 1) * ∫ t in simplex (N - 1), faceIntegrand (N - 1) (1 - 1 / p) t
+
+/-- The open orthant `(0,∞)^n`. -/
+def orth (n : ℕ) : Set (Fin n → ℝ) := Set.pi Set.univ (fun _ => Set.Ioi (0 : ℝ))
+
+/-- `a = -(N-1)τ/N` (sec_pureweight.tex 159). -/
+noncomputable def aPar (N : ℕ) (τ : ℝ) : ℝ := -(((N : ℝ) - 1) * τ) / N
+
+/-- The unnormalised Gamma density `∏ g_i^a e^{-Σ g_i}`, `a = aPar N τ`. -/
+noncomputable def dens (N : ℕ) (τ : ℝ) (g : Fin N → ℝ) : ℝ :=
+  (∏ i, g i ^ aPar N τ) * Real.exp (-∑ i, g i)
+
+/-- `E[F(G)]` for independent `G_1,…,G_N` with density `g^a e^{-g}/Γ(1+a)` on `(0,∞)`. -/
+noncomputable def gammaE (N : ℕ) (τ : ℝ) (F : (Fin N → ℝ) → ℝ) : ℝ :=
+  (Real.Gamma (1 + aPar N τ) ^ N)⁻¹ * ∫ g in orth N, dens N τ g * F g
+
+/-- `Y = (1/N) Σ_i e^{2τ m_i}` with `m_i = log g_i - (1/N) Σ_j log g_j`. -/
+noncomputable def Ymean (N : ℕ) (τ : ℝ) (g : Fin N → ℝ) : ℝ :=
+  (∑ i, Real.exp (2 * τ * (Real.log (g i) - (∑ j, Real.log (g j)) / N))) / N
+
+/-- The bending factor `B_N(τ) = E[√Y]`. -/
+noncomputable def B (N : ℕ) (τ : ℝ) : ℝ := gammaE N τ (fun g => Real.sqrt (Ymean N τ g))
+
+/-- The moment `E[X^j]`, `X = Y - 1`. -/
+noncomputable def momX (N j : ℕ) (τ : ℝ) : ℝ := gammaE N τ (fun g => (Ymean N τ g - 1) ^ j)
+
+/-- `binom(1/2, j) = ∏_{i<j} (1/2 - i) / j!`. -/
+noncomputable def binomHalf (j : ℕ) : ℝ :=
+  (∏ i ∈ Finset.range j, ((1 : ℝ) / 2 - i)) / (j.factorial : ℝ)
+
+/-- "a polynomial with rational coefficients in `ζ(2),…,ζ(k)` of weight at most `k`"
+(sec_g7_octa.tex line 24): a finite sum of numbers of pure weight `j ≤ k`. -/
+def IsZetaPolyLE (k : ℕ) (x : ℝ) : Prop :=
+  ∃ f : ℕ → ℝ, (∀ j ≤ k, Q01.IsZetaPoly j (f j)) ∧ x = ∑ j ∈ Finset.range (k + 1), f j
+
+/-- sec_pureweight.tex 166 ("The integral converges since $\tau<1$"; both signs in
+`g7:lem:both`): for every `N ≥ 2` and `p > 0` the integrand of `eq:pw:Sn` is integrable on `Δ`. -/
+def stmt_1 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → ∀ p : ℝ, 0 < p →
+    MeasureTheory.IntegrableOn (faceIntegrand (N - 1) (1 - 1 / p)) (simplex (N - 1))
+
+/-- sec_pureweight.tex 26 and 183: `S_N(1) = 2^N √N/(N-1)!`, the area of the cross-polytope. -/
+def stmt_2 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → S N 1 = 2 ^ N * Real.sqrt N / ((N - 1).factorial : ℝ)
+
+/-- sec_pureweight.tex 26 ("For $n=2$, $S_2=P$") and sec_g7_octa.tex 6 ("$S=S_3$"): the face
+integral for `N = 2` is the perimeter integral of the squircle `X01.P 1 1` (`p > 0`), and for
+`N = 3` it is Y05's `S`. -/
+def stmt_3 : Prop :=
+  (∀ p : ℝ, 0 < p → S 2 p = X01.P 1 1 p) ∧ (∀ p : ℝ, S 3 p = Y05.S p)
+
+/-- `lem:pw:dirichlet` (sec_pureweight.tex 168–172), `n = m + 1 ≥ 2`: for `a > -1` and `F ≥ 0`
+measurable, homogeneous of degree `0` on `(0,∞)^n`,
+`∫_{(0,∞)^n} ∏ g_i^a e^{-Σ g_i} F(g) dg = Γ(n(1+a)) ∫_Δ (∏ t_i)^a F(t) dt_1⋯dt_{n-1}`
+(lower Lebesgue integrals; `t_n = 1 - Σ_{i<n} t_i`). -/
+def stmt_4 : Prop :=
+  ∀ m : ℕ, 1 ≤ m → ∀ a : ℝ, -1 < a → ∀ F : (Fin (m + 1) → ℝ) → ℝ, Measurable F →
+    (∀ g ∈ orth (m + 1), 0 ≤ F g) →
+    (∀ c : ℝ, 0 < c → ∀ g ∈ orth (m + 1), F (c • g) = F g) →
+    ∫⁻ g in orth (m + 1), ENNReal.ofReal ((∏ i, g i ^ a) * Real.exp (-∑ i, g i) * F g) =
+      ENNReal.ofReal (Real.Gamma (((m : ℝ) + 1) * (1 + a))) *
+        ∫⁻ t in simplex m, ENNReal.ofReal ((∏ i, ext t i ^ a) * F (ext t))
+
+/-- The centring (sec_pureweight.tex 175–183), every `N ≥ 2`, every `p > 0` (`τ = 1 - 1/p`,
+`a = -(N-1)τ/N`): `√Y` is integrable against the Gamma density and
+`S_N(p) = 2^N √N (1/p)^{N-1} Γ(1+a)^N / Γ(N-(N-1)τ) · B_N(τ)`. -/
+def stmt_5 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → ∀ p : ℝ, 0 < p →
+    MeasureTheory.IntegrableOn
+        (fun g => dens N (1 - 1 / p) g * Real.sqrt (Ymean N (1 - 1 / p) g)) (orth N) ∧
+      S N p = 2 ^ N * Real.sqrt N * (1 / p) ^ (N - 1) *
+        Real.Gamma (1 + aPar N (1 - 1 / p)) ^ N /
+          Real.Gamma (N - ((N : ℝ) - 1) * (1 - 1 / p)) * B N (1 - 1 / p)
+
+/-- The flat-face factor (sec_pureweight.tex 190–197), every `N ≥ 2`, `|τ| < 1/(N-1)`:
+`log(Γ(1+a)^N/Γ(1-(N-1)τ)) = Σ_{k≥2} λ_k ζ(k) τ^k`, `λ_k = -(N-1)^k(1-N^{1-k})/k`
+(Euler's `γ` cancels). -/
+def stmt_6 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → ∀ τ : ℝ, |τ| < 1 / ((N : ℝ) - 1) →
+    HasSum (fun k : ℕ => -(((N : ℝ) - 1) ^ (k + 2) * (1 - 1 / (N : ℝ) ^ (k + 1)))
+          / ((k + 2 : ℕ) : ℝ) * X05.z (k + 2) * τ ^ (k + 2))
+      (Real.log (Real.Gamma (1 + aPar N τ) ^ N / Real.Gamma (1 - ((N : ℝ) - 1) * τ)))
+
+/-- `lem:pw:X` (sec_pureweight.tex 201–208), for both signs of `τ` (`g7:lem:both`): for every
+`N ≥ 2`, `J ≥ 0` there are `C`, `τ_J > 0` such that for `|τ| ≤ τ_J` the moments `X^j`,
+`j ≤ J+1`, are integrable against the Gamma density, `E|X|^{J+1} ≤ C|τ|^{J+1}` and
+`|B_N(τ) - Σ_{j≤J} binom(1/2,j) E[X^j]| ≤ C|τ|^{J+1}`. -/
+def stmt_7 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → ∀ J : ℕ, ∃ C τJ : ℝ, 0 < τJ ∧ ∀ τ : ℝ, |τ| ≤ τJ →
+    (∀ j ≤ J + 1, MeasureTheory.IntegrableOn
+        (fun g => dens N τ g * (Ymean N τ g - 1) ^ j) (orth N)) ∧
+    gammaE N τ (fun g => |Ymean N τ g - 1| ^ (J + 1)) ≤ C * |τ| ^ (J + 1) ∧
+    |B N τ - ∑ j ∈ Finset.range (J + 1), binomHalf j * momX N j τ| ≤ C * |τ| ^ (J + 1)
+
+/-- `lem:pw:moments` (sec_pureweight.tex 211–231), every `N ≥ 2`, every `j`: near `τ = 0`
+the moment `X^j` is integrable and `E[X^j]` is real analytic at `0`; its Taylor coefficient of
+`τ^k` is a rational zeta polynomial homogeneous of weight `k`, and it is `0` for `k < j`
+(`𝐄_j ∈ τ^j 𝓡`, at the level of values). -/
+def stmt_8 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → ∀ j : ℕ,
+    (∃ r : ℝ, 0 < r ∧ ∀ τ : ℝ, |τ| < r →
+      MeasureTheory.IntegrableOn (fun g => dens N τ g * (Ymean N τ g - 1) ^ j) (orth N)) ∧
+    AnalyticAt ℝ (momX N j) 0 ∧
+    (∀ k : ℕ, Q01.IsZetaPoly k (iteratedDeriv k (momX N j) 0 / (k.factorial : ℝ))) ∧
+    (∀ k < j, iteratedDeriv k (momX N j) 0 = 0)
+
+/-- `prop:pw:n` (sec_pureweight.tex 233–238) = `thm:pw`, last sentence (main.tex 1190): for
+every dimension `N ≥ 2` there is one sequence `w_k(N)`, each a rational polynomial in
+`ζ(2),…,ζ(k)` homogeneous of weight `k`, such that for every `K` there are `C, τ₀ > 0` with
+`|log(S_N(p)/(S_N(1) Y_N(τ))) - Σ_{k=2}^K w_k(N) τ^k| ≤ C τ^{K+1}` for `p > 1`,
+`τ = 1 - 1/p ≤ τ₀`. -/
+def stmt_9 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → ∃ w : ℕ → ℝ, (∀ k, Q01.IsZetaPoly k (w k)) ∧
+    ∀ K : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → 1 - 1 / p ≤ τ₀ →
+      |Real.log (S N p / (S N 1 * T04.Y N (1 - 1 / p))) -
+          ∑ k ∈ Finset.Icc 2 K, w k * (1 - 1 / p) ^ k|
+        ≤ C * (1 - 1 / p) ^ (K + 1)
+
+/-- `g7:lem:both` (sec_g7_octa.tex 43–48) with `g7:lem:w23` (112–116): for every `N ≥ 2` the
+expansion of stmt_9 holds for both signs of `τ` (`p > 0`, `|τ| ≤ τ₀`), with
+`w_2(N) = -(N-1)(N²-2N-1)/(2N) ζ(2)` and `w_3(N) = -(N²-1)((N-1)³-2)/(3N²) ζ(3)`
+(`= T04.coeffFormula N · ζ(3)`, the `ζ(3)` coefficient of main.tex 1992). -/
+def stmt_10 : Prop :=
+  ∀ N : ℕ, 2 ≤ N → ∃ w : ℕ → ℝ, (∀ k, Q01.IsZetaPoly k (w k)) ∧
+    w 2 = -(((N : ℝ) - 1) * ((N : ℝ) ^ 2 - 2 * N - 1)) / (2 * N) * X05.z 2 ∧
+    w 3 = (T04.coeffFormula N : ℝ) * X05.z 3 ∧
+    ∀ K : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 0 < p → |1 - 1 / p| ≤ τ₀ →
+      |Real.log (S N p / (S N 1 * T04.Y N (1 - 1 / p))) -
+          ∑ k ∈ Finset.Icc 2 K, w k * (1 - 1 / p) ^ k|
+        ≤ C * |1 - 1 / p| ^ (K + 1)
+
+/-- `thm:oct`, the two weight claims (main.tex 1984, 1989; `g7:lem:struct`), for `N = 3` and
+every `k`, both signs: (i) there is one sequence `w_k`, each a rational zeta polynomial
+homogeneous of weight `k`, with `|log((2-p)S(p)/(4√3)) - Σ_{k=2}^K w_k τ^k| ≤ C|τ|^{K+1}` for
+`p > 0`, `|τ| ≤ δ`, every `K`; (ii) there is one sequence `c_k` (`c_k = [d^k]S/(4√3)`), each a
+rational polynomial in `ζ(2),…,ζ(k)` of weight at most `k`, with
+`|S(1+d) - 4√3 Σ_{k≤K} c_k d^k| ≤ C|d|^{K+1}` for `|d| ≤ δ`, every `K`. -/
+def stmt_11 : Prop :=
+  (∃ w : ℕ → ℝ, (∀ k, Q01.IsZetaPoly k (w k)) ∧
+    ∀ K : ℕ, ∃ C δ : ℝ, 0 < δ ∧ ∀ p : ℝ, 0 < p → |1 - 1 / p| ≤ δ →
+      |Real.log ((2 - p) * Y05.S p / (4 * Real.sqrt 3)) -
+          ∑ k ∈ Finset.Icc 2 K, w k * (1 - 1 / p) ^ k|
+        ≤ C * |1 - 1 / p| ^ (K + 1)) ∧
+  (∃ c : ℕ → ℝ, (∀ k, IsZetaPolyLE k (c k)) ∧
+    ∀ K : ℕ, ∃ C δ : ℝ, 0 < δ ∧ ∀ d : ℝ, |d| ≤ δ →
+      |Y05.S (1 + d) - 4 * Real.sqrt 3 * ∑ k ∈ Finset.range (K + 1), c k * d ^ k|
+        ≤ C * |d| ^ (K + 1))
+
+end R03

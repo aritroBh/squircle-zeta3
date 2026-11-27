@@ -187,13 +187,54 @@ Files are in `lean/Zeta3/Wave8/`. Status from `tools/gate.py check`, run by the 
 | Q03 | `Q03_Theta7` | Prop `prop:theta` (`Θ₇`), Prop `prop:degree` (`n=7`) | `thm:fourier` through `τ⁷` with error `C_kτ⁸`, `Θ₇` as in the supplement (with `ζ(7)`, `ζ(2)ζ(5)`, `ζ(2)²ζ(3)`); Watson at `N=7`; `g_{k,5}`; the three weight-seven rows; degree exactly 2 | `Θ₈`, `Θ₉`; `prop:degree` for `n≥8` and the alternating-MZV clause | PROVED (9) |
 | Q04 | `Q04_FlatAllK` | Thm `thm:flat`, Thm `thm:zladder` (first rung) | `thm:flat` in full: for every `k` and `0<α<π`, `M_k(α)=Σμ_{k,n}c²ⁿ` with `μ_{k,n}` a formal polynomial with rational coefficients in `ζ(2),ζ(3),…` of weight at most `k`, independent of `α`. For every `k`, `n`: the coefficient of `ζ(3)` in `μ_{k+1,n}` is minus the coefficient of `ζ(2)` in `μ_{k,n}`. With it: `log Γ(1+x)+γx=Σ(-1)^wζ(w)x^w/w`, the polygamma values at integers, Lemmas `g6:lem:En`, `g6:lem:gamma`, `g6:prop:formula` for every `k`, and `k=4,5` explicitly | The general rungs of `thm:zladder` (every zeta product, the `ζ(5)` example); `Ψ` as a formal series; the uniqueness remark | PROVED (10) |
 | Q05 | `Q05_Decay` | Thm `thm:decay` (lemmas) | Lemma `g5:lem:kernels` (`H`, `K`, their bounds, the residues of `K`); the logit form of `M(ε)` (`g5:lem:logit`); `g5:lem:main`; `g5:lem:F`; `sup u³e^{-(2-√π)u}<114.1`; the arithmetic `<1.21·10⁹`; `√π|ϖ₁|≤1.494`; `C_⋆<10,600,000` | The kernel identity, the representation of `M_k`, `g5:lem:W`, the rest bound, the main-term bound and the theorem itself: stated in Q07, not proved yet. The `254.23` bound of the paper's proof idea (an interval sweep, code only) is not stated | PROVED (10) |
+| Q06 | `Q06_PiPGrowth` | Thm `thm:pip` (growth and divergence) | The rest of `thm:pip`: Lemmas `lem:pip:Tk`, `lem:pip:TkT1`, `lem:pip:twoterm`; the growth law for odd `k`, `N_k=(-1)^{(k-1)/2}(2(k-2)!/π^{k-1})(1+π²/(2(k-2))+O(log²k/k²))`, and for even `k`, `N_k=(-1)^{(k-2)/2}(2(k-3)!/π^{k-2})(ψ(k-2)+γ-log π+O(log²k/k))`; for every real `p≠0` the terms `N_kp^{-k-1}` do not tend to `0`, and the power series has radius `0`; the theorem as one statement (with Q02's expansion to every order) | Nothing of the theorem. The proofs of `lem:pip:TkT1` and `lem:pip:twoterm` do not follow the supplement's Hankel contour: they use Cauchy estimates and exact coefficients | PROVED (7) |
+| Q07 | `Q07_DecayRest` | Thm `thm:decay` | The theorem in full: for `N=k+1≥100`, `|M_k+(√π/N)e^{-√(πN)}cos√(πN)|≤1.21·10⁹N^{-3/2}e^{-√(πN)}`, and the form in `k` (`k≥99`, constant `1.21·10⁹+1.9√π`), for the library's `M_k` (`W02.Mk`). With it: the kernel identity `g5:lem:kernel`, the representation `g5:lem:Mk`, `g5:lem:W`, `g5:prop:rest` (the display and part (a), `10,600,000 e^{-2√N}`), and the main-term bound `g5:prop:main` (`71,000 N^{-2}e^{-√(πN)}`) | The `254.23` bound of the paper's proof idea (not needed). In `g5:prop:main` the proof splits the two regions at `N=2000`, not at the supplement's `10⁴` | PROVED (7) |
 
-Totals: 5 files, 52 statements, all 52 proved, 11344 lines of Lean. `lake build` of the whole library passes
-(18362 jobs). No statement of the paper was found false. Q02 and Q05 came back with some statements unproved; the
-planner had the proved statements kept (text unchanged) and the unproved ones moved to Q06 and Q07, which are not
-in the library until they are proved.
+Totals: 7 files, 66 statements, all 66 proved, 22615 lines of Lean. `lake build` of the whole library passes
+(18366 jobs). No statement of the paper was found false. Q02 and Q05 came back with some statements unproved; the
+planner had the proved statements kept (text unchanged) and the unproved ones moved to Q06 and Q07. A second run
+proved those in parts (three parts for Q06, seven for Q07) and merged them; the planner gated both files.
 
-Waves 1 to 8: 55 files, 453 statements (plus 3 repeats), 75646 lines of Lean.
+Waves 1 to 8: 57 files, 467 statements (plus 3 repeats), 86917 lines of Lean.
+
+## Wave 9: what the finished files unlock
+
+Files are in `lean/Zeta3/Wave9/`. Status from `tools/gate.py check`, run by the planner on 2026-11-26.
+
+| # | File | Paper result | What Lean proved | What it does not cover | Status |
+|---|---|---|---|---|---|
+| R01 | `R01_ZetaLadder` | Thm `thm:zladder` | The theorem in full, on the formal coefficient polynomials of Q04 and for the series: Lemma `g6:thm:ladderprecise`, `[z]M_k=Σ_e(-1)^e e!γ_e(z)[ζ(2)^e]M_{k-W+2e}` for every zeta monomial `z` of weight `W` (terms with negative index absent), with `γ_e(z)` the supplement's; Lemmas `g6:lem:DE`, `g6:lem:op`; the first rung; `[ζ(5)]M_k=-[ζ(2)]M_{k-3}-2[ζ(2)²]M_{k-1}` for every `k`; the printed rungs for `ζ(4)`, `ζ(6)`, `ζ(2)ζ(3)`, `ζ(3)²`; the theorem as stated (rationals that depend on `z` only) | Remark `g6:rem:kernel` and the two-variable kernel formula; the `M₅(α)` display; zeta parts of the real number `M_k(α)` (not well defined, as the supplement says) | PROVED (10) |
+| R02 | `R02_Theta8` | Prop `prop:theta` (`Θ₈`), Prop `prop:degree` (`n=8`) | `thm:fourier` through `τ⁸` with error `C_kτ⁹`, `Θ₈` as displayed in the supplement (with `ζ(8)`, `ζ(3)ζ(5)`, `ζ(2)ζ(3)²`); `ζ(8)=π⁸/9450`; Watson at `N=8`; `g_{k,6}`; the four weight-eight rows; degree exactly 3 with leading coefficient `-127ζ(8)` | `Θ₉`; the alternating-MZV clause (R05 has it in two halves) | PROVED (10) |
+| R03 | `R03_PureWeightN` | Thm `thm:pw` (last sentence), Thm `thm:oct` (weight claims) | For every `N≥2`, with `S_N(p)` the face integral `eq:pw:Sn`: integrability; `S_N(1)=2^N√N/(N-1)!`; `S_2` is the perimeter and `S_3` is Y05's `S`; the Dirichlet–Gamma lemma for every `n`; `lem:pw:X`, `lem:pw:moments`; one sequence `w_k(N)` of pure weight `k` with `|log(S_N(p)/(S_N(1)Y_N(τ)))-Σ_{k=2}^K w_kτᵏ|≤Cτ^{K+1}` for every `K`; both signs of `τ`; `w₂(N)`, `w₃(N)` explicit; for `N=3` both weight claims of `thm:oct` for every `k` | That the face integral is the Hausdorff area; the formal-series level (as in Q01); `g7:lem:X2`, `g7:lem:Eformal`; the clause `𝐄₀=1` of `lem:pw:moments` (proved in the file, not stated) | PROVED (11) |
+| R04 | `R04_SuperellipsoidAllK` | Thm `thm:S` ("Moreover …") | `G(ε)=1-ζ(2)ε²+2ζ(3)ε³+O(ε⁴)` and `G` smooth; Lemma `g3:lem:smooth` (`Q` is `C^∞` on `[0,¼]`, one-sided at `0`); Lemma `g3:lem:coeffs`: one sequence `s_k` with `|S(p)-Σ_{k≤K}s_kp^{-k}|≤Cp^{-K-1}` for every `K` (no `log p` terms); `s₀=24`, `s₁=48M₀`, `s₂=48M₁-4π²-8Q₀`, `s₃=48M₂-8π²M₀+48ζ(3)-8Q₁` | The closed form of `Q₀` (wave 10); the printed decimals of `s₁,s₂,s₃,Q₁`; that the face integral is the Hausdorff area | PROVED (10) |
+| R05 | `R05_DegreeAllN` | Prop `prop:degree` | For every `n≥2`: Watson's lemma for every `N`; Lemma `g2:lem:d:coef` (the expansion of `a_k(h_p)` to every order with `c_n(k)`); Lemma `g2:lem:d:e`; Lemma `g2:lem:d:theta` (`Θ_n(k²)=(-1)^k(π/√2)c_n(k)`, coefficients rational combinations of the `I_{r,j}`); `Θ_n` has degree exactly `⌊n/2⌋-1`; for `n=2m` the leading coefficient is `(-1)^{m-1}(2^{2m-1}-1)ζ(2m)`; the odd leading coefficient; `Θ₂…Θ₇` agree with the earlier files; Lemma `g2:lem:d:atoms` (`I_{m,j}` is `m!j!` times the iterated integral of the word `(0^{m+1},(-1)^j)`) | "Alternating MZV of weight `n`" as one predicate (it is covered in two halves: the rational combination and the iterated integral); uniqueness of asymptotic coefficients | PROVED (10) |
+| R06 | `R06_Varpi` | Thm `thm:varpi` | The theorem in full: for `N=k+1≥100`, `|M_k+(√π/N)e^{-θ}Re[e^{iθ}(1+ϖ₁/√N)]|≤1,000,668·N^{-2}e^{-θ}`, `θ=√(πN)`, written out for the library's `M_k`. With it: `g5:prop:rest` (b) with the explicit `c_rest` (about `114,536`, below `120,000`), the real and imaginary parts of `ϖ₁` and their printed decimals, the intermediate bound `191,000` | The paper's own route to the constant (`10⁶` for the main term and `667.357` for the rest, through a rest bound the supplement does not prove) | PROVED (5) |
+
+Totals: 6 files, 56 statements, all 56 proved, 10367 lines of Lean. No statement of the paper was found false.
+
+Waves 1 to 9: 63 files, 523 statements (plus 3 repeats), 97284 lines of Lean. `lake build` passes (18378 jobs).
+
+## Wave 10: results that had no Lean file
+
+Files are in `lean/Zeta3/Wave10/`. Status from `tools/gate.py check`, run by the planner on 2026-11-26.
+
+| # | File | Paper result | What Lean proved | What it does not cover | Status |
+|---|---|---|---|---|---|
+| S01 | `S01_Theta9` | Prop `prop:theta` (`Θ₉`) | `thm:fourier` through `τ⁹` with error `C_kτ¹⁰`, with `Θ₅,…,Θ₉` in closed form; `Θ₉` as displayed in the supplement (in `ζ(9)`, `ζ(2)ζ(7)`, `ζ(2)²ζ(5)`, `ζ(2)³ζ(3)`, `ζ(3)³`); Lemma `g2:lem:t:red` for every `n≥2`; the four weight-nine rows `D̃_{9,0..3}`; `ρ₇` and `g_{k,7}`; the values `e_{r,m}` needed, four of them not printed in the supplement (`e_{0,5}=721/3840`, `e_{0,6}=-1369/9216`, `e_{0,7}=-58337/645120`, `e_{1,7}=4163/11520`); the first sentence of `prop:theta`: for `5≤n≤9` every coefficient of `Θ_n` is a rational combination of products of zeta values of weight `n` | The certificate route of the supplement (shuffle, stuffle, duality); a general "alternating MZV" predicate; `n≥10` | PROVED (11) |
+| S02 | `S02_VertexQ0` | Thm `thm:S` (closed form of `Q₀`), two lemmas | Lemma `g3:lem:J`: `J(q)` in closed form for `0<q<1`; Lemma `g3:lem:A` (Lemma A): `Re Li₂(re^{iθ})=½Li₂(r)+¾θ²-(π/2)θ+π²/12` for `r=2cos θ-1`, `0≤θ≤π/3`, as a real series, and the case `θ=π/4` | The closed form itself: moved to S06 (open) | PROVED (2) |
+| S03 | `S03_FieldRule` | Thm `conj:field` ("More precisely"), the lemmas | `g6:lem:stuffle`; `g6:lem:window`; the harmonic-number identities; harmonic polylogarithms with letters `0,1,-1` are well defined; `g6:lem:dict` (the Taylor coefficients of `H_w` are nested sums, and the map is a bijection); `g6:lem:ops`; `g6:lem:conv`; the case `k=0`: `M₀(α)=-(1+c)H_{-1}(c)+(1-c)H_1(c)` | `g6:lem:A`, `g6:prop:R` and the rule itself for every `k`: moved to S08 (open). Parts (a), (b) (S-units, places) | PROVED (7) |
+| S04 | `S04_M4alphaZetaParts` | Thm `thm:M4alpha` | For `0<α<π`: `M₄(α)=R₄+ζ(2)Ψ₂-ζ(3)Ψ+(π⁴/2880)[(9c-30/c+21/c³)artanh c+23-21/c²]`, with `R₄` and `Ψ₂` the series parts `[1]M₄`, `[ζ(2)]M₄` and `Ψ=[ζ(2)]M₃`, all absolutely convergent; `[𝔷₄]P_{4,n}=(n+3)/((2n-1)(2n+1)(2n+3))`, `[𝔷₂²]P_{4,n}=-n/((2n-1)(2n+1)(2n+3))` for every `n`; `P_{4,n}` has only the monomials `1,𝔷₂,𝔷₃,𝔷₄,𝔷₂²` | The closed forms of `R₄` (109 terms) and `Ψ₂` (21 terms): their coefficients are only in the data files, not printed | PROVED (7) |
+| S05 | `S05_Hexagon` | Thm `thm:hexagon` | Sentence 1: `P` is `C³` at `p=1` and `P‴(1)=2ΣE_e`; sentence 3: the `ζ(3)` block is `L⁵Z_e` of `prop:edgelaw`, every edge, every `r`; sentence 4: `c₁=L⁵(2Φ_A+Φ_L)`, `c₂=L⁵Φ_A`; sentence 5 at `r=1`: the hexagon law; the setting (every centrally symmetric convex hexagon is a `K_1`, `g4:lem:arc`); `g4:lem:euler`; `g4:lem:Jseries`; four worked `J` entries | Sentence 2, the eleven-term formula for every `r>0`: moved to S07 (open) | PROVED (12) |
+| S06 | `S06_VertexQ0Rest` | Thm `thm:S` (closed form of `Q₀`, `s₂`) | Nothing yet. 9 statements. `Q₀` and `s₂=-4.6892155184…` are reduced, in Lean, to five open pieces: the simplex identity, `Q₀=6∫J`, and the closed forms of `P₁`, `P_{2a}`, `P_{2c}` | | OPEN (continuation run) |
+| S07 | `S07_HexagonFormula` | Thm `thm:hexagon` (sentence 2) | Nothing yet. 2 statements | | OPEN (continuation run) |
+| S08 | `S08_FieldRuleMain` | Thm `conj:field` ("More precisely") | Nothing yet. 4 statements | | OPEN (continuation run) |
+
+Totals so far: 5 finished files, 39 statements, all 39 proved, 10066 lines of Lean. No statement of the paper was
+found false. S02, S03 and S05 came back with some statements unproved; the proved statements were kept (text
+unchanged, checked by script) and the open ones moved to S06, S07, S08. Those three files do not pass the gate yet, so
+they are not in the build and not in the public repository.
+
+Waves 1 to 10: 68 files, 562 statements (plus 3 repeats), 107350 lines of Lean. `lake build` passes (18388 jobs).
 
 ## OUT: not checkable in Lean with today's Mathlib
 
@@ -201,11 +242,11 @@ These need polylogarithms of weight ≥3, harmonic polylogarithms, multiple zeta
 theorem, or certified 300-digit arithmetic. They stay on the written proofs and independent re-checks listed in
 the verification map at the top of this repository.
 
-`thm:W4`, `thm:W4R` (`W₄=𝓡`), `thm:wt2`, `thm:pw` (the `N`-dimensional part), `prop:degree` (`n≥8`),
-`prop:theta` (`Θ₈`, `Θ₉`), `thm:decay` (in progress, Q07), `thm:varpi`, `thm:pip` (growth of `N_k` and divergence: in progress, Q06),
-`thm:Malpha` (`M_k(α)` for `k≥2`; the `M₁(α)` formula is D04), `conj:field`,
-`prop:M3angle`, `thm:M4alpha`, `thm:zladder` (the general rungs), `thm:hexagon`, `thm:hexagon5`, `prop:octagon5depth`,
-`thm:S` (general `K`, no `log p` terms), `thm:oct` (the weight claims for every order, other dimensions).
+`thm:W4`, `thm:W4R` (`W₄=𝓡`), `thm:wt2`, `prop:M3angle`, `thm:hexagon5`, `prop:octagon5depth`.
+
+Of the 44 numbered results of the paper, 38 have at least one Lean file; these six do not. Open inside results that
+have a file: the closed form of `Q₀` (`thm:S`, S06), sentence 2 of `thm:hexagon` (S07), the rule of `conj:field` for
+every `k` (S08), the closed forms of `R₄` and `Ψ₂` (`thm:M4alpha`, not printed).
 
 This list is what has not been tried or is known to need missing library. Waves 2 to 8 showed that results first
 put here can be reached, so an entry here is not a proof that Lean cannot do it.
@@ -279,3 +320,31 @@ put here can be reached, so an entry here is not a proof that Lean cannot do it.
   are defined below the END STATEMENTS line of V05; the planner read them, and Lean proves their casts equal the
   audited `V05.Hr` and `V05.rho`. From now on a definition used in a frozen statement must sit in a frozen
   block.
+- 2026-11-26: wave 8 pushed to the public repo in commit `85db1491` (55 files, 456 gated statements, 453
+  distinct).
+- 2026-11-26: wave 9 launched (R01 `thm:zladder` in full, R02 `Θ₈`, R03 `thm:pw` in every dimension with the
+  weight claims of `thm:oct`, R04 `thm:S` to every order, R05 `prop:degree` for every `n`). The Q06 and Q07
+  continuation run is still going.
+- 2026-11-26: the continuation run is back: Q06 and Q07 PROVED in full (three and seven parts, merged). `thm:pip`
+  and `thm:decay` are now completely in Lean, including the main-term bound with constant `71,000`. Planner gated
+  both; `lake build` passes (18366 jobs): 57 files, 467 statements. Their statement blocks were sent to the
+  non-Claude reviewers.
+- 2026-11-26: wave 9b launched (R06 `thm:varpi`, from Q07: the supplement's chain `120,000 + 71,000 ≤ 1,000,668`).
+- 2026-11-26: wave 9b back: R06 (`thm:varpi`) PROVED, 5 statements. Planner gated it; `lake build` passes (18368
+  jobs): 58 files, 472 statements.
+- 2026-11-26: wave 9 back: R01 (`thm:zladder` in full), R02 (`Θ₈`), R03 (`thm:pw` in every dimension, the weight
+  claims of `thm:oct`), R04 (`thm:S` to every order), R05 (`prop:degree` for every `n`) all PROVED, 51
+  statements. Planner gated each and checked that every definition used in a statement block sits in an audited
+  block; `lake build` passes (18378 jobs): 63 files, 523 statements. Sent to the non-Claude reviewers. Wave 10
+  launched (S01 `Θ₉`, S02 the closed form of `Q₀`, S03 the field rule, S04 the zeta parts of `thm:M4alpha`, S05
+  `thm:hexagon`).
+- 2026-11-26: wave 10 back. S01 (`Θ₉`) and S04 (`thm:M4alpha`, zeta parts) PROVED. S02 (`Q₀`) proved 2 of 11
+  statements, S03 (`conj:field`) 7 of 11, S05 (`thm:hexagon`) 12 of 14; each was split into a finished file and a
+  continuation (S06, S08, S07). Planner gated all five finished files; `lake build` passes (18388 jobs): 68 files,
+  562 statements. Continuation run launched for S06, S07, S08.
+- 2026-11-26: Q06, Q07, R06 and wave 9 (R01 to R05) read by non-Claude models (Codex GPT-6 with numerics, Kimi K3,
+  GLM-5, DeepSeek, Kilo). No Lean statement had to change. One comment in R02 named the wrong statement numbers;
+  corrected, file re-frozen and re-gated (statement block unchanged).
+- 2026-11-26: the five finished wave 10 files read by non-Claude models (Codex GPT-6 with numerics, Kimi K3, GLM-5,
+  DeepSeek, Kilo). No Lean statement had to change. One header comment in S02 corrected, file re-frozen and
+  re-gated (statement block unchanged).

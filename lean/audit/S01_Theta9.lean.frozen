@@ -1,0 +1,260 @@
+import Mathlib
+import Zeta3.Wave8.Q01_PureWeight
+import Zeta3.Wave9.R02_Theta8
+import Zeta3.Wave9.R05_DegreeAllN
+/-!
+# S01 — `Θ₉` in closed form, and `prop:theta` for all `5 ≤ n ≤ 9`
+
+Target id: S01.
+Paper labels: `prop:theta` and `prop:degree` (main.tex lines 1214–1225).
+Detailed proofs: paper/ieee/proofs/sec_g2_theta.tex (the display of `Θ₉` at lines 21–23,
+Lemma `g2:lem:t:red` at line 33, Table `g2:tab:D` rows `D̃_{9,0}, …, D̃_{9,3}` at lines 59–62, the
+printed values of `e_{r,m}` in "Output") and paper/ieee/proofs/sec_g2_degree.tex
+(`e_{r,m}`, `ρ_m`, Lemmas `g2:lem:d:e`, `g2:lem:d:theta`).
+Earlier Lean (imported, not redefined): `Zeta3.Wave5.Y04_Fourier` (`Y04.tau`, `Y04.h`, `Y04.a`,
+`Y04.G`, `Y04.I`, `Y04.z3`), `Zeta3.Wave6.Z02_Theta5` (`Z02.z5`), `Zeta3.Wave8.Q03_Theta7`
+(`Q03.z7`), `Zeta3.Wave4.X05_DiamondA4A5` (`X05.z n = (riemannZeta n).re`, used for `ζ(9)`),
+`Zeta3.Wave8.Q01_PureWeight` (`Q01.IsZetaPoly`), `Zeta3.Wave9.R05_DegreeAllN` (`R05.e`, `R05.rho`,
+`R05.Theta`; R05 proves Watson for every `N`, `g_{k,m} = (-1)^k(√2/4)ρ_m(k²)`, the expansion of
+`a_k(h_p)` to every order with coefficients `R05.Theta n`, `natDegree Θ_n = ⌊n/2⌋ - 1` for every
+`n ≥ 2` (so "degree exactly 3" for `Θ₉` is `R05.proof_9` and is not restated here), `I_{m,1}`,
+and `Θ₂, …, Θ₇` in closed form), `Zeta3.Wave9.R02_Theta8` (`Θ₈` in closed form, rows `D̃_{8,*}`).
+
+Quoted verbatim.
+
+main.tex 1214–1216 (`prop:degree`):
+
+  For $n\ge2$, the coefficient of $\tau^n$ in $(-1)^k\frac{\pi}{\sqrt2}a_k(h_p)$ is a polynomial
+  $\Theta_n(k^2)$ of degree exactly $\lfloor n/2\rfloor-1$, whose coefficients are alternating
+  multiple zeta values of weight $n$. For even $n=2m$ its leading coefficient is
+  $(-1)^{m-1}(2^{2m-1}-1)\zeta(2m)$.
+
+main.tex 1220–1225 (`prop:theta`):
+
+  For $5\le n\le9$, every coefficient of $\Theta_n$ is a rational combination of products of
+  single zeta values of total weight $n$. With $u=k^2$,
+  \Theta_5=-\bigl(\tfrac34+4u\bigr)\zeta(5)-\bigl(\tfrac74+4u\bigr)\zeta(2)\zeta(3).
+
+Supplement sec_g2_theta.tex lines 21–23:
+
+  \Theta_9&=-\bigl(\tfrac{22805}{192}+\tfrac{3907}4u+\tfrac{1916}3u^2+64u^3\bigr)\zeta(9)-\bigl(\tfrac{8343}{64}+\tfrac{4163}4u+660u^2+64u^3\bigr)\zeta(2)\zeta(7)\\
+  &\qquad-\bigl(\tfrac{60093}{640}+\tfrac{29741}{40}u+\tfrac{2334}5u^2+\tfrac{224}5u^3\bigr)\zeta(2)^2\zeta(5)\\
+  &\qquad-\bigl(\tfrac{263713}{4480}+\tfrac{130973}{280}u+\tfrac{2062}7u^2+\tfrac{992}{35}u^3\bigr)\zeta(2)^3\zeta(3)+\bigl(\tfrac{169}{96}+9u+\tfrac83u^2\bigr)\zeta(3)^3 .
+
+Supplement, Lemma `g2:lem:t:red`:
+
+  Let $\wD_{n,m}=2\sum_{j=1}^{n-1-2m}\dfrac{e_{m,\,n-1-j}}{j!}\,I_{n-1-j,\,j}$, for $n\ge2$ and
+  $0\le m\le\lfloor n/2\rfloor-1$, with $e_{r,m}$ as in Section~\ref{g2:sec:degree}.
+  $\Theta_n(u)=\sum_{m=0}^{\lfloor n/2\rfloor-1}\wD_{n,m}\,\dfrac{(-4u)^m}{(2m)!}$.
+
+Supplement, Table `g2:tab:D` (products `ζ(9), ζ(2)ζ(7), ζ(2)²ζ(5), ζ(2)³ζ(3), ζ(3)³`, in this
+order):
+
+  $\wD_{9,0}$ & $-\tfrac{22805}{192},\ -\tfrac{8343}{64},\ -\tfrac{60093}{640},\ -\tfrac{263713}{4480},\ \tfrac{169}{96}$ \\
+  $\wD_{9,1}$ & $\tfrac{3907}8,\ \tfrac{4163}8,\ \tfrac{29741}{80},\ \tfrac{130973}{560},\ -\tfrac92$ \\
+  $\wD_{9,2}$ & $-958,\ -990,\ -\tfrac{3501}5,\ -\tfrac{3093}7,\ 4$ \\
+  $\wD_{9,3}$ & $720,\ 720,\ 504,\ \tfrac{2232}7,\ 0$
+
+Supplement, "Output" (values of `e_{m,r}`):
+
+  $m=0$: $1,\frac12,-\frac58,-\frac{17}{48},\frac{121}{384}$; $m=1$ ($r\ge2$):
+  $1,\frac12,-\frac{23}{24},-\frac{25}{48},\frac{731}{1152}$; $m=2$ ($r\ge4$):
+  $1,\frac12,-\frac{31}{24},-\frac{11}{16},\frac{409}{384}$
+
+The supplement does not print `e_{0,5}, e_{0,6}, e_{0,7}, e_{1,7}`. They were computed here
+exactly from the definition `e_{r,m} = 2^{3/2}[y^m](gd(y)^{2r}H(y))` (SymPy series of
+`2^{3/2}H(y) = e^{-y}((1+e^{-2y})/2)^{-3/2}` and of `gd(y) = π/2 - 2 arctan e^{-y}`; the printed
+values were reproduced): `e_{0,5} = 721/3840`, `e_{0,6} = -1369/9216` (as in Q03, R02),
+`e_{0,7} = -58337/645120`, `e_{1,7} = 4163/11520`. `e_{3,6} = 1`, `e_{3,7} = 1/2` are
+`e_{r,2r} = 1`, `e_{r,2r+1} = 1/2` (Lemma `g2:lem:d:e`(a), `R05.proof_4`). So
+`ρ₇(u) = e_{0,7} - 2u e_{1,7} + (2/3)u² e_{2,7} - (4/45)u³ e_{3,7}
+  = -58337/645120 - (4163/5760)u - (11/24)u² - (2/45)u³`.
+
+Conventions.
+* `ζ(3) = Y04.z3`, `ζ(5) = Z02.z5`, `ζ(7) = Q03.z7`, `ζ(9) = X05.z 9`: each is the real part of
+  Mathlib's `riemannZeta` at that natural number (by `zeta_nat_eq_tsum_of_gt_one` the real series
+  `∑ 1/n^s`). `ζ(2) = π²/6`, `ζ(4) = π⁴/90`, `ζ(6) = π⁶/945`, `ζ(8) = π⁸/9450` are written out as
+  in Y04, V02, R02 (Mathlib `riemannZeta_two`, …; `R02.proof_1` for `ζ(8)`). So
+  `ζ(2)ζ(7) = (π²/6)·Q03.z7`, `ζ(2)²ζ(5) = (π²/6)²·Z02.z5`, `ζ(2)³ζ(3) = (π²/6)³·Y04.z3`,
+  `ζ(3)³ = Y04.z3³`.
+* "Rational combination of products of single zeta values of total weight `n`" is
+  `Q01.IsZetaPoly n` (a finite list of monomials `c·ζ(n_1)⋯ζ(n_r)`, `c ∈ ℚ`, `n_i ≥ 2`,
+  `Σ n_i = n`, with `ζ(j) = X05.z j`). Weight is a property of the representation, as in Q01.
+* The paper's `Θ_n` is `R05.Theta n`, defined by the supplement's formula
+  `Θ_n = 2 Σ_j ρ_{n-1-j} I_{n-1-j,j}/j!`; `R05.proof_9` (i) proves that `Θ_n(k²)` is the `τ^n`
+  coefficient of `(-1)^k(π/√2)a_k(h_p)` (expansion with explicit `C τ^{N+1}` error, every `N`).
+* `g_{k,7} = G_k^{(7)}(0)/7!` is `iteratedDeriv 7 (Y04.G k) 0 / 5040`; `G_k` is `C^∞` (Y04).
+* All `I_{m,j}`, `j ≥ 1`, have integrable integrands (Y04), so no statement holds by the
+  "non-integrable ↦ 0" convention.
+* The `O(τ^{10})` claim is explicit: `∃ C τ₀, 0 < τ₀ ∧ ∀ p > 1, τ ≤ τ₀ → |error| ≤ C τ^{10}`.
+* Numerical check before freezing (mpmath, 40 digits; SymPy for `e_{r,m}` and for Taylor
+  coefficients of `G_k`): the four rows `D̃_{9,0}, …, D̃_{9,3}` (`stmt_5`–`stmt_8`, values
+  `-910.5617…, 3639.0415…, -6923.6550…, 5035.7251…`) agree with the table's combinations to
+  `≤ 1.1·10⁻³²`; the table substituted into Lemma `g2:lem:t:red` gives exactly the displayed `Θ₉`
+  (exact rational arithmetic); `g_{k,7}` (`stmt_3`) agrees exactly with the SymPy Taylor coefficient
+  of `G_k` for `k = 0, 1, 2, 3`; the `τ⁹` coefficient `Σ_m D̃_{9,m}(-4k²)^m/(2m)!` minus the closed
+  form `Θ₉(k²)` is `≤ 1.3·10⁻³⁰` in absolute value for `k = 0, 1, 2, 3` (values `-910.5617…,
+  -13252.0349…, -132522.8953…, -766605.6703…`). Direct quadrature of `a_k(h_p)` was not redone.
+
+NOT COVERED.
+* The clause "whose coefficients are alternating multiple zeta values of weight `n`" of
+  `prop:degree` beyond what `R05.stmt_6`, `R05.stmt_10` state (the general AMZV predicate is not
+  defined).
+* The certificate route of the supplement (shuffle, stuffle, duality relations and the sixteen
+  exact certificates, Lemma `g2:lem:t:euler`): the sixteen identities are stated directly
+  (`R02`, earlier files, and `stmt_5`–`stmt_8` here for `n = 9`), whatever the proof route.
+* The display of `Θ₅` in `prop:theta` and `Θ₆, Θ₇` are `R05.proof_8`, `Θ₈` is `R02.proof_8`;
+  "degree exactly `⌊n/2⌋ - 1`" for `n = 9` is `R05.proof_9`; they are not restated, only used.
+* The remark that for larger `n` the question is open; uniqueness of asymptotic coefficients.
+-/
+-- BEGIN STATEMENTS
+namespace S01
+
+open Real MeasureTheory Set Polynomial
+
+/-- `D̃_{n,m} = 2 Σ_{j=1}^{n-1-2m} e_{m,n-1-j}/j! I_{n-1-j,j}` (supplement before Lemma
+`g2:lem:t:red`). -/
+noncomputable def Dt (n m : ℕ) : ℝ :=
+  2 * ∑ j ∈ Finset.Icc 1 (n - 1 - 2 * m),
+    R05.e m (n - 1 - j) / (j.factorial : ℝ) * Y04.I (n - 1 - j) j
+
+/-- The values of `e_{r,m}` printed in the supplement ("Output") that `D̃_{9,*}` needs, besides
+`e_{r,2r} = 1`, `e_{r,2r+1} = 1/2` (`R05.stmt_4`): `e_{0,2} = -5/8`, `e_{0,3} = -17/48`,
+`e_{0,4} = 121/384`, `e_{1,4} = -23/24`, `e_{1,5} = -25/48`, `e_{1,6} = 731/1152`,
+`e_{2,6} = -31/24`, `e_{2,7} = -11/16`. -/
+def stmt_1 : Prop :=
+  R05.e 0 2 = -(5 / 8) ∧ R05.e 0 3 = -(17 / 48) ∧ R05.e 0 4 = 121 / 384 ∧
+  R05.e 1 4 = -(23 / 24) ∧ R05.e 1 5 = -(25 / 48) ∧ R05.e 1 6 = 731 / 1152 ∧
+  R05.e 2 6 = -(31 / 24) ∧ R05.e 2 7 = -(11 / 16)
+
+/-- The values of `e_{r,m}`, `m ≤ 7`, that the supplement does not print (computed here from the
+definition): `e_{0,5} = 721/3840`, `e_{0,6} = -1369/9216`, `e_{0,7} = -58337/645120`,
+`e_{1,7} = 4163/11520`. -/
+def stmt_2 : Prop :=
+  R05.e 0 5 = 721 / 3840 ∧ R05.e 0 6 = -(1369 / 9216) ∧
+  R05.e 0 7 = -(58337 / 645120) ∧ R05.e 1 7 = 4163 / 11520
+
+/-- `ρ₇(u) = -58337/645120 - (4163/5760)u - (11/24)u² - (2/45)u³`, and so (Lemma `g2:lem:d:e`(b)
+at `m = 7`) the Taylor coefficient `g_{k,7} = G_k^{(7)}(0)/7! = (-1)^k (√2/4) ρ₇(k²)`. -/
+def stmt_3 : Prop :=
+  R05.rho 7 = Polynomial.C (-(58337 / 645120)) + Polynomial.C (-(4163 / 5760)) * X
+      + Polynomial.C (-(11 / 24)) * X ^ 2 + Polynomial.C (-(2 / 45)) * X ^ 3 ∧
+  ∀ k : ℕ, iteratedDeriv 7 (Y04.G k) 0 / 5040 =
+    (-1 : ℝ) ^ k * Real.sqrt 2 / 4 *
+      (-(58337 / 645120) - 4163 / 5760 * (k : ℝ) ^ 2 - 11 / 24 * (k : ℝ) ^ 4
+        - 2 / 45 * (k : ℝ) ^ 6)
+
+/-- Lemma `g2:lem:t:red`, for every `n ≥ 2`:
+`Θ_n(u) = Σ_{m=0}^{⌊n/2⌋-1} D̃_{n,m} (-4u)^m/(2m)!` as polynomials in `u`. -/
+def stmt_4 : Prop :=
+  ∀ n : ℕ, 2 ≤ n →
+    R05.Theta n = ∑ m ∈ Finset.range (n / 2),
+      Polynomial.C (Dt n m * (-4 : ℝ) ^ m / ((2 * m).factorial : ℝ)) * X ^ m
+
+/-- Table `g2:tab:D`, row `D̃_{9,3}` (with `e_{3,7} = 1/2`, `e_{3,6} = 1`):
+`D̃_{9,3} = 2((1/2) I_{7,1} + I_{6,2}/2!) = 720 ζ(9) + 720 ζ(2)ζ(7) + 504 ζ(2)²ζ(5)
+  + (2232/7) ζ(2)³ζ(3)`. -/
+def stmt_5 : Prop :=
+  2 * ((1 / 2) * Y04.I 7 1 + Y04.I 6 2 / 2) =
+    720 * X05.z 9 + 720 * ((π ^ 2 / 6) * Q03.z7) + 504 * ((π ^ 2 / 6) ^ 2 * Z02.z5)
+      + 2232 / 7 * ((π ^ 2 / 6) ^ 3 * Y04.z3)
+
+/-- Table `g2:tab:D`, row `D̃_{9,2}` (with `e_{2,4..7} = 1, 1/2, -31/24, -11/16`):
+`D̃_{9,2} = 2(e_{2,7} I_{7,1} + e_{2,6} I_{6,2}/2! + e_{2,5} I_{5,3}/3! + e_{2,4} I_{4,4}/4!)
+  = -958 ζ(9) - 990 ζ(2)ζ(7) - (3501/5) ζ(2)²ζ(5) - (3093/7) ζ(2)³ζ(3) + 4 ζ(3)³`. -/
+def stmt_6 : Prop :=
+  2 * (-(11 / 16) * Y04.I 7 1 + (-(31 / 24)) * Y04.I 6 2 / 2 + (1 / 2) * Y04.I 5 3 / 6
+      + Y04.I 4 4 / 24) =
+    -958 * X05.z 9 - 990 * ((π ^ 2 / 6) * Q03.z7) - 3501 / 5 * ((π ^ 2 / 6) ^ 2 * Z02.z5)
+      - 3093 / 7 * ((π ^ 2 / 6) ^ 3 * Y04.z3) + 4 * Y04.z3 ^ 3
+
+/-- Table `g2:tab:D`, row `D̃_{9,1}` (with `e_{1,2..7} = 1, 1/2, -23/24, -25/48, 731/1152,
+4163/11520`): `D̃_{9,1} = 2(e_{1,7} I_{7,1} + e_{1,6} I_{6,2}/2! + e_{1,5} I_{5,3}/3!
+  + e_{1,4} I_{4,4}/4! + e_{1,3} I_{3,5}/5! + e_{1,2} I_{2,6}/6!)
+  = (3907/8) ζ(9) + (4163/8) ζ(2)ζ(7) + (29741/80) ζ(2)²ζ(5) + (130973/560) ζ(2)³ζ(3)
+    - (9/2) ζ(3)³`. -/
+def stmt_7 : Prop :=
+  2 * (4163 / 11520 * Y04.I 7 1 + 731 / 1152 * Y04.I 6 2 / 2 + (-(25 / 48)) * Y04.I 5 3 / 6
+      + (-(23 / 24)) * Y04.I 4 4 / 24 + (1 / 2) * Y04.I 3 5 / 120 + Y04.I 2 6 / 720) =
+    3907 / 8 * X05.z 9 + 4163 / 8 * ((π ^ 2 / 6) * Q03.z7)
+      + 29741 / 80 * ((π ^ 2 / 6) ^ 2 * Z02.z5) + 130973 / 560 * ((π ^ 2 / 6) ^ 3 * Y04.z3)
+      - 9 / 2 * Y04.z3 ^ 3
+
+/-- Table `g2:tab:D`, row `D̃_{9,0}` (with `e_{0,0..7} = 1, 1/2, -5/8, -17/48, 121/384,
+721/3840, -1369/9216, -58337/645120`): `D̃_{9,0} = 2 Σ_{j=1}^{8} e_{0,8-j} I_{8-j,j}/j!
+  = -(22805/192) ζ(9) - (8343/64) ζ(2)ζ(7) - (60093/640) ζ(2)²ζ(5)
+    - (263713/4480) ζ(2)³ζ(3) + (169/96) ζ(3)³`. -/
+def stmt_8 : Prop :=
+  2 * (-(58337 / 645120) * Y04.I 7 1 + (-(1369 / 9216)) * Y04.I 6 2 / 2
+      + 721 / 3840 * Y04.I 5 3 / 6 + 121 / 384 * Y04.I 4 4 / 24
+      + (-(17 / 48)) * Y04.I 3 5 / 120 + (-(5 / 8)) * Y04.I 2 6 / 720
+      + (1 / 2) * Y04.I 1 7 / 5040 + Y04.I 0 8 / 40320) =
+    -(22805 / 192) * X05.z 9 - 8343 / 64 * ((π ^ 2 / 6) * Q03.z7)
+      - 60093 / 640 * ((π ^ 2 / 6) ^ 2 * Z02.z5) - 263713 / 4480 * ((π ^ 2 / 6) ^ 3 * Y04.z3)
+      + 169 / 96 * Y04.z3 ^ 3
+
+/-- The supplement's display of `Θ₉` (sec_g2_theta.tex lines 21–23), as an identity of
+polynomials in `u` for the `Θ₉` of Lemma `g2:lem:d:theta` (`R05.Theta 9`):
+`Θ₉ = -(22805/192 + (3907/4)u + (1916/3)u² + 64u³) ζ(9)
+  - (8343/64 + (4163/4)u + 660u² + 64u³) ζ(2)ζ(7)
+  - (60093/640 + (29741/40)u + (2334/5)u² + (224/5)u³) ζ(2)²ζ(5)
+  - (263713/4480 + (130973/280)u + (2062/7)u² + (992/35)u³) ζ(2)³ζ(3)
+  + (169/96 + 9u + (8/3)u²) ζ(3)³`. -/
+def stmt_9 : Prop :=
+  R05.Theta 9 =
+    Polynomial.C (-(22805 / 192) * X05.z 9 - 8343 / 64 * ((π ^ 2 / 6) * Q03.z7)
+        - 60093 / 640 * ((π ^ 2 / 6) ^ 2 * Z02.z5)
+        - 263713 / 4480 * ((π ^ 2 / 6) ^ 3 * Y04.z3) + 169 / 96 * Y04.z3 ^ 3)
+    + Polynomial.C (-(3907 / 4) * X05.z 9 - 4163 / 4 * ((π ^ 2 / 6) * Q03.z7)
+        - 29741 / 40 * ((π ^ 2 / 6) ^ 2 * Z02.z5)
+        - 130973 / 280 * ((π ^ 2 / 6) ^ 3 * Y04.z3) + 9 * Y04.z3 ^ 3) * X
+    + Polynomial.C (-(1916 / 3) * X05.z 9 - 660 * ((π ^ 2 / 6) * Q03.z7)
+        - 2334 / 5 * ((π ^ 2 / 6) ^ 2 * Z02.z5)
+        - 2062 / 7 * ((π ^ 2 / 6) ^ 3 * Y04.z3) + 8 / 3 * Y04.z3 ^ 3) * X ^ 2
+    + Polynomial.C (-64 * X05.z 9 - 64 * ((π ^ 2 / 6) * Q03.z7)
+        - 224 / 5 * ((π ^ 2 / 6) ^ 2 * Z02.z5)
+        - 992 / 35 * ((π ^ 2 / 6) ^ 3 * Y04.z3)) * X ^ 3
+
+/-- `thm:fourier` extended through `τ⁹` with `prop:theta`'s `Θ₅` and the supplement's `Θ₆, …, Θ₉`:
+for every `k ≥ 0` there are `C_k` and `τ₀ > 0` such that for every `p > 1` with
+`τ = 1 - 1/p ≤ τ₀`, with `u = k²`,
+`|a_k(h_p) - (-1)^k (√2/π)[-4/(16k²-1) + ζ(2)τ² + ζ(3)τ³ - (33/16 + 7k²)ζ(4)τ⁴ + Θ₅(u)τ⁵
+   + Θ₆(u)τ⁶ + Θ₇(u)τ⁷ + Θ₈(u)τ⁸ + Θ₉(u)τ⁹]| ≤ C_k τ¹⁰`, where `Θ₅, …, Θ₈` are as in
+`R02.stmt_10` and `Θ₉` is the closed form of `stmt_9`, all written out. -/
+def stmt_10 : Prop :=
+  ∀ k : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+    |Y04.a k (Y04.h p) - (-1 : ℝ) ^ k * (Real.sqrt 2 / π) *
+        (-(4 / (16 * (k : ℝ) ^ 2 - 1)) + (π ^ 2 / 6) * Y04.tau p ^ 2 + Y04.z3 * Y04.tau p ^ 3
+          - (33 / 16 + 7 * (k : ℝ) ^ 2) * (π ^ 4 / 90) * Y04.tau p ^ 4
+          + (-(3 / 4 + 4 * (k : ℝ) ^ 2) * Z02.z5
+              - (7 / 4 + 4 * (k : ℝ) ^ 2) * ((π ^ 2 / 6) * Y04.z3)) * Y04.tau p ^ 5
+          + ((4039 / 256 + 733 / 8 * (k : ℝ) ^ 2 + 31 * (k : ℝ) ^ 4) * (π ^ 6 / 945)
+              - (7 / 8 + 2 * (k : ℝ) ^ 2) * Y04.z3 ^ 2) * Y04.tau p ^ 6
+          + ((129 / 16 + 46 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * Q03.z7
+              + (141 / 16 + 50 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * ((π ^ 2 / 6) * Z02.z5)
+              + (1071 / 160 + 181 / 5 * (k : ℝ) ^ 2 + 56 / 5 * (k : ℝ) ^ 4)
+                  * ((π ^ 2 / 6) ^ 2 * Y04.z3)) * Y04.tau p ^ 7
+          + (-(2891923 / 12288 + 495965 / 256 * (k : ℝ) ^ 2 + 60889 / 48 * (k : ℝ) ^ 4
+                + 127 * (k : ℝ) ^ 6) * (π ^ 8 / 9450)
+              + (141 / 16 + 50 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * (Y04.z3 * Z02.z5)
+              + (169 / 32 + 27 * (k : ℝ) ^ 2 + 8 * (k : ℝ) ^ 4)
+                  * ((π ^ 2 / 6) * Y04.z3 ^ 2)) * Y04.tau p ^ 8
+          + (-(22805 / 192 + 3907 / 4 * (k : ℝ) ^ 2 + 1916 / 3 * (k : ℝ) ^ 4
+                + 64 * (k : ℝ) ^ 6) * X05.z 9
+              - (8343 / 64 + 4163 / 4 * (k : ℝ) ^ 2 + 660 * (k : ℝ) ^ 4
+                + 64 * (k : ℝ) ^ 6) * ((π ^ 2 / 6) * Q03.z7)
+              - (60093 / 640 + 29741 / 40 * (k : ℝ) ^ 2 + 2334 / 5 * (k : ℝ) ^ 4
+                + 224 / 5 * (k : ℝ) ^ 6) * ((π ^ 2 / 6) ^ 2 * Z02.z5)
+              - (263713 / 4480 + 130973 / 280 * (k : ℝ) ^ 2 + 2062 / 7 * (k : ℝ) ^ 4
+                + 992 / 35 * (k : ℝ) ^ 6) * ((π ^ 2 / 6) ^ 3 * Y04.z3)
+              + (169 / 96 + 9 * (k : ℝ) ^ 2 + 8 / 3 * (k : ℝ) ^ 4) * Y04.z3 ^ 3)
+              * Y04.tau p ^ 9)|
+      ≤ C * Y04.tau p ^ 10
+
+/-- `prop:theta`, first sentence, for all five orders: for `5 ≤ n ≤ 9`, every coefficient of
+`Θ_n` (the polynomial of `prop:degree`, `R05.Theta n`) is a rational combination of products of
+single zeta values of total weight `n` (`Q01.IsZetaPoly n`). -/
+def stmt_11 : Prop :=
+  ∀ n : ℕ, 5 ≤ n → n ≤ 9 → ∀ i : ℕ, Q01.IsZetaPoly n ((R05.Theta n).coeff i)
+
+end S01

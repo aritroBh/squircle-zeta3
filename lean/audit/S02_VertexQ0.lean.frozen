@@ -1,0 +1,197 @@
+import Mathlib
+import Zeta3.Wave9.R04_SuperellipsoidAllK
+import Zeta3.Wave2.D00_Dilog
+import Zeta3.Wave2.D02_DilogSqrt2
+import Zeta3.Wave3.W03_M1Full
+/-!
+# S02 — the vertex constant `Q₀` of the superellipsoid in closed form
+
+Target id: S02.
+Paper label: `thm:S` (paper/ieee/main.tex lines 1921–1943), the closed form of `Q₀`; the sentence
+"Then $s_2$ is \eqref{eq:s2} in Table~\ref{tab:closed}" (main.tex 1944) with `eq:s2`
+(main.tex 949–950) and the decimals of `s₂` (main.tex 1944–1947).
+Detailed proof: paper/ieee/proofs/sec_g3_S.tex, subsection "The vertex constant $Q_0$"
+(lines 123–485): Lemmas `g3:lem:Q0simplex`, `g3:lem:step1`, `g3:lem:J`, `g3:lem:A`, `g3:lem:P`
+and "End of the proof of Theorem `g3:thm:S`".
+
+Earlier Lean used here (imported, not restated):
+* Z04 (`Z04.Q`, `Z04.h`): `Q(ε) = -(1/(√π Γ(1+2ε))) ∫₀^∞ h_ε(y)³ dy`, so `Q₀ = Z04.Q 0`.
+* R04 (`R04.s`): the coefficients `s_k` of `S(p) = Σ s_k p^{-k} + O(p^{-K-1})`; R04 proves
+  `s₂ = 48M₁ - 4π² - 8Q(0)`.
+* D00 (`D00.Li2`): the real dilogarithm `Li₂(x) = -∫₀ˣ log(1-t)/t dt` (genuine on `(-∞,1]`).
+  The `Li₂` arguments below are `b = √2-1 ≈ 0.414`, `-b⁴ ≈ -0.029` and, in `stmt_5`,
+  `2cos θ - 1 ∈ [0,1]`; all lie in `(-∞,1]`.
+* D02 (`D02.a`, `D02.b`, `D02.L`, `D02.lam`): `a = 1+√2`, `b = √2-1`, `L = log a`, `λ = log 2`
+  (main.tex 875, 918, Section `sec:square`).
+* W03 (imported for the proof of the corollary only): `M₁ = W02.Mk 1 = D03.M1closed`.
+
+Quoted verbatim (main.tex 1936–1941):
+
+  where $Q_0=Q(0)$ and $Q_1=Q'(0)$ ($Q$ is smooth on $[0,\frac14]$, one-sided at $0$) and
+  \begin{multline*}
+  Q_0=-\frac{\pi^2}{8}+\frac{\sqrt2}{16}\pi^2+\frac{3\sqrt2}{2}\pi\alpha_c-3\lambda^2-9\sqrt2\,L\log3\\
+  +(6+6\sqrt2)L^2-6\sqrt2\,\Li_2(b)+\frac{9\sqrt2}{4}\Li_2(-b^4),
+  \end{multline*}
+  with $\alpha_c=\arctan\frac1{\sqrt2}$ and $a,b,L,\lambda$ as in Section~\ref{sec:square}.
+
+Quoted verbatim (main.tex 949–950, Table `tab:closed`):
+
+  s_2&=-5\pi^2+\frac{37\sqrt2}{2}\pi^2-12\sqrt2\,\pi\alpha_c+48\lambda^2-96L^2-168\sqrt2\,L^2+96\sqrt2\,\lambda L\notag\\
+  &\quad+72\sqrt2\,L\log3-192\sqrt2\,\Li_2(b)-18\sqrt2\,\Li_2(-b^4),\qquad \alpha_c=\arctan\tfrac{1}{\sqrt2}\tag{T6}\label{eq:s2}
+
+Quoted verbatim (main.tex 1944–1946): "Numerically
+  \begin{gather*} s_1=-26.5585583865\ldots,\qquad s_2=-4.6892155184\ldots, ..."
+
+Quoted verbatim (sec_g3_S.tex 127–129, Lemma `g3:lem:Q0simplex`):
+
+  Let $D(x)=x_1+x_2+x_3-\sum_{i<j}\sqrt{x_i^2+x_j^2}+\sqrt{x_1^2+x_2^2+x_3^2}$. Then $D\ge0$ and
+  $Q_0=-\int_\Delta\frac{D(\sigma)}{\sigma_1\sigma_2\sigma_3}\dd\sigma$, that is, with
+  $\rho=\sqrt{\sigma_1^2+\sigma_2^2+\sigma_3^2}$,
+  $Q_0=\int_\Delta\frac{\sum_{i<j}\sqrt{\sigma_i^2+\sigma_j^2}-1-\rho}{\sigma_1\sigma_2\sigma_3}\dd\sigma$.
+
+Quoted verbatim (sec_g3_S.tex 137–145, Lemma `g3:lem:step1`):
+
+  Let $q(s)=\sqrt{s^2+(1-s)^2}$, $s\in[0,1]$ ...
+  $Q_0=6\int_0^1J\bigl(q(s)\bigr)\dd s$, where for $q\in[\frac1{\sqrt2},1]$
+  \[ J(q)=\int_0^\infty\Bigl[\frac1{1+r+\sqrt{q^2+r^2}}-\frac1{1+q}\Bigr]\frac{\dd r}{r(1+r)} . \]
+
+Quoted verbatim (sec_g3_S.tex 168): Put
+  $P_1=\int_0^1\frac{2\log(1+q)-(1+q)\log(2q)}{1-q^2}\dd s$,
+  $P_{2a}=\int_0^1\frac{\arsinh q}{\sqrt{1+q^2}}\dd s$,
+  $P_{2c}=\int_0^1\frac{\arsinh(1/q)}{\sqrt{1+q^2}}\dd s$ ($q=q(s)$). The inner integral $J$ is
+  elementary (Lemma~\ref{g3:lem:J}), and so $Q_0=6(P_1-P_{2a}-P_{2c})$.
+
+Quoted verbatim (sec_g3_S.tex 170–174, Lemma `g3:lem:J`):
+
+  For $0<q<1$, with $\beta=\sqrt{1+q^2}$,
+  \[ J(q)=\frac{2\log(1+q)-(1+q)\log(2q)}{1-q^2}-\frac{\operatorname{arsinh}q+\operatorname{arsinh}(1/q)}{\beta}. \]
+
+Quoted verbatim (sec_g3_S.tex 211–213, Lemma `g3:lem:A`):
+
+  For $0\le\theta\le\pi/3$ and $\zeta_\theta=(2\cos\theta-1)e^{i\theta}$:
+  $\operatorname{Re}\Li_2(\zeta_\theta)=\frac12\Li_2(2\cos\theta-1)+\frac34\theta^2-\frac\pi2\theta+\frac{\pi^2}{12}$.
+  In particular $\operatorname{Re}\Li_2\bigl(b\,e^{\pm i\pi/4}\bigr)=\frac12\Li_2(b)+\frac{\pi^2}{192}$
+  (the case $\theta=\pi/4$, $2\cos\frac\pi4-1=b$).
+
+Quoted verbatim (sec_g3_S.tex 219–226, Lemma `g3:lem:P`):
+
+  With $\lambda=\log2$, $L=\log(1+\sqrt2)$, $b=\sqrt2-1$, $\alpha_c=\arctan\frac1{\sqrt2}$:
+  \begin{align*}
+  P_1&=3\sqrt2\Li_2(b)-\tfrac{\lambda^2}2-\tfrac{\sqrt2}2\lambda L+\bigl(1+\tfrac{3\sqrt2}2\bigr)L^2-\bigl(\tfrac1{48}+\tfrac{3\sqrt2}{16}\bigr)\pi^2,\\
+  P_{2a}&=\sqrt2\Bigl[3\Li_2(b)-\tfrac14\Li_2(-b^4)-\tfrac{\lambda L}2+L\log3+\tfrac{L^2}2-\tfrac{5\pi^2}{24}\Bigr],\\
+  P_{2c}&=\sqrt2\Bigl[\Li_2(b)-\tfrac18\Li_2(-b^4)+\tfrac{L\log3}2+\tfrac{\pi^2}{96}-\tfrac{\pi\alpha_c}4\Bigr].
+  \end{align*}
+
+Conventions.
+* `Δ` is `Y05.Δ = {t ∈ ℝ² | t₁ ≥ 0, t₂ ≥ 0, t₁+t₂ ≤ 1}` with `σ = (t₁, t₂, 1-t₁-t₂)` and
+  `dσ = dt₁ dt₂` (Lebesgue measure on `ℝ²`); this is the normalisation of the supplement's
+  Dirichlet integrals (`∫_Δ Π^{δ-1} dσ = Γ(δ)³/Γ(3δ)`). On the boundary of `Δ` the integrand
+  has the junk value `x/0 = 0`; the boundary is a null set.
+* The integrand of `P₁` has a removable singularity at `q = 1` (`s ∈ {0,1}`); Lean's value
+  there is `x/0 = 0`, on a null set. Interval integrals are stated with `IntervalIntegrable`.
+* `Re Li₂(z)` for `|z| ≤ 1` is written by the power series: `Re Σ zⁿ/n² = Σ rⁿ cos(nθ)/n²`
+  for `z = r e^{iθ}`, `0 ≤ r ≤ 1` (the principal dilogarithm equals its power series on the
+  closed unit disc). In Lemma A, `r = 2cos θ - 1 ∈ [0,1]` for `θ ∈ [0, π/3]`. Since cosine is
+  even, the case `b e^{-iπ/4}` has the same series as `b e^{iπ/4}`.
+* `D ≥ 0` is stated for `x ∈ [0,∞)³` (the paper prints `D ≥ 0` with no domain; for
+  `x = (-1,0,0)`, `D = -2`. The paper applies it only on `Δ`).
+* The integrability of `h_0³` (so that `Z04.Q 0` is a genuine integral) is R04 `stmt_6`; not
+  restated.
+
+Numerical check (mpmath, 34–40 digits, before freezing): `Q₀` from the definition
+`-(1/√π)∫h₀³` is `-2.832935683494847760462057251515769`, equal to the closed form to 33 digits;
+the simplex integral of stmt_1 (in the coordinates `(s,r)` of the proof) agrees to 25 digits;
+`J` against its closed form at `q = 0.72, 0.85, 0.97`: `≤ 3·10⁻³⁹`; `P₁, P_{2a}, P_{2c}` against
+their closed forms: `≤ 2·10⁻⁴⁰`; `6(P₁-P_{2a}-P_{2c})` and `6∫J(q(s))ds` against the closed form:
+`5·10⁻⁴¹`; Lemma A at `θ = 0.01, 0.3, π/4, 0.9`: `≤ 3·10⁻⁴¹`; `48M₁-4π²-8Q₀` (with the closed
+form of `thm:M1`) against (T6): `7·10⁻³⁹`, value `-4.689215518460502249960...`.
+
+NOT COVERED:
+* The second form of the simplex integrand in `g3:lem:Q0simplex` (it is the first one with
+  `σ₁+σ₂+σ₃ = 1`, i.e. the same function on `Δ`).
+* Inner steps of the proofs: the Gaussian representation of `D`, the regularised integral
+  `I(δ)` and its Dirichlet evaluation, the substitution (`g3:eq:sq`), the formula
+  `P_{2a} = √2(L log 3/2 - W)` and the integral `W`, the complex `χ₂` identities (a)–(e) for
+  `P_{2c}`, the values `Re Li₂(Z₁), Re Li₂(Z₂), Re Li₂(Z₃)`, the eighteen rows of Table
+  `g3:tab:P1` and the fifteen dilogarithm instances of Table `g3:tab:dilog` (several of them are
+  already D02 statements).
+* The claim "fifteen instances of the classical dilogarithm identities" as a count, and the
+  computer-algebra remarks.
+* `Q₁` and its decimals; `s₁`, `s₃` decimals; the `n`-dimensional `S_n(p)` formula.
+
+Statements 1, 2, 4, 6, 7, 8, 9, 10, 11 moved to `Zeta3.Wave10.S06_VertexQ0Rest` (continuation of S02); this file keeps 3 and 5.
+-/
+-- BEGIN STATEMENTS
+namespace S02
+
+open Real MeasureTheory Set
+
+/-- The cube angle `α_c = arctan(1/√2)` (main.tex 1941). -/
+noncomputable def alphac : ℝ := Real.arctan (1 / Real.sqrt 2)
+
+/-- `q(s) = √(s² + (1-s)²)` (sec_g3_S.tex 137). -/
+noncomputable def qs (s : ℝ) : ℝ := Real.sqrt (s ^ 2 + (1 - s) ^ 2)
+
+/-- `D(x) = x₁+x₂+x₃ - Σ_{i<j} √(x_i²+x_j²) + √(x₁²+x₂²+x₃²)` (`g3:lem:Q0simplex`). -/
+noncomputable def Dfun (x₁ x₂ x₃ : ℝ) : ℝ :=
+  x₁ + x₂ + x₃ - Real.sqrt (x₁ ^ 2 + x₂ ^ 2) - Real.sqrt (x₂ ^ 2 + x₃ ^ 2)
+    - Real.sqrt (x₁ ^ 2 + x₃ ^ 2) + Real.sqrt (x₁ ^ 2 + x₂ ^ 2 + x₃ ^ 2)
+
+/-- `D(σ)/(σ₁σ₂σ₃)` on the simplex, with `σ = (t₁, t₂, 1-t₁-t₂)`. -/
+noncomputable def simplexIntegrand (t : ℝ × ℝ) : ℝ :=
+  Dfun t.1 t.2 (1 - t.1 - t.2) / (t.1 * t.2 * (1 - t.1 - t.2))
+
+/-- The integrand of `J(q)`: `[1/(1+r+√(q²+r²)) - 1/(1+q)] / (r(1+r))`. -/
+noncomputable def Jintegrand (q r : ℝ) : ℝ :=
+  (1 / (1 + r + Real.sqrt (q ^ 2 + r ^ 2)) - 1 / (1 + q)) / (r * (1 + r))
+
+/-- `J(q) = ∫₀^∞ [1/(1+r+√(q²+r²)) - 1/(1+q)] dr/(r(1+r))` (`g3:lem:step1`). -/
+noncomputable def J (q : ℝ) : ℝ := ∫ r in Ioi (0 : ℝ), Jintegrand q r
+
+/-- `(2log(1+q) - (1+q)log(2q))/(1-q²)`, the integrand of `P₁` and the first part of `J`. -/
+noncomputable def f1 (q : ℝ) : ℝ :=
+  (2 * Real.log (1 + q) - (1 + q) * Real.log (2 * q)) / (1 - q ^ 2)
+
+/-- `P₁ = ∫₀¹ (2log(1+q)-(1+q)log(2q))/(1-q²) ds`, `q = q(s)`. -/
+noncomputable def P1 : ℝ := ∫ s in (0 : ℝ)..1, f1 (qs s)
+
+/-- `P_{2a} = ∫₀¹ arsinh q / √(1+q²) ds`, `q = q(s)`. -/
+noncomputable def P2a : ℝ :=
+  ∫ s in (0 : ℝ)..1, Real.arsinh (qs s) / Real.sqrt (1 + qs s ^ 2)
+
+/-- `P_{2c} = ∫₀¹ arsinh(1/q) / √(1+q²) ds`, `q = q(s)`. -/
+noncomputable def P2c : ℝ :=
+  ∫ s in (0 : ℝ)..1, Real.arsinh (1 / qs s) / Real.sqrt (1 + qs s ^ 2)
+
+/-- The closed form of `Q₀` printed in `thm:S`. -/
+noncomputable def Q0closed : ℝ :=
+  -(π ^ 2 / 8) + Real.sqrt 2 / 16 * π ^ 2 + 3 * Real.sqrt 2 / 2 * π * alphac
+    - 3 * D02.lam ^ 2 - 9 * Real.sqrt 2 * D02.L * Real.log 3
+    + (6 + 6 * Real.sqrt 2) * D02.L ^ 2 - 6 * Real.sqrt 2 * D00.Li2 D02.b
+    + 9 * Real.sqrt 2 / 4 * D00.Li2 (-D02.b ^ 4)
+
+/-- The closed form (T6) of `s₂` printed in Table `tab:closed` (`eq:s2`). -/
+noncomputable def s2closed : ℝ :=
+  -5 * π ^ 2 + 37 * Real.sqrt 2 / 2 * π ^ 2 - 12 * Real.sqrt 2 * π * alphac
+    + 48 * D02.lam ^ 2 - 96 * D02.L ^ 2 - 168 * Real.sqrt 2 * D02.L ^ 2
+    + 96 * Real.sqrt 2 * D02.lam * D02.L + 72 * Real.sqrt 2 * D02.L * Real.log 3
+    - 192 * Real.sqrt 2 * D00.Li2 D02.b - 18 * Real.sqrt 2 * D00.Li2 (-D02.b ^ 4)
+
+/-- Lemma `g3:lem:J`: for `0 < q < 1`, with `β = √(1+q²)`,
+`J(q) = (2log(1+q)-(1+q)log(2q))/(1-q²) - (arsinh q + arsinh(1/q))/β`. -/
+def stmt_3 : Prop :=
+  ∀ q : ℝ, 0 < q → q < 1 →
+    J q = f1 q - (Real.arsinh q + Real.arsinh (1 / q)) / Real.sqrt (1 + q ^ 2)
+
+/-- Lemma `g3:lem:A` (Lemma A): for `0 ≤ θ ≤ π/3`, with `r = 2cos θ - 1`,
+`Re Li₂(r e^{iθ}) = Σ_{n≥1} rⁿ cos(nθ)/n² = ½Li₂(r) + ¾θ² - (π/2)θ + π²/12`; and the case
+`θ = π/4` (`r = b`): `Re Li₂(b e^{±iπ/4}) = ½Li₂(b) + π²/192`. -/
+def stmt_5 : Prop :=
+  (∀ θ : ℝ, 0 ≤ θ → θ ≤ π / 3 →
+    HasSum (fun n : ℕ => (2 * Real.cos θ - 1) ^ (n + 1) * Real.cos ((n + 1 : ℝ) * θ)
+        / ((n : ℝ) + 1) ^ 2)
+      ((1 / 2) * D00.Li2 (2 * Real.cos θ - 1) + (3 / 4) * θ ^ 2 - π / 2 * θ + π ^ 2 / 12)) ∧
+  HasSum (fun n : ℕ => D02.b ^ (n + 1) * Real.cos ((n + 1 : ℝ) * (π / 4)) / ((n : ℝ) + 1) ^ 2)
+    ((1 / 2) * D00.Li2 D02.b + π ^ 2 / 192)
+
+end S02

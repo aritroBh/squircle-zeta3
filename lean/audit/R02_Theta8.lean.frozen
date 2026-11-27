@@ -1,0 +1,270 @@
+import Mathlib
+import Zeta3.Wave5.Y04_Fourier
+import Zeta3.Wave6.Z02_Theta5
+import Zeta3.Wave7.V02_Theta6
+import Zeta3.Wave8.Q03_Theta7
+/-!
+# R02 — the `τ⁸` coefficient of the Fourier coefficients `a_k(h_p)`: `Θ₈`, and `prop:degree` at `n = 8`
+
+Target id: R02.
+Paper labels: `prop:theta` and `prop:degree` (main.tex lines 1214–1225), extending
+`thm:fourier` (main.tex 1204–1211, formalised in `Zeta3.Wave5.Y04_Fourier`) and its `τ⁵`, `τ⁶`,
+`τ⁷` extensions (`Zeta3.Wave6.Z02_Theta5`, `Zeta3.Wave7.V02_Theta6`, `Zeta3.Wave8.Q03_Theta7`)
+by one more order.
+Detailed proofs: paper/ieee/proofs/sec_g2_theta.tex (the display of `Θ₈` at lines 19–20,
+Lemma `g2:lem:t:red`, Table `g2:tab:D` rows `D̃_{8,0}`, …, `D̃_{8,3}`, and the check of the top
+coefficient `-127ζ(8)` after the table) and paper/ieee/proofs/sec_g2_degree.tex (Lemmas
+`g2:lem:d:coef`, `g2:lem:d:e`, `g2:lem:d:theta`, proof of Proposition 2, case `n = 2M`); the
+Watson expansion is Lemma `g2:lem:f:watson` of sec_g2_fourier.tex.
+
+Quoted verbatim.
+
+main.tex 1214–1216 (`prop:degree`):
+
+  For $n\ge2$, the coefficient of $\tau^n$ in $(-1)^k\frac{\pi}{\sqrt2}a_k(h_p)$ is a polynomial
+  $\Theta_n(k^2)$ of degree exactly $\lfloor n/2\rfloor-1$, whose coefficients are alternating
+  multiple zeta values of weight $n$. For even $n=2m$ its leading coefficient is
+  $(-1)^{m-1}(2^{2m-1}-1)\zeta(2m)$.
+
+main.tex 1220–1225 (`prop:theta`):
+
+  For $5\le n\le9$, every coefficient of $\Theta_n$ is a rational combination of products of
+  single zeta values of total weight $n$. With $u=k^2$,
+  \Theta_5=-\bigl(\tfrac34+4u\bigr)\zeta(5)-\bigl(\tfrac74+4u\bigr)\zeta(2)\zeta(3).
+
+main.tex 1226: "$\Theta_6,\dots,\Theta_9$ are in our notes."
+
+Supplement sec_g2_theta.tex lines 19–20:
+
+  \Theta_8&=-\bigl(\tfrac{2891923}{12288}+\tfrac{495965}{256}u+\tfrac{60889}{48}u^2+127u^3\bigr)\zeta(8)+\bigl(\tfrac{141}{16}+50u+16u^2\bigr)\zeta(3)\zeta(5)\\
+  &\qquad+\bigl(\tfrac{169}{32}+27u+8u^2\bigr)\zeta(2)\zeta(3)^2,
+
+Supplement, Lemma `g2:lem:f:watson`:
+
+  For every integer $N\ge2$ there is $C$ (depending on $G$ and $N$) such that for $0<\tau<1$
+  \Bigl|\,\tau\int_0^\infty\bigl[(1+\eu^{-s})^\tau-1\bigr]G(\tau s)\,ds-\sum_{n=2}^{N}\tau^n
+  \sum_{j=1}^{n-1}\frac{g_{n-1-j}}{j!}\,I_{n-1-j,\,j}\Bigr|\le C\tau^{N+1}.
+
+Supplement, Lemma `g2:lem:d:coef`:
+
+  a_k(h_p)=A_k+\sum_{n=2}^Nc_n(k)\tau^n+O_{k,N}(\tau^{N+1}),\qquad
+  c_n(k)=\frac8\pi\sum_{j=1}^{n-1}\frac{g_{k,n-1-j}}{j!}\,I_{n-1-j,\,j},
+
+Supplement, Lemma `g2:lem:d:e`(b) and Lemma `g2:lem:d:theta`:
+
+  $g_{k,m}=(-1)^k\frac{\sqrt2}4\,\rho_m(k^2)$ for all $k,m\ge0$.
+  \Theta_n(u)=2\sum_{j=1}^{n-1}\frac{\rho_{n-1-j}(u)}{j!}\,I_{n-1-j,\,j}.
+
+  with $e_{r,m}=2^{3/2}\,[y^m]\bigl(\gd(y)^{2r}H(y)\bigr)$,
+  $\rho_m(u)=\sum_{r=0}^{\lfloor m/2\rfloor}\frac{(-4u)^r}{(2r)!}\,e_{r,m}$ and the values
+  "$m=0$: $1,\frac12,-\frac58,-\frac{17}{48},\frac{121}{384}$; $m=1$ ($r\ge2$):
+  $1,\frac12,-\frac{23}{24},-\frac{25}{48},\frac{731}{1152}$; $m=2$ ($r\ge4$):
+  $1,\frac12,-\frac{31}{24},-\frac{11}{16},\frac{409}{384}$", and (Lemma `g2:lem:d:e`(a))
+  "$e_{r,2r}=1$". So `e_{1,6} = 731/1152`, `e_{2,6} = -31/24`, `e_{3,6} = 1`.
+  The supplement lists `e_{0,m}` only for `m ≤ 4`; `e_{0,5} = 721/3840` (as in Q03) and
+  `e_{0,6} = -1369/9216` were computed here from the definition (SymPy series of
+  `2^{3/2} H(y) = e^{-y}((1+e^{-2y})/2)^{-3/2}` and of `gd`; the listed values were reproduced).
+  So `ρ₆(u) = e_{0,6} - 2u e_{1,6} + (2/3)u² e_{2,6} - (4/45)u³ e_{3,6}
+    = -1369/9216 - (731/576)u - (31/36)u² - (4/45)u³`.
+
+Supplement, Lemma `g2:lem:t:red` and Table `g2:tab:D` (products `ζ(8), ζ(3)ζ(5), ζ(2)ζ(3)²`):
+
+  $\wD_{n,m}=2\sum_{j=1}^{n-1-2m}\dfrac{e_{m,\,n-1-j}}{j!}\,I_{n-1-j,\,j}$
+  $\Theta_n(u)=\sum_{m=0}^{\lfloor n/2\rfloor-1}\wD_{n,m}\,\dfrac{(-4u)^m}{(2m)!}$.
+  $\wD_{8,0}$ & $-\tfrac{2891923}{12288},\ \tfrac{141}{16},\ \tfrac{169}{32}$ \\
+  $\wD_{8,1}$ & $\tfrac{495965}{512},\ -25,\ -\tfrac{27}2$ \\
+  $\wD_{8,2}$ & $-\tfrac{60889}{32},\ 24,\ 12$ \\
+  $\wD_{8,3}$ & $\tfrac{5715}4,\ 0,\ 0$ \\
+
+  "the top coefficients $\frac{(-4)^{M-1}}{(2M-2)!}\wD_{n,M-1}$ at $n=6,8$ are [...]
+  $\frac{(-4)^3}{6!}\cdot\frac{5715}4\zeta(8)=-127\zeta(8)$, as in Proposition~2."
+
+Supplement, Lemma `g2:lem:f:atoms`: `I_{m,1} = m! η(m+2)`; at `m = 6`,
+`I_{6,1} = 6! (1 - 2⁻⁷) ζ(8) = (5715/8) ζ(8)`.
+
+Reused (not redefined): from `Zeta3.Wave5.Y04_Fourier`: `Y04.tau` (`τ = 1 - 1/p`), `Y04.h`
+(the support function `h_p`), `Y04.a` (`a_k(f) = (4/π)∫_0^{π/2} f cos 4kθ`), `Y04.G` (the layer
+function `G_k(x) = cos(4kθ_x) cos²θ_x sin θ_x`, `θ_x = arctan e^{-x}`), `Y04.I`
+(`I_{m,j} = ∫_0^∞ s^m log^j(1+e^{-s}) ds`), `Y04.z3` (`ζ(3) = (riemannZeta 3).re`); from
+`Zeta3.Wave6.Z02_Theta5`: `Z02.z5` (`ζ(5) = (riemannZeta 5).re`); from `Zeta3.Wave8.Q03_Theta7`:
+`Q03.z7` (`ζ(7) = (riemannZeta 7).re`). All are statement-block definitions of those files.
+Y04, Z02, V02, Q03 prove `g_{k,m}` for `m ≤ 5`, Watson up to `N = 7`, the rows of weight
+`≤ 7` and the expansion through `τ⁷` (`Q03.stmt_9`); none is restated here.
+
+Conventions.
+* `ζ(3) = Y04.z3`, `ζ(5) = Z02.z5`, `ζ(7) = Q03.z7`, the real parts of Mathlib's complex zeta
+  values; by `zeta_nat_eq_tsum_of_gt_one` these are the real numbers `∑ 1/n^3`, `∑ 1/n^5`,
+  `∑ 1/n^7`. The even values are written out: `ζ(2) = π²/6`, `ζ(4) = π⁴/90`, `ζ(6) = π⁶/945`
+  (as in Y04, V02), and `ζ(8) = π⁸/9450`, which `stmt_1` proves to be Mathlib's
+  `riemannZeta 8`. So `ζ(3)ζ(5)` is `Y04.z3 * Z02.z5` and `ζ(2)ζ(3)²` is `(π²/6) * Y04.z3²`.
+* `g_{k,m} = G_k^{(m)}(0)/m!` is written `iteratedDeriv m (Y04.G k) 0 / m!`; `G_k` is `C^∞`
+  on `ℝ` (proved in Y04), so these are genuine derivatives.
+* All half-line integrals `I_{m,j}`, `j ≥ 1`, have integrable integrands (proved in Y04), and
+  `stmt_3` asserts the Watson integrand integrable, so no statement holds by the
+  "non-integrable ↦ 0" convention.
+* As in Y04/Z02/V02/Q03, the Watson lemma (`stmt_3`) asks `G` to be `C^∞` on all of `ℝ` and
+  bounded on `[0,∞)` (the supplement: `C^∞` on `[0,∞)`); this covers `G = G_k`.
+* "The coefficient of `τ⁸`" in `prop:degree` is the coefficient of an asymptotic expansion
+  (the supplement's "Setting"). `stmt_9` states it that way: a polynomial `Θ₈ ∈ ℝ[X]` such
+  that `(-1)^k (√2/π)[-4/(16k²-1) + Σ_{n=2}^{7} Θ_n(k²) τ^n + Θ₈(k²) τ⁸]` (with the proved
+  `Θ₂, …, Θ₇` of Y04/Z02/V02/Q03 written out) approximates `a_k(h_p)` to `O_k(τ⁹)` for every
+  `k`. Such coefficients are unique and a polynomial is determined by its values at `k²`, so
+  this pins down the paper's `Θ₈`. "Degree exactly 3" is `Polynomial.degree Θ₈ = 3`, and the
+  leading coefficient is the paper's `(-1)^{m-1}(2^{2m-1}-1)ζ(2m)` at `m = 4`, i.e. `-127ζ(8)`.
+* The `O(τ⁹)` claims are explicit: `∃ C τ₀, 0 < τ₀ ∧ ∀ p > 1, τ ≤ τ₀ → |error| ≤ C τ⁹`, the
+  same form as `Y04.stmt_8`, `Z02.stmt_8`, `V02.stmt_8`, `Q03.stmt_9`.
+* Numerical check before freezing (mpmath, 40 digits; SymPy for `e_{r,m}`): `ζ(8) = π⁸/9450`,
+  `I_{6,1} = 5715ζ(8)/8`, the four rows `D̃_{8,0}, …, D̃_{8,3}` (`stmt_4`–`stmt_7`) agree to
+  `≤ 3·10⁻³⁴`; `g_{k,6}` (`stmt_2`) agrees exactly with the SymPy Taylor coefficient of `G_k` for
+  `k = 0, 1, 2, 3`; the `τ⁸` coefficient `2 Σ_j ρ_{7-j}(k²) I_{7-j,j}/j!` minus the closed form
+  `Θ₈(k²)` (`stmt_8`) is `≤ 3·10⁻³²` in absolute value for `k = 0, 1, 2, 3` (values
+  `-212.768…, -3393.79…, -35404.7…, -209555.7…`). Direct quadrature of `a_k(h_p)` itself was not
+  redone at this order.
+
+NOT COVERED: `prop:degree` for `n ≠ 8` beyond what earlier files prove, and its clause
+"coefficients are alternating multiple zeta values of weight `n`" (no AMZV/iterated-integral
+library is set up; for `n = 8` the explicit closed form in `ζ(8), ζ(3)ζ(5), ζ(2)ζ(3)²` is stated
+instead, which is stronger in content but not the same sentence); `Θ₉` and `prop:theta` for
+`n = 9`; the iterated-integral form of `I_{m,j}`, the shuffle/stuffle/duality relations and the
+exact certificates (the four `n = 8` identities `D̃_{8,0}`, …, `D̃_{8,3}` are stated directly);
+the general formula for `e_{r,m}`, `ρ_m` (only `g_{k,6}` is stated); Cauchy's formula
+`P = ∫ h_p` and the `k = 0` comparison with `thm:pw`.
+-/
+
+-- BEGIN STATEMENTS
+namespace R02
+
+open Real MeasureTheory Set Polynomial
+
+/-- The value `ζ(8) = π⁸/9450` (Euler; Mathlib's `riemannZeta` at `8`), used to write `ζ(8)`
+as `π⁸/9450` in the statements below. -/
+def stmt_1 : Prop := riemannZeta 8 = ((π ^ 8 / 9450 : ℝ) : ℂ)
+
+/-- Lemma `g2:lem:d:e`(b) at `m = 6` (with
+`ρ₆(u) = -1369/9216 - (731/576)u - (31/36)u² - (4/45)u³`): the next Taylor coefficient of `G_k`,
+`g_{k,6} = G_k^{(6)}(0)/6! = (-1)^k (√2/4)(-1369/9216 - (731/576)k² - (31/36)k⁴ - (4/45)k⁶)`. -/
+def stmt_2 : Prop :=
+  ∀ k : ℕ, iteratedDeriv 6 (Y04.G k) 0 / 720 =
+    (-1 : ℝ) ^ k * Real.sqrt 2 / 4 *
+      (-(1369 / 9216) - 731 / 576 * (k : ℝ) ^ 2 - 31 / 36 * (k : ℝ) ^ 4 - 4 / 45 * (k : ℝ) ^ 6)
+
+/-- Lemma `g2:lem:f:watson` with `N = 8`: for `G` smooth and bounded on `[0,∞)`, with
+`g_m = G^{(m)}(0)/m!`, there is `C` with, for `0 < τ < 1`, the integrand integrable and
+`|τ ∫_0^∞ [(1+e^{-s})^τ - 1] G(τ s) ds - Σ_{n=2}^{8} τ^n Σ_{j=1}^{n-1} g_{n-1-j}/j! I_{n-1-j,j}|
+  ≤ C τ⁹`. -/
+def stmt_3 : Prop :=
+  ∀ Gf : ℝ → ℝ, ContDiff ℝ (⊤ : ℕ∞) Gf → (∃ M : ℝ, ∀ x : ℝ, 0 ≤ x → |Gf x| ≤ M) →
+    ∃ C : ℝ, ∀ τ : ℝ, 0 < τ → τ < 1 →
+      IntegrableOn (fun s : ℝ => ((1 + Real.exp (-s)) ^ τ - 1) * Gf (τ * s)) (Ioi 0) ∧
+      |τ * (∫ s in Ioi (0 : ℝ), ((1 + Real.exp (-s)) ^ τ - 1) * Gf (τ * s)) -
+          ∑ n ∈ Finset.Icc 2 8, τ ^ n * ∑ j ∈ Finset.Icc 1 (n - 1),
+            iteratedDeriv (n - 1 - j) Gf 0 / ((n - 1 - j).factorial : ℝ) /
+              (j.factorial : ℝ) * Y04.I (n - 1 - j) j| ≤ C * τ ^ 9
+
+/-- Table `g2:tab:D`, row `D̃_{8,3}` (with `e_{3,6} = 1`): `D̃_{8,3} = 2 I_{6,1} = 5715 ζ(8)/4`,
+i.e. Lemma `g2:lem:f:atoms` at `m = 6`: `I_{6,1} = 6! η(8) = 5715 ζ(8)/8`, `ζ(8) = π⁸/9450`. -/
+def stmt_4 : Prop := 2 * Y04.I 6 1 = 5715 / 4 * (π ^ 8 / 9450)
+
+/-- Table `g2:tab:D`, row `D̃_{8,2}` (with `e_{2,4..6} = 1, 1/2, -31/24`):
+`D̃_{8,2} = 2(e_{2,6} I_{6,1} + e_{2,5} I_{5,2}/2! + e_{2,4} I_{4,3}/3!)
+  = -(60889/32) ζ(8) + 24 ζ(3) ζ(5) + 12 ζ(2) ζ(3)²`. -/
+def stmt_5 : Prop :=
+  2 * (-(31 / 24) * Y04.I 6 1 + (1 / 2) * Y04.I 5 2 / 2 + Y04.I 4 3 / 6) =
+    -(60889 / 32) * (π ^ 8 / 9450) + 24 * (Y04.z3 * Z02.z5)
+      + 12 * ((π ^ 2 / 6) * Y04.z3 ^ 2)
+
+/-- Table `g2:tab:D`, row `D̃_{8,1}`: with `e_{1,2..6} = 1, 1/2, -23/24, -25/48, 731/1152`,
+`D̃_{8,1} = 2(e_{1,6} I_{6,1} + e_{1,5} I_{5,2}/2! + e_{1,4} I_{4,3}/3! + e_{1,3} I_{3,4}/4!
+  + e_{1,2} I_{2,5}/5!) = (495965/512) ζ(8) - 25 ζ(3) ζ(5) - (27/2) ζ(2) ζ(3)²`. -/
+def stmt_6 : Prop :=
+  2 * (731 / 1152 * Y04.I 6 1 + (-(25 / 48)) * Y04.I 5 2 / 2 + (-(23 / 24)) * Y04.I 4 3 / 6
+      + (1 / 2) * Y04.I 3 4 / 24 + Y04.I 2 5 / 120) =
+    495965 / 512 * (π ^ 8 / 9450) - 25 * (Y04.z3 * Z02.z5)
+      - 27 / 2 * ((π ^ 2 / 6) * Y04.z3 ^ 2)
+
+/-- Table `g2:tab:D`, row `D̃_{8,0}`: with
+`e_{0,0..6} = 1, 1/2, -5/8, -17/48, 121/384, 721/3840, -1369/9216`,
+`D̃_{8,0} = 2(e_{0,6} I_{6,1} + e_{0,5} I_{5,2}/2! + e_{0,4} I_{4,3}/3! + e_{0,3} I_{3,4}/4!
+  + e_{0,2} I_{2,5}/5! + e_{0,1} I_{1,6}/6! + e_{0,0} I_{0,7}/7!)
+  = -(2891923/12288) ζ(8) + (141/16) ζ(3) ζ(5) + (169/32) ζ(2) ζ(3)²`. -/
+def stmt_7 : Prop :=
+  2 * (-(1369 / 9216) * Y04.I 6 1 + 721 / 3840 * Y04.I 5 2 / 2 + 121 / 384 * Y04.I 4 3 / 6
+      + (-(17 / 48)) * Y04.I 3 4 / 24 + (-(5 / 8)) * Y04.I 2 5 / 120
+      + (1 / 2) * Y04.I 1 6 / 720 + Y04.I 0 7 / 5040) =
+    -(2891923 / 12288) * (π ^ 8 / 9450) + 141 / 16 * (Y04.z3 * Z02.z5)
+      + 169 / 32 * ((π ^ 2 / 6) * Y04.z3 ^ 2)
+
+/-- Lemmas `g2:lem:d:coef`, `g2:lem:d:theta` and `g2:lem:t:red` at `n = 8`, together with the
+closed form of `Θ₈` (sec_g2_theta.tex lines 19–20): the `τ⁸` coefficient
+`c_8(k) = (8/π) Σ_{j=1}^{7} g_{k,7-j}/j! I_{7-j,j}` satisfies
+`(-1)^k (π/√2) c_8(k) = Θ₈(k²) = -(2891923/12288 + (495965/256)k² + (60889/48)k⁴ + 127k⁶) ζ(8)
+  + (141/16 + 50k² + 16k⁴) ζ(3) ζ(5) + (169/32 + 27k² + 8k⁴) ζ(2) ζ(3)²`. -/
+def stmt_8 : Prop :=
+  ∀ k : ℕ,
+    (-1 : ℝ) ^ k * (π / Real.sqrt 2) *
+        (8 / π * ∑ j ∈ Finset.Icc 1 7,
+          iteratedDeriv (7 - j) (Y04.G k) 0 / ((7 - j).factorial : ℝ) / (j.factorial : ℝ) *
+            Y04.I (7 - j) j) =
+      -(2891923 / 12288 + 495965 / 256 * (k : ℝ) ^ 2 + 60889 / 48 * (k : ℝ) ^ 4
+          + 127 * (k : ℝ) ^ 6) * (π ^ 8 / 9450)
+        + (141 / 16 + 50 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * (Y04.z3 * Z02.z5)
+        + (169 / 32 + 27 * (k : ℝ) ^ 2 + 8 * (k : ℝ) ^ 4) * ((π ^ 2 / 6) * Y04.z3 ^ 2)
+
+/-- `prop:degree` at `n = 8 = 2m`, `m = 4`: there is a polynomial `Θ₈` of degree exactly
+`⌊8/2⌋ - 1 = 3`, with leading coefficient `(-1)^{m-1}(2^{2m-1}-1) ζ(2m) = -127 ζ(8)`, whose value
+at `u = k²` is the `τ⁸` coefficient of `(-1)^k (π/√2) a_k(h_p)` in the asymptotic sense
+(the lower coefficients `Θ₂, …, Θ₇` written out as proved in Y04, Z02, V02 and Q03): for every
+`k` there are `C_k`, `τ₀ > 0` with
+`|a_k(h_p) - (-1)^k (√2/π)[-4/(16k²-1) + ζ(2)τ² + ζ(3)τ³ - (33/16 + 7k²)ζ(4)τ⁴ + Θ₅(k²)τ⁵
+   + Θ₆(k²)τ⁶ + Θ₇(k²)τ⁷ + Θ₈(k²)τ⁸]| ≤ C_k τ⁹` for `p > 1`, `τ ≤ τ₀`. -/
+def stmt_9 : Prop :=
+  ∃ Θ₈ : ℝ[X],
+    Θ₈.degree = ((8 / 2 - 1 : ℕ) : WithBot ℕ) ∧
+    Θ₈.leadingCoeff = (-1 : ℝ) ^ (4 - 1) * (2 ^ (2 * 4 - 1) - 1) * (π ^ 8 / 9450) ∧
+    ∀ k : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+      |Y04.a k (Y04.h p) - (-1 : ℝ) ^ k * (Real.sqrt 2 / π) *
+          (-(4 / (16 * (k : ℝ) ^ 2 - 1)) + (π ^ 2 / 6) * Y04.tau p ^ 2 + Y04.z3 * Y04.tau p ^ 3
+            - (33 / 16 + 7 * (k : ℝ) ^ 2) * (π ^ 4 / 90) * Y04.tau p ^ 4
+            + (-(3 / 4 + 4 * (k : ℝ) ^ 2) * Z02.z5
+                - (7 / 4 + 4 * (k : ℝ) ^ 2) * ((π ^ 2 / 6) * Y04.z3)) * Y04.tau p ^ 5
+            + ((4039 / 256 + 733 / 8 * (k : ℝ) ^ 2 + 31 * (k : ℝ) ^ 4) * (π ^ 6 / 945)
+                - (7 / 8 + 2 * (k : ℝ) ^ 2) * Y04.z3 ^ 2) * Y04.tau p ^ 6
+            + ((129 / 16 + 46 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * Q03.z7
+                + (141 / 16 + 50 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * ((π ^ 2 / 6) * Z02.z5)
+                + (1071 / 160 + 181 / 5 * (k : ℝ) ^ 2 + 56 / 5 * (k : ℝ) ^ 4)
+                    * ((π ^ 2 / 6) ^ 2 * Y04.z3)) * Y04.tau p ^ 7
+            + Θ₈.eval ((k : ℝ) ^ 2) * Y04.tau p ^ 8)|
+        ≤ C * Y04.tau p ^ 9
+
+/-- `thm:fourier` extended by four orders with `prop:theta`'s `Θ₅` and the supplement's `Θ₆`,
+`Θ₇`, `Θ₈`: for every `k ≥ 0` there are `C_k` and `τ₀ > 0` such that for every `p > 1` with
+`τ = 1 - 1/p ≤ τ₀`, with `u = k²`,
+`|a_k(h_p) - (-1)^k (√2/π)[-4/(16k²-1) + ζ(2)τ² + ζ(3)τ³ - (33/16 + 7k²)ζ(4)τ⁴ + Θ₅(u)τ⁵
+   + Θ₆(u)τ⁶ + Θ₇(u)τ⁷ + Θ₈(u)τ⁸]| ≤ C_k τ⁹`, where
+`Θ₅(u) = -(3/4 + 4u) ζ(5) - (7/4 + 4u) ζ(2) ζ(3)`,
+`Θ₆(u) = (4039/256 + (733/8)u + 31u²) ζ(6) - (7/8 + 2u) ζ(3)²`,
+`Θ₇(u) = (129/16 + 46u + 16u²) ζ(7) + (141/16 + 50u + 16u²) ζ(2) ζ(5)
+  + (1071/160 + (181/5)u + (56/5)u²) ζ(2)² ζ(3)` and
+`Θ₈(u) = -(2891923/12288 + (495965/256)u + (60889/48)u² + 127u³) ζ(8)
+  + (141/16 + 50u + 16u²) ζ(3) ζ(5) + (169/32 + 27u + 8u²) ζ(2) ζ(3)²`. -/
+def stmt_10 : Prop :=
+  ∀ k : ℕ, ∃ C τ₀ : ℝ, 0 < τ₀ ∧ ∀ p : ℝ, 1 < p → Y04.tau p ≤ τ₀ →
+    |Y04.a k (Y04.h p) - (-1 : ℝ) ^ k * (Real.sqrt 2 / π) *
+        (-(4 / (16 * (k : ℝ) ^ 2 - 1)) + (π ^ 2 / 6) * Y04.tau p ^ 2 + Y04.z3 * Y04.tau p ^ 3
+          - (33 / 16 + 7 * (k : ℝ) ^ 2) * (π ^ 4 / 90) * Y04.tau p ^ 4
+          + (-(3 / 4 + 4 * (k : ℝ) ^ 2) * Z02.z5
+              - (7 / 4 + 4 * (k : ℝ) ^ 2) * ((π ^ 2 / 6) * Y04.z3)) * Y04.tau p ^ 5
+          + ((4039 / 256 + 733 / 8 * (k : ℝ) ^ 2 + 31 * (k : ℝ) ^ 4) * (π ^ 6 / 945)
+              - (7 / 8 + 2 * (k : ℝ) ^ 2) * Y04.z3 ^ 2) * Y04.tau p ^ 6
+          + ((129 / 16 + 46 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * Q03.z7
+              + (141 / 16 + 50 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * ((π ^ 2 / 6) * Z02.z5)
+              + (1071 / 160 + 181 / 5 * (k : ℝ) ^ 2 + 56 / 5 * (k : ℝ) ^ 4)
+                  * ((π ^ 2 / 6) ^ 2 * Y04.z3)) * Y04.tau p ^ 7
+          + (-(2891923 / 12288 + 495965 / 256 * (k : ℝ) ^ 2 + 60889 / 48 * (k : ℝ) ^ 4
+                + 127 * (k : ℝ) ^ 6) * (π ^ 8 / 9450)
+              + (141 / 16 + 50 * (k : ℝ) ^ 2 + 16 * (k : ℝ) ^ 4) * (Y04.z3 * Z02.z5)
+              + (169 / 32 + 27 * (k : ℝ) ^ 2 + 8 * (k : ℝ) ^ 4)
+                  * ((π ^ 2 / 6) * Y04.z3 ^ 2)) * Y04.tau p ^ 8)|
+      ≤ C * Y04.tau p ^ 9
+
+end R02
