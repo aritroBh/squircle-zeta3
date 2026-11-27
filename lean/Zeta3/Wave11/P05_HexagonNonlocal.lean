@@ -1,0 +1,293 @@
+import Mathlib
+import Zeta3.Wave10.S07_HexagonFormula
+/-!
+# P05 -- `thm:hexagon` reduces to `prop:nonlocal` at `r = 2, ½`
+
+Target id: P05 (follow-up of S05/S07).
+Paper labels: `thm:hexagon` (main.tex 1711-1718), last sentence, first half; `prop:nonlocal`
+(main.tex 1697-1705, Proposition "Non-local terms of an edge").
+Detailed proof: paper/ieee/proofs/sec_g4_nonlocal.tex ("Precise meaning", Lemma `g4:lem:values`,
+"Proof", the cases `r = 2`, `r = ½`, `r = 1`); paper/ieee/proofs/sec_g4_hexagon.tex ("Proof of the
+five sentences of Theorem 25": "Fourth sentence, and the fifth for $r=2,\frac12$: this and the
+next section").
+
+## Quoted verbatim
+
+main.tex 1717 (thm:hexagon, last two sentences): "The non-local $\zeta(3)$ of
+Proposition~\ref{prop:nonlocal} appears at $r=2,\frac12$ through $\Li_3(1-r)$ and
+$\Li_3\bigl(\frac{r-1}r\bigr)$, with the coefficients $2\Phi_A+\Phi_L$ and $\Phi_A$. The theorem
+reduces to Proposition~\ref{prop:nonlocal} at $r=2,\frac12$ and, when $r=1$ on every edge and all
+$w_j=1$, to the hexagon law of Proposition~\ref{prop:edgelaw}."
+
+main.tex 1697-1705 (prop:nonlocal): "Let $A(x)=\sum_{n\ge1}H_nx^n/n^2$ and let
+$\zeta_3[\,\cdot\,]$ be the coefficient of $\zeta(3)$ in the values listed below. For
+$r\in\{2,\frac12\}$ the $\zeta(3)$ of $P'''(1)$ beyond $Z_e$ is
+$N_e=\Phi_A\,\zeta_3[A(1-r)]+\Phi_L\,\zeta_3[\Li_3(1-r)]$, and $N_e=0$ for $r=1$, where, with
+$\gamma_e=Bh^2/L^3$,
+  \Phi_A&=-6\gamma_e\bigl(3A_0\kappa q_0-L^2(2A_0+rA_1)\bigr),
+  \Phi_L&=-18\gamma_e\Bigl(\kappa\bigl(-A_1^2+A_1B(2\kappa-1)+2B^2\kappa\bigr)q_0
+     +L^2(A_0B+rA_1^2)\Bigr).
+Here $A(-1)=-\frac58\zeta(3)$, $\Li_3(-1)=-\frac34\zeta(3)$,
+$A(\frac12)=\zeta(3)-\frac{\pi^2\log2}{12}$,
+$\Li_3(\frac12)=\frac78\zeta(3)-\frac{\pi^2\log2}{12}+\frac{\log^32}6$."
+
+Supplement ("Precise meaning"): "For $r\in\{2,\frac12,1\}$ the arguments $x=1-r\in\{-1,\frac12,0\}$
+and $\frac x{x-1}\in\{\frac12,-1,0\}$ are such that all eleven functions are polynomials in
+$\zeta(2),\zeta(3),\log2$ with rational coefficients ... \emph{The $\zeta(3)$ of $E_e$} is the
+coefficient of $\zeta(3)$ in this polynomial, with $\zeta(3)$, $\zeta(2)$ and $\log2$ treated as
+independent symbols ... $N_e$ is this coefficient minus $Z_e$".
+
+Supplement ("Proof"): "Let $r\in\{2,\frac12\}$ and use the formula of Lemma~\ref{g4:lem:precise}.
+The coefficient of $\zeta(3)$ among the eleven functions is $c_8/L^5=Z_e$ (Theorem 25). The only
+functions whose values contain $\zeta(3)$ are $\Li_3(x)$ and $\Li_3(\frac x{x-1})$, because by
+Lemma~\ref{g4:lem:values} $\Li_2(x)\in\{-\frac12\zeta(2),\frac12\zeta(2)-\frac12\log^22\}$ and
+$\ell=\mp\log2$ do not. The coefficients are $c_1/L^5=2\Phi_A+\Phi_L$ for $\Li_3(x)$ and
+$c_2/L^5=\Phi_A$ for $\Li_3(\frac x{x-1})$ ...
+  $r=2$: $x=-1$, $\frac x{x-1}=\frac12$. The $\zeta(3)$ of $E_e$ is
+  $Z_e+(2\Phi_A+\Phi_L)(-\frac34)+\Phi_A\cdot\frac78=Z_e-\frac58\Phi_A-\frac34\Phi_L$.
+  $r=\frac12$: $x=\frac12$, $\frac x{x-1}=-1$. It is
+  $Z_e+(2\Phi_A+\Phi_L)\frac78+\Phi_A(-\frac34)=Z_e+\Phi_A+\frac78\Phi_L$.
+By Lemma~\ref{g4:lem:values}, $\zeta_3[A(-1)]=-\frac58$, $\zeta_3[\Li_3(-1)]=-\frac34$ and
+$\zeta_3[A(\frac12)]=1$, $\zeta_3[\Li_3(\frac12)]=\frac78$. So in both cases
+$N_e=\Phi_A\zeta_3[A(1-r)]+\Phi_L\zeta_3[\Li_3(1-r)]$. For $r=1$ ($x=0$) every function except
+$\zeta(3)$, $\zeta(2)$, $1$ vanishes, so the $\zeta(3)$ of $E_e$ is $Z_e$ and $N_e=0$."
+
+## Conventions
+
+* Everything is imported from S05/S07 (and through them Z03, D00, T12) and not redefined:
+  hexagons `S05.Hex`/`S05.IsHex`, edge data `S05.Bv, rr, q0, V02, Lsq, Len`, `S05.Ee`, the printed
+  blocks `S05.c1, c2, c3, c8, c9`, `S05.PhiA`, `S05.PhiL`, `S05.ev`, `S05.closedForm`,
+  `T12.Ze (S05.t12Edge H k)`.
+* `ζ(3)` is `Z03.z3 = (riemannZeta 3).re` (Z03 stmt_1: `riemannZeta 3 = ↑z3` and
+  `HasSum (fun n => 1/(n+1)^3) z3`); `ζ(2)` is `π²/6`; `Li₃ = Z03.Li3`, `Li₂ = D00.Li2`.
+* "The ζ(3) of E_e" is a coefficient read off with `ζ(3), ζ(2), log 2` as formal symbols; the
+  paper does not claim (and we do not state) linear independence. We state instead identities of
+  real numbers: `L⁵E_e` equals `L⁵(Z_e + N_e)·ζ(3)` plus explicit multiples of
+  `π² log 2, log³2, π², log²2, log 2, 1`, the multiples being the edge polynomials. `N_e` is
+  written with the literal numbers `ζ₃[A(-1)] = -5/8`, `ζ₃[Li₃(-1)] = -3/4` (at `r = 2`) and
+  `ζ₃[A(½)] = 1`, `ζ₃[Li₃(½)] = 7/8` (at `r = ½`), the `ζ(3)`-coefficients of the four values of
+  Z03 stmt_13 to stmt_16 (stmt_17 there), which the final statement also includes.
+* `x = 1 - r` and `x/(x-1)` are written exactly as in `S05.closedForm`.
+
+## Statements
+
+* stmt_1: `r = 2`: `c₁Li₃(x) + c₂Li₃(x/(x-1)) = L⁵[N_e ζ(3) + Φ_A(-π²log2/12 + log³2/6)]`,
+  `N_e = -⅝Φ_A - ¾Φ_L`.
+* stmt_2: `r = ½`: the same with `N_e = Φ_A + ⅞Φ_L` and `(2Φ_A+Φ_L)(-π²log2/12 + log³2/6)`.
+* stmt_3: `r = 1`: the two `Li₃` terms vanish and, for any blocks `c₄,…,c₁₁`, the closed form is
+  `L⁵Z_e ζ(3) + c₁₀ζ(2) + c₁₁` (so `N_e = 0`).
+* stmt_4: `r = 2`, any blocks: the closed form collapses to the explicit expression in
+  `ζ(3), π²log2, log³2, π², log²2, log2, 1`, with `ζ(3)`-coefficient `L⁵(Z_e + N_e)`.
+* stmt_5: `r = ½`, the same.
+* stmt_6 (final): there are integer polynomial blocks `c₄,c₅,c₆,c₇,c₁₀,c₁₁` such that for every
+  hexagon, all weights and every edge, `L⁵E_e` is the expression of stmt_4 when `r = 2`, of
+  stmt_5 when `r = ½`, and of stmt_3 when `r = 1`; together with the four values of
+  prop:nonlocal (Z03.stmt_17) from which the coefficients `-⅝, -¾, 1, ⅞` are read off.
+
+## NOT COVERED
+
+* The coefficient extraction `ζ₃[·]` itself (a statement about formal symbols, meaningful as a
+  statement about numbers only under the linear independence of `ζ(3)` from `π² log 2, log³2, …`,
+  which the paper does not claim): we state the identities of real numbers from which it is read.
+* The "A-form" `c₁Li₃(x) + c₂Li₃(x/(x-1)) = L⁵[Φ_A A(x) + Φ_L Li₃(x) + Φ_A(Li₂(x)log(1-x)
+  + log³(1-x)/6)]`: the supplement's proof does not state it this way; it is exactly Z03.stmt_12
+  combined with S05.stmt_12 and is not restated.
+* The case `r = 1` "and all `w_j = 1`" leading to the hexagon law: S05.stmt_13.
+* The worked example (`N_e = 159√5/500`): not part of this target (checked numerically below).
+
+## Numerical check before freezing
+
+(mpmath, 30 digits, own code; blocks `c₄,…,c₁₁` from paper/ieee/proofs/scripts/g4_formula_table.txt.)
+Corners `(1,0), (2,2), (0,1)`, weights `(½, ¾, ¼)` (`u_j = s_j C_j^⊥`, `s = (½, ½, 1)`): edge 0 has
+`B = ¼, r = 2`, edge 1 has `B = ½, r = ½`, edge 2 has `r = 1`. On each, `L⁵E_e` computed from the
+definition (`∫_0^1 ∂_p³|x_p'(t)|_{p=1} dt`, numerical differentiation and quadrature) agrees with
+the closed form and with the expressions of stmt_4, stmt_5, stmt_3 to `4·10⁻²⁷`; stmt_1, stmt_2
+to `10⁻²⁹`; `N_e = 0.711069616844933…` on both edges (`= 159√5/500`, the paper's value).
+-/
+
+-- BEGIN STATEMENTS
+namespace P05
+
+open Real
+
+/-- A printed block of g4:lem:precise evaluated at the edge data `(B, r, q_0, V_{02}, L²)` of
+edge `k`. -/
+noncomputable def blk (f : ℝ → ℝ → ℝ → ℝ → ℝ → ℝ) (H : S05.Hex) (k : Fin 3) : ℝ :=
+  f (S05.Bv H k) (S05.rr H k) (S05.q0 H k) (S05.V02 H k) (S05.Lsq H k)
+
+/-- The two trilogarithm terms of the formula, `c₁Li₃(x) + c₂Li₃(x/(x-1))`, `x = 1 - r`
+(i.e. `Li₃(1-r)` and `Li₃((r-1)/r)`), exactly as in `S05.closedForm`. -/
+noncomputable def li3Part (H : S05.Hex) (k : Fin 3) : ℝ :=
+  let x := 1 - S05.rr H k
+  blk S05.c1 H k * Z03.Li3 x + blk S05.c2 H k * Z03.Li3 (x / (x - 1))
+
+/-- `N_e` at `r = 2`: `Φ_A ζ₃[A(-1)] + Φ_L ζ₃[Li₃(-1)]` with `ζ₃[A(-1)] = -5/8`,
+`ζ₃[Li₃(-1)] = -3/4`. -/
+noncomputable def NeTwo (H : S05.Hex) (k : Fin 3) : ℝ :=
+  S05.PhiA H k * (-(5 / 8)) + S05.PhiL H k * (-(3 / 4))
+
+/-- `N_e` at `r = ½`: `Φ_A ζ₃[A(½)] + Φ_L ζ₃[Li₃(½)]` with `ζ₃[A(½)] = 1`,
+`ζ₃[Li₃(½)] = 7/8`. -/
+noncomputable def NeHalf (H : S05.Hex) (k : Fin 3) : ℝ :=
+  S05.PhiA H k * 1 + S05.PhiL H k * (7 / 8)
+
+/-- The explicit value of `L⁵E_e` at `r = 2` (`x = -1`, `ℓ = -log 2`, `Li₂(-1) = -π²/12`), given
+the blocks `c₄, c₅, c₆, c₇, c₁₀, c₁₁`: `ζ(3)` with coefficient `L⁵(Z_e + N_e)`, the rest products
+of the blocks with `π² log 2, log³2, π², log²2, log 2, 1`. -/
+noncomputable def valTwo (H : S05.Hex) (k : Fin 3)
+    (c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ) : ℝ :=
+  let L5 := S05.Len H k ^ 5
+  L5 * (T12.Ze (S05.t12Edge H k) + NeTwo H k) * Z03.z3
+    + (-(L5 * S05.PhiA H k) / 12 + blk S05.c3 H k / 12 - blk S05.c9 H k / 6)
+        * (π ^ 2 * Real.log 2)
+    + (L5 * S05.PhiA H k / 6 - S05.ev H k c4) * Real.log 2 ^ 3
+    + (-(S05.ev H k c5) / 12 + S05.ev H k c10 / 6) * π ^ 2
+    + S05.ev H k c6 * Real.log 2 ^ 2 - S05.ev H k c7 * Real.log 2 + S05.ev H k c11
+
+/-- The explicit value of `L⁵E_e` at `r = ½` (`x = ½`, `ℓ = log 2`,
+`Li₂(½) = π²/12 - log²2/2`), given the blocks `c₄, c₅, c₆, c₇, c₁₀, c₁₁`. -/
+noncomputable def valHalf (H : S05.Hex) (k : Fin 3)
+    (c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ) : ℝ :=
+  let L5 := S05.Len H k ^ 5
+  let P := 2 * S05.PhiA H k + S05.PhiL H k
+  L5 * (T12.Ze (S05.t12Edge H k) + NeHalf H k) * Z03.z3
+    + (-(L5 * P) / 12 + blk S05.c3 H k / 12 + blk S05.c9 H k / 6) * (π ^ 2 * Real.log 2)
+    + (L5 * P / 6 - blk S05.c3 H k / 2 + S05.ev H k c4) * Real.log 2 ^ 3
+    + (S05.ev H k c5 / 12 + S05.ev H k c10 / 6) * π ^ 2
+    + (-(S05.ev H k c5) / 2 + S05.ev H k c6) * Real.log 2 ^ 2
+    + S05.ev H k c7 * Real.log 2 + S05.ev H k c11
+
+/-- The explicit value of `L⁵E_e` at `r = 1` (`x = 0`, `ℓ = 0`): `L⁵Z_e ζ(3) + c₁₀ζ(2) + c₁₁`. -/
+noncomputable def valOne (H : S05.Hex) (k : Fin 3) (c10 c11 : MvPolynomial (Fin 8) ℤ) : ℝ :=
+  S05.Len H k ^ 5 * T12.Ze (S05.t12Edge H k) * Z03.z3 + S05.ev H k c10 * (π ^ 2 / 6)
+    + S05.ev H k c11
+
+/-- Proof of Proposition 8, case `r = 2` (`x = -1`, `x/(x-1) = ½`): the two `Li₃` terms are
+`L⁵[(-⅝Φ_A - ¾Φ_L)ζ(3) + Φ_A(-π²log2/12 + log³2/6)]`. -/
+def stmt_1 : Prop :=
+  ∀ H : S05.Hex, S05.IsHex H → ∀ k : Fin 3, S05.rr H k = 2 →
+    li3Part H k = S05.Len H k ^ 5 * (NeTwo H k * Z03.z3
+      + S05.PhiA H k * (-(π ^ 2 * Real.log 2 / 12) + Real.log 2 ^ 3 / 6))
+
+/-- Proof of Proposition 8, case `r = ½` (`x = ½`, `x/(x-1) = -1`): the two `Li₃` terms are
+`L⁵[(Φ_A + ⅞Φ_L)ζ(3) + (2Φ_A+Φ_L)(-π²log2/12 + log³2/6)]`. -/
+def stmt_2 : Prop :=
+  ∀ H : S05.Hex, S05.IsHex H → ∀ k : Fin 3, S05.rr H k = 1 / 2 →
+    li3Part H k = S05.Len H k ^ 5 * (NeHalf H k * Z03.z3
+      + (2 * S05.PhiA H k + S05.PhiL H k) * (-(π ^ 2 * Real.log 2 / 12) + Real.log 2 ^ 3 / 6))
+
+/-- Proof of Proposition 8, case `r = 1` (`x = 0`): "every function except ζ(3), ζ(2), 1
+vanishes": the two `Li₃` terms are `0`, and for any blocks the closed form is
+`L⁵Z_e ζ(3) + c₁₀ζ(2) + c₁₁`, so `N_e = 0`. -/
+def stmt_3 : Prop :=
+  ∀ c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ,
+    ∀ H : S05.Hex, S05.IsHex H → ∀ k : Fin 3, S05.rr H k = 1 →
+      li3Part H k = 0 ∧ S05.closedForm H k c4 c5 c6 c7 c10 c11 = valOne H k c10 c11
+
+/-- At `r = 2`, for any blocks `c₄, …, c₁₁`, the eleven-term closed form is the explicit
+expression `valTwo`, whose `ζ(3)` coefficient is `L⁵(Z_e + N_e)` with `N_e = -⅝Φ_A - ¾Φ_L`. -/
+def stmt_4 : Prop :=
+  ∀ c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ,
+    ∀ H : S05.Hex, S05.IsHex H → ∀ k : Fin 3, S05.rr H k = 2 →
+      S05.closedForm H k c4 c5 c6 c7 c10 c11 = valTwo H k c4 c5 c6 c7 c10 c11
+
+/-- At `r = ½`, for any blocks `c₄, …, c₁₁`, the eleven-term closed form is the explicit
+expression `valHalf`, whose `ζ(3)` coefficient is `L⁵(Z_e + N_e)` with `N_e = Φ_A + ⅞Φ_L`. -/
+def stmt_5 : Prop :=
+  ∀ c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ,
+    ∀ H : S05.Hex, S05.IsHex H → ∀ k : Fin 3, S05.rr H k = 1 / 2 →
+      S05.closedForm H k c4 c5 c6 c7 c10 c11 = valHalf H k c4 c5 c6 c7 c10 c11
+
+/-- thm:hexagon, last sentence, first half ("reduces to prop:nonlocal at r = 2, ½"), with
+prop:nonlocal in the form of the supplement: there are integer polynomial blocks
+`c₄, c₅, c₆, c₇, c₁₀, c₁₁` such that for every hexagon, all weights and every edge, `L⁵E_e` equals
+`valTwo` if `r = 2`, `valHalf` if `r = ½` and `valOne` if `r = 1` (so `ζ(3)` enters `E_e` with the
+coefficient `Z_e + N_e`, `N_e = Φ_Aζ₃[A(1-r)] + Φ_Lζ₃[Li₃(1-r)]`, and `N_e = 0` at `r = 1`);
+together with the four values `A(-1), Li₃(-1), A(½), Li₃(½)` of prop:nonlocal (Z03.stmt_17), whose
+`ζ(3)`-coefficients are the numbers `-⅝, -¾, 1, ⅞` used in `N_e`. -/
+def stmt_6 : Prop :=
+  (∃ c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ,
+    ∀ H : S05.Hex, S05.IsHex H → ∀ k : Fin 3,
+      (S05.rr H k = 2 → S05.Len H k ^ 5 * S05.Ee H k = valTwo H k c4 c5 c6 c7 c10 c11) ∧
+      (S05.rr H k = 1 / 2 → S05.Len H k ^ 5 * S05.Ee H k = valHalf H k c4 c5 c6 c7 c10 c11) ∧
+      (S05.rr H k = 1 → S05.Len H k ^ 5 * S05.Ee H k = valOne H k c10 c11)) ∧
+    Z03.stmt_17
+
+end P05
+-- END STATEMENTS
+
+namespace P05.Pf
+
+open Real
+
+lemma li2_neg_one : D00.Li2 (-1) = -(π ^ 2 / 12) := D00.proof_8
+lemma li2_half : D00.Li2 (1 / 2) = π ^ 2 / 12 - (1 / 2) * Real.log 2 ^ 2 := D00.proof_14
+lemma li2_zero : D00.Li2 0 = 0 := D00.proof_2
+lemma li3_half : Z03.Li3 (1 / 2) = (7 / 8) * Z03.z3 - π ^ 2 * Real.log 2 / 12 + Real.log 2 ^ 3 / 6 :=
+  Z03.proof_6
+
+/-- The closed form split as the two `Li₃` terms plus the rest. -/
+lemma split (H : S05.Hex) (k : Fin 3) (c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ) :
+    S05.closedForm H k c4 c5 c6 c7 c10 c11 = li3Part H k
+      + blk S05.c3 H k * D00.Li2 (1 - S05.rr H k) * (-Real.log (S05.rr H k))
+      + S05.ev H k c4 * (-Real.log (S05.rr H k)) ^ 3 + S05.ev H k c5 * D00.Li2 (1 - S05.rr H k)
+      + S05.ev H k c6 * (-Real.log (S05.rr H k)) ^ 2 + S05.ev H k c7 * (-Real.log (S05.rr H k))
+      + blk S05.c8 H k * Z03.z3
+      + blk S05.c9 H k * (π ^ 2 / 6) * (-Real.log (S05.rr H k))
+      + S05.ev H k c10 * (π ^ 2 / 6) + S05.ev H k c11 := by
+  simp only [S05.closedForm, li3Part, blk]
+
+end P05.Pf
+
+theorem P05.proof_1 : P05.stmt_1 := by
+  intro H hH k hr
+  obtain ⟨h1, h2⟩ := S05.proof_12 H hH k
+  simp only [P05.li3Part, P05.blk, P05.NeTwo]
+  rw [h1, h2, hr, show (1 : ℝ) - 2 = -1 by norm_num, show (-1 : ℝ) / (-1 - 1) = 1 / 2 by norm_num,
+    Z03.Li3_neg_one, P05.Pf.li3_half]
+  ring
+
+theorem P05.proof_2 : P05.stmt_2 := by
+  intro H hH k hr
+  obtain ⟨h1, h2⟩ := S05.proof_12 H hH k
+  simp only [P05.li3Part, P05.blk, P05.NeHalf]
+  rw [h1, h2, hr, show (1 : ℝ) - 1 / 2 = 1 / 2 by norm_num,
+    show (1 / 2 : ℝ) / (1 / 2 - 1) = -1 by norm_num, Z03.Li3_neg_one, P05.Pf.li3_half]
+  ring
+
+theorem P05.proof_3 : P05.stmt_3 := by
+  intro c4 c5 c6 c7 c10 c11 H hH k hr
+  have hl : P05.li3Part H k = 0 := by
+    simp only [P05.li3Part]
+    rw [hr]; norm_num
+  refine ⟨hl, ?_⟩
+  rw [P05.Pf.split, hl]
+  have h8 := S05.proof_11 H hH k
+  simp only [P05.valOne, P05.blk]
+  rw [h8, hr]
+  simp
+
+theorem P05.proof_4 : P05.stmt_4 := by
+  intro c4 c5 c6 c7 c10 c11 H hH k hr
+  rw [P05.Pf.split, P05.proof_1 H hH k hr]
+  have h8 := S05.proof_11 H hH k
+  simp only [P05.valTwo, P05.blk] at h8 ⊢
+  rw [h8, hr, show (1 : ℝ) - 2 = -1 by norm_num, P05.Pf.li2_neg_one]
+  ring
+
+theorem P05.proof_5 : P05.stmt_5 := by
+  intro c4 c5 c6 c7 c10 c11 H hH k hr
+  rw [P05.Pf.split, P05.proof_2 H hH k hr]
+  have h8 := S05.proof_11 H hH k
+  simp only [P05.valHalf, P05.blk] at h8 ⊢
+  rw [h8, hr, show (1 : ℝ) - 1 / 2 = 1 / 2 by norm_num, P05.Pf.li2_half,
+    show Real.log (1 / 2) = -Real.log 2 by rw [one_div, Real.log_inv]]
+  ring
+
+theorem P05.proof_6 : P05.stmt_6 := by
+  obtain ⟨c4, c5, c6, c7, c10, c11, h⟩ := S07.proof_10
+  refine ⟨⟨c4, c5, c6, c7, c10, c11, fun H hH k => ⟨fun hr => ?_, fun hr => ?_, fun hr => ?_⟩⟩,
+    Z03.proof_17⟩
+  · rw [h H hH k]; exact P05.proof_4 c4 c5 c6 c7 c10 c11 H hH k hr
+  · rw [h H hH k]; exact P05.proof_5 c4 c5 c6 c7 c10 c11 H hH k hr
+  · rw [h H hH k]; exact (P05.proof_3 c4 c5 c6 c7 c10 c11 H hH k hr).2

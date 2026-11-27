@@ -1,0 +1,399 @@
+import Mathlib
+import Zeta3.Wave10.S04_M4alphaZetaParts
+import Zeta3.Wave10.S08_FieldRuleMain
+/-!
+# P04 -- `M_4(α)` at every angle, with the closed forms of `R_4` and `Ψ_2`
+
+Target id: P04.
+Paper label: `thm:M4alpha` (paper/ieee/main.tex, lines 1572-1583).
+Supplement: paper/ieee/proofs/sec_g8_M4alpha.tex (setting 7-8; `g8:thm:M4alpha` 10-20; the data
+files, line 22; the precise form `g8:eq:M4formal` 24-33; "Why a finite computation proves the
+identity for every n" 37-51; M8, line 57; proof 74-76) and paper/ieee/proofs/sec_g8_M2alpha.tex
+(the criterion section 37-99: `g8:lem:formal` 41-43, `g8:lem:shift` 49-60, `g8:lem:hcoef` 62-68,
+`g8:lem:mu` 70-72, `g8:prop:crit` 76-91).
+Data: paper/ieee/proofs/scripts/g8_terms_k4_partz2.json (`Ψ_2`) and g8_terms_k4_part1.json
+(`R_4`); checked in the supplement by g8_allN.py (library g8_zsum.py), output g8_allN_k4.out.
+
+This is the stretch continuation of `Zeta3.Wave10.S04_M4alphaZetaParts`, which proved the theorem
+with `R_4 = [1]M_4` and `Ψ_2 = [ζ(2)]M_4` as SERIES parts. Here the two series are identified with
+the finite combinations of harmonic polylogarithms of the data files.
+
+Imported, not restated (all from frozen statement blocks): `M_k(α) = V05.Mk k α`,
+`c = D04.c α = cos(α/2)`, the real zeta values `ζ(w) = X05.z w = (riemannZeta w).re`
+(`zeta_nat_eq_tsum_of_gt_one` identifies `riemannZeta w` with `Σ_{n≥1} n^{-w}` for `w ≥ 2`; it is
+real there), the formal coefficients `P_{k,n} = Q04.Pf k n`, the series parts
+`[z]M_k(α) = R01.zM s k α` with `R01.AllSummable α` (absolute convergence), and from S03 the
+harmonic polylogarithms `S03.H w x` (iterated integrals `∫_0^x f_a H_{w'}`), the nested sums
+`S03.Z v M`, the dictionary data `S03.dd w = (ε, κ, 𝔠_w, v_w)` of `g6:lem:dict` (proved in
+`S03.stmt_5`: `H_w(x) = Σ_{N≥1} 𝔠_w ε^N N^{-κ} Z_{v_w}(N-1) x^N` for `|x| < 1`), the elements of
+`𝔇` as lists `S03.DTerm` of triples `(Q, e, w)` meaning `Q(N)/Π_p (N-p)^{e_p} [w]`, with
+`S03.ratEval` and the evaluation `S03.ST T N = Σ R_w(N) Z_w(N)` (so `⟨T⟩_n = S03.ST T (2n)`).
+`S04.stmt_7` (proved) is the theorem with the series parts; it is used, not restated.
+`Zeta3.Wave10.S08_FieldRuleMain` is imported as the job asks (it uses the objects of S03); none of its
+statements is used in a statement here.
+
+Quoted verbatim (main.tex 1572-1583):
+
+  \begin{theorem}[$M_4$ at every angle$^\dagger$]\label{thm:M4alpha}
+  For $0<\alpha<\pi$, with $c=\cos\frac\alpha2$ and $\Psi$ the $\zeta(2)$ part of $M_3$
+  (Theorem~\ref{thm:flat}),
+  \[
+  \begin{split}
+  M_4(\alpha)={}&R_4(c)+\zeta(2)\Psi_2(c)-\zeta(3)\Psi(c)\\
+  &+\frac{\pi^4}{2880}\Bigl[\Bigl(9c-\frac{30}c+\frac{21}{c^3}\Bigr)\operatorname{artanh}c+23-\frac{21}{c^2}\Bigr],
+  \end{split}
+  \]
+  where $R_4$ is a rational combination of $109$ terms $c^eH_w(\pm c)$ with harmonic
+  polylogarithms of weights two to five and $-3\le e\le1$, and $\Psi_2$ is a rational combination
+  of $21$ such terms of weights one to three and the constant $\frac12$ (in our notes).
+  \end{theorem}
+
+Quoted verbatim (supplement sec_g8_M4alpha.tex, line 8): "A term $c^eH_w(\pm c)$ means the pair
+$c^e\bigl(H_w(c)+s\,H_{\bar w}(c)\bigr)$, $s=(-1)^{e+\nu(w)}$, which is $c^eH_w(c)+(-c)^eH_w(-c)$".
+(line 22) "The $109$ terms of $R_4$ are the file \script{g8_terms_k4_part1.json}, the terms of
+$\Psi_2$ are \script{g8_terms_k4_partz2.json} (each line is $[\text{``}c^e\,\mathrm{He}[w]\text{''},q]$:
+the term $q\,c^e(H_w+sH_{\bar w})$). ... In what follows $\Psi_2$ is the constant $\frac12$ plus
+these $21$ terms".
+(line 33) "where, more precisely, $R_4$, $\Psi_2$, $\Psi$, $F_1$, $F_2$ are the sums
+$\sum_n[\gvs z]P_{4,n}c^{2n}$ for $\gvs z=1,\gvs2,-\gvs3,\gvs4,\gvs2^2$".
+
+Quoted verbatim (sec_g8_M2alpha.tex, `g8:lem:shift`, 49-55): "For every index word $v$ and
+integer $j\ge-2$ there is an element $S_j(v)\in\mathfrak D$ with $\gsub{S_j(v)}{n}=Z_v(2n+j)$ for
+every $n\ge1$. It is defined by $S_j(\emptyset)=[\emptyset]$, $S_0(v)=[v]$ and, for $v=(a,v')$
+with $\sigma=\gsgn(a)$,
+  S_j(v)=[v]+\sum_{t=1}^{j}\frac{\sigma^t}{(N+t)^{|a|}}\,S_{t-1}(v')\quad(j>0),\qquad
+  S_j(v)=[v]-\sum_{t=j+1}^{0}\frac{\sigma^t}{(N+t)^{|a|}}\,S_{t-1}(v')\quad(j<0),
+where $N=2n$. All its denominators are powers of $N+t$ with $t\ge-1$, so the poles lie at
+integers $\le1$."
+
+Quoted verbatim (`g8:lem:hcoef`, 62-63): "Let $w$ be a nonempty regular word, with data
+$(\varepsilon,\kappa,v_w,\gcf_w)$ as in Lemma~\ref{g6:lem:dict}. For every integer $\delta\ge-1$
+put $h_{w,\delta}=\gcf_w\,\varepsilon^\delta\,(N+\delta)^{-\kappa}\,S_{\delta-1}(v_w)\in\mathfrak D$.
+Then $[x^{2n+\delta}]H_w(x)=\gsub{h_{w,\delta}}{n}$ for every $n\ge1$."
+
+Quoted verbatim (`g8:prop:crit`, 76-87): "Let $k\ge0$ and let $\gvs z$ be as above; write
+$p_n=[\gvs z]P_{k,n}$. Let
+  L(c)=\sum_i q_ic^{e_i}H_{w_i}(c)\;+\;\sum_jq'_jc^{e'_j}\bigl(H_{w'_j}(c)+s_jH_{\bar w'_j}(c)\bigr)
+  \;+\;\sum_{n\ge1}\rho_nc^{2n}\;+\;\sum_lq''_lc^{e''_l}
+be a finite sum of this form, plus finitely many terms $q''c^{e''}$ ($q''\in\QQ$, $e''\le1$
+integers; ...), with rational $q,q'$, all exponents $e_i,e'_j\le1$, regular words, $\bar w$ the
+word with every nonzero letter negated, $s_j=(-1)^{e'_j+\nu(w'_j)}$ ... For $\iota\in\{0,1\}$ let
+$L_\iota\in\mathfrak D$ be the sum of the elements $q\,h_{w_i,\iota-e_i}$ and
+$q'(h_{w'_j,\iota-e'_j}+s_jh_{\bar w'_j,\iota-e'_j})$ of Lemma~\ref{g8:lem:hcoef} ... Suppose
+(i) $L_0=T_z$ and $L_1=0$ in $\mathfrak D$; (ii) the coefficients of $c^N$, for all $N\le1$, in
+the Laurent series of $L-\sum_{n\ge1}\rho_nc^{2n}$ ... vanish ... Then
+$L(c)=\sum_{n\ge1}p_nc^{2n}$ for $0<c<1$." (`T_z` is the element of `g8:lem:mu`:
+"$[\gvs z]P_{k,n}=\gsub{T_z}{n}$ for every $n\ge1$".)
+
+Quoted verbatim (sec_g8_M4alpha.tex, proof, 75): "Lemma~\ref{g8:prop:crit} (for $\Psi_2$ with its
+constant term $\frac12$) with M8 gives the parts $1$ and $\gvs2$".
+
+## Formalization choices
+
+* The term lists are NOT printed in the paper or the supplement: they are copied exactly from the
+  data files g8_terms_k4_partz2.json (21 terms and the constant `1/2`) and g8_terms_k4_part1.json
+  (109 terms, no constant). A file line `["c^e He[w]", "q"]` is the triple `(q, e, w) : PTerm`
+  (all lines of both files are of the paired kind `He`), standing for
+  `q c^e (H_w(c) + s H_{w̄}(c))`, `s = (-1)^{e+ν(w)}` (`sgnP e w`), `w̄ = bar w` (every letter
+  negated), `ν(w)` the number of nonzero letters (`nu w`). The line `["1", "1/2"]` is the constant
+  term `(1/2, 0)` (a `q'' c^{e''}` term). `Psi2T`, `Psi2C`, `R4T`, `R4C = []` are these lists in
+  file order; `Lfun T C x` is the function `Σ q'' x^{e''} + Σ q x^e (H_w(x) + s H_{w̄}(x))` (real
+  integer powers `x ^ (e : ℤ)`; only used at `0 < x < 1`, so `x^{-3}` is not a junk value).
+  `Psi2 = Lfun Psi2T Psi2C` and `R4 = Lfun R4T []`.
+* `hc w N` is the Taylor coefficient `[x^N]H_w = 𝔠_w ε^N N^{-κ} Z_{v_w}(N-1)` of `g6:lem:dict`
+  (`N ≥ 1`; `0` for `N = 0`, as `H_w(0) = 0`), written with S03's dictionary data `S03.dd`; by
+  `S03.stmt_5` it is the Taylor coefficient of `S03.H w`. `coefL T C N` is then the coefficient
+  of `x^N` (`N ∈ ℤ`) in the Laurent series of `Lfun T C`.
+* The shift elements `S_j(v)` are `Sh v j : List S03.DTerm`, by the recursion of `g8:lem:shift`
+  (`scl r p k τ` multiplies a term by `r/(N-p)^k`; `(N+t)^{|a|}` is `p = -t`). `h_{w,δ}` is
+  `hW w δ`, and `L_ι` is `Lι T ι`. Equality in `𝔇` ("the same `R_w` for every `w`") is `Deq`: for
+  every word `u` the sums of the coefficients `R` of the terms with word `u` agree at every
+  rational `N > 1`. For elements whose poles lie at integers `≤ 1` (all `h_{w,δ}`, `δ ≥ -1`, by
+  `stmt_2`) this is equality of the rational functions (they agree on an infinite set).
+* The criterion (`stmt_3`) is stated in the form used for `k = 4`: paired terms and constant terms
+  only (no unpaired terms `q c^e H_w` and no extra series `Σ ρ_n c^{2n}`, which occur only for
+  `k = 2`), for every `k` and every monomial `𝔷^s`, with `T_z` any element with
+  `[𝔷^s]P_{k,n} = ⟨T_z⟩_n` for all `n ≥ 1`. The words are nonempty regular words over `{0,1,-1}`
+  (the data contain no empty word except through the constant terms).
+* `stmt_4`/`stmt_6` (the content of M8) are stated directly on the coefficients: the coefficient
+  of `c^{2n}` of the term list equals `[𝔷^s]P_{4,n}` for every `n ≥ 1`, the coefficient of
+  `c^{2n+1}` vanishes, and all coefficients of `c^N`, `N ≤ 1`, vanish. They are statements about
+  rational numbers for every `n`; by `stmt_2`, `stmt_3` they follow from the finitely many
+  rational-function identities `Deq (Lι T 0) T_z`, `Deq (Lι T 1) []` that the supplement's script
+  checks.
+* `stmt_5`/`stmt_7`: as functions on `0 < c < 1` (`HasSum`, so the series converges). The parts
+  are `[𝔷2]` (`Finsupp.single 2 1`) and `[1]` (`0`), as in S04.
+* `Ψ = [ζ(2)]M_3(α) = R01.zM (single 2 1) 3 α` stays the series (as in S04; no closed form is
+  asked for here).
+
+## Statements
+
+* stmt_1: `g8:lem:shift` (poles at integers `≤ 1`, and `⟨S_j(v)⟩_n = Z_v(2n+j)`, `j ≥ -2`).
+* stmt_2: `g8:lem:hcoef` (`[x^{2n+δ}]H_w = ⟨h_{w,δ}⟩_n`, `δ ≥ -1`, poles at integers `≤ 1`).
+* stmt_3: `g8:prop:crit` in the form used.
+* stmt_4: M8 for `Ψ_2`: every Taylor coefficient of the 21 terms plus `1/2` is right.
+* stmt_5: `Σ_{n≥1} [𝔷2]P_{4,n} c^{2n} = Ψ_2(c)` for `0 < c < 1`.
+* stmt_6: M8 for `R_4`: every Taylor coefficient of the 109 terms is right.
+* stmt_7: `Σ_{n≥1} [1]P_{4,n} c^{2n} = R_4(c)` for `0 < c < 1`.
+* stmt_8: `thm:M4alpha` with the closed forms of `R_4` and `Ψ_2`.
+
+## Numerical check before freezing
+
+A Python script (scratch, not kept) mirroring the definitions above
+checked: the Lean data lists, parsed back from this file, equal the two JSON files line by line
+(21 + constant `1/2`, and 109); `stmt_1` for all index words over `{-3,-2,-1,1,2}` of length
+`≤ 3`, `-2 ≤ j ≤ 4`, `n ≤ 5` (exact), and the poles; `stmt_2` and `hc` against the coefficient
+recursion of the iterated integrals for all regular words of length `≤ 4` (exact). `stmt_4`,
+`stmt_6`: `coefL` at `c^{2n}` equals `[𝔷2]P_{4,n}`, resp. `[1]P_{4,n}`, from the supplement's
+independent routine g6_common.py (exact rationals), for `n = 1, …, 80`; the coefficients of
+`c^{2n+1}` (`n ≤ 80`) and of `c^N`, `-10 ≤ N ≤ 1`, are `0`; `P_{4,n}` has only the monomials
+`1, 𝔷2, 𝔷3, 𝔷4, 𝔷2²`. With mpmath (45 digits; `H_w` summed from the dictionary series, 220
+terms), at `α = 2π/3` (`c = 1/2`) and `α = 2.5`: `Ψ_2(c) - Σ_{n≤80}[𝔷2]P_{4,n}c^{2n}` is
+`2.5·10⁻⁴⁶`, `4.0·10⁻⁴⁶`; `R_4(c) - Σ_{n≤80}[1]P_{4,n}c^{2n}` is `-3.1·10⁻⁴⁶`, `-1.4·10⁻⁴⁶`
+(`Ψ_2(1/2) = 0.067783306883119476707872587590`, `R_4(1/2) = -0.140447335287165935793247545488`);
+the right side of `stmt_8` (with `Ψ` the series `Σ_{n≤80}[𝔷2]P_{3,n}c^{2n}`) differs from
+`M_4(α)` computed from the definition of `D04.Mint` (Cauchy integral in `u`, radius `0.2`, 72
+nodes) by `4.7·10⁻⁴²` and `7.1·10⁻⁴²` (`M_4(2π/3) = 0.0021017551526063123975140574239779`).
+
+## NOT COVERED
+
+* The general form of the criterion with unpaired terms and an extra series `Σ ρ_n c^{2n}` (only
+  used for `k = 2`, Theorem `g8:thm:M2alpha`, done by hand in Z07).
+* `g8:lem:formal` and `g8:lem:mu` as separate statements (`g8:lem:mu` is S08's open `stmt_4`; in
+  `stmt_3` the element `T_z` is a hypothesis). The explicit `T_z` of the supplement's script
+  (29 words for `𝔷 = 1`, 5 for `𝔷2`) is not written down.
+* The counts in the theorem's wording (weights two to five, `1, 8, 27, 73` terms per weight;
+  weights one to three for `Ψ_2`; `-3 ≤ e ≤ 1`) are properties of the data lists, visible in them,
+  not separate statements; uniqueness or minimality of the term lists (gap box (ii)) is not
+  claimed by the paper.
+* A closed form of `Ψ` (the theorem uses `Ψ` from Theorem `thm:flat`; it stays the series).
+* The depth-two remarks after the theorem and the numerical checks of the supplement.
+-/
+-- BEGIN STATEMENTS
+namespace P04
+
+open Real
+
+/-- A paired term `(q, e, w)` of the data files: `q c^e (H_w(c) + s H_{w̄}(c))`. -/
+abbrev PTerm := ℚ × ℤ × List ℤ
+
+/-- `ν(w)`: the number of nonzero letters of `w`. -/
+def nu (w : List ℤ) : ℕ := (w.filter fun a => a ≠ 0).length
+
+/-- `w̄`: every letter negated. -/
+def bar (w : List ℤ) : List ℤ := w.map fun a => -a
+
+/-- The sign `s = (-1)^{e + ν(w)}` of the pair `c^e H_w(±c)`. -/
+def sgnP (e : ℤ) (w : List ℤ) : ℚ := (-1 : ℚ) ^ (e + (nu w : ℤ))
+
+/-- The function `Σ_l q''_l x^{e''_l} + Σ_j q_j x^{e_j} (H_{w_j}(x) + s_j H_{w̄_j}(x))` of a list
+`T` of paired terms and a list `C` of constant terms `(q'', e'')`. -/
+noncomputable def Lfun (T : List PTerm) (C : List (ℚ × ℤ)) (x : ℝ) : ℝ :=
+  (C.map fun t => (t.1 : ℝ) * x ^ t.2).sum +
+  (T.map fun t => (t.1 : ℝ) * x ^ t.2.1 *
+    (S03.H t.2.2 x + (sgnP t.2.1 t.2.2 : ℝ) * S03.H (bar t.2.2) x)).sum
+
+/-- `[x^N]H_w = 𝔠_w ε^N N^{-κ} Z_{v_w}(N-1)` for `N ≥ 1` (Lemma `g6:lem:dict`, data `S03.dd w`),
+and `0` for `N = 0`. -/
+def hc (w : List ℤ) (N : ℕ) : ℚ :=
+  if N = 0 then 0 else
+    ((S03.dd w).2.2.1 : ℚ) * ((S03.dd w).1 : ℚ) ^ N / (N : ℚ) ^ (S03.dd w).2.1 *
+      S03.Z (S03.dd w).2.2.2 (N - 1)
+
+/-- The coefficient of `x^N` (`N ∈ ℤ`) in the Laurent series of `Lfun T C`. -/
+def coefL (T : List PTerm) (C : List (ℚ × ℤ)) (N : ℤ) : ℚ :=
+  (C.map fun t => if t.2 = N then t.1 else 0).sum +
+  (T.map fun t => if 1 ≤ N - t.2.1 then
+      t.1 * (hc t.2.2 (N - t.2.1).toNat + sgnP t.2.1 t.2.2 * hc (bar t.2.2) (N - t.2.1).toNat)
+    else 0).sum
+
+/-- Multiply a term `R [w]` of `𝔇` by `r / (N - p)^k`. -/
+noncomputable def scl (r : ℚ) (p : ℤ) (k : ℕ) (τ : S03.DTerm) : S03.DTerm :=
+  (Polynomial.C r * τ.1, τ.2.1 + Finsupp.single p k, τ.2.2)
+
+/-- The shift elements `S_j(v) ∈ 𝔇` of `g8:lem:shift`: `S_j(∅) = [∅]`, and for `v = (a, v')`,
+`S_j(v) = [v] + Σ_{t=1}^{j} σ^t (N+t)^{-|a|} S_{t-1}(v')` (`j > 0`),
+`S_j(v) = [v] - Σ_{t=j+1}^{0} σ^t (N+t)^{-|a|} S_{t-1}(v')` (`j ≤ 0`), `σ = sgn a`. -/
+noncomputable def Sh : List ℤ → ℤ → List S03.DTerm
+  | [], _ => [(1, 0, [])]
+  | a :: v, j =>
+      (1, 0, a :: v) ::
+      (if 0 < j then
+        (List.range j.toNat).flatMap fun i =>
+          (Sh v (i : ℤ)).map (scl ((Int.sign a : ℚ) ^ ((i : ℤ) + 1)) (-((i : ℤ) + 1)) a.natAbs)
+      else
+        (List.range (-j).toNat).flatMap fun i =>
+          (Sh v (-(i : ℤ) - 1)).map (scl (-(Int.sign a : ℚ) ^ (-(i : ℤ))) (i : ℤ) a.natAbs))
+
+/-- `h_{w,δ} = 𝔠_w ε^δ (N+δ)^{-κ} S_{δ-1}(v_w)` (`g8:lem:hcoef`). -/
+noncomputable def hW (w : List ℤ) (δ : ℤ) : List S03.DTerm :=
+  (Sh (S03.dd w).2.2.2 (δ - 1)).map
+    (scl (((S03.dd w).2.2.1 : ℚ) * ((S03.dd w).1 : ℚ) ^ δ) (-δ) (S03.dd w).2.1)
+
+/-- `L_ι = Σ_j q_j (h_{w_j, ι-e_j} + s_j h_{w̄_j, ι-e_j})` (`g8:prop:crit`). -/
+noncomputable def Lι (T : List PTerm) (ι : ℤ) : List S03.DTerm :=
+  T.flatMap fun t =>
+    (hW t.2.2 (ι - t.2.1)).map (scl t.1 0 0) ++
+    (hW (bar t.2.2) (ι - t.2.1)).map (scl (t.1 * sgnP t.2.1 t.2.2) 0 0)
+
+/-- The coefficient `R_u(N)` of the word `u` in `T ∈ 𝔇` (the sum over the terms with word `u`). -/
+noncomputable def Dval (T : List S03.DTerm) (u : List ℤ) (N : ℚ) : ℚ :=
+  ((T.filter fun τ => τ.2.2 = u).map fun τ => S03.ratEval τ.1 τ.2.1 N).sum
+
+/-- Equality in `𝔇`: for every word the coefficients agree as functions of `N`, at every rational
+`N > 1` (an infinite set, so as rational functions). -/
+def Deq (T T' : List S03.DTerm) : Prop :=
+  ∀ u : List ℤ, ∀ N : ℚ, 1 < N → Dval T u N = Dval T' u N
+
+/-- The 21 paired terms of `Ψ_2`, copied from g8_terms_k4_partz2.json (file order). -/
+def Psi2T : List PTerm := [
+    ((-1 : ℚ), (-2 : ℤ), ([1] : List ℤ)), ((-1/4 : ℚ), (-1 : ℤ), ([1] : List ℤ)),
+    ((5/4 : ℚ), (0 : ℤ), ([1] : List ℤ)), ((5/4 : ℚ), (-2 : ℤ), ([0, 1] : List ℤ)),
+    ((1/4 : ℚ), (-1 : ℤ), ([0, 1] : List ℤ)), ((-1 : ℚ), (0 : ℤ), ([0, 1] : List ℤ)),
+    ((1/2 : ℚ), (-2 : ℤ), ([1, -1] : List ℤ)), ((1/4 : ℚ), (-1 : ℤ), ([1, -1] : List ℤ)),
+    ((-3/4 : ℚ), (0 : ℤ), ([1, -1] : List ℤ)), ((-1/4 : ℚ), (-1 : ℤ), ([0, 0, 1] : List ℤ)),
+    ((1/4 : ℚ), (1 : ℤ), ([0, 0, 1] : List ℤ)), ((-1/4 : ℚ), (-1 : ℤ), ([0, 1, -1] : List ℤ)),
+    ((1/4 : ℚ), (1 : ℤ), ([0, 1, -1] : List ℤ)), ((-3/8 : ℚ), (-3 : ℤ), ([1, 0, 1] : List ℤ)),
+    ((1/4 : ℚ), (-1 : ℤ), ([1, 0, 1] : List ℤ)), ((1/8 : ℚ), (1 : ℤ), ([1, 0, 1] : List ℤ)),
+    ((3/8 : ℚ), (-3 : ℤ), ([1, 0, -1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, -1] : List ℤ)),
+    ((1/8 : ℚ), (1 : ℤ), ([1, 0, -1] : List ℤ)), ((1/4 : ℚ), (-1 : ℤ), ([1, -1, 1] : List ℤ)),
+    ((-1/4 : ℚ), (1 : ℤ), ([1, -1, 1] : List ℤ))]
+
+/-- The constant term `1/2` of `Ψ_2` (the line `["1", "1/2"]` of g8_terms_k4_partz2.json). -/
+def Psi2C : List (ℚ × ℤ) := [(1/2, 0)]
+
+/-- The 109 paired terms of `R_4`, copied from g8_terms_k4_part1.json (file order). -/
+def R4T : List PTerm := [
+    ((-1 : ℚ), (0 : ℤ), ([0, 1] : List ℤ)), ((1 : ℚ), (0 : ℤ), ([0, 0, 1] : List ℤ)),
+    ((1 : ℚ), (0 : ℤ), ([0, 1, -1] : List ℤ)), ((2 : ℚ), (-2 : ℤ), ([1, 0, 1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([1, 0, 1] : List ℤ)), ((-5/2 : ℚ), (0 : ℤ), ([1, 0, 1] : List ℤ)),
+    ((-2 : ℚ), (-2 : ℤ), ([1, 0, -1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, -1] : List ℤ)),
+    ((5/2 : ℚ), (0 : ℤ), ([1, 0, -1] : List ℤ)), ((-1 : ℚ), (0 : ℤ), ([0, 0, 0, 1] : List ℤ)),
+    ((-1 : ℚ), (0 : ℤ), ([0, 0, 1, -1] : List ℤ)), ((-5/2 : ℚ), (-2 : ℤ), ([0, 1, 0, 1] : List ℤ)),
+    ((-1/2 : ℚ), (-1 : ℤ), ([0, 1, 0, 1] : List ℤ)), ((2 : ℚ), (0 : ℤ), ([0, 1, 0, 1] : List ℤ)),
+    ((5/2 : ℚ), (-2 : ℤ), ([0, 1, 0, -1] : List ℤ)), ((1/2 : ℚ), (-1 : ℤ), ([0, 1, 0, -1] : List ℤ)),
+    ((-3 : ℚ), (0 : ℤ), ([0, 1, 0, -1] : List ℤ)), ((1 : ℚ), (0 : ℤ), ([0, 1, -1, 1] : List ℤ)),
+    ((-1 : ℚ), (-2 : ℤ), ([1, 0, 0, 1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, 0, 1] : List ℤ)),
+    ((3/2 : ℚ), (0 : ℤ), ([1, 0, 0, 1] : List ℤ)), ((1 : ℚ), (-2 : ℤ), ([1, 0, 0, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([1, 0, 0, -1] : List ℤ)), ((-3/2 : ℚ), (0 : ℤ), ([1, 0, 0, -1] : List ℤ)),
+    ((-1 : ℚ), (-2 : ℤ), ([1, 0, 1, -1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, 1, -1] : List ℤ)),
+    ((3/2 : ℚ), (0 : ℤ), ([1, 0, 1, -1] : List ℤ)), ((-1 : ℚ), (-2 : ℤ), ([1, 0, -1, 1] : List ℤ)),
+    ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, -1, 1] : List ℤ)), ((3/2 : ℚ), (0 : ℤ), ([1, 0, -1, 1] : List ℤ)),
+    ((-1 : ℚ), (-2 : ℤ), ([1, -1, 0, 1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([1, -1, 0, 1] : List ℤ)),
+    ((3/2 : ℚ), (0 : ℤ), ([1, -1, 0, 1] : List ℤ)), ((1 : ℚ), (-2 : ℤ), ([1, -1, 0, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([1, -1, 0, -1] : List ℤ)), ((-3/2 : ℚ), (0 : ℤ), ([1, -1, 0, -1] : List ℤ)),
+    ((1 : ℚ), (0 : ℤ), ([0, 0, 0, 0, 1] : List ℤ)), ((-1 : ℚ), (1 : ℤ), ([0, 0, 0, 0, 1] : List ℤ)),
+    ((1 : ℚ), (0 : ℤ), ([0, 0, 0, 1, -1] : List ℤ)), ((-1 : ℚ), (1 : ℤ), ([0, 0, 0, 1, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([0, 0, 1, 0, 1] : List ℤ)), ((-1/2 : ℚ), (1 : ℤ), ([0, 0, 1, 0, 1] : List ℤ)),
+    ((-1/2 : ℚ), (-1 : ℤ), ([0, 0, 1, 0, -1] : List ℤ)), ((1 : ℚ), (0 : ℤ), ([0, 0, 1, 0, -1] : List ℤ)),
+    ((-1/2 : ℚ), (1 : ℤ), ([0, 0, 1, 0, -1] : List ℤ)), ((-1 : ℚ), (0 : ℤ), ([0, 0, 1, -1, 1] : List ℤ)),
+    ((1 : ℚ), (1 : ℤ), ([0, 0, 1, -1, 1] : List ℤ)), ((1/2 : ℚ), (-1 : ℤ), ([0, 1, 0, 0, 1] : List ℤ)),
+    ((-1/2 : ℚ), (1 : ℤ), ([0, 1, 0, 0, 1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([0, 1, 0, 0, -1] : List ℤ)),
+    ((1 : ℚ), (0 : ℤ), ([0, 1, 0, 0, -1] : List ℤ)), ((-1/2 : ℚ), (1 : ℤ), ([0, 1, 0, 0, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([0, 1, 0, 1, -1] : List ℤ)), ((-1/2 : ℚ), (1 : ℤ), ([0, 1, 0, 1, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([0, 1, 0, -1, 1] : List ℤ)), ((-1 : ℚ), (0 : ℤ), ([0, 1, 0, -1, 1] : List ℤ)),
+    ((1/2 : ℚ), (1 : ℤ), ([0, 1, 0, -1, 1] : List ℤ)), ((1/2 : ℚ), (-1 : ℤ), ([0, 1, -1, 0, 1] : List ℤ)),
+    ((-1 : ℚ), (0 : ℤ), ([0, 1, -1, 0, 1] : List ℤ)), ((1/2 : ℚ), (1 : ℤ), ([0, 1, -1, 0, 1] : List ℤ)),
+    ((-1/2 : ℚ), (-1 : ℤ), ([0, 1, -1, 0, -1] : List ℤ)), ((1/2 : ℚ), (1 : ℤ), ([0, 1, -1, 0, -1] : List ℤ)),
+    ((-1 : ℚ), (0 : ℤ), ([0, 1, -1, 1, -1] : List ℤ)), ((1 : ℚ), (1 : ℤ), ([0, 1, -1, 1, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([1, 0, 0, 0, 1] : List ℤ)), ((-1/2 : ℚ), (1 : ℤ), ([1, 0, 0, 0, 1] : List ℤ)),
+    ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, 0, 0, -1] : List ℤ)), ((1 : ℚ), (0 : ℤ), ([1, 0, 0, 0, -1] : List ℤ)),
+    ((-1/2 : ℚ), (1 : ℤ), ([1, 0, 0, 0, -1] : List ℤ)), ((1/2 : ℚ), (-1 : ℤ), ([1, 0, 0, 1, -1] : List ℤ)),
+    ((-1/2 : ℚ), (1 : ℤ), ([1, 0, 0, 1, -1] : List ℤ)), ((1/2 : ℚ), (-1 : ℤ), ([1, 0, 0, -1, 1] : List ℤ)),
+    ((-1 : ℚ), (0 : ℤ), ([1, 0, 0, -1, 1] : List ℤ)), ((1/2 : ℚ), (1 : ℤ), ([1, 0, 0, -1, 1] : List ℤ)),
+    ((3/4 : ℚ), (-3 : ℤ), ([1, 0, 1, 0, 1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, 1, 0, 1] : List ℤ)),
+    ((-1/4 : ℚ), (1 : ℤ), ([1, 0, 1, 0, 1] : List ℤ)), ((-3/4 : ℚ), (-3 : ℤ), ([1, 0, 1, 0, -1] : List ℤ)),
+    ((1 : ℚ), (-1 : ℤ), ([1, 0, 1, 0, -1] : List ℤ)), ((-1/4 : ℚ), (1 : ℤ), ([1, 0, 1, 0, -1] : List ℤ)),
+    ((-1/2 : ℚ), (-1 : ℤ), ([1, 0, 1, -1, 1] : List ℤ)), ((1/2 : ℚ), (1 : ℤ), ([1, 0, 1, -1, 1] : List ℤ)),
+    ((-3/4 : ℚ), (-3 : ℤ), ([1, 0, -1, 0, 1] : List ℤ)), ((3/2 : ℚ), (-1 : ℤ), ([1, 0, -1, 0, 1] : List ℤ)),
+    ((-1 : ℚ), (0 : ℤ), ([1, 0, -1, 0, 1] : List ℤ)), ((1/4 : ℚ), (1 : ℤ), ([1, 0, -1, 0, 1] : List ℤ)),
+    ((3/4 : ℚ), (-3 : ℤ), ([1, 0, -1, 0, -1] : List ℤ)), ((-1 : ℚ), (-1 : ℤ), ([1, 0, -1, 0, -1] : List ℤ)),
+    ((1/4 : ℚ), (1 : ℤ), ([1, 0, -1, 0, -1] : List ℤ)), ((1/2 : ℚ), (-1 : ℤ), ([1, 0, -1, 1, -1] : List ℤ)),
+    ((-1 : ℚ), (0 : ℤ), ([1, 0, -1, 1, -1] : List ℤ)), ((1/2 : ℚ), (1 : ℤ), ([1, 0, -1, 1, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([1, -1, 0, 0, 1] : List ℤ)), ((-1 : ℚ), (0 : ℤ), ([1, -1, 0, 0, 1] : List ℤ)),
+    ((1/2 : ℚ), (1 : ℤ), ([1, -1, 0, 0, 1] : List ℤ)), ((-1/2 : ℚ), (-1 : ℤ), ([1, -1, 0, 0, -1] : List ℤ)),
+    ((1/2 : ℚ), (1 : ℤ), ([1, -1, 0, 0, -1] : List ℤ)), ((1/2 : ℚ), (-1 : ℤ), ([1, -1, 0, 1, -1] : List ℤ)),
+    ((-1 : ℚ), (0 : ℤ), ([1, -1, 0, 1, -1] : List ℤ)), ((1/2 : ℚ), (1 : ℤ), ([1, -1, 0, 1, -1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([1, -1, 0, -1, 1] : List ℤ)), ((-1/2 : ℚ), (1 : ℤ), ([1, -1, 0, -1, 1] : List ℤ)),
+    ((-1/2 : ℚ), (-1 : ℤ), ([1, -1, 1, 0, 1] : List ℤ)), ((1/2 : ℚ), (1 : ℤ), ([1, -1, 1, 0, 1] : List ℤ)),
+    ((1/2 : ℚ), (-1 : ℤ), ([1, -1, 1, 0, -1] : List ℤ)), ((-1 : ℚ), (0 : ℤ), ([1, -1, 1, 0, -1] : List ℤ)),
+    ((1/2 : ℚ), (1 : ℤ), ([1, -1, 1, 0, -1] : List ℤ)), ((1 : ℚ), (0 : ℤ), ([1, -1, 1, -1, 1] : List ℤ)),
+    ((-1 : ℚ), (1 : ℤ), ([1, -1, 1, -1, 1] : List ℤ))]
+
+/-- `Ψ_2(c)`: the constant `1/2` plus the 21 terms. -/
+noncomputable def Psi2 (x : ℝ) : ℝ := Lfun Psi2T Psi2C x
+
+/-- `R_4(c)`: the 109 terms. -/
+noncomputable def R4 (x : ℝ) : ℝ := Lfun R4T [] x
+
+/-- `g8:lem:shift`: for an index word `v` and `j ≥ -2`, the poles of `S_j(v)` are at integers
+`p ≤ 1`, and `⟨S_j(v)⟩_n = Z_v(2n+j)` for every `n ≥ 1`. -/
+def stmt_1 : Prop :=
+  ∀ v : List ℤ, S03.IsIndex v → ∀ j : ℤ, -2 ≤ j →
+    (∀ τ ∈ Sh v j, ∀ p ∈ τ.2.1.support, p ≤ 1) ∧
+    ∀ n : ℕ, 1 ≤ n → S03.ST (Sh v j) (2 * n) = S03.Z v (2 * (n : ℤ) + j).toNat
+
+/-- `g8:lem:hcoef`: for a nonempty regular word `w` over `{0,1,-1}` and `δ ≥ -1`, the poles of
+`h_{w,δ}` are at integers `p ≤ 1`, and `[x^{2n+δ}]H_w = ⟨h_{w,δ}⟩_n` for every `n ≥ 1`. -/
+def stmt_2 : Prop :=
+  ∀ w : List ℤ, w ≠ [] → S03.IsLetters w → S03.Regular w → ∀ δ : ℤ, -1 ≤ δ →
+    (∀ τ ∈ hW w δ, ∀ p ∈ τ.2.1.support, p ≤ 1) ∧
+    ∀ n : ℕ, 1 ≤ n → hc w (2 * (n : ℤ) + δ).toNat = S03.ST (hW w δ) (2 * n)
+
+/-- `g8:prop:crit` (paired and constant terms): let `[𝔷^s]P_{k,n} = ⟨T_z⟩_n` for all `n ≥ 1`, let
+`T` be a finite list of paired terms `q c^e (H_w + s H_{w̄})`, `e ≤ 1`, `w` nonempty regular over
+`{0,1,-1}`, and `C` a list of terms `q'' c^{e''}`, `e'' ≤ 1`. If (i) `L_0 = T_z` and `L_1 = 0` in
+`𝔇` and (ii) the coefficients of `c^N`, `N ≤ 1`, vanish, then
+`Lfun T C c = Σ_{n≥1} [𝔷^s]P_{k,n} c^{2n}` for `0 < c < 1`. -/
+def stmt_3 : Prop :=
+  ∀ (k : ℕ) (s : ℕ →₀ ℕ) (Tz : List S03.DTerm) (T : List PTerm) (C : List (ℚ × ℤ)),
+    (∀ n : ℕ, 1 ≤ n → (Q04.Pf k n).coeff s = S03.ST Tz (2 * n)) →
+    (∀ t ∈ T, t.2.2 ≠ [] ∧ S03.IsLetters t.2.2 ∧ S03.Regular t.2.2 ∧ t.2.1 ≤ 1) →
+    (∀ t ∈ C, t.2 ≤ 1) →
+    Deq (Lι T 0) Tz → Deq (Lι T 1) [] →
+    (∀ N : ℤ, N ≤ 1 → coefL T C N = 0) →
+    ∀ c : ℝ, 0 < c → c < 1 →
+      HasSum (fun n : ℕ => (((Q04.Pf k (n + 1)).coeff s : ℚ) : ℝ) * c ^ (2 * (n + 1)))
+        (Lfun T C c)
+
+/-- M8 for `Ψ_2` (the part `𝔷2`): the coefficient of `c^{2n}` in `Ψ_2` (the 21 terms and `1/2`)
+is `[𝔷2]P_{4,n}` for every `n ≥ 1`, the coefficient of `c^{2n+1}` is `0` for every `n ≥ 1`, and
+the coefficients of `c^N`, `N ≤ 1`, are `0`. -/
+def stmt_4 : Prop :=
+  (∀ n : ℕ, 1 ≤ n → coefL Psi2T Psi2C (2 * (n : ℤ)) = (Q04.Pf 4 n).coeff (Finsupp.single 2 1)) ∧
+  (∀ n : ℕ, 1 ≤ n → coefL Psi2T Psi2C (2 * (n : ℤ) + 1) = 0) ∧
+  (∀ N : ℤ, N ≤ 1 → coefL Psi2T Psi2C N = 0)
+
+/-- The `ζ(2)` part: `Σ_{n≥1} [𝔷2]P_{4,n} c^{2n} = Ψ_2(c)` for `0 < c < 1`. -/
+def stmt_5 : Prop :=
+  ∀ c : ℝ, 0 < c → c < 1 →
+    HasSum (fun n : ℕ => (((Q04.Pf 4 (n + 1)).coeff (Finsupp.single 2 1) : ℚ) : ℝ)
+      * c ^ (2 * (n + 1))) (Psi2 c)
+
+/-- M8 for `R_4` (the part `1`): the coefficient of `c^{2n}` in the 109 terms is `[1]P_{4,n}` for
+every `n ≥ 1`, the coefficient of `c^{2n+1}` is `0` for every `n ≥ 1`, and the coefficients of
+`c^N`, `N ≤ 1`, are `0`. -/
+def stmt_6 : Prop :=
+  (∀ n : ℕ, 1 ≤ n → coefL R4T [] (2 * (n : ℤ)) = (Q04.Pf 4 n).coeff 0) ∧
+  (∀ n : ℕ, 1 ≤ n → coefL R4T [] (2 * (n : ℤ) + 1) = 0) ∧
+  (∀ N : ℤ, N ≤ 1 → coefL R4T [] N = 0)
+
+/-- The rational part: `Σ_{n≥1} [1]P_{4,n} c^{2n} = R_4(c)` for `0 < c < 1`. -/
+def stmt_7 : Prop :=
+  ∀ c : ℝ, 0 < c → c < 1 →
+    HasSum (fun n : ℕ => (((Q04.Pf 4 (n + 1)).coeff 0 : ℚ) : ℝ) * c ^ (2 * (n + 1))) (R4 c)
+
+/-- `thm:M4alpha`: for `0 < α < π`, `c = cos(α/2)`, with `R_4` the 109 terms, `Ψ_2` the 21 terms
+and `1/2`, and `Ψ = [ζ(2)]M_3(α)` (an absolutely convergent series),
+`M_4(α) = R_4(c) + ζ(2)Ψ_2(c) - ζ(3)Ψ(c) + (π⁴/2880)[(9c - 30/c + 21/c³) artanh c + 23 - 21/c²]`. -/
+def stmt_8 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    R01.AllSummable α ∧
+    V05.Mk 4 α =
+      R4 (D04.c α) + X05.z 2 * Psi2 (D04.c α)
+        - X05.z 3 * R01.zM (Finsupp.single 2 1) 3 α
+        + π ^ 4 / 2880 *
+          ((9 * D04.c α - 30 / D04.c α + 21 / D04.c α ^ 3) * Real.artanh (D04.c α)
+            + 23 - 21 / D04.c α ^ 2)
+
+end P04

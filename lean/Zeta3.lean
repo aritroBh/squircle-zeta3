@@ -69,3 +69,8 @@ import Zeta3.Wave10.S05_Hexagon
 import Zeta3.Wave10.S06_VertexQ0Rest
 import Zeta3.Wave10.S07_HexagonFormula
 import Zeta3.Wave10.S08_FieldRuleMain
+import Zeta3.Wave11.P01_WeightTwo
+import Zeta3.Wave11.P02_M3Symbol
+import Zeta3.Wave11.P03_Hexagon5
+import Zeta3.Wave11.P04_M4alphaClosed
+import Zeta3.Wave11.P05_HexagonNonlocal

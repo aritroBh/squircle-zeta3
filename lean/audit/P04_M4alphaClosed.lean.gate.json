@@ -1,0 +1,57 @@
+{
+ "file": "Zeta3/Wave11/P04_M4alphaClosed.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_1",
+  "stmt_2",
+  "stmt_3",
+  "stmt_4",
+  "stmt_5",
+  "stmt_6",
+  "stmt_7",
+  "stmt_8"
+ ],
+ "axioms": {
+  "P04.proof_1": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P04.proof_2": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P04.proof_3": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P04.proof_4": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P04.proof_5": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P04.proof_6": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P04.proof_7": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P04.proof_8": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

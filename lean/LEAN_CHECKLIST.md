@@ -226,7 +226,7 @@ Files are in `lean/Zeta3/Wave10/`. Status from `tools/gate.py check`, run by the
 | S04 | `S04_M4alphaZetaParts` | Thm `thm:M4alpha` | For `0<α<π`: `M₄(α)=R₄+ζ(2)Ψ₂-ζ(3)Ψ+(π⁴/2880)[(9c-30/c+21/c³)artanh c+23-21/c²]`, with `R₄` and `Ψ₂` the series parts `[1]M₄`, `[ζ(2)]M₄` and `Ψ=[ζ(2)]M₃`, all absolutely convergent; `[𝔷₄]P_{4,n}=(n+3)/((2n-1)(2n+1)(2n+3))`, `[𝔷₂²]P_{4,n}=-n/((2n-1)(2n+1)(2n+3))` for every `n`; `P_{4,n}` has only the monomials `1,𝔷₂,𝔷₃,𝔷₄,𝔷₂²` | The closed forms of `R₄` (109 terms) and `Ψ₂` (21 terms): their coefficients are only in the data files, not printed | PROVED (7) |
 | S05 | `S05_Hexagon` | Thm `thm:hexagon` | Sentence 1: `P` is `C³` at `p=1` and `P‴(1)=2ΣE_e`; sentence 3: the `ζ(3)` block is `L⁵Z_e` of `prop:edgelaw`, every edge, every `r`; sentence 4: `c₁=L⁵(2Φ_A+Φ_L)`, `c₂=L⁵Φ_A`; sentence 5 at `r=1`: the hexagon law; the setting (every centrally symmetric convex hexagon is a `K_1`, `g4:lem:arc`); `g4:lem:euler`; `g4:lem:Jseries`; four worked `J` entries | Sentence 2, the eleven-term formula for every `r>0`: in S07 | PROVED (12) |
 | S06 | `S06_VertexQ0Rest` | Thm `thm:S` (closed form of `Q₀`, `s₂`) | `g3:lem:Q0simplex`: `D≥0`, the integrand is integrable on the simplex and `Q₀=-∫_Δ D(σ)/(σ₁σ₂σ₃)dσ`; `g3:lem:step1`: `Q₀=6∫₀¹J(q(s))ds`; `Q₀=6(P₁-P_{2a}-P_{2c})`; `g3:lem:P`: the three integrals `P₁`, `P_{2a}`, `P_{2c}` in closed form; `thm:S`: the closed form of `Q₀` as printed; `s₂` equals `eq:s2`; the decimals `-4.6892155185<s₂≤-4.6892155184` | Nothing of `thm:S` is left out. The proofs of `Q₀=6∫J` and of the three integrals take other routes than the supplement (a pointwise splitting on the simplex; explicit primitives in one variable) | PROVED (9) |
-| S07 | `S07_HexagonFormula` | Thm `thm:hexagon` (sentence 2) | Sentence 2 in the form of `g4:lem:precise`: there are integer polynomials `c₄,c₅,c₆,c₇,c₁₀,c₁₁` in `B,r,q₀,V₀₂,L²,l₀,l₁,l_B` such that for every hexagon, all weights and every edge (so every `r>0`), `L⁵E_e` is the eleven-term combination with the five printed blocks `c₁,c₂,c₃,c₈,c₉`; then all five sentences of `thm:hexagon` in one statement | The six blocks that the supplement does not print are stated as "there exist"; the proof uses those of `g4_formula_table.txt`. Of sentence 5 only the case `r=1`, `w=1` (as in S05); "reduces to `prop:nonlocal` at `r=2,½`" is not a statement here (follow-up target U05) | PROVED (2) |
+| S07 | `S07_HexagonFormula` | Thm `thm:hexagon` (sentence 2) | Sentence 2 in the form of `g4:lem:precise`: there are integer polynomials `c₄,c₅,c₆,c₇,c₁₀,c₁₁` in `B,r,q₀,V₀₂,L²,l₀,l₁,l_B` such that for every hexagon, all weights and every edge (so every `r>0`), `L⁵E_e` is the eleven-term combination with the five printed blocks `c₁,c₂,c₃,c₈,c₉`; then all five sentences of `thm:hexagon` in one statement | The six blocks that the supplement does not print are stated as "there exist"; the proof uses those of `g4_formula_table.txt`. Of sentence 5 only the case `r=1`, `w=1` (as in S05); "reduces to `prop:nonlocal` at `r=2,½`" is in P05 (wave 11) | PROVED (2) |
 | S08 | `S08_FieldRuleMain` | Thm `conj:field` ("More precisely") | `g6:lem:A`: for a monomial `𝔷^s` of weight `W≤k`, `[𝔷^s]P_{k,n}` is a nested sum in `𝔇^{(k+1-W)}`, for every `n≥1`; `g6:prop:R`: every `T∈𝔇^{(B)}` has `F∈𝒢_B` whose even Taylor coefficients are `𝒮_T(N)`; the generating functions `F_s`; the "More precisely" sentence for every `k≥0`: a finite list of terms, not depending on the angle, with `M_k(α)=Σ_j ζ^{s_j}·p_j(c)/(c^{a_j}(1-c)^{b_j}(1+c)^{d_j})·H_{w_j}(c)` for every `0<α<π`, `w_j` regular words over `0,1,-1`, `wt(𝔷^{s_j})+\|w_j\|≤k+1` | Parts (a), (b) of the theorem (S-units, places) | PROVED (4) |
 
 Totals: 8 files, 54 statements, all 54 proved, 18619 lines of Lean. No statement of the paper was
@@ -236,17 +236,41 @@ all three files pass the gate.
 
 Waves 1 to 10: 71 files, 577 statements (plus 3 repeats), 115904 lines of Lean. `lake build` passes (18394 jobs).
 
+## Wave 11: the results still without a Lean file
+
+Files are in `lean/Zeta3/Wave11/`. Status from `tools/gate.py check`, run by the planner on 2026-11-27. The ids
+were first U01 to U05; U01 to U03 clash with wave 2, so the files and namespaces were renamed P01 to P05 (a rename
+only; the statement text is unchanged) and the blocks frozen again.
+
+| # | File | Paper result | What Lean proved | What it does not cover | Status |
+|---|---|---|---|---|---|
+| P01 | `P01_WeightTwo` | Thm `thm:wt2` | The theorem in the supplement's form, for every `k≥2`: `W^{(k)}_{10}=R_wt=1/(2v)+1/(2(v-a))-1/(v+a)-1/(2(v+b))`, it is its own simple-pole part at the real letters, and `W₂(k)=∫_b^a K^{(k)}_{10} log t(v) dv=(π²+6log²2)/24`. Also `g1:lem:init` (second claim), `g1:lem:A`, `g1:lem:B` (the recursion with `[r≥s+2]`), `g1:lem:I`, `g1:lem:D`, `g1:lem:kernel`, `g1:lem:inv`, `g1:lem:par`, `g1:lem:res`, for every level `k` | That the reduction starts from `M_k` (`g1:lem:init` first claim, `M_k` as the integral of the folded data) and `g1:lem:real`, `g1:lem:split`: in P06. The generating-series identities in `ε` of the main text. "Weight" beyond the supplement's definition of `W₂(k)` | PROVED (13) |
+| P02 | `P02_M3Symbol` | Prop `prop:M3angle`, Lemma `g8:prop:R3` | The 74 terms of `R₃` and 14 of `Ψ` as data. `𝒮(Ω)` equals the 24 pure tensors of the supplement; `δ_{2,2}(𝒮(Ω))=(1-1/c)p∧r-(1+1/c)q∧r≠0`; the two components are not in constant ratio; `g8:lem:vanish`; `g8:prop:one` (no `r·π^{⊗4}τ` with rational `τ` has this image). Then `M₃(α)=R₃(c)-ζ(3)Φ(c)+ζ(2)Ψ(c)` for `0<α<π`, `c=cos(α/2)`, with the 74 and 14 terms | That the symbol depends only on the function, Goncharov's criterion, so "`M₃` is not classical as a function of the angle" itself. `g8:prop:two` (the `Li_{2,2}` terms). The corners | PROVED (14) |
+| P03 | `P03_Hexagon5` | Thm `thm:hexagon5` (sentence 1 and lemmas) | Sentence 1: `P` is `C⁵` at `p=1`, the edge integrands are integrable, `P⁽⁵⁾(1)=2ΣE⁽⁵⁾_e`. `log^c(1-z)` as a series; `J(n;a,b,c)` as a series on `|x|<1`, analytic on `x<1`; `I_N(a,b)` for `a+b≤5` as a polynomial in `1/(N+1)`, `H^{(i)}_{N+1}`, `ζ(2)`, `ζ(3)`, `ζ(5)` of weight `≤a+b`; `Li_s=H_w`; shuffle; stuffle; every word of length `≤5` as a polynomial in the thirteen functions | Sentences 2 and 3 (the table, its `ζ(5)` and `ζ(2)ζ(3)` lines): in P07, open | PROVED (8) |
+| P04 | `P04_M4alphaClosed` | Thm `thm:M4alpha` (in full) | `g8:lem:shift`, `g8:lem:hcoef`, `g8:prop:crit` in the form used. The closed forms: `Ψ₂(c)` (21 terms and `½`) and `R₄(c)` (109 terms) equal their series on `0<c<1`; so `M₄(α)=R₄(c)+ζ(2)Ψ₂(c)-ζ(3)Ψ(c)+(π⁴/2880)[…]` for `0<α<π` with these closed forms | `Ψ` stays the series `[ζ(2)]M₃(α)`. The term lists are not printed in the paper; they are copied from `g8_terms_k4_part1.json`, `g8_terms_k4_partz2.json`. Nothing says the lists are unique or minimal. The counts in the theorem's wording are not separate statements | PROVED (8) |
+| P05 | `P05_HexagonNonlocal` | Thm `thm:hexagon` (last sentence, `r=2,½`), Prop `prop:nonlocal` | For every hexagon, all weights and an edge with `r=2`: the two `Li₃` terms equal `L⁵[N_eζ(3)+Φ_A(-π²log2/12+log³2/6)]` with `N_e=-⅝Φ_A-¾Φ_L`; with `r=½`: the same with `N_e=Φ_A+⅞Φ_L`; with `r=1` they vanish. `L⁵E_e` at `r=2`, `½`, `1` as an explicit expression in `ζ(3)`, `π²log2`, `log³2`, `π²`, `log²2`, `log2`, `1`, where `ζ(3)` has the coefficient `L⁵(Z_e+N_e)` | Reading off "the coefficient of `ζ(3)`" as a number: that needs linear independence of the constants, which the paper does not claim. The six unprinted blocks are "there exist", as in S07 | PROVED (6) |
+| P06 | `P06_WeightTwoRest` | Thm `thm:wt2` (the link to `M_k`) | Nothing yet. Four statements: `g1:lem:init` first claim, `M_k` as the integral of the folded initial data, `g1:lem:real`, `g1:lem:split` | | STATED (4), run in progress |
+| P07 | `P07_Hexagon5Rest` | Thm `thm:hexagon5` (sentences 2, 3) | Nothing yet. Five statements: `g9:lem:shape5`, the closed forms of `J(n;a,b,c)`, the table (`g9:lem:precise5`), the table with its `ζ(5)` and `ζ(2)ζ(3)` lines equal to `Z_e^{(5)}/120`, `Z_e^{(2,3)}/120`, the theorem | The 307 table entries are "there exist"; only the two printed lines are fixed | STATED (5), run in progress |
+
+P01 and P03 came back with four and five statements open. As in wave 10, the proved statements were kept and the
+open ones moved, text unchanged (by script), to P06 and P07; a second run proves them in parts.
+
+Totals so far: 5 files, 49 statements proved, 17123 lines of Lean; 9 statements open in P06, P07. The planner compared
+the term lists of `R₄` and `Ψ₂` in P04 with the two JSON files by script: equal.
+
+Waves 1 to 11: 76 files, 626 statements (plus 3 repeats), 133027 lines of Lean. `lake build` passes (18404 jobs).
+
 ## OUT: not checkable in Lean with today's Mathlib
 
 These need polylogarithms of weight ≥3, harmonic polylogarithms, multiple zeta values, symbols, Goncharov's
 theorem, or certified 300-digit arithmetic. They stay on the written proofs and independent re-checks listed in
 the verification map at the top of this repository.
 
-`thm:W4`, `thm:W4R` (`W₄=𝓡`), `thm:wt2`, `prop:M3angle`, `thm:hexagon5`, `prop:octagon5depth`.
+`thm:W4`, `thm:W4R` (`W₄=𝓡`), `prop:octagon5depth`.
 
-Of the 44 numbered results of the paper, 38 have at least one Lean file; these six do not. Open inside a result that
-has a file: the closed forms of `R₄` and `Ψ₂` (`thm:M4alpha`, not printed). Wave 11 (running) tries `thm:wt2`,
-`prop:M3angle`, `thm:hexagon5` and these two closed forms.
+Of the 44 numbered results of the paper, 41 have at least one Lean file; these three do not. Open inside a result that
+has a file: for `thm:wt2`, the link from the reduction to `M_k` (P06); for `thm:hexagon5`, the table and its two
+printed lines (P07); for `prop:M3angle`, the step from the symbol to "not classical" (Goncharov's criterion).
 
 This list is what has not been tried or is known to need missing library. Waves 2 to 8 showed that results first
 put here can be reached, so an entry here is not a proof that Lean cannot do it.
@@ -361,3 +385,18 @@ put here can be reached, so an entry here is not a proof that Lean cannot do it.
   (differences below `3·10⁻⁸⁰`), `s₂=-4.68921551846…`, one hexagon edge with `r=2` against the formula with the
   table (`4·10⁻¹³`). Gap
   found: the `r=2,½` half of sentence 5 of `thm:hexagon` has no Lean statement; target U05 added.
+- 2026-11-26: S06, S07, S08 pushed to the public repo in commit `b67ae820` (71 files, 580 gated statements, 577
+  distinct). Staged diff scanned first (no e-mail address, no local path, no review report).
+- 2026-11-26: U05 (the `r=2,½` half of the last sentence of `thm:hexagon`, with `prop:nonlocal`) PROVED, 6
+  statements; planner gated it; in the build. Not pushed yet (waits for the outside review with the rest of wave 11).
+- 2026-11-27: wave 11 back. P02 (`prop:M3angle`, the 74-term `M₃(α)`) and P04 (`thm:M4alpha` in full, closed forms
+  of `R₄`, `Ψ₂`) PROVED; P01 (`thm:wt2`) 13 of 17, P03 (`thm:hexagon5`) 8 of 13. Ids renamed U01–U05 to P01–P05
+  (clash with wave 2), blocks frozen again. P01, P03 split: open statements moved unchanged to P06 (4), P07 (5).
+  Planner gated P01 to P05; `lake build` passes (18404 jobs): 76 files, 626 statements. Second run started on P06,
+  P07 (parts in parallel). All seven statement blocks sent to the non-Claude reviewers (batch `w11_`).
+- 2026-11-27: P01 to P07 read by non-Claude models (Codex GPT-6 with numerics, Kimi K3, GLM-5, DeepSeek, Kilo), the
+  open statements of P06, P07 included. No Lean statement had to change; one header comment of P02 fixed (the
+  exponents of `Ψ` lie in `[-2,1]`), block frozen and gated again. Codex: `M₃(2π/3)` from the 74-term form against
+  the defining integral (`1.4·10⁻⁶⁶`), `T` and the level-one value, the `N_e` at `r=2,½` (`159√5/500`), `Ψ₂`, `R₄`
+  at two angles, `M_k` for `k≤4` three ways (P06 statements), the order-five edge at `r=2` against the formula
+  (`7·10⁻⁴²`) and the `r=1` limit (P07 statements).

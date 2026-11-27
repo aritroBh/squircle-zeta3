@@ -1,0 +1,372 @@
+import Mathlib
+import Zeta3.Wave10.S07_HexagonFormula
+import Zeta3.Wave1.T08_PolygonSums
+import Zeta3.Wave10.S03_FieldRule
+import Zeta3.Wave4.X05_DiamondA4A5
+/-! Statements stmt_2, stmt_10, stmt_11, stmt_12, stmt_13 of this audited block are in `P07_Hexagon5Rest.lean` (target P07); the header below still describes all of them. -/
+/-!
+# P03 -- `P^{(5)}(1)` of every hexagon (thm:hexagon5)
+
+Target id: P03.
+Paper labels: `thm:hexagon5` (main.tex 1783-1790, Theorem "$P^{(5)}(1)$ of every hexagon") and
+`prop:order5` (main.tex 1755-1773, Proposition "Order five", for `Z_e^{(5)}`, `Z_e^{(2,3)}`).
+Detailed proof: paper/ieee/proofs/sec_g9_hex5.tex (Theorem 26 = `g9:thm:hexagon5`, lines 12-19;
+"What we prove" 24; "What the words mean" 27; first sentence 41-45; Lemma `g9:lem:shape5` 50-56;
+Lemma `g9:lem:Jseries5` 65-75; the formal elements 77; Lemma `g9:lem:hpl` 79-87; Lemma
+`g9:lem:nocst` 100-106; Lemma `g9:lem:precise5` 110-124; census 127; Lemma `g9:lem:z5` 129-135;
+M6 137; "Proof of Theorem 26" 143). Order three: sec_g4_hexagon.tex, Lean S05/S07.
+
+## Quoted verbatim
+
+main.tex 1783-1790 (Theorem thm:hexagon5):
+  For every non-degenerate centrally symmetric convex hexagon and all weights $w_j>0$, with the
+  notation and the logarithms of Theorem~\ref{thm:hexagon}, $P^{(5)}(1)=2\sum_eE^{(5)}_e$, summed
+  over three edges, one from each pair of opposite edges. With $x=1-r$ and $\ell=-\log r$, each
+  $E^{(5)}_e$ is an explicit polynomial, of weight at most five, in $\zeta(2)$, $\zeta(3)$,
+  $\zeta(5)$, the logarithms of the corner term values $A_0$, $A_1$, $B$ (each divided by its
+  weight) and the thirteen harmonic polylogarithms $H_w(x)$
+    \ell,\ \Li_2,\ \Li_3,\ H_{011},\ \Li_4,\ H_{0011},\ H_{0111},
+    \Li_5,\ H_{00011},\ H_{00101},\ H_{00111},\ H_{01011},\ H_{01111},
+  with coefficients that are polynomials in $A_1$, $B$, $r$, $q_0$, $|V_0|^2$, $L^2$ and $1/x$,
+  divided by $L^9$ (the poles at $x=0$ cancel; at $r=1$, $E^{(5)}_e$ is the limit as $x\to0$).
+  In this form the coefficients of $\zeta(5)$ and $\zeta(2)\zeta(3)$ are exactly $Z_e^{(5)}$ and
+  $Z_e^{(2,3)}$ of Proposition~\ref{prop:order5}, for every $r$ (as coefficients of the number,
+  this assumes that the constants are linearly independent).
+
+main.tex 1757-1765 (prop:order5, the two laws; `\bar\xi=\frac{\xi_0L_0+\xi_1L_1}L`,
+`\xi_+=\xi_0+\xi_1`, `\xi_\times=\xi_0\xi_1`):
+  Z_e^{(5)}&=360\,\xi_\times\frac{h^2}L\Bigl[20\bar\xi^3-32\bar\xi^2+15\bar\xi-2
+   -4(5\bar\xi-4)\,\xi_\times\frac{L_0L_1}{L^2}+\frac{h^2}{L^2}\Bigl(5\xi_\times\xi_++8\xi_+^2
+   -28\xi_\times-15(\xi_+^2-3\xi_\times)\bar\xi\Bigr)\Bigr],
+  Z_e^{(2,3)}&=120\,\xi_\times\frac{h^2}L\Bigl[12\bar\xi^2-12\bar\xi+2
+   -12(5\bar\xi-4)\,\xi_\times\frac{L_0L_1}{L^2}+\frac{h^2}{L^2}\Bigl(15\xi_\times\xi_+
+   -3\xi_+^2+24\xi_\times-45\xi_\times\bar\xi\Bigr)\Bigr].
+  (Lean: `T08.Z5Data`, `T08.Z23Data`, imported; for the hexagon edge `ξ_0 = A_0`, `ξ_1 = A_1`,
+  supplement line 134: "with $\xi_0=A_0$, $\xi_1=A_1$".)
+
+Supplement 9: "The \emph{harmonic polylogarithms} are defined for words $w$ in the letters $0,1$
+that end in $1$ by $H_1(x)=-\log(1-x)$, $H_{0w}(x)=\int_0^xH_w(s)\frac{\dd s}s$,
+$H_{1w}(x)=\int_0^xH_w(s)\frac{\dd s}{1-s}$ ... For $x=1-r$, $H_1(x)=-\log r=\ell$. The
+\emph{weight} of $\zeta(i)$ is $i$, of $H_w$ is the length of $w$, of
+$\mathrm l_0,\mathrm l_1,\mathrm l_B$ is $1$."
+
+Supplement 21: "$E_e^{(5)}=5!\int_0^1E_5\dd t$ is the contribution of the edge $e$ to
+$P^{(5)}(1)$, with $E_5$ the $d^5$ coefficient of the length element of $e$".
+
+Supplement 27: "there are $307$ distinct monomials
+$M_k=x^{e_k}\prod_i(H_{w_i}(x))^{\epsilon_{ki}}\,\fz_2^{a_k}\fz_3^{b_k}\fz_5^{c_k}$ in the $13$
+functions and in $\zeta(2),\zeta(3),\zeta(5)$, and $307$ coefficients $C_k$ with
+$L^9C_k\in\QQ[A_1,B,\kappa,q_0,|V_0|^2,L^2,\mathrm l_0,\mathrm l_1,\mathrm l_B]$
+($A_0=1-B-B\kappa$, $\kappa=-x$), such that $E^{(5)}_e=120\sum_kC_kM_k$ for every $r>0$. ...
+\emph{``Weight at most five''} is the weight defined above, with the coefficients $C_k$ of weight
+$0$ except for the powers of $\mathrm l_0,\mathrm l_1,\mathrm l_B$."
+
+Supplement 43 (first sentence):
+  P^{(5)}(1)=5!\sum_{\text{6 edges}}\int_0^1E_5\dd t=2\sum_{e}E_e^{(5)},\qquad
+  E_e^{(5)}:=5!\int_0^1E_5\dd t .
+
+Supplement 51 (Lemma g9:lem:shape5): "$E_5=\sum c_{n,a,b,c}\,t^nX^aY^bW^c$, a finite sum with
+$a+b+c\le5$, where $c_{n,a,b,c}\in L^{-9}\QQ[B,\kappa,q_0,|V_0|^2,L^2,\mathrm l_0,\mathrm l_1,
+\mathrm l_B]$ (with $A_1=1-B$, $A_0=1-B-B\kappa$), and the degree of $c_{n,a,b,c}$ in
+$\mathrm l_0,\mathrm l_1,\mathrm l_B$ is at most $5-a-b-c$." (`X=\log t`, `Y=\log(1-t)`,
+`W=\log(1+\kappa t)`, line 48.)
+
+Supplement 66-70 (Lemma g9:lem:Jseries5): "For $|x|<1$, $c\ge1$ and $a+b+c\le5$ (so $a+b\le4$),
+  J(n;a,b,c)=\sum_{q\ge c}x^q\lambda_c(q)\,I_{n+q}(a,b),\qquad \lambda_c(q)=\frac{(-1)^cc!}q\,
+  e_{c-1}\bigl(1,\tfrac12,\dots,\tfrac1{q-1}\bigr),
+with $I_N(a,b)=\int_0^1s^N\log^as\log^b(1-s)\dd s$ ... and $e_j$ the elementary symmetric
+polynomial. The function $J(n;a,b,c)$ is analytic in $x\in\CC\setminus[1,\infty)$, and
+$J=O(x^c)$ as $x\to0$." Here `J(n;a,b,c)=\int_0^1t^nX^aY^b\log^c(1-xt)\dd t` (line 63).
+In the proof (line 74): "$-\frac vq\exp(-\sum_{i\ge1}\frac{v^i}iH_{q-1}^{(i)})$ ... whose
+coefficient of $v^c$ is ... the printed $\lambda_c(q)/c!$", i.e. `log^c(1-z) = Σ_q λ_c(q) z^q`.
+
+Supplement 77: "$\Ihat(N,0;a,b)$ is, for $a+b\le5$, a polynomial in $\fz_2,\fz_3,\fz_5$, in
+$\frac1{N+1}$ and in $H^{(i)}_{N+1}$, $i\le5$, with rational coefficients"; Lemma
+g9:lem:beta5(a) (used in the proof of g9:lem:nocst): its monomials "have weight $\le a+b$".
+
+Supplement 80-83 (Lemma g9:lem:hpl):
+  (a) For $s_1,\dots,s_k\ge1$ and $|x|<1$, $\Li_{s_1,\dots,s_k}(x):=\sum_{n_1>\dots>n_k\ge1}
+  \frac{x^{n_1}}{n_1^{s_1}\cdots n_k^{s_k}}=H_w(x)$ with $w=0^{s_1-1}1\cdots0^{s_k-1}1$.
+  (b) $H_uH_v=\sum_{w\in u\sqcup\!\sqcup\,v}H_w$ (shuffle product) for words $u,v$ ending in $1$.
+  (c) (Stuffle.) $\sum_{n\ge1}\frac{x^n}{n^a}\prod_j(H_n^{(j)})^{e_j}$ is a rational combination
+  of $\Li_{s_1,\dots,s_k}(x)$ of weights $\le a+\sum je_j$ ...
+  (d) Every $H_w$ with $|w|\le5$ is a polynomial with rational coefficients in the $13$ functions
+  of the theorem. The Lyndon words ending in $1$ of length $\le5$ are $1$; $01$; $001$, $011$;
+  $0001$, $0011$, $0111$; $00001$, $00011$, $00101$, $00111$, $01011$, $01111$.
+
+Supplement 101 (Lemma g9:lem:nocst): "Let $\widehat J(n;a,b,c)$ be the closed form of S4, an
+element of $\QQ(x)[\text{13 generators}][\fz_2,\fz_3]$. Every monomial of $\widehat J$ in
+$\fz_2,\fz_3,\fz_5$ has weight $\le a+b\le4$. In particular $\widehat J$ contains no monomial
+$\fz_5$ and no monomial $\fz_2\fz_3$." (S4, line 96: "$210$ closed forms $J(n;a,b,c)$,
+polynomials in $x^{\pm1}$, the $13$ generators and $\fz_2,\fz_3$", keys `n = 0,…,5`.)
+
+Supplement 111-119 (Lemma g9:lem:precise5): "... collecting terms gives
+$E_e^{(5)}=120\sum_{k=1}^{307}C_kM_k$ with distinct monomials $M_k$ in $x$, the $13$ functions
+and $\fz_2,\fz_3,\fz_5$, with $L^9C_k\in\QQ\bigl[A_1,B,\kappa,q_0,|V_0|^2,L^2,\mathrm l_0,
+\mathrm l_1,\mathrm l_B\bigr]$, and every term of $C_kM_k$ of weight $\le5$. The identity holds
+for every $r>0$ (at $r=1$ as a limit)."  Proof, line 123: "keep
+$B,q_0,L,|V_0|^2,\mathrm l_0,\mathrm l_1,\mathrm l_B$ fixed and let $\kappa$ be the variable".
+
+Supplement 130 (Lemma g9:lem:z5): "In the sum of Lemma~\ref{g9:lem:precise5}, the coefficient of
+the monomial $\fz_5$ is $Z_e^{(5)}/120$ and the coefficient of $\fz_2\fz_3$ is
+$Z_e^{(2,3)}/120$, for every $r>0$."  M6, line 137: "the coefficient of $\fz_5$ is the monomial
+with empty generator list and $x^0$, the coefficient of $\fz_2\fz_3$ likewise ...; these are the
+only two monomials of the table that contain $\fz_5$ or $\fz_2\fz_3$."
+
+## Conventions (how the paper's objects are modelled)
+
+* The hexagon, weights, edges, edge data, `P(p)` and the length element are those of S05
+  (imported, audited block): `S05.Hex`, `S05.IsHex`, `S05.Perim`, `S05.Gl`, `S05.A0`, `S05.A1`,
+  `S05.Bv`, `S05.rr`, `S05.q0`, `S05.V02`, `S05.Lsq`, `S05.Len`, `S05.l0`, `S05.l1`, `S05.lB`,
+  `S05.evars` (the eight edge variables `B, r, q_0, V_{02}, L², l_0, l_1, l_B`, in this order),
+  `S05.Jint`, `S05.Iint`. Since `A_1 = 1 - B` and `κ = r - 1 = -x`, polynomials in
+  `A_1, B, κ, …` are the same as polynomials in `B, r, …` (rational coefficients here).
+* `E^{(5)}_e` (`Ee5`) is `∫_0^1 ∂_p^5 |x_p'(t)| |_{p=1} dt`, which is `5!∫_0^1 E_5 dt` since
+  `E_5` is the `d⁵` coefficient of `G(t,d) = |x_p'(t)|`, `d = p - 1` (exactly as `S05.Ee` at
+  order three). Integrability of the integrand is stated (stmt_1).
+* The harmonic polylogarithms are `S03.H` (imported, audited): `H_∅ = 1`,
+  `H_{a w}(x) = ∫_0^x f_a(t) H_w(t) dt` with `f_0 = 1/t`, `f_1 = 1/(1-t)`; so `H_{[1]}(x) =
+  -log(1-x) = ℓ`, exactly the supplement's definition. On `x < 1` all defining integrals are
+  genuine. The thirteen functions are `S03.H (gen i)`, `i : Fin 13`, in the order of the theorem.
+* `ζ(n)` is `X05.z n = (riemannZeta n).re` (imported, audited), for `n = 2, 3, 5`.
+* Nested sums `Σ_{M ≥ i_1 > ⋯ > i_d ≥ 1} Π i_r^{-s_r}` are `S03.Z` with positive entries;
+  `H^{(j)}_n` is `S03.hn j n`.
+* The formal representative of the theorem (the "table") is modelled as a finitely supported map
+  `T : Key →₀ ℚ[8 edge variables]`, `Key = ℕ × (Fin 13 →₀ ℕ) × (ℕ × ℕ × ℕ)`: the key
+  `(e, ε, (a,b,c))` is the monomial `M = x^{-e} Π_i H_{w_i}(x)^{ε_i} ζ(2)^a ζ(3)^b ζ(5)^c`
+  (distinct keys = distinct monomials; the theorem says "polynomials in ... and $1/x$", so only
+  non-positive powers of `x`), and the coefficient is `C = T(key)(edge data)/L⁹`. The weight of
+  a term is the `l`-degree of the coefficient monomial plus `Σ ε_i|w_i| + 2a + 3b + 5c`.
+  The table itself (`scripts/g9_hex5_table.txt`, 307 lines, machine output) is quantified
+  existentially; the two lines the paper prints (through prop:order5) are fixed (stmt_12).
+* "In this form the coefficient of ζ(5)" is formalised, as the supplement says (lines 24, 27,
+  137), as the coefficient of the monomial `ζ(5)` (key `(0, 0, (0,0,1))`) of the formal
+  representative, together with M6's statement that no other monomial contains `ζ(5)` or
+  `ζ(2)ζ(3)`. No linear independence is claimed.
+* "at $r=1$, $E^{(5)}_e$ is the limit as $x\to0$": `Tendsto` of the formula along `x → 0`,
+  `x ≠ 0`, with the other seven edge variables fixed (supplement line 123).
+
+## Already proved elsewhere (imported, not restated)
+
+* `ΣZ_e^{(5)} = C_m^{(5)}`, `ΣZ_e^{(2,3)} = C_m^{(2,3)}` for the regular `2m`-gon: T08 stmt_5,
+  stmt_6. The setting of the hexagon (every hexagon with every weight is a `K_1`; the three
+  terms on an edge; `0 < B < 1`, `A_0, A_1, r > 0`): S05 stmt_5 to stmt_8.
+
+## NOT COVERED
+
+* The 307 coefficients of the table and the 336 coefficients `c_{n,a,b,c}` of `E_5` (machine
+  steps S1, S5-S6; only machine output, ~5 MB): quantified existentially (stmt_2, stmt_11);
+  only the two printed blocks (`ζ(5)`, `ζ(2)ζ(3)`) are fixed. The census (307 monomials,
+  x-exponents `-6..0`, which generators occur) is not stated.
+* The 210 closed forms `Ĵ(n;a,b,c)` of S4 (machine output): only their existence in the stated
+  shape, with the weight bound of g9:lem:nocst, is stated (stmt_10). That `Ĵ` is the specific
+  output of S4 cannot be expressed.
+* The complex analyticity in Lemma g9:lem:Jseries5 (on `ℂ ∖ [1,∞)`): stated only as real
+  analyticity on `(-∞,1)` (stmt_4); the complex continuation is a proof device.
+* Lemma g9:lem:hpl(d)'s determinants `1,-2,-6,-96,5760` (machine step S2'): only the conclusion
+  (every word is a polynomial in the 13 generators) is stated (stmt_9). Lemma (c) is stated for
+  `a ≥ 1` (for `a = 0` the sum is not a combination of `Li_s`; the lemma tacitly has `a ≥ 1`).
+* The remark "eleven of the thirteen functions are Nielsen polylogarithms $S_{n,p}=H_{0^n1^p}$"
+  is a statement about the shape of words (and the supplement says the irreducibility of
+  `H_{00101}`, `H_{01011}` is neither cited nor used); not stated.
+* Corollary g9:cor:r1 ("the local value of that edge", M2 of Section g9:sec:order5) and the
+  regular-hexagon closed form: the local value is not defined here; only the `r = 1` limit
+  (stmt_11) is stated.
+* The `r = 2` corollary (the thirteen values at `x = -1` as alternating MZVs, the coefficients
+  `-20187/2000 √5`, `-858/125 √5`, the "far kink lines add"): basis-dependent and relying on
+  the alternating-MZV relations; not stated. The numerical checks (golden hexagon, six
+  hexagons, 76 digits) are not statements.
+* The intermediate formula of g9:lem:precise5 in terms of `c_{n,a,b,c}`, `Î` and `Ĵ` is not
+  stated separately; it is the composition of stmt_2, stmt_5, stmt_10 and is subsumed by
+  stmt_11.
+* The g9:lem:z5 proof's identification of the coefficient as `24∫Σ g_{ab}` (local `g_{ab}` of
+  Section g9:sec:order5): not stated; only its conclusion (stmt_12).
+
+## Numerical check before freezing
+
+Own mpmath code (40 digits). Two random non-regular hexagons with random weights (corners
+`(1.19437,-0.136084), (0.947446,1.63997), (-0.255319,0.974098)`, weights `2.09321, 0.463807,
+2.19403`, ratios `r ≈ 1.1887, 0.5406, 1.5561`; and a second one with `r ≈ 0.832, 0.799, 1.504`):
+for each edge `Ee5` computed from the definition here (`∂_p^5|x_p'(t)|` by numerical
+differentiation, integrated in `t`) agrees with the 307-line table (`scripts/g9_hex5_table.txt`,
+the thirteen `H_w` summed as nested series) to `2·10⁻³¹`; the `ζ(5)` and `ζ(2)ζ(3)` lines of the
+table times `120` equal `T08.Z5Data`, `T08.Z23Data` at `ξ_0 = A_0`, `ξ_1 = A_1` to `10⁻³⁷`.
+Sentence 1: for the supplement's hexagon `(1,1), (-27/10,33/10), (-2,1)`, weights `5,1,2`,
+`2ΣEe5` from the definition is `-1474.678480049841208073026`, the referee's `P^{(5)}(1)` to 25
+digits. In the table the largest weight (generators + `ζ` + `l`-degree) is `5` and only odd
+powers of `L` occur. Also: the `λ_c` series for `c = 1..5` (`10⁻³¹`), the `J` series for
+`(n;a,b,c) = (2;1,1,2)`, `x = 0.4` (`10⁻³²`), (a) for `0101`, `011` against iterated integrals,
+(b) for `01 ш 1` at `x = -1.5` (`2·10⁻³¹`), (c) for `Σx^nH_n/n² = Li_{2,1} + Li_3`, and
+`I_N(0,1) = -H_{N+1}/(N+1)`.
+-/
+
+-- BEGIN STATEMENTS
+namespace P03
+
+open MeasureTheory Real Set Filter
+
+/-- `E^{(5)}_e = 5!∫_0^1 E_5 dt = ∫_0^1 ∂_p^5 G(t, p-1)|_{p=1} dt` for edge `k`
+(the order-five analogue of `S05.Ee`). -/
+noncomputable def Ee5 (H : S05.Hex) (k : Fin 3) : ℝ :=
+  ∫ t in (0 : ℝ)..1, iteratedDeriv 5 (fun p => S05.Gl H k p t) 1
+
+/-- Evaluation of a rational polynomial in the eight edge variables
+`(B, r, q_0, V_{02}, L², l_0, l_1, l_B)` at the data of edge `k`. -/
+noncomputable def evq (H : S05.Hex) (k : Fin 3) (P : MvPolynomial (Fin 8) ℚ) : ℝ :=
+  MvPolynomial.eval₂ (algebraMap ℚ ℝ) (S05.evars H k) P
+
+/-- Degree of a monomial of the edge variables in the logarithms `l_0, l_1, l_B`
+(variables `5, 6, 7`). -/
+def ldeg (m : Fin 8 →₀ ℕ) : ℕ := m 5 + m 6 + m 7
+
+/-- The thirteen words of the theorem (the Lyndon words ending in `1` of length `≤ 5`), in the
+order `ℓ, Li₂, Li₃, H₀₁₁, Li₄, H₀₀₁₁, H₀₁₁₁, Li₅, H₀₀₀₁₁, H₀₀₁₀₁, H₀₀₁₁₁, H₀₁₀₁₁, H₀₁₁₁₁`. -/
+def gen : Fin 13 → List ℤ :=
+  ![[1], [0, 1], [0, 0, 1], [0, 1, 1], [0, 0, 0, 1], [0, 0, 1, 1], [0, 1, 1, 1],
+    [0, 0, 0, 0, 1], [0, 0, 0, 1, 1], [0, 0, 1, 0, 1], [0, 0, 1, 1, 1], [0, 1, 0, 1, 1],
+    [0, 1, 1, 1, 1]]
+
+/-- A word in the letters `0, 1`. -/
+def IsWord01 (w : List ℤ) : Prop := ∀ a ∈ w, a = 0 ∨ a = 1
+
+/-- The word `0^{s_1-1}1 0^{s_2-1}1 ⋯ 0^{s_k-1}1` of the index `(s_1, …, s_k)`. -/
+def wordOf (s : List ℕ) : List ℤ := s.flatMap (fun n => List.replicate (n - 1) 0 ++ [1])
+
+/-- The shuffle product of two words, as the list of all shuffles (with multiplicity). -/
+def shuffle : List ℤ → List ℤ → List (List ℤ)
+  | [], v => [v]
+  | u, [] => [u]
+  | a :: u, b :: v =>
+      (shuffle u (b :: v)).map (a :: ·) ++ (shuffle (a :: u) v).map (b :: ·)
+
+/-- `λ_c(q) = (-1)^c c!/q · e_{c-1}(1, 1/2, …, 1/(q-1))` (`e_j` the elementary symmetric
+polynomial). -/
+noncomputable def lamc (c q : ℕ) : ℝ :=
+  (-1 : ℝ) ^ c * (c.factorial : ℝ) / (q : ℝ) *
+    ((Finset.Icc 1 (q - 1)).val.map (fun i : ℕ => (1 : ℝ) / (i : ℝ))).esymm (c - 1)
+
+/-- A key `(e, ε, (a, b, c))` of the formal representative: the monomial
+`x^{-e} Π_i H_{w_i}(x)^{ε_i} ζ(2)^a ζ(3)^b ζ(5)^c`. -/
+abbrev Key := ℕ × (Fin 13 →₀ ℕ) × (ℕ × ℕ × ℕ)
+
+/-- Weight of a key: `Σ_i ε_i |w_i| + 2a + 3b + 5c` (`x` has weight `0`). -/
+def kwt (κ : Key) : ℕ :=
+  (κ.2.1.sum fun i e => e * (gen i).length) + 2 * κ.2.2.1 + 3 * κ.2.2.2.1 + 5 * κ.2.2.2.2
+
+/-- Value of the monomial of key `κ` at `x`. -/
+noncomputable def mval (κ : Key) (x : ℝ) : ℝ :=
+  (x ^ κ.1)⁻¹ * (κ.2.1.prod fun i e => S03.H (gen i) x ^ e) *
+    X05.z 2 ^ κ.2.2.1 * X05.z 3 ^ κ.2.2.2.1 * X05.z 5 ^ κ.2.2.2.2
+
+/-- The formula `120 Σ_k C_k M_k` of the theorem at the edge variables `v`
+(`v 1 = r`, `x = 1 - r`, `L = √(v 4)`), with `C_k = T(κ_k)(v)/L⁹`. -/
+noncomputable def fval (T : Key →₀ MvPolynomial (Fin 8) ℚ) (v : Fin 8 → ℝ) : ℝ :=
+  120 * T.sum fun κ P =>
+    MvPolynomial.eval₂ (algebraMap ℚ ℝ) v P / Real.sqrt (v 4) ^ 9 * mval κ (1 - v 1)
+
+/-- The key of the monomial `ζ(5)`. -/
+def key5 : Key := (0, 0, (0, 0, 1))
+
+/-- The key of the monomial `ζ(2)ζ(3)`. -/
+def key23 : Key := (0, 0, (1, 1, 0))
+
+/-- `Z_e^{(5)}` of prop:order5 for edge `k` of the hexagon, with `ξ_0 = A_0`, `ξ_1 = A_1`
+(supplement line 134) and `h, L, L_0` from the corners (T08's edge data). -/
+noncomputable def Ze5 (H : S05.Hex) (k : Fin 3) : ℝ :=
+  let V0 := S05.toPair (S05.eV0 H k)
+  let V1 := S05.toPair (S05.eV1 H k)
+  T08.Z5Data (S05.A0 H k) (S05.A1 H k) (T08.edgeH V0 V1) (T08.edgeL V0 V1) (T08.edgeL0 V0 V1)
+
+/-- `Z_e^{(2,3)}` of prop:order5 for edge `k`, with `ξ_0 = A_0`, `ξ_1 = A_1`. -/
+noncomputable def Ze23 (H : S05.Hex) (k : Fin 3) : ℝ :=
+  let V0 := S05.toPair (S05.eV0 H k)
+  let V1 := S05.toPair (S05.eV1 H k)
+  T08.Z23Data (S05.A0 H k) (S05.A1 H k) (T08.edgeH V0 V1) (T08.edgeL V0 V1) (T08.edgeL0 V0 V1)
+
+/-- First sentence of thm:hexagon5 (supplement 41-45): `P` is five times continuously
+differentiable at `p = 1`, the edge integrands are integrable, and
+`P^{(5)}(1) = 2 Σ_e E^{(5)}_e` over the three edges `C_0C_1`, `C_1C_2`, `C_2(-C_0)`. -/
+def stmt_1 : Prop :=
+  ∀ H : S05.Hex, S05.IsHex H →
+    ContDiffAt ℝ 5 (S05.Perim H) 1 ∧
+    (∀ k : Fin 3,
+      IntervalIntegrable (fun t => iteratedDeriv 5 (fun p => S05.Gl H k p t) 1) volume 0 1) ∧
+    iteratedDeriv 5 (S05.Perim H) 1 = 2 * ∑ k : Fin 3, Ee5 H k
+
+/-- Proof of g9:lem:Jseries5: `log^c(1-z) = Σ_{q≥1} λ_c(q) z^q` for `c ≥ 1`, `|z| < 1`
+(the terms with `q < c` vanish). -/
+def stmt_3 : Prop :=
+  ∀ c : ℕ, 1 ≤ c → ∀ z : ℝ, |z| < 1 →
+    HasSum (fun q : ℕ => lamc c (q + 1) * z ^ (q + 1)) (Real.log (1 - z) ^ c)
+
+/-- Lemma g9:lem:Jseries5: for `c ≥ 1`, `a + b + c ≤ 5`, the integrand of `J(n;a,b,c)` is
+integrable for every `x < 1`, `J` is (real-)analytic on `x < 1` and `O(x^c)` at `0`, and for
+`|x| < 1`, `J(n;a,b,c) = Σ_{q≥1} x^q λ_c(q) I_{n+q}(a,b)`. -/
+def stmt_4 : Prop :=
+  ∀ n a b c : ℕ, 1 ≤ c → a + b + c ≤ 5 →
+    (∀ x : ℝ, x < 1 →
+      IntervalIntegrable
+        (fun t : ℝ => t ^ n * Real.log t ^ a * Real.log (1 - t) ^ b * Real.log (1 - x * t) ^ c)
+        volume 0 1) ∧
+    AnalyticOnNhd ℝ (S05.Jint n a b c) (Iio 1) ∧
+    (S05.Jint n a b c) =O[nhds 0] (fun x : ℝ => x ^ c) ∧
+    ∀ x : ℝ, |x| < 1 →
+      HasSum (fun q : ℕ => x ^ (q + 1) * lamc c (q + 1) * S05.Iint (n + q + 1) a b)
+        (S05.Jint n a b c x)
+
+/-- Supplement line 77 with Lemma g9:lem:beta5(a): for `a + b ≤ 5`, `I_N(a,b)` is a polynomial
+with rational coefficients in `1/(N+1)`, `H^{(i)}_{N+1}` (`i = 1,…,5`) and `ζ(2), ζ(3), ζ(5)`,
+whose monomials in the `ζ`'s have weight `≤ a + b`. Variables: `0 ↦ 1/(N+1)`,
+`i ↦ H^{(i)}_{N+1}` (`i = 1..5`), `6, 7, 8 ↦ ζ(2), ζ(3), ζ(5)`. -/
+def stmt_5 : Prop :=
+  ∀ a b : ℕ, a + b ≤ 5 →
+    ∃ P : MvPolynomial (Fin 9) ℚ,
+      (∀ m ∈ P.support, 2 * m 6 + 3 * m 7 + 5 * m 8 ≤ a + b) ∧
+      ∀ N : ℕ, S05.Iint N a b =
+        MvPolynomial.eval₂ (algebraMap ℚ ℝ)
+          (![1 / ((N : ℝ) + 1), (S03.hn 1 (N + 1) : ℝ), (S03.hn 2 (N + 1) : ℝ),
+            (S03.hn 3 (N + 1) : ℝ), (S03.hn 4 (N + 1) : ℝ), (S03.hn 5 (N + 1) : ℝ),
+            X05.z 2, X05.z 3, X05.z 5]) P
+
+/-- Lemma g9:lem:hpl(a): for `s_1, …, s_k ≥ 1` and `|x| < 1`,
+`Li_{s_1,…,s_k}(x) = Σ_{n_1 > ⋯ > n_k ≥ 1} x^{n_1}/(n_1^{s_1}⋯n_k^{s_k}) = H_w(x)`,
+`w = 0^{s_1-1}1⋯0^{s_k-1}1` (the inner sum is `S03.Z (s_2,…,s_k) (n_1 - 1)`). -/
+def stmt_6 : Prop :=
+  ∀ (s1 : ℕ) (s : List ℕ), 1 ≤ s1 → (∀ si ∈ s, 1 ≤ si) → ∀ x : ℝ, |x| < 1 →
+    HasSum
+      (fun n : ℕ => x ^ (n + 1) / ((n : ℝ) + 1) ^ s1 *
+        (S03.Z (s.map (fun si : ℕ => (si : ℤ))) n : ℝ))
+      (S03.H (wordOf (s1 :: s)) x)
+
+/-- Lemma g9:lem:hpl(b): the shuffle product `H_u H_v = Σ_{w ∈ u ш v} H_w` for words `u, v` in
+the letters `0, 1` ending in `1`, at every `x < 1`. -/
+def stmt_7 : Prop :=
+  ∀ u v : List ℤ, IsWord01 u → IsWord01 v → S03.Regular u → S03.Regular v →
+    ∀ x : ℝ, x < 1 →
+      S03.H u x * S03.H v x = ((shuffle u v).map (fun w => S03.H w x)).sum
+
+/-- Lemma g9:lem:hpl(c) (stuffle), for `a ≥ 1`: `Σ_{n≥1} x^n/n^a Π_{j=1}^J (H^{(j)}_n)^{e_j}` is
+a rational combination of `Li_{s}(x) = H_{w(s)}(x)` (by (a)) of weights
+`|s| ≤ a + Σ_j j e_j`, for `|x| < 1`. -/
+def stmt_8 : Prop :=
+  ∀ (a : ℕ), 1 ≤ a → ∀ (J : ℕ) (e : ℕ → ℕ),
+    ∃ terms : List (ℚ × List ℕ),
+      (∀ τ ∈ terms, τ.2 ≠ [] ∧ (∀ si ∈ τ.2, 1 ≤ si) ∧
+        τ.2.sum ≤ a + ∑ j ∈ Finset.Icc 1 J, j * e j) ∧
+      ∀ x : ℝ, |x| < 1 →
+        HasSum
+          (fun n : ℕ => x ^ (n + 1) / ((n : ℝ) + 1) ^ a *
+            ∏ j ∈ Finset.Icc 1 J, (S03.hn j (n + 1) : ℝ) ^ e j)
+          ((terms.map fun τ => (τ.1 : ℝ) * S03.H (wordOf τ.2) x).sum)
+
+/-- Lemma g9:lem:hpl(d): every `H_w`, `w` a word in `0, 1` ending in `1` with `|w| ≤ 5`, is a
+polynomial with rational coefficients in the thirteen functions, on all of `x < 1`; the
+polynomial is homogeneous of weight `|w|` (the grading of the proof). -/
+def stmt_9 : Prop :=
+  ∀ w : List ℤ, IsWord01 w → S03.Regular w → w.length ≤ 5 →
+    ∃ P : MvPolynomial (Fin 13) ℚ,
+      (∀ m ∈ P.support, (m.sum fun i e => e * (gen i).length) = w.length) ∧
+      ∀ x : ℝ, x < 1 →
+        S03.H w x = MvPolynomial.eval₂ (algebraMap ℚ ℝ) (fun i => S03.H (gen i) x) P
+
+end P03

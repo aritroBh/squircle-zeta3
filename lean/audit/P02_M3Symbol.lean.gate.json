@@ -1,0 +1,93 @@
+{
+ "file": "Zeta3/Wave11/P02_M3Symbol.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_1",
+  "stmt_2",
+  "stmt_3",
+  "stmt_4",
+  "stmt_5",
+  "stmt_6",
+  "stmt_7",
+  "stmt_8",
+  "stmt_9",
+  "stmt_10",
+  "stmt_11",
+  "stmt_12",
+  "stmt_13",
+  "stmt_14"
+ ],
+ "axioms": {
+  "P02.proof_1": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_2": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_3": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_4": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_5": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_6": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_7": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_8": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_9": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_10": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_11": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_12": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_13": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "P02.proof_14": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

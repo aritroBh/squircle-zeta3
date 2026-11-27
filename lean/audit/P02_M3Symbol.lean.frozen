@@ -1,0 +1,523 @@
+import Mathlib
+import Zeta3.Wave10.S08_FieldRuleMain
+/-!
+# P02 -- `M_3` at other angles: the symbol of the weight-four part and its `(2,2)` cobracket
+
+Target id: P02.
+Paper labels: `prop:M3angle` (paper/ieee/main.tex, Proposition "$M_3$ at other angles", lines
+1546-1553) and the sentence before it (line 1544); the sentence after it on one depth-two term
+(line 1555).
+Supplement: paper/ieee/proofs/sec_g8_M3alpha.tex (statement and table of the 56 terms, lines 5-41;
+"What is proved, precisely", 43-46; "What the words mean", 48-72; Lemma `g8:prop:R3`, 76-82 with
+machine step M5, 84; the table of 24 pure tensors, 90-124; Lemma `g8:lem:vanish`, 132-138; Lemma
+`g8:prop:one`, 145-153 and the ratio remark, 155); sec_g8_M2alpha.tex (Lemma `g8:prop:crit`,
+76-91, with `g8:lem:hcoef`, 62-68). Data: paper/ieee/proofs/scripts/g8_terms_k3_part1.json (the 74
+terms of `R_3`) and g8_terms_k3_partz2.json (`Ψ`: 14 terms and the constant `1/2`).
+
+Quoted verbatim (main.tex 1544): "The same method gives $M_3(\alpha)$ at every angle in the form
+$-\zeta(3)\Phi(c)+\zeta(2)\Psi(c)+R_3(c)$, with $R_3$ a rational combination of 74 terms
+$c^eH_w(c)$ (34 distinct harmonic polylogarithms, of weights two to four) (proved for every Taylor
+coefficient in our notes)" ... "The $(2,2)$ part of a weight-four symbol lies in $\Lambda^2B_2$,
+where $B_2$ is the space of weight-two symbols modulo products; for $x_1\otimes x_2\otimes
+x_3\otimes x_4$ it is $(x_1\wedge x_2)\wedge(x_3\wedge x_4)$. It vanishes on products and on
+$\Li_4$, so it vanishes on every combination of classical polylogarithms."
+
+Quoted verbatim (main.tex 1546-1553):
+
+  \begin{proposition}[$M_3$ at other angles$^\dagger$]\label{prop:M3angle}
+  Let $\Omega(c)$ be the weight-four part of $R_3(c)$ (56 of the 74 terms), whose letters are
+  $[c]$, $[1-c]$ and $[1+c]$. Its $(2,2)$ part (of the function, modulo constants), with each
+  symbol written with the outermost integration letter last, is
+  \begin{multline*}
+  \delta_{2,2}(\Omega)=\Bigl(1-\frac1c\Bigr)([c]\wedge[1-c])\wedge([1-c]\wedge[1+c])\\
+  -\Bigl(1+\frac1c\Bigr)([c]\wedge[1+c])\wedge([1-c]\wedge[1+c]),
+  \end{multline*}
+  and it is not zero.
+  \end{proposition}
+
+Quoted verbatim (main.tex 1555): "One depth-two term is not enough: for $r(c)\,G$, with $G$ a
+function whose symbol has constant coefficients, the two components of $\delta_{2,2}$ above are in a
+constant ratio, but for $\Omega$ their ratio is $(1-c)/(1+c)$ (proved at the level of symbols;
+refereed)."
+
+Quoted verbatim (supplement 44, "What is proved, precisely"): "Take the displayed expression
+$\Omega$ of $56$ terms. Its constant-free symbol (letters modulo constants, Section~\ref{...}), with
+the coefficients in $\QQ(c)$ treated as scalars and not differentiated, has the $(2,2)$ cobracket
+displayed, and this is not zero."
+
+Quoted verbatim (supplement 55): "The three elements $\mathsf x=[c]$, $\mathsf y=[1-c]$,
+$\mathsf z=[1+c]$ form a basis of $V$ (a relation $c^a(1-c)^b(1+c)^d=$ const would force
+$a=b=d=0$ by the zeros at $0,1,-1$)."
+(supplement 60): "\mathcal S(H_w)=g(a_n)\otimes\dots\otimes g(a_1)\in T^n(V),\qquad g(0)=\mathsf x,\
+g(1)=-\mathsf y,\ g(-1)=\mathsf z ." (62) "we put $\mathcal S(F)=\sum_ir_i(c)\,\mathcal
+S(H_{w_i})\in T^n(V)\otimes\QQ(c)$: the coefficients $r_i(c)$ are scalars and are not
+differentiated." (67) "\delta_{2,2}:T^4(V)\otimes\QQ(c)\to\Lambda^2(\Lambda^2V)\otimes\QQ(c),\qquad
+x_1\otimes x_2\otimes x_3\otimes x_4\mapsto(x_1\wedge x_2)\wedge(x_3\wedge x_4)." (69) "The space
+$\Lambda^2(\Lambda^2V)$ has the basis $p\wedge q$, $p\wedge r$, $q\wedge r$. ... ``Not zero''
+means that these two coefficients are nonzero elements of $\QQ(c)$."
+(120-122) "Adding the $24$ rows with their coefficients, the components along $p\wedge q$ cancel,
+and \delta_{2,2}(\mathcal S(\Omega))=\Bigl(1-\frac1c\Bigr)p\wedge r-\Bigl(1+\frac1c\Bigr)q\wedge r".
+
+Quoted verbatim (`g8:lem:vanish`, 133): "Let $V'$ be any $\QQ$-vector space. The map
+$\delta_{2,2}:T^4(V')\to\Lambda^2(\Lambda^2V')$, $x_1\otimes x_2\otimes x_3\otimes x_4\mapsto(x_1\wedge
+x_2)\wedge(x_3\wedge x_4)$, vanishes on (a) every shuffle product $s\sqcup\!\sqcup t$ of tensors of
+degrees $(1,3)$, $(2,2)$ or $(3,1)$, and (b) on $-a\otimes b\otimes b\otimes b$ for every $a,b\in
+V'$ (the symbol of $\Li_4(r)$ with $a=[1-r]$, $b=[r]$)."
+
+Quoted verbatim (`g8:prop:one`, 146): "Let $U_0$ be any $\QQ$-vector space, $\pi:V\oplus U_0\to V$
+the projection along $U_0$, $r\in\QQ(c)^\times$, and $\tau\in T^4(V\oplus U_0)$ any tensor with
+\emph{rational} coefficients. Then $\delta_{2,2}\bigl(r(c)\,(\pi^{\otimes4}\tau)\bigr)\ne
+\delta_{2,2}(\mathcal S(\Omega))$." (proof, 152) "$\delta_{2,2}(\pi^{\otimes4}\tau)\in
+\Lambda^2(\Lambda^2V)$ has rational coefficients $a,b,d$ on $p\wedge q$, $p\wedge r$, $q\wedge r$
+... $b/d=\frac{1-1/c}{-(1+1/c)}=\frac{1-c}{1+c}$, which is not constant."
+
+Quoted verbatim (`g8:prop:R3`, 77): "For $0<c<1$, $M_3(\alpha)=R_3(c)-\zeta(3)\Phi(c)+
+\zeta(2)\Psi(c)$, where $R_3$ is the combination of $74$ terms of \script{g8_terms_k3_part1.json}
+and $\Psi$ the combination of \script{g8_terms_k3_partz2.json} ($14$ terms $q\,c^eH_w$ and the
+constant $\frac12$)." (setting, line 8) "$R_3(c)=\sum_{n\ge1}r'_nc^{2n}$, $r'_n=[1]P_{3,n}$", "
+$\Psi(c)=\sum_{n\ge1}q'_nc^{2n}$ ... $q'_n=[\gvs2]P_{3,n}$".
+
+Quoted verbatim (`g8:prop:crit`, sec_g8_M2alpha 82-86): "(i) $L_0=T_z$ and $L_1=0$ in
+$\mathfrak D$; (ii) the coefficients of $c^N$, for all $N\le1$, in the Laurent series of
+$L-\sum_{n\ge1}\rho_nc^{2n}$ ... vanish ... Then $L(c)=\sum_{n\ge1}p_nc^{2n}$ for $0<c<1$."
+(proof, 90) "$[c^{2n}]c^eH_w=[x^{2n-e}]H_w=\gsub{h_{w,-e}}{n}$ and
+$[c^{2n+1}]c^eH_w=\gsub{h_{w,1-e}}{n}$".
+
+## Formalization choices
+
+* Data. A term `q c^e H_w` is a triple `(q, e, w) : ℚ × ℤ × List ℤ`, the word `w = (a_1,…,a_n)`
+  written left to right as in `H_{a_1,…,a_n}` (outermost integration letter `a_1`); `R3terms` is
+  the 74 terms of g8_terms_k3_part1.json in file order, `PsiTerms` the 14 terms of
+  g8_terms_k3_partz2.json (its constant `1/2` is added separately). `Omega` is the sublist of the
+  terms with `|w| = 4`. The 56 entries agree with the table of the supplement (lines 10-29).
+* Coefficients. `K = RatFunc ℚ = ℚ(c)`, `c = RatFunc.X`, `c^e` the integer power in the field.
+* The letter space `V` (basis `x = [c]`, `y = [1-c]`, `z = [1+c]`) is coordinatized by `Fin 3`
+  (`0 ↦ x`, `1 ↦ y`, `2 ↦ z`); `V ⊗ ℚ(c)` is `Fin 3 → K`, `ev i` the basis vector. `stmt_2` is
+  the supplement's justification that these three classes are linearly independent modulo
+  constants. `T⁴(V) ⊗ ℚ(c)` is `T4 = (Fin 4 → Fin 3) → K` (coordinates on the basis tensors
+  `ev (t 0) ⊗ ⋯ ⊗ ev (t 3)`), and `ptens v` is the pure tensor `v 0 ⊗ ⋯ ⊗ v 3`.
+* `𝒮(H_w) = g(a_4) ⊗ g(a_3) ⊗ g(a_2) ⊗ g(a_1)` for `|w| = 4` is `symbH w = ptens (i ↦ g(w.reverse[i]))`
+  (slot `0` carries the innermost letter `a_4`, slot `3` the outermost `a_1`: "outermost integration
+  letter last"); `g 0 = x`, `g 1 = -y`, `g (-1) = z`. `SOmega = Σ q c^e 𝒮(H_w)` over `Omega`, the
+  coefficients as scalars.
+* Exterior powers, honestly and in coordinates: for a free module `ι → K`, `Λ²` is modelled by
+  antisymmetric matrices, `u ∧ v ↦ (i,j) ↦ u_i v_j - u_j v_i` (`wedge`; this is the injective map
+  `u ∧ v ↦ u⊗v - v⊗u` into `V ⊗ V`), and `Λ²(Λ²)` the same way one level up (`wedge22`, indices in
+  `ι × ι`). A coordinate model of this kind is faithful (the image of `Λ²F` in `F ⊗ F` is a direct
+  summand for a free `F`), so an element is zero iff its model is zero. `dpure [x₁,x₂,x₃,x₄] =
+  (x₁ ∧ x₂) ∧ (x₃ ∧ x₄)`, and `delta22` is its `K`-linear extension from the basis tensors of `T4`
+  (`δ_{2,2} = Σ_t S(t) (e_{t0} ∧ e_{t1}) ∧ (e_{t2} ∧ e_{t3})`). The basis of `Λ²V` is
+  `p = x∧y`, `q = x∧z`, `r = y∧z` (`wp`, `wq`, `wr`); the coordinate of an element of
+  `Λ²(Λ²V)` on `p∧q`, `p∧r`, `q∧r` is its value at `((0,1),(0,2))`, `((0,1),(1,2))`,
+  `((0,2),(1,2))`.
+* `g8:lem:vanish` is stated for every index type `ι` and every commutative ring `K` (the paper's
+  `ℚ`-vector space `V'` is `ι →₀ ℚ` for a basis `ι`, a submodule of `ι → ℚ`; nothing is lost). The
+  shuffle product of two pure tensors `s = s₁⊗⋯`, `t = t₁⊗⋯` is the sum of the pure tensors of the
+  shuffled lists (`shuf`), so `δ_{2,2}(s ⧢ t) = Σ_{shuffles} dpure`. By bilinearity this is the
+  lemma for all tensors (the reduction the supplement makes in the first line of its proof).
+* `g8:prop:one`: `U₀` has a basis `ι`, so `V ⊕ U₀` has the basis `Fin 3 ⊕ ι`; a tensor with
+  rational coefficients is `τ : (Fin 4 → Fin 3 ⊕ ι) → ℚ` (its coordinates), and `π^{⊗4}τ` has the
+  coordinate `τ (inl ∘ t)` at the basis tensor `t` (`π` kills the basis letters of `U₀`).
+* PART 2. `R3fun c = Σ q c^e H_w(c)` over the 74 terms and `PsiFun c = 1/2 + Σ q c^e H_w(c)` over
+  the 14 terms, with `S03.H` the harmonic polylogarithm of S03. `[x^N] H_w` is given by the
+  dictionary `g6:lem:dict` (`S03.stmt_5`, proved): `hcoef w N = 𝔠_w ε^N N^{-κ} Z_{v_w}(N-1)` for
+  `N ≥ 1` and `0` for `N ≤ 0`, with `(ε, κ, 𝔠_w, v_w) = S03.dd w`. Then the coefficient of `c^N`
+  in the Laurent series of `Σ q c^e H_w` is `coefTerms L N = Σ q · hcoef w (N - e)`. The finite
+  identities of `g8:prop:crit` (i) are identities in `𝔇` whose values at every `n` are these
+  coefficients; they are stated here through their values, for every `n ≥ 1` ("proved for every
+  Taylor coefficient"), and (ii) as the vanishing for every `N ≤ 1`.
+* `r'_n = [1]P_{3,n}` is `V05.P 3 n 0 0` and `q'_n = [𝔷2]P_{3,n}` is `V05.P 3 n 1 0 - V05.P 3 n 0 0`
+  (`V05.stmt_11`, proved: `P_{3,n}` is affine in `𝔷2, 𝔷3` with these coefficients, and
+  `[𝔷3]P_{3,n} = -1/(4n²-1)`; that part is not restated). `M_3(α)` is `V05.Mk 3 α`,
+  `c = D04.c α = cos(α/2)`, `Φ = V05.Phi` (`Φ(c) = Σ c^{2n}/(4n²-1)` by `V05.stmt_1`, proved),
+  `ζ(2) = V05.z2 = π²/6`, `ζ(3) = V05.z3 = (riemannZeta 3).re` (real since `riemannZeta 3 =
+  Σ n^{-3}` by `zeta_nat_eq_tsum_of_gt_one`).
+
+## Statements
+
+* stmt_1: the data: 74 terms, 2, 16, 56 of weights 2, 3, 4, 34 distinct words, all regular over
+  `{0,1,-1}`, exponents in `[-2, 1]`; `Ψ`: 14 terms of weights 1, 2, exponents in `[-2, 1]`.
+* stmt_2: `x, y, z` are a basis modulo constants: `c^a(1-c)^b(1+c)^d` constant forces `a=b=d=0`.
+* stmt_3: Lemma `g8:lem:vanish` (a) and (b).
+* stmt_4: `𝒮(Ω)` is the sum of the 24 pure tensors of the table with the printed coefficients.
+* stmt_5: the `δ_{2,2}` column of the table: the image of each of the 24 basis tensors.
+* stmt_6: the three coordinates of `δ_{2,2}(𝒮(Ω))`: `0` on `p∧q`, `1 - 1/c` on `p∧r`,
+  `-(1 + 1/c)` on `q∧r`.
+* stmt_7: the ratio for `Ω` is `(1-c)/(1+c)` (`A(1+c) = B(1-c)`), not a rational constant.
+* stmt_8: proof of `g8:prop:one`: for `r ∈ ℚ(c)` and `τ` with rational coefficients,
+  `δ_{2,2}(r π^{⊗4}τ) = r (a p∧q + b p∧r + d q∧r)` with `a, b, d ∈ ℚ` (constant ratio).
+* stmt_9: Lemma `g8:prop:one`.
+* stmt_10: Proposition `prop:M3angle` as proved ("What is proved, precisely"): the displayed
+  formula for `δ_{2,2}(𝒮(Ω))`, both coefficients nonzero in `ℚ(c)`, and `δ_{2,2}(𝒮(Ω)) ≠ 0`.
+* stmt_11: M5 for `R_3`: `[c^{2n}] = r'_n`, `[c^{2n+1}] = 0` for `n ≥ 1`, `[c^N] = 0` for `N ≤ 1`.
+* stmt_12: M5 for `Ψ` (with its constant `1/2`): `[c^{2n}] = q'_n`, odd and low orders `0`.
+* stmt_13: `g8:prop:crit` applied: `R_3(c) = Σ r'_n c^{2n}` and `Ψ(c) = Σ q'_n c^{2n}`, `0 < c < 1`.
+* stmt_14: Lemma `g8:prop:R3`: `M_3(α) = R_3(c) - ζ(3)Φ(c) + ζ(2)Ψ(c)` for `0 < α < π`.
+
+## Numerical and exact checks before freezing
+
+A Python script (exact rationals, SymPy, mpmath; written from these definitions) checked: the
+data counts of `stmt_1`; that `𝒮(Ω)` computed from the 56 terms has exactly the 24 tensors of the
+table, typed from the TeX, with equal coefficients (`stmt_4`); the 24 images in the antisymmetric
+model (`stmt_5`); `δ_{2,2}(𝒮(Ω))` (`stmt_6`, `stmt_10`), in agreement with the output of the
+supplement's g8_M3_delta22.py (run read-only); `hcoef` against an independent series recursion of
+`H_w` (`H_{(0,w)} : h_N/N`, `H_{(1,w)} : Σ_{m<N} h_m / N`, `H_{(-1,w)} : Σ_{m<N} (-1)^{N-1-m}h_m/N`)
+for all 34 + 7 words, `N ≤ 30`; `stmt_11` and `stmt_12` exactly for `n ≤ 20` and all `N ≤ 1`, with
+`P_{3,n}` computed from the definition `V05.P` (`ecoef`, `rho`, `Dsharp`), and
+`[𝔷3]P_{3,n} = -1/(4n²-1)`; `stmt_14` at `α = 2π/3` and `α = 1.8` (45 digits, `H_w` summed to
+700 terms) against `Σ_{n<120} P_{3,n}(ζ(2),ζ(3)) c^{2n}` (`V05.stmt_8`): differences
+`2.9·10⁻⁴⁷` and `1.7·10⁻⁴⁶`; values `0.010717362932289465418409576291224896` and
+`0.017173835093232526245372316031957722`, which agree with the supplement's table (line 248-249).
+
+## NOT COVERED
+
+* Lemma `g8:prop:two` and the sentence "Two terms match it" (the two-variable symbol of
+  `Li_{2,2}`, Lemma `g8:lem:diff`, the specialisation to `x = 1/2`), and the four residual
+  components with the constant letter `[2]` kept.
+* "of the function": that the symbol depends only on the function (Section `g8b:sec:M3func`,
+  Theorem G8B(b)), and the consequence "`M_3(α)` is not classical as a function of the angle"; the
+  identification of `Λ²B₂` with `Λ²(Λ²V)` and Goncharov's criterion (quoted in the supplement,
+  not proved there); the passage from shuffle products of symbols to products of functions.
+* The square corner specialisation (`Λ²(Λ²)` of a plane is `0`), the hexagon corner, the corner
+  `c₀ = 1/3`, the lists of corners and the period-conjecture remarks.
+* The construction of the elements `L_0, L_1, T_z ∈ 𝔇` of `g8:prop:crit` and the identities
+  "in `𝔇`" themselves: only their values at every `n` (which is what the conclusion uses) are
+  stated, in `stmt_11` and `stmt_12`.
+* The remark "at `c = 1/√2` it gives `W_4`".
+-/
+-- BEGIN STATEMENTS
+namespace P02
+
+open Real
+
+/-- The 74 terms `(q, e, w)` of `R_3 = Σ q c^e H_w` (g8_terms_k3_part1.json, in file order). -/
+def R3terms : List (ℚ × ℤ × List ℤ) := [
+  ((-1 : ℚ), (0 : ℤ), [0, 1]),
+  ((1 : ℚ), (0 : ℤ), [0, -1]),
+  ((1 : ℚ), (0 : ℤ), [0, 0, 1]),
+  ((-1 : ℚ), (0 : ℤ), [0, 0, -1]),
+  ((1 : ℚ), (0 : ℤ), [0, 1, -1]),
+  ((1 : ℚ), (0 : ℤ), [0, -1, 1]),
+  ((1 : ℚ), (-2 : ℤ), [1, 0, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [1, 0, 1]),
+  ((-3/2 : ℚ), (0 : ℤ), [1, 0, 1]),
+  ((-1 : ℚ), (-2 : ℤ), [1, 0, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [1, 0, -1]),
+  ((3/2 : ℚ), (0 : ℤ), [1, 0, -1]),
+  ((-1 : ℚ), (-2 : ℤ), [-1, 0, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [-1, 0, 1]),
+  ((3/2 : ℚ), (0 : ℤ), [-1, 0, 1]),
+  ((1 : ℚ), (-2 : ℤ), [-1, 0, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [-1, 0, -1]),
+  ((-3/2 : ℚ), (0 : ℤ), [-1, 0, -1]),
+  ((-1 : ℚ), (0 : ℤ), [0, 0, 0, 1]),
+  ((1 : ℚ), (1 : ℤ), [0, 0, 0, 1]),
+  ((1 : ℚ), (0 : ℤ), [0, 0, 0, -1]),
+  ((1 : ℚ), (1 : ℤ), [0, 0, 0, -1]),
+  ((-1 : ℚ), (0 : ℤ), [0, 0, 1, -1]),
+  ((1 : ℚ), (1 : ℤ), [0, 0, 1, -1]),
+  ((-1 : ℚ), (0 : ℤ), [0, 0, -1, 1]),
+  ((-1 : ℚ), (1 : ℤ), [0, 0, -1, 1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [0, 1, 0, 1]),
+  ((1/2 : ℚ), (1 : ℤ), [0, 1, 0, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [0, 1, 0, -1]),
+  ((-1 : ℚ), (0 : ℤ), [0, 1, 0, -1]),
+  ((1/2 : ℚ), (1 : ℤ), [0, 1, 0, -1]),
+  ((1 : ℚ), (0 : ℤ), [0, 1, -1, 1]),
+  ((-1 : ℚ), (1 : ℤ), [0, 1, -1, 1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [0, -1, 0, 1]),
+  ((-1 : ℚ), (0 : ℤ), [0, -1, 0, 1]),
+  ((-1/2 : ℚ), (1 : ℤ), [0, -1, 0, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [0, -1, 0, -1]),
+  ((-1/2 : ℚ), (1 : ℤ), [0, -1, 0, -1]),
+  ((-1 : ℚ), (0 : ℤ), [0, -1, 1, -1]),
+  ((-1 : ℚ), (1 : ℤ), [0, -1, 1, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [1, 0, 0, 1]),
+  ((1/2 : ℚ), (1 : ℤ), [1, 0, 0, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [1, 0, 0, -1]),
+  ((-1 : ℚ), (0 : ℤ), [1, 0, 0, -1]),
+  ((1/2 : ℚ), (1 : ℤ), [1, 0, 0, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [1, 0, 1, -1]),
+  ((1/2 : ℚ), (1 : ℤ), [1, 0, 1, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [1, 0, -1, 1]),
+  ((1 : ℚ), (0 : ℤ), [1, 0, -1, 1]),
+  ((-1/2 : ℚ), (1 : ℤ), [1, 0, -1, 1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [1, -1, 0, 1]),
+  ((1 : ℚ), (0 : ℤ), [1, -1, 0, 1]),
+  ((-1/2 : ℚ), (1 : ℤ), [1, -1, 0, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [1, -1, 0, -1]),
+  ((-1/2 : ℚ), (1 : ℤ), [1, -1, 0, -1]),
+  ((1 : ℚ), (0 : ℤ), [1, -1, 1, -1]),
+  ((-1 : ℚ), (1 : ℤ), [1, -1, 1, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [-1, 0, 0, 1]),
+  ((-1 : ℚ), (0 : ℤ), [-1, 0, 0, 1]),
+  ((-1/2 : ℚ), (1 : ℤ), [-1, 0, 0, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [-1, 0, 0, -1]),
+  ((-1/2 : ℚ), (1 : ℤ), [-1, 0, 0, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [-1, 0, 1, -1]),
+  ((-1 : ℚ), (0 : ℤ), [-1, 0, 1, -1]),
+  ((-1/2 : ℚ), (1 : ℤ), [-1, 0, 1, -1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [-1, 0, -1, 1]),
+  ((1/2 : ℚ), (1 : ℤ), [-1, 0, -1, 1]),
+  ((1/2 : ℚ), (-1 : ℤ), [-1, 1, 0, 1]),
+  ((-1/2 : ℚ), (1 : ℤ), [-1, 1, 0, 1]),
+  ((-1/2 : ℚ), (-1 : ℤ), [-1, 1, 0, -1]),
+  ((-1 : ℚ), (0 : ℤ), [-1, 1, 0, -1]),
+  ((-1/2 : ℚ), (1 : ℤ), [-1, 1, 0, -1]),
+  ((1 : ℚ), (0 : ℤ), [-1, 1, -1, 1]),
+  ((1 : ℚ), (1 : ℤ), [-1, 1, -1, 1])]
+
+/-- The 14 terms `(q, e, w)` of `Ψ - 1/2 = Σ q c^e H_w` (g8_terms_k3_partz2.json; its constant
+`1/2` is the first entry of that file and is added in `PsiFun`). -/
+def PsiTerms : List (ℚ × ℤ × List ℤ) := [
+  ((-1/2 : ℚ), (-2 : ℤ), [1]),
+  ((-1/4 : ℚ), (-1 : ℤ), [1]),
+  ((3/4 : ℚ), (0 : ℤ), [1]),
+  ((1/2 : ℚ), (-2 : ℤ), [-1]),
+  ((-1/4 : ℚ), (-1 : ℤ), [-1]),
+  ((-3/4 : ℚ), (0 : ℤ), [-1]),
+  ((1/4 : ℚ), (-1 : ℤ), [0, 1]),
+  ((-1/4 : ℚ), (1 : ℤ), [0, 1]),
+  ((1/4 : ℚ), (-1 : ℤ), [0, -1]),
+  ((-1/4 : ℚ), (1 : ℤ), [0, -1]),
+  ((1/4 : ℚ), (-1 : ℤ), [1, -1]),
+  ((-1/4 : ℚ), (1 : ℤ), [1, -1]),
+  ((-1/4 : ℚ), (-1 : ℤ), [-1, 1]),
+  ((1/4 : ℚ), (1 : ℤ), [-1, 1])]
+
+/-- `Ω`: the terms of `R_3` with `|w| = 4` (56 of the 74). -/
+def Omega : List (ℚ × ℤ × List ℤ) := R3terms.filter fun τ => τ.2.2.length = 4
+
+/-- The field of coefficients `ℚ(c)`. -/
+abbrev K := RatFunc ℚ
+
+/-- The variable `c ∈ ℚ(c)`. -/
+noncomputable def cK : K := RatFunc.X
+
+/-- Basis vectors of `V ⊗ ℚ(c) = Fin 3 → K`: `ev 0 = x = [c]`, `ev 1 = y = [1-c]`,
+`ev 2 = z = [1+c]`. -/
+noncomputable def ev (i : Fin 3) : Fin 3 → K := Pi.single i 1
+
+/-- `g(0) = x`, `g(1) = -y`, `g(-1) = z` (any other integer gets `z`; only letters `0, ±1`
+occur). -/
+noncomputable def g (a : ℤ) : Fin 3 → K :=
+  if a = 0 then ev 0 else if a = 1 then -ev 1 else ev 2
+
+/-- `T⁴(V) ⊗ ℚ(c)`: coordinates on the basis tensors `ev (t 0) ⊗ ⋯ ⊗ ev (t 3)`. -/
+abbrev T4 := (Fin 4 → Fin 3) → K
+
+/-- The pure tensor `v 0 ⊗ v 1 ⊗ v 2 ⊗ v 3`. -/
+noncomputable def ptens (v : Fin 4 → Fin 3 → K) : T4 := fun t => ∏ i, v i (t i)
+
+/-- The basis tensor at `l`. -/
+noncomputable def btens (l : Fin 4 → Fin 3) : T4 := fun t => if t = l then 1 else 0
+
+/-- `𝒮(H_w) = g(a_4) ⊗ g(a_3) ⊗ g(a_2) ⊗ g(a_1)` for `w = (a_1, a_2, a_3, a_4)`. -/
+noncomputable def symbH (w : List ℤ) : T4 := ptens fun i => g (w.reverse.getD i 0)
+
+/-- `𝒮(Ω) = Σ_{(q,e,w) ∈ Ω} q c^e 𝒮(H_w)`, the coefficients as scalars. -/
+noncomputable def SOmega : T4 :=
+  fun t => (Omega.map fun τ => (τ.1 : K) * cK ^ τ.2.1 * symbH τ.2.2 t).sum
+
+/-- `u ∧ v` in `Λ²`, as the antisymmetric matrix `u_i v_j - u_j v_i`. -/
+def wedge {ι R : Type} [CommRing R] (u v : ι → R) : ι → ι → R :=
+  fun i j => u i * v j - u j * v i
+
+/-- `P ∧ Q` in `Λ²(Λ²)`, the same one level up (indices in `ι × ι`). -/
+def wedge22 {ι R : Type} [CommRing R] (P Q : ι → ι → R) : ι × ι → ι × ι → R :=
+  fun a b => P a.1 a.2 * Q b.1 b.2 - P b.1 b.2 * Q a.1 a.2
+
+/-- `δ_{2,2}` of a pure tensor `x₁ ⊗ x₂ ⊗ x₃ ⊗ x₄`: `(x₁ ∧ x₂) ∧ (x₃ ∧ x₄)` (`0` for lists of
+another length, which do not occur). -/
+def dpure {ι R : Type} [CommRing R] : List (ι → R) → (ι × ι → ι × ι → R)
+  | [x₁, x₂, x₃, x₄] => wedge22 (wedge x₁ x₂) (wedge x₃ x₄)
+  | _ => 0
+
+/-- `δ_{2,2} : T⁴(V) ⊗ ℚ(c) → Λ²(Λ²V) ⊗ ℚ(c)`, the `ℚ(c)`-linear extension from the basis
+tensors. -/
+noncomputable def delta22 (S : T4) : Fin 3 × Fin 3 → Fin 3 × Fin 3 → K :=
+  ∑ t : Fin 4 → Fin 3, S t • dpure [ev (t 0), ev (t 1), ev (t 2), ev (t 3)]
+
+/-- `p = x ∧ y`. -/
+noncomputable def wp : Fin 3 → Fin 3 → K := wedge (ev 0) (ev 1)
+/-- `q = x ∧ z`. -/
+noncomputable def wq : Fin 3 → Fin 3 → K := wedge (ev 0) (ev 2)
+/-- `r = y ∧ z`. -/
+noncomputable def wr : Fin 3 → Fin 3 → K := wedge (ev 1) (ev 2)
+
+/-- The coordinates of an element of `Λ²(Λ²V)` on `p∧q`, `p∧r`, `q∧r`. -/
+def compPQ (D : Fin 3 × Fin 3 → Fin 3 × Fin 3 → K) : K := D (0, 1) (0, 2)
+/-- Coordinate on `p ∧ r`. -/
+def compPR (D : Fin 3 × Fin 3 → Fin 3 × Fin 3 → K) : K := D (0, 1) (1, 2)
+/-- Coordinate on `q ∧ r`. -/
+def compQR (D : Fin 3 × Fin 3 → Fin 3 × Fin 3 → K) : K := D (0, 2) (1, 2)
+
+/-- The shuffles of two lists. -/
+def shuf {α : Type} : List α → List α → List (List α)
+  | [], v => [v]
+  | a :: u, [] => [a :: u]
+  | a :: u, b :: v => (shuf u (b :: v)).map (a :: ·) ++ (shuf (a :: u) v).map (b :: ·)
+
+/-- The table of the supplement (lines 93-117): basis tensor `x₁x₂x₃x₄` (`0 = x`, `1 = y`,
+`2 = z`), its coefficient `a c^{-1} + b + d c` as `(a, b, d)`, and its image under `δ_{2,2}` as
+integer coordinates on `p∧q`, `p∧r`, `q∧r`. -/
+def Table24 : List ((Fin 4 → Fin 3) × ℚ × ℚ × ℚ × ℤ × ℤ × ℤ) := [
+  (![1, 0, 0, 0], (0 : ℚ), (1 : ℚ), (-1 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![1, 0, 0, 1], (-1/2 : ℚ), (0 : ℚ), (1/2 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![1, 0, 0, 2], (1/2 : ℚ), (1 : ℚ), (1/2 : ℚ), (-1 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![1, 0, 1, 0], (-1/2 : ℚ), (0 : ℚ), (1/2 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![1, 0, 1, 2], (1/2 : ℚ), (0 : ℚ), (-1/2 : ℚ), (0 : ℤ), (-1 : ℤ), (0 : ℤ)),
+  (![1, 0, 2, 0], (1/2 : ℚ), (1 : ℚ), (1/2 : ℚ), (1 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![1, 0, 2, 1], (-1/2 : ℚ), (1 : ℚ), (-1/2 : ℚ), (0 : ℤ), (1 : ℤ), (0 : ℤ)),
+  (![1, 2, 0, 0], (0 : ℚ), (1 : ℚ), (1 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![1, 2, 0, 1], (-1/2 : ℚ), (1 : ℚ), (-1/2 : ℚ), (0 : ℤ), (-1 : ℤ), (0 : ℤ)),
+  (![1, 2, 0, 2], (1/2 : ℚ), (0 : ℚ), (-1/2 : ℚ), (0 : ℤ), (0 : ℤ), (-1 : ℤ)),
+  (![1, 2, 1, 0], (0 : ℚ), (1 : ℚ), (-1 : ℚ), (0 : ℤ), (1 : ℤ), (0 : ℤ)),
+  (![1, 2, 1, 2], (0 : ℚ), (1 : ℚ), (1 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![2, 0, 0, 0], (0 : ℚ), (1 : ℚ), (1 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![2, 0, 0, 1], (-1/2 : ℚ), (1 : ℚ), (-1/2 : ℚ), (1 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![2, 0, 0, 2], (1/2 : ℚ), (0 : ℚ), (-1/2 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![2, 0, 1, 0], (-1/2 : ℚ), (1 : ℚ), (-1/2 : ℚ), (-1 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![2, 0, 1, 2], (1/2 : ℚ), (1 : ℚ), (1/2 : ℚ), (0 : ℤ), (0 : ℤ), (-1 : ℤ)),
+  (![2, 0, 2, 0], (1/2 : ℚ), (0 : ℚ), (-1/2 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![2, 0, 2, 1], (-1/2 : ℚ), (0 : ℚ), (1/2 : ℚ), (0 : ℤ), (0 : ℤ), (1 : ℤ)),
+  (![2, 1, 0, 0], (0 : ℚ), (1 : ℚ), (-1 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ)),
+  (![2, 1, 0, 1], (-1/2 : ℚ), (0 : ℚ), (1/2 : ℚ), (0 : ℤ), (1 : ℤ), (0 : ℤ)),
+  (![2, 1, 0, 2], (1/2 : ℚ), (1 : ℚ), (1/2 : ℚ), (0 : ℤ), (0 : ℤ), (1 : ℤ)),
+  (![2, 1, 2, 0], (0 : ℚ), (1 : ℚ), (1 : ℚ), (0 : ℤ), (0 : ℤ), (-1 : ℤ)),
+  (![2, 1, 2, 1], (0 : ℚ), (1 : ℚ), (-1 : ℚ), (0 : ℤ), (0 : ℤ), (0 : ℤ))]
+
+/-- The tensor `Σ_rows (a c^{-1} + b + d c) · (basis tensor of the row)`. -/
+noncomputable def tab24 : T4 := fun t =>
+  (Table24.map fun row => if row.1 = t then
+    ((row.2.1 : K) * cK⁻¹ + (row.2.2.1 : K) + (row.2.2.2.1 : K) * cK) else 0).sum
+
+/-- `R_3(c) = Σ_{74 terms} q c^e H_w(c)` (real). -/
+noncomputable def R3fun (c : ℝ) : ℝ :=
+  (R3terms.map fun τ => (τ.1 : ℝ) * c ^ τ.2.1 * S03.H τ.2.2 c).sum
+
+/-- `Ψ(c) = 1/2 + Σ_{14 terms} q c^e H_w(c)` (real). -/
+noncomputable def PsiFun (c : ℝ) : ℝ :=
+  1 / 2 + (PsiTerms.map fun τ => (τ.1 : ℝ) * c ^ τ.2.1 * S03.H τ.2.2 c).sum
+
+/-- `[x^N] H_w = 𝔠_w ε^N N^{-κ} Z_{v_w}(N-1)` for `N ≥ 1` (Lemma `g6:lem:dict`, `S03.stmt_5`),
+`0` for `N ≤ 0`. -/
+def hcoef (w : List ℤ) (N : ℤ) : ℚ :=
+  if 1 ≤ N then
+    ((S03.dd w).2.2.1 : ℚ) * ((S03.dd w).1 : ℚ) ^ N.toNat / (N.toNat : ℚ) ^ (S03.dd w).2.1
+      * S03.Z (S03.dd w).2.2.2 (N.toNat - 1)
+  else 0
+
+/-- The coefficient of `c^N` in the Laurent series of `Σ q c^e H_w(c)`: `Σ q [x^{N-e}] H_w`. -/
+def coefTerms (L : List (ℚ × ℤ × List ℤ)) (N : ℤ) : ℚ :=
+  (L.map fun τ => τ.1 * hcoef τ.2.2 (N - τ.2.1)).sum
+
+/-- The data (main.tex 1544, supplement line 8): `R_3` has 74 terms, 2, 16 and 56 of weights
+2, 3, 4 (no other weights), 34 distinct harmonic polylogarithms, all words regular over
+`{0, 1, -1}`, exponents `e ∈ {-2, …, 1}`; `Ψ - 1/2` has 14 terms, of weights 1 and 2, regular words
+over `{0,1,-1}`, exponents `e ≤ 1`. -/
+def stmt_1 : Prop :=
+  R3terms.length = 74 ∧
+  (R3terms.filter fun τ => τ.2.2.length = 2).length = 2 ∧
+  (R3terms.filter fun τ => τ.2.2.length = 3).length = 16 ∧
+  Omega.length = 56 ∧
+  (R3terms.map fun τ => τ.2.2).dedup.length = 34 ∧
+  (∀ τ ∈ R3terms, S03.IsLetters τ.2.2 ∧ S03.Regular τ.2.2 ∧ -2 ≤ τ.2.1 ∧ τ.2.1 ≤ 1) ∧
+  PsiTerms.length = 14 ∧
+  (∀ τ ∈ PsiTerms, S03.IsLetters τ.2.2 ∧ S03.Regular τ.2.2 ∧
+    (τ.2.2.length = 1 ∨ τ.2.2.length = 2) ∧ τ.2.1 ≤ 1)
+
+/-- "What the words mean": `x = [c]`, `y = [1-c]`, `z = [1+c]` form a basis of `V`: a relation
+`c^a (1-c)^b (1+c)^d = const` in `ℚ(c)` forces `a = b = d = 0`. -/
+def stmt_2 : Prop :=
+  ∀ a b d : ℤ, ∀ k : ℚ,
+    cK ^ a * (1 - cK) ^ b * (1 + cK) ^ d = (k : K) → a = 0 ∧ b = 0 ∧ d = 0
+
+/-- Lemma `g8:lem:vanish`: for every free module `ι → R` over a commutative ring, (a) `δ_{2,2}`
+vanishes on the shuffle product of two pure tensors of degrees `(1,3)`, `(2,2)`, `(3,1)`, and (b)
+on `-a ⊗ b ⊗ b ⊗ b` (the symbol of `Li_4`). -/
+def stmt_3 : Prop :=
+  (∀ (ι R : Type) [CommRing R] (s t : List (ι → R)), s ≠ [] → t ≠ [] →
+      s.length + t.length = 4 → ((shuf s t).map dpure).sum = 0) ∧
+  ∀ (ι R : Type) [CommRing R] (a b : ι → R), dpure [-a, b, b, b] = 0
+
+/-- The table of 24 pure tensors (supplement lines 90-119): `𝒮(Ω)` is the sum of the 24 basis
+tensors of the table with the printed coefficients (the 56 terms collapse to 24 tensors). -/
+def stmt_4 : Prop := SOmega = tab24
+
+/-- The `δ_{2,2}` column of the table: for each of the 24 rows, `δ_{2,2}` of its basis tensor is
+the printed element `a p∧q + b p∧r + d q∧r` (`a, b, d ∈ {0, ±1}`). -/
+def stmt_5 : Prop :=
+  ∀ row ∈ Table24, delta22 (btens row.1) =
+    ((row.2.2.2.2.1 : K) • wedge22 wp wq + (row.2.2.2.2.2.1 : K) • wedge22 wp wr
+      + (row.2.2.2.2.2.2 : K) • wedge22 wq wr)
+
+/-- Supplement lines 120-122: adding the rows, the components of `δ_{2,2}(𝒮(Ω))` along `p∧q`
+cancel, the component along `p∧r` is `1 - 1/c` and the one along `q∧r` is `-(1 + 1/c)`. -/
+def stmt_6 : Prop :=
+  compPQ (delta22 SOmega) = 0 ∧ compPR (delta22 SOmega) = 1 - cK⁻¹ ∧
+    compQR (delta22 SOmega) = -(1 + cK⁻¹)
+
+/-- main.tex 1555 and supplement 152, 155: for `Ω` the two components `A` (on `p∧r`) and `B` (on
+`q∧r`) satisfy `A (1+c) = B (1-c)`, i.e. `A/B = (1-c)/(1+c)`, and their ratio is not a rational
+constant. -/
+def stmt_7 : Prop :=
+  compPR (delta22 SOmega) * (1 + cK) = compQR (delta22 SOmega) * (1 - cK) ∧
+    compPR (delta22 SOmega) = (1 - cK) / (1 + cK) * compQR (delta22 SOmega) ∧
+    ∀ k : ℚ, compPR (delta22 SOmega) ≠ (k : K) * compQR (delta22 SOmega)
+
+/-- Proof of `g8:prop:one` (main.tex 1555, "constant ratio"): for any `U₀` with basis `ι`, any
+`r ∈ ℚ(c)` and any tensor `τ ∈ T⁴(V ⊕ U₀)` with rational coefficients, there are rationals
+`a, b, d` with `δ_{2,2}(r π^{⊗4}τ) = r (a p∧q + b p∧r + d q∧r)`. -/
+def stmt_8 : Prop :=
+  ∀ (ι : Type) (τ : (Fin 4 → Fin 3 ⊕ ι) → ℚ) (r : K), ∃ a b d : ℚ,
+    delta22 (fun t => r * (τ (fun i => Sum.inl (t i)) : K)) =
+      r • ((a : K) • wedge22 wp wq + (b : K) • wedge22 wp wr + (d : K) • wedge22 wq wr)
+
+/-- Lemma `g8:prop:one`: for any `U₀` (basis `ι`), `r ∈ ℚ(c)^×` and `τ ∈ T⁴(V ⊕ U₀)` with rational
+coefficients, `δ_{2,2}(r π^{⊗4}τ) ≠ δ_{2,2}(𝒮(Ω))`. -/
+def stmt_9 : Prop :=
+  ∀ (ι : Type) (τ : (Fin 4 → Fin 3 ⊕ ι) → ℚ) (r : K), r ≠ 0 →
+    delta22 (fun t => r * (τ (fun i => Sum.inl (t i)) : K)) ≠ delta22 SOmega
+
+/-- Proposition `prop:M3angle`, in the form of "What is proved, precisely": the constant-free
+symbol of the 56-term expression `Ω`, coefficients in `ℚ(c)` as scalars, has
+`δ_{2,2}(𝒮(Ω)) = (1 - 1/c) ([c]∧[1-c])∧([1-c]∧[1+c]) - (1 + 1/c) ([c]∧[1+c])∧([1-c]∧[1+c])`,
+and it is not zero: both coefficients are nonzero elements of `ℚ(c)`, and `δ_{2,2}(𝒮(Ω)) ≠ 0`. -/
+def stmt_10 : Prop :=
+  delta22 SOmega = (1 - cK⁻¹) • wedge22 wp wr - (1 + cK⁻¹) • wedge22 wq wr ∧
+    (1 - cK⁻¹) ≠ 0 ∧ (1 + cK⁻¹) ≠ 0 ∧ delta22 SOmega ≠ 0
+
+/-- Machine step M5 for `R_3` (`g8:prop:crit` (i), (ii) with `𝔷 = 1`, through their values): for
+every `n ≥ 1` the coefficient of `c^{2n}` in `Σ q c^e H_w` (74 terms) is `r'_n = [1]P_{3,n}` and
+that of `c^{2n+1}` is `0`; the coefficients of `c^N`, `N ≤ 1`, vanish. -/
+def stmt_11 : Prop :=
+  (∀ n : ℕ, 1 ≤ n → ((coefTerms R3terms (2 * (n : ℤ)) : ℚ) : ℝ) = V05.P 3 n 0 0) ∧
+  (∀ n : ℕ, 1 ≤ n → coefTerms R3terms (2 * (n : ℤ) + 1) = 0) ∧
+  ∀ N : ℤ, N ≤ 1 → coefTerms R3terms N = 0
+
+/-- Machine step M5 for `Ψ` (`𝔷 = 𝔷2`): for every `n ≥ 1` the coefficient of `c^{2n}` in the
+14 terms is `q'_n = [𝔷2]P_{3,n}`, that of `c^{2n+1}` is `0`, and the coefficients of `c^N`,
+`N ≤ 1`, of the 14 terms plus the constant `1/2` vanish. -/
+def stmt_12 : Prop :=
+  (∀ n : ℕ, 1 ≤ n →
+    ((coefTerms PsiTerms (2 * (n : ℤ)) : ℚ) : ℝ) = V05.P 3 n 1 0 - V05.P 3 n 0 0) ∧
+  (∀ n : ℕ, 1 ≤ n → coefTerms PsiTerms (2 * (n : ℤ) + 1) = 0) ∧
+  ∀ N : ℤ, N ≤ 1 → coefTerms PsiTerms N + (if N = 0 then (1 / 2 : ℚ) else 0) = 0
+
+/-- `g8:prop:crit` applied to `R_3` and `Ψ` (supplement line 8): for `0 < c < 1`,
+`R_3(c) = Σ_{n≥1} r'_n c^{2n}` and `Ψ(c) = Σ_{n≥1} q'_n c^{2n}`. -/
+def stmt_13 : Prop :=
+  ∀ c : ℝ, 0 < c → c < 1 →
+    HasSum (fun n : ℕ => V05.P 3 (n + 1) 0 0 * c ^ (2 * (n + 1))) (R3fun c) ∧
+    HasSum (fun n : ℕ => (V05.P 3 (n + 1) 1 0 - V05.P 3 (n + 1) 0 0) * c ^ (2 * (n + 1)))
+      (PsiFun c)
+
+/-- Lemma `g8:prop:R3` (main.tex 1544): for `0 < α < π`, `c = cos(α/2)`,
+`M_3(α) = R_3(c) - ζ(3) Φ(c) + ζ(2) Ψ(c)` with the 74 terms of `R_3` and the 14 terms and the
+constant `1/2` of `Ψ`. -/
+def stmt_14 : Prop :=
+  ∀ α : ℝ, 0 < α → α < π →
+    V05.Mk 3 α = R3fun (D04.c α) - V05.z3 * V05.Phi (D04.c α) + V05.z2 * PsiFun (D04.c α)
+
+end P02
