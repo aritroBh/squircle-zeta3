@@ -66,3 +66,6 @@ import Zeta3.Wave10.S02_VertexQ0
 import Zeta3.Wave10.S03_FieldRule
 import Zeta3.Wave10.S04_M4alphaZetaParts
 import Zeta3.Wave10.S05_Hexagon
+import Zeta3.Wave10.S06_VertexQ0Rest
+import Zeta3.Wave10.S07_HexagonFormula
+import Zeta3.Wave10.S08_FieldRuleMain

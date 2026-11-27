@@ -1,0 +1,29 @@
+import Mathlib
+import Zeta3.Wave10.S05_Hexagon
+/-!
+# S07 -- continuation of S05: the formula of `g4:lem:precise` and the five sentences of `thm:hexagon`
+
+Target id: S07, the continuation of `Zeta3.Wave10.S05_Hexagon` (planner split, 2026-11-26).
+Paper label: `thm:hexagon` (main.tex 1709-1725, Theorem "P'''(1) of every hexagon"); second sentence in
+the precise form of Lemma `g4:lem:precise` (sec_g4_hexagon.tex 39-52).
+`stmt_10` and `stmt_14` keep their S05 numbers; the notation (`S05.Hex`, `S05.Ee`, `S05.closedForm`, …)
+and `S05.stmt_9, 11, 12, 13` are those of S05.
+-/
+-- BEGIN STATEMENTS
+namespace S07
+
+/-- Lemma g4:lem:precise (second sentence of thm:hexagon): there are integer polynomials
+`c_4, c_5, c_6, c_7, c_10, c_11` in `B, r, q_0, V_{02}, L², l_0, l_1, l_B` such that for every
+hexagon, all weights and every edge (so every `r > 0`), `L⁵E_e` is the eleven-term combination
+with the five printed blocks `c_1, c_2, c_3, c_8, c_9`. -/
+def stmt_10 : Prop :=
+  ∃ c4 c5 c6 c7 c10 c11 : MvPolynomial (Fin 8) ℤ,
+    ∀ H : S05.Hex, S05.IsHex H → ∀ k : Fin 3,
+      S05.Len H k ^ 5 * S05.Ee H k = S05.closedForm H k c4 c5 c6 c7 c10 c11
+
+/-- Theorem thm:hexagon, all five sentences as formalised: sentence 1 (stmt_9), sentence 2 in
+the precise form of g4:lem:precise (stmt_10), sentence 3 (stmt_11), sentence 4 (stmt_12),
+sentence 5 at `r = 1`, `w = 1` (stmt_13). -/
+def stmt_14 : Prop := S05.stmt_9 ∧ stmt_10 ∧ S05.stmt_11 ∧ S05.stmt_12 ∧ S05.stmt_13
+
+end S07

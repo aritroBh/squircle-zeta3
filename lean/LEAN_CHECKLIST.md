@@ -221,20 +221,20 @@ Files are in `lean/Zeta3/Wave10/`. Status from `tools/gate.py check`, run by the
 | # | File | Paper result | What Lean proved | What it does not cover | Status |
 |---|---|---|---|---|---|
 | S01 | `S01_Theta9` | Prop `prop:theta` (`Θ₉`) | `thm:fourier` through `τ⁹` with error `C_kτ¹⁰`, with `Θ₅,…,Θ₉` in closed form; `Θ₉` as displayed in the supplement (in `ζ(9)`, `ζ(2)ζ(7)`, `ζ(2)²ζ(5)`, `ζ(2)³ζ(3)`, `ζ(3)³`); Lemma `g2:lem:t:red` for every `n≥2`; the four weight-nine rows `D̃_{9,0..3}`; `ρ₇` and `g_{k,7}`; the values `e_{r,m}` needed, four of them not printed in the supplement (`e_{0,5}=721/3840`, `e_{0,6}=-1369/9216`, `e_{0,7}=-58337/645120`, `e_{1,7}=4163/11520`); the first sentence of `prop:theta`: for `5≤n≤9` every coefficient of `Θ_n` is a rational combination of products of zeta values of weight `n` | The certificate route of the supplement (shuffle, stuffle, duality); a general "alternating MZV" predicate; `n≥10` | PROVED (11) |
-| S02 | `S02_VertexQ0` | Thm `thm:S` (closed form of `Q₀`), two lemmas | Lemma `g3:lem:J`: `J(q)` in closed form for `0<q<1`; Lemma `g3:lem:A` (Lemma A): `Re Li₂(re^{iθ})=½Li₂(r)+¾θ²-(π/2)θ+π²/12` for `r=2cos θ-1`, `0≤θ≤π/3`, as a real series, and the case `θ=π/4` | The closed form itself: moved to S06 (open) | PROVED (2) |
-| S03 | `S03_FieldRule` | Thm `conj:field` ("More precisely"), the lemmas | `g6:lem:stuffle`; `g6:lem:window`; the harmonic-number identities; harmonic polylogarithms with letters `0,1,-1` are well defined; `g6:lem:dict` (the Taylor coefficients of `H_w` are nested sums, and the map is a bijection); `g6:lem:ops`; `g6:lem:conv`; the case `k=0`: `M₀(α)=-(1+c)H_{-1}(c)+(1-c)H_1(c)` | `g6:lem:A`, `g6:prop:R` and the rule itself for every `k`: moved to S08 (open). Parts (a), (b) (S-units, places) | PROVED (7) |
+| S02 | `S02_VertexQ0` | Thm `thm:S` (closed form of `Q₀`), two lemmas | Lemma `g3:lem:J`: `J(q)` in closed form for `0<q<1`; Lemma `g3:lem:A` (Lemma A): `Re Li₂(re^{iθ})=½Li₂(r)+¾θ²-(π/2)θ+π²/12` for `r=2cos θ-1`, `0≤θ≤π/3`, as a real series, and the case `θ=π/4` | The closed form itself: in S06 | PROVED (2) |
+| S03 | `S03_FieldRule` | Thm `conj:field` ("More precisely"), the lemmas | `g6:lem:stuffle`; `g6:lem:window`; the harmonic-number identities; harmonic polylogarithms with letters `0,1,-1` are well defined; `g6:lem:dict` (the Taylor coefficients of `H_w` are nested sums, and the map is a bijection); `g6:lem:ops`; `g6:lem:conv`; the case `k=0`: `M₀(α)=-(1+c)H_{-1}(c)+(1-c)H_1(c)` | `g6:lem:A`, `g6:prop:R` and the rule itself for every `k`: in S08. Parts (a), (b) (S-units, places) | PROVED (7) |
 | S04 | `S04_M4alphaZetaParts` | Thm `thm:M4alpha` | For `0<α<π`: `M₄(α)=R₄+ζ(2)Ψ₂-ζ(3)Ψ+(π⁴/2880)[(9c-30/c+21/c³)artanh c+23-21/c²]`, with `R₄` and `Ψ₂` the series parts `[1]M₄`, `[ζ(2)]M₄` and `Ψ=[ζ(2)]M₃`, all absolutely convergent; `[𝔷₄]P_{4,n}=(n+3)/((2n-1)(2n+1)(2n+3))`, `[𝔷₂²]P_{4,n}=-n/((2n-1)(2n+1)(2n+3))` for every `n`; `P_{4,n}` has only the monomials `1,𝔷₂,𝔷₃,𝔷₄,𝔷₂²` | The closed forms of `R₄` (109 terms) and `Ψ₂` (21 terms): their coefficients are only in the data files, not printed | PROVED (7) |
-| S05 | `S05_Hexagon` | Thm `thm:hexagon` | Sentence 1: `P` is `C³` at `p=1` and `P‴(1)=2ΣE_e`; sentence 3: the `ζ(3)` block is `L⁵Z_e` of `prop:edgelaw`, every edge, every `r`; sentence 4: `c₁=L⁵(2Φ_A+Φ_L)`, `c₂=L⁵Φ_A`; sentence 5 at `r=1`: the hexagon law; the setting (every centrally symmetric convex hexagon is a `K_1`, `g4:lem:arc`); `g4:lem:euler`; `g4:lem:Jseries`; four worked `J` entries | Sentence 2, the eleven-term formula for every `r>0`: moved to S07 (open) | PROVED (12) |
-| S06 | `S06_VertexQ0Rest` | Thm `thm:S` (closed form of `Q₀`, `s₂`) | Nothing yet. 9 statements. `Q₀` and `s₂=-4.6892155184…` are reduced, in Lean, to five open pieces: the simplex identity, `Q₀=6∫J`, and the closed forms of `P₁`, `P_{2a}`, `P_{2c}` | | OPEN (continuation run) |
-| S07 | `S07_HexagonFormula` | Thm `thm:hexagon` (sentence 2) | Nothing yet. 2 statements | | OPEN (continuation run) |
-| S08 | `S08_FieldRuleMain` | Thm `conj:field` ("More precisely") | Nothing yet. 4 statements | | OPEN (continuation run) |
+| S05 | `S05_Hexagon` | Thm `thm:hexagon` | Sentence 1: `P` is `C³` at `p=1` and `P‴(1)=2ΣE_e`; sentence 3: the `ζ(3)` block is `L⁵Z_e` of `prop:edgelaw`, every edge, every `r`; sentence 4: `c₁=L⁵(2Φ_A+Φ_L)`, `c₂=L⁵Φ_A`; sentence 5 at `r=1`: the hexagon law; the setting (every centrally symmetric convex hexagon is a `K_1`, `g4:lem:arc`); `g4:lem:euler`; `g4:lem:Jseries`; four worked `J` entries | Sentence 2, the eleven-term formula for every `r>0`: in S07 | PROVED (12) |
+| S06 | `S06_VertexQ0Rest` | Thm `thm:S` (closed form of `Q₀`, `s₂`) | `g3:lem:Q0simplex`: `D≥0`, the integrand is integrable on the simplex and `Q₀=-∫_Δ D(σ)/(σ₁σ₂σ₃)dσ`; `g3:lem:step1`: `Q₀=6∫₀¹J(q(s))ds`; `Q₀=6(P₁-P_{2a}-P_{2c})`; `g3:lem:P`: the three integrals `P₁`, `P_{2a}`, `P_{2c}` in closed form; `thm:S`: the closed form of `Q₀` as printed; `s₂` equals `eq:s2`; the decimals `-4.6892155185<s₂≤-4.6892155184` | Nothing of `thm:S` is left out. The proofs of `Q₀=6∫J` and of the three integrals take other routes than the supplement (a pointwise splitting on the simplex; explicit primitives in one variable) | PROVED (9) |
+| S07 | `S07_HexagonFormula` | Thm `thm:hexagon` (sentence 2) | Sentence 2 in the form of `g4:lem:precise`: there are integer polynomials `c₄,c₅,c₆,c₇,c₁₀,c₁₁` in `B,r,q₀,V₀₂,L²,l₀,l₁,l_B` such that for every hexagon, all weights and every edge (so every `r>0`), `L⁵E_e` is the eleven-term combination with the five printed blocks `c₁,c₂,c₃,c₈,c₉`; then all five sentences of `thm:hexagon` in one statement | The six blocks that the supplement does not print are stated as "there exist"; the proof uses those of `g4_formula_table.txt`. Of sentence 5 only the case `r=1`, `w=1` (as in S05); "reduces to `prop:nonlocal` at `r=2,½`" is not a statement here (follow-up target U05) | PROVED (2) |
+| S08 | `S08_FieldRuleMain` | Thm `conj:field` ("More precisely") | `g6:lem:A`: for a monomial `𝔷^s` of weight `W≤k`, `[𝔷^s]P_{k,n}` is a nested sum in `𝔇^{(k+1-W)}`, for every `n≥1`; `g6:prop:R`: every `T∈𝔇^{(B)}` has `F∈𝒢_B` whose even Taylor coefficients are `𝒮_T(N)`; the generating functions `F_s`; the "More precisely" sentence for every `k≥0`: a finite list of terms, not depending on the angle, with `M_k(α)=Σ_j ζ^{s_j}·p_j(c)/(c^{a_j}(1-c)^{b_j}(1+c)^{d_j})·H_{w_j}(c)` for every `0<α<π`, `w_j` regular words over `0,1,-1`, `wt(𝔷^{s_j})+\|w_j\|≤k+1` | Parts (a), (b) of the theorem (S-units, places) | PROVED (4) |
 
-Totals so far: 5 finished files, 39 statements, all 39 proved, 10066 lines of Lean. No statement of the paper was
+Totals: 8 files, 54 statements, all 54 proved, 18619 lines of Lean. No statement of the paper was
 found false. S02, S03 and S05 came back with some statements unproved; the proved statements were kept (text
-unchanged, checked by script) and the open ones moved to S06, S07, S08. Those three files do not pass the gate yet, so
-they are not in the build and not in the public repository.
+unchanged, checked by script) and the open ones moved to S06, S07, S08. A second run proved those in ten parts (in parallel), then merged them;
+all three files pass the gate.
 
-Waves 1 to 10: 68 files, 562 statements (plus 3 repeats), 107350 lines of Lean. `lake build` passes (18388 jobs).
+Waves 1 to 10: 71 files, 577 statements (plus 3 repeats), 115904 lines of Lean. `lake build` passes (18394 jobs).
 
 ## OUT: not checkable in Lean with today's Mathlib
 
@@ -244,9 +244,9 @@ the verification map at the top of this repository.
 
 `thm:W4`, `thm:W4R` (`W₄=𝓡`), `thm:wt2`, `prop:M3angle`, `thm:hexagon5`, `prop:octagon5depth`.
 
-Of the 44 numbered results of the paper, 38 have at least one Lean file; these six do not. Open inside results that
-have a file: the closed form of `Q₀` (`thm:S`, S06), sentence 2 of `thm:hexagon` (S07), the rule of `conj:field` for
-every `k` (S08), the closed forms of `R₄` and `Ψ₂` (`thm:M4alpha`, not printed).
+Of the 44 numbered results of the paper, 38 have at least one Lean file; these six do not. Open inside a result that
+has a file: the closed forms of `R₄` and `Ψ₂` (`thm:M4alpha`, not printed). Wave 11 (running) tries `thm:wt2`,
+`prop:M3angle`, `thm:hexagon5` and these two closed forms.
 
 This list is what has not been tried or is known to need missing library. Waves 2 to 8 showed that results first
 put here can be reached, so an entry here is not a proof that Lean cannot do it.
@@ -348,3 +348,16 @@ put here can be reached, so an entry here is not a proof that Lean cannot do it.
 - 2026-11-26: the five finished wave 10 files read by non-Claude models (Codex GPT-6 with numerics, Kimi K3, GLM-5,
   DeepSeek, Kilo). No Lean statement had to change. One header comment in S02 corrected, file re-frozen and
   re-gated (statement block unchanged).
+- 2026-11-26: Q06, Q07, wave 9 and the finished wave 10 files pushed to the public repo in commit `526568eb` (68
+  files, 565 gated statements, 562 distinct). Staged diff scanned first (no e-mail address, no local path, no
+  review report).
+- 2026-11-26: continuation run back: S06 (`thm:S`: the closed form of `Q₀`, `s₂` and its decimals), S07 (sentence 2 of
+  `thm:hexagon` for every `r>0`) and S08 (`conj:field`, the "More precisely" sentence for every `k`) PROVED, ten
+  parts, none open. Planner gated all three and re-gated S02; `lake build` passes (18394 jobs): 71 files, 577
+  statements. Statement blocks sent to the non-Claude reviewers (batch `w10b_`). Wave 11 launched: U01 `thm:wt2`,
+  U02 `prop:M3angle` (and the 74-term form of `M₃(α)`), U03 `thm:hexagon5`, U04 the closed forms of `R₄`, `Ψ₂`.
+- 2026-11-26: S06, S07, S08 read by non-Claude models (Codex GPT-6 with numerics, Kimi K3, GLM-5, DeepSeek, Kilo).
+  No Lean statement had to change. Codex: `P₁`, `P_{2a}`, `P_{2c}`, `Q₀` by quadrature against the closed forms
+  (differences below `3·10⁻⁸⁰`), `s₂=-4.68921551846…`, one hexagon edge with `r=2` against the formula with the
+  table (`4·10⁻¹³`). Gap
+  found: the `r=2,½` half of sentence 5 of `thm:hexagon` has no Lean statement; target U05 added.

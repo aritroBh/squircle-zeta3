@@ -1,0 +1,21 @@
+{
+ "file": "Zeta3/Wave10/S07_HexagonFormula.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_10",
+  "stmt_14"
+ ],
+ "axioms": {
+  "S07.proof_10": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "S07.proof_14": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

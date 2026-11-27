@@ -1,0 +1,78 @@
+import Mathlib
+import Zeta3.Wave10.S02_VertexQ0
+/-!
+# S06 -- continuation of S02: the vertex constant `Q₀`, the simplex and `J` integrals, `P₁, P₂ₐ, P₂c`, closed form and decimals of `s₂`
+
+Target id: S06, the continuation of `Zeta3.Wave10.S02_VertexQ0` (planner split, 2026-11-26).
+Paper label: `thm:S` (paper/ieee/main.tex lines 1921–1943), the closed form of `Q₀`; the sentence
+"Then $s_2$ is \eqref{eq:s2} in Table~\ref{tab:closed}" (main.tex 1944) with `eq:s2`
+(main.tex 949–950) and the decimals of `s₂` (main.tex 1944–1947).
+Statements `stmt_1, 2, 4, 6, 7, 8, 9, 10, 11` of S02 keep their numbers; `stmt_3` and `stmt_5` stay in S02,
+whose definitions (`S02.J`, `S02.P1`, …) are used here.
+-/
+-- BEGIN STATEMENTS
+namespace S06
+
+open Real MeasureTheory Set
+
+/-- Lemma `g3:lem:Q0simplex`: `D ≥ 0` (on `[0,∞)³`), the integrand `D(σ)/(σ₁σ₂σ₃)` is
+integrable on `Δ`, and `Q₀ = -∫_Δ D(σ)/(σ₁σ₂σ₃) dσ`. -/
+def stmt_1 : Prop :=
+  (∀ x₁ x₂ x₃ : ℝ, 0 ≤ x₁ → 0 ≤ x₂ → 0 ≤ x₃ → 0 ≤ S02.Dfun x₁ x₂ x₃) ∧
+    IntegrableOn S02.simplexIntegrand Y05.Δ ∧
+    Z04.Q 0 = -∫ t in Y05.Δ, S02.simplexIntegrand t
+
+/-- Lemma `g3:lem:step1`: for `q ∈ [1/√2, 1]` the integral `J(q)` converges, `s ↦ J(q(s))`
+is integrable on `[0,1]`, and `Q₀ = 6 ∫₀¹ J(q(s)) ds`. -/
+def stmt_2 : Prop :=
+  (∀ q : ℝ, 1 / Real.sqrt 2 ≤ q → q ≤ 1 → IntegrableOn (S02.Jintegrand q) (Ioi 0)) ∧
+    IntervalIntegrable (fun s => S02.J (S02.qs s)) volume 0 1 ∧
+    Z04.Q 0 = 6 * ∫ s in (0 : ℝ)..1, S02.J (S02.qs s)
+
+/-- sec_g3_S.tex 168, 208–209: the three integrands are integrable on `[0,1]` and
+`Q₀ = 6(P₁ - P_{2a} - P_{2c})`. -/
+def stmt_4 : Prop :=
+  IntervalIntegrable (fun s => S02.f1 (S02.qs s)) volume 0 1 ∧
+    IntervalIntegrable (fun s => Real.arsinh (S02.qs s) / Real.sqrt (1 + S02.qs s ^ 2)) volume 0 1 ∧
+    IntervalIntegrable (fun s => Real.arsinh (1 / S02.qs s) / Real.sqrt (1 + S02.qs s ^ 2)) volume 0 1 ∧
+    Z04.Q 0 = 6 * (S02.P1 - S02.P2a - S02.P2c)
+
+/-- Lemma `g3:lem:P`, first line: the integrand of `P₁` is integrable and
+`P₁ = 3√2Li₂(b) - λ²/2 - (√2/2)λL + (1+3√2/2)L² - (1/48+3√2/16)π²`. -/
+def stmt_6 : Prop :=
+  IntervalIntegrable (fun s => S02.f1 (S02.qs s)) volume 0 1 ∧
+    S02.P1 = 3 * Real.sqrt 2 * D00.Li2 D02.b - D02.lam ^ 2 / 2
+      - Real.sqrt 2 / 2 * D02.lam * D02.L + (1 + 3 * Real.sqrt 2 / 2) * D02.L ^ 2
+      - (1 / 48 + 3 * Real.sqrt 2 / 16) * π ^ 2
+
+/-- Lemma `g3:lem:P`, second line: the integrand of `P_{2a}` is integrable and
+`P_{2a} = √2[3Li₂(b) - ¼Li₂(-b⁴) - λL/2 + L log 3 + L²/2 - 5π²/24]`. -/
+def stmt_7 : Prop :=
+  IntervalIntegrable (fun s => Real.arsinh (S02.qs s) / Real.sqrt (1 + S02.qs s ^ 2)) volume 0 1 ∧
+    S02.P2a = Real.sqrt 2 * (3 * D00.Li2 D02.b - (1 / 4) * D00.Li2 (-D02.b ^ 4)
+      - D02.lam * D02.L / 2 + D02.L * Real.log 3 + D02.L ^ 2 / 2 - 5 * π ^ 2 / 24)
+
+/-- Lemma `g3:lem:P`, third line: the integrand of `P_{2c}` is integrable and
+`P_{2c} = √2[Li₂(b) - ⅛Li₂(-b⁴) + (L log 3)/2 + π²/96 - πα_c/4]`. -/
+def stmt_8 : Prop :=
+  IntervalIntegrable (fun s => Real.arsinh (1 / S02.qs s) / Real.sqrt (1 + S02.qs s ^ 2)) volume 0 1 ∧
+    S02.P2c = Real.sqrt 2 * (D00.Li2 D02.b - (1 / 8) * D00.Li2 (-D02.b ^ 4)
+      + D02.L * Real.log 3 / 2 + π ^ 2 / 96 - π * S02.alphac / 4)
+
+/-- `thm:S`, the closed form of the vertex constant: `Q₀ = Q(0)` equals
+`-π²/8 + (√2/16)π² + (3√2/2)πα_c - 3λ² - 9√2 L log 3 + (6+6√2)L² - 6√2Li₂(b)
++ (9√2/4)Li₂(-b⁴)`. -/
+def stmt_9 : Prop :=
+  Z04.Q 0 = S02.Q0closed
+
+/-- main.tex 1944, "Then $s_2$ is \eqref{eq:s2}": the coefficient `s₂` of `p^{-2}` in the
+expansion of `S(p)` (R04) equals the closed form (T6). -/
+def stmt_10 : Prop :=
+  R04.s 2 = S02.s2closed
+
+/-- main.tex 1946, "$s_2=-4.6892155184\ldots$" (truncated decimals):
+`-4.6892155185 < s₂ ≤ -4.6892155184`. -/
+def stmt_11 : Prop :=
+  -4.6892155185 < R04.s 2 ∧ R04.s 2 ≤ -4.6892155184
+
+end S06

@@ -1,6 +1,6 @@
 # Lean checks for "Investigating ζ(3)"
 
-Lean 4 (v4.36.0) with Mathlib (v4.36.0). This folder machine-checks 565 statements taken from the paper (562 distinct: three in `Wave7/V04` repeat `Wave3/W04`), in 68
+Lean 4 (v4.36.0) with Mathlib (v4.36.0). This folder machine-checks 580 statements taken from the paper (577 distinct: three in `Wave7/V04` repeat `Wave3/W04`), in 71
 files. Among them, in full: `thm:M1` and `thm:M2` starting from the curve, `thm:rhombus`, `thm:zero`, `thm:fn`,
 `thm:fnangle`, `thm:fourier`, `thm:xnyn`, `thm:poly`, `thm:P2`, `thm:one`, `thm:flat`, `thm:pip`, `thm:decay`, `thm:varpi`,
 `thm:zladder`, `prop:degree`, and `thm:pw` (squircle, every rhombus, every dimension). It does not check every theorem;

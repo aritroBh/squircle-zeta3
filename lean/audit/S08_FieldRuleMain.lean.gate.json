@@ -1,0 +1,33 @@
+{
+ "file": "Zeta3/Wave10/S08_FieldRuleMain.lean",
+ "ok": true,
+ "problems": [],
+ "statements": [
+  "stmt_4",
+  "stmt_8",
+  "stmt_9",
+  "stmt_11"
+ ],
+ "axioms": {
+  "S08.proof_4": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "S08.proof_8": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "S08.proof_9": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "S08.proof_11": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ }
+}

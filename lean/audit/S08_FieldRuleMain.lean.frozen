@@ -1,0 +1,57 @@
+import Mathlib
+import Zeta3.Wave10.S03_FieldRule
+/-!
+# S08 -- continuation of S03: the field rule, nested-sum and `𝒢_B` statements
+
+Target id: S08, the continuation of `Zeta3.Wave10.S03_FieldRule` (planner split, 2026-11-26).
+Paper label: `conj:field` (paper/ieee/main.tex, Theorem "Field rule", lines 1486-1494; the
+"More precisely" sentence, line 1493).
+Supplement: paper/ieee/proofs/sec_g6_field.tex (Lemma `g6:lem:A` 73-102; Lemma `g6:prop:R` 133-137;
+proof of the last sentence 184-188). Statements `stmt_4, 8, 9, 11` keep their S03 numbers; the notation
+(`S03.InDB`, `S03.InG`, `S03.ST`, …) is that of S03.
+-/
+-- BEGIN STATEMENTS
+namespace S08
+
+open Real MeasureTheory Set Filter
+
+/-- Lemma `g6:lem:A`: for `k ≥ 0` and a monomial `𝔷^s` in `𝔷_2, …, 𝔷_k` of weight `W ≤ k` there is
+`T ∈ 𝔇^{(k+1-W)}` with `[𝔷^s] P_{k,n} = ⟨T⟩_n = 𝒮_T(2n)` for every `n ≥ 1`. -/
+def stmt_4 : Prop :=
+  ∀ k : ℕ, ∀ s : ℕ →₀ ℕ, (∀ w ∈ s.support, 2 ≤ w ∧ w ≤ k) → S03.mwt s ≤ k →
+    ∃ T : List S03.DTerm, S03.InDB (k + 1 - S03.mwt s) T ∧
+      ∀ n : ℕ, 1 ≤ n → (Q04.Pf k n).coeff s = S03.ST T (2 * n)
+
+/-- Lemma `g6:prop:R`: for `T ∈ 𝔇^{(B)}` there is `F ∈ 𝒢_B` with `[x^N]F = 𝒮_T(N)` for every even
+`N ≥ 2`: `F(x) = q(1/x) + Σ_{N≥0} a_N x^N` on `0 < |x| < 1` (a Laurent series with finitely many
+negative powers) and `a_N = 𝒮_T(N)` for even `N ≥ 2`. -/
+def stmt_8 : Prop :=
+  ∀ B : ℕ, ∀ T : List S03.DTerm, S03.InDB B T →
+    ∃ F : ℝ → ℝ, S03.InG B F ∧ ∃ q : Polynomial ℚ, ∃ a : ℕ → ℚ,
+      (∀ x : ℝ, 0 < |x| → |x| < 1 →
+        HasSum (fun N : ℕ => (a N : ℝ) * x ^ N) (F x - Polynomial.aeval (1 / x) q)) ∧
+      ∀ N : ℕ, 2 ≤ N → Even N → a N = S03.ST T N
+
+/-- Proof of the theorem, first paragraph: for every `k` and every monomial `𝔷^s` in
+`𝔷_2, …, 𝔷_k` of weight `W ≤ k` there is `F_s ∈ 𝒢_{k+1-W}` with
+`F_s(x) = Σ_{n≥1} [𝔷^s]P_{k,n} x^{2n}` for `0 < |x| < 1`. -/
+def stmt_9 : Prop :=
+  ∀ k : ℕ, ∀ s : ℕ →₀ ℕ, (∀ w ∈ s.support, 2 ≤ w ∧ w ≤ k) → S03.mwt s ≤ k →
+    ∃ F : ℝ → ℝ, S03.InG (k + 1 - S03.mwt s) F ∧
+      ∀ x : ℝ, 0 < |x| → |x| < 1 →
+        HasSum (fun n : ℕ => (((Q04.Pf k (n + 1)).coeff s : ℚ) : ℝ) * x ^ (2 * (n + 1))) (F x)
+
+/-- The "More precisely" sentence of `conj:field`: for every `k` there is a finite list of terms
+`(s_j, p_j, a_j, b_j, d_j, w_j)`, independent of the angle, with `𝔷^{s_j}` a monomial in
+`𝔷_2, …, 𝔷_k`, `p_j ∈ ℚ[x]`, `w_j` a regular word over `{0,1,-1}` and
+`wt(𝔷^{s_j}) + |w_j| ≤ k + 1`, such that for every `0 < α < π`, with `c = cos(α/2)`,
+`M_k(α) = Σ_j ζ^{s_j} · p_j(c) / (c^{a_j} (1-c)^{b_j} (1+c)^{d_j}) · H_{w_j}(c)`. -/
+def stmt_11 : Prop :=
+  ∀ k : ℕ, ∃ L : List S03.FTerm,
+    (∀ g ∈ L, (∀ w ∈ g.1.support, 2 ≤ w ∧ w ≤ k) ∧ S03.IsLetters g.2.2.2.2.2 ∧
+      S03.Regular g.2.2.2.2.2 ∧ S03.mwt g.1 + g.2.2.2.2.2.length ≤ k + 1) ∧
+    ∀ α : ℝ, 0 < α → α < π →
+      V05.Mk k α = (L.map fun g => S03.zmon g.1 * S03.kval g.2.1 g.2.2.1 g.2.2.2.1 g.2.2.2.2.1 (D04.c α)
+        * S03.H g.2.2.2.2.2 (D04.c α)).sum
+
+end S08
